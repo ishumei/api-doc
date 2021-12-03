@@ -194,6 +194,7 @@
         "ip":"118.89.214.89",
         "deviceId":"*************",
         "nickname":"***********",
+        "lang":"zh",
         "extra":{
             "topic":"12345",
             "atId":"username1",
