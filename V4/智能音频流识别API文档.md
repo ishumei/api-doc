@@ -71,7 +71,7 @@
 | btId | string | 应用ID，用于区分相同公司的不同应用 | Y | 用于查询指定音频，限长128位字符 |
 | streamType | string | 流类型 | Y | 可选值：<br>`NORMAL`：普通流地址<br>`ZEGO`：即构<br>`AGORA`：声网 |
 | url | string | 直播流地址 | N | 当streamType为`NORMAL`时必传 |
-| lang | string | 音频流语言类型 | N | 可选值如下：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语 |
+| lang | string | 音频流语言类型 | Y | 可选值如下，（默认值为`zh`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语 |
 | zegoParam | json_object | 要检测的流参数 | N | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam) |
 | initDomain | int | 即构SDK初始化是否有设置隔离域名 | N | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br>`1`：仅支持客户端初始化有隔离域名<br>`2`：支持客户端初始化有隔离域名和随机userId功能 |
 | agoraParam | json_object | 要检测的声网流参数 | N | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam) |
@@ -150,8 +150,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| audioUrl | string | 音频片段地址 | 是 |
- |
+| audioUrl | string | 音频片段地址 | 是 | |
 | riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：通过<br>`REVIEW`：审核<br>`REJECT`：拒绝 |
 | riskLabel1 | string | 一级标签 | 是 | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` |
 | riskLabel2 | string | 二级标签 | 是 | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 |
@@ -276,7 +275,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 ### <span id = "uploadRequestExample">上传请求示例：</span>
 ```
-curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"accessKey":"xxxxx","appId":"default","eventId":"default","type":"PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE","callback":"xxxxx","streamType":"NORMAL","data":{"btId":"test1","room":"room2","url":"xxxxx","returnAllText":1,"returnPreText":1,"returnPreAudio":1,"tokenId":"2222"}}'
+curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"accessKey":"xxxxx","appId":"default","eventId":"default","type":"PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE","callback":"xxxxx","streamType":"NORMAL","data":{"btId":"test1","lang":"zh","room":"room2","url":"xxxxx","returnAllText":1,"returnPreText":1,"returnPreAudio":1,"tokenId":"2222"}}'
 ```
 
 
