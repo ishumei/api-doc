@@ -390,7 +390,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | 上海 | `http://api-video-sh.fengkongcloud.com/video/query/v4` | 中文视频文件 |
 | 新加坡 | `http://api-video-xjp.fengkongcloud.com/video/query/v4` | 中文视频文件 |
 | 硅谷 | `http://api-video-gg.fengkongcloud.com/video/query/v4` | 中文视频文件 |
-| 印度 | `http://api-video-yd.fengkongcloud.com/video/v4` | 中文视频文件 |
+| 印度 | `http://api-video-yd.fengkongcloud.com/video/query/v4` | 中文视频文件 |
 
 ### <span id = "queryRequestMethod">请求方法：</span>
 
