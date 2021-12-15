@@ -1,10 +1,10 @@
 # 数美智能文本识别产品API接口文档
 
-- - - - - 
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
 * [请求参数](#requestParameter)
     + [请求URL](#requestUrl)
@@ -57,7 +57,8 @@
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br>`default`：默认应用<br>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | Y | 可选值如下：<br>`nickname`：昵称<br>`message`：私聊<br>`groupChat`：群聊<br>`title`：标题<br>`notice`：公告<br>`article`：帖子<br>`comment`：评论<br>`barrage`：弹幕<br>`search`：搜索栏<br>`roomName`：房间名<br>`profile`：个人简介<br>`productName`：商品名称<br>`productInfo`：商品介绍<br>`productReviews`：商品评价 <br>`internalChat`：内部交流<br>`outsideWork`：外部合作<br/> |
-| type | string | 检测的风险类型 | Y | 可选值：<br>`ALL`：识别所有风险类型（建议） |
+| type | string | 检测的风险类型 | Y | 可选值：<br>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br>`FRUAD`：网络诈骗<br>`UNPOACH`：高价值用户防挖<br> <br>以上type可以下划线组合，如：`DEFAULT_FRUAD` |
+| businessType | string | 检测的业务类型 | N | 可选值：<br>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
 
@@ -110,6 +111,7 @@
 | tokenLabels | json object| 辅助信息 | Y | 账号风险画像标签信息见下面详情内容。[详见tokenLabels参数](#tokenLabels) |
 | auxlnfo| json_object| 辅助信息 | Y | [详见auxlnfo参数](#auxlnfo)|
 | allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
+| businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 
 <span id = "auxlnfo">其中auxInfo字段如下：</span>
 
@@ -176,6 +178,17 @@
 | riskDescription| string | allLabels不为空时必返 | Y | 风险原因|
 | probability| float| 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 注意：allLabels不为空时必返 |
 | riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+
+<span id = "businessLabels">其中，businessLabels的内容如下：</span>
+
+| 参数名称            | 类型   | 参数说明                 | 是否必返 | 规范         |
+| ------------------- | ------ | ------------------------ | -------- | ------------ |
+| businessLabel1      | string | businessLabels不为空必返 | Y        | 一级业务标签 |
+| businessLabel2      | string | businessLabels不为空必返 | Y        | 二级业务标签 |
+| businessLabel3      | string | businessLabels不为空必返 | Y        | 三级业务标签 |
+| businessDescription | string | businessLabels不为空必返 | Y        | 标签描述     |
+
 
 
 ## <span id = "example">示例</span>
@@ -186,24 +199,26 @@
 {
     "accessKey":"*************",
     "appId":"default",
-    "eventId":"message",
-    "type":"ALL",
-    "data":{
-        "text":"+v12345qwer",
-        "tokenId":"username",
+    "eventId":"text",
+	"type":"DEFAULT",
+	"businessType":"MINOR",
+    "data":
+    {
+        "text":"我12岁了，你呢，我要去天安门看毛主席照片",
+        "tokenId":"4567898765jhgfdsa",
         "ip":"118.89.214.89",
         "deviceId":"*************",
         "nickname":"***********",
-        "lang":"zh",
-        "extra":{
+        "extra":
+        {
             "topic":"12345",
             "atId":"username1",
             "room":"ceshi123",
             "receiveTokenId":"username2",
             "level":1,
             "role":"ADMIN"
-        }
-    }
+    	}
+    }   
 }
 ```
 
@@ -213,74 +228,144 @@
 {
     "code":1100,
     "message":"成功",
-    "requestId":"e5afe696d89760e2054c59597a4b4116",
+    "requestId":"cfd98ce4510efd74e3a5182d2b752ee9",
     "riskLevel":"REJECT",
-    "riskLabel1":"ad",
-    "riskLabel2":"lianxifangshi",
-    "riskLabel3":"lianxifangshi",
-    "riskDescription":"广告:联系方式:联系方式",
+    "riskLabel1":"politics",
+    "riskLabel2":"shezheng",
+    "riskLabel3":"shezheng",
+    "riskDescription":"涉政:涉政:涉政",
     "riskDetail":{
 
     },
     "allLabels":[
         {
-            "probability":0.177000001072884,
-            "riskDescription":"::",
+            "probability":1,
+            "riskDescription":"涉政:国内领导人:历任国级领导",
             "riskDetail":{
-
+                "riskSegments":[
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛主席"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛主席"
+                    }
+                ]
             },
-            "riskLabel1":"dirty",
-            "riskLabel2":"porn",
-            "riskLabel3":"porn"
+            "riskLabel1":"politics",
+            "riskLabel2":"guoneilingdaoren",
+            "riskLabel3":"lirenguojilingdao",
+            "riskLevel":"REJECT"
         },
         {
             "probability":1,
-            "riskDescription":"广告:联系方式:联系方式",
+            "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
-
+                "riskSegments":[
+                    {
+                        "position":[
+                            12,
+                            13,
+                            14
+                        ],
+                        "segment":"天安门"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛主席"
+                    }
+                ]
             },
-            "riskLabel1":"ad",
-            "riskLabel2":"lianxifangshi",
-            "riskLabel3":"lianxifangshi"
+            "riskLabel1":"politics",
+            "riskLabel2":"shezheng",
+            "riskLabel3":"shezheng",
+            "riskLevel":"REJECT"
         },
         {
-            "probability":0.98876953125,
-            "riskDescription":"广告:广告:广告",
+            "probability":1,
+            "riskDescription":"涉政:核心领导:毛泽东",
             "riskDetail":{
-
+                "riskSegments":[
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛猪稀"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18,
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛猪西"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"猫主席"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"猫朱熹"
+                    },
+                    {
+                        "position":[
+                            16,
+                            17,
+                            18
+                        ],
+                        "segment":"毛主席"
+                    }
+                ]
             },
-            "riskLabel1":"ad",
-            "riskLabel2":"contact",
-            "riskLabel3":"contact"
-        },
-        {
-            "probability":0.170000001788139,
-            "riskDescription":"::",
-            "riskDetail":{
-
-            },
-            "riskLabel1":"dirty",
-            "riskLabel2":"abuse",
-            "riskLabel3":"abuse"
-        },
-        {
-            "probability":0.224000006914139,
-            "riskDescription":"::",
-            "riskDetail":{
-
-            },
-            "riskLabel1":"dirty",
-            "riskLabel2":"petphrase",
-            "riskLabel3":"petphrase"
+            "riskLabel1":"politics",
+            "riskLabel2":"hexinlingdao",
+            "riskLabel3":"maozedong",
+            "riskLevel":"REJECT"
         }
     ],
     "auxInfo":{
         "contactResult":[
             {
-                "contactString":"12345qwer",
-                "contactType":2
+                "contactString":"你呢",
+                "contactType":3
             }
-        ]
-    }
+        ],
+        "filteredText":"我12岁了，你呢，我要去***看***照片"
+    },
+    "businessLabels":[
+        {
+            "businessDescription":"未成年人:未成年人:未成年人",
+            "businessLabel1":"minor",
+            "businessLabel2":"minor",
+            "businessLabel3":"clear"
+        }
+    ]
 }
 ```
