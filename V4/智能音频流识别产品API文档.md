@@ -34,7 +34,7 @@
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
-| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4` | 中文音频流 |
+| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
 | 上海 | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4` | 中文音频流 |
 
 ### <span id = "requestMethod">请求方法：</span>
