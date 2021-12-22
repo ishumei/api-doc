@@ -94,6 +94,7 @@
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
+| lang | string | 语种 | 必传参数 | 可选值如下：<br>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
 | streamType | string | 视频流类型 | 必传参数 | 可选值为：<br>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br>`TRTC`:腾讯审核<br>`ZEGO`：即构审核 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#uploadV4.requestParameters.data.agoraParam) |
@@ -110,7 +111,6 @@
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户建议传入） |
 | retryTimes | int | 重试次数 | 非必传参数 | 视频流异常断开重试次数 |
-| lang | string | 语种 | 非必传参数 | 可选值如下：<br>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParameters.data.extra) |
 
 <span id="uploadV4.requestParameters.data.extra">data 中，extra的内容如下</span>
