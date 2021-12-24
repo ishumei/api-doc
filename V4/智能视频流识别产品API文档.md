@@ -100,6 +100,7 @@
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#uploadV4.requestParameters.data.agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#uploadV4.requestParameters.data.trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#uploadV4.requestParameters.data.zegoParam) |
+| volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#uploadV4.requestParameters.data.volcParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
@@ -147,6 +148,15 @@
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，用于token登陆（强烈建议每次开流主动调用zego接口获取新的token） |
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
 | testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br>`true`:测试环境<br>`false`:正式环境 |
+
+<span id="uploadV4.requestParameters.data.volcParam">其中，data.volcParam内容如下：</span>
+
+| 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
+| --- | --- | --- | --- | --- |
+| appId | string | 火山提供的appId | 必传参数 |  |
+| roomId | string | 房间号 | 必传参数 |  |
+| userId | string | 分配给录制段的userId | 必传参数 |  |
+| token | string | 录制userId对应的验证签名，相当于登录密码 | 必传参数 | |
 
 ### <span id = "uploadV4.responseParameters">返回参数</span>
 
@@ -222,9 +232,9 @@
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | userId | int | 用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
+| strUserId | string | trtc和volc流的用户id字段 | 否 | 分流的用户id（`TRTC或VOLC`流才会有） |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br>`1`：截帧图片过了检测<br>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
-| trtcUserId | string | trtc流的用户id字段 | 否 | 分流的用户id（`TRTC`流才会有） |
 
 <span id="callbackV4.callbackParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
@@ -318,7 +328,8 @@
 | --- | --- | --- | --- | --- |
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
-| userId | int | 声网用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
+| userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
+| strUserId | string | trtc和volc流的用户id字段 | 否 | 分流的用户id（`TRTC或VOLC`流才会有） |
 | room | string | 房间号 | 否 | |
 
 <span id="callbackV4.callbackParameters.audioDetail.riskDetail">audioDetail中，riskDetail的详细内容如下：</span>
