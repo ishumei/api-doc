@@ -1,9 +1,9 @@
 # 数美智能音频流识别产品API接口文档
-- - - - - 
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
 * [音频流上传请求](#requestParameter)
     + [请求URL](#requestUrl)
@@ -69,11 +69,12 @@
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | Y | 用于区分用户账号，建议传入用户ID |
 | btId | string | 应用ID，用于区分相同公司的不同应用 | Y | 用于查询指定音频，限长128位字符 |
-| streamType | string | 流类型 | Y | 可选值：<br>`NORMAL`：普通流地址<br>`ZEGO`：即构<br>`AGORA`：声网 |
+| streamType | string | 流类型 | Y | 可选值：<br>`NORMAL`：普通流地址<br>`ZEGO`：即构<br>`AGORA`：声网 <br>`TRTC`：腾讯录制 |
 | url | string | 直播流地址 | N | 当streamType为`NORMAL`时必传 |
 | lang | string | 音频流语言类型 | Y | 可选值如下，（默认值为`zh`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语 |
 | zegoParam | json_object | 要检测的流参数 | N | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam) |
 | initDomain | int | 即构SDK初始化是否有设置隔离域名 | N | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br>`1`：仅支持客户端初始化有隔离域名<br>`2`：支持客户端初始化有隔离域名和随机userId功能 |
+| trtcParam | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 |
 | agoraParam | json_object | 要检测的声网流参数 | N | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam) |
 | room | string | 直播房间号 | N | |
 | role | string | 用户角色 | N | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br>`ADMIN`:房管<br>`HOST`：主播<br>`SYSTEM`：系统角色<br>`USER`：普通用户 |
@@ -81,6 +82,8 @@
 | returnPreText | int | 是否返回违规音频流片段的前文文字信息 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段文字；<br>`1`：返回违规片段前一分钟文字； |
 | returnPreAudio | int | 是否返回违规音频流片段的前文音频链接 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段音频；<br>`1`：返回违规片段前一分钟音频链接； |
 | extra | json_object | 辅助参数 | N | 用于辅助音频检测的相关信息，[详见extra参数](#extra) |
+
+
 
 <span id = "zegoParam">data中，zegoParam详细内容如下：</span>
 
@@ -101,6 +104,17 @@
 | uid | int | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 | N | 32 位无符号整数 |
 | isMixingEnabled | bool | 单流/合流录制<br>合流是指一个直播房间一路流<br>分流是指一个麦位一路流， | N | 默认值为`true`<br>`true`:合流<br>`false`:分流 |
 | channelProfile | int | 声网录制的频道模式<br>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br>直播，有两种用户角色: 主播和观众 | N | 可选值如下（默认值为`0`）：<br>`0`: 通信<br>`1`: 直播 |
+
+其中 data.trtcParam内容如下
+
+| 参数名称   | 类型   | **是否必传** | 说明                                                         |
+| ---------- | ------ | ------------ | ------------------------------------------------------------ |
+| sdkAppId   | int    | Y            | 腾讯提供的sdkAppId                                           |
+| demoSences | int    | Y            | 录制类型可选值：分流录制：2 合流录制：4                      |
+| userId     | string | Y            | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符 |
+| userSig    | string | Y            | 录制userId对应的验证签名，相当于登录密码                     |
+| roomId     | int    | Y            | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId |
+| strRoomId  | string | Y            | 房间号码 取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId |
 
 <span id = "extra">data中，extra的内容如下：</span>
 
@@ -171,6 +185,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | userId | int | 声网用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
+| strUserId | string | trtc用户账号标识 | 否 | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | room | string | 房间号 | 否 | |
 | seiInfo | array | SEI信息 | 否 | （需要联系数美开通） |
 
