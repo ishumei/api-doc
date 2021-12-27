@@ -158,7 +158,7 @@
 | code | int | 返回码 | 是 |  `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`1911`：图片下载失败<br>`9101`：无权限操作<br>`3000`：运营商错误<br>除message和requestId之外的字段，只有当code为1100时才会存在 |
 | message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败余额不足无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
-| verifyResult | int | 验证结果 | 是 | `1`：通过<br>`2`：不通过<br>`3`：无法确认 |
+| riskLevel | string | 验证结果 | 是 | 可能返回值：<br/>`PASS`：正常（运营商返回认证通过）<br/>`REVIEW`：重试（运营商返回无法确认）<br/>`REJECT`：拒绝（运营商返回认证不通过） |
 
 ## <span id = "example">示例：</span>
 
