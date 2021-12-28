@@ -82,8 +82,8 @@
 | returnPreText | int | 是否返回违规音频流片段的前文文字信息 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段文字；<br>`1`：返回违规片段前一分钟文字； |
 | returnPreAudio | int | 是否返回违规音频流片段的前文音频链接 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段音频；<br>`1`：返回违规片段前一分钟音频链接； |
 | extra | json_object | 辅助参数 | N | 用于辅助音频检测的相关信息，[详见extra参数](#extra) |
-| liveTitle | string | 房间标题 | N | 房间标题，非必填参数，在客户开通人审服务传入 |
-| anchorName | string | 用户昵称 | N | 用户昵称，非必填参数，在客户开通人审服务传入 |
+| liveTitle | string | 标题 | N | 房间标题，非必填参数，在客户开通人审服务传入 |
+| anchorName | string | 昵称 | N | 用户昵称，非必填参数，在客户开通人审服务传入 |
 
 
 
@@ -249,9 +249,9 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 ### <span id = "closeRequestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/finish_audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
-| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/finish_audiostream/v4` | 中文音频流 |
-| 上海 | `http://api-audiostream-sh.fengkongcloud.com/audiostream/finish_audiostream/v4` | 中文音频流 |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
+| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
+| 上海 | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
 
 
 ### <span id = "closeRequestEncode">字符编码：</span>
