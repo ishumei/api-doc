@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./image
----
-
 # 数美天象产品API接口说明文档
 
 - - - - -
@@ -10,7 +6,21 @@ typora-copy-images-to: ./image
 
 - - - - -
 
-[TOC]
+
+
+* [天象风险识别](#oneClickleInterface)
+    + [调用时机](#requestParameter)
+    + [具体接口](#requestInterface)
+        - [请求URL](#requestUrl)
+        - [字符编码格式](#requestEncode)
+        - [请求方法](#requestMethod)
+        - [建议超时时长](#requestTimeout)
+        - [请求参数](#requestParameters)
+    + [返回结果](#response)
+    + [示例](#example)
+        - [请求示例](#requestExample)
+        - [返回示例](#responseExample)
+
 
 # <span id = "oneClickleInterface">天象风险识别</span>
 
@@ -27,7 +37,7 @@ typora-copy-images-to: ./image
 
 
 
-## <span id = "requestParameter">具体接口</span>
+## <span id = "requestInterface">具体接口</span>
 
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
@@ -62,7 +72,7 @@ typora-copy-images-to: ./image
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 不能同时为空 | 该ID为用户的唯一标识，且与其它数美接口的tokenId保持一致 |
 | deviceId | string | 待查询的设备指纹ID，由数美SDK生成 | 不能同时为空 | 该ID为用户设备的唯一标识，且与其他数美接口的smid保持一致 |
 
-### <span id = "response">返回结果</span>
+## <span id = "response">返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
