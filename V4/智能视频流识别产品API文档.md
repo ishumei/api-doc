@@ -83,7 +83,7 @@
 | appId | string | 应用标识 | 必传参数 | 该参数传递值可与数美协商 |
 | eventId | string | 事件标识 | 必传参数 |  用于区分场景数据，可选值：<br>`video`:智能视频识别<br>`default`:默认事件<br>`live`:交友秀场<br>`ecommerce`:电商直播<br>`education`:教育场景<br>`presision`:默认高准确<br>`recall`:默认高召回 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`VIOLENCE`：暴恐识别<br>`BAN`：违禁识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`SPAM`：机器灌水识别<br>`OCR`：图片中的文字风险识别<br>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICAL`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICAL`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型 | 非必传参数 |  业务一级标签<br>可选值：<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | imgCallback | string | 图片回调地址 | 必传参数 | 将视频流中截帧图片的检测结果通过该地址回调给用户 |
@@ -193,6 +193,8 @@
 | frameDetail | json_object | 风险截帧信息 | 否 | 当code等于`1100`时返回，详见[frameDetail说明](#callbackV4.callbackParameters.frameDetail) |
 | audioDetail | json_object | 风险音频片段信息 | 否 | 当code等于`1100`时返回，详见[audioDetail说明](#callbackV4.callbackParameters.audioDetail) |
 | auxInfo | json_object | 辅助信息 | 否 | 当code等于`1100`时返回，详见[auxInfo说明](#callbackV4.callbackParameters.auxInfo) |
+| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV4.callbackParameters.tokenProfileLabels) |
+| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV4.callbackParameters.tokenRiskLabels) |
 
 <span id="callbackV4.callbackParameters.auxInfo">其中，auxInfo中的具体内容如下：</span>
 
@@ -288,7 +290,6 @@
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
-| riskDetail | json_object | 风险详情信息 | 是 | 预留扩展字段 |
 
 <span id="callbackV4.callbackParameters.frameDetail.businessLabels">frmeDetail中，businessLabels数组的每个成员的内容如下：</span>
 
@@ -299,7 +300,6 @@
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
-| businessDetail | json_object | 标签详情信息 | 是 | 预留扩展字段 |
 
 <span id="callbackV4.callbackParameters.audioDetail">其中，在音频回调时（contentType为2时），audioDetail每个成员的具体内容如下：</span>
 
@@ -366,7 +366,6 @@
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
-| riskDetail | json_object | 风险详情信息 | 是 | 预留扩展字段 |
 
 <span id="callbackV4.callbackParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
 
@@ -377,8 +376,18 @@
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
-| businessDetail | json_object | 标签详情信息 | 是 | 预留扩展字段 |
 
+<span id="callbackV4.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
+
+| **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
+| ----------- | -------- | ------------ | ------------ | -------------------------- |
+| label1      | string   | 一级标签     | 否           |                            |
+| label2      | string   | 二级标签     | 否           |                            |
+| label3      | string   | 三级标签     | 否           |                            |
+| description | string   | 标签描述     | 否           |                            |
+| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
+
+<span id="callbackV4.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
 ## <span id = "closeV4">视频流关闭接口</span>
 
