@@ -82,7 +82,7 @@
 | accessKey | string | 公司密钥 | 必传参数 | 数美分配 |
 | appId | string | 应用标识 | 必传参数 | 该参数传递值可与数美协商 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`PERSON`：涉政人物识别<br>`VIOLENCE`：暴恐识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`OCR`：图片中的文字风险识别<br>`PORTRAIT`：识别坐姿<br>`BUSINESSRISK`：行业违规<br>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICAL`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`SING`：唱歌识别<br>`ANTHEN`：国歌识别<br>`LANGUAGE`：语种识别<br>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICAL`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`SING`：唱歌识别<br>`ANTHEN`：国歌识别<br>`LANGUAGE`：语种识别<br>`AUDIOPOLITICAL`：声音涉政<br>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型 | 非必传参数 |  业务一级标签<br>可选值：<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | imgCallback | string | 图片回调地址 | 必传参数 | 将视频流中截帧图片的检测结果通过该地址回调给用户 |
@@ -189,6 +189,8 @@
 | riskLevel | string |风险级别（code为1100时存在），可能取值：PASS，REVIEW，REJECT | 是 | PASS：正常内容，建议直接放行<br>REVIEW：可疑内容，建议人工审核<br>REJECT：违规内容，建议直接拦截 |
 | contentType | int | 用来区分音频和图片回调，当code等于1100时返回 | 否 | 可能取值如下：<br>`1`：该回调为图片回调<br>`2`：该回调为音频回调 |
 | detail | json_object | 风险详情 | 否 | 视频流中截帧图片或者音频片段的风险详情（code为1100时存在）详见[detail说明](#callbackV2.callbackParameters.frameDetail) |
+| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV2.callbackParameters.tokenProfileLabels) |
+| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV2.callbackParameters.tokenRiskLabels) |
 
 <span id="callbackV2.callbackParameters.frameDetail">其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：</span>
 
@@ -225,7 +227,6 @@
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
-| businessDetail | json_object | 标签详情信息 | 是 | 预留扩展字段 |
 
 <span id="callbackV2.callbackParameters.audioDetail">其中，在音频回调时（contentType为2时），音频片段detail每个成员的具体内容如下：</span>
 
@@ -263,7 +264,6 @@
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
-| businessDetail | json_object | 标签详情信息 | 是 | 预留扩展字段 |
 
 
 <span id="callbackV2.callbackParameters.audioDetail.language">音频的detail中，language数组中每一项具体参数如下：</span>
@@ -288,6 +288,18 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestParams | json_object | 返回请求参数data中的所有字段 | 是 | 无 |
+
+<span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
+
+| **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
+| ----------- | -------- | ------------ | ------------ | -------------------------- |
+| label1      | string   | 一级标签     | 否           |                            |
+| label2      | string   | 二级标签     | 否           |                            |
+| label3      | string   | 三级标签     | 否           |                            |
+| description | string   | 标签描述     | 否           |                            |
+| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
+
+<span id="callbackV2.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
 ## <span id = "closeV2">视频流关闭接口</span>
 
