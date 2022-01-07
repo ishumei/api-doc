@@ -280,7 +280,7 @@
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.frameDetail.allLabels">frmeDetail中，allLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.frameDetail.allLabels">frameDetail中，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -291,7 +291,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.frameDetail.businessLabels">frmeDetail中，businessLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
