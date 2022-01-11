@@ -112,6 +112,8 @@
 | auxlnfo| json_object| 辅助信息 | Y | [详见auxlnfo参数](#auxlnfo)|
 | allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 
 <span id = "auxlnfo">其中auxInfo字段如下：</span>
 
@@ -182,14 +184,45 @@
 
 <span id = "businessLabels">其中，businessLabels的内容如下：</span>
 
-| 参数名称            | 类型   | 参数说明                 | 是否必返 | 规范         |
-| ------------------- | ------ | ------------------------ | -------- | ------------ |
-| businessLabel1      | string | businessLabels不为空必返 | Y        | 一级业务标签 |
-| businessLabel2      | string | businessLabels不为空必返 | Y        | 二级业务标签 |
-| businessLabel3      | string | businessLabels不为空必返 | Y        | 三级业务标签 |
-| businessDescription | string | businessLabels不为空必返 | Y        | 标签描述     |
+| 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
+| ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
+| businessLabel1      | string      | businessLabels不为空必返                                     | Y        | 一级业务标签 |
+| businessLabel2      | string      | businessLabels不为空必返                                     | Y        | 二级业务标签 |
+| businessLabel3      | string      | businessLabels不为空必返                                     | Y        | 三级业务标签 |
+| businessDescription | string      | businessLabels不为空必返                                     | Y        | 标签描述     |
+| probability         | float       | businessLabels不为空必返<br>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
+| businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
 
+
+<span id = "tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
+
+| 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
+| ----------- | ------ | ------------ | -------- | -------------------------- |
+| label1      | string | 一级标签     | 否       |                            |
+| label2      | string | 二级标签     | 否       |                            |
+| label3      | string | 三级标签     | 否       |                            |
+| description | string | 标签描述     | 否       |                            |
+| timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
+
+
+
+<span id = "label1">一级标签的内容如下：</span>
+
+| 一级标签 | 一级标识    | 类型     | 备注                   |
+| -------- | ----------- | -------- | ---------------------- |
+| 涉政     | politics    | 监管标签 | type值为DEFAULT        |
+| 暴恐     | violence    | 监管标签 | type值为DEFAULT        |
+| 色情     | porn        | 监管标签 | type值为DEFAULT        |
+| 违禁     | ban         | 监管标签 | type值为DEFAULT        |
+| 辱骂     | abuse       | 监管标签 | type值为DEFAULT        |
+| 广告法   | ad_law      | 监管标签 | type值为DEFAULT        |
+| 广告     | ad          | 监管标签 | type值为DEFAULT        |
+| 黑名单   | blacklist   | 监管标签 | type值为DEFAULT        |
+| 无意义   | meaningless | 监管标签 | type值为DEFAULT        |
+| 隐私     | privacy     | 监管标签 | type值为DEFAULT        |
+| 网络诈骗 | fraud       | 监管标签 | type值为FRUAD、UNPOACH |
+| 未成年人 | minor       | 业务标签 | businessType值为MINOR  |
 
 ## <span id = "example">示例</span>
 
