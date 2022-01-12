@@ -94,7 +94,7 @@
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br>`TRTC`:腾讯审核<br>`ZEGO`：即构审核 | |
+| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br>`TRTC`:腾讯审核<br>`ZEGO`：即构审核 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#uploadV2.requestParameters.data.agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#uploadV2.requestParameters.data.trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#uploadV2.requestParameters.data.zegoParam) |
@@ -110,7 +110,6 @@
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | channel | string | 渠道标识 | 非必传参数 | 用户根据不同业务场景，选配不同的渠道 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户建议传入） |
-| retryTimes | int | 重试次数 | 非必传参数 | 视频流异常断开重试次数 |
 | liveTitle | string | 直播标题 | 非必传参数 | 直播标题，一般用于人审需要字段|
 | liveCover | string | 直播封面 | 非必传参数 | 直播封面，一般用于人审需要字段|
 | anchorName | string | 主播名称 | 非必传参数 | 主播名称，一般用于人审需要字段|
@@ -202,8 +201,8 @@
 | beginProcessTime  | int | 开始处理时间（13位时间戳）| 是 | |
 | finishProcessTime | int | 检测完成时间（13位时间戳）| 是 | |
 | imgTime | string | 视频流截帧图片的时间（绝对时间）| 是 | |
-| riskType | int | 风险类型| 是 |标识风险类型，可能取值：<br>0：       正常<br>100：涉政<br>200：色情<br>210：性感<br>300：广告<br>310：二维码<br>320：水印<br>400：暴恐<br>500：违规<br>510：不良场景<br>530：行业违规<br>700：黑名单<br>710：白名单<br>800：高危账号<br>900：自定义|
-| riskSource | int | 风险来源（图片还是图片中OCR）| 是 |可能取值：<br>1000：无风险<br>1001：文字风险<br>1002：视觉图片风险<br>1003：音频语音风险|
+| riskType | int | 风险类型| 是 |标识风险类型，可能取值：<br>0：       正常<br>100：涉政<br>200：色情<br>210：性感<br>300：广告<br>310：二维码<br>320：水印<br>400：暴恐<br>500：违规<br>510：不良场景<br>520：未成年人<br/>530：人脸<br>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br>710：白名单<br>800：高危账号<br>900：自定义|
+| riskSource | int | 风险来源（图片还是图片中OCR）| 是 |风险来源，可能取值：<br>1000：无风险<br>1001：文字风险<br>1002：视觉图片风险<br>1003：音频语音风险|
 | model | string | 策略规则标识| 是 |用来标识命中的策略规则|
 | descriptionV2 | string | 策略规则风险原因描述| 是 |中文描述|
 | detectType | int | 区分截帧图片是否过了机审| 否|可取值为1和2（仅当请求参数传了detectStep时才会返回该参数）<br>1：截帧图片过了检测<br>2：截帧图片没过检测|
@@ -240,8 +239,8 @@
 | finishProcessTime | int | 检测完成时间（13位时间戳）| 是 | |
 | audioStartTime  | string | 视频流中音频违规内容开始时间（绝对时间）| 是 | |
 | audioEndTime | string | 视频流中音频违规内容结束时间（绝对时间）| 是 | |
-| riskType | int | 视频中音频的标识风险类型| 是 |可能取值：<br>0：       正常<br>100：涉政<br>120：国歌<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>700：黑名单<br>900：自定义|
-| riskSource | int | 风险来源（图片还是图片中OCR）| 否 |可能取值：<br>1000：无风险<br>1001：文字风险<br>1002：视觉图片风险<br>1003：音频语音风险|
+| riskType | int | 视频中音频的标识风险类型| 是 |标识风险类型，可能取值：<br>0：       正常<br>100：涉政<br>120：国歌<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>700：黑名单<br>900：自定义|
+| riskSource | int | 风险来源（图片还是图片中OCR）| 否 |风险来源，可能取值：<br>1000：无风险<br>1001：文字风险<br>1002：视觉图片风险<br>1003：音频语音风险|
 | model | string | 策略规则标识| 是 |用来标识命中的策略规则|
 | descriptionV2 | string | 策略规则风险原因描述| 是 ||
 | matchedDetail | string | 命中所有名单详情| 否 ||
