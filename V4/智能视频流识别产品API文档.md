@@ -110,7 +110,6 @@
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为0.5~60s；如不传递默认5s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户建议传入） |
-| retryTimes | int | 重试次数 | 非必传参数 | 视频流异常断开重试次数 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParameters.data.extra) |
 
 <span id="uploadV4.requestParameters.data.extra">data 中，extra的内容如下</span>
@@ -280,7 +279,7 @@
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.frameDetail.allLabels">frmeDetail中，allLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.frameDetail.allLabels">frameDetail中，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -291,7 +290,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.frameDetail.businessLabels">frmeDetail中，businessLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |

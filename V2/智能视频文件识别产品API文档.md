@@ -167,10 +167,9 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | checksum | string | 由accessKey + btId + result拼成字符串，通过SHA256算法生成。为防止篡改，可以按此算法生成字符串，与checksum做一次校验。 | 是 |  |
-| result | string | 机器审核结果 | 是 | 详见[result字段](#callbackV2.result)|
+| result | string | 机器审核结果 | 是 | 详见[result字段说明](#callbackV2.result) |
 
-
-### <span id = "callbackV2.result">result可反序列化为json结构，内容如下：</span>：
+<span id="callbackV2.result">result可反序列化为json结构，内容如下</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -205,8 +204,8 @@
 | riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
 | qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br>可以正常识别到的二维码才会返回<br>（imgType传值需要包含AD） |
-| riskType | int | 截帧图片风险类型 | 否 | 可能取值：<br>正常：0 <br>涉政：100 <br>色情：200 <br>性感：210 <br>广告：300 <br>二维码：310 <br>水印：320 <br>暴恐：400 <br>违规：500 <br>不良场景：510 <br>未成年人：520 <br>黑名单：700|
-| riskSource | int | 风险来源 | 否 | 可能取值：<br>1000：无风险<br> 1001：文字风险 <br> 1002：视觉图片风险 <br>1003：音频语音风险 |
+| riskType | int | 截帧图片风险类型 | 否 | 标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int | 风险来源 | 否 | 风险来源，可能取值：<br>1000：无风险<br>1001：文字风险 <br>1002：视觉图片风险 <br>1003：音频语音风险 |
 | description | string | 风险原因 | 是 | |
 | matchedItem | string | 图片文字命中的违规敏感词 | 否 |  |
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
@@ -245,7 +244,7 @@
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
 | riskLevel | string | 处置建议 | 是 | 取值范围：<br>PASS：正常 <br>REVIEW：审核 <br>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>00：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>500：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
 | riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br>1000：无风险 <br>1001：文字 <br>1002：视觉图片 <br>1003：音频语音 |
 | isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br>0:表示没有唱歌，<br>1:表示唱歌。<br>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.language) |
@@ -351,8 +350,8 @@
 | riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
 | qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br>可以正常识别到的二维码才会返回<br>（imgType传值需要包含AD） |
-| riskType | int | 截帧图片风险类型 | 否 | 可能取值：<br>正常：0 <br>涉政：100 <br>色情：200 <br>性感：210 <br>广告：300 <br>二维码：310 <br>水印：320 <br>暴恐：400 <br>违规：500 <br>不良场景：510 <br>未成年人：520 <br>黑名单：700|
-| riskSource | int | 风险来源 | 否 | 可能取值：<br>1000：无风险<br> 1001：文字风险 <br> 1002：视觉图片风险 <br>1003：音频语音风险 |
+| riskType | int | 截帧图片风险类型 | 否 | 标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int | 风险来源 | 否 | 风险来源，可能取值：<br>1000：无风险<br>1001：文字风险 <br>1002：视觉图片风险 <br>1003：音频语音风险 |
 | description | string | 风险原因 | 是 | |
 | matchedItem | string | 图片文字命中的违规敏感词 | 否 |  |
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
@@ -392,7 +391,7 @@
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
 | riskLevel | string | 处置建议 | 是 | 取值范围：<br>PASS：正常 <br>REVIEW：审核 <br>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>00：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>500：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
 | riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br>1000：无风险 <br>1001：文字 <br>1002：视觉图片 <br>1003：音频语音 |
 | isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br>0:表示没有唱歌，<br>1:表示唱歌。<br>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.query.language) |
