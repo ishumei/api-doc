@@ -226,6 +226,10 @@ device_suspicious_labels的详情内容如下：
 | b_alter_loc_last_ts           | int                | 篡改地理位置时间     |                                                              |
 | b_reset                       | int                | 疑似重置             | 设备疑似重置，取值：0: 设备没有疑似重置1: 设备疑似重置       |
 | b_reset_last_ts               | int                | 疑似重置时间         |                                                              |
+| b_console | int | 开启调试模式 | 设备开启调试模式，取值：0:设备没有开启调试模式1:设备开启调试 |
+| b_console_last_ts | int | 开启调试模式时间 | |
+| b_webdriver | int | 浏览器自动操作插件 | 浏览器自动操作插件，取值：0:浏览器没有自动操作查件1:浏览器自动操作插件 |
+| b_webdriver_last_ts | int | 浏览器自动操作插件时间 | |
 
  
 
