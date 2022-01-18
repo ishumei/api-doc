@@ -463,7 +463,7 @@
     "appId": "defaulttest",
     "eventId": "VIDEOSTREAM",
     "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
+    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY",
     "audioType": "POLITICAL_PORN_AD_MOAN",
     "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
     "imgCallback": "http://www.xxx.top/xxx",
