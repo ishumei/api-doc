@@ -88,8 +88,8 @@
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
 | btId | string | 视频唯一标识 | 必传参数 | 视频唯一标识，用于查询识别结果，最长64位 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br>`PERSON`涉政人物识别<br>`VIOLENCE`：暴恐识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`OCR`：图片中的文字风险识别<br>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`ABUSE`：辱骂识别<br>`ANTHEN`：国歌识别<br>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`FACECOMPARE`：人脸比对<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
+| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`ABUSE`：辱骂识别<br>`ANTHEN`：国歌识别<br>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
 | audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br>可选值：<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | callbackParam | json_object | 回调透传字段 | 非必传参数 |  |
@@ -222,6 +222,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability         | float    | 置信度       | 是           | 可选值为0~1，值越大，可信度越高 |
 
 <span id = "callbackV2.callbackParameters.addition">其中，音频片段addition中每个成员的具体内容如下：</span>
 
@@ -265,6 +266,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
@@ -369,6 +371,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id = "callbackV2.callbackParameters.query.audioDetail">其中，音频片段addition中每个成员的具体内容如下：</span>
 
@@ -395,7 +398,7 @@
 | riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br>1000：无风险 <br>1001：文字 <br>1002：视觉图片 <br>1003：音频语音 |
 | isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br>0:表示没有唱歌，<br>1:表示唱歌。<br>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.query.language) |
-| businessLabels | json_array | 识别出的业务标签 | 否 | 详见[audio_evidence说明](#callbackV2.callbackParameters.audioDetail.query.businessLabels) |
+| businessLabels | json_array | 识别出的业务标签 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.query.businessLabels) |
 
 <span id="callbackV2.callbackParameters.audioDetail.query.language">音频的audio_evidence中，language数组中每一项具体参数如下：</span>
 
@@ -412,6 +415,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="callbackV2.callbackParameters.query.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
@@ -451,7 +455,7 @@
     "appId": "default",
     "btId": "1639824316368",
     "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR_OCR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
+    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY",
     "audioType": "POLITICAL_PORN_AD_MOAN_ABUSE",
     "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
     "callback": "http://www.xxx.top/xxx",
