@@ -1,4 +1,3 @@
-
 # 数美智能视频文件识别产品API文档
 - - - - -
 
@@ -86,11 +85,11 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供，数美分配 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
-| eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，可选值：<br>`video`:智能视频识别<br>`default`:默认事件<br>`live`:交友秀场<br>`ecommerce`:电商直播<br>`education`:教育场景<br>`presision`:默认高准确<br>`recall`:默认高召回 |
-| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`VIOLENCE`：暴恐识别<br>`BAN`：违禁识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`SPAM`：机器灌水识别<br>`OCR`：图片中的文字风险识别<br>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`ABUSE`：辱骂识别<br>`ANTHEN`：国歌识别<br>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`FACECOMPARE`：人脸比对<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br>可选值：<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
+| eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，可选值：<br/>`video`:智能视频识别<br/>`default`:默认事件<br/>`live`:交友秀场<br/>`ecommerce`:电商直播<br/>`education`:教育场景<br/>`presision`:默认高准确<br/>`recall`:默认高召回 |
+| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`SPAM`：机器灌水识别<br/>`OCR`：图片中的文字风险识别<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
+| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`FACECOMPARE`：人脸比对<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
+| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV4.requestParams.data) |
 
@@ -163,7 +162,7 @@
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
-| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br>`PASS`：正常内容，建议直接放行<br>`REVIEW`：可疑内容，建议人工审核<br>`REJECT`：违规内容，建议直接拦截 |
+| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | frameDetail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[frameDetail说明](#callbackV4.callbackParameters.frameDetail) |
 | audioDetail | json_array | 音频片段信息 | 否 |code为`1100`时存在，详见[audioDetail说明](#callbackV4.callbackParameters.audioDetail)|
 | auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#callbackV4.callbackParameters.auxInfo)|
@@ -185,7 +184,7 @@
 | requestId | string | 当前截帧片段的唯一标识 | 是 | |
 | imgUrl | string | 当前截帧的URL | 是 | |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
-| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
@@ -199,14 +198,14 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
+| qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
 <span id = "callbackV4.callbackParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br>`1000`：无风险<br>`10001`：文本风险<br>`1002`：视觉风险<br>`1003`：音频风险 |
+| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
 | ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
@@ -262,8 +261,8 @@
 | riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
-| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id = "callbackV4.callbackParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
@@ -284,11 +283,11 @@
 | audioEndtime | float | 音频片段结束时间 | 是 | |
 | audioUrl | string | 音频片段地址 | 是 | |
 | audioText | string | 音转文文字 | 否 | 识别出文本会返回 |
-| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
-| riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#callbackV4.callbackParameters.audioDetail.riskDetail) |
 | allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#callbackV4.callbackParameters.audioDetail.allLabels) |
 | businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会返回，详见[businessLabels说明](#callbackV4.callbackParameters.audioDetail.businessLabels) |
@@ -297,7 +296,7 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br>`1000`：无风险<br>`10001`：文本风险<br>`1002`：视觉风险<br>`1003`：音频风险 |
+| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | audioText | string | 音频转译文本的结果 | 否 | |
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments) |
@@ -330,8 +329,8 @@
 | riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
-| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="callbackV4.callbackParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
@@ -410,7 +409,7 @@
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
-| riskLevel | string | 风险级别，code为1100时存在 | 否 | 可能返回值：<br>`PASS`：正常内容，建议直接放行<br>`REVIEW`：可疑内容，建议人工审核<br>`REJECT`：违规内容，建议直接拦截 |
+| riskLevel | string | 风险级别，code为1100时存在 | 否 | 可能返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | frameDetail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[frameDetail](#queryV4.responseParameters.frameDetail) |
 | audioDetail | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[audioDetail](#queryV4.responseParameters.audioDetail) |
 | auxInfo | json_object | 辅助信息 | 是 | code为`1100`时存在，扩展辅助信息，详见[auxInfo说明](#queryV4.responseParameters.auxInfo) |
@@ -432,7 +431,7 @@
 | requestId | string | 当前截帧片段的唯一标识 | 是 | |
 | imgUrl | string | 当前截帧的URL | 是 | |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
-| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
@@ -446,14 +445,14 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
+| qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
 <span id="queryV4.responseParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br>`1000`：无风险<br>`10001`：文本风险<br>`1002`：视觉风险<br>`1003`：音频风险 |
+| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息 |
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息 |
 | ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息 |
@@ -510,8 +509,8 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
-| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="queryV4.responseParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
@@ -533,11 +532,11 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | audioEndtime | float | 音频片段结束时间 | 是 | |
 | audioUrl | string | 音频片段地址 | 是 | |
 | audioText | string | 音转文文字 | 否 | 识别出文本会返回 |
-| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
-| riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskDetail | json_object | 风险详情信息 | 是 | 风险详情，详见[riskDetail说明](#queryV4.responseParameters.audioDetail.riskDetail) |
 | allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#queryV4.responseParameters.audioDetail.allLabels) |
 | businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会有，详见[businessLabels说明](#queryV4.responseParameters.audioDetail.businessLabels) |
@@ -546,7 +545,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br>`1000`：无风险<br>`10001`：文本风险<br>`1002`：视觉风险<br>`1003`：音频风险 |
+| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | audioText | string | 音频转译文本的结果 | 否 | |
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#queryV4.responseParameters.audioDetail.riskDetail.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#queryV4.responseParameters.audioDetail.riskDetail.riskSegments) |
@@ -579,8 +578,8 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
-| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
+| riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="queryV4.responseParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：</span>

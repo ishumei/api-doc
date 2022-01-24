@@ -29,8 +29,8 @@
 | 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
 | 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
-| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br> 英文文本 |
-| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br> 英语文本 <br> 阿语文本 |
+| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 英文文本 |
+| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 英语文本 <br/> 阿语文本 |
 
 
 ### <span id = "requestEncode">字符编码格式：</span>
@@ -55,10 +55,10 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br>`default`：默认应用<br>额外应用值需数美单独分配提供 |
-| eventId | string | 事件标识 | Y | 可选值如下：<br>`nickname`：昵称<br>`message`：私聊<br>`groupChat`：群聊<br>`title`：标题<br>`notice`：公告<br>`article`：帖子<br>`comment`：评论<br>`barrage`：弹幕<br>`search`：搜索栏<br>`roomName`：房间名<br>`profile`：个人简介<br>`productName`：商品名称<br>`productInfo`：商品介绍<br>`productReviews`：商品评价 <br>`internalChat`：内部交流<br>`outsideWork`：外部合作<br/> |
-| type | string | 检测的风险类型 | Y | 可选值：<br>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br>`FRUAD`：网络诈骗<br>`UNPOACH`：高价值用户防挖<br> <br>以上type可以下划线组合，如：`DEFAULT_FRUAD` |
-| businessType | string | 检测的业务类型 | N | 可选值：<br>`MINOR`：未成年人 |
+| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
+| eventId | string | 事件标识 | Y | 可选值如下：<br/>`nickname`：昵称<br/>`message`：私聊<br/>`groupChat`：群聊<br/>`title`：标题<br/>`notice`：公告<br/>`article`：帖子<br/>`comment`：评论<br/>`barrage`：弹幕<br/>`search`：搜索栏<br/>`roomName`：房间名<br/>`profile`：个人简介<br/>`productName`：商品名称<br/>`productInfo`：商品介绍<br/>`productReviews`：商品评价 <br/>`internalChat`：内部交流<br/>`outsideWork`：外部合作<br/> |
+| type | string | 检测的风险类型 | Y | 可选值：<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>以上type可以下划线组合，如：`DEFAULT_FRUAD` |
+| businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
 
@@ -66,9 +66,9 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| text | string | 需要检测的文本（200字内效果最佳） | Y | 文本字数上限2000字，<br>若传递nickname字段，则会同时校验文本+昵称内容。<br>注意：有超过2000字以上文本内容建议联系数美协商 |
-| tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| lang | string | 文本内容语言类型 | Y | 可选值如下，（默认值为`zh`，传入`auto`自动识别失败时为`en`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语<br>`auto`：自动识别 |
+| text | string | 需要检测的文本（200字内效果最佳） | Y | 文本字数上限2000字，<br/>若传递nickname字段，则会同时校验文本+昵称内容。<br/>注意：有超过2000字以上文本内容建议联系数美协商 |
+| tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| lang | string | 文本内容语言类型 | Y | 可选值如下，（默认值为`zh`，传入`auto`自动识别失败时为`en`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`auto`：自动识别 |
 | nickname | string | 用户昵称 | N | 校验昵称内容风险 |
 | ip | string | ip地址 | N | 发送该文本的的用户公网ipv4地址 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
@@ -79,14 +79,14 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| receiveTokenId | string | 消息接收者的tokenId<br>eventId值为`message`时必传 | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| topic | string | 可为话题编号、书评区编号、论坛帖子编号<br>eventId值为`article`必传 | N |  |
+| receiveTokenId | string | 消息接收者的tokenId<br/>eventId值为`message`时必传 | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| topic | string | 可为话题编号、书评区编号、论坛帖子编号<br/>eventId值为`article`必传 | N |  |
 | atId | string | eventId值为`groupChat`必传用户在公开场景可以相互@，该参数用于传入被@用户的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| room | string | 直播间/游戏房间编号<br>eventId值为`groupChat`时必传 | N | |
-| level | int | 用户等级 | N | 可选值：<br>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br>`1`：较低级用户，典型如低活跃或低等级用户等；<br>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br>`3`：较高级用户，典型如高活跃或高等级用户等；<br>`4`：最高级用户，典型如付费用户、VIP用户等 |
-| role | string | 用户角色 | N | 用于区分直播／游戏行业不同角色的用户，可选值（默认为普通用户）：<br>`ADMIN`：房管／管理员<br>`HOST`：主播<br>`SYSTEM`：系统<br>`USER`：普通用户 |
-| sex | int | 性别 | N | 用于用户性别，可选值：<br>`0`：男性<br>`1`：女性<br>`2`：性别不明 |
-| isTokenSeparate| int | 应用体系，取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效 | N | 区分不同应用下的账号,可取值（默认值为`0`）：<br>`0`:不区分<br>`1`:区分<br> |
+| room | string | 直播间/游戏房间编号<br/>eventId值为`groupChat`时必传 | N | |
+| level | int | 用户等级 | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
+| role | string | 用户角色 | N | 用于区分直播／游戏行业不同角色的用户，可选值（默认为普通用户）：<br/>`ADMIN`：房管／管理员<br/>`HOST`：主播<br/>`SYSTEM`：系统<br/>`USER`：普通用户 |
+| sex | int | 性别 | N | 用于用户性别，可选值：<br/>`0`：男性<br/>`1`：女性<br/>`2`：性别不明 |
+| isTokenSeparate| int | 应用体系，取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效 | N | 区分不同应用下的账号,可取值（默认值为`0`）：<br/>`0`:不区分<br/>`1`:区分<br/> |
 | passThrough | Json | 透传字段 | 非必传字段 | 该字段内容会随着返回值一起返回 |
 
 
@@ -190,7 +190,7 @@
 | businessLabel2      | string      | businessLabels不为空必返                                     | Y        | 二级业务标签 |
 | businessLabel3      | string      | businessLabels不为空必返                                     | Y        | 三级业务标签 |
 | businessDescription | string      | businessLabels不为空必返                                     | Y        | 标签描述     |
-| probability         | float       | businessLabels不为空必返<br>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
+| probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
 

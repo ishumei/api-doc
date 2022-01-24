@@ -33,8 +33,8 @@
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
-| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
+| 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
 | 上海 | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4` | 中文音频流 |
 
 ### <span id = "requestMethod">请求方法：</span>
@@ -56,10 +56,10 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 公司密钥 | Y | 由数美提供 |
-| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br>`default`：默认应用<br>额外应用值需数美单独分配提供 |
-| eventId | string | 事件标识 | Y | 区分场景数据可选值：<br>`audiobook`：有声书<br>`education`：教育音频<br>`game`：游戏语音房<br>`live`：秀场直播<br>`ecommerce`：电商直播<br>`voiceroom`：交友语音房<br>`private`：私密语音聊天<br>`default`：默认事件<br>`other`：其他 |
-| type | string | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管一级标签<br>`POLITICS`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`ANTHEN`：国歌识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别<br>`ABUSE`：辱骂识别<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>如需识别音色，唱歌,语种GENDER必传如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`涉政、色情和娇喘识别 |
-| businessType | string | 业务标签 | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别 |
+| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
+| eventId | string | 事件标识 | Y | 区分场景数据可选值：<br/>`audiobook`：有声书<br/>`education`：教育音频<br/>`game`：游戏语音房<br/>`live`：秀场直播<br/>`ecommerce`：电商直播<br/>`voiceroom`：交友语音房<br/>`private`：私密语音聊天<br/>`default`：默认事件<br/>`other`：其他 |
+| type | string | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管一级标签<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ANTHEN`：国歌识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别<br/>`ABUSE`：辱骂识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>如需识别音色，唱歌,语种GENDER必传如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`涉政、色情和娇喘识别 |
+| businessType | string | 业务标签 | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别 |
 | data | json_object | 请求的数据内容 | Y | 本次请求相关信息，最长1MB,[详见data参数](#data) |
 | callback | string | 回调地址 | Y | 异步检测结果回调通知您的URL，支持HTTP和HTTPS |
 
@@ -69,18 +69,18 @@
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | Y | 用于区分用户账号，建议传入用户ID |
 | btId | string | 应用ID，用于区分相同公司的不同应用 | Y | 用于查询指定音频，限长128位字符 |
-| streamType | string | 流类型 | Y | 可选值：<br>`NORMAL`：普通流地址<br>`ZEGO`：即构<br>`AGORA`：声网 <br>`TRTC`：腾讯录制 |
+| streamType | string | 流类型 | Y | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制 |
 | url | string | 直播流地址 | N | 当streamType为`NORMAL`时必传 |
-| lang | string | 音频流语言类型 | Y | 可选值如下，（默认值为`zh`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语 |
+| lang | string | 音频流语言类型 | Y | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语 |
 | zegoParam | json_object | 要检测的流参数 | N | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam) |
-| initDomain | int | 即构SDK初始化是否有设置隔离域名 | N | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br>`1`：仅支持客户端初始化有隔离域名<br>`2`：支持客户端初始化有隔离域名和随机userId功能 |
+| initDomain | int | 即构SDK初始化是否有设置隔离域名 | N | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能 |
 | trtcParam | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 |
 | agoraParam | json_object | 要检测的声网流参数 | N | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam) |
 | room | string | 直播房间号 | N | |
-| role | string | 用户角色 | N | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br>`ADMIN`:房管<br>`HOST`：主播<br>`SYSTEM`：系统角色<br>`USER`：普通用户 |
-| returnAllText | int | 返回音频片段的等级 | N | 可选值如下（默认为`0`）：<br>`0`：返回风险等级为非pass的音频片段<br>`1`：返回所有风险等级的音频片段 |
-| returnPreText | int | 是否返回违规音频流片段的前文文字信息 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段文字；<br>`1`：返回违规片段前一分钟文字； |
-| returnPreAudio | int | 是否返回违规音频流片段的前文音频链接 | N | 可选值如下（默认值为`0`）：<br>`0`：不返回违规片段前一个片段音频；<br>`1`：返回违规片段前一分钟音频链接； |
+| role | string | 用户角色 | N | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
+| returnAllText | int | 返回音频片段的等级 | N | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段 |
+| returnPreText | int | 是否返回违规音频流片段的前文文字信息 | N | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一分钟文字； |
+| returnPreAudio | int | 是否返回违规音频流片段的前文音频链接 | N | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一分钟音频链接； |
 | extra | json_object | 辅助参数 | N | 用于辅助音频检测的相关信息，[详见extra参数](#extra) |
 | liveTitle | string | 标题 | N | 房间标题，非必填参数，在客户开通人审服务传入 |
 | anchorName | string | 昵称 | N | 用户昵称，非必填参数，在客户开通人审服务传入 |
@@ -94,7 +94,7 @@
 | tokenId | string | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/zh/1345.html](https://doc-zh.zego.im/zh/1345.html)注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | N | |
 | streamId | string | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流 | N |  |
 | roomId | string | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流 | N | |
-| testEnv | bool | 是否使用zego测试环境 | N | 默认值为`false`:<br>`true`：测试环境<br>`false`：正式环境 |
+| testEnv | bool | 是否使用zego测试环境 | N | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
 
 <span id = "agoraParam">data中，agoraParam详细内容如下：</span>
 
@@ -104,8 +104,8 @@
 | channel | string | 声网提供的频道名 | N | |
 | token | string | 安全要求较高的用户可以使用 Token进行认证，生成方式详见声网文档：[https://docs.agora.io/cn/Recording/token\_server?platform=CPP](https://docs.agora.io/cn/Recording/token\_server?platform=CPP) | N |  |
 | uid | int | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 | N | 32 位无符号整数 |
-| isMixingEnabled | bool | 单流/合流录制<br>合流是指一个直播房间一路流<br>分流是指一个麦位一路流， | N | 默认值为`true`<br>`true`:合流<br>`false`:分流 |
-| channelProfile | int | 声网录制的频道模式<br>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br>直播，有两种用户角色: 主播和观众 | N | 可选值如下（默认值为`0`）：<br>`0`: 通信<br>`1`: 直播 |
+| isMixingEnabled | bool | 单流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流， | N | 默认值为`true`<br/>`true`:合流<br/>`false`:分流 |
+| channelProfile | int | 声网录制的频道模式<br/>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br/>直播，有两种用户角色: 主播和观众 | N | 可选值如下（默认值为`0`）：<br/>`0`: 通信<br/>`1`: 直播 |
 
 其中 data.trtcParam内容如下
 
@@ -131,7 +131,7 @@
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
-| code | int | 请求返回码 | 是 | `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`9101`：无权限操作 |
+| code | int | 请求返回码 | 是 | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
 | message | string | 请求返回描述 | 是 | 和请求返回码对应 |
 | detail | json_object | 描述详细信息 | 否 | 描述错误码请求，[详见detail参数](#detail) |
 
@@ -141,7 +141,7 @@
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **说明** |
 | --- | --- | --- | --- | --- |
-| errorCode | int | | 否 | 状态码<br>`1001`：重复推流 |
+| errorCode | int | | 否 | 状态码<br/>`1001`：重复推流 |
 
 ## <span id = "callbackResponseParameters">回调返回结果</span>
 
@@ -157,7 +157,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | |
 | btId | string | 音频唯一标识 | 是 | |
-| code | int | 请求返回码 | 是 | `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
+| code | int | 请求返回码 | 是 | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | |
 | audioDetail | json_object | 风险音频片段信息 | 否 | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail) |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
@@ -167,13 +167,13 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | audioUrl | string | 音频片段地址 | 是 | |
-| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：通过<br>`REVIEW`：审核<br>`REJECT`：拒绝 |
+| riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`：拒绝 |
 | riskLabel1 | string | 一级标签 | 是 | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` |
 | riskLabel2 | string | 二级标签 | 是 | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 |
 | riskLabel3 | string | 三级标签 | 是 | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 |
-| riskDescription | string | 标签解释 | 是 | 对于命中用户自定义名单时返回：`命中自定义名单`；<br>当riskLevel为`PASS时返回`正常`；<br>其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
-| audioText | string | 音频转译文本的结果 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br>当returnPreAudio值为`0`时，包含违规音频片段文本内容 |
-| preAudioUrl | string | 前一个音频片段音频地址 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br>returnPreAudio值为`0`时，不返回 |
+| riskDescription | string | 标签解释 | 是 | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
+| audioText | string | 音频转译文本的结果 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容 |
+| preAudioUrl | string | 前一个音频片段音频地址 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回 |
 | riskDetail | json_object | 风险详情信息 | 否 | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)  |
 | auxInfo | json_object | 其他辅助信息 | 是 | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo) |
 | businessLabels | json_array | 音频业务标签 | 否 | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels) |
@@ -249,7 +249,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 ### <span id = "closeRequestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br>英语音频流<br>阿语音频流 |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
 | 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
 | 上海 | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
 
@@ -285,7 +285,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
-| code | int | 请求返回码 | 是 | `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`9101`：无权限操作 |
+| code | int | 请求返回码 | 是 | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 枚举值：成功该路流不存在 |
 
 ## <span id = "example">示例</span>

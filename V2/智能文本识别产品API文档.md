@@ -56,9 +56,9 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br>`default`：默认应用<br>额外应用值需数美单独分配提供 |
-| type | string | 检测的风险类型 | Y | 可选值：<br>`ZHIBO`:直播<br>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br>`FRUAD`：网络诈骗<br>`UNPOACH`：高价值用户防挖<br> <br>以上type可以下划线组合，如：`ZHIBO_DEFAULT_FRUAD` |
-| businessType | string | 检测的业务类型 | N | 可选值：<br>`MINOR`：未成年人 |
+| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
+| type | string | 检测的风险类型 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>以上type可以下划线组合，如：`ZHIBO_DEFAULT_FRUAD` |
+| businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
 
@@ -66,9 +66,9 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| text | string | 需要检测的文本（200字内效果最佳） | Y | 若传递nickname字段，则会同时校验文本+昵称内容。<br> |
-| tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| gender | int | 用户性别 | N | 可选值<br>`0`:女性<br>`1`:男性<br> |
+| text | string | 需要检测的文本（200字内效果最佳） | Y | 若传递nickname字段，则会同时校验文本+昵称内容。<br/> |
+| tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| gender | int | 用户性别 | N | 可选值<br/>`0`:女性<br/>`1`:男性<br/> |
 | channel | string | 业务场景 | N | 渠道表配置 |
 | nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N |  |
 | ip | string | ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N |  |
@@ -80,8 +80,8 @@
 | friendNum | int | 帐号好友数，社交场景强烈推荐传此参数，标识用户质量 | N |  |
 | fansNum | int | 帐号粉丝数，直播/社区场景强烈推荐传此参数，标识用户质量 | N |  |
 | isPremiumUser | int | 是否为优质（如付费）用户，配置不同等级，标识用户质量 | N | 可选值<br/>`0`:默认值<br/>`1`:优质账号<br/> |
-| isTokenSeperate | int | 是否区分不同应用下的账号 | N | 可选值<br/>`0`:不区分<br>`1`:区分<br>默认值为0。<br>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
-| role | string | 用户角色，对不同角色可配置不同策略。 | N | 直播领域"ADMIN"表示房管，"HOST"表示主播，"SYSTEM"系统角色<br>游戏领域"ADMIN"表示管理员，"USER"表示普通用户，缺失或者"USER"默认普通用户 |
+| isTokenSeperate | int | 是否区分不同应用下的账号 | N | 可选值<br/>`0`:不区分<br/>`1`:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
+| role | string | 用户角色，对不同角色可配置不同策略。 | N | 直播领域"ADMIN"表示房管，"HOST"表示主播，"SYSTEM"系统角色<br/>游戏领域"ADMIN"表示管理员，"USER"表示普通用户，缺失或者"USER"默认普通用户 |
 | room | string | 直播间/游戏房间编号，可针对单个房间制定不同的策略 | N |  |
 | topic | string | 讨论的话题编号，可为书评区编号、论坛帖子编号。 | N |  |
 | nickocr | string | 头像OCR识别出的文本内容 | N |  |
@@ -117,10 +117,10 @@
 | 参数名称          | **类型**    | **是否必选** | **说明**                                                     |
 | ----------------- | ----------- | ------------ | ------------------------------------------------------------ |
 | riskType          | int         | Y            |                                                              |
-| model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br>注：该参数为旧版API返回参数，兼容保留，后续版本将去除，请勿依赖此参数，仅供参考 |
-| description       | string      | Y            | 策略规则风险原因描述<br>注：该参数为旧版API返回参数，兼容保留，后续版本将去除，请勿依赖此参数，仅供参考 |
-| descriptionV2     | string      | N            | 新版策略规则风险原因描述<br>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
-| isBlackToken      | string      | N            | 该账号被画像策略标记为高危账号，可能取值：<br>`1`:高危账号   |
+| model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br/>注：该参数为旧版API返回参数，兼容保留，后续版本将去除，请勿依赖此参数，仅供参考 |
+| description       | string      | Y            | 策略规则风险原因描述<br/>注：该参数为旧版API返回参数，兼容保留，后续版本将去除，请勿依赖此参数，仅供参考 |
+| descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
+| isBlackToken      | string      | N            | 该账号被画像策略标记为高危账号，可能取值：<br/>`1`:高危账号   |
 | hitPosition       | string      | N            | 命中的敏感词在文本中的位置，从0开始计数                      |
 | filteredText      | string      | N            | 命中的敏感词被替换为*后的文本（该参数仅在命中敏感词时存在）  |
 | matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
@@ -165,7 +165,7 @@
 | businessLabel2      | string      | businessLabels不为空必返                                     | Y        | 二级业务标签 |
 | businessLabel3      | string      | businessLabels不为空必返                                     | Y        | 三级业务标签 |
 | businessDescription | string      | businessLabels不为空必返                                     | Y        | 标签描述     |
-| probability         | float       | businessLabels不为空必返<br>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
+| probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
 <span id = "tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
