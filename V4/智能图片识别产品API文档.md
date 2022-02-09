@@ -72,7 +72,7 @@
 
 ### <span id = "requestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "requestEncode">字符编码：</span>
 
@@ -103,7 +103,7 @@
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式 |
-| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 | |
+| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
@@ -116,7 +116,7 @@
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
-
+| passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
 ## <span id = "syncResponseParameters">同步返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -134,7 +134,7 @@
 | riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
+| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
 
 <span id = "riskDetail">其中，riskDetail结构如下：</span>
 
@@ -443,7 +443,7 @@ businessLabels数组中的businessDetail的内容如下：
 
 ### <span id = "asyncRequestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "asyncRequestEncode">字符编码：</span>
 
@@ -472,7 +472,7 @@ businessLabels数组中的businessDetail的内容如下：
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | 必传参数 | 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
 | img | string | 要检测的图片 | 必传参数 | 可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核**支持格式：`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
-| room | string | 直播房间号 | 非必传参数 | 高曝光群聊等业务场景建议传入房间号 |
+| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
@@ -485,7 +485,7 @@ businessLabels数组中的businessDetail的内容如下：
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
-
+| passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
 ## <span id = "asyncResponseParameters">返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -536,7 +536,7 @@ businessLabels数组中的businessDetail的内容如下：
 
 ### <span id = "syncBatchRequestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "syncBatchRequestEncode">字符编码：</span>
 
@@ -570,7 +570,7 @@ businessLabels数组中的businessDetail的内容如下：
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 默认值为20 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
-| room | string | 直播房间号 | 非必传参数 | |
+| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 
@@ -578,7 +578,7 @@ businessLabels数组中的businessDetail的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| passThrough | json_object | 透传字段 | 非必传参数 | 该字段内容同返回结果一起返回 |
+| passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
 
 其中，imgs数组每个元素的具体内容如下：
 
@@ -600,6 +600,12 @@ businessLabels数组中的businessDetail的内容如下：
 | imgs | json_array | 图片识别结果 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 
+其中，外层auxInfo内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+
 其中，imgs数组每个元素的具体内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
@@ -616,7 +622,7 @@ businessLabels数组中的businessDetail的内容如下：
 | riskDetail | json_object | 风险详情 | 是 | 风险详情 |
 | auxInfo | json_object | 其他辅助信息 | 是 | 其他辅助信息 |
 | allLabels | json_array | 当riskLevel为PASS时为空 | 是 | 命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情，请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 | 否 | 业务标签详情 |
+| businessLabels | json_array | 业务标签详情，请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 | 否 | 业务标签详情 |
 
 imgs中，riskDetail的内容如下：
 
@@ -722,11 +728,6 @@ allLabels每个成员的riskDetail结构如下：
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |
 
-其中，auxInfo数组每个元素的具体内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| passThrough | json_object | 透传字段 | 否 | 客户传入的透传字段 | 
 
 其中imgs中businessLabels数组的每个成员的内容如下：
 
@@ -821,7 +822,7 @@ UTF-8
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 默认值为20 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
-| room | string | 直播房间号 | 非必传参数 | |
+| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，默认USER，必须在可选范围有效对不同角色可配置不同策略。直播领域可取值：房管：ADMIN主播：HOST系统角色：SYSTEM游戏领域可取值：管理员：ADMIN普通用户：USER |
 
@@ -829,7 +830,7 @@ UTF-8
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| passThrough | json_object | 透传字段 | 非必传参数 | 该字段内容同返回结果一起返回 |
+| passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
 
 其中，imgs数组每个元素的具体内容如下：
 
@@ -961,7 +962,7 @@ result如下：
 | riskDetail | json_object | 风险详情 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 |
+| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 |
 
 其中，riskDetail的内容如下：
 
@@ -1091,7 +1092,7 @@ businessLabels数组中的businessDetail的内容如下：
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，type传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
-| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | 
+| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 |
 
 # <span id = "demo">Demo</span>
 
