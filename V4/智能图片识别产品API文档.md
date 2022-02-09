@@ -69,6 +69,7 @@
 | 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
 
 ### <span id = "requestMethod">请求方法：</span>
 
@@ -533,7 +534,7 @@ businessLabels数组中的businessDetail的内容如下：
 | 上海 | `http://api-img-sh.fengkongcloud.com/images/v4` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/images/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/images/v4` | 图片 |
-
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/images/v4` | 图片 |
 ### <span id = "syncBatchRequestMethod">请求方法：</span>
 
 `POST`
