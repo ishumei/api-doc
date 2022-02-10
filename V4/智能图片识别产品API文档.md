@@ -1,9 +1,9 @@
 # 数美智能图片识别产品API接口文档
-- - - - - 
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
 * [同步单张上传接口](#syncSingleInterface)
     + [单条请求](#requestParameter)
@@ -92,8 +92,8 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| businessType | string | 业务标签类型 | 否 | 一级业务标签与二级业务标签使用`-`进行拼接作为单个识别功能<br/>可选值：<br/>`BEAUTY-YANZHI`: 颜值识别<br/>`OBJECT-RENTI`：人体识别<br/>`FACE-NIANLING`：年龄识别<br/>如果需要多个识别功能，通过下划线`_`连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
@@ -151,7 +151,7 @@ riskDetail中，faces数组每个元素的内容如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 人物名称 | 否 | 风险人物名称 |
-| location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
+| location | int_array | 人物位置信息 | 否 | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 riskDetail中，objects数组每个元素的内容如下：
@@ -159,7 +159,7 @@ riskDetail中，objects数组每个元素的内容如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 标识名称 | 否 | |
-| location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标  | 否 | |
+| location | int_array | 标识位置信息  | 否 | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 riskDetail中，ocrText的内容如下：
@@ -168,7 +168,8 @@ riskDetail中，ocrText的内容如下：
 | --- | --- | --- | --- | --- |
 | text | string | 识别出的文字 | 否 | |
 | matchedLists | json\_array | 命中的客户自定义名单列表 | 否 | |
-| riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | 否 |  |
+| riskSegments | json\_array | 高风险片段内容 | 否 | 检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在 |
+| segments | Json_array | ocr片段内容 | 否 | 只要检测出ocr内容，就应该存在 |
 
 ocrText中，matchedLists数组每个元素的内容如下：
 
@@ -189,7 +190,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
-| position | int_array | 高风险内容片段所在位置 | 否 | |
+| position | int_array | 高风险内容片段所在位置 | 否 | 文本所在的四边形区域的四个顶点坐标 |
 
 其中，auxInfo的内容如下：
 
@@ -200,7 +201,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
 | passThrough | json_object | 客户传入的透传字段 | 否 |  |
 
-auxInfo中，typeVersion的内容如下：
+auxInfo中，typeVersion的内容如下（待更新）：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -237,10 +238,14 @@ auxInfo中，typeVersion的内容如下：
 
 allLabels每个成员的riskDetail结构如下：
 
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| faces | json_array | 人物信息，返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 | 否 |  |
-| objects | json_array | 标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 |  |
+<span id = "riskDetail">其中，riskDetail结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明**                         | **是否必返** | **规范**                                                     |
+| ------------------ | ------------ | ------------------------------------ | ------------ | ------------------------------------------------------------ |
+| faces              | json_array   | 返回图片中涉政人物的名称及位置信息   | 否           | 详细规范见上述内容                                           |
+| objects            | json_array   | 返回图片中标识或物品的名称及位置信息 | 否           | 详细规范见上述内容                                           |
+| ocrText            | json_object  | 返回图片中违规文字相关信息           | 否           | 详细规范见上述内容                                           |
+| riskSource         | int          | 标识资源哪里违规                     | 否           | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 其中businessLabels数组的每个成员的内容如下：
 
@@ -252,20 +257,19 @@ allLabels每个成员的riskDetail结构如下：
 | businessDescription | string | 业务标签描述 | 否 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 否 | |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
-| probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
-| face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| face_num | int | 人脸数检测<br/>图片中检测到的人脸个数<br/>type传值包含`FACE`，`FACECOMPARE`时存在 | 否 | |
-| face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，type传值包含`FACECOMPARE`时存在 | 否 | |
-| location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
-| person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
-| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
+| face_ratio | float | 人脸占比 | 否 | 在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 |
+| face_num | int | 待比较图中检测到的人脸个数 | 否 | type传值包含`FACE`，`FACECOMPARE`时存在 |
+| face_compare_num | int | 基准图中检测到的人脸个数 | 否 | type传值包含`FACECOMPARE`时存在 |
+| faces | json_array | 返回图片中人物的名称及位置信息 | 否 | 详细规范见上述内容 |
+| objects | json_array | 返回图片中物品或标识的名称及位置信息 | 否 | 详细规范见上述内容 |
+| ocrText | json_object | 文字相关信息 | 否 | 详细规范见上述内容 |
+| person_num | int | 人体数量检测 | 否 | 图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 |
+| person_ratio | float | 人像占比 | 否 | 在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 |
 
 ## <span id = "callBackSyncResponseParamaters">回调的同步返回参数</span>
 
