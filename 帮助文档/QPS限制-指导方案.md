@@ -10,7 +10,9 @@
 
 ​		[QPS限制说明](#QPS限制-指导方案-QPS限制说明) 
 
-​		 [集群限制](#QPS限制-指导方案-集群限制)
+​		 [集群限制](#QPS限制-指导方案-集群限制) 
+
+ [三、demo](#QPS限制-指导方案-三、demo) 
 
 ## 一、文档说明
 
@@ -48,4 +50,95 @@
 #### 集群限制
 
 介绍：除去公司限制以外，数美对各地区集群也做了相应限制 
-注意：一般来说集群QPS上限高，无需担心因集群QPS而导致组织公司QPS受影响。 
+注意：一般来说集群QPS上限高，无需担心因集群QPS而导致组织公司QPS受影响。
+
+ 
+
+##  三、demo
+
+```go
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"sync"
+	"time"
+)
+
+var (
+	MaxQPS = {MaxQPS}
+	AverageQPS = MaxQPS / 10
+)
+
+// 历史数据QPS限制demo，实时数据直接转发至数美由数美提供QPS限制
+// 一秒内均匀打进
+func main(){
+	// 文本服务url与必带参数
+	url := "http://api-text-bj.fengkongcloud.com/text/v4"
+	accessKey := "{ACCESS_KEY}"
+	text := "{TEXT}"
+	uid := "{UID}"
+
+	// 历史数据,此处只显示两条
+	payload01 := map[string]interface{}{
+		"accessKey": accessKey,
+		"appId":     "default",
+		"eventId":   "default",
+		"type":      "ALL",
+		"data": map[string]string{
+			"text":    text,
+			"tokenId": uid,
+		},
+	}
+	payload02 := map[string]interface{}{
+		"accessKey": accessKey,
+		"appId":     "default",
+		"eventId":   "default",
+		"type":      "ALL",
+		"data": map[string]string{
+			"text":    text,
+			"tokenId": uid,
+		},
+	}
+	contents := struct{
+		payloads []map[string]interface{}
+	}{}
+	contents.payloads = append(contents.payloads, payload01)
+	contents.payloads = append(contents.payloads, payload02)
+
+	var count int
+	wg := &sync.WaitGroup{}
+	ts := time.Now().UnixNano() / (1000 * 1000)
+	for i := 0;i < len(contents.payloads);i++ {
+		b,_ := json.Marshal(contents.payloads[i])
+		wg.Add(1)
+		go func(url string, data []byte,group *sync.WaitGroup) {
+			doPost(url,b)
+			group.Done()
+		}(url,b,wg)
+		count++
+		now := time.Now().UnixNano() / (1000 * 1000)
+		// 每发送 MaxQPS/10 等待100毫秒
+		if count>=AverageQPS{
+            count = 0
+			time.Sleep(time.Millisecond * 100)
+		}
+	}
+	wg.Wait()
+}
+
+func doPost(url string, content []byte){
+	resp, _ := http.Post(url,"application/json", bytes.NewBuffer(content))
+	var data map[string]interface{}
+	if resp != nil {
+		respBytes, _ := ioutil.ReadAll(resp.Body)
+		_ = json.Unmarshal(respBytes,&data)
+		fmt.Println(data)
+	}
+}
+```
+
