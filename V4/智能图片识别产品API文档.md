@@ -92,7 +92,7 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 一级业务标签与二级业务标签使用`-`进行拼接作为单个识别功能<br/>可选值：<br/>`BEAUTY-YANZHI`: 颜值识别<br/>`OBJECT-RENTI`：人体识别<br/>`FACE-NIANLING`：年龄识别<br/>如果需要多个识别功能，通过下划线`_`连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
@@ -232,6 +232,7 @@ auxInfo中，typeVersion的内容如下（待更新）：
 | riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
+| riskLevel | string | 处置建议 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | riskDescription | string | 风险原因 | 是 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 |  |
 | riskDetail | json_object | 风险详情 | 否 | |
@@ -256,7 +257,8 @@ allLabels每个成员的riskDetail结构如下：
 | businessLabel3 | string | 三级业务标签 | 否 | 三级业务标签 |
 | businessDescription | string | 业务标签描述 | 否 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
-| probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 否 | |
+| probability | float | 置信度 | 否 | 可选值在0～1之间，值越大，可信度越高 |
+| confidenceLevel | int | 置信等级 | 否 | 可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于gender时不返回 |
 
 businessLabels数组中的businessDetail的内容如下：
 
