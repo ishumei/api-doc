@@ -87,7 +87,7 @@
 | tokenProfileLabels | json_array   | 账号属性标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
 | tokenRiskLabels    | json_array   | 账号风险标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
 | deviceRiskLabels   | json_array   | 设备风险标签 | 否 | 见下面详情内容，仅在deviceId传入且服务开通时返回 |
-|phoneRiskLabels   | json_array   | 设备风险标签 | 否 | 见下面详情内容，仅在phone传入时返回（不需要开通） |
+|phoneRiskLabels   | json_array   | 手机号风险标签 | 否 | 见下面详情内容，仅在phone传入时返回（不需要开通） |
 
 其中
 
@@ -166,8 +166,6 @@ fake_device的详情内容如下：
 | other                         | json_object        | 其他虚假设备             |                                                              |
 | b_phone_emulator              | int                | 手机模拟器               | 手机上运行的安卓模拟器，如vmos，取值：`0`：非手机模拟器`1`：是手机模拟器 |
 | b_phone_emulator_last_ts      | int                | 手机模拟器时间           |                                                              |
-| b_alter_apps                  | int                | 安装篡改工具             | 设备安装篡改工具，如：应用变量，取值：`0`：设备没有安装篡改工具`1`：设备安装篡改工具 |
-| b_alter_apps_last_ts          | int                | 安装篡改工具时间         |                                                              |
 | b_alter_route                 | int                | 篡改地理位置             | 设备篡改gps位置，取值：`0`：设备没有篡改gps信息`1`：设备篡改gps信息 |
 | b_alter_route_last_ts         | int                | 篡改地理位置标签最后时间 | 13位时间戳                                                   |
 | b_alter_route_periods         | array              | 篡改地理位置行程时间段   | 取值为每次行程中检测到第一次到最后一次篡改 地理位置的时间段。示例：`b_alter_route_periods:[1616688431748- 1616688431749, 1616688431766- 1616688431799]` |
@@ -229,7 +227,10 @@ device_suspicious_labels的详情内容如下：
 | b_reset_last_ts               | int                | 疑似重置时间         |                                                              |
 | b_console | int | 开启调试模式 | 设备开启调试模式，取值：`0`:设备没有开启调试模式`1`:设备开启调试 |
 | b_console_last_ts | int | 开启调试模式时间 | |
-
+ b_alter_apps                  | int                | 安装篡改工具             | 设备安装篡改工具，如：应用变量，取值：`0`：设备没有安装篡改工具`1`：设备安装篡改工具 |
+| b_alter_apps_last_ts          | int                | 安装篡改工具时间         |                                                              |
+ b_game_cheat_apps                  | int                | 安装游戏外挂工具             | 设备安装游戏外挂工具，如：应用变量，取值：`0`：设备没有安装游戏外挂工具`1`：设备安装游戏外挂工具 |
+| b_game_cheat_apps_last_ts          | int                | 安装游戏外挂工具时间
  
 
 device_active_info的详情内容如下：
@@ -343,7 +344,8 @@ monkey_read的详情内容如下：
   "accessKey": "xxxxxxxxxxxxxxxxxxxxxxxxx",
   "data": {
     "tokenId": "ceshizhanghao",
-    "deviceId": "ceshideviceId"
+    "deviceId": "ceshideviceId",
+    "phone":"ceshiphone"
   }
 }
 ```
@@ -483,7 +485,11 @@ monkey_read的详情内容如下：
       "b_reset": 1,
       "b_reset_last_ts": 1587711321232，
       "b_console":1,
-      "b_console_last_ts":1587711321232
+      "b_console_last_ts":1587711321232,
+      "b_alter_apps":1,
+      "b_alter_apps_last_ts": 1587711321232,
+      "b_game_cheat_apps":1,
+      "b_game_cheat_apps_last_ts": 1587711321232
     },
     "device_active_info": {
       "i_smid_boot_timestamp": 1587711321232
@@ -550,7 +556,37 @@ monkey_read的详情内容如下：
         
       }
     }
-  ]
+  ],
+  "phoneRiskLabels": [
+    {
+      "description": "接码平台手机号:接码平台手机号:接码平台手机号",
+      "label1": "sms_platform_phone",
+      "label2": "sms_platform_phone",
+      "label3": "sms_platform_phone",
+      "timestamp": null
+    },
+    {
+      "description": "物联网卡手机号:物联网卡手机号:物联网卡手机号",
+      "label1": "iot_simcard_phone",
+      "label2": "iot_simcard_phone",
+      "label3": "iot_simcard_phone",
+      "timestamp": null
+    },
+    {
+      "description": "虚拟运营商手机号:虚拟运营商手机号:虚拟运营商手机号",
+      "label1": "mvno_simcard_phone",
+      "label2": "mvno_simcard_phone",
+      "label3": "mvno_simcard_phone",
+      "timestamp": null
+    },
+    {
+      "description": "黑产手机号:黑产手机号:黑产手机号",
+      "label1": "black_record_phone",
+      "label2": "black_record_phone",
+      "label3": "black_record_phone",
+      "timestamp": null
+    }
+  ],
 }
 ```
 
