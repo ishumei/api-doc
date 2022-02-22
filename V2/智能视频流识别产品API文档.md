@@ -133,7 +133,7 @@
 | demoSences | int | Y | 必传参数 | 录制类型可选值：<br>`2`:分流录制<br>`4`:合流录制 |
 | userId | string | Y | 必传参数 | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符 |
 | userSig | string | Y | 必传参数 | 录制userId对应的验证签名，相当于登录密码 |
-| roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId |
+| roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户|
 | strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
 
 <span id="uploadV2.requestParameters.data.zegoParam">其中，data.zegoParam内容如下：</span>
