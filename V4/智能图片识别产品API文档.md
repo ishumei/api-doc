@@ -69,10 +69,11 @@
 | 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
 
 ### <span id = "requestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "requestEncode">字符编码：</span>
 
@@ -100,9 +101,15 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
+<<<<<<< HEAD
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、短杠组成的长度小于等于64位的字符串 |
 | img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256,目前最低支持20\*20分辨率的图片,图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
+=======
+| tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式 |
+>>>>>>> 64ee5fbaba5a1bfc3458a6cedd4ccbe714707140
 | room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
@@ -443,7 +450,7 @@ businessLabels数组中的businessDetail的内容如下：
 
 ### <span id = "asyncRequestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "asyncRequestEncode">字符编码：</span>
 
@@ -533,10 +540,10 @@ businessLabels数组中的businessDetail的内容如下：
 | 上海 | `http://api-img-sh.fengkongcloud.com/images/v4` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/images/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/images/v4` | 图片 |
-
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/images/v4` | 图片 |
 ### <span id = "syncBatchRequestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "syncBatchRequestEncode">字符编码：</span>
 
@@ -584,8 +591,8 @@ businessLabels数组中的businessDetail的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img | string | 要检测的图片 | 必传参数 | 可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核**支持格式：`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
-| imgCompareBase | string | 要比对的图片 | 非必传参数 | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接支持格式：`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256,目前最低支持20\*20分辨率的图片,图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
+| img | string | 要检测的图片 | 必传参数 | 可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核**支持格式：`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| imgCompareBase | string | 要比对的图片 | 非必传参数 | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接支持格式：`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
 ## <span id = "syncBatchResponseParameters">同步批量返回参数</span>
@@ -1092,7 +1099,7 @@ businessLabels数组中的businessDetail的内容如下：
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，type传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
-| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | 
+| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 |
 
 # <span id = "demo">Demo</span>
 
