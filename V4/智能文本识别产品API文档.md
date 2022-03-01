@@ -237,7 +237,7 @@
 	"businessType":"MINOR",
     "data":
     {
-        "text":"我12岁了，你呢，我要去天安门看毛主席照片",
+        "text":"我12岁了，我就骂你了你是条狗",
         "tokenId":"4567898765jhgfdsa",
         "ip":"118.89.214.89",
         "deviceId":"*************",
@@ -259,148 +259,57 @@
 
 ```json
 {
-    "code":1100,
-    "message":"成功",
-    "requestId":"cfd98ce4510efd74e3a5182d2b752ee9",
-    "riskLevel":"REJECT",
-    "riskLabel1":"politics",
-    "riskLabel2":"shezheng",
-    "riskLabel3":"shezheng",
-    "riskDescription":"涉政:涉政:涉政",
-    "riskDetail":{
-
-    },
     "allLabels":[
-        {
-            "probability":1,
-            "riskDescription":"涉政:国内领导人:历任国级领导",
-            "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"guoneilingdaoren",
-            "riskLabel3":"lirenguojilingdao",
-            "riskLevel":"REJECT"
-        },
         {
             "probability":1,
             "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            12,
-                            13,
-                            14
-                        ],
-                        "segment":"天安门"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
+
             },
             "riskLabel1":"politics",
             "riskLabel2":"shezheng",
             "riskLabel3":"shezheng",
-            "riskLevel":"REJECT"
-        },
-        {
-            "probability":1,
-            "riskDescription":"涉政:核心领导:毛泽东",
-            "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛猪稀"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18,
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛猪西"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"猫主席"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"猫朱熹"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"hexinlingdao",
-            "riskLabel3":"maozedong",
-            "riskLevel":"REJECT"
+            "riskLevel":"REVIEW"
         }
     ],
     "auxInfo":{
-        "contactResult":[
-            {
-                "contactString":"你呢",
-                "contactType":3
-            }
-        ],
-        "filteredText":"我12岁了，你呢，我要去***看***照片"
+        "filteredText":"我12岁了，我就骂你了你是条狗"
     },
     "businessLabels":[
         {
             "businessDescription":"未成年人:未成年人:未成年人",
+            "businessDetail":{
+
+            },
             "businessLabel1":"minor",
             "businessLabel2":"minor",
             "businessLabel3":"clear",
-            "probability":1,
-            "businessDetail":{}
+            "probability":0.059478034380050004
         }
-    ]
+    ],
+    "code":1100,
+    "message":"成功",
+    "requestId":"8f4129c759b38fb6152f6f1e4ae0d077",
+    "riskDescription":"涉政:涉政:涉政",
+    "riskDetail":{
+        "matchedLists":[
+            {
+                "name":"测试zyk",
+                "words":[
+                    {
+                        "position":[
+                            1,
+                            2
+                        ],
+                        "word":"12"
+                    }
+                ]
+            }
+        ]
+    },
+    "riskLabel1":"politics",
+    "riskLabel2":"politics",
+    "riskLabel3":"politics",
+    "riskLevel":"REVIEW"
 }
 ```

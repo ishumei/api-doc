@@ -192,7 +192,7 @@
 	"businessType":"MINOR",
     "data":
     {
-        "text":"我12岁了，你呢，我要去天安门看毛主席照片",
+        "text":"我12岁了，我就骂你了你是条狗",
         "tokenId":"4567898765jhgfdsa",
         "channel":"text"
     }   
@@ -204,20 +204,22 @@
 ```json
 {
     "code":1100,
-    "message":"\u6210\u529f",
-    "requestId":"cfd98ce4510efd74e3a5182d2b752ee9",
+    "detail":"{\"contactResult\":[],\"contextProcessed\":false,\"contextText\":\"\u621112\u5c81\u4e86\uff0c\u6211\u5c31\u9a82\u4f60\u4e86\u4f60\u662f\u6761\u72d7\",\"description\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"descriptionV2\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"filteredText\":\"\u621112\u5c81\u4e86\uff0c\u6211\u5c31\u9a82\u4f60\u4e86\u4f60\u662f\u6761\u72d7\",\"matchedDetail\":\"[{\\\"listId\\\":\\\"e9d10f80db083704aa139c69411dd9a8\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d4b\u8bd5zyk\\\",\\\"organization\\\":\\\"RlokQwRlVjUrTUlkIqOg\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"1,2\\\",\\\"word\\\":\\\"12\\\"}],\\\"words\\\":[\\\"12\\\"]}]\",\"matchedItem\":\"12\",\"matchedList\":\"\u6d4b\u8bd5zyk\",\"model\":\"MA000001020001004\",\"riskType\":100,\"sexy_risk_tokenid\":0}",
+    "message":"成功",
+    "requestId":"88a2f414840a4b0ae1cf5bac74f1bca0",
+    "riskLevel":"REVIEW",
     "score":990,
-    "riskLevel":"REJECT",
-    "detail":"{\"contactResult\":[{\"contactString\":\"\u4f60\u5462\",\"contactType\":3}],\"contextProcessed\":false,\"contextText\":\"\u621112\u5c81\u4e86\uff0c\u4f60\u5462\uff0c\u6211\u8981\u53bb\u5929\u5b89\u95e8\u770b\u6bdb\u4e3b\u5e2d\u7167\u7247\",\"description\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"descriptionV2\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"filteredText\":\"\u621112\u5c81\u4e86\uff0c\u4f60\u5462\uff0c\u6211\u8981\u53bb***\u770b***\u7167\u7247\",\"hitPosition\":\"16,17,18\",\"matchedDetail\":\"[{\\\"listId\\\":\\\"9f58f988212b33abe0aecfdaaf9569b2\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d89\u653f_\u56fd\u5185\u9886\u5bfc\u4eba_\u5386\u4efb\u56fd\u7ea7\u9886\u5bfc\\\",\\\"organization\\\":\\\"GLOBAL\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"16,17,18\\\",\\\"word\\\":\\\"\u6bdb\u4e3b\u5e2d\\\"}],\\\"words\\\":[\\\"\u6bdb\u4e3b\u5e2d\\\"]},{\\\"listId\\\":\\\"ec0d2507492be935a37b014eb28adf48\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d89\u653f_\u6838\u5fc3\u9886\u5bfc_\u6bdb\u6cfd\u4e1c\u540c\u97f3\\\",\\\"organization\\\":\\\"GLOBAL\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"16,17,18\\\",\\\"word\\\":\\\"\u6bdb\u4e3b\u5e2d\\\"}],\\\"words\\\":[\\\"\u6bdb\u4e3b\u5e2d\\\"]},{\\\"listId\\\":\\\"e9d10f80db083704aa139c69411dd9a8\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d4b\u8bd5zyk\\\",\\\"organization\\\":\\\"RlokQwRlVjUrTUlkIqOg\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"1,2\\\",\\\"word\\\":\\\"12\\\"},{\\\"position\\\":\\\"2\\\",\\\"word\\\":\\\"2\\\"}],\\\"words\\\":[\\\"12\\\",\\\"2\\\"]},{\\\"listId\\\":\\\"70cecfffebf31c2ac2b612cc3b6af142\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d89\u653f\u8bcd\u5e933\\\",\\\"organization\\\":\\\"RlokQwRlVjUrTUlkIqOg\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"12,13,14\\\",\\\"word\\\":\\\"\u5929\u5b89\u95e8\\\"},{\\\"position\\\":\\\"16,17,18\\\",\\\"word\\\":\\\"\u6bdb\u4e3b\u5e2d\\\"}],\\\"words\\\":[\\\"\u5929\u5b89\u95e8\\\",\\\"\u6bdb\u4e3b\u5e2d\\\"]}]\",\"matchedItem\":\"\u6bdb\u4e3b\u5e2d\",\"matchedList\":\"\u6d89\u653f_\u56fd\u5185\u9886\u5bfc\u4eba_\u5386\u4efb\u56fd\u7ea7\u9886\u5bfc\",\"model\":\"MA000001020001003\",\"riskType\":100,\"sexy_risk_tokenid\":0}",
-	"status":0,
+    "status":0,
     "businessLabels":[
         {
             "businessDescription":"未成年人:未成年人:未成年人",
+            "businessDetail":{
+
+            },
             "businessLabel1":"minor",
             "businessLabel2":"minor",
             "businessLabel3":"clear",
-     		"probability":1,
-            "businessDetail":{}
+            "probability":0.059478034380050004
         }
     ]
 }
