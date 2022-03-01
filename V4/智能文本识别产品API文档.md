@@ -237,7 +237,7 @@
 	"businessType":"MINOR",
     "data":
     {
-        "text":"我12岁了，你呢，我要去天安门看毛主席照片",
+        "text":"加个好友吧 qq12345",
         "tokenId":"4567898765jhgfdsa",
         "ip":"118.89.214.89",
         "deviceId":"*************",
@@ -259,148 +259,63 @@
 
 ```json
 {
-    "code":1100,
-    "message":"成功",
-    "requestId":"cfd98ce4510efd74e3a5182d2b752ee9",
-    "riskLevel":"REJECT",
-    "riskLabel1":"politics",
-    "riskLabel2":"shezheng",
-    "riskLabel3":"shezheng",
-    "riskDescription":"涉政:涉政:涉政",
-    "riskDetail":{
-
-    },
     "allLabels":[
-        {
-            "probability":1,
-            "riskDescription":"涉政:国内领导人:历任国级领导",
-            "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"guoneilingdaoren",
-            "riskLabel3":"lirenguojilingdao",
-            "riskLevel":"REJECT"
-        },
         {
             "probability":1,
             "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            12,
-                            13,
-                            14
-                        ],
-                        "segment":"天安门"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
+
             },
             "riskLabel1":"politics",
             "riskLabel2":"shezheng",
             "riskLabel3":"shezheng",
+            "riskLevel":"REVIEW"
+        },
+        {
+            "probability":0.95559550232975,
+            "riskDescription":"广告:加好友:加好友",
+            "riskDetail":{
+
+            },
+            "riskLabel1":"ad",
+            "riskLabel2":"jiahaoyou",
+            "riskLabel3":"jiahaoyou",
             "riskLevel":"REJECT"
         },
         {
             "probability":1,
-            "riskDescription":"涉政:核心领导:毛泽东",
+            "riskDescription":"广告:联系方式:联系方式",
             "riskDetail":{
-                "riskSegments":[
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛猪稀"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18,
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛猪西"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"猫主席"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"猫朱熹"
-                    },
-                    {
-                        "position":[
-                            16,
-                            17,
-                            18
-                        ],
-                        "segment":"毛主席"
-                    }
-                ]
+
             },
-            "riskLabel1":"politics",
-            "riskLabel2":"hexinlingdao",
-            "riskLabel3":"maozedong",
+            "riskLabel1":"ad",
+            "riskLabel2":"lianxifangshi",
+            "riskLabel3":"lianxifangshi",
             "riskLevel":"REJECT"
         }
     ],
     "auxInfo":{
         "contactResult":[
             {
-                "contactString":"你呢",
-                "contactType":3
+                "contactString":"qq12345",
+                "contactType":2
             }
         ],
-        "filteredText":"我12岁了，你呢，我要去***看***照片"
+        "filteredText":"加个好友吧 qq12345"
     },
     "businessLabels":[
-        {
-            "businessDescription":"未成年人:未成年人:未成年人",
-            "businessLabel1":"minor",
-            "businessLabel2":"minor",
-            "businessLabel3":"clear",
-            "probability":1,
-            "businessDetail":{}
-        }
-    ]
+
+    ],
+    "code":1100,
+    "message":"成功",
+    "requestId":"bb917ec5fa11fd02d226fb384968feb1",
+    "riskDescription":"广告:联系方式:联系方式",
+    "riskDetail":{
+
+    },
+    "riskLabel1":"ad",
+    "riskLabel2":"lianxifangshi",
+    "riskLabel3":"lianxifangshi",
+    "riskLevel":"REJECT"
 }
 ```
