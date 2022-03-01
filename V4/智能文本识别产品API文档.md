@@ -237,7 +237,7 @@
 	"businessType":"MINOR",
     "data":
     {
-        "text":"我12岁了，我就骂你了你是条狗",
+        "text":"加个好友吧 qq12345",
         "tokenId":"4567898765jhgfdsa",
         "ip":"118.89.214.89",
         "deviceId":"*************",
@@ -270,46 +270,52 @@
             "riskLabel2":"shezheng",
             "riskLabel3":"shezheng",
             "riskLevel":"REVIEW"
+        },
+        {
+            "probability":0.95559550232975,
+            "riskDescription":"广告:加好友:加好友",
+            "riskDetail":{
+
+            },
+            "riskLabel1":"ad",
+            "riskLabel2":"jiahaoyou",
+            "riskLabel3":"jiahaoyou",
+            "riskLevel":"REJECT"
+        },
+        {
+            "probability":1,
+            "riskDescription":"广告:联系方式:联系方式",
+            "riskDetail":{
+
+            },
+            "riskLabel1":"ad",
+            "riskLabel2":"lianxifangshi",
+            "riskLabel3":"lianxifangshi",
+            "riskLevel":"REJECT"
         }
     ],
     "auxInfo":{
-        "filteredText":"我12岁了，我就骂你了你是条狗"
+        "contactResult":[
+            {
+                "contactString":"qq12345",
+                "contactType":2
+            }
+        ],
+        "filteredText":"加个好友吧 qq12345"
     },
     "businessLabels":[
-        {
-            "businessDescription":"未成年人:未成年人:未成年人",
-            "businessDetail":{
 
-            },
-            "businessLabel1":"minor",
-            "businessLabel2":"minor",
-            "businessLabel3":"clear",
-            "probability":0.059478034380050004
-        }
     ],
     "code":1100,
     "message":"成功",
-    "requestId":"8f4129c759b38fb6152f6f1e4ae0d077",
-    "riskDescription":"涉政:涉政:涉政",
+    "requestId":"bb917ec5fa11fd02d226fb384968feb1",
+    "riskDescription":"广告:联系方式:联系方式",
     "riskDetail":{
-        "matchedLists":[
-            {
-                "name":"测试zyk",
-                "words":[
-                    {
-                        "position":[
-                            1,
-                            2
-                        ],
-                        "word":"12"
-                    }
-                ]
-            }
-        ]
+
     },
-    "riskLabel1":"politics",
-    "riskLabel2":"politics",
-    "riskLabel3":"politics",
-    "riskLevel":"REVIEW"
+    "riskLabel1":"ad",
+    "riskLabel2":"lianxifangshi",
+    "riskLabel3":"lianxifangshi",
+    "riskLevel":"REJECT"
 }
 ```

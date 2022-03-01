@@ -192,7 +192,7 @@
 	"businessType":"MINOR",
     "data":
     {
-        "text":"我12岁了，我就骂你了你是条狗",
+        "text":"加个好友吧 qq12345",
         "tokenId":"4567898765jhgfdsa",
         "channel":"text"
     }   
@@ -203,24 +203,15 @@
 
 ```json
 {
-    "code":1100,
-    "detail":"{\"contactResult\":[],\"contextProcessed\":false,\"contextText\":\"\u621112\u5c81\u4e86\uff0c\u6211\u5c31\u9a82\u4f60\u4e86\u4f60\u662f\u6761\u72d7\",\"description\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"descriptionV2\":\"\u6d89\u653f\uff1a\u6d89\u653f\uff1a\u6d89\u653f\",\"filteredText\":\"\u621112\u5c81\u4e86\uff0c\u6211\u5c31\u9a82\u4f60\u4e86\u4f60\u662f\u6761\u72d7\",\"matchedDetail\":\"[{\\\"listId\\\":\\\"e9d10f80db083704aa139c69411dd9a8\\\",\\\"matchedFiled\\\":[\\\"text\\\"],\\\"name\\\":\\\"\u6d4b\u8bd5zyk\\\",\\\"organization\\\":\\\"RlokQwRlVjUrTUlkIqOg\\\",\\\"wordPositions\\\":[{\\\"position\\\":\\\"1,2\\\",\\\"word\\\":\\\"12\\\"}],\\\"words\\\":[\\\"12\\\"]}]\",\"matchedItem\":\"12\",\"matchedList\":\"\u6d4b\u8bd5zyk\",\"model\":\"MA000001020001004\",\"riskType\":100,\"sexy_risk_tokenid\":0}",
-    "message":"成功",
-    "requestId":"88a2f414840a4b0ae1cf5bac74f1bca0",
-    "riskLevel":"REVIEW",
-    "score":990,
-    "status":0,
     "businessLabels":[
-        {
-            "businessDescription":"未成年人:未成年人:未成年人",
-            "businessDetail":{
 
-            },
-            "businessLabel1":"minor",
-            "businessLabel2":"minor",
-            "businessLabel3":"clear",
-            "probability":0.059478034380050004
-        }
-    ]
+    ],
+    "code":1100,
+    "detail":"{"contactResult":[{"contactString":"qq12345","contactType":2}],"contextProcessed":false,"contextText":"加个好友吧 qq12345","description":"广告：联系方式：联系方式","descriptionV2":"广告：联系方式：联系方式","filteredText":"加个好友吧 qq12345","matchedDetail":"[{\"listId\":\"e9d10f80db083704aa139c69411dd9a8\",\"matchedFiled\":[\"text\"],\"name\":\"测试zyk\",\"organization\":\"RlokQwRlVjUrTUlkIqOg\",\"wordPositions\":[{\"position\":\"8,9,10,11,12\",\"word\":\"12345\"},{\"position\":\"8,9,10\",\"word\":\"123\"},{\"position\":\"8,9,10,11\",\"word\":\"1234\"},{\"position\":\"10,11,12\",\"word\":\"345\"},{\"position\":\"9,10\",\"word\":\"23\"},{\"position\":\"8,9\",\"word\":\"12\"},{\"position\":\"9,10,11,12\",\"word\":\"2345\"},{\"position\":\"9,10,11\",\"word\":\"234\"},{\"position\":\"10,11\",\"word\":\"34\"},{\"position\":\"11,12\",\"word\":\"45\"}],\"words\":[\"12345\",\"123\",\"1234\",\"345\",\"23\",\"12\",\"2345\",\"234\",\"34\",\"45\"]}]","matchedItem":"12345,123,1234,345,23,12,2345,234,34,45","matchedList":"测试zyk","model":"MA000007015016003","riskType":300,"sexy_risk_tokenid":0,"tokenScore":4050}",
+    "message":"成功",
+    "requestId":"376c6607be790d70dc1cd40c61280ea0",
+    "riskLevel":"REJECT",
+    "score":650,
+    "status":0
 }
 ```
