@@ -5,46 +5,54 @@
 
 - - - - - 
 
-* [接入前准备](#syncSingleInterface)
-  + [数美服务账号申请](#requestParameter)
-  + [渠道配置表](#requestParameter)
-  + [数美服务账号信息接收](#requestParameter)  
-* [图片单张接口](#syncSingleInterface)
-    + [同步请求参数](#requestParameter)
-        - [请求URL](#requestUrl)
+* [接入前准备](#beforeAction)
+  + [数美服务账号申请](#accountOpenning)
+  + [渠道配置表](#channelConfig)
+  + [数美服务账号信息接收](#accountMessage)  
+* [智能图片过滤服务单张接口接入说明](#syncSingleInterface)
+    + [同步单条请求参数](#syncSingleRequestParameter)
+        - [请求URL](#syncSingleRequestUrl)
         - [字符编码格式](#requestEncode)
         - [请求方法](#requestMethod)
         - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [同步返回结果](#syncResponseParameters)
-    + [回调的同步返回结果](#callbackResponseParameters)
+        - [请求参数](#syncSingleRequestParameters)
+    + [同步返回结果](#syncSingleResponseParameters)
+    + [回调的同步返回结果](#syncSingleCallBackResponseParamaters)
+    + [回调请求参数](#callbackSingleParameter)
     + [同步单条示例](#syncExample)
         - [同步请求示例](#syncRequestExample)
         - [同步返回示例](#syncResponseExample)
-    + [回调的同步返回参数](#callBackSyncResponseExample)
-* [图片批量接口](#syncBatchInterface)
-    + [同步批量请求参数](#syncBatchRequestParameter)
+        - [回调请求示例](#syncCallbackRequestExample)
+        - [接口返回示例](#syncCallbackParametersExample)
+        - [回调请求示例](#syncCallBackResponseExample)
+* [智能图片过滤服务批量接口说明](#syncBatchInterface)
+    + [同步批量请求参数](#asyncBatchRequestParameter)
         - [请求URL](#syncBatchRequestUrl)
         - [字符编码格式](#syncBatchRequestEncode)
         - [请求方法](#syncBatchRequestMethod)
         - [建议超时时长](#syncBatchRequestTimeout)
         - [请求参数](#syncBatchRequestParameters)
-    + [同步批量返回结果](#syncBatchResponseParameters)
-    + [同步批量回调返回参数](#syncBatchCallBackResponseParameters)
-* [图片纠错接口](#asyncBatchInterface)
-    + [纠错请求参数](#asyncBatchRequestParameter)
-        - [请求URL](#asyncBatchRequestUrl)
-        - [字符编码格式](#asyncBatchRequestEncode)
-        - [请求方法](#asyncBatchRequestMethod)
-        - [建议超时时长](#asyncBatchRequestTimeout)
-        - [请求参数](#asyncBatchRequestParameters)
-    + [返回结果](#asyncBatchResponseParameters)
-        - [返回示例](#asyncBatchResponseExample)
+    + [批量返回结果](#syncBatchResponseParameters)
+    + [批量接口回调请求参数](#syncBatchCallBackResponseParameters)
+    + [批量请求示例](#syncBatchExample)
+        - [同步批量接口请求示例](#syncBatchRequestExample)
+        - [同步批量接口返回示例](#syncBatchResponseExample)
+        - [异步批量接口请求示例](#asyncBatchRequestExample)
+        - [接口返回示例](#asyncBatchResponseExample)
+* [图片纠错接口](#errorCheckInterface)
+    + [纠错请求参数](#errorCheckRequestParameter)
+        - [请求URL](#errorCheckRequestUrl)
+        - [字符编码格式](#errorCheckRequestEncode)
+        - [请求方法](#errorCheckRequestMethod)
+        - [建议超时时长](#errorCheckRequestTimeout)
+        - [请求参数](#errorCheckRequestParameters)
+    + [返回结果](#errorCheckResponseParameters)
+        - [返回示例](#errorCheckResponseExample)
 * [FAQ](#queryInterface)
 
-# <span id = "syncSingleInterface">接入前准备</span>
+# <span id = "beforeAction">接入前准备</span>
 
-### <span id = "requestParameter">数美服务账号申请</span>
+### <span id = "accountOpenning">数美服务账号申请</span>
 客户经理已提前与贵公司建立联系或当面拜访，可直接将开通账号及服务相关信息提供至客户经理。
 开通账号所需信息包括：
 
@@ -55,7 +63,7 @@
 | 接口人邮箱 | xxxx | 
 | 接口人手机 | xxxx | 
 
-### <span id = "requestParameter">渠道配置表</span>
+### <span id = "channelConfig">渠道配置表</span>
 数美根据客户不同业务场景，配置不同的渠道（channel），制定针对性的拦截策略，同时也方便客户针对不同业务场景的数据进行筛选、分析。业务场景和渠道取值对应表如下（支持客户自定义）：
 
 | 业务场景 | channel取值 | 备注 |
@@ -71,7 +79,7 @@
 | 私聊图片 | MESSAGE | 私聊里面的图片消息 |
 | 离线测试 | OFFLINE_TEST | 关闭了画像和行为相关策略，离线测试专用 |
 
-### <span id = "requestParameter">数美服务账号信息接收</span>
+### <span id = "accountMessage">数美服务账号信息接收</span>
 数美客户经理会在1个工作日内为您开通相应数美账号及服务，随后接口人邮箱会收到如下信息：
 
 | 名称 | 具体值 | 说明 |
@@ -84,9 +92,9 @@
 
 # <span id = "syncSingleInterface">智能图片过滤服务单张接口接入说明</span>
 
-## <span id = "requestParameter">同步单条请求</span>
+## <span id = "syncSingleRequestParameter">同步单条请求</span>
 
-### <span id = "requestUrl">请求URL：</span>
+### <span id = "syncSingleRequestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
@@ -108,7 +116,7 @@
 
 5s
 
-### <span id = "requestParameters">请求参数：</span>
+### <span id = "syncSingleRequestParameters">请求参数：</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -152,7 +160,7 @@
 | isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
 | passThrough | json_object | 透传参数 | 非必传参数 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
 
-## <span id = "syncResponseParameters">同步返回结果</span>
+## <span id = "syncSingleResponseParameters">同步返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -279,7 +287,7 @@
 | 自定义 | 900 |
 
 
-## <span id = "callBackSyncResponseParamaters">回调的同步返回参数</span>
+## <span id = "syncSingleCallBackResponseParamaters">回调的同步返回参数</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -367,7 +375,7 @@
   "status":0
 }
 ```
-### <span id = "callBackSyncRequestExample">回调请求参数</span>
+### <span id = "syncCallbackRequestExample">回调请求参数</span>
 ```json
 {
   "accessKey":"yourkey",
@@ -381,7 +389,7 @@
 }
 ```
 
-### <span id = "callBackSyncResponseExample">接口返回参数</span>
+### <span id = "syncCallbackParametersExample">接口返回参数</span>
 ```json
 {
   "code":1100,
@@ -392,7 +400,7 @@
 }
 ```
 当用户的服务端收到推送结果，并返回HTTP状态码为200时，表示推送成功，否则系统将进行重试推送（直至达到重试次数上限）
-### <span id = "callBackSyncResponseExample">回调请求示例</span>
+### <span id = "syncCallBackResponseExample">回调请求示例</span>
 ```json
 {
     "checksum":"236f8eea85c3c4407d96ff05d6108389b3b0cea8aa80bdf6642c1cecc77b2bde",
@@ -425,9 +433,9 @@
 }
 ```
 
-# <span id = "asyncSingleInterface">智能图片过滤服务批量接口说明</span>
+# <span id = "syncBatchInterface">智能图片过滤服务批量接口说明</span>
 
-## <span id = "asyncRequestParameter">同步批量请求</span>
+## <span id = "syncBatchRequestParameter">同步批量请求</span>
 
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
@@ -439,19 +447,19 @@
 | 印度 | `http://api-img-yd.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com//v2/saas/anti_fraud/imgs` | 图片 |
 
-### <span id = "asyncRequestMethod">请求方法：</span>
+### <span id = "syncRequestMethod">请求方法：</span>
 
 `POST` 
 
-### <span id = "asyncRequestEncode">字符编码：</span>
+### <span id = "syncRequestEncode">字符编码：</span>
 
 `UTF-8`
 
-### <span id = "asyncRequestTimeout">建议超时时间：</span>
+### <span id = "syncRequestTimeout">建议超时时间：</span>
 
 60s
 
-### <span id = "asyncRequestParameters">请求参数：</span>
+### <span id = "syncBatchRequestParameters">请求参数：</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -498,7 +506,7 @@
 
 
 
-## <span id = "asyncResponseParameters">返回结果</span>
+## <span id = "syncBatchResponseParameters">同步返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -523,16 +531,16 @@
 | code | int | 返回码 | 是 | [详见code与message对应关系](#code-message) |
 | message | string | 返回码详情描述 | 是 | 返回码详情描述 |
 
-## <span id = "syncRequestParameter">批量接口回调请求参数</span>
+## <span id = "syncBatchCallbackRequestParameter">批量接口回调请求参数</span>
 **对于批量接口，系统为每张图片执行一次推送任务，每次推送机制及参数要求与上述单个图片回调请求一致。**
 
-## <span id = "asyncExample">批量请求示例</span>
-### <span id = "asyncRequestExample">同步批量接口请求示例</span>
+## <span id = "syncBatchExample">批量请求示例</span>
+### <span id = "syncBatchRequestExample">同步批量接口请求示例</span>
 ```
 curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","data":{"imgs":[{"img":"xxxx","btId":"xxxx"}],"tokenId":"username"}}' 'http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/imgs'
 ```
 
-### <span id = "asyncResponseExample">同步批量接口返回示例</span>
+### <span id = "syncBatchResponseExample">同步批量接口返回示例</span>
 ```json
 {
   "code":1100,
@@ -577,12 +585,12 @@ curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","data":{"imgs":[
 }
 ```
 
-### <span id = "asyncRequestExample">异步回调批量请求示例</span>
+### <span id = "asyncBatchRequestExample">异步回调批量请求示例</span>
 ```
 curl –d '{"accessKey":"xxxxx","type":"XX","callback":"http://xxx","data":{"imgs":[{"img":"xxxx","btId":"xxxx"}],"tokenId":"username"}}' 'http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/imgs'
 ```
 
-### <span id = "asyncResponseExample">接口返回示例</span>
+### <span id = "asyncBatchResponseExample">接口返回示例</span>
 ```json
 {
     "code":1100,
@@ -595,29 +603,29 @@ curl –d '{"accessKey":"xxxxx","type":"XX","callback":"http://xxx","data":{"img
     ]
 }
 ```
-### <span id = "asyncResponseExample">回调数据示例</span>
+### <span id = "asyncBatchResponseExample">回调数据示例</span>
 同单张接口的返回数据格式一致
 
 
-# <span id = "syncBatchInterface">智能图片过滤纠错接口</span>
+# <span id = "errorCheckInterface">智能图片过滤纠错接口</span>
 客户使用数美服务时发现结果有误，可以通过此接口给数美反馈错误信息
 
-### <span id = "syncBatchRequestUrl">请求URL：</span>
+### <span id = "errorCheckRequestUrl">请求URL：</span>
 https://webapi.fengkongcloud.com/saas/feedback/add/v1
 
-### <span id = "syncBatchRequestMethod">请求方法：</span>
+### <span id = "errorCheckRequestMethod">请求方法：</span>
 
 `POST` 
 
-### <span id = "syncBatchRequestEncode">字符编码：</span>
+### <span id = "errorCheckRequestEncode">字符编码：</span>
 
 `UTF-8`
 
-### <span id = "syncBatchRequestTimeout">建议超时时间：</span>
+### <span id = "errorCheckhRequestTimeout">建议超时时间：</span>
 
 1s
 
-### <span id = "syncBatchRequestParameters">请求参数：</span>
+### <span id = "errorCheckRequestParameters">请求参数：</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -660,7 +668,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | profileRes | boolean | 画像反馈结果 | 是 | |
 
 
-### <span id = "asyncBatchResponseExample">接口请求示例</span>
+### <span id = "errorCheckResponseExample">接口请求示例</span>
 ```json
 {
   "accessKey":"xxxx",
@@ -674,7 +682,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 }
 
 ```
-### <span id = "asyncBatchResponseExample">接口响应示例</span>
+### <span id = "errorCheckResponseExample">接口响应示例</span>
 ```json
 {
   "code": 1100,
