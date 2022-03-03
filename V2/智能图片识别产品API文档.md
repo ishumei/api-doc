@@ -99,7 +99,6 @@
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
-| 广州 | `http://api-img-gz.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/v2/saas/anti_fraud/img` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com//v2/saas/anti_fraud/img` | 图片 |
@@ -442,7 +441,6 @@
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
-| 广州 | `http://api-img-gz.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/v2/saas/anti_fraud/imgs` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com//v2/saas/anti_fraud/imgs` | 图片 |
