@@ -144,7 +144,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | listId         | string       |              | Y            | 返回码                                                       |
-| matchedField   | string_array |              | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值：<br/>text：文本命中敏感词<br/>nickname：昵称命中敏感词 |
+| matchedFiled | string_array |              | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值：<br/>text：文本命中敏感词<br/>nickname：昵称命中敏感词 |
 | name           | string       |              | Y            | 命中敏感词所在的名单名称                                     |
 | organization   | string       |              | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
