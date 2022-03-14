@@ -87,10 +87,10 @@
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供，数美分配 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
 | btId | string | 视频唯一标识 | 必传参数 | 视频唯一标识，用于查询识别结果，最长64位 |
-| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br>`PERSON`涉政人物识别<br>`VIOLENCE`：暴恐识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`OCR`：图片中的文字风险识别<br>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br>可选值：<br>`POLITICS`：涉政识别<br>`PORN`：色情识别<br>`AD`：广告识别<br>`MOAN`：娇喘识别<br>`ABUSE`：辱骂识别<br>`ANTHEN`：国歌识别<br>`NONE`:不检测音频<br>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br>可选值：<br>`SCREEN`：特殊画面识别<br>`SCENCE`：场景画面识别<br>`QR`：二维码识别<br>`FACE`：人脸识别<br>`QUALITY`：图像质量识别<br>`MINOR`：未成年人识别<br>`LOGO`：商企LOGO识别<br>`BEAUTY`：颜值识别<br>`FACECOMPARE`：人脸比对<br>`OBJECT`：物品识别<br>`STAR`：公众人物识别<br>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br>可选值：<br>`SING`：唱歌识别<br>`LANGUAGE`：语种识别<br>`MINOR`：未成年人识别<br>`GENDER`：性别识别<br>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
+| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：图片中的文字风险识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
+| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
+| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | callbackParam | json_object | 回调透传字段 | 非必传参数 |  |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV2.requestParams.data) |
@@ -167,10 +167,9 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | checksum | string | 由accessKey + btId + result拼成字符串，通过SHA256算法生成。为防止篡改，可以按此算法生成字符串，与checksum做一次校验。 | 是 |  |
-| result | string | 机器审核结果 | 是 | 详见[result字段](#callbackV2.result)|
+| result | string | 机器审核结果 | 是 | 详见[result字段说明](#callbackV2.result) |
 
-
-### <span id = "callbackV2.result">result可反序列化为json结构，内容如下：</span>：
+<span id="callbackV2.result">result可反序列化为json结构，内容如下</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -178,7 +177,7 @@
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
-| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br>`PASS`：正常内容，建议直接放行<br>`REVIEW`：可疑内容，建议人工审核<br>`REJECT`：违规内容，建议直接拦截 |
+| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | labels | string | 风险标签（code为1100时存在）| 否|  |
 | detail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[detail说明](#callbackV2.callbackParameters.frameDetail) |
 | addition | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[addition说明](#callbackV2.callbackParameters.audioDetail)|
@@ -200,13 +199,13 @@
 | --- | --- | --- | --- | --- |
 | requestId | string | 截帧片段的requestId | 是 |  |
 | time | float | 截帧在视频文件中的时间，单位为秒 | 是 | 截帧图片相对视频文件的时间 |
-| similarity | float | 返回当前截帧图片和上一帧截帧图片的相似度 | 是 |注意：有图片则该字段就会返回，<br>视频文件初始第一帧将比对纯黑背景图片 |
+| similarity | float | 返回当前截帧图片和上一帧截帧图片的相似度 | 是 |注意：有图片则该字段就会返回，<br/>视频文件初始第一帧将比对纯黑背景图片 |
 | imgUrl | string | 当前截帧的URL | 是 | |
-| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
-| qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br>可以正常识别到的二维码才会返回<br>（imgType传值需要包含AD） |
-| riskType | int | 截帧图片风险类型 | 否 | 可能取值：<br>正常：0 <br>涉政：100 <br>色情：200 <br>性感：210 <br>广告：300 <br>二维码：310 <br>水印：320 <br>暴恐：400 <br>违规：500 <br>不良场景：510 <br>未成年人：520 <br>黑名单：700|
-| riskSource | int | 风险来源 | 否 | 可能取值：<br>1000：无风险<br> 1001：文字风险 <br> 1002：视觉图片风险 <br>1003：音频语音风险 |
+| qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br/>可以正常识别到的二维码才会返回<br/>（imgType传值需要包含AD） |
+| riskType | int | 截帧图片风险类型 | 否 | 标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int | 风险来源 | 否 | 风险来源，可能取值：<br/>1000：无风险<br/>1001：文字风险 <br/>1002：视觉图片风险 <br/>1003：音频语音风险 |
 | description | string | 风险原因 | 是 | |
 | matchedItem | string | 图片文字命中的违规敏感词 | 否 |  |
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
@@ -223,12 +222,13 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability         | float    | 置信度       | 是           | 可选值为0~1，值越大，可信度越高 |
 
 <span id = "callbackV2.callbackParameters.addition">其中，音频片段addition中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| audio_evidence | json_array | 音频片段详情数组 | 否 | 当请求参数retallAudio传值为1时<br>数组中将包含正常内容片段的相关详情，否则只返回非PASS的片段的相关详情，详见[audio_evidence说明](#callbackV2.callbackParameters.audioEvidence) |
+| audio_evidence | json_array | 音频片段详情数组 | 否 | 当请求参数retallAudio传值为1时<br/>数组中将包含正常内容片段的相关详情，否则只返回非PASS的片段的相关详情，详见[audio_evidence说明](#callbackV2.callbackParameters.audioEvidence) |
 | subtitleDetail | json_array | 视频字幕存在时返回 | 否 | 视频字幕 |
 | videoCoverDetail | json_array | 视频封面存在时返回 | 否 | 视频封面 |
 
@@ -244,10 +244,10 @@
 | audio_matchedItem | string | 违规音频敏感词内容 | 否 | |
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
-| riskLevel | string | 处置建议 | 是 | 取值范围：<br>PASS：正常 <br>REVIEW：审核 <br>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>00：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
-| riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br>1000：无风险 <br>1001：文字 <br>1002：视觉图片 <br>1003：音频语音 |
-| isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br>0:表示没有唱歌，<br>1:表示唱歌。<br>仅当type传入值包含SING时返回。 |
+| riskLevel | string | 处置建议 | 是 | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝|
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br/>1000：无风险 <br/>1001：文字 <br/>1002：视觉图片 <br/>1003：音频语音 |
+| isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br/>0:表示没有唱歌，<br/>1:表示唱歌。<br/>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.language) |
 | businessLabels | json_array | 识别出的业务标签 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.businessLabels) |
 
@@ -255,7 +255,7 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br>0:普通话<br>1:英语<br>2:粤语 |
+| label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
 <span id="callbackV2.callbackParameters.audioDetail.businessLabels">audio_evidence中，businessLabels数组的每个成员的内容如下：</span>
@@ -266,6 +266,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
@@ -333,7 +334,7 @@
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
-| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br>`PASS`：正常内容，建议直接放行<br>`REVIEW`：可疑内容，建议人工审核<br>`REJECT`：违规内容，建议直接拦截 |
+| riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | labels | string | 风险标签（code为1100时存在）| 否|  |
 | detail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[detail说明](#callbackV2.callbackParameters.query..frameDetail) |
 | addition | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[addition说明](#callbackV2.callbackParameters.query.audioDetail)|
@@ -346,13 +347,13 @@
 | --- | --- | --- | --- | --- |
 | requestId | string | 截帧片段的requestId | 是 |  |
 | time | float | 截帧在视频文件中的时间，单位为秒 | 是 | 截帧图片相对视频文件的时间 |
-| similarity | float | 返回当前截帧图片和上一帧截帧图片的相似度 | 是 |注意：有图片则该字段就会返回，<br>视频文件初始第一帧将比对纯黑背景图片 |
+| similarity | float | 返回当前截帧图片和上一帧截帧图片的相似度 | 是 |注意：有图片则该字段就会返回，<br/>视频文件初始第一帧将比对纯黑背景图片 |
 | imgUrl | string | 当前截帧的URL | 是 | |
-| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br>`REVIEW`：可疑内容<br>`REJECT`：违规内容 |
+| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
-| qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br>可以正常识别到的二维码才会返回<br>（imgType传值需要包含AD） |
-| riskType | int | 截帧图片风险类型 | 否 | 可能取值：<br>正常：0 <br>涉政：100 <br>色情：200 <br>性感：210 <br>广告：300 <br>二维码：310 <br>水印：320 <br>暴恐：400 <br>违规：500 <br>不良场景：510 <br>未成年人：520 <br>黑名单：700|
-| riskSource | int | 风险来源 | 否 | 可能取值：<br>1000：无风险<br> 1001：文字风险 <br> 1002：视觉图片风险 <br>1003：音频语音风险 |
+| qrContent | string | 截帧图片二维码链接识别，如有需要可联系数美开启| 否 | 注意：开启该功能后，只有完整，<br/>可以正常识别到的二维码才会返回<br/>（imgType传值需要包含AD） |
+| riskType | int | 截帧图片风险类型 | 否 | 标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int | 风险来源 | 否 | 风险来源，可能取值：<br/>1000：无风险<br/>1001：文字风险 <br/>1002：视觉图片风险 <br/>1003：音频语音风险 |
 | description | string | 风险原因 | 是 | |
 | matchedItem | string | 图片文字命中的违规敏感词 | 否 |  |
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
@@ -370,12 +371,13 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id = "callbackV2.callbackParameters.query.audioDetail">其中，音频片段addition中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| audio_evidence | json_array | 音频片段详情数组 | 否 | 当请求参数retallAudio传值为1时<br>数组中将包含正常内容片段的相关详情，否则只返回非PASS的片段的相关详情，详见[audio_evidence说明](#callbackV2.callbackParameters.query.audioEvidence) |
+| audio_evidence | json_array | 音频片段详情数组 | 否 | 当请求参数retallAudio传值为1时<br/>数组中将包含正常内容片段的相关详情，否则只返回非PASS的片段的相关详情，详见[audio_evidence说明](#callbackV2.callbackParameters.query.audioEvidence) |
 | subtitleDetail | json_array | 视频字幕存在时返回 | 否 | 视频字幕 |
 | videoCoverDetail | json_array | 视频封面存在时返回 | 否 |视频封面  |
 
@@ -391,18 +393,18 @@
 | audio_matchedItem | string | 违规音频敏感词内容 | 否 | |
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
-| riskLevel | string | 处置建议 | 是 | 取值范围：<br>PASS：正常 <br>REVIEW：审核 <br>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 可能取值：<br>0：正常<br>100：涉政<br>110: 暴恐<br>200：色情<br>210：辱骂<br>250：娇喘<br>300：广告<br>400：灌水<br>00：无意义<br>600 : 违禁<br>700：其他<br>720：黑账号<br>730：黑IP<br>800：高危账号<br>900：自定义 |
-| riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br>1000：无风险 <br>1001：文字 <br>1002：视觉图片 <br>1003：音频语音 |
-| isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br>0:表示没有唱歌，<br>1:表示唱歌。<br>仅当type传入值包含SING时返回。 |
+| riskLevel | string | 处置建议 | 是 | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝|
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
+| riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br/>1000：无风险 <br/>1001：文字 <br/>1002：视觉图片 <br/>1003：音频语音 |
+| isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br/>0:表示没有唱歌，<br/>1:表示唱歌。<br/>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.query.language) |
-| businessLabels | json_array | 识别出的业务标签 | 否 | 详见[audio_evidence说明](#callbackV2.callbackParameters.audioDetail.query.businessLabels) |
+| businessLabels | json_array | 识别出的业务标签 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.query.businessLabels) |
 
 <span id="callbackV2.callbackParameters.audioDetail.query.language">音频的audio_evidence中，language数组中每一项具体参数如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br>0:普通话<br>1:英语<br>2:粤语 |
+| label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
 <span id="callbackV2.callbackParameters.audioDetail.query.businessLabels">audio_evidence中，businessLabels数组的每个成员的内容如下：</span>
@@ -413,6 +415,7 @@
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
 <span id="callbackV2.callbackParameters.query.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
@@ -452,7 +455,7 @@
     "appId": "default",
     "btId": "1639824316368",
     "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR_OCR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
+    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY",
     "audioType": "POLITICAL_PORN_AD_MOAN_ABUSE",
     "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
     "callback": "http://www.xxx.top/xxx",
