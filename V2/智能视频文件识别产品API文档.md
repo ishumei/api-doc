@@ -464,12 +464,12 @@
         "url": "http://oss.xxx.com/static/photo/117608703147396.mp4",
         "retallAudio": 1,
         "retallImg": 1,
-        "callbackParam": {
-            "passThrough": {
-                "passThrough1": "透传字段1",
-                "passThrough2": "透传字段2",
-                "passThrough3": "透传字段3"
-            }
+    }
+    "callbackParam": {
+        "passThrough": {
+            "passThrough1": "透传字段1",
+            "passThrough2": "透传字段2",
+            "passThrough3": "透传字段3"
         }
     }
 }
