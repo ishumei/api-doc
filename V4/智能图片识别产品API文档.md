@@ -92,8 +92,8 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>别如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`IMGTEXTRISK`：图片文字内容及风险识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
+| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>别如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
@@ -107,6 +107,7 @@
 | room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含`IMGTEXTRISK`时，可指定对应检测语种类型，可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>默认进行中文检测 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
@@ -135,7 +136,7 @@
 | riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
+| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
 
 <span id = "riskDetail">其中，riskDetail结构如下：</span>
 
@@ -143,8 +144,8 @@
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
-| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
+| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`时存在 | 否 | |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr内容对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -213,7 +214,7 @@ auxInfo中，typeVersion的内容如下：
 | SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
 | LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
 | STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | IMGTEXTRISK版本号 | 否 | 组成形式同上 |
 | IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
 | SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
 | SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
@@ -246,13 +247,13 @@ allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| businessLabel1 | string |  一级业务标签，当请求参数type字段包含业务标签传值时存在：`SCREEN`,`SCENCE`,`QR`,`FACE`,`QUALITY`,`MINOR`,`LOGO`,`OCR`,`BEAUTY`,`FACECOMPARE` | 否 | 一级业务标签 |
+| businessLabel1 | string |  一级业务标签，当请求参数type字段包含业务标签传值时存在：`SCREEN`,`SCENCE`,`QR`,`FACE`,`QUALITY`,`MINOR`,`LOGO`,`BEAUTY`,`FACECOMPARE` | 否 | 一级业务标签 |
 | businessLabel2 | string | 二级业务标签 | 否 | 二级业务标签 |
 | businessLabel3 | string | 三级业务标签 | 否 | 三级业务标签 |
 | businessDescription | string | 业务标签描述 | 否 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 否 | |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
+| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR，IMGTEXTRISK时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
@@ -463,8 +464,8 @@ businessLabels数组中的businessDetail的内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 公司密钥：用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 |
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接 |
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`IMGTEXTRISK`：图片文字内容及风险识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -476,6 +477,7 @@ businessLabels数组中的businessDetail的内容如下：
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含`IMGTEXTRISK`时，可指定对应检测语种类型，可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>默认进行中文检测 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
@@ -556,8 +558,8 @@ businessLabels数组中的businessDetail的内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`IMGTEXTRISK`：图片文字内容及风险识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。 |
 
@@ -568,6 +570,7 @@ businessLabels数组中的businessDetail的内容如下：
 | imgs | json_array | 要检测的图片数组 | 必传参数 | |
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含`IMGTEXTRISK`时，可指定对应检测语种类型，可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>默认进行中文检测 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
@@ -623,7 +626,7 @@ businessLabels数组中的businessDetail的内容如下：
 | riskDetail | json_object | 风险详情 | 是 | 风险详情 |
 | auxInfo | json_object | 其他辅助信息 | 是 | 其他辅助信息 |
 | allLabels | json_array | 当riskLevel为PASS时为空 | 是 | 命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情，请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 | 否 | 业务标签详情 |
+| businessLabels | json_array | 业务标签详情，请求参数Type字段包含，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 | 否 | 业务标签详情 |
 
 imgs中，riskDetail的内容如下：
 
@@ -631,7 +634,7 @@ imgs中，riskDetail的内容如下：
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
-| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
+| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`图片文字内容及风险识别`时存在 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
 
 riskDetail中，faces数组每个元素的内容如下：
@@ -700,7 +703,7 @@ auxInfo中，typeVersion的内容如下：
 | SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
 | LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
 | STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | IMGTEXTRISK版本号 | 否 | 组成形式同上 |
 | IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
 | SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
 | SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
@@ -734,13 +737,13 @@ allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| businessLabel1 | string |  一级业务标签，当请求参数type字段包含业务标签传值时存在：`SCREEN`,`SCENCE`,`QR`,`FACE`,`QUALITY`,`MINOR`,`LOGO`,`OCR`,`BEAUTY`,`FACECOMPARE` | 否 | 一级业务标签 |
+| businessLabel1 | string |  一级业务标签，当请求参数type字段包含业务标签传值时存在：`SCREEN`,`SCENCE`,`QR`,`FACE`,`QUALITY`,`MINOR`,`LOGO`,`BEAUTY`,`FACECOMPARE` | 否 | 一级业务标签 |
 | businessLabel2 | string | 二级业务标签 | 否 | 二级业务标签 |
 | businessLabel3 | string | 三级业务标签 | 否 | 三级业务标签 |
 | businessDescription | string | 业务标签描述 | 否 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 否 | |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
+| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR，IMGTEXTRISK时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
@@ -809,8 +812,8 @@ UTF-8
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`IMGTEXTRISK`：图片文字内容及风险识别<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -820,6 +823,7 @@ UTF-8
 | imgs | json_array | 要检测的图片数组 | 必传参数 | |
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含`IMGTEXTRISK`时，可指定对应检测语种类型，可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>默认进行中文检测 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
@@ -963,7 +967,7 @@ result如下：
 | riskDetail | json_object | 风险详情 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 |
+| businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空 |
 
 其中，riskDetail的内容如下：
 
@@ -971,7 +975,7 @@ result如下：
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
-| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
+| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`时存在 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
 
 riskDetail中，faces数组每个元素的内容如下：
@@ -1041,7 +1045,7 @@ auxInfo中，typeVersion的内容如下：
 | SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
 | LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
 | STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | IMGTEXTRISK版本号 | 否 | 组成形式同上 |
 | IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
 | SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
 | SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
@@ -1080,7 +1084,7 @@ allLabels每个成员的riskDetail结构如下：
 | businessDescription | string | 业务标签描述 | 否 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 否 | |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
+| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,IMGTEXTRISK时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
