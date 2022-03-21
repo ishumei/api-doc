@@ -56,7 +56,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
-| eventId | string | 事件标识 | Y | 可选值如下：<br/>`nickname`：昵称<br/>`message`：私聊<br/>`groupChat`：群聊<br/>`title`：标题<br/>`notice`：公告<br/>`article`：帖子<br/>`comment`：评论<br/>`barrage`：弹幕<br/>`search`：搜索栏<br/>`roomName`：房间名<br/>`profile`：个人简介<br/>`productName`：商品名称<br/>`productInfo`：商品介绍<br/>`productReviews`：商品评价 <br/>`internalChat`：内部交流<br/>`outsideWork`：外部合作<br/> |
+| eventId | string | 事件标识 | Y | 可选值如下：<br/>额外事件值需数美单独分配提供 |
 | type | string | 检测的风险类型 | Y | 可选值：<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>以上type可以下划线组合，如：`DEFAULT_FRUAD` |
 | businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
