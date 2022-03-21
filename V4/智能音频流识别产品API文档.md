@@ -71,7 +71,7 @@
 | btId | string | 应用ID，用于区分相同公司的不同应用 | Y | 用于查询指定音频，限长128位字符 |
 | streamType | string | 流类型 | Y | 可选值：<br>`NORMAL`：普通流地址<br>`ZEGO`：即构<br>`AGORA`：声网 <br>`TRTC`：腾讯录制 |
 | url | string | 直播流地址 | N | 当streamType为`NORMAL`时必传 |
-| lang | string | 音频流语言类型 | Y | 可选值如下，（默认值为`zh`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语 |
+| lang | string | 音频流语言类型 | Y | 默认值为`zh`:中文<br>可选值如下见lang支持语言表格 |
 | zegoParam | json_object | 要检测的流参数 | N | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam) |
 | initDomain | int | 即构SDK初始化是否有设置隔离域名 | N | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br>`1`：仅支持客户端初始化有隔离域名<br>`2`：支持客户端初始化有隔离域名和随机userId功能 |
 | trtcParam | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 |
@@ -85,7 +85,28 @@
 | liveTitle | string | 标题 | N | 房间标题，非必填参数，在客户开通人审服务传入 |
 | anchorName | string | 昵称 | N | 用户昵称，非必填参数，在客户开通人审服务传入 |
 
+lang支持语言
 
+| lang 可选值 | 语种     |
+| ----------- | -------- |
+| zh          | 中文     |
+| en          | 英文     |
+| ar          | 阿拉伯语 |
+| hi          | 印地语   |
+| sp          | 西班牙语 |
+| fr          | 法语     |
+| ru          | 俄语     |
+| po          | 葡萄牙语 |
+| in          | 印尼语   |
+| ge          | 德语     |
+| ja          | 日语     |
+| tu          | 土耳其语 |
+| vi          | 越南语   |
+| it          | 意大利语 |
+| th          | 泰语     |
+| fi          | 菲律宾语 |
+| ko          | 韩语     |
+| ma          | 马来语   |
 
 <span id = "zegoParam">data中，zegoParam详细内容如下：</span>
 
