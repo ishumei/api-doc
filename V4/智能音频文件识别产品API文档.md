@@ -55,7 +55,7 @@
 | ---- | ------------------------------------------------ | ---------------------------------------------- |
 | 北京 | `http://api-audio-bj.fengkongcloud.com/audio/v4` | 中文音频文件                                   |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/audio/v4` | 中文音频文件                                   |
-| 硅谷 | `http://api-audio-gg.fengkongcloud.com/audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
+| 硅谷 | `http://api-audio-gg.fengkongcloud.com/audio/v4` | 多语言音频文件                                 |
 
 ### 字符编码
 
@@ -104,7 +104,7 @@
 | rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                        |
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
-| lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
+| lang           | string   | 音频文件语言类型   | 非必传参数   | 可选值如下（默认为`zh`）：<br>`zh`：中文<br>`en`：英文<br>`ar`：阿拉伯语<br>`hi`：印地语<br>`id`：印尼语   |
 
 ### 同步返回参数
 
