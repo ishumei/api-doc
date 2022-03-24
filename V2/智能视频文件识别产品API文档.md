@@ -211,7 +211,7 @@
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
 | polityName | string | 识别出的涉政人物名字（当TYPE传入PERSON或POLITICS时并检测到涉政人物时存在） | 否 |  |
 | violenceLabel | string | 暴恐场景分类（当TYPE传入VIOENCE或POLITICS时并检测到暴恐场景时存在） | 否 |  |
-| logos | string | 返回视频帧识别出来的logo结果<br/>如："logos": ["douyin"] | 否 |  |
+| logos | json_array | 返回视频帧识别出来的logo结果<br/>如："logos": ["douyin"] | 否 |  |
 | businessLabels | json_array | 识别出的业务标签 | 否 |传入imgBusinessType时返回，详见[businessLabels说明](#callbackV2.callbackParameters.frameDetail.businessLabels)   |
 
 <span id = "callbackV2.callbackParameters.frameDetail.businessLabels">detail中，businessLabels数组的每个成员的内容如下：</span>
@@ -359,7 +359,7 @@
 | matchedList | string | 图片文字命中的违规名单 | 否 |  |
 | polityName | string | 识别出的涉政人物名字（当TYPE传入PERSON或POLITICS时并检测到涉政人物时存在） | 否 |  |
 | violenceLabel | string | 暴恐场景分类（当TYPE传入VIOENCE或POLITICS时并检测到暴恐场景时存在） | 否 |  |
-| logos | string | 返回视频帧识别出来的logo结果<br/>如："logos": ["douyin"] | 否 |  |
+| logos | json_array | 返回视频帧识别出来的logo结果<br/>如："logos": ["douyin"] | 否 |  |
 | businessLabels | json_array | 识别出的业务标签 | 否 |传入imgBusinessType时返回，详见[businessLabels说明](#callbackV2.callbackParameters.frameDetail.query.businessLabels)   |
 
 
