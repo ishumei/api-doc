@@ -111,6 +111,17 @@
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为20帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
+| streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo) |
+
+<span id = "streamInfo">data中，streamInfo的内容如下：</span>
+
+| **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| similarDedup | bool | 是否开启相似功能 | 否 |  |
+| streamId | string | 透传参数 | 否 | 唯一标识id similarDedup为true时，必传 |
+| timeWindow | int | 透传参数 | 否 |时间窗口，单位秒。similarDedup为true时，必传  |
+| frameTime | int | 透传参数 | 否 | 截帧时间，单位ms， similarDedup为true时，必传 |
+| riskNum | int | 透传参数 | 否 | 相似截帧图片不改变张数    数量范围(1-5)，默认为1 |
 
 <span id = "extra">data中，extra的内容如下：</span>
 
@@ -199,6 +210,8 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
 | errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
 | passThrough | json_object | 客户传入的透传字段 | 否 |  |
+| streamId | string | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
+| frameTime | int | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
 
 auxInfo中，typeVersion的内容如下：
 
