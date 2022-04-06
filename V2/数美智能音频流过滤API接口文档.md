@@ -318,10 +318,13 @@ code和message的列表如下：
 
 **请求示例**
 
+```
 curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}’ 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream'
+```
 
 **返回示例**
 
+```
 {
 
 "code":1100,
@@ -331,9 +334,11 @@ curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callbac
 "requestId":" a78eef377079acc6cdec24967ecde722",
 
 }
+```
 
 **回调接口返回的内容示例**：
 
+```
 {
 `    `"code":1100,
 `    `"message":"成功",
@@ -359,6 +364,8 @@ curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callbac
 `        `"room":"16037880"
 `    `}
 }
+```
+
 ## **2.2 音频流关闭通知接口**
 **接口描述**
 
@@ -423,10 +430,13 @@ code和message的列表如下：
 
 **请求示例**
 
+```
 curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream'
+```
 
 **返回示例**
 
+```
 {
 
 "code":1100,
@@ -436,6 +446,7 @@ curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh
 "requestId":" a78eef377079acc6cdec24967ecde722",
 
 }
+```
 
 3. ## ` `**更新声网Token接口规范**
 声网的Token存在有效期，过期后需要更新Token，详见：
