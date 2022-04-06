@@ -7,7 +7,7 @@
 - - - - -
 
 * [视频流上传请求](#uploadV2)
-  
+
     + [接口描述](#uploadV2.interafceDesc)
     + [请求URL](#uploadV2.requestUrl)
     + [请求方法](#uploadV2.requestMethod)
@@ -17,7 +17,7 @@
     + [请求参数](#uploadV2.requestParameters)
     * [返回参数](#uploadV2.responseParameters)
 * [异步回调结果](#callbackV2)
-  
+
     + [接口描述](#callbackV2.interfaceDesc)
     + [请求方法](#callbackV2.callbackMethod)
     + [字符编码](#callbackV2.callbackEncode)
@@ -25,7 +25,7 @@
     + [回调策略](#callbackV2.callbackStrategy)
     + [回调参数](#callbackV2.callbackParameters)
 * [视频流关闭请求](#closeV2)
-  
+
     + [接口描述](#closeV2.interfaceDesc)
     + [请求URL](#closeV2.requestUrl)
     + [请求方法](#closeV2.requestMethod)
@@ -35,7 +35,7 @@
     + [请求参数](#closeV2.requestParameters)
     + [返回参数](#closeV2.responseParameters)
 * [示例](#demo)
-  
+
     + [上传接口请求示例](#demo.requestuploadV2)
     + [上传接口返回示例](#demo.responseuploadV2)
     + [异步回调结果示例](#demo.callbackV2)
@@ -59,7 +59,7 @@
 
 ### <span id = "uploadV2.requestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "uploadV2.requestProtocol">支持协议</span>
 
@@ -485,7 +485,9 @@
 ```
 
 ### <span id = "demo.callbackV2">异步回调结果示例：</span>
+
 **截帧图片回调**
+
 ```json
 {
     "code":1100,
@@ -525,6 +527,7 @@
 ```
 
 **音频片段回调**
+
 ```json
 {
     "code":1100,

@@ -392,7 +392,7 @@ http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostrea
 
 上海集群：
 
-http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
+http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 新加坡:
 
@@ -444,7 +444,10 @@ code和message的列表如下：
 **请求示例**
 
 ```
-curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream'
+curl 'http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream' -d'{
+    "accessKey": "xxxxx",
+    "requestId": "yyyy"
+}'
 ```
 
 **返回示例**
