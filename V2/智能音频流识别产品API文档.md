@@ -1,6 +1,4 @@
-# 数美智能音频过滤API接口文档
-
-**数美智能音频流过滤API接口文档**
+# 智能音频流识别产品API文档
 
 **北京数美时代科技有限公司提供**
 
@@ -130,7 +128,7 @@ POST
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                                                             |
 | :----------- | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                   |
-| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
 | businessType | string      | N            | <p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>MINOR:未成年</p><p>type和 businessType 必须填其一</p>                                                                                                                                                                                                                            |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度                                                                                                                                                                                                                                                                                                                                    |
 | appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，该参数传递值可与数美服务协商用于区分应用</p><p>默认应用值：default</p>                                                                                                                                                                                                                                                                 |
@@ -141,7 +139,7 @@ POST
 
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                 |
 | :----------- | :---------- | :----------- | :------------------------------------------------------------------------------------------------------- |
-| streamType   | string      | Y            | <p>流类型:可选择：<br>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p> |
+| streamType   | string      | Y            | <p>流类型:可选择：<br/>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p> |
 | url          | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                      |
 | agoraParam   | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                  |
 | zegoParam    | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                   |
@@ -160,8 +158,8 @@ POST
 | returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时只返回有风险（riskType为REJECT）的音频流片段识别结果和文本内容，默认是false</p>                                                                                                     |
 | returnPreText    | bool     | N            | <p>值为true时，返回的content字段包含违规音频前一个片段10秒文本内容；</p><p>值为false时，返回的content字段只包含违规音频片段文本内容，默认值为false(对于TRTC流该功能无效，当客户使用间隔审核功能时，即使returnPreAudio是true情况下，也不返回该字段）</p><p></p> |
 | returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p>                      |
-| returnFinishInfo | bool     | N            | <p>音频流结束通知</p><p>可选值（默认为false）：<br>false：不返回状态码</p><p>true：回调参数增加statCode状态码</p>                                                                                                                                              |
-| initDomain       | int      | N            | 当即构客户端初始化传入隔离域名该字段必传<br>可选值：<br>1：客户端初始化有隔离域名                                                                                                                                                                              |
+| returnFinishInfo | bool     | N            | <p>音频流结束通知</p><p>可选值（默认为false）：<br/>false：不返回状态码</p><p>true：回调参数增加statCode状态码</p>                                                                                                                                              |
+| initDomain       | int      | N            | 当即构客户端初始化传入隔离域名该字段必传<br/>可选值：<br/>1：客户端初始化有隔离域名                                                                                                                                                                              |
 | audioDetectStep  | int      | N            | 音频每个步长只会检测一次,取值范围1-5的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
 
 其中data.agoraParam内容如下:
@@ -190,11 +188,11 @@ POST
 | **参数名称** | **类型** | **是否必选** | **说明**                                                                                                                                                  |
 | :----------- | :------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sdkAppId     | int      | Y            | 腾讯提供的sdkAppId                                                                                                                                        |
-| demoSences   | int      | Y            | <p>录制类型可选值：</p><p>分流录制：2<br>合流录制：4</p>                                                                                                  |
+| demoSences   | int      | Y            | <p>录制类型可选值：</p><p>分流录制：2<br/>合流录制：4</p>                                                                                                  |
 | userId       | string   | Y            | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                                  |
 | userSig      | string   | Y            | 录制userId对应的验证签名，相当于登录密码                                                                                                                  |
 | roomId       | int      | Y            | <p>房间号码，取值范围：【1-4294967294】</p><p>roomId与strRoomId必传一个，若两者都有值优先选用roomId</p>                                                   |
-| strRoomId    | string   | Y            | <p>房间号码<br>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
+| strRoomId    | string   | Y            | <p>房间号码<br/>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
 
 **返回参数**
 
@@ -259,15 +257,15 @@ POST
 | audio_starttime   | string      | Y            | 违规内容开始时间（绝对时间）                                                                                                                                                                                                                                                                                                                |
 | audioText         | string      | Y            | 音频片段文本                                                                                                                                                                                                                                                                                                                                |
 | content           | string      | N            | returnPreText为true时返回违规内容前一个片段10秒文本和违规内容片段文本                                                                                                                                                                                                                                                                       |
-| description       | string      | Y            | 策略规则风险原因描述<br>注：该参数为旧版 API 返回参数，兼容保留，<br>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                                               |
-| descriptionV2     | string      | Y            | 策略规则风险原因描述<br>注：该参数为 API 返回参数<br>请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                               |
+| description       | string      | Y            | 策略规则风险原因描述<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                                               |
+| descriptionV2     | string      | Y            | 策略规则风险原因描述<br/>注：该参数为 API 返回参数<br/>请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                               |
 | matchedItem       | string      | N            | 命中的具体敏感词（该参数仅在命中敏感词时存在）                                                                                                                                                                                                                                                                                              |
-| matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中<br>敏感词时存在）                                                                                                                                                                                                                                                                                  |
+| matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中<br/>敏感词时存在）                                                                                                                                                                                                                                                                                  |
 | hits              | json_array  | Y            | 展示风险详情，请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                                                                      |
-| model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br>注：该参数为旧版 API 返回参数，兼容保留，<br>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                             |
+| model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                             |
 | isSing            | int         | N            | type取值包含SING时存在，取值0表示检测不存在唱歌片段，取值1表示检测存在唱歌片段                                                                                                                                                                                                                                                              |
 | requestParams     | json_object | Y            | 返回请求参数data中的所有字段                                                                                                                                                                                                                                                                                                                |
-| riskType          | int         | Y            | <p>标识风险类型，可能取值：<br>风险类型，静音时不返回，可能取值：<br>0：正常</p><p>100：涉政</p><p>110: 暴恐</p><p>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
+| riskType          | int         | Y            | <p>标识风险类型，可能取值：<br/>风险类型，静音时不返回，可能取值：<br/>0：正常</p><p>100：涉政</p><p>110: 暴恐</p><p>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
 | riskTypeDesc      | string      | N            | 风险原因描述                                                                                                                                                                                                                                                                                                                                |
 | room              | string      | Y            | 房间号                                                                                                                                                                                                                                                                                                                                      |
 | userId            | int         | N            | 用户账号标识（仅分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。                                                                                                                                                                                                                                                 |
@@ -467,8 +465,6 @@ curl 'http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audi
 <https://docs.agora.io/cn/Agora%20Platform/channel_key>
 
 <https://docs.agora.io/cn/All/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_constants.html#ac7ed64c7dc79350210daef29296d28dc>
-
-![](asserts/voice_renew_token.png)
 
 当声网的Token失效时，数美会根据客户提供的renewTokenURL接口获取更新后的Token。
 

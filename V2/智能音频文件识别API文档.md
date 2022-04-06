@@ -1,6 +1,4 @@
-# 数美智能音频识别API接口文档
-
-**数美智能音频识别API接口文档**
+# 智能音频文件识别API文档
 
 **北京数美时代科技有限公司提供**
 
@@ -111,7 +109,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | :------------ | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | accessKey     | string      | Y            | 服务密匙，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>POLITICS：涉政识别</p><p>ANTHEN：国歌识别</p><p>PORN：色情</p><p>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>MOAN：娇喘识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色标签（需要同时传入GENDER才能生效）</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICS_PORN_AD用于广告、色情和涉政识别。<br>建议传入：<br>POLITICS_PORN_AD_MOAN</p> |
+| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>POLITICS：涉政识别</p><p>ANTHEN：国歌识别</p><p>PORN：色情</p><p>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>MOAN：娇喘识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色标签（需要同时传入GENDER才能生效）</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICS_PORN_AD用于广告、色情和涉政识别。<br/>建议传入：<br/>POLITICS_PORN_AD_MOAN</p> |
 | appId         | string      | N            | 应用标识，此字段强校验，需要提前与数美约定好取值。不传取默认值default                                                                                                                                                                                                                                                                                                                                                                                        |
 | btId          | string      | Y            | 音频唯一标识，限长128位字符长度, 不能重复，否则提示参数错误。                                                                                                                                                                                                                                                                                                                                                                                                |
 | data          | json_object | Y            | 请求数据，最长1MB，详细内容参见下表                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -123,7 +121,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                                                                                    |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | url           | string      | N            | 待识别音频url地址，url和content至少提供一个                                                                                                                                 |
-| lang          | string      | N            | 可选值如下，（默认值为zh）：<br>zh：中文<br>en：英文<br>ar：阿拉伯语                                                                                                        |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                                                                        |
 | content       | string      | N            | 待识别音频的base64编码数据（上限6M，仅支持pcm、wav、mp3）, pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输。url和content至少提供一个，同时存在时仅支持content |
 | formatInfo    | json_object | N            | 当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明                                                                                                     |
 | audioName     | string      | N            | 音频文件名称                                                                                                                                                                |
@@ -278,7 +276,7 @@ POST
 | audioText      | string      | Y            | 整段音频转译文本结果                                                                             |
 | audioTime      | int         | N            | 整段音频的音频时长，单位秒，code为1100时存在                                                     |
 | labels         | string      | N            | 音频识别结果标签                                                                                 |
-| riskLevel      | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br>REVIEW：疑似违规内容<br>REJECT：违规内容</p>   |
+| riskLevel      | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br/>REVIEW：疑似违规内容<br/>REJECT：违规内容</p>   |
 | detail         | json_array  | N            | 风险详情                                                                                         |
 | gender         | json_object | N            | 性别标签与概率值                                                                                 |
 | isSing         | int         | N            | <p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p> |
@@ -295,8 +293,8 @@ POST
 | audioEndtime     | string   | Y            | 风险音频片段在音频中的结束时间，单位秒                                                                                                                                                                                                                                                                       |
 | audioUrl         | string   | Y            | 风险音频片段地址，MP3格式                                                                                                                                                                                                                                                                                    |
 | audioText        | string   | Y            | 音频片段转译的文本内容                                                                                                                                                                                                                                                                                       |
-| riskLevel        | string   | Y            | <p>识别结果，可能返回值： <br>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p><p>PASS：正常内容</p>                                                                                                                                                                                                           |
-| riskType         | int      | N            | <p>风险类型，静音时不返回，可能取值：<br>0：正常</p><p>100：涉政</p><p>110: 暴恐<br>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
+| riskLevel        | string   | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p><p>PASS：正常内容</p>                                                                                                                                                                                                           |
+| riskType         | int      | N            | <p>风险类型，静音时不返回，可能取值：<br/>0：正常</p><p>100：涉政</p><p>110: 暴恐<br/>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
 | audioMatchedItem | string   | N            | 音频中可能出现的敏感词                                                                                                                                                                                                                                                                                       |
 | description      | string   | Y            | 音频片段风险原因描述                                                                                                                                                                                                                                                                                         |
 
@@ -437,7 +435,7 @@ POST
 | audioText     | string      | Y            | 音频转译文本结果                                                                               |
 | audioTime     | int         | N            | 整段音频的音频时长，单位秒，code为1100时存在                                                   |
 | labels        | string      | N            | 音频片段风险原因汇总                                                                           |
-| riskLevel     | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br>REVIEW：疑似违规内容<br>REJECT：违规内容</p> |
+| riskLevel     | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br/>REVIEW：疑似违规内容<br/>REJECT：违规内容</p> |
 | detail        | json_array  | N            | 风险详情                                                                                       |
 | gender        | json_object | N            | 性别标签与概率值                                                                               |
 | tags          | json_array  | N            | 音色标签与概率值列表                                                                           |
@@ -451,8 +449,8 @@ POST
 | audioEndtime     | int      | Y            | 风险音频片段在音频中的结束时间，单位秒                                                                                                                                                                                                                                 |
 | audioUrl         | string   | Y            | 风险音频片段地址                                                                                                                                                                                                                                                       |
 | audioText        | string   | Y            | 音频片段对应的文本内容                                                                                                                                                                                                                                                 |
-| riskLevel        | string   | Y            | <p>识别结果，可能返回值： <br>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p>                                                                                                                                                                                          |
-| riskType         | int      | N            | <p>风险类型，可能取值：<br>0：正常</p><p>100：涉政/暴恐</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
+| riskLevel        | string   | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p>                                                                                                                                                                                          |
+| riskType         | int      | N            | <p>风险类型，可能取值：<br/>0：正常</p><p>100：涉政/暴恐</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
 | audioMatchedItem | string   | N            | 音频中可能出现的敏感词                                                                                                                                                                                                                                                 |
 | description      | string   | Y            | 风险原因描述                                                                                                                                                                                                                                                           |
 
