@@ -319,20 +319,16 @@ code和message的列表如下：
 **请求示例**
 
 ```
-curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}’ 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream'
+curl -d'{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}' 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream'
 ```
 
 **返回示例**
 
 ```
 {
-
-"code":1100,
-
-"message":"成功",
-
-"requestId":" a78eef377079acc6cdec24967ecde722",
-
+    "code":1100,
+    "message":"成功",
+    "requestId":" a78eef377079acc6cdec24967ecde722"
 }
 ```
 
@@ -340,29 +336,29 @@ curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callbac
 
 ```
 {
-`    `"code":1100,
-`    `"message":"成功",
-`    `"requestId":"a78eef377079acc6cdec24967ecde722",
-`    `"riskLevel":"REJECT",
-`    `"detail":{
-`        `"audioUrl":"[http://xxxx.mp3](http://xxxx.mp3/)",
-`        `"preAudioUrl":"[http://prexxxx.mp3](http://prexxxx.mp3/)",
-`        `"audio_endtime":"2018-09-18 17:54:31",
-`        `"audio_starttime":"2018-09-18 17:54:21",
-`        `"content":"啥鸡巴破地方啊，我发现我进传销了，兄弟们跟我过来当老板",
-`        `"description":"色情内容",
-`        	 `"matchedItem":"鸡巴",
-`        `"matchedList":"色情",
-`        `"model":"M1020_20",
-`        `"requestParams":{
-`            `"test1":1,
-`            `"test2":"qew",
-`            `"test3":true
-`        `},
-`        `"riskType":200,
-`        `"riskTypeDesc":"色情",
-`        `"room":"16037880"
-`    `}
+    "code": 1100,
+    "message": "成功",
+    "requestId": "a78eef377079acc6cdec24967ecde722",
+    "riskLevel": "REJECT",
+    "detail": {
+        "audioUrl": "[http://xxxx.mp3](http://xxxx.mp3/)",
+        "preAudioUrl": "[http://prexxxx.mp3](http://prexxxx.mp3/)",
+        "audio_endtime": "2018-09-18 17:54:31",
+        "audio_starttime": "2018-09-18 17:54:21",
+        "content": "啥鸡巴破地方啊，我发现我进传销了，兄弟们跟我过来当老板",
+        "description": "色情内容",
+        "matchedItem": "鸡巴",
+        "matchedList": "色情",
+        "model": "M1020_20",
+        "requestParams": {
+            "test1": 1,
+            "test2": "qew",
+            "test3": true
+        },
+        "riskType": 200,
+        "riskTypeDesc": "色情",
+        "room": "16037880"
+    }
 }
 ```
 
@@ -438,13 +434,9 @@ curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh
 
 ```
 {
-
-"code":1100,
-
-"message":"成功",
-
-"requestId":" a78eef377079acc6cdec24967ecde722",
-
+    "code":1100,
+    "message":"成功",
+    "requestId":" a78eef377079acc6cdec24967ecde722"
 }
 ```
 

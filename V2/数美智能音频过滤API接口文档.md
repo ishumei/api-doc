@@ -161,39 +161,22 @@ code和message的列表如下：
 
 ```
 {
-
-`    `"accessKey":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
-
-"type":"DEFAULT",
-
-"appId":"default",
-
-"btId":"test01",
-
-`    `"data":{
-
-`        `"tokenId":"test_01",
-
-`        `"url":"http://xxxxxxxx.mp3",
-
-`        `“channel”:”IM_MESSAGE”,
-
-`        `"returnAllText":true
-
-`    `},
-
-`    `"callback":"http://xxxxxxxxx",
-
-`    `"callbackParam":{
-
-`        `" param1":1,
-
-`        `" param2":"qew",
-
-`        `" param3":true
-
-}
-
+    "accessKey":"****************",
+    "type": "DEFAULT",
+    "appId": "default",
+    "btId": "test01",
+    "data": {
+        "tokenId": "test_01",
+        "url": "http://xxxxxxxx.mp3",
+        "channel": "IM_MESSAGE",
+        "returnAllText": true
+    },
+    "callback": "http://xxxxxxxxx",
+    "callbackParam": {
+        " param1": 1,
+        " param2": "qew",
+        " param3": true
+    }
 }
 ```
 
@@ -201,49 +184,27 @@ code和message的列表如下：
 
 ```
 {
-
-`    `"accessKey":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
-
-"type":"DEFAULT",
-
-"appId":"default",
-
-"btId":"test01",
-
-`    `"data":{
-
-`        `"content":"音频base64编码数据",
-
-`		 `"formatInfo":{
-
-`	`"format":"pcm",
-
-`	`"rate":16000,
-
-`	`"track":1
-
-},
-
-“channel”:”IM_MESSAGE”,
-
-`        `"tokenId":"asdwef",
-
-`        `"returnAllText":true
-
-`    `},
-
-`    `"callback":"http://xxxxxx",
-
-`    `"callbackParam":{
-
-`        `"param1":1,
-
-`        `"param2":"qew",
-
-`        `"param3":true
-
-}
-
+    "accessKey": "****************",
+    "type": "DEFAULT",
+    "appId": "default",
+    "btId": "test01",
+    "data": {
+        "content": "音频base64编码数据",
+        "formatInfo": {
+            "format": "pcm",
+            "rate": 16000,
+            "track": 1
+        },
+        "channel": "IM_MESSAGE",
+        "tokenId": "asdwef",
+        "returnAllText": true
+    },
+    "callback": "http://xxxxxx",
+    "callbackParam": {
+        "param1": 1,
+        "param2": "qew",
+        "param3": true
+    }
 }
 ```
 
@@ -251,15 +212,10 @@ code和message的列表如下：
 
 ```
 {
-
-"code":1100,
-
-"message":"成功",
-
-"requestId":" XXXXXXXXXXXX",
-
-"btId":"XXXXXXX"
-
+    "code":1100,
+    "message":"成功",
+    "requestId":" XXXXXXXXXXXX",
+    "btId":"XXXXXXX"
 }
 ```
 
@@ -384,11 +340,8 @@ code和message的列表如下：
 
 ```
 {
-
-"accessKey":"\*\*\*\*\*\*\*\*\*\*\*\*\*",
-
-"btId":"xxxx"
-
+    "accessKey":"\*\*\*\*\*\*\*\*\*\*\*\*\*",
+    "btId":"xxxx"
 }
 ```
 
@@ -396,85 +349,47 @@ code和message的列表如下：
 
 ```
 {
-
-`    	`"code":1100,
-
-`    	`"message":"成功",
-
-`    	`"requestId":"b891cf2d82e214de45df33fc2bea4875",
-
-"btId":"xxxx",
-
-"riskLevel":"REJECT",
-
-"audioText":"法轮大法好",
-
-“labels”:”涉政-音频”,
-
-"detail":[{
-
-"audioStarttime":10,
-
-"audioEndtime":20,
-
-"audioUrl":"<http://xxxxxxxx.>wav ",
-
-"audioText":"法轮大法好",
-
-"riskLevel":"REJECT",
-
-"audioMatchedItem":"法轮",
-
-"riskType":100
-
-"description":"涉政-音频",
-
-}],
-
-“tags”:[
-
-{
-
-“label”:”男性”，
-
-“confidence”:90
-
-},
-
-{
-
-“label”:”大叔音”,
-
-“confidence”:91
-
-`		`},
-
-{
-
-“label”:”正太音”,
-
-“confidence”:21
-
-`		`},
-
-{
-
-“label”:”老年音”,
-
-“confidence”:11
-
-`		`},
-
-{
-
-“label”:”青年音”,
-
-“confidence”:31
-
-`		`}
-
-]
-
+    "code": 1100,
+    "message": "成功",
+    "requestId": "b891cf2d82e214de45df33fc2bea4875",
+    "btId": "xxxx",
+    "riskLevel": "REJECT",
+    "audioText": "法轮大法好",
+    "labels": "涉政-音频",
+    "detail": [
+        {
+            "audioStarttime": 10,
+            "audioEndtime": 20,
+            "audioUrl": "<http://xxxxxxxx.>wav ",
+            "audioText": "法轮大法好",
+            "riskLevel": "REJECT",
+            "audioMatchedItem": "法轮",
+            "riskType": 100,
+            "description": "涉政-音频"
+        }
+    ],
+    "tags": [
+        {
+            "label": "男性",
+            "confidence": 90
+        },
+        {
+            "label": "大叔音",
+            "confidence": 91
+        },
+        {
+            "label": "正太音",
+            "confidence": 21
+        },
+        {
+            "label": "老年音",
+            "confidence": 11
+        },
+        {
+            "label": "青年音",
+            "confidence": 31
+        }
+    ]
 }
 ```
 
