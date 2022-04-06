@@ -7,7 +7,6 @@
 **（版权所有，翻版必究）**
 **
 
-
 目录
 
 [数美智能音频识别API接口文档	1](#_Toc2870520)
@@ -35,9 +34,6 @@
 [3.2 调用接口返回无权限操作（9101）	16](#_Toc2870535)
 
 [3.3 调用接口超时问题	16](#_Toc2870536)
-
-
-
 
 # **1. 接入前准备**
 ## **1.1 数美服务账号申请**
@@ -87,7 +83,6 @@ http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
 硅谷集群：
 
 http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
-
 
 **字符编码格式：**使用UTF-8字符集进行编码
 
@@ -304,14 +299,12 @@ POST
 |label|int|Y|<p>语种识别类别标识，可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p>|
 |confidence|int|Y|对应语种标签可能性大小，取值0-100，数值越高表示概率越大。|
 
-
 *tags数组中每一项具体参数如下：*
 
 |**参数名称**|**类型**|**是否必选**|**说明**|
 | :- | :- | :- | :- |
 |label|string|Y|<p>音色标签类别，可能取值：</p><p>大叔</p><p>青年</p><p>正太</p><p>老年</p><p>女王</p><p>御姐</p><p>少女</p><p>萝莉</p><p>大妈</p><p>男性</p><p>女性</p><p>无人声</p>|
 |confidence|int|Y|对应音色标签可能性大小，取值0-100，数值越高表示概率越大。|
-
 
 *businessLabels数组中每一项具体参数如下：*
 
@@ -321,7 +314,6 @@ POST
 |businessLabel2|string|Y|注意：businessLabels不为空时必返|
 |businessLabel3|string|Y|注意：businessLabels不为空时必返|
 |businessDescription|string|Y|注意：businessLabels不为空时必返|
-
 
 code和message的列表如下：
 

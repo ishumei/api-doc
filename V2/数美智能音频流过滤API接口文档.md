@@ -7,7 +7,6 @@
 **（版权所有，翻版必究）**
 **
 
-
 目录
 
 [数美智能音频流过滤API接口文档	1](#_Toc36634830)
@@ -36,12 +35,7 @@
 
 [3.4 数美接口支持哪些网络协议？	13](#_Toc36634842)
 
-
-
-
-
 版本
-
 
 |版本号|更新时间|作者|更新说明|
 | :- | :- | :- | :- |
@@ -57,15 +51,6 @@
 |V2.0.5|2022/03/29|朱晓峰|1. 增加声网renew token功能|
 #
 #
-
-
-
-
-
-
-
-
-
 
 # **1. 接入前准备**
 ## **1.1 数美服务账号申请**
@@ -157,7 +142,6 @@ POST
 |tokenId|string|Y|客户端用户账号唯一标识，|
 |channel|string|Y|见渠道配置表|
 
-
 **扩展请求参数：**
 
 放在data下，其中具体参数如下：
@@ -193,7 +177,6 @@ POST
 |streamId|string|Y|用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流。|
 |roomId|string|Y|用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流。|
 |testEnv|bool|Y|是否使用zego测试环境，指定true时为测试环境，指定false时为正式环境。默认为false|
-
 
 其中 data.trtcParam内容如下
 
@@ -482,10 +465,6 @@ data字段结构：
 |code|int|Y|0为成功，非0代表失败|
 |msg|string|Y|<p>code为0时：成功</p><p>code非0时：具体失败原因</p>|
 |token|string|Y|<p>更新后的声网Token。如果是失败的情况，则不返回token或将token置为空字符串</p><p>数美建议token最小有效期为15分钟以上</p>|
-
-
-
-
 
 # 3. **FAQ**
 ## **3.1 调用接口返回参数错误（1902）**
