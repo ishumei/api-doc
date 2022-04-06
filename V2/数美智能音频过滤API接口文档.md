@@ -83,11 +83,17 @@ http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
 
 http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
 
-**字符编码格式：**使用UTF-8字符集进行编码
+**字符编码格式：**
 
-**请求方法：**POST
+使用UTF-8字符集进行编码
 
-**建议超时时长**：3s
+**请求方法：**
+
+POST
+
+**建议超时时长**
+
+3s
 
 **请求参数：**
 
@@ -399,7 +405,9 @@ HTTP 或 HTTPS
 
 POST
 
-超时时长： 5s
+超时时长：
+
+5s
 
 推送策略：
 
