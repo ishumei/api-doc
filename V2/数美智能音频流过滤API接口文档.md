@@ -422,7 +422,7 @@ curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh
 }
 ```
 
-3. ## ` `**更新声网Token接口规范**
+3. ## **更新声网Token接口规范**
 声网的Token存在有效期，过期后需要更新Token，详见：
 
 <https://docs.agora.io/cn/Agora%20Platform/channel_key>
