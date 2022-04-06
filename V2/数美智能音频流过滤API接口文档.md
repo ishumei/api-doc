@@ -85,9 +85,9 @@
 
 |**业务场景**|**channel取值**|**备注**|
 | :-: | :-: | :-: |
-|语音房|VOICE\_ROOM|多人连麦语音房|
-|直播间|LIVE\_ROOM|视频直播间|
-|语音聊天|VOICE\_CHAT|两人语音聊天通话|
+|语音房|VOICE_ROOM|多人连麦语音房|
+|直播间|LIVE_ROOM|视频直播间|
+|语音聊天|VOICE_CHAT|两人语音聊天通话|
 ## **1.2 数美服务账号信息接收**
 数美客户经理会在1个工作日内为您开通相应数美账号及服务，随后接口人邮箱会收到如下信息：
 
@@ -109,7 +109,7 @@
 
 上海集群：
 
-http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti\_fraud/audiostream
+http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 硅谷集群：
 
@@ -117,7 +117,7 @@ http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 新加坡:
 
-http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti\_fraud/audiostream
+http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 **字符编码格式：**
 
@@ -138,12 +138,12 @@ POST
 |**参数名称**|**类型**|**是否必选**|**说明**|
 | :- | :- | :- | :- |
 |accessKey|string|Y|服务密钥，开通账号服务时由数美提供|
-|type|string|N|<p>识别类型，可选值：</p><p>PORN：色情识别<br>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL\_PORN\_MOAN\_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p>|
+|type|string|N|<p>识别类型，可选值：</p><p>PORN：色情识别<br>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p>|
 |businessType|string|N|<p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>MINOR:未成年</p><p>type和 businessType 必须填其一</p>|
 |btId|string|Y|音频唯一标识，用于查询指定音频，限长128位字符长度|
 |appId|string|N|<p>应用标识</p><p>用于区分相同公司的不同应用，该参数传递值可与数美服务协商用于区分应用</p><p>默认应用值：default</p>|
 |callback|string|Y|异步检测结果回调通知您的URL，支持HTTP和HTTPS|
-|data|json\_object|Y|请求数据内容，最长1MB |
+|data|json_object|Y|请求数据内容，最长1MB |
 
 其中，data的内容如下：
 
@@ -151,9 +151,9 @@ POST
 | :- | :- | :- | :- |
 |streamType|string|Y|<p>流类型:可选择：<br>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p>|
 |url|string|Y|要检测的音频流url地址（当streamType为NORMAL时必传）|
-|agoraParam|json\_object|Y|声网录制参数（当streamType为AGORA时必传），详见扩展参数|
-|zegoParam|json\_object|Y|即构录制参数（当streamType为ZEGO时必传），详见扩展参数|
-|trtcParam|json\_object|Y|腾讯录制参数（当streamType为TRTC时必传），详见扩展参数|
+|agoraParam|json_object|Y|声网录制参数（当streamType为AGORA时必传），详见扩展参数|
+|zegoParam|json_object|Y|即构录制参数（当streamType为ZEGO时必传），详见扩展参数|
+|trtcParam|json_object|Y|腾讯录制参数（当streamType为TRTC时必传），详见扩展参数|
 |tokenId|string|Y|客户端用户账号唯一标识，|
 |channel|string|Y|见渠道配置表|
 
@@ -215,7 +215,7 @@ POST
 |code|int|Y|返回码|
 |message|string|Y|返回码详情描述|
 |requestId|string|Y|请求唯一标识|
-|detail|json\_object|N|描述详细信息|
+|detail|json_object|N|描述详细信息|
 
 detail结构如下：
 
@@ -255,7 +255,7 @@ POST
 |score|int|N|<p>风险分数（code 为 1100 且riskLevel=REJECT时存在）</p><p>取值范围[0,1000]，分数越高风险越大</p>|
 |riskLevel|string|Y|<p>风险级别（code 为 1100 时存在）</p><p>可能返回值：PASS，REVIEW，REJECT</p><p>PASS：正常内容，建议直接放行</p><p>REVIEW：可疑内容，建议人工审核</p><p>REJECT：违规内容，建议直接拦截</p>|
 |statCode|int|N|<p>审核状态：</p><p>0 ：审核中： </p><p>1 ：审核结束</p>|
-|detail|json\_object|Y|风险详情|
+|detail|json_object|Y|风险详情|
 
 其中，detail 的内容如下：
 
@@ -265,18 +265,18 @@ POST
 |finishProcessTime|int|Y|结束处理的时间（13位时间戳）|
 |audioUrl|string|Y|<p>音频片段地址，returnAllText不传或为false时只返回违规音频片段地址，</p><p>returnAllText为true时返回所有音频片段地址</p>|
 |preAudioUrl|string|N|违规内容前一个10秒音频片段地址（该参数只有在请求参数中returnPreAudio是true情况下存在）|
-|audio\_endtime|string|Y|违规内容结束时间（绝对时间）|
-|audio\_starttime|string|Y|违规内容开始时间（绝对时间）|
+|audio_endtime|string|Y|违规内容结束时间（绝对时间）|
+|audio_starttime|string|Y|违规内容开始时间（绝对时间）|
 |audioText|string|Y|音频片段文本|
 |content|string|N|returnPreText为true时返回违规内容前一个片段10秒文本和违规内容片段文本|
 |description|string |Y|策略规则风险原因描述<br>注：该参数为旧版 API 返回参数，兼容保留，<br>后续版本将去除，请勿依赖此参数，仅供参考|
 |descriptionV2|string |Y|策略规则风险原因描述<br>注：该参数为 API 返回参数<br>请勿依赖此参数，仅供参考|
 |matchedItem |string |N |命中的具体敏感词（该参数仅在命中敏感词时存在）|
 |matchedList |string |N|命中敏感词所在的名单名称（该参数仅在命中<br>敏感词时存在）|
-|hits|json\_array|Y|展示风险详情，请勿依赖此参数，仅供参考|
+|hits|json_array|Y|展示风险详情，请勿依赖此参数，仅供参考|
 |model |string |Y|规则标识，用来标识文本命中的策略规则。<br>注：该参数为旧版 API 返回参数，兼容保留，<br>后续版本将去除，请勿依赖此参数，仅供参考|
 |isSing|int|N|type取值包含SING时存在，取值0表示检测不存在唱歌片段，取值1表示检测存在唱歌片段|
-|requestParams|json\_object|Y|返回请求参数data中的所有字段|
+|requestParams|json_object|Y|返回请求参数data中的所有字段|
 |riskType|int |Y|<p>标识风险类型，可能取值：<br>风险类型，静音时不返回，可能取值：<br>0：正常</p><p>100：涉政</p><p>110: 暴恐</p><p>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p>|
 |riskTypeDesc|string|N|风险原因描述|
 |room|string|Y|房间号|
@@ -284,9 +284,9 @@ POST
 |strUserId|string|N|用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。|
 |vadCode|int|N|<p>静音状态：</p><p>0 ：静音片段</p><p>1 ：非静音片段</p>|
 |seiInfo|array|N|<p>（需要联系数美开通）</p><p>展示流片段插入的SEI信息</p>|
-|language|json\_array|N|语种识别与概率值列表,在type下传入返回。|
+|language|json_array|N|语种识别与概率值列表,在type下传入返回。|
 |minorLabel|int|N|<p>当type传入MINOR且命中未成年人标签时，才会返回；</p><p>1：未成年人</p>|
-|[business](http://www.baidu.com/link?url=rO74gQgpMutrSY-0zdfwMukmtScmIvYKqhMswgfLwRFStnDM0F7Y3nNEhLFyhQ4lbjvqInmT_nLcswXKz1WvLOydAfvg2cmv0sJ_WaYwFdq)Labels|json\_array|Y|音频业务标签返回|
+|[business](http://www.baidu.com/link?url=rO74gQgpMutrSY-0zdfwMukmtScmIvYKqhMswgfLwRFStnDM0F7Y3nNEhLFyhQ4lbjvqInmT_nLcswXKz1WvLOydAfvg2cmv0sJ_WaYwFdq)Labels|json_array|Y|音频业务标签返回|
 |riskSource|int|Y|<p>风险来源</p><p>1000：无风险</p><p>1001：文字</p><p>1003：音频</p>|
 
 detail.language数组中每一项具体参数如下：
@@ -318,7 +318,7 @@ code和message的列表如下：
 
 **请求示例**
 
-curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}’ 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti\_fraud/audiostream'
+curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}’ 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream'
 
 **返回示例**
 
@@ -342,13 +342,13 @@ curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callbac
 `    `"detail":{
 `        `"audioUrl":"[http://xxxx.mp3](http://xxxx.mp3/)",
 `        `"preAudioUrl":"[http://prexxxx.mp3](http://prexxxx.mp3/)",
-`        `"audio\_endtime":"2018-09-18 17:54:31",
-`        `"audio\_starttime":"2018-09-18 17:54:21",
+`        `"audio_endtime":"2018-09-18 17:54:31",
+`        `"audio_starttime":"2018-09-18 17:54:21",
 `        `"content":"啥鸡巴破地方啊，我发现我进传销了，兄弟们跟我过来当老板",
 `        `"description":"色情内容",
 `        	 `"matchedItem":"鸡巴",
 `        `"matchedList":"色情",
-`        `"model":"M1020\_20",
+`        `"model":"M1020_20",
 `        `"requestParams":{
 `            `"test1":1,
 `            `"test2":"qew",
@@ -368,15 +368,15 @@ curl -d’{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callbac
 
 北京集群：
 
-http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti\_fraud/finish\_audiostream
+http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 上海集群：
 
-http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti\_fraud/finish\_audiostream
+http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 新加坡:
 
-http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti\_fraud/finish\_audiostream
+http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 **字符编码格式：**
 
@@ -423,7 +423,7 @@ code和message的列表如下：
 
 **请求示例**
 
-curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti\_fraud/finish\_audiostream'
+curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream'
 
 **返回示例**
 
@@ -462,13 +462,13 @@ POST
 | :- | :- | :- | :- |
 |requestId|string|Y|开启审核时的requestId|
 |streamType|string|Y|返回码详情描述|
-|data|json\_object|Y|在请求更新Token接口时，会携带客户开启审核时的部分参数|
+|data|json_object|Y|在请求更新Token接口时，会携带客户开启审核时的部分参数|
 
 data字段结构：
 
 |参数名称|类型|是否必填|说明|
 | :- | :- | :- | :- |
-|agoraParam|json\_object|Y|与客户当时开启审核时传的参数一致，详见开启审核接口中的data.agoraParam|
+|agoraParam|json_object|Y|与客户当时开启审核时传的参数一致，详见开启审核接口中的data.agoraParam|
 
 **返回结果**
 

@@ -78,15 +78,15 @@
 
 北京集群：
 
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti\_fraud/audio
+http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/audio
 
 上海集群：
 
-http://api-audio-sh.fengkongcloud.com/v2/saas/anti\_fraud/audio
+http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
 
 硅谷集群：
 
-http://api-audio-gg.fengkongcloud.com/v2/saas/anti\_fraud/audio
+http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
 
 
 **字符编码格式：**使用UTF-8字符集进行编码
@@ -102,12 +102,12 @@ http://api-audio-gg.fengkongcloud.com/v2/saas/anti\_fraud/audio
 |**参数名称**|**类型**|**是否必选**|**说明**|
 | :- | :- | :- | :- |
 |accessKey|string|Y|服务密匙，开通账号服务时由数美提供|
-|type|string|Y|<p>需要识别的违规类型，可选值：</p><p>POLITICS：涉政识别</p><p>ANTHEN：国歌识别</p><p>PORN：色情</p><p>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>MOAN：娇喘识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色标签（需要同时传入GENDER才能生效）</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICS\_PORN\_AD用于广告、色情和涉政识别。<br>建议传入：<br>POLITICS\_PORN\_AD\_MOAN</p>|
+|type|string|Y|<p>需要识别的违规类型，可选值：</p><p>POLITICS：涉政识别</p><p>ANTHEN：国歌识别</p><p>PORN：色情</p><p>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>MOAN：娇喘识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色标签（需要同时传入GENDER才能生效）</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICS_PORN_AD用于广告、色情和涉政识别。<br>建议传入：<br>POLITICS_PORN_AD_MOAN</p>|
 |appId|string|N|应用标识，此字段强校验，需要提前与数美约定好取值。不传取默认值default|
 |btId|string|Y|音频唯一标识，限长128位字符长度, 不能重复，否则提示参数错误。|
-|data|json\_object|Y|请求数据，最长1MB，详细内容参见下表|
+|data|json_object|Y|请求数据，最长1MB，详细内容参见下表|
 |callback|string|N|异步检测结果回调通知您的URL，支持HTTP和HTTPS。字段为空时，您必须通过查询接口主动查询结果。|
-|callbackParam|json\_object|N|透传字段，当 callback 存在时可选，发送回调请求时服务将该字段内容同音频结果一起返回|
+|callbackParam|json_object|N|透传字段，当 callback 存在时可选，发送回调请求时服务将该字段内容同音频结果一起返回|
 
 *data的内容如下：*
 
@@ -116,7 +116,7 @@ http://api-audio-gg.fengkongcloud.com/v2/saas/anti\_fraud/audio
 |url|string|N|待识别音频url地址，url和content至少提供一个|
 |lang|string|N|可选值如下，（默认值为zh）：<br>zh：中文<br>en：英文<br>ar：阿拉伯语|
 |content|string|N|待识别音频的base64编码数据（上限6M，仅支持pcm、wav、mp3）, pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输。url和content至少提供一个，同时存在时仅支持content|
-|formatInfo|json\_object|N|当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明|
+|formatInfo|json_object|N|当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明|
 |audioName|string|N|音频文件名称|
 |tokenId|string|N|用户账号标识|
 |channel|string|N|业务场景名称，见渠道配置表|
@@ -171,11 +171,11 @@ code和message的列表如下：
 
 `    `"data":{
 
-`        `"tokenId":"test\_01",
+`        `"tokenId":"test_01",
 
 `        `"url":"http://xxxxxxxx.mp3",
 
-`        `“channel”:”IM\_MESSAGE”,
+`        `“channel”:”IM_MESSAGE”,
 
 `        `"returnAllText":true
 
@@ -221,7 +221,7 @@ code和message的列表如下：
 
 },
 
-“channel”:”IM\_MESSAGE”,
+“channel”:”IM_MESSAGE”,
 
 `        `"tokenId":"asdwef",
 
@@ -265,11 +265,11 @@ code和message的列表如下：
 
 北京集群：
 
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti\_fraud/query\_audio
+http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/query_audio
 
 上海集群：
 
-http://api-audio-sh.fengkongcloud.com/v2/saas/anti\_fraud/query\_audio
+http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/query_audio
 
 **字符编码格式：**
 
@@ -306,12 +306,12 @@ POST
 |audioTime|int|N|整段音频的音频时长，单位秒，code为1100时存在|
 |labels|string|N|音频识别结果标签|
 |riskLevel|string|N|<p>识别结果，可能返回值：</p><p>PASS：正常内容<br>REVIEW：疑似违规内容<br>REJECT：违规内容</p>|
-|detail|json\_array|N|风险详情|
-|gender|json\_object|N|性别标签与概率值|
+|detail|json_array|N|风险详情|
+|gender|json_object|N|性别标签与概率值|
 |isSing|int|N|<p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p>|
-|language|json\_array|N|语种标签与概率值列表|
-|tags|json\_array|N|音色标签与概率值列表|
-|businessLabels|json\_array|N|业务标签返回|
+|language|json_array|N|语种标签与概率值列表|
+|tags|json_array|N|音色标签与概率值列表|
+|businessLabels|json_array|N|业务标签返回|
 
 *detail数组中每一项的具体参数如下：*
 
@@ -501,10 +501,10 @@ POST
 |audioTime|int|N|整段音频的音频时长，单位秒，code为1100时存在|
 |labels|string|N|音频片段风险原因汇总|
 |riskLevel|string|N|<p>识别结果，可能返回值：</p><p>PASS：正常内容<br>REVIEW：疑似违规内容<br>REJECT：违规内容</p>|
-|detail|json\_array|N|风险详情|
-|gender|json\_object|N|性别标签与概率值|
-|tags|json\_array|N|音色标签与概率值列表|
-|callbackParam|json\_object|Y|客户传入的透传字段|
+|detail|json_array|N|风险详情|
+|gender|json_object|N|性别标签与概率值|
+|tags|json_array|N|音色标签与概率值列表|
+|callbackParam|json_object|Y|客户传入的透传字段|
 
 *detail数组中每一项的具体参数如下：*
 
