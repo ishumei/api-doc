@@ -1,5 +1,4 @@
-﻿
-数美智能音频识别API接口文档                                                 ![](asserts/Aspose.Words.a1dafdbc-aa2d-4134-96d1-dec00f71d4a8.001.png)
+﻿# 数美智能音频识别API接口文档
 
 **数美智能音频识别API接口文档**
 

@@ -1,4 +1,4 @@
-﻿![](asserts/Aspose.Words.129ae968-e66b-4ea7-92b4-b4d3ffb59bc9.001.png)数美智能音频过滤API接口文档
+﻿# 数美智能音频过滤API接口文档
 
 **数美智能音频流过滤API接口文档**
 
@@ -113,7 +113,7 @@ http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti\_fraud/audiostream
 
 硅谷集群：
 
-http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti\_fraud/audiostream
+http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 新加坡:
 
@@ -444,7 +444,7 @@ curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh
 
 <https://docs.agora.io/cn/All/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_constants.html#ac7ed64c7dc79350210daef29296d28dc>
 
-![](asserts/Aspose.Words.129ae968-e66b-4ea7-92b4-b4d3ffb59bc9.002.png)
+![](asserts/voice_renew_token.png)
 
 当声网的Token失效时，数美会根据客户提供的renewTokenURL接口获取更新后的Token。
 
@@ -501,8 +501,3 @@ data字段结构：
 客户通过公网调用数美接口，公网网络延迟较长，导致少量请求存在超时。可以建议客户ping数美不同的集群网络，建议客户接入网络延迟较低的数美集群。
 ## **3.4 数美接口支持哪些网络协议？**
 数美音频流测试接口支持http、https、RTMP、HLS、HDL(HTTP-FLV)、RTP等所有主流网络协议。
-
-
-3
-
-**CONFIDENTIAL**
