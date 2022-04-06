@@ -309,7 +309,33 @@ code和message的列表如下：
 **请求示例**
 
 ```
-curl -d'{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback":"http://10.141.16.179:8900/","callbackParam":{"test1":1,"test2":"qew","test3":true},"data":{"streamType":"TRTC","trtcParam":{"sdkAppId":1400498247,"demoSences":4,"userId":12345,"userSig":"","roomId":517067780},"returnPreText":true,"returnPreAudio":true,"tokenId":"shumei-test","channel":"","returnAllText":true}}' 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream'
+curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream' -d'{
+    "accessKey": "",
+    "type": "LANGUAGE",
+    "appId": "default",
+    "btid": "",
+    "callback": "http://10.141.16.179:8900/",
+    "callbackParam": {
+        "test1": 1,
+        "test2": "qew",
+        "test3": true
+    },
+    "data": {
+        "streamType": "TRTC",
+        "trtcParam": {
+            "sdkAppId": 1400498247,
+            "demoSences": 4,
+            "userId": "12345",
+            "userSig": "",
+            "roomId": 517067780
+        },
+        "returnPreText": true,
+        "returnPreAudio": true,
+        "tokenId": "shumei-test",
+        "channel": "",
+        "returnAllText": true
+    }
+}'
 ```
 
 **返回示例**
@@ -328,7 +354,7 @@ curl -d'{"accessKey":"","type":"LANGUAGE","appId":"default","btid":"","callback"
 {
     "code": 1100,
     "message": "成功",
-    "requestId": "a78eef377079acc6cdec24967ecde722",
+    "requestId": "a78eef377079acc6cdec24967ecde722_12345_0",
     "riskLevel": "REJECT",
     "detail": {
         "audioUrl": "[http://xxxx.mp3](http://xxxx.mp3/)",
@@ -432,6 +458,7 @@ curl -d'{"accessKey":"xxxxx", "requestId": "yyyy"}'  'http://api- audiostream-sh
 ```
 
 ## **3.更新声网Token接口规范**
+
 声网的Token存在有效期，过期后需要更新Token，详见：
 
 <https://docs.agora.io/cn/Agora%20Platform/channel_key>
