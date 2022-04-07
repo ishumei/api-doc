@@ -7,7 +7,7 @@
 - - - - -
 
 * [视频流上传请求](#uploadV2)
-  
+
     + [接口描述](#uploadV2.interafceDesc)
     + [请求URL](#uploadV2.requestUrl)
     + [请求方法](#uploadV2.requestMethod)
@@ -17,7 +17,7 @@
     + [请求参数](#uploadV2.requestParameters)
     * [返回参数](#uploadV2.responseParameters)
 * [异步回调结果](#callbackV2)
-  
+
     + [接口描述](#callbackV2.interfaceDesc)
     + [请求方法](#callbackV2.callbackMethod)
     + [字符编码](#callbackV2.callbackEncode)
@@ -25,7 +25,7 @@
     + [回调策略](#callbackV2.callbackStrategy)
     + [回调参数](#callbackV2.callbackParameters)
 * [视频流关闭请求](#closeV2)
-  
+
     + [接口描述](#closeV2.interfaceDesc)
     + [请求URL](#closeV2.requestUrl)
     + [请求方法](#closeV2.requestMethod)
@@ -35,7 +35,7 @@
     + [请求参数](#closeV2.requestParameters)
     + [返回参数](#closeV2.responseParameters)
 * [示例](#demo)
-  
+
     + [上传接口请求示例](#demo.requestuploadV2)
     + [上传接口返回示例](#demo.responseuploadV2)
     + [异步回调结果示例](#demo.callbackV2)
@@ -59,7 +59,7 @@
 
 ### <span id = "uploadV2.requestMethod">请求方法：</span>
 
-`POST` 
+`POST`
 
 ### <span id = "uploadV2.requestProtocol">支持协议</span>
 
@@ -82,7 +82,7 @@
 | accessKey | string | 公司密钥 | 必传参数 | 数美分配 |
 | appId | string | 应用标识 | 必传参数 | 该参数传递值可与数美协商 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PERSON`：涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：图片中的文字风险识别<br/>`PORTRAIT`：识别坐姿<br/>`BUSINESSRISK`：行业违规<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`SING`：唱歌识别<br/>`ANTHEN`：国歌识别<br/>`LANGUAGE`：语种识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频流中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`SING`：唱歌识别<br/>`ANTHEN`：国歌识别<br/>`LANGUAGE`：语种识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别，不传时默认过所有监管风险类型 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型 | 非必传参数 |  业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | imgCallback | string | 图片回调地址 | 必传参数 | 将视频流中截帧图片的检测结果通过该地址回调给用户 |
