@@ -93,7 +93,7 @@
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
@@ -108,7 +108,7 @@
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为20帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo) |
@@ -212,6 +212,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | passThrough | json_object | 客户传入的透传字段 | 否 |  |
 | streamId | string | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
 | frameTime | int | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
+| qrContent | string | 返回识别的二维码地址| 否 | 需要联系数美配置返回 |
 
 auxInfo中，typeVersion的内容如下：
 
@@ -477,7 +478,7 @@ businessLabels数组中的businessDetail的内容如下：
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>如果需要多个识别功能，通过下划线连接 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -490,7 +491,7 @@ businessLabels数组中的businessDetail的内容如下：
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为20帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json\_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息 |
 
@@ -570,7 +571,7 @@ businessLabels数组中的businessDetail的内容如下：
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。 |
 
@@ -582,7 +583,7 @@ businessLabels数组中的businessDetail的内容如下：
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 默认值为20 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
@@ -699,6 +700,7 @@ imgs中，auxInfo的内容如下：
 | segments | int | 实际处理的图片数量 | 是 | |
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
 | errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式 |
+| qrContent | string | 返回识别的二维码地址| 否 | 需要联系数美配置返回 |
 
 auxInfo中，typeVersion的内容如下：
 
@@ -823,7 +825,7 @@ UTF-8
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -834,7 +836,7 @@ UTF-8
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 默认值为20 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
@@ -1040,6 +1042,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
 | errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
 | passThrough | json_object | 客户传入的透传字段 | 否 | |
+| qrContent | string | 返回识别的二维码地址| 否 | 需要联系数美配置返回 |
 
 auxInfo中，typeVersion的内容如下：
 
