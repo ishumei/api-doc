@@ -1,55 +1,58 @@
 # 数美智能音频文件识别产品API接口文档
-- - - - - 
+
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
-* [音频文件上传请求](#requestParameter)
-    + [请求URL](#requestUrl)
-    + [字符编码格式](#requestEncode)
-    + [请求方法](#requestMethod)
-    + [建议超时时长](#requestTimeout)
-    + [请求参数](#requestParameters)
-* [同步返回结果](#syncResponseParameters)
-* [回调返回结果](#callbackResponseParameters)
-* [主动查询请求](#queryRequest)
-    + [请求URL](#queryRequestUrl)
-    + [字符编码格式](#queryRequestEncode)
-    + [请求方法](#queryRequestMethod)
-    + [建议超时时长](#queryRequestTimeout)
-    + [请求参数](#queryRequestParameters)
-* [查询返回结果](#queryResponseParameters)
-* [示例](#example)
-    + [上传请求示例](#uploadRequestExample)
-    + [同步返回示例](#syncResponseExample)
-    + [回调返回示例](#callbackResponseExample)
-    + [查询请求示例](#queryRequestExample)
-    + [查询返回示例](#queryResponseExample)
-* [Demo](#demo)
+目录
 
+- [数美智能音频文件识别产品API接口文档](#数美智能音频文件识别产品api接口文档)
+  - [音频文件上传请求](#音频文件上传请求)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [同步返回参数](#同步返回参数)
+  - [回调结果](#回调结果)
+  - [主动查询请求](#主动查询请求)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [请求参数：](#请求参数-1)
+  - [返回参数](#返回参数)
+  - [示例](#示例)
+    - [上传请求示例：](#上传请求示例)
+    - [同步返回示例：](#同步返回示例)
+    - [回调返回示例：](#回调返回示例)
+    - [主动查询结果请求示例：](#主动查询结果请求示例)
+    - [主动查询结果返回示例：](#主动查询结果返回示例)
+  - [Demo](#demo)
 
-## <span id = "requestParameter">音频文件上传请求</span>
+## 音频文件上传请求
 
-### <span id = "requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-audio-bj.fengkongcloud.com/audio/v4` | 中文音频文件 |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/audio/v4` | 中文音频文件 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -65,7 +68,7 @@
 | btId | string | 音频文件唯一标识 | Y | 唯一标识这条音频文件，方便将回调结果对应上，最高128位，不能重复 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果 |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -75,7 +78,7 @@
 | track | int | 音频数据声道数 | 非必传参数 | 当音频数据格式为`pcm`时必须存在，可选值：1: 单声道2: 双声道 |
 | returnAllText | int | 返回音频片段的等级 | 非必传参数 | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段 |
 
-## <span id = "syncResponseParameters">同步返回参数</span>
+## 同步返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -85,7 +88,7 @@
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 和请求返回码对应 |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识|
 
-## <span id = "callbackResponseParameters">回调结果</span>
+## 回调结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -102,7 +105,7 @@
 | audioTags | json_object | 音频标签 | 否 | 返回性别、音色、是否唱歌等标签 |
 | requestParams | json_object | 透传字段 | 是 | 返回data下所有字段 |
 
-<span id = "audioDetail">其中，audioDetail结构如下：</span>
+其中，audioDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -116,7 +119,7 @@
 | riskDescription | string | 风险原因 | 是 | |
 | riskDetail | json_object | 风险详情 | 否 | [详见riskDetail参数](#riskDetail) |
 
-<span id = "riskDetail">其中，riskDetail结构如下：</span>
+其中，riskDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -124,28 +127,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
-<span id = "matchedLists">riskDetail中，matchedLists结构如下：</span>
+riskDetail中，matchedLists结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名称 | 是 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 是 | [详见words参数](#words) |
 
-<span id = "words">matchedLists中，words结构如下：</span>
+matchedLists中，words结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 是 | |
 | position | int_array | 敏感词所在位置 | 是 | |
 
-<span id = "riskSegments">riskDetail中，riskSegments结构如下：</span>
+riskDetail中，riskSegments结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | |
 
-<span id = "audioTags">其中，audioTags结构如下：</span>
+其中，audioTags结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -154,49 +157,49 @@
 | song | int | 唱歌标签 | 否 | 当type取值包含`SING`时返回可能取值：<br/>`0`：没有唱歌<br/>`1`：有唱歌 |
 | language | json_object | 语种识别 | 否 | type取值包含`LANGUAGE`时返回 |
 
-<span id = "gender">audioTags中，gender详细内容如下：</span>
+audioTags中，gender详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | string | 性别标签名称 | 是 | 可能取值：<br/>`男性`<br/>`女性` |
 | probability | int | 对应性别可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
-<span id = "timbre">audioTags中，timbre详细内容如下：</span>
+audioTags中，timbre详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | string | 音色标签类别 | 是 | 可能取值：<br/>`大叔音`<br/>`青年音`<br/>`正太音`<br/>`老年音`<br/>`女王音`<br/>`御姐音`<br/>`少女音`<br/>`萝莉音`<br/>`大妈音` |
 | probability | int | 对应音色标签可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
-<span id = "language">audioTags中，language详细内容如下：</span>
+audioTags中，language详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别标识 | 是 | 可能取值：<br/>`0`:普通话<br/>`1`:英语<br/>`2`:粤语 |
 | probability | int | 对应音色标签可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
-##  <span id = "queryRequest">主动查询请求</span>
+##  主动查询请求
 
-### <span id = "queryRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-audio-bj.fengkongcloud.com/query_audio/v4` | 中文音频文件 |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文音频文件 |
 
-### <span id = "queryRequestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "queryRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "queryRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "queryRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -205,7 +208,7 @@
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供 |
 | btId | string | 音频文件唯一标识 | 必传参数 | 唯一标识这条音频文件，用于查询识别结果 |
 
-## <span id = "queryResponseParameters">返回参数</span>
+## 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -221,8 +224,7 @@
 | audioDetail | json_array | 音频片段信息 | 是 | 回调的音频片段信息，[详见audioDetail参数](#queryAudioDetail) |
 | audioTags | json_object | 音频标签 | 否 | 返回性别、音色、是否唱歌等标签 |
 
-
-<span id = "queryAudioDetail">其中，audioDetail结构如下：</span>
+其中，audioDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -236,7 +238,7 @@
 | riskDescription | string | 风险原因 | 是 | |
 | riskDetail | json_object | 风险详情 | 否 | [详见riskDetail参数](#queryRiskDetail) |
 
-<span id = "queryRiskDetail">其中，riskDetail结构如下：</span>
+其中，riskDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -244,28 +246,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，[详见matchedLists参数](#queryMatchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#queryRiskSegments) |
 
-<span id = "queryMatchedLists">riskDetail中，matchedLists结构如下：</span>
+riskDetail中，matchedLists结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名称 | 是 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 是 | [详见words参数](#queryWords) |
 
-<span id = "queryWords">matchedLists中，words结构如下：</span>
+matchedLists中，words结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 是 | |
 | position | int_array | 敏感词所在位置 | 是 | |
 
-<span id = "queryRiskSegments">riskDetail中，riskSegments结构如下：</span>
+riskDetail中，riskSegments结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | |
 
-<span id = "queryAudioTags">其中，audioTags结构如下：</span>
+其中，audioTags结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -274,37 +276,36 @@
 | song | int | 唱歌标签 | 否 | 当type取值包含`SING`时返回可能取值：<br/>`0`：没有唱歌<br/>`1`：有唱歌 |
 | language | json_object | 语种识别 | 否 | type取值包含`LANGUAGE`时返回 |
 
-<span id = "queryGender">audioTags中，gender详细内容如下：</span>
+audioTags中，gender详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | string | 性别标签名称 | 是 | 可能取值：<br/>`男性`<br/>`女性` |
 | probability | int | 对应性别可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
-<span id = "queryTimbre">audioTags中，timbre详细内容如下：</span>
+audioTags中，timbre详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | string | 音色标签类别 | 是 | 可能取值：<br/>`大叔音`<br/>`青年音`<br/>`正太音`<br/>`老年音`<br/>`女王音`<br/>`御姐音`<br/>`少女音`<br/>`萝莉音`<br/>`大妈音` |
 | probability | int | 对应音色标签可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
-<span id = "queryLanguage">audioTags中，language详细内容如下：</span>
+audioTags中，language详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别标识 | 是 | 可能取值：<br/>`0`:普通话<br/>`1`:英语<br/>`2`:粤语 |
 | probability | int | 对应音色标签可能性大小 | 是 | 取值0-100，数值越高表示概率越大 |
 
+## 示例
 
-## <span id = "example">示例</span>
-
-### <span id = "uploadRequestExample">上传请求示例：</span>
+### 上传请求示例：
 
 ```
 curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*************","appId":"default","eventId":"default","type":"PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE","btId":"test1","contentType":"URL","content":"*************","callback":"*************","data":{"returnAllText":1,"room":"general","tokenId":"token-short"}}'
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 ```json
 {
     "code":1100,
@@ -314,7 +315,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*****
 }
 ```
 
-### <span id = "callbackResponseExample">回调返回示例：</span>
+### 回调返回示例：
 ```json
 {
     "requestId":"6a9cb980346dfea41111656a514e9109",
@@ -462,14 +463,13 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*****
 }
 ```
 
-
-### <span id = "queryRequestExample">主动查询结果请求示例：</span>
+### 主动查询结果请求示例：
 
 ```
 curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{"accessKey":"*************","btId":"*************"}'
 ```
 
-### <span id = "queryResponseExample">主动查询结果返回示例：</span>
+### 主动查询结果返回示例：
 
 ```json
 {
@@ -618,7 +618,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{"accessKey":
 }
 ```
 
-## <span id = "demo">Demo</span>
+## Demo
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)

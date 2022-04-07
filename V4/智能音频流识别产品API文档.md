@@ -1,55 +1,58 @@
 # 数美智能音频流识别产品API接口文档
+
 - - - - -
 
 ***版权所有 翻版必究***
 
 - - - - -
 
-* [音频流上传请求](#requestParameter)
-    + [请求URL](#requestUrl)
-    + [字符编码格式](#requestEncode)
-    + [请求方法](#requestMethod)
-    + [建议超时时长](#requestTimeout)
-    + [请求参数](#requestParameters)
-* [同步返回结果](#syncResponseParameters)
-* [回调返回结果](#callbackResponseParameters)
-* [音频流关闭接口](#closeInterface)
-    + [请求URL](#closeRequestUrl)
-    + [字符编码格式](#closeRequestEncode)
-    + [请求方法](#closeRequestMethod)
-    + [建议超时时长](#closeRequestTimeout)
-    + [请求参数](#closeRequestParameters)
-* [音频流关闭返回结果](#closeResponse)
-* [示例](#example)
-    + [请求示例](#uploadRequestExample)
-    + [返回示例](#callbackResponseExample)
-    + [关流请求示例](#closeRequestExample)
-    + [关流返回示例](#closeResponseExample)
-* [Demo](#demo)
+目录
 
+- [数美智能音频流识别产品API接口文档](#数美智能音频流识别产品api接口文档)
+  - [音频流上传请求](#音频流上传请求)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [同步返回结果](#同步返回结果)
+  - [回调返回结果](#回调返回结果)
+  - [音频流关闭通知接口](#音频流关闭通知接口)
+    - [请求URL：](#请求url-1)
+    - [字符编码：](#字符编码-1)
+    - [请求方法：](#请求方法-1)
+    - [建议超时时长：](#建议超时时长)
+    - [请求参数：](#请求参数-1)
+  - [返回参数](#返回参数)
+  - [示例](#示例)
+    - [上传请求示例：](#上传请求示例)
+    - [回调返回示例：](#回调返回示例)
+    - [关流请求示例：](#关流请求示例)
+    - [关流返回示例：](#关流返回示例)
+  - [Demo](#demo)
 
-## <span id = "requestParameter">音频流上传请求</span>
+## 音频流上传请求
 
-### <span id = "requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
 | 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
 | 上海 | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4` | 中文音频流 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -63,7 +66,7 @@
 | data | json_object | 请求的数据内容 | Y | 本次请求相关信息，最长1MB,[详见data参数](#data) |
 | callback | string | 回调地址 | Y | 异步检测结果回调通知您的URL，支持HTTP和HTTPS |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -85,9 +88,7 @@
 | liveTitle | string | 标题 | N | 房间标题，非必填参数，在客户开通人审服务传入 |
 | anchorName | string | 昵称 | N | 用户昵称，非必填参数，在客户开通人审服务传入 |
 
-
-
-<span id = "zegoParam">data中，zegoParam详细内容如下：</span>
+data中，zegoParam详细内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -96,7 +97,7 @@
 | roomId | string | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流 | N | |
 | testEnv | bool | 是否使用zego测试环境 | N | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
 
-<span id = "agoraParam">data中，agoraParam详细内容如下：</span>
+data中，agoraParam详细内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -118,13 +119,13 @@
 | roomId     | int    | Y            | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId |
 | strRoomId  | string | Y            | 房间号码 取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId |
 
-<span id = "extra">data中，extra的内容如下：</span>
+data中，extra的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传字段 | N | 该字段内容会随着回调结果一起返回 |
 
-## <span id = "syncResponseParameters">同步返回结果</span>
+## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -135,16 +136,14 @@
 | message | string | 请求返回描述 | 是 | 和请求返回码对应 |
 | detail | json_object | 描述详细信息 | 否 | 描述错误码请求，[详见detail参数](#detail) |
 
-
-<span id = "detail">其中，detail结构如下：</span>
-
+其中，detail结构如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **说明** |
 | --- | --- | --- | --- | --- |
 | errorCode | int | | 否 | 状态码<br/>`1001`：重复推流 |
 |dupRequestId|string| |否|表示重复的requestId<br/>当errorCode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口|
 
-## <span id = "callbackResponseParameters">回调返回结果</span>
+## 回调返回结果
 
 当音频流稳定接入开始接受数美监测后，数美会持续回调识别结果给客户，回调策略根据returnAllText的取值不同而不同。
 
@@ -163,7 +162,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | audioDetail | json_object | 风险音频片段信息 | 否 | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail) |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
 
-<span id = "audioDetail">其中，audioDetail结构如下：</span>
+其中，audioDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -181,7 +180,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | allLabels | json_array | 风险标签 | 否 | 全部风险标签，[详见allLabels参数](#allLabels) |
 | riskSource | int | 风险来源 | 是 | 风险来源 |
 
-<span id = "auxInfo">其中，auxInfo结构如下：</span>
+其中，auxInfo结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -192,8 +191,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | room | string | 房间号 | 否 | |
 | seiInfo | array | SEI信息 | 否 | （需要联系数美开通） |
 
-
-<span id = "riskDetail">其中，riskDetail结构如下：</span>
+其中，riskDetail结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -201,28 +199,28 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
-<span id = "matchedLists">其中，matchedLists结构如下：</span>
+其中，matchedLists结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 是 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 是 | 下标从0开始计数，[详见words参数](#words) |
 
-<span id = "words">其中，words结构如下：</span>
+其中，words结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 是 | |
 | position | int_array | 敏感词所在位置 | 是 | 下标从0开始计数 |
 
-<span id = "riskSegments">其中，riskSegments结构如下：</span>
+其中，riskSegments结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id = "businessLabels">其中，businessLabels结构如下：</span>
+其中，businessLabels结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -231,7 +229,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | businessLabel3 | string | 三级业务标签 | 否 | 三级业务标签 |
 | businessDescription | string | 中文标签描述 | 否 | 业务标签描述 |
 
-<span id = "allLabels">allLabels结构如下：</span>
+allLabels结构如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -240,36 +238,32 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
 | riskDescription | string | 风险原因 | 是 | 风险原因 |
 
-
-## <span id = "closeInterface">音频流关闭通知接口</span>
+## 音频流关闭通知接口
 
 **接口描述**
 
 该接口用于客户端通知服务端某个音频流已关闭。
 
-### <span id = "closeRequestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
 | 硅谷 | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
 | 上海 | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文音频流 |
 
-
-### <span id = "closeRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-
-### <span id = "closeRequestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-
-### <span id = "closeRequestTimeout">建议超时时长：</span>
+### 建议超时时长：
 
 1s
 
-### <span id = "closeRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -278,8 +272,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | accessKey | string | 公司密钥 | Y | 用于权限认证，开通账号服务时由数美提供 |
 | requestId | string | 本次请求的唯一标识 | Y | 需要关闭视频流的requestId |
 
-
-## <span id = "closeResponse">返回参数</span>
+## 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -289,15 +282,15 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | code | int | 请求返回码 | 是 | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 枚举值：成功该路流不存在 |
 
-## <span id = "example">示例</span>
+## 示例
 
-### <span id = "uploadRequestExample">上传请求示例：</span>
+### 上传请求示例：
+
 ```
 curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"accessKey":"xxxxx","appId":"default","eventId":"default","type":"PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE","callback":"xxxxx","streamType":"NORMAL","data":{"btId":"test1","lang":"zh","room":"room2","url":"xxxxx","returnAllText":1,"returnPreText":1,"returnPreAudio":1,"tokenId":"2222"}}'
 ```
 
-
-### <span id = "callbackResponseExample">回调返回示例：</span>
+### 回调返回示例：
 
 ```json
 {
@@ -370,15 +363,13 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"acces
 }
 ```
 
-
-###  <span id = "closeRequestExample">关流请求示例：</span>
+###  关流请求示例：
 
 ```
 curl -d'{"accessKey":"xxxxx", "requestId": "xxxxx"}' 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4'
 ```
 
-
-### <span id = "closeResponseExample">关流返回示例：</span>
+### 关流返回示例：
 
 ```
 {
@@ -389,7 +380,6 @@ curl -d'{"accessKey":"xxxxx", "requestId": "xxxxx"}' 'http://api-audiostream-bj.
 
 ```
 
-
-## <span id = "demo">Demo</span>
+## Demo
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
