@@ -21,12 +21,8 @@
       - [audioDetail](#audiodetail)
       - [riskDetail](#riskdetail)
       - [matchedLists](#matchedlists)
-      - [words](#words)
       - [riskSegments](#risksegments)
       - [audioTags](#audiotags)
-      - [gender](#gender)
-      - [timbre](#timbre)
-      - [language](#language)
   - [**主动查询结果**](#主动查询结果)
     - [**请求URL：**](#请求url-1)
     - [**字符编码：**](#字符编码-1)
@@ -37,12 +33,9 @@
       - [audioDetail](#audiodetail-1)
       - [riskDetail](#riskdetail-1)
       - [matchedLists](#matchedlists-1)
-      - [words](#words-1)
+      - [words](#words)
       - [riskSegments](#risksegments-1)
       - [audioTags](#audiotags-1)
-      - [gender](#gender-1)
-      - [timbre](#timbre-1)
-      - [language](#language-1)
   - [**示例**](#示例)
     - [**上传请求示例**](#上传请求示例)
     - [**同步返回示例**](#同步返回示例)
@@ -143,17 +136,17 @@
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
 | riskDescription | string      | 风险原因         | 是           |                                                                          |
-| riskDetail      | json_object | 风险详情         | 否           |                                                                          |
+| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                                        |
 
 #### riskDetail
 
 其中，riskDetail详细内容如下：
 
-| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                         |
-| :----------- | :--------- | :----------------------- | :----------- | :----------------------------------------------- |
-| audioText    | string     | 音频转译文本的结果       | 否           |                                                  |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回                         |
-| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在 |
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
+| :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
+| audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
+| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
 #### matchedLists
 
@@ -163,8 +156,6 @@ riskDetail中，matchedLists详细内容如下：
 | :--------- | :--------- | :--------------------------- | :----------- | :------- |
 | name       | string     | 客户自定义名单名称           | 是           |          |
 | words      | json_array | 命中的这个名单中的敏感词信息 | 是           |          |
-
-#### words
 
 matchedLists中，words详细内容如下：
 
@@ -193,8 +184,6 @@ riskDetail中，riskSegments详细内容如下：
 | song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
 | language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                                         |
 
-#### gender
-
 audioTags中，gender详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**       | **是否必返** | **规范**                                |
@@ -202,16 +191,12 @@ audioTags中，gender详细内容如下：
 | label       | string   | 性别标签名称       | 是           | <p>可能取值：</p><p>男性</p><p>女性</p> |
 | probability | int      | 对应性别可能性大小 | 是           | 取值0-100，数值越高表示概率越大         |
 
-#### timbre
-
 audioTags中，timbre详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                                                                                               |
 | :---------- | :------- | :--------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------- |
 | label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                                                                                                        |
-
-#### language
 
 audioTags中，language详细内容如下：
 
@@ -263,7 +248,7 @@ audioTags中，language详细内容如下：
 | riskLevel   | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p>                                                                   |
 | audioText   | string      | 整段音频转译文本结果           | 是           |                                                                                                                                                                                                                       |
 | audioTime   | int         | 整段音频的音频时长             | 是           | 单位秒                                                                                                                                                                                                                |
-| audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息                                                                                                                                                                                                    |
+| audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail-1)                                                                                                                                                             |
 | audioTags   | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                                                                                                                                                                                        |
 
 #### audioDetail
@@ -280,27 +265,27 @@ audioDetail内每个元素的内容如下：
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
 | riskDescription | string      | 风险原因         | 是           |                                                                          |
-| riskDetail      | json_object | 风险详情         | 否           |                                                                          |
+| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail-1)                                      |
 
 
 #### riskDetail
 
 其中，riskDetail详细内容如下：
 
-| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                         |
-| :----------- | :--------- | :----------------------- | :----------- | :----------------------------------------------- |
-| audioText    | string     | 音频转译文本的结果       | 否           |                                                  |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回                         |
-| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在 |
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                  |
+| :----------- | :--------- | :----------------------- | :----------- | :---------------------------------------------------------------------------------------- |
+| audioText    | string     | 音频转译文本的结果       | 否           |                                                                                           |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists-1)                         |
+| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments-1) |
 
 #### matchedLists
 
 riskDetail中，matchedLists详细内容如下：
 
-| **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范** |
-| :--------- | :--------- | :--------------------------- | :----------- | :------- |
-| name       | string     | 客户自定义名单名称           | 是           |          |
-| words      | json_array | 命中的这个名单中的敏感词信息 | 是           |          |
+| **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范**                  |
+| :--------- | :--------- | :--------------------------- | :----------- | :------------------------ |
+| name       | string     | 客户自定义名单名称           | 是           |                           |
+| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words-1) |
 
 #### words
 
@@ -331,8 +316,6 @@ riskDetail中，riskSegments详细内容如下：
 | song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
 | language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                                         |
 
-#### gender
-
 audioTags中，gender详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**       | **是否必返** | **规范**                                |
@@ -340,16 +323,12 @@ audioTags中，gender详细内容如下：
 | label       | string   | 性别标签名称       | 是           | <p>可能取值：</p><p>男性</p><p>女性</p> |
 | probability | int      | 对应性别可能性大小 | 是           | 取值0-100，数值越高表示概率越大         |
 
-#### timbre
-
 audioTags中，timbre详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                                                                                               |
 | :---------- | :------- | :--------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------- |
 | label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                                                                                                        |
-
-#### language
 
 audioTags中，language详细内容如下：
 
