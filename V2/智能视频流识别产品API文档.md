@@ -105,7 +105,7 @@
 | returnAllText | bool | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下：(默认值为`false`)<br/>`false`：返回风险等级为非pass的音频片段与文本内容<br/>`true`：返回所有风险等级的音频片段与文本内容 |
 | returnPreText | bool | 为true表示返回前10秒和当前10秒共20秒音频片段的文本内容| 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回的content字段包含违规音频前10秒文本内容<br/>`false`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | bool |  为true表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回违规音频前10秒音频链接<br/>`false`:只返回违规片段音频链接 |
-| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#callbackV2.callbackParameters.FinishCallback) |
+| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 <br/>详细返回参数见[结束流返回参数](#callbackV2.callbackParameters.FinishCallback) |
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认5s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | channel | string | 渠道标识 | 非必传参数 | 用户根据不同业务场景，选配不同的渠道 |
@@ -272,22 +272,6 @@
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-<span id="callbackV2.callbackParameters.FinishCallback">审核结束回调参数（returnFinishInfo为true时返回）：</span>
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
-| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
-| requestId | string | 请求唯一标识 | 是 |  |
-| statCode | int | 回调状态码。状态码对应关系：<br/>1 : 审核结束回调 | 是||
-| detail | json_object | 结果详情 | 是 | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
-
-<span id="callbackV2.callbackParameters.Finish.Detail">结束回调中的detail内容如下：</span>
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| requestParams | json_object | 返回请求参数data中的所有字段 | 是 | 无 |
-
 <span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
@@ -299,6 +283,28 @@
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
 <span id="callbackV2.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
+
+### <span id = "callbackV2.callbackParameters.FinishCallback">审核结束回调参数：</span>
+
+returnFinishInfo为true时会在审核结束时发送异步回调，参数如下
+
+| **参数名**        | **类型**    | **参数说明**                                      | **是否必返** | **规范**                                                     |
+| ----------------- | ----------- | ------------------------------------------------- | ------------ | ------------------------------------------------------------ |
+| code              | int         | 请求返回码                                        | 是           | 详见[接口响应码列表](#codeList)                              |
+| message           | string      | 请求返回描述，和请求返回码对应                    | 是           | 详见[接口响应码列表](#codeList)                              |
+| requestId         | string      | 请求唯一标识                                      | 是           |                                                              |
+| statCode          | int         | 回调状态码。状态码对应关系：<br/>1 : 审核结束回调 | 是           |                                                              |
+| contentType       | int         | 用来区分音频和图片回调，当code等于1100时返回      | 是           | 可能取值如下：<br/>`1`：该回调为图片结束审核回调<br/>`2`：该回调为音频结束审核回调 |
+| pullStreamSuccess | bool        | 拉流是否成功                                      | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败    |
+| detail            | json_object | 结果详情                                          | 是           | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
+
+<span id="callbackV2.callbackParameters.Finish.Detail">结束回调中的detail内容如下：</span>
+
+| **参数名**    | **类型**    | **参数说明**                 | **是否必返** | **规范** |
+| ------------- | ----------- | ---------------------------- | ------------ | -------- |
+| requestParams | json_object | 返回请求参数data中的所有字段 | 是           | 无       |
+
+
 
 ## <span id = "closeV2">视频流关闭接口</span>
 
