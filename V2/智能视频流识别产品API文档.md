@@ -6,49 +6,49 @@
 
 - - - - -
 
-* [视频流上传请求](#uploadV2)
+目录
 
-    + [接口描述](#uploadV2.interafceDesc)
-    + [请求URL](#uploadV2.requestUrl)
-    + [请求方法](#uploadV2.requestMethod)
-    + [支持协议](#uploadV2.requestProtocol)
-    + [字符编码](#uploadV2.requestEncode)
-    + [建议超时时间](#uploadV2.requestTimeout)
-    + [请求参数](#uploadV2.requestParameters)
-    * [返回参数](#uploadV2.responseParameters)
-* [异步回调结果](#callbackV2)
+- [数美智能视频流识别产品API文档](#数美智能视频流识别产品api文档)
+  - [视频流上传请求](#视频流上传请求)
+    - [接口描述](#接口描述)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [支持协议](#支持协议)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+    - [返回参数](#返回参数)
+  - [异步回调结果](#异步回调结果)
+    - [接口描述](#接口描述-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [回调策略](#回调策略)
+    - [回调参数](#回调参数)
+  - [视频流关闭接口](#视频流关闭接口)
+    - [接口描述](#接口描述-2)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-2)
+    - [支持协议：](#支持协议-1)
+    - [字符编码：](#字符编码-2)
+    - [建议超时时间：](#建议超时时间-2)
+    - [请求参数：](#请求参数-1)
+    - [返回参数](#返回参数-1)
+  - [接口响应码列表](#接口响应码列表)
+  - [示例](#示例)
+    - [上传接口请求示例](#上传接口请求示例)
+    - [上传接口返回示例：](#上传接口返回示例)
+    - [异步回调结果示例：](#异步回调结果示例)
+    - [关闭接口请求示例：](#关闭接口请求示例)
+    - [关闭接口返回示例](#关闭接口返回示例)
 
-    + [接口描述](#callbackV2.interfaceDesc)
-    + [请求方法](#callbackV2.callbackMethod)
-    + [字符编码](#callbackV2.callbackEncode)
-    + [建议超时时间](#callbackV2.callbackTimeout)
-    + [回调策略](#callbackV2.callbackStrategy)
-    + [回调参数](#callbackV2.callbackParameters)
-* [视频流关闭请求](#closeV2)
+## 视频流上传请求
 
-    + [接口描述](#closeV2.interfaceDesc)
-    + [请求URL](#closeV2.requestUrl)
-    + [请求方法](#closeV2.requestMethod)
-    + [支持协议](#closeV2.requestProtocol)
-    + [字符编码](#closeV2.requestEncode)
-    + [建议超时时间](#closeV2.requestTimeout)
-    + [请求参数](#closeV2.requestParameters)
-    + [返回参数](#closeV2.responseParameters)
-* [示例](#demo)
-
-    + [上传接口请求示例](#demo.requestuploadV2)
-    + [上传接口返回示例](#demo.responseuploadV2)
-    + [异步回调结果示例](#demo.callbackV2)
-    + [关闭接口请求示例](#demo.requestcloseV2)
-    + [关闭接口返回示例](#demo.responsecloseV2)
-
-## <span id = "uploadV2">视频流上传请求</span>
-
-### <span id = "uploadV2.interafceDesc">接口描述</span>
+### 接口描述
 
 该接口用于提交视频流鉴定等相关信息，稳定拉流后将持续回调对应的识别结果至指定的callback地址。
 
-### <span id = "uploadV2.requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-videostream-bj.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
@@ -57,23 +57,23 @@
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 印度 | `http://api-videostream-yd.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 
-### <span id = "uploadV2.requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "uploadV2.requestProtocol">支持协议</span>
+### 支持协议
 
 `HTTP`或`HTTPS`
 
-### <span id = "uploadV2.requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "uploadV2.requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 3s
 
-### <span id = "uploadV2.requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -89,7 +89,7 @@
 | audioCallback | string | 音频回调地址 | 非必传参数 | 将视频流中音频片段的检测结果通过该地址回调给用户；需要识别音频时必传 |
 | data | json_object | 请求数据内容， | 必传参数 | 最长1MB，其中[data内容如下](#uploadV2.requestParameters.data) |
 
-<span id = "uploadV2.requestParameters.data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -114,7 +114,7 @@
 | liveCover | string | 直播封面 | 非必传参数 | 直播封面，一般用于人审需要字段|
 | anchorName | string | 主播名称 | 非必传参数 | 主播名称，一般用于人审需要字段|
 
-<span id="uploadV2.requestParameters.data.agoraParam">其中，agoraParam内容如下：</span>
+其中，agoraParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -124,7 +124,7 @@
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，<br/>频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，<br/>必须提供生成channelKey时所使用的用户ID。<br/>注意，此处需要区别实际房间中的用户uid，<br/>提供给服务端录制所用的uid不允许在房间中存在 |
 
-<span id="uploadV2.requestParameters.data.trtcParam">其中，trtcParam内容如下：</span>
+其中，trtcParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -135,7 +135,7 @@
 | roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId,注意：目前一个房间最多只能审核8个用户 |
 | strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
 
-<span id="uploadV2.requestParameters.data.zegoParam">其中，data.zegoParam内容如下：</span>
+其中，data.zegoParam内容如下：
 
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
@@ -143,7 +143,7 @@
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
 | testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
 
-### <span id = "uploadV2.responseParameters">返回参数</span>
+### 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -153,29 +153,29 @@
 | code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
 
-## <span id = "callbackV2">异步回调结果</span>
+## 异步回调结果
 
-### <span id="callbackV2.interfaceDesc">接口描述</span>
+### 接口描述
 
 用户如果需要服务端主动对视频检测结果进行回调，则需要在请求参数中指定回调协议接口URL callback参数，服务端根据该参数在视频审核完成后，主动回调用户。
 
-### <span id = "callbackV2.callbackMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "callbackV2.callbackEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "callbackV2.callbackTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id="callbackV2.callbackStrategy">回调策略</span>
+### 回调策略
 
 当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行最多20次推送。
 
-### <span id = "callbackV2.callbackParameters">回调参数</span>
+### 回调参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -191,7 +191,7 @@
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV2.callbackParameters.tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV2.callbackParameters.tokenRiskLabels) |
 
-<span id="callbackV2.callbackParameters.frameDetail">其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：</span>
+其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -216,8 +216,7 @@
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.frameDetail.businessLabels) |
 
-
-<span id="callbackV2.callbackParameters.frameDetail.businessLabels">截帧图片detail中，businessLabels数组的每个成员的内容如下：</span>
+截帧图片detail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -227,7 +226,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV2.callbackParameters.audioDetail">其中，在音频回调时（contentType为2时），音频片段detail每个成员的具体内容如下：</span>
+其中，在音频回调时（contentType为2时），音频片段detail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -253,8 +252,7 @@
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.businessLabels) |
 
-
-<span id="callbackV2.callbackParameters.audioDetail.businessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：</span>
+音频的detail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -264,15 +262,14 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-
-<span id="callbackV2.callbackParameters.audioDetail.language">音频的detail中，language数组中每一项具体参数如下：</span>
+音频的detail中，language数组中每一项具体参数如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-<span id="callbackV2.callbackParameters.FinishCallback">审核结束回调参数（returnFinishInfo为true时返回）：</span>
+审核结束回调参数（returnFinishInfo为true时返回）：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -282,13 +279,13 @@
 | statCode | int | 回调状态码。状态码对应关系：<br/>1 : 审核结束回调 | 是||
 | detail | json_object | 结果详情 | 是 | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
 
-<span id="callbackV2.callbackParameters.Finish.Detail">结束回调中的detail内容如下：</span>
+结束回调中的detail内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestParams | json_object | 返回请求参数data中的所有字段 | 是 | 无 |
 
-<span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
+其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
 | ----------- | -------- | ------------ | ------------ | -------------------------- |
@@ -298,15 +295,15 @@
 | description | string   | 标签描述     | 否           |                            |
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV2.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
+其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
-## <span id = "closeV2">视频流关闭接口</span>
+## 视频流关闭接口
 
-### <span id = "closeV2.interfaceDesc">接口描述</span>
+### 接口描述
 
 该接口用于客户端通知服务端某个视频流已关闭。
 
-### <span id = "closeV2.requestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
@@ -316,23 +313,23 @@
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
 | 印度 | `http://api-videostream-yd.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
 
-### <span id = "closeV2.requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "closeV2.requestProtocol">支持协议：</span>
+### 支持协议：
 
 `HTTP`或`HTTPS`
 
-### <span id = "closeV2.requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "closeV2.requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "closeV2.requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -341,7 +338,7 @@
 | accessKey | string | 公司密钥 | 必传参数 | 用于权限认证，开通账号服务时由数美提供 |
 | requestId | string | 本次请求的唯一标识 | 必传参数 | 需要关闭视频流的requestId |
 
-### <span id = "closeV2.responseParameters">返回参数</span>
+### 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -351,9 +348,9 @@
 | code | int | 请求返回码 | 是 | 请见[接口响应码列表](#codeList) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 请见[接口响应码列表](#codeList) |
 
-## <span id="codeList">接口响应码列表</span>
+## 接口响应码列表
 
-<span id="V2.responseParameters.code">code请求返回码列表如下：</span>
+code请求返回码列表如下：
 
 | **code** | **message**      |
 | -------- | ---------------- |
@@ -364,9 +361,9 @@
 | 9100     | 余额不足         |
 | 9101     | 无权限操作       |
 
-## <span id = "demo">示例</span>
+## 示例
 
-### <span id = "demo.requestuploadV2">上传接口请求示例</span>
+### 上传接口请求示例
 **普通流**
 ```json
 {
@@ -474,7 +471,7 @@
 }
 ```
 
-### <span id = "demo.responseuploadV2">上传接口返回示例：</span>
+### 上传接口返回示例：
 
 ```json
 {
@@ -484,7 +481,7 @@
 }
 ```
 
-### <span id = "demo.callbackV2">异步回调结果示例：</span>
+### 异步回调结果示例：
 
 **截帧图片回调**
 
@@ -567,8 +564,7 @@
 }
 ```
 
-
-### <span id = "demo.requestcloseV2">关闭接口请求示例：</span>
+### 关闭接口请求示例：
 
 ```json
 {
@@ -577,7 +573,7 @@
 }
 ```
 
-### <span id = "demo.responsecloseV2">关闭接口返回示例</span>
+### 关闭接口返回示例
 
 ```json
 {
