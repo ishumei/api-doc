@@ -61,7 +61,7 @@
 | accessKey | string | 公司密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | Y | 用于区分场景数据，可选值如下：<br/>`default`：默认事件<br/>`audiobook`：有声书<br/>`education`：教育音频<br/>`game`：游戏语音房<br/>`live`：秀场直播<br/>`ecommerce`：电商直播<br/>`voiceroom`：交友语音房<br/>`private`：私密语音聊天<br/>`other`：其他 |
-| type | string | 检测的风险类型 | Y | 可选值：监管一级标签<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>如需识别音色，唱歌,语种`GENDER`必传如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`涉政、色情和娇喘识别建议传入：`POLITICS_PORN_AD_MOAN` |
+| type | string | 检测的风险类型 | Y | 可选值：监管一级标签<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>如需识别音色，唱歌,语种`GENDER`必传如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`涉政、色情和娇喘识别建议传入：`POLITICS_PORN_AD_MOAN` |
 | contentType | string | 待识别音频内容的格式 | Y | 可选值如下：<br/>`URL`：识别内容为音频url地址<br/>`RAW`：识别内容为音频的base64编码数据 |
 | content | string | 待识别的音频内容 | Y | 可以为url地址或者base64编码数据。其中，base64编码数据上限6M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输 |
 | data | json object | 本次请求相关信息 | Y | 最长1MB,[详见data参数](#data)  |
