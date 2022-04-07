@@ -19,14 +19,14 @@
     - [请求参数：](#请求参数)
     - [返回参数](#返回参数)
   - [异步回调结果](#异步回调结果)
-    - [<span id="callbackV2.interfaceDesc">接口描述](#span-idcallbackv2interfacedesc接口描述)
+    - [接口描述](#接口描述-1)
     - [请求方法：](#请求方法-1)
     - [字符编码：](#字符编码-1)
     - [建议超时时间：](#建议超时时间-1)
-    - [<span id="callbackV2.callbackStrategy">回调策略](#span-idcallbackv2callbackstrategy回调策略)
+    - [回调策略](#回调策略)
     - [回调参数](#回调参数)
   - [视频流关闭接口](#视频流关闭接口)
-    - [接口描述](#接口描述-1)
+    - [接口描述](#接口描述-2)
     - [请求URL：](#请求url-1)
     - [请求方法：](#请求方法-2)
     - [支持协议：](#支持协议-1)
@@ -34,7 +34,7 @@
     - [建议超时时间：](#建议超时时间-2)
     - [请求参数：](#请求参数-1)
     - [返回参数](#返回参数-1)
-  - [<span id="codeList">接口响应码列表](#span-idcodelist接口响应码列表)
+  - [接口响应码列表](#接口响应码列表)
   - [示例](#示例)
     - [上传接口请求示例](#上传接口请求示例)
     - [上传接口返回示例：](#上传接口返回示例)
@@ -114,7 +114,7 @@
 | liveCover | string | 直播封面 | 非必传参数 | 直播封面，一般用于人审需要字段|
 | anchorName | string | 主播名称 | 非必传参数 | 主播名称，一般用于人审需要字段|
 
-<span id="uploadV2.requestParameters.data.agoraParam">其中，agoraParam内容如下：
+其中，agoraParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -124,7 +124,7 @@
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，<br/>频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，<br/>必须提供生成channelKey时所使用的用户ID。<br/>注意，此处需要区别实际房间中的用户uid，<br/>提供给服务端录制所用的uid不允许在房间中存在 |
 
-<span id="uploadV2.requestParameters.data.trtcParam">其中，trtcParam内容如下：
+其中，trtcParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -135,7 +135,7 @@
 | roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId,注意：目前一个房间最多只能审核8个用户 |
 | strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
 
-<span id="uploadV2.requestParameters.data.zegoParam">其中，data.zegoParam内容如下：
+其中，data.zegoParam内容如下：
 
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
@@ -155,7 +155,7 @@
 
 ## 异步回调结果
 
-### <span id="callbackV2.interfaceDesc">接口描述
+### 接口描述
 
 用户如果需要服务端主动对视频检测结果进行回调，则需要在请求参数中指定回调协议接口URL callback参数，服务端根据该参数在视频审核完成后，主动回调用户。
 
@@ -171,7 +171,7 @@
 
 5s
 
-### <span id="callbackV2.callbackStrategy">回调策略
+### 回调策略
 
 当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行最多20次推送。
 
@@ -191,7 +191,7 @@
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV2.callbackParameters.tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV2.callbackParameters.tokenRiskLabels) |
 
-<span id="callbackV2.callbackParameters.frameDetail">其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：
+其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -216,7 +216,7 @@
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.frameDetail.businessLabels) |
 
-<span id="callbackV2.callbackParameters.frameDetail.businessLabels">截帧图片detail中，businessLabels数组的每个成员的内容如下：
+截帧图片detail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -226,7 +226,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV2.callbackParameters.audioDetail">其中，在音频回调时（contentType为2时），音频片段detail每个成员的具体内容如下：
+其中，在音频回调时（contentType为2时），音频片段detail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -252,7 +252,7 @@
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.businessLabels) |
 
-<span id="callbackV2.callbackParameters.audioDetail.businessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：
+音频的detail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -262,14 +262,14 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV2.callbackParameters.audioDetail.language">音频的detail中，language数组中每一项具体参数如下：
+音频的detail中，language数组中每一项具体参数如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-<span id="callbackV2.callbackParameters.FinishCallback">审核结束回调参数（returnFinishInfo为true时返回）：
+审核结束回调参数（returnFinishInfo为true时返回）：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -279,13 +279,13 @@
 | statCode | int | 回调状态码。状态码对应关系：<br/>1 : 审核结束回调 | 是||
 | detail | json_object | 结果详情 | 是 | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
 
-<span id="callbackV2.callbackParameters.Finish.Detail">结束回调中的detail内容如下：
+结束回调中的detail内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestParams | json_object | 返回请求参数data中的所有字段 | 是 | 无 |
 
-<span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
+其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
 | ----------- | -------- | ------------ | ------------ | -------------------------- |
@@ -295,7 +295,7 @@
 | description | string   | 标签描述     | 否           |                            |
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV2.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
 ## 视频流关闭接口
 
@@ -348,9 +348,9 @@
 | code | int | 请求返回码 | 是 | 请见[接口响应码列表](#codeList) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 请见[接口响应码列表](#codeList) |
 
-## <span id="codeList">接口响应码列表
+## 接口响应码列表
 
-<span id="V2.responseParameters.code">code请求返回码列表如下：
+code请求返回码列表如下：
 
 | **code** | **message**      |
 | -------- | ---------------- |

@@ -26,7 +26,7 @@
     - [字符编码：](#字符编码-1)
     - [建议超时时间：](#建议超时时间-1)
     - [支持协议：](#支持协议)
-    - [<span id="callbackV2.callbackStrategy">回调策略：](#span-idcallbackv2callbackstrategy回调策略)
+    - [回调策略：](#回调策略)
     - [回调参数：](#回调参数)
   - [查询视频结果](#查询视频结果)
     - [接口描述](#接口描述-2)
@@ -115,7 +115,7 @@
 | videoCover | string | 视频封面 | 非必传参数 | 视频封面图片审核 |
 | channel | string | 客户渠道（不传为默认值） | 非必传参数 |[渠道配置表示例参考](#uploadV2.channel)  |
 
-<span id="uploadV2.channel">data 中，channel的内容如下
+data 中，channel的内容如下
 
 数美根据客户不同业务场景，配置不同的渠道（channel），制定针对性的拦截策略，同时也方便客户针对不同业务场景的数据进行筛选、分析。业务场景和渠道取值对应表如下（支持客户自定义）
 
@@ -159,7 +159,7 @@
 
 `HTTP`或`HTTPS`
 
-### <span id="callbackV2.callbackStrategy">回调策略：
+### 回调策略：
 
 当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行重试，最多20次推送。
 
@@ -172,7 +172,7 @@
 | checksum | string | 由accessKey + btId + result拼成字符串，通过SHA256算法生成。为防止篡改，可以按此算法生成字符串，与checksum做一次校验。 | 是 |  |
 | result | string | 机器审核结果 | 是 | 详见[result字段说明](#callbackV2.result) |
 
-<span id="callbackV2.result">result可反序列化为json结构，内容如下
+result可反序列化为json结构，内容如下
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -235,7 +235,7 @@ detail中，businessLabels数组的每个成员的内容如下：
 | subtitleDetail | json_array | 视频字幕存在时返回 | 否 | 视频字幕，详见[subtitleDetail](#callbackV2.callbackParameters.addition.subtitleDetail) |
 | videoCoverDetail | json_array | 视频封面存在时返回 | 否 | 视频封面，详见[videoCoverDetail](#callbackV2.callbackParameters.addition.videoCoverDetail) |
 
-<span id="callbackV2.callbackParameters.addition.audio_evidence">addition中，audio_evidence的每个元素详细内容如下：
+addition中，audio_evidence的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -254,14 +254,14 @@ detail中，businessLabels数组的每个成员的内容如下：
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.addition.audio_evidence.language) |
 | businessLabels | json_array | 识别出的业务标签 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.addition.audio_evidence.businessLabels) |
 
-<span id="callbackV2.callbackParameters.addition.audio_evidence.language">音频的audio_evidence中，language数组中每一项具体参数如下：
+音频的audio_evidence中，language数组中每一项具体参数如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-<span id="callbackV2.callbackParameters.addition.audio_evidence.businessLabels">audio_evidence中，businessLabels数组的每个成员的内容如下：
+audio_evidence中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -271,7 +271,7 @@ detail中，businessLabels数组的每个成员的内容如下：
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV2.callbackParameters.addition.subtitleDetail">addition中，subtitleDetail的详细内容如下：
+addition中，subtitleDetail的详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**   | **是否必返** | **规范**                                                     |
 | ----------- | -------- | -------------- | ------------ | ------------------------------------------------------------ |
@@ -281,9 +281,9 @@ detail中，businessLabels数组的每个成员的内容如下：
 | riskLevel   | string   | 处置建议       | 是           | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝 |
 | requestId   | string   | 字幕唯一标识   | 是           |                                                              |
 
-<span id="callbackV2.callbackParameters.addition.videoCoverDetail">addition中，videoCoverDetail的详细内容同subtitleDetail
+addition中，videoCoverDetail的详细内容同subtitleDetail
 
-<span id="callbackV2.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
+其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -293,7 +293,7 @@ detail中，businessLabels数组的每个成员的内容如下：
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV2.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
 ## 查询视频结果
 
@@ -393,7 +393,7 @@ detail中，businessLabels数组的每个成员的内容如下：
 | subtitleDetail | json_array | 视频字幕存在时返回 | 否 | 视频字幕，详见[subtitleDetail说明](#queryV2.responseParameters.addition.subtitleDetail) |
 | videoCoverDetail | json_array | 视频封面存在时返回 | 否 |视频封面，详见[videoCoverDetail说明](#queryV2.responseParameters.addition.videoCoverDetail)  |
 
-<span id="callbackV2.callbackParameters.query.audioEvidence">addition中，audio_evidence的每个元素详细内容如下：
+addition中，audio_evidence的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -412,14 +412,14 @@ detail中，businessLabels数组的每个成员的内容如下：
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.query.language) |
 | businessLabels | json_array | 识别出的业务标签 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.query.businessLabels) |
 
-<span id="callbackV2.callbackParameters.audioDetail.query.language">音频的audio_evidence中，language数组中每一项具体参数如下：
+音频的audio_evidence中，language数组中每一项具体参数如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-<span id="callbackV2.callbackParameters.audioDetail.query.businessLabels">audio_evidence中，businessLabels数组的每个成员的内容如下：
+audio_evidence中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -429,7 +429,7 @@ detail中，businessLabels数组的每个成员的内容如下：
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="queryV2.responseParameters.addition.subtitleDetail">addition中，subtitleDetail的每个元素详细内容如下：
+addition中，subtitleDetail的每个元素详细内容如下：
 
 | **参数名**  | **类型** | **参数说明**   | **是否必返** | **规范**                                                     |
 | ----------- | -------- | -------------- | ------------ | ------------------------------------------------------------ |
@@ -439,9 +439,9 @@ detail中，businessLabels数组的每个成员的内容如下：
 | riskLevel   | string   | 处置建议       | 是           | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝 |
 | requestId   | string   | 字幕唯一标识   | 是           |                                                              |
 
-<span id="queryV2.responseParameters.addition.videoCoverDetail">addition中，videoCoverDetail的详细内容同subtitleDetail
+addition中，videoCoverDetail的详细内容同subtitleDetail
 
-<span id="callbackV2.callbackParameters.query.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
+其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -451,11 +451,11 @@ detail中，businessLabels数组的每个成员的内容如下：
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV2.callbackParameters.query.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
 ## 接口响应码列表
 
-<span id="codeList">code请求返回码列表如下：
+code请求返回码列表如下：
 
 | **code** | **message**      |
 | -------- | ---------------- |

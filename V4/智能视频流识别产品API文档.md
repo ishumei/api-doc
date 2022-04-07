@@ -18,14 +18,14 @@
     - [请求参数：](#请求参数)
     - [返回参数](#返回参数)
   - [异步回调结果](#异步回调结果)
-    - [<span id="callbackV4.interfaceDesc">接口描述](#span-idcallbackv4interfacedesc接口描述)
+    - [接口描述](#接口描述-1)
     - [请求方法：](#请求方法-1)
     - [字符编码：](#字符编码-1)
     - [建议超时时间：](#建议超时时间-1)
-    - [<span id="callbackV4.callbackStrategy">回调策略](#span-idcallbackv4callbackstrategy回调策略)
+    - [回调策略](#回调策略)
     - [回调参数](#回调参数)
   - [视频流关闭接口](#视频流关闭接口)
-    - [接口描述](#接口描述-1)
+    - [接口描述](#接口描述-2)
     - [请求URL：](#请求url-1)
     - [请求方法：](#请求方法-2)
     - [支持协议：](#支持协议-1)
@@ -33,7 +33,7 @@
     - [建议超时时间：](#建议超时时间-2)
     - [请求参数：](#请求参数-1)
     - [返回参数](#返回参数-1)
-  - [<span id="codeList">接口响应码列表](#span-idcodelist接口响应码列表)
+  - [接口响应码列表](#接口响应码列表)
   - [示例](#示例)
     - [上传接口请求示例](#上传接口请求示例)
     - [上传接口返回示例：](#上传接口返回示例)
@@ -111,13 +111,13 @@
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户建议传入） |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParameters.data.extra) |
 
-<span id="uploadV4.requestParameters.data.extra">data 中，extra的内容如下
+data 中，extra的内容如下
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传字段 | 非必传参数 | 该字段内容会随着回调结果一起原样返回 |
 
-<span id="uploadV4.requestParameters.data.agoraParam">其中，agoraParam内容如下：
+其中，agoraParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -127,7 +127,7 @@
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，必须提供生成channelKey时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
 
-<span id="uploadV4.requestParameters.data.trtcParam">其中，trtcParam内容如下：
+其中，trtcParam内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -138,7 +138,7 @@
 | roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户|
 | strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
 
-<span id="uploadV4.requestParameters.data.zegoParam">其中，data.zegoParam内容如下：
+其中，data.zegoParam内容如下：
 
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
@@ -158,7 +158,7 @@
 
 ## 异步回调结果
 
-### <span id="callbackV4.interfaceDesc">接口描述
+### 接口描述
 
 用户如果需要服务端主动对视频检测结果进行回调，则需要在请求参数中指定回调协议接口URL callback参数，服务端根据该参数在视频审核完成后，主动回调用户。
 
@@ -174,7 +174,7 @@
 
 5s
 
-### <span id="callbackV4.callbackStrategy">回调策略
+### 回调策略
 
 当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行最多20次推送。
 
@@ -194,13 +194,13 @@
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV4.callbackParameters.tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV4.callbackParameters.tokenRiskLabels) |
 
-<span id="callbackV4.callbackParameters.auxInfo">其中，auxInfo中的具体内容如下：
+其中，auxInfo中的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 
-<span id="callbackV4.callbackParameters.frameDetail">其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：
+其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -215,7 +215,7 @@
 | businessLabels | json_array | 业务标签列表，传入imgBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV4.callbackParameters.frameDetail.businessLabels) |
 | auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#callbackV4.callbackParameters.frameDetail.auxInfo) |
 
-<span id="callbackV4.callbackParameters.frameDetail.auxInfo">frameDetail中auxInfo的内容如下：
+frameDetail中auxInfo的内容如下：
 
 | imgTime | float | 截帧图片发生时间 | 是 | 视频流截帧图片违规发生的时间（绝对时间） |
 | --- | --- | --- | --- | --- |
@@ -226,7 +226,7 @@
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：
+frameDetail中，riskDetail的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -235,21 +235,21 @@
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
 | ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.faces">riskDetail中，faces数组每个成员的具体内容如下：
+riskDetail中，faces数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 人物名称 | 否 | |
 | location | int_array | 人物位置信息，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.objects">riskDetail中，objects数组每个成员的具体内容如下：
+riskDetail中，objects数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 标识或物品名称 | 否 | |
 | location | int_array | 标识或物品位置，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.ocrText">riskDetail中，ocrText数组每个成员的具体内容如下：
+riskDetail中，ocrText数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -257,28 +257,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 仅在命中客户自定义名单时返回，详见[matchedLists说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在启用涉政、暴恐、违禁、广告等功能时存在，详见[riskSegments说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.riskSegments) |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists">ocrText中，matchedLists内每个元素详细内容如下：
+ocrText中，matchedLists内每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名称 | 是 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 是 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists.words) |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists.words">matchedLists中，words的每个元素详细内容如下：
+matchedLists中，words的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 是 | |
 | position | int_array | 敏感词所在位置 | 是 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.riskSegments">ocrText中，riskSegments的每个元素详细内容如下：
+ocrText中，riskSegments的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.frameDetail.allLabels">frameDetail中，allLabels数组的每个成员的内容如下：
+frameDetail中，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -289,7 +289,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：
+frameDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -299,7 +299,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.audioDetail">其中，在音频回调时（contentType为2时），audioDetail每个成员的具体内容如下：
+其中，在音频回调时（contentType为2时），audioDetail每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -314,7 +314,7 @@
 | businessLabels | json_array | 业务标签列表，传入audioBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV4.callbackParameters.audioDetail.businessLabels) |
 | auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#callbackV4.callbackParameters.audioDetail.auxInfo) |
 
-<span id="callbackV4.callbackParameters.audioDetail.auxInfo">audioDetail中auxInfo的内容如下：
+audioDetail中auxInfo的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -324,7 +324,7 @@
 | strUserId | string | trtc流的用户id字段 | 否 | 分流的用户id（`TRTC`流才会有） |
 | room | string | 房间号 | 否 | |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail">audioDetail中，riskDetail的详细内容如下：
+audioDetail中，riskDetail的详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -333,28 +333,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments) |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists">riskDetail中，matchedLists的每个元素详细内容如下：
+riskDetail中，matchedLists的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 是 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 是 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words) |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words">matchedLists中，words的每个元素详细内容如下：
+matchedLists中，words的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 是 | |
 | position | int_array | 敏感词所在位置 | 是 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments">riskDetail中，riskSegments的每个元素详细内容如下：
+riskDetail中，riskSegments的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.audioDetail.allLabels">audioDetail中，allLabels数组的每个成员的内容如下：
+audioDetail中，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -365,7 +365,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：
+audioDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -375,7 +375,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
+其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
 | ----------- | -------- | ------------ | ------------ | -------------------------- |
@@ -385,7 +385,7 @@
 | description | string   | 标签描述     | 否           |                            |
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV4.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
 ## 视频流关闭接口
 
@@ -438,9 +438,9 @@
 | code | int | 请求返回码 | 是 | 请见[接口响应码列表](#codeList) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 请见[接口响应码列表](#codeList) |
 
-## <span id="codeList">接口响应码列表
+## 接口响应码列表
 
-<span id="closeV4.responseParameters.code">code请求返回码列表如下：
+code请求返回码列表如下：
 
 | **code** | **message**      |
 | -------- | ---------------- |
