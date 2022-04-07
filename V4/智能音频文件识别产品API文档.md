@@ -21,6 +21,7 @@
       - [audioDetail](#audiodetail)
       - [riskDetail](#riskdetail)
       - [matchedLists](#matchedlists)
+      - [words](#words)
       - [riskSegments](#risksegments)
       - [audioTags](#audiotags)
   - [**主动查询结果**](#主动查询结果)
@@ -33,7 +34,7 @@
       - [audioDetail](#audiodetail-1)
       - [riskDetail](#riskdetail-1)
       - [matchedLists](#matchedlists-1)
-      - [words](#words)
+      - [words](#words-1)
       - [riskSegments](#risksegments-1)
       - [audioTags](#audiotags-1)
   - [**示例**](#示例)
@@ -152,10 +153,12 @@
 
 riskDetail中，matchedLists详细内容如下：
 
-| **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范** |
-| :--------- | :--------- | :--------------------------- | :----------- | :------- |
-| name       | string     | 客户自定义名单名称           | 是           |          |
-| words      | json_array | 命中的这个名单中的敏感词信息 | 是           |          |
+| **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范**                |
+| :--------- | :--------- | :--------------------------- | :----------- | :---------------------- |
+| name       | string     | 客户自定义名单名称           | 是           |                         |
+| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words) |
+
+#### words
 
 matchedLists中，words详细内容如下：
 
