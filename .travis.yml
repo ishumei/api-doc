@@ -1,0 +1,20 @@
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y pandoc
+  - sudo apt-get install -y texlive-full
+  - sudo apt-get install -y texlive-xetex
+
+script:
+  - pandoc --latex-engine=xelatex ./帮助文档/QPS限制-指导方案.md --output QPS限制-指导方案.pdf
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  target_branch: build
+  on:
+    branch: main
+
+notifications:
+  email: false
