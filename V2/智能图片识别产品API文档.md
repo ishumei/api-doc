@@ -123,7 +123,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>`FACE`: 人脸<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
@@ -465,7 +465,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>`FACE`: 人脸<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
