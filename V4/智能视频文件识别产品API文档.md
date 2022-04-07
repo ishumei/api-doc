@@ -5,46 +5,50 @@
 
 - - - - -
 
-* [视频文件上传请求](#uploadV4)
-    + [接口描述](#uploadV4.interafceDesc)
-    + [请求URL](#uploadV4.requestUrl)
-    + [请求方法](#uploadV4.requestMethod)
-    + [字符编码](#uploadV4.requestEncode)
-    + [建议超时时间](#uploadV4.requestTimeout)
-    + [视频格式限制](#uploadV4.requestVideoFormat)
-    + [视频大小限制](#uploadV4.requestVideoLength)
-    + [视频时长限制](#uploadV4.requestDurationLength)
-    + [请求参数](#uploadV4.requestParameters)
-    * [返回参数](#uploadV4.responseParameters)
-* [异步回调结果](#callbackV4)
-    + [接口描述](#callbackV4.interafceDesc)
-    + [请求方法](#callbackV4.callbackMethod)
-    + [字符编码](#callbackV4.callbackEncode)
-    + [建议超时时间](#callbackV4.callbackTimeout)
-    + [支持协议](#callbackV4.callbackProtocol)
-    + [回调策略](#callbackV4.callbackStrategy)
-    + [回调参数](#callbackV4.callbackParameters)
-* [查询视频结果请求](#queryV4)
-    + [接口描述](#queryV4.interafceDesc)
-    + [请求URL](#queryV4.requestUrl)
-    + [请求方法](#queryV4.requestMethod)
-    + [支持协议](#queryV4.requestProtocol)
-    + [字符编码](#queryV4.requestEncode)
-    + [建议超时时间](#queryV4.requestTimeout)
-    + [请求参数](#queryV4.requestParameters)
-    + [返回参数](#queryV4.responseParameters)
-* [示例](#Demo)
-    + [上传接口请求示例](#demo.requestUploadV4)
-    + [上传接口返回示例](#demo.responseUploadV4)
-    + [异步回调结果示例](#demo.callbackV4)
+目录
 
-## <span id = "uploadV4">视频文件上传请求</span>
+- [数美智能视频文件识别产品API文档](#数美智能视频文件识别产品api文档)
+  - [视频文件上传请求](#视频文件上传请求)
+    - [接口描述](#接口描述)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [视频格式限制：](#视频格式限制)
+    - [视频大小限制：](#视频大小限制)
+    - [视频时长限制：](#视频时长限制)
+    - [请求参数：](#请求参数)
+    - [返回参数：](#返回参数)
+  - [异步回调结果](#异步回调结果)
+    - [接口描述](#接口描述-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [支持协议：](#支持协议)
+    - [<span id="callbackV4.callbackStrategy">回调策略：](#span-idcallbackv4callbackstrategy回调策略)
+    - [回调参数：](#回调参数)
+  - [查询视频结果](#查询视频结果)
+    - [接口描述](#接口描述-2)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-2)
+    - [支持协议：](#支持协议-1)
+    - [字符编码：](#字符编码-2)
+    - [建议超时时间：](#建议超时时间-2)
+    - [请求参数：](#请求参数-1)
+    - [返回参数](#返回参数-1)
+  - [接口响应码列表](#接口响应码列表)
+  - [示例](#示例)
+    - [上传接口请求示例：](#上传接口请求示例)
+    - [上传接口返回示例：](#上传接口返回示例)
+    - [异步回调结果示例：](#异步回调结果示例)
 
-### <span id = "uploadV4.interafceDesc">接口描述</span>
+## 视频文件上传请求
+
+### 接口描述
 
 该接口用于提交视频相关信息，自定义截帧频率等参数。识别结果需客户自行定期调用查询接口获取。
 
-### <span id = "uploadV4.requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-video-bj.fengkongcloud.com/video/v4` | 中文视频文件 |
@@ -53,31 +57,31 @@
 | 硅谷 | `http://api-video-gg.fengkongcloud.com/video/v4` | 中文视频文件 |
 | 印度 | `http://api-video-yd.fengkongcloud.com/video/v4` | 中文视频文件 |
 
-### <span id = "uploadV4.requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "uploadV4.requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "uploadV4.requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 7s
 
-### <span id = "uploadV4.requestVideoFormat">视频格式限制：</span>
+### 视频格式限制：
 
 `AVI`、`FLV`、`MP4`、`MPG`、`WMV`、`MOV`、`WMA`、`RMVB`
 
-### <span id = "uploadV4.requestVideoLength">视频大小限制：</span>
+### 视频大小限制：
 
 小于等于300MB
 
-### <span id = "uploadV4.requestDurationLength">视频时长限制：</span>
+### 视频时长限制：
 
 小于等于2小时
 
-### <span id = "uploadV4.requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -93,7 +97,7 @@
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV4.requestParams.data) |
 
-<span id = "uploadV4.requestParams.data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -107,13 +111,13 @@
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParams.data.extra) |
 
-<span id="uploadV4.requestParams.data.extra">data 中，extra的内容如下</span>
+<span id="uploadV4.requestParams.data.extra">data 中，extra的内容如下
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json\_object | 透传字段 | 非必传参数 | 该字段内容会随着回调结果一起原样返回 |
 
-### <span id = "uploadV4.responseParameters">返回参数</span>：
+### 返回参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -124,35 +128,33 @@
 | message | string | 请求返回描述 | 是 | 详情描述如上 |
 | btId | string | 唯一标识客户上传的视频 | 是 | 仅当code=1100时返回，与请求参数中的btId字段对应 |
 
-## <span id = "callbackV4">异步回调结果</span>
+## 异步回调结果
 
-### <span id = "callbackV4.interafceDesc">接口描述</span>
+### 接口描述
 
 用户如果需要服务端主动对视频检测结果进行回调，则需要在请求参数中指定回调协议接口URL callback参数，服务端根据该参数在视频审核完成后，主动回调用户。
 
+### 请求方法：
 
-### <span id = "callbackV4.callbackMethod">请求方法：</span>
+`POST`
 
-`POST` 
-
-### <span id = "callbackV4.callbackEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "callbackV4.callbackTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id = "callbackV4.callbackProtocol">支持协议：</span>
+### 支持协议：
 
 `HTTP`或`HTTPS`
 
-### <span id="callbackV4.callbackStrategy">回调策略：</span>
+### <span id="callbackV4.callbackStrategy">回调策略：
 
 当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行重试，最多20次推送。
 
-
-### <span id = "callbackV4.callbackParameters">回调参数</span>：
+### 回调参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -168,7 +170,7 @@
 | auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#callbackV4.callbackParameters.auxInfo)|
 | tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV4.callbackParameters.tokenProfileLabels)|
 | tokenRiskLabels | json_array | 账号风险标签 | 否 |仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV4.callbackParameters.tokenRiskLabels)|
-<span id = "callbackV4.callbackParameters.auxInfo">其中，auxInfo中的具体内容如下：</span>
+其中，auxInfo中的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -176,7 +178,7 @@
 | time | int | 辅助信息 | 是 | 视频时长 |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 
-<span id = "callbackV4.callbackParameters.frameDetail">其中，frameDetail数组中每个成员的具体内容如下：</span>
+其中，frameDetail数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -194,14 +196,14 @@
 | businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#callbackV4.callbackParameters.frameDetail.businessLabels) |
 | auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#callbackV4.callbackParameters.frameDetail.auxInfo) |
 
-<span id = "callbackV4.callbackParameters.frameDetail.auxInfo">frameDetail中，auxInfo的内容如下：</span>
+frameDetail中，auxInfo的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：</span>
+frameDetail中，riskDetail的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -210,7 +212,7 @@
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
 | ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.faces">riskDetail中，faces数组每个成员的具体内容如下：</span>
+riskDetail中，faces数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -218,14 +220,14 @@
 | location | int_array | 人物位置信息，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
 | probability | float | 置信度，值越大，可信度越高 | 否 | 可选值在0～1之间 |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.objects">riskDetail中，objects数组每个成员的具体内容如下：</span>
+riskDetail中，objects数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 标识或物品名称 | 否 ||
 | location | int_array | 标识或物品位置，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 |位置信息|
 | probability | float | 置信度，值越大，可信度越高 | 否 |可选值在0～1之间|
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.ocrText">riskDetail中，ocrText数组每个成员的具体内容如下：</span>
+riskDetail中，ocrText数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -233,28 +235,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 仅在命中客户自定义名单时返回，详见[matchedLists说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在启用涉政、暴恐、违禁、广告等功能时存在，详见[riskSegments说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.riskSegments) |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists">ocrText中，matchedLists数组每个成员的具体内容如下：</span>
+ocrText中，matchedLists数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名称 | 否 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists.words) |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists.words">matchedLists中，words数组每个成员的具体内容如下：</span>
+matchedLists中，words数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 否 | |
 | position | int_array | 敏感词所在位置 | 否 | 下标从0开始计数 |
 
-<span id = "callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.riskSegments">ocrText中，riskSegments每个成员的具体内容如下：</span>
+ocrText中，riskSegments每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id = "callbackV4.callbackParameters.frameDetail.allLabels">frameDetail中，allLabels数组的每个成员的内容如下：</span>
+frameDetail中，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -265,7 +267,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id = "callbackV4.callbackParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
+frameDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -275,7 +277,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id = "callbackV4.callbackParameters.audioDetail">其中，audioDetail数组中每个成员的具体内容如下：</span>
+其中，audioDetail数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -292,7 +294,7 @@
 | allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#callbackV4.callbackParameters.audioDetail.allLabels) |
 | businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会返回，详见[businessLabels说明](#callbackV4.callbackParameters.audioDetail.businessLabels) |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail">audioDetail中，riskDetail的每个元素详细内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.riskDetail">audioDetail中，riskDetail的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -301,28 +303,28 @@
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments) |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists">riskDetail中，matchedLists的每个元素详细内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists">riskDetail中，matchedLists的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 否 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words) |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words">matchedLists中，words的每个元素详细内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words">matchedLists中，words的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 否 | |
 | position | int_array | 敏感词所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments">riskDetail中，riskSegments的每个元素详细内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments">riskDetail中，riskSegments的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="callbackV4.callbackParameters.audioDetail.allLabels">audioDetail中，allLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.allLabels">audioDetail中，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -333,7 +335,7 @@
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
+<span id="callbackV4.callbackParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -343,7 +345,7 @@
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="callbackV4.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
+<span id="callbackV4.callbackParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -353,19 +355,17 @@
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-<span id="callbackV4.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
+<span id="callbackV4.callbackParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
-
-## <span id = "queryV4">查询视频结果</span>
-
-该接口用于客户主动查询视频文件识别结果，建议每30s进行一次查询。
-
-
-### <span id = "queryV4.interafceDesc">接口描述</span>
+## 查询视频结果
 
 该接口用于客户主动查询视频文件识别结果，建议每30s进行一次查询。
 
-### <span id = "queryV4.requestUrl">请求URL：</span>
+### 接口描述
+
+该接口用于客户主动查询视频文件识别结果，建议每30s进行一次查询。
+
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-video-bj.fengkongcloud.com/video/query/v4` | 中文视频文件 |
@@ -374,23 +374,23 @@
 | 硅谷 | `http://api-video-gg.fengkongcloud.com/video/query/v4` | 中文视频文件 |
 | 印度 | `http://api-video-yd.fengkongcloud.com/video/query/v4` | 中文视频文件 |
 
-### <span id = "queryV4.requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "queryV4.requestProtocol">支持协议：</span>
+### 支持协议：
 
 `HTTP`或`HTTPS`
 
-### <span id = "queryV4.requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "queryV4.requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "queryV4.requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -399,7 +399,7 @@
 | accessKey | string | 用于权限认证，开通账号服务时由数美提供 | 必传参数 | |
 | btId | string | 视频唯一标识，用于查询识别结果，最长64位 | 必传参数 | |
 
-### <span id = "queryV4.responseParameters"> 返回参数</span>
+###  返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -416,14 +416,14 @@
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#queryV4.responseParameters.tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#queryV4.responseParameters.tokenRiskLabels) |
 
-<span id="queryV4.responseParameters.auxInfo">其中，auxInfo数组中每个成员的具体内容如下：</span>
+<span id="queryV4.responseParameters.auxInfo">其中，auxInfo数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
 | time | int | 辅助信息 | 是 | 视频时长 |
 
-<span id = "queryV4.responseParameters.frameDetail">其中，frameDetail数组中每个成员的具体内容如下：</span>
+其中，frameDetail数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -441,14 +441,14 @@
 | businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#queryV4.responseParameters.frameDetail.businessLabels) |
 | auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#queryV4.responseParameters.frameDetail.auxInfo) |
 
-<span id="queryV4.responseParameters.frameDetail.auxInfo">frameDetail中，auxInfo的内容如下：</span>
+<span id="queryV4.responseParameters.frameDetail.auxInfo">frameDetail中，auxInfo的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
-<span id="queryV4.responseParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：</span>
+<span id="queryV4.responseParameters.frameDetail.riskDetail">frameDetail中，riskDetail的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -502,7 +502,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="queryV4.responseParameters.frameDetail.allLabels">frameDetail，allLabels数组的每个成员的内容如下：</span>
+<span id="queryV4.responseParameters.frameDetail.allLabels">frameDetail，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -513,7 +513,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="queryV4.responseParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
+<span id="queryV4.responseParameters.frameDetail.businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -523,8 +523,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id = "queryV4.responseParameters.audioDetail">其中，audioDetail数组中每个成员的具体内容如下：</span>
-
+其中，audioDetail数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -541,7 +540,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#queryV4.responseParameters.audioDetail.allLabels) |
 | businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会有，详见[businessLabels说明](#queryV4.responseParameters.audioDetail.businessLabels) |
 
-<span id="queryV4.responseParameters.audioDetail.riskDetail">audioDetail中，riskDetail的每个元素详细内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.riskDetail">audioDetail中，riskDetail的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -550,28 +549,28 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#queryV4.responseParameters.audioDetail.riskDetail.matchedLists) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#queryV4.responseParameters.audioDetail.riskDetail.riskSegments) |
 
-<span id="queryV4.responseParameters.audioDetail.riskDetail.matchedLists">riskDetail中，matchedLists数组每个成员的具体内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.riskDetail.matchedLists">riskDetail中，matchedLists数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 否 | |
 | words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#queryV4.responseParameters.audioDetail.riskDetail.matchedLists.words) |
 
-<span id="queryV4.responseParameters.audioDetail.riskDetail.matchedLists.words">matchedLists中，words的每个元素详细内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.riskDetail.matchedLists.words">matchedLists中，words的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 否 | |
 | position | int_array | 敏感词所在位置 | 否 | 下标从0开始计数 |
 
-<span id="queryV4.responseParameters.audioDetail.riskDetail.riskSegments">riskDetail中，riskSegments数组每个成员的具体内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.riskDetail.riskSegments">riskDetail中，riskSegments数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-<span id="queryV4.responseParameters.audioDetail.allLabels">audioDetail中，allLabels数组的每个成员的内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.allLabels">audioDetail中，allLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -582,7 +581,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="queryV4.responseParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
+<span id="queryV4.responseParameters.audioDetail.businessLabels">audioDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -592,7 +591,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 
-<span id="queryV4.responseParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
+<span id="queryV4.responseParameters.tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -602,11 +601,11 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-<span id="queryV4.responseParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
+<span id="queryV4.responseParameters.tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
 
 ## 接口响应码列表
 
-<span id="codeList">code请求返回码列表如下：</span>
+<span id="codeList">code请求返回码列表如下：
 
 | **code** | **message**      |
 | -------- | ---------------- |
@@ -618,10 +617,9 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | 9100     | 余额不足         |
 | 9101     | 无权限操作       |
 
+## 示例
 
-## <span id = "Demo">示例</span>
-
-### <span id = "demo.requestUploadV4">上传接口请求示例：</span>
+### 上传接口请求示例：
 
 ```json
 {
@@ -654,8 +652,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 }
 ```
 
-
-### <span id = "demo.responseUploadV4">上传接口返回示例：</span>
+### 上传接口返回示例：
 
 ```json
 {
@@ -666,7 +663,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 }
 ```
 
-### <span id = "demo.callbackV4">异步回调结果示例：</span>
+### 异步回调结果示例：
 
 ```json
 {

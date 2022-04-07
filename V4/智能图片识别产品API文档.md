@@ -1,68 +1,71 @@
 # 数美智能图片识别产品API接口文档
-- - - - - 
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
-* [同步单张上传接口](#syncSingleInterface)
-    + [单条请求](#requestParameter)
-        - [请求URL](#requestUrl)
-        - [字符编码格式](#requestEncode)
-        - [请求方法](#requestMethod)
-        - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [同步返回结果](#syncResponseParameters)
-    + [回调的同步返回结果](#callbackResponseParameters)
-    + [同步单条示例](#syncExample)
-        - [同步请求示例](#syncRequestExample)
-        - [同步返回示例](#syncResponseExample)
-    + [回调的同步返回参数](#callBackSyncResponseExample)
-* [异步单张上传接口](#asyncSingleInterface)
-    + [异步单条请求](#asyncRequestParameter)
-        - [请求URL](#asyncRequestUrl)
-        - [字符编码格式](#asyncRequestEncode)
-        - [请求方法](#asyncRequestMethod)
-        - [建议超时时长](#asyncRequestTimeout)
-        - [请求参数](#asyncRequestParameters)
-    + [异步单条返回结果](#asyncResponseParameters)
-    + [异步单条示例](#asyncExample)
-        - [异步单条请求示例](#asyncRequestExample)
-        - [异步单条返回示例](#asyncResponseExample)
-* [同步批量接口](#syncBatchInterface)
-    + [同步批量请求参数](#syncBatchRequestParameter)
-        - [请求URL](#syncBatchRequestUrl)
-        - [字符编码格式](#syncBatchRequestEncode)
-        - [请求方法](#syncBatchRequestMethod)
-        - [建议超时时长](#syncBatchRequestTimeout)
-        - [请求参数](#syncBatchRequestParameters)
-    + [同步批量返回结果](#syncBatchResponseParameters)
-    + [同步批量回调返回参数](#syncBatchCallBackResponseParameters)
-* [异步批量接口](#asyncBatchInterface)
-    + [异步批量请求](#asyncBatchRequestParameter)
-        - [请求URL](#asyncBatchRequestUrl)
-        - [字符编码格式](#asyncBatchRequestEncode)
-        - [请求方法](#asyncBatchRequestMethod)
-        - [建议超时时长](#asyncBatchRequestTimeout)
-        - [请求参数](#asyncBatchRequestParameters)
-    + [异步批量返回结果](#asyncBatchResponseParameters)
-        - [异步批量返回示例](#asyncBatchResponseExample)
-* [主动查询接口](#queryInterface)
-    + [同步查询请求](#queryRequestParameter)
-        - [请求URL](#queryRequestUrl)
-        - [字符编码格式](#queryRequestEncode)
-        - [请求方法](#queryRequestMethod)
-        - [建议超时时长](#queryRequestTimeout)
-        - [请求参数](#queryRequestParameters)
-        - [查询请求示例](#queryRequestExample)
-    + [同步查询请求返回参数](#queryResponseParameters)
-* [Demo](#demo)
+目录
 
-# <span id = "syncSingleInterface">同步单张上传接口</span>
+- [数美智能图片识别产品API接口文档](#数美智能图片识别产品api接口文档)
+- [同步单张上传接口](#同步单张上传接口)
+  - [同步单条请求](#同步单条请求)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [同步返回结果](#同步返回结果)
+  - [回调的同步返回参数](#回调的同步返回参数)
+  - [同步示例：](#同步示例)
+    - [同步请求示例：](#同步请求示例)
+    - [同步返回示例：](#同步返回示例)
+    - [回调的同步返回参数](#回调的同步返回参数-1)
+- [异步单张上传接口](#异步单张上传接口)
+  - [异步单条请求](#异步单条请求)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [请求参数：](#请求参数-1)
+  - [返回结果](#返回结果)
+  - [异步单条示例](#异步单条示例)
+    - [异步单条请求示例](#异步单条请求示例)
+    - [异步单条返回示例](#异步单条返回示例)
+- [同步批量接口](#同步批量接口)
+  - [同步批量请求参数](#同步批量请求参数)
+    - [请求URL：](#请求url-2)
+    - [请求方法：](#请求方法-2)
+    - [字符编码：](#字符编码-2)
+    - [建议超时时间：](#建议超时时间-2)
+    - [请求参数：](#请求参数-2)
+  - [同步批量返回参数](#同步批量返回参数)
+  - [同步批量回调返回参数](#同步批量回调返回参数)
+- [异步批量接口](#异步批量接口)
+  - [异步批量上传请求](#异步批量上传请求)
+    - [请求URL：](#请求url-3)
+    - [请求方法：](#请求方法-3)
+    - [字符编码：](#字符编码-3)
+    - [建议超时时间：](#建议超时时间-3)
+    - [请求参数：](#请求参数-3)
+  - [异步批量返回参数](#异步批量返回参数)
+    - [异步批量返回示例](#异步批量返回示例)
+- [主动查询接口](#主动查询接口)
+  - [同步查询请求](#同步查询请求)
+    - [请求URL：](#请求url-4)
+    - [请求方法：](#请求方法-4)
+    - [字符编码：](#字符编码-4)
+    - [建议超时时间：](#建议超时时间-4)
+    - [请求参数：](#请求参数-4)
+    - [查询请求示例](#查询请求示例)
+  - [查询放回参数](#查询放回参数)
+- [Demo](#demo)
 
-## <span id = "requestParameter">同步单条请求</span>
+# 同步单张上传接口
 
-### <span id = "requestUrl">请求URL：</span>
+## 同步单条请求
+
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 图片 |
@@ -71,19 +74,19 @@
 | 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -97,7 +100,7 @@
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -113,7 +116,7 @@
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo) |
 
-<span id = "streamInfo">data中，streamInfo的内容如下：</span>
+data中，streamInfo的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -123,13 +126,13 @@
 | frameTime | int | 透传参数 | 否 | 截帧时间，单位ms， similarDedup为true时，必传 |
 | riskNum | int | 透传参数 | 否 | 相似截帧图片不改变张数    数量范围(1-5)，默认为1 |
 
-<span id = "extra">data中，extra的内容如下：</span>
+data中，extra的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-## <span id = "syncResponseParameters">同步返回结果</span>
+## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -148,7 +151,7 @@
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
 
-<span id = "riskDetail">其中，riskDetail结构如下：</span>
+其中，riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -281,7 +284,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
 
-## <span id = "callBackSyncResponseParamaters">回调的同步返回参数</span>
+## 回调的同步返回参数
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -291,9 +294,9 @@ businessLabels数组中的businessDetail的内容如下：
 
 如果在请求参数中指定了回调协议接口URL callback，则需要支持POST方法，传输编码采用utf-8，审核结果放在HTTP Body中，采用Json格式，具体参数和V4单张同步请求结果相同。
 
-## <span id = "syncExample">同步示例：</span>
+## 同步示例：
 
-### <span id = "syncRequestExample">同步请求示例：</span>
+### 同步请求示例：
 
 ```json
 {
@@ -307,7 +310,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 
 ```json
 {
@@ -437,7 +440,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "callBackSyncResponseExample">回调的同步返回参数</span>
+### 回调的同步返回参数
 ```json
 {
     "code":1100,
@@ -446,29 +449,29 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-# <span id = "asyncSingleInterface">异步单张上传接口</span>
+# 异步单张上传接口
 
-## <span id = "asyncRequestParameter">异步单条请求</span>
+## 异步单条请求
 
-### <span id = "asyncRequestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/saas/async/img` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v4/saas/async/img` | 图片 |
 
-### <span id = "asyncRequestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "asyncRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "asyncRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id = "asyncRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -501,7 +504,7 @@ businessLabels数组中的businessDetail的内容如下：
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-## <span id = "asyncResponseParameters">返回结果</span>
+## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -511,9 +514,9 @@ businessLabels数组中的businessDetail的内容如下：
 | message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败余额不足无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 
-## <span id = "asyncExample">异步单条示例</span>
+## 异步单条示例
 
-### <span id = "asyncRequestExample">异步单条请求示例</span>
+### 异步单条请求示例
 ```json
 {
     "accessKey":"",
@@ -526,7 +529,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "asyncResponseExample">异步单条返回示例</span>
+### 异步单条返回示例
 ```json
 {
     "requestId":"9l25odfa5280c50f49f7c40988a1e400",
@@ -535,12 +538,11 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-# <span id = "syncBatchInterface">同步批量接口</span>
+# 同步批量接口
 
-## <span id = "syncBatchRequestParameter">同步批量请求参数</span>
+## 同步批量请求参数
 
-
-### <span id = "syncBatchRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
@@ -549,19 +551,19 @@ businessLabels数组中的businessDetail的内容如下：
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/images/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/images/v4` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com/images/v4` | 图片 |
-### <span id = "syncBatchRequestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "syncBatchRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "syncBatchRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 60s
 
-### <span id = "syncBatchRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -603,7 +605,7 @@ businessLabels数组中的businessDetail的内容如下：
 | imgCompareBase | string | 要比对的图片 | 非必传参数 | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接支持格式：`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
-## <span id = "syncBatchResponseParameters">同步批量返回参数</span>
+## 同步批量返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -744,7 +746,6 @@ allLabels每个成员的riskDetail结构如下：
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |
 
-
 其中imgs中businessLabels数组的每个成员的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
@@ -770,7 +771,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
 
-## <span id = "syncBatchCallBackResponseParameters"> 同步批量回调返回参数</span>
+##  同步批量回调返回参数
 
 对于批量接口，和同步批量返回的结果相同。
 
@@ -787,35 +788,31 @@ requestIds详细如下：
 | requestId | string | 流水号 | 必返参数 | 返回的requestId |
 | btId | string | 图片编号 | 必返参数 | 图片的btId |
 
+# 异步批量接口
 
-# <span id = "asyncBatchInterface">异步批量接口</span>
+## 异步批量上传请求
 
-## <span id = "asyncBatchRequestParameter">异步批量上传请求</span>
-
-
-
-### <span id = "asyncBatchRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/saas/async/imgs` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v4/saas/async/imgs` | 图片 |
 
-
-### <span id = "asyncBatchRequestMethod">请求方法：</span>
+### 请求方法：
 ```
 POST
 ```
 
-### <span id = "asyncBatchRequestEncode">字符编码：</span>
+### 字符编码：
 ```
 UTF-8
 ```
 
-### <span id = "asyncBatchRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 5s
 
-### <span id = "asyncBatchRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -856,7 +853,7 @@ UTF-8
 图片大小最大10MB |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
-## <span id = "asyncBatchResponseParameters">异步批量返回参数</span>
+## 异步批量返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -873,7 +870,7 @@ requestIds中每一项是：
 | requestId | string | 流水号 | 必返参数 | 返回的requestId |
 | btId | string | 图片编号 | 必返参数 | 图片的btId |
 
-### <span id = "asyncBatchResponseExample">异步批量返回示例</span>
+### 异步批量返回示例
 ```json
 {
     "code":1100,
@@ -891,31 +888,30 @@ requestIds中每一项是：
 }
 ```
 
-#  <span id = "queryInterface">主动查询接口</span>
+#  主动查询接口
 
-## <span id = "queryRequestParameter">同步查询请求</span>
+## 同步查询请求
 
-### <span id = "queryRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/image/query` | 图片 |
 
-
-### <span id = "queryRequestMethod">请求方法：</span>
+### 请求方法：
 ```
 POST
 ```
 
-### <span id = "queryRequestEncode">字符编码：</span>
+### 字符编码：
 ```
 UTF-8
 ```
 
-### <span id = "queryRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 5s
 
-### <span id = "queryRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用json格式，具体参数如下：
 
@@ -931,7 +927,7 @@ requestIds每一项是：
 | requestId | string | 流水号 | 必传参数 | 查询的requestId |
 | btId | string | 图片编号 | 非必传参数 | 如果存在btId，则返回requestId+btId的批量查询中的单张结果；如果不存在btId，则分为两种情况：第一种情况，返回单张请求的结果；第二种情况，模糊匹配返回批量请求的结果 |
 
-### <span id = "queryRequestExample">查询请求示例</span>
+### 查询请求示例
 
 ```json
 {
@@ -945,7 +941,7 @@ requestIds每一项是：
 }
 ```
 
-## <span id = "queryResponseParameters">查询放回参数</span>
+## 查询放回参数
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -1111,7 +1107,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 |
 
-# <span id = "demo">Demo</span>
+# Demo
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)

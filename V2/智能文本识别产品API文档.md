@@ -6,23 +6,24 @@
 
 - - - - -
 
-* [请求参数](#requestParameter)
-    + [请求URL](#requestUrl)
-    + [字符编码格式](#requestEncode)
-    + [请求方法](#requestMethod)
-    + [建议超时时长](#requestTimeout)
-    + [请求参数](#requestParameters)
-* [返回结果](#response)
-    + [返回结果](#responseParameters)
-* [示例](#example)
-    + [请求示例](#requestExample)
-    + [返回示例](#responseExample)
+目录
 
+- [数美智能文本识别产品API接口文档](#数美智能文本识别产品api接口文档)
+  - [请求参数](#请求参数)
+    - [请求URL：](#请求url)
+    - [字符编码格式：](#字符编码格式)
+    - [请求方法：](#请求方法)
+    - [建议超时时长：](#建议超时时长)
+    - [请求参数：](#请求参数-1)
+  - [返回结果](#返回结果)
+    - [返回结果](#返回结果-1)
+  - [示例](#示例)
+    - [请求示例](#请求示例)
+    - [返回示例](#返回示例)
 
-## <span id = "requestParameter">请求参数</span>
+## 请求参数
 
-### <span id = "requestUrl">请求URL：</span>
-
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
@@ -33,23 +34,19 @@
 | 新加坡 | `http://api-text-xjp.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 | 印度 | `https://api-text-yd.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 
-
-### <span id = "requestEncode">字符编码格式：</span>
+### 字符编码格式：
 
 `UTF-8`字符集编码
 
-
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-
-### <span id = "requestTimeout">建议超时时长：</span>
+### 建议超时时长：
 
 1s
 
-
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -61,8 +58,7 @@
 | businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
-
-<span id = "data"> 其中，data的内容如下：</span>
+ 其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -91,13 +87,11 @@
 | idfa | string | 用户iOS应用唯一标识，相比tokenId和IP，idfv不能被修改，当恶意用户使用多个不同账户和IP进行恶意行为时，使用idfv能够发现和识别此类恶意行为。 | N |  |
 | passThrough | json_object | 该字段内容同返回结果一起返回 | N |  |
 
+## 返回结果
 
+### 返回结果
 
-## <span id = "response">返回结果</span>
-
-### <span id = "responseParameters">返回结果</span>
-
-<span id = "responseBody">放在HTTP Body中，采用Json格式，具体参数如下：</span>
+放在HTTP Body中，采用Json格式，具体参数如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -112,7 +106,7 @@
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 
-<span id = "detail">其中detail字段如下：</span>
+其中detail字段如下：
 
 | 参数名称          | **类型**    | **是否必选** | **说明**                                                     |
 | ----------------- | ----------- | ------------ | ------------------------------------------------------------ |
@@ -132,14 +126,14 @@
 | contextProcessed  | bool        | Y            | true时说明该请求联系了上下文；<br/>false时说明该请求未关联上下文，如需该功能，可与数美协商 |
 | contextText       | string      | Y            | 未开启联系上下文服务则只返回当前文本                         |
 
-<span id = "contactResult">contactResult中的每一项内容：</span>
+contactResult中的每一项内容：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
-<span id = "matchedDetail">其中，matchedDetail内容：</span>
+其中，matchedDetail内容：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -150,14 +144,14 @@
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
 | wordPostitions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words) |
 
-<span id = "words">wordPostitions中的每一项内容：</span>
+wordPostitions中的每一项内容：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string| 辅助信息 | N| 命中的敏感词 |
 | position | string | 辅助信息 | N| 敏感词所在位置 |
 
-<span id = "businessLabels">其中，businessLabels的内容如下：</span>
+其中，businessLabels的内容如下：
 
 | 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
 | ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
@@ -168,7 +162,7 @@
 | probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
-<span id = "tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
+其中，tokenProfileLabels、tokenRiskLabels的内容如下：
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
@@ -178,11 +172,9 @@
 | description | string | 标签描述     | 否       |                            |
 | timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
 
+## 示例
 
-
-## <span id = "example">示例</span>
-
-### <span id = "requestExample">请求示例</span>
+### 请求示例
 
 ```json
 {
@@ -195,11 +187,11 @@
         "text":"加个好友吧 qq12345",
         "tokenId":"4567898765jhgfdsa",
         "channel":"text"
-    }   
+    }
 }
 ```
 
-### <span id = "responseExample">返回示例</span>
+### 返回示例
 
 ```json
 {

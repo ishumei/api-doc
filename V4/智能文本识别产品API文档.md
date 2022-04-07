@@ -6,23 +6,24 @@
 
 - - - - -
 
-* [请求参数](#requestParameter)
-    + [请求URL](#requestUrl)
-    + [字符编码格式](#requestEncode)
-    + [请求方法](#requestMethod)
-    + [建议超时时长](#requestTimeout)
-    + [请求参数](#requestParameters)
-* [返回结果](#response)
-    + [返回结果](#responseParameters)
-* [示例](#example)
-    + [请求示例](#requestExample)
-    + [返回示例](#responseExample)
+目录
 
+- [数美智能文本识别产品API接口文档](#数美智能文本识别产品api接口文档)
+  - [请求参数](#请求参数)
+    - [请求URL：](#请求url)
+    - [字符编码格式：](#字符编码格式)
+    - [请求方法：](#请求方法)
+    - [建议超时时长：](#建议超时时长)
+    - [请求参数：](#请求参数-1)
+  - [返回结果](#返回结果)
+    - [返回结果](#返回结果-1)
+  - [示例](#示例)
+    - [请求示例](#请求示例)
+    - [返回示例](#返回示例)
 
-## <span id = "requestParameter">请求参数</span>
+## 请求参数
 
-### <span id = "requestUrl">请求URL：</span>
-
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
@@ -32,23 +33,19 @@
 | 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 英文文本 |
 | 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 英语文本 <br/> 阿语文本 |
 
-
-### <span id = "requestEncode">字符编码格式：</span>
+### 字符编码格式：
 
 `UTF-8`字符集编码
 
-
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-
-### <span id = "requestTimeout">建议超时时长：</span>
+### 建议超时时长：
 
 1s
 
-
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -61,8 +58,7 @@
 | businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
-
-<span id = "data"> 其中，data的内容如下：</span>
+ 其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -74,8 +70,7 @@
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
 | extra | json\_object | 辅助参数 | N | 用于辅助文本检测的相关信息,[详见extra参数](#extra) |
 
-
-<span id = "extra">data 中 extra数组每个元素的内容如下：</span>
+data 中 extra数组每个元素的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -89,13 +84,11 @@
 | isTokenSeparate| int | 应用体系，取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效 | N | 区分不同应用下的账号,可取值（默认值为`0`）：<br/>`0`:不区分<br/>`1`:区分<br/> |
 | passThrough | Json | 透传字段 | 非必传字段 | 该字段内容会随着返回值一起返回 |
 
+## 返回结果
 
+### 返回结果
 
-## <span id = "response">返回结果</span>
-
-### <span id = "responseParameters">返回结果</span>
-
-<span id = "responseBody">放在HTTP Body中，采用Json格式，具体参数如下：</span>
+放在HTTP Body中，采用Json格式，具体参数如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -115,7 +108,7 @@
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 
-<span id = "auxlnfo">其中auxInfo字段如下：</span>
+其中auxInfo字段如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -123,54 +116,54 @@
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
 | contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
 
-<span id = "contactResult">auxInfo中，contactResult数组每个元素的内容如下：</span>
+auxInfo中，contactResult数组每个元素的内容如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
-<span id = "riskDetail">其中，riskDetail的内容如下：</span>
+其中，riskDetail的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | matchedLists | json_array | 辅助信息 | N| 命中的客户自定义名单列表。[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N| [详见riskSegments参数](#riskSegments) |
 
-<span id = "matchedLists">riskDetail中，matchedLists数组每个元素的内容如下：</span>
+riskDetail中，matchedLists数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | name | string | 辅助信息 | N| 命中的名单名称|
 | words| json_array | 辅助信息 | N| 命中的敏感词数组。[详见words参数](#words) |
 
-<span id = "words">matchedLists中，words数组每个元素的内容如下：</span>
+matchedLists中，words数组每个元素的内容如下：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string| 辅助信息 | N| 命中的敏感词 |
 | position | int_array | 辅助信息 | N| 敏感词所在位置 |
 
-<span id = "riskSegments">riskDetail中，riskSegments的内容如下：</span>
+riskDetail中，riskSegments的内容如下：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment| string| 辅助信息 | N| 高风险内容片段 |
 | position | int_array | 辅助信息 | N| 高风险内容片段所在位置 |
 
-<span id = "tokenLabels">其中，tokenLabels的详情内容：</span>
+其中，tokenLabels的详情内容：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | UGC_account_risk | json_object | 辅助信息 | N| UGC内容相关风险。[详见UGC_account_risk参数](#UGC_account_risk) |
 
-<span id = "UGC_account_risk">tokenLabels中，UGC_account_risk的详情内容如下：</span>
+tokenLabels中，UGC_account_risk的详情内容如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | sexy_risk_tokenid | float| 辅助信息 | N| 色情账号风险分取值区间[0-1] |
 
-<span id = "allLabels">其中，allLabels的内容如下：</span>
+其中，allLabels的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -182,7 +175,7 @@
 | riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
 | riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
 
-<span id = "businessLabels">其中，businessLabels的内容如下：</span>
+其中，businessLabels的内容如下：
 
 | 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
 | ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
@@ -193,9 +186,7 @@
 | probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
-
-
-<span id = "tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
+其中，tokenProfileLabels、tokenRiskLabels的内容如下：
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
@@ -205,9 +196,7 @@
 | description | string | 标签描述     | 否       |                            |
 | timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
 
-
-
-<span id = "label1">一级标签的内容如下：</span>
+一级标签的内容如下：
 
 | 一级标签 | 一级标识    | 类型     | 备注                   |
 | -------- | ----------- | -------- | ---------------------- |
@@ -224,9 +213,9 @@
 | 网络诈骗 | fraud       | 监管标签 | type值为FRUAD、UNPOACH |
 | 未成年人 | minor       | 业务标签 | businessType值为MINOR  |
 
-## <span id = "example">示例</span>
+## 示例
 
-### <span id = "requestExample">请求示例</span>
+### 请求示例
 
 ```json
 {
@@ -251,11 +240,11 @@
             "level":1,
             "role":"ADMIN"
     	}
-    }   
+    }
 }
 ```
 
-### <span id = "responseExample">返回示例</span>
+### 返回示例
 
 ```json
 {

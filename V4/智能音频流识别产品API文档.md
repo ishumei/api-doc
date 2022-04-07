@@ -285,7 +285,6 @@ allLabels结构如下：
 ## 示例
 
 ### 上传请求示例：
-
 ```
 curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"accessKey":"xxxxx","appId":"default","eventId":"default","type":"PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE","callback":"xxxxx","streamType":"NORMAL","data":{"btId":"test1","lang":"zh","room":"room2","url":"xxxxx","returnAllText":1,"returnPreText":1,"returnPreAudio":1,"tokenId":"2222"}}'
 ```
