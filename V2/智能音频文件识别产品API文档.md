@@ -266,7 +266,7 @@ POST
 | audioText      | string      | Y            | 整段音频转译文本结果                                                                             |
 | audioTime      | int         | N            | 整段音频的音频时长，单位秒，code为1100时存在                                                     |
 | labels         | string      | N            | 音频识别结果标签                                                                                 |
-| riskLevel      | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br>REVIEW：疑似违规内容<br/>REJECT：违规内容</p>   |
+| riskLevel      | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br/>REVIEW：疑似违规内容<br/>REJECT：违规内容</p>   |
 | detail         | json_array  | N            | 风险详情                                                                                         |
 | gender         | json_object | N            | 性别标签与概率值                                                                                 |
 | isSing         | int         | N            | <p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p> |
