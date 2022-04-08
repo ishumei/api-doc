@@ -15,6 +15,7 @@
     - [**请求方法：**](#请求方法)
     - [**建议超时时长：**](#建议超时时长)
     - [**音频格式限制**](#音频格式限制)
+    - [**请求体限制：**](#请求体限制)
     - [**请求参数**](#请求参数)
       - [data](#data)
     - [**同步返回参数**](#同步返回参数)
@@ -70,7 +71,11 @@
 
 ### **音频格式限制**
 
-`3GP`、`MP3`、`AAC`、`FLAC`、`OGG`、`M4A`
+`WAV`、`MP3`、`AAC`、`AMR`、`3GP`、`M4A`、`WMA`、`OGG`、`APE`、`FLAC`、`ALAC`、`WAVPACK`、`SILK_V3`等
+
+### **请求体限制：**
+
+所有请求参数大小总和不能超过18M
 
 ### **请求参数**
 
@@ -83,7 +88,7 @@
 | eventId        | string      | 事件标识             | 必传参数     | <p>用于区分场景数据<br/>可选值：</p><p>default：默认事件</p><p>audiobook：有声书</p><p>education：教育音频</p><p>game：游戏语音房</p><p>live：秀场直播</p><p>ecommerce：电商直播</p><p>voiceroom：交友语音房</p><p>private：私密语音聊天</p><p>other：其他</p>                                                                                                                                                                                      |
 | type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICS：涉政识别</p><p>PORN：色情识别</p><p>AD：广告识别<br/>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>ABUSE：辱骂识别<br/>GENDER：性别识别</p><p>TIMBRE：音色识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p></p><p>如需识别音色，唱歌,语种GENDER必传</p><p>如需做组合识别，通过下划线连接即可，例如POLITICS_PORN_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITICS_PORN_AD_MOAN</p> |
 | contentType    | string      | 待识别音频内容的格式 | 必传参数     | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p>                                                                                                                                                                                                                                                                                                                                                        |
-| content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限6M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p>                                                                                                                                                                                                                                                                               |
+| content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p>                                                                                                                                                                                                                                                                               |
 | data           | json object | 本次请求相关信息     | 必传参数     | 最长1MB，[详见data参数](#data)                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | btId           | string      | 音频文件唯一标识     | 必传参数     | 唯一标识这条音频文件，方便将回调结果对应上，最高128位，不能重复                                                                                                                                                                                                                                                                                                                                                                                     |
 | callback       | string      | 回调http接口         | 非必传参数   | 当该字段非空时，服务将根据该字段回调通知用户审核结果                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -217,10 +222,11 @@ audioTags中，language详细内容如下：
 
 ### **请求URL：**
 
-| 集群 | URL                                                    | 支持产品列表 |
-| ---- | ------------------------------------------------------ | ------------ |
-| 北京 | `http://api-audio-bj.fengkongcloud.com/query_audio/v4` | 中文音频文件 |
-| 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文音频文件 |
+| 集群 | URL                                                    | 支持产品列表                                   |
+| ---- | ------------------------------------------------------ | ---------------------------------------------- |
+| 北京 | `http://api-audio-bj.fengkongcloud.com/query_audio/v4` | 中文音频文件                                   |
+| 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文音频文件                                   |
+| 硅谷 | `http://api-audio-gg.fengkongcloud.com/query_audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
 
 ### **字符编码：**
 
