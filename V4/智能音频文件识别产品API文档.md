@@ -9,47 +9,47 @@
 目录
 
 - [智能音频文件识别产品API文档](#智能音频文件识别产品api文档)
-  - [**音频文件上传请求**](#音频文件上传请求)
-    - [**请求URL：**](#请求url)
-    - [**字符编码：**](#字符编码)
-    - [**请求方法：**](#请求方法)
-    - [**建议超时时长：**](#建议超时时长)
-    - [**音频格式限制**](#音频格式限制)
-    - [**请求体限制：**](#请求体限制)
-    - [**请求参数**](#请求参数)
+  - [音频文件上传请求](#音频文件上传请求)
+    - [请求URL](#请求url)
+    - [字符编码](#字符编码)
+    - [请求方法](#请求方法)
+    - [建议超时时长](#建议超时时长)
+    - [音频格式限制](#音频格式限制)
+    - [请求体限制](#请求体限制)
+    - [请求参数](#请求参数)
       - [data](#data)
-    - [**同步返回参数**](#同步返回参数)
-    - [**回调结果**](#回调结果)
+    - [同步返回参数](#同步返回参数)
+    - [回调结果](#回调结果)
       - [audioDetail](#audiodetail)
       - [riskDetail](#riskdetail)
       - [matchedLists](#matchedlists)
       - [words](#words)
       - [riskSegments](#risksegments)
       - [audioTags](#audiotags)
-  - [**主动查询结果**](#主动查询结果)
-    - [**请求URL：**](#请求url-1)
-    - [**字符编码：**](#字符编码-1)
-    - [**请求方法：**](#请求方法-1)
-    - [**建议超时时长：**](#建议超时时长-1)
-    - [**请求参数**](#请求参数-1)
-    - [**返回参数**](#返回参数)
+  - [主动查询结果](#主动查询结果)
+    - [请求URL](#请求url-1)
+    - [字符编码](#字符编码-1)
+    - [请求方法](#请求方法-1)
+    - [建议超时时长](#建议超时时长-1)
+    - [请求参数](#请求参数-1)
+    - [返回参数](#返回参数)
       - [audioDetail](#audiodetail-1)
       - [riskDetail](#riskdetail-1)
       - [matchedLists](#matchedlists-1)
       - [words](#words-1)
       - [riskSegments](#risksegments-1)
       - [audioTags](#audiotags-1)
-  - [**示例**](#示例)
-    - [**上传请求示例**](#上传请求示例)
-    - [**同步返回示例**](#同步返回示例)
-    - [**回调返回示例**](#回调返回示例)
-    - [**主动查询结果请求示例**](#主动查询结果请求示例)
-    - [**主动查询结果返回示例**](#主动查询结果返回示例)
-- [**Demo**](#demo)
+  - [示例](#示例)
+    - [上传请求示例](#上传请求示例)
+    - [同步返回示例](#同步返回示例)
+    - [回调返回示例](#回调返回示例)
+    - [主动查询结果请求示例](#主动查询结果请求示例)
+    - [主动查询结果返回示例](#主动查询结果返回示例)
+- [Demo](#demo)
 
-## **音频文件上传请求**
+## 音频文件上传请求
 
-### **请求URL：**
+### 请求URL
 
 | 集群 | URL                                              | 支持产品列表                                   |
 | ---- | ------------------------------------------------ | ---------------------------------------------- |
@@ -57,27 +57,27 @@
 | 上海 | `http://api-audio-sh.fengkongcloud.com/audio/v4` | 中文音频文件                                   |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
 
-### **字符编码：**
+### 字符编码
 
 `UTF-8`
 
-### **请求方法：**
+### 请求方法
 
 `POST`
 
-### **建议超时时长：**
+### 建议超时时长
 
 1s
 
-### **音频格式限制**
+### 音频格式限制
 
 `WAV`、`MP3`、`AAC`、`AMR`、`3GP`、`M4A`、`WMA`、`OGG`、`APE`、`FLAC`、`ALAC`、`WAVPACK`、`SILK_V3`等
 
-### **请求体限制：**
+### 请求体限制
 
 所有请求参数大小总和不能超过18M
 
-### **请求参数**
+### 请求参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -106,7 +106,7 @@
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
 
-### **同步返回参数**
+### 同步返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -116,7 +116,7 @@
 | code               | int          | 请求返回码                     | 是           | <p>1100：成功</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：服务失败</p><p>9101：无权限操作</p> |
 | message            | string       | 请求返回描述，和请求返回码对应 | 是           |                                                                                                          |
 
-### **回调结果**
+### 回调结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -218,9 +218,9 @@ audioTags中，language详细内容如下：
 | label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
 
-## **主动查询结果**
+## 主动查询结果
 
-### **请求URL：**
+### 请求URL
 
 | 集群 | URL                                                    | 支持产品列表                                   |
 | ---- | ------------------------------------------------------ | ---------------------------------------------- |
@@ -228,19 +228,19 @@ audioTags中，language详细内容如下：
 | 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文音频文件                                   |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/query_audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
 
-### **字符编码：**
+### 字符编码
 
 `UTF-8`
 
-### **请求方法：**
+### 请求方法
 
 `POST`
 
-### **建议超时时长：**
+### 建议超时时长
 
 1s
 
-### **请求参数**
+### 请求参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -249,7 +249,7 @@ audioTags中，language详细内容如下：
 | accessKey      | string   | 公司密钥         | 必传参数     | 由数美提供                             |
 | btId           | string   | 音频文件唯一标识 | 必传参数     | 唯一标识这条音频文件，用于查询识别结果 |
 
-### **返回参数**
+### 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -351,15 +351,15 @@ audioTags中，language详细内容如下：
 | label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
 
-## **示例**
+## 示例
 
-### **上传请求示例**
+### 上传请求示例
 
 ```bash
 curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*************","appId":"default","eventId":"default","type":"PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE","btId":"test1","contentType":"URL","content":"*************","callback":"*************","data":{"returnAllText":1,"room":"general","tokenId":"token-short"}}'
 ```
 
-### **同步返回示例**
+### 同步返回示例
 
 ```json
 {
@@ -370,7 +370,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*****
 }
 ```
 
-### **回调返回示例**
+### 回调返回示例
 
 ```json
 {
@@ -519,13 +519,13 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*****
 }
 ```
 
-### **主动查询结果请求示例**
+### 主动查询结果请求示例
 
 ```bash
 curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{"accessKey":"*************","btId":"*************"}'
 ```
 
-### **主动查询结果返回示例**
+### 主动查询结果返回示例
 
 ```json
 {
@@ -674,7 +674,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{"accessKey":
 }
 ```
 
-# **Demo**
+# Demo
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
