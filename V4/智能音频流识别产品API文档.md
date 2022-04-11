@@ -290,7 +290,24 @@ allLabels结构如下：
 ### 上传请求示例：
 
 ```bash
-curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"accessKey":"xxxxx","appId":"default","eventId":"default","type":"PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE","callback":"xxxxx","streamType":"NORMAL","data":{"btId":"test1","lang":"zh","room":"room2","url":"xxxxx","returnAllText":1,"returnPreText":1,"returnPreAudio":1,"tokenId":"2222"}}'
+curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
+    "accessKey": "xxxxx",
+    "appId": "default",
+    "eventId": "default",
+    "type": "PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE",
+    "callback": "xxxxx",
+    "streamType": "NORMAL",
+    "data": {
+        "btId": "test1",
+        "lang": "zh",
+        "room": "room2",
+        "url": "xxxxx",
+        "returnAllText": 1,
+        "returnPreText": 1,
+        "returnPreAudio": 1,
+        "tokenId": "2222"
+    }
+}'
 ```
 
 ### 回调返回示例：
@@ -369,7 +386,10 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{"acces
 ###  关流请求示例：
 
 ```bash
-curl -d'{"accessKey":"xxxxx", "requestId": "xxxxx"}' 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4'
+curl -v 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4' -d '{
+    "accessKey": "xxxxx",
+    "requestId": "xxxxx"
+}'
 ```
 
 ### 关流返回示例：

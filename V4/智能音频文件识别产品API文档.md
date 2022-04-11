@@ -356,7 +356,22 @@ audioTags中，language详细内容如下：
 ### 上传请求示例
 
 ```bash
-curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*************","appId":"default","eventId":"default","type":"PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE","btId":"test1","contentType":"URL","content":"*************","callback":"*************","data":{"returnAllText":1,"room":"general","tokenId":"token-short"}}'
+curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
+    "accessKey": "*************",
+    "appId": "default",
+    "eventId": "default",
+    "type": "PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE",
+    "btId": "test1",
+    "contentType": "URL",
+    "content": "*************",
+    "callback": "*************",
+    "data": {
+        "returnAllText": 1,
+        "room": "general",
+        "tokenId": "token-short"
+    }
+}'
+
 ```
 
 ### 同步返回示例
@@ -522,7 +537,10 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{"accessKey":"*****
 ### 主动查询结果请求示例
 
 ```bash
-curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{"accessKey":"*************","btId":"*************"}'
+curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
+    "accessKey": "*************",
+    "btId": "*************"
+}'
 ```
 
 ### 主动查询结果返回示例
