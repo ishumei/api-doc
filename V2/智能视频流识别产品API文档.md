@@ -269,22 +269,6 @@
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-审核结束回调参数（returnFinishInfo为true时返回）：
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
-| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
-| requestId | string | 请求唯一标识 | 是 |  |
-| statCode | int | 回调状态码。状态码对应关系：<br/>1 : 审核结束回调 | 是||
-| detail | json_object | 结果详情 | 是 | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
-
-结束回调中的detail内容如下：
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| requestParams | json_object | 返回请求参数data中的所有字段 | 是 | 无 |
-
 其中，tokenProfileLabels数组每个成员的具体内容如下：
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
@@ -296,6 +280,24 @@
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
 其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+
+### 审核结束回调参数（returnFinishInfo为true时返回）：
+
+| **参数名**        | **类型**    | **参数说明**                                 | **是否必返** | **规范**                                                     |
+| ----------------- | ----------- | -------------------------------------------- | ------------ | ------------------------------------------------------------ |
+| code              | int         | 请求返回码                                   | 是           | 详见[接口响应码列表](#codeList)                              |
+| message           | string      | 请求返回描述，和请求返回码对应               | 是           | 详见[接口响应码列表](#codeList)                              |
+| requestId         | string      | 请求唯一标识                                 | 是           |                                                              |
+| statCode          | int         | 回调状态码                                   | 是           | 回调状态码，当returnFinishInfo为true时存在。状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调 <br/>当statCode=1时，如下参数存在 |
+| contentType       | int         | ⽤来区分⾳频和图⽚回调，当code等于1100时返回 | 是           | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
+| pullStreamSuccess | bool        | 拉流是否成功                                 | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败<br/>如果一张截图都没有获取成功即认为拉流失败 |
+| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
+
+结束回调中的detail内容如下：
+
+| **参数名**    | **类型**    | **参数说明**                 | **是否必返** | **规范** |
+| ------------- | ----------- | ---------------------------- | ------------ | -------- |
+| requestParams | json_object | 返回请求参数data中的所有字段 | 是           | 无       |
 
 ## 视频流关闭接口
 
