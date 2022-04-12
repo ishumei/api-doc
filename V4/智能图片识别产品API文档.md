@@ -1,68 +1,72 @@
 # 数美智能图片识别产品API接口文档
-- - - - - 
+
+- - - - -
 
 ***版权所有 翻版必究***
 
-- - - - - 
+- - - - -
 
-* [同步单张上传接口](#syncSingleInterface)
-    + [单条请求](#requestParameter)
-        - [请求URL](#requestUrl)
-        - [字符编码格式](#requestEncode)
-        - [请求方法](#requestMethod)
-        - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [同步返回结果](#syncResponseParameters)
-    + [回调的同步返回结果](#callbackResponseParameters)
-    + [同步单条示例](#syncExample)
-        - [同步请求示例](#syncRequestExample)
-        - [同步返回示例](#syncResponseExample)
-    + [回调的同步返回参数](#callBackSyncResponseExample)
-* [异步单张上传接口](#asyncSingleInterface)
-    + [异步单条请求](#asyncRequestParameter)
-        - [请求URL](#asyncRequestUrl)
-        - [字符编码格式](#asyncRequestEncode)
-        - [请求方法](#asyncRequestMethod)
-        - [建议超时时长](#asyncRequestTimeout)
-        - [请求参数](#asyncRequestParameters)
-    + [异步单条返回结果](#asyncResponseParameters)
-    + [异步单条示例](#asyncExample)
-        - [异步单条请求示例](#asyncRequestExample)
-        - [异步单条返回示例](#asyncResponseExample)
-* [同步批量接口](#syncBatchInterface)
-    + [同步批量请求参数](#syncBatchRequestParameter)
-        - [请求URL](#syncBatchRequestUrl)
-        - [字符编码格式](#syncBatchRequestEncode)
-        - [请求方法](#syncBatchRequestMethod)
-        - [建议超时时长](#syncBatchRequestTimeout)
-        - [请求参数](#syncBatchRequestParameters)
-    + [同步批量返回结果](#syncBatchResponseParameters)
-    + [同步批量回调返回参数](#syncBatchCallBackResponseParameters)
-* [异步批量接口](#asyncBatchInterface)
-    + [异步批量请求](#asyncBatchRequestParameter)
-        - [请求URL](#asyncBatchRequestUrl)
-        - [字符编码格式](#asyncBatchRequestEncode)
-        - [请求方法](#asyncBatchRequestMethod)
-        - [建议超时时长](#asyncBatchRequestTimeout)
-        - [请求参数](#asyncBatchRequestParameters)
-    + [异步批量返回结果](#asyncBatchResponseParameters)
-        - [异步批量返回示例](#asyncBatchResponseExample)
-* [主动查询接口](#queryInterface)
-    + [同步查询请求](#queryRequestParameter)
-        - [请求URL](#queryRequestUrl)
-        - [字符编码格式](#queryRequestEncode)
-        - [请求方法](#queryRequestMethod)
-        - [建议超时时长](#queryRequestTimeout)
-        - [请求参数](#queryRequestParameters)
-        - [查询请求示例](#queryRequestExample)
-    + [同步查询请求返回参数](#queryResponseParameters)
-* [Demo](#demo)
+目录
 
-# <span id = "syncSingleInterface">同步单张上传接口</span>
+- [数美智能图片识别产品API接口文档](#数美智能图片识别产品api接口文档)
+- [同步单张上传接口](#同步单张上传接口)
+  - [同步单条请求](#同步单条请求)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [同步返回结果](#同步返回结果)
+  - [回调的同步返回参数](#回调的同步返回参数)
+  - [同步示例：](#同步示例)
+    - [同步请求示例：](#同步请求示例)
+    - [同步返回示例：](#同步返回示例)
+    - [回调的同步返回参数](#回调的同步返回参数-1)
+- [异步单张上传接口](#异步单张上传接口)
+  - [异步单条请求](#异步单条请求)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [请求参数：](#请求参数-1)
+  - [返回结果](#返回结果)
+  - [异步单条示例](#异步单条示例)
+    - [异步单条请求示例](#异步单条请求示例)
+    - [异步单条返回示例](#异步单条返回示例)
+- [同步批量接口](#同步批量接口)
+  - [同步批量请求参数](#同步批量请求参数)
+    - [请求URL：](#请求url-2)
+    - [请求方法：](#请求方法-2)
+    - [字符编码：](#字符编码-2)
+    - [建议超时时间：](#建议超时时间-2)
+    - [请求参数：](#请求参数-2)
+  - [同步批量返回参数](#同步批量返回参数)
+  - [同步批量回调返回参数](#同步批量回调返回参数)
+- [异步批量接口](#异步批量接口)
+  - [异步批量上传请求](#异步批量上传请求)
+    - [请求URL：](#请求url-3)
+    - [请求方法：](#请求方法-3)
+    - [字符编码：](#字符编码-3)
+    - [建议超时时间：](#建议超时时间-3)
+    - [请求参数：](#请求参数-3)
+  - [异步批量返回参数](#异步批量返回参数)
+    - [异步批量返回示例](#异步批量返回示例)
+- [主动查询接口](#主动查询接口)
+  - [同步查询请求](#同步查询请求)
+    - [请求URL：](#请求url-4)
+    - [请求方法：](#请求方法-4)
+    - [字符编码：](#字符编码-4)
+    - [建议超时时间：](#建议超时时间-4)
+    - [请求参数：](#请求参数-4)
+    - [查询请求示例](#查询请求示例)
+  - [查询放回参数](#查询放回参数)
+- [Demo](#demo)
 
-## <span id = "requestParameter">同步单条请求</span>
+# 同步单张上传接口
 
-### <span id = "requestUrl">请求URL：</span>
+## 同步单条请求
+
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 图片 |
@@ -71,19 +75,19 @@
 | 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -92,12 +96,12 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -113,7 +117,7 @@
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo) |
 
-<span id = "streamInfo">data中，streamInfo的内容如下：</span>
+data中，streamInfo的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -123,13 +127,13 @@
 | frameTime | int | 透传参数 | 否 | 截帧时间，单位ms， similarDedup为true时，必传 |
 | riskNum | int | 透传参数 | 否 | 相似截帧图片不改变张数    数量范围(1-5)，默认为1 |
 
-<span id = "extra">data中，extra的内容如下：</span>
+data中，extra的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-## <span id = "syncResponseParameters">同步返回结果</span>
+## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -148,14 +152,14 @@
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
 
-<span id = "riskDetail">其中，riskDetail结构如下：</span>
+其中，riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -281,7 +285,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
 
-## <span id = "callBackSyncResponseParamaters">回调的同步返回参数</span>
+## 回调的同步返回参数
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -291,9 +295,9 @@ businessLabels数组中的businessDetail的内容如下：
 
 如果在请求参数中指定了回调协议接口URL callback，则需要支持POST方法，传输编码采用utf-8，审核结果放在HTTP Body中，采用Json格式，具体参数和V4单张同步请求结果相同。
 
-## <span id = "syncExample">同步示例：</span>
+## 同步示例：
 
-### <span id = "syncRequestExample">同步请求示例：</span>
+### 同步请求示例：
 
 ```json
 {
@@ -307,7 +311,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 
 ```json
 {
@@ -437,7 +441,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "callBackSyncResponseExample">回调的同步返回参数</span>
+### 回调的同步返回参数
 ```json
 {
     "code":1100,
@@ -446,29 +450,29 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-# <span id = "asyncSingleInterface">异步单张上传接口</span>
+# 异步单张上传接口
 
-## <span id = "asyncRequestParameter">异步单条请求</span>
+## 异步单条请求
 
-### <span id = "asyncRequestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/saas/async/img` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v4/saas/async/img` | 图片 |
 
-### <span id = "asyncRequestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "asyncRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "asyncRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 5s
 
-### <span id = "asyncRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -477,7 +481,7 @@ businessLabels数组中的businessDetail的内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 公司密钥：用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 |
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
@@ -486,7 +490,8 @@ businessLabels数组中的businessDetail的内容如下：
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | 必传参数 | 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
-| img | string | 要检测的图片 | 必传参数 | 可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核**支持格式：`jpg`，`jpeg`，`jp2`，`png`，`webp`，`gif`，`bmp`，`tiff`，`tif`，`dib`，`ppm`，`pgm`，`pbm`，`hdr`，`pic`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
@@ -501,7 +506,7 @@ businessLabels数组中的businessDetail的内容如下：
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-## <span id = "asyncResponseParameters">返回结果</span>
+## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -511,9 +516,9 @@ businessLabels数组中的businessDetail的内容如下：
 | message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败余额不足无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 
-## <span id = "asyncExample">异步单条示例</span>
+## 异步单条示例
 
-### <span id = "asyncRequestExample">异步单条请求示例</span>
+### 异步单条请求示例
 ```json
 {
     "accessKey":"",
@@ -526,7 +531,7 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-### <span id = "asyncResponseExample">异步单条返回示例</span>
+### 异步单条返回示例
 ```json
 {
     "requestId":"9l25odfa5280c50f49f7c40988a1e400",
@@ -535,12 +540,11 @@ businessLabels数组中的businessDetail的内容如下：
 }
 ```
 
-# <span id = "syncBatchInterface">同步批量接口</span>
+# 同步批量接口
 
-## <span id = "syncBatchRequestParameter">同步批量请求参数</span>
+## 同步批量请求参数
 
-
-### <span id = "syncBatchRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
@@ -549,19 +553,19 @@ businessLabels数组中的businessDetail的内容如下：
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/images/v4` | 图片 |
 | 印度 | `http://api-img-yd.fengkongcloud.com/images/v4` | 图片 |
 | 硅谷 | `http://api-img-gg.fengkongcloud.com/images/v4` | 图片 |
-### <span id = "syncBatchRequestMethod">请求方法：</span>
+### 请求方法：
 
 `POST`
 
-### <span id = "syncBatchRequestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "syncBatchRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 60s
 
-### <span id = "syncBatchRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -570,7 +574,7 @@ businessLabels数组中的businessDetail的内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。 |
@@ -603,7 +607,7 @@ businessLabels数组中的businessDetail的内容如下：
 | imgCompareBase | string | 要比对的图片 | 非必传参数 | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接支持格式：`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
-## <span id = "syncBatchResponseParameters">同步批量返回参数</span>
+## 同步批量返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -646,7 +650,7 @@ imgs中，riskDetail的内容如下：
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -744,7 +748,6 @@ allLabels每个成员的riskDetail结构如下：
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |
 
-
 其中imgs中businessLabels数组的每个成员的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
@@ -770,7 +773,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
 
-## <span id = "syncBatchCallBackResponseParameters"> 同步批量回调返回参数</span>
+##  同步批量回调返回参数
 
 对于批量接口，和同步批量返回的结果相同。
 
@@ -787,35 +790,31 @@ requestIds详细如下：
 | requestId | string | 流水号 | 必返参数 | 返回的requestId |
 | btId | string | 图片编号 | 必返参数 | 图片的btId |
 
+# 异步批量接口
 
-# <span id = "asyncBatchInterface">异步批量接口</span>
+## 异步批量上传请求
 
-## <span id = "asyncBatchRequestParameter">异步批量上传请求</span>
-
-
-
-### <span id = "asyncBatchRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/saas/async/imgs` | 图片 |
 | 上海 | `http://api-img-sh.fengkongcloud.com/v4/saas/async/imgs` | 图片 |
 
-
-### <span id = "asyncBatchRequestMethod">请求方法：</span>
+### 请求方法：
 ```
 POST
 ```
 
-### <span id = "asyncBatchRequestEncode">字符编码：</span>
+### 字符编码：
 ```
 UTF-8
 ```
 
-### <span id = "asyncBatchRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 5s
 
-### <span id = "asyncBatchRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -824,7 +823,7 @@ UTF-8
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）|
+| type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
@@ -852,11 +851,11 @@ UTF-8
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：jpg，jpeg，jp2，png，webp，gif，bmp，tiff，tif，dib，ppm，pgm，pbm，hdr，pic建议图片像素不小于256\*256，目前最低支持20\*20分辨率的图片
-图片大小最大10MB |
+| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：jpg，jpeg，jp2，png，webp，gif，bmp，tiff，tif，dib，ppm，pgm，pbm，hdr，pic建议图片像素不小于256\*256，目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+|imgCompareBase | string   | 要比对的图片                                                 | 非必传参数   |要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接支持格式：`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB基准图暂时不支持长图和动图格式|
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
-## <span id = "asyncBatchResponseParameters">异步批量返回参数</span>
+## 异步批量返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -873,7 +872,7 @@ requestIds中每一项是：
 | requestId | string | 流水号 | 必返参数 | 返回的requestId |
 | btId | string | 图片编号 | 必返参数 | 图片的btId |
 
-### <span id = "asyncBatchResponseExample">异步批量返回示例</span>
+### 异步批量返回示例
 ```json
 {
     "code":1100,
@@ -891,31 +890,30 @@ requestIds中每一项是：
 }
 ```
 
-#  <span id = "queryInterface">主动查询接口</span>
+#  主动查询接口
 
-## <span id = "queryRequestParameter">同步查询请求</span>
+## 同步查询请求
 
-### <span id = "queryRequestUrl">请求URL：</span>
+### 请求URL：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/v4/image/query` | 图片 |
 
-
-### <span id = "queryRequestMethod">请求方法：</span>
+### 请求方法：
 ```
 POST
 ```
 
-### <span id = "queryRequestEncode">字符编码：</span>
+### 字符编码：
 ```
 UTF-8
 ```
 
-### <span id = "queryRequestTimeout">建议超时时间：</span>
+### 建议超时时间：
 5s
 
-### <span id = "queryRequestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用json格式，具体参数如下：
 
@@ -931,7 +929,7 @@ requestIds每一项是：
 | requestId | string | 流水号 | 必传参数 | 查询的requestId |
 | btId | string | 图片编号 | 非必传参数 | 如果存在btId，则返回requestId+btId的批量查询中的单张结果；如果不存在btId，则分为两种情况：第一种情况，返回单张请求的结果；第二种情况，模糊匹配返回批量请求的结果 |
 
-### <span id = "queryRequestExample">查询请求示例</span>
+### 查询请求示例
 
 ```json
 {
@@ -945,7 +943,7 @@ requestIds每一项是：
 }
 ```
 
-## <span id = "queryResponseParameters">查询放回参数</span>
+## 查询放回参数
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -987,7 +985,7 @@ result如下：
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>此字段配合riskType一同使用，图片riskType取值请参考上一字段。<br/>图片ocr对应的文本riskType为：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`:违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义 |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -1111,7 +1109,7 @@ businessLabels数组中的businessDetail的内容如下：
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 |
 
-# <span id = "demo">Demo</span>
+# Demo
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)

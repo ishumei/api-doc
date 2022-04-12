@@ -6,27 +6,25 @@
 
 - - - - -
 
+目录
 
+- [数美天象产品API接口说明文档](#数美天象产品api接口说明文档)
+- [天象风险识别](#天象风险识别)
+  - [调用时机](#调用时机)
+  - [具体接口](#具体接口)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [返回结果](#返回结果)
+  - [示例：](#示例)
+    - [请求示例：](#请求示例)
+    - [同步返回示例：](#同步返回示例)
 
-* [天象风险识别](#riskDiscernInterface)
-    + [调用时机](#requestParameter)
-    + [具体接口](#requestInterface)
-        - [请求URL](#requestUrl)
-        - [字符编码格式](#requestEncode)
-        - [请求方法](#requestMethod)
-        - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [返回结果](#response)
-    + [示例](#example)
-        - [请求示例](#requestExample)
-        - [返回示例](#responseExample)
+# 天象风险识别
 
-
-# <span id = "riskDiscernInterface">天象风险识别</span>
-
-
-
-## <span id = "requestParameter">调用时机</span>
+## 调用时机
 
 在需要进行风险识别时调用本接口，例如：
 
@@ -35,29 +33,27 @@
 3. 活动奖励下发前，进行风险画像查询，例如随机红包、抽奖等概率性活动；
 4. 每日的例行查询，进行画像库或风控引擎的数据更新。
 
+## 具体接口
 
-
-## <span id = "requestInterface">具体接口</span>
-
-### <span id = "requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-tianxiang-bj.fengkongcloud.com/tianxiang/v4` | 天象风险识别 |
 | 新加坡 | `http://api-tianxiang-xjp.fengkongcloud.com/tianxiang/v4` | 天象风险识别 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 1s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
@@ -65,14 +61,14 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | 数美分配 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 不能同时为空 | 该ID为用户的唯一标识，且与其它数美接口的tokenId保持一致 |
 | deviceId | string | 待查询的设备指纹ID，由数美SDK生成 | 不能同时为空 | 该ID为用户设备的唯一标识，且与其他数美接口的smid保持一致 |
 
-## <span id = "response">返回结果</span>
+## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -98,8 +94,6 @@
 | UGC_account_risk     | json_object    | UGC内容相关风险  |                            |
 | scene_account_risk   | json_object    | 场景账号风险     | 特殊场景才可取到，如航司等 |
 
- 
-
 machine_account_risk的详情内容如下：
 
 | ***返回结果参数名***              | ***参数类型*** | ***参数说明*** | ***规范***                       |
@@ -108,8 +102,6 @@ machine_account_risk的详情内容如下：
 | b_machine_control_tokenid_last_ts | int            | 机器账号时间   |                                  |
 | b_offer_wall_tokenid              | int            | 积分墙账号     | 0：非积分墙账号1：积分墙账号     |
 | b_offer_wall_tokenid_last_ts      | int            | 积分墙账号时间 |                                  |
-
- 
 
 UGC_account_risk的详情内容如下：
 
@@ -121,8 +113,6 @@ UGC_account_risk的详情内容如下：
 | b_sexy_risk_tokenid_last_ts      | int            | 色情风险时间   |                                    |
 | b_advertise_risk_tokenid         | int            | 广告风险       | 0：暂未发现广告风险1：存在广告风险 |
 | b_advertise_risk_tokenid_last_ts | int            | 广告风险时间   |                                    |
-
- 
 
 scene_account_risk的详情内容如下：
 
@@ -141,8 +131,6 @@ scene_account_risk的详情内容如下：
 | device_suspicious_labels | json_object        | 设备可疑相关的标签信息     |                        |
 | device_active_info       | json_object        | 设备活跃相关的标签信息     |                        |
 | monkey_device            | Json_object        | 机器操控设备相关的标签信息 |                        |
-
- 
 
 fake_device的详情内容如下：
 
@@ -175,16 +163,12 @@ fake_device的详情内容如下：
 | b_multi_boxing_by_app         |                    | 工具多开                 | 多开工具进行的多开，如分身大师，且当前APP处于多开环境中，取值：0：当前未处在多开环境中1：当前处在多开环境中 |
 | b_multi_boxing_by_app_last_ts | int                | 最后一次工具多开时间     | 13位时间戳                                                   |
 
- 
-
 other的详情内容如下：
 
 | ***返回结果参数名*** | ***参数类型*** | ***参数说明***     | ***规范***                                                   |
 | -------------------- | -------------- | ------------------ | ------------------------------------------------------------ |
 | b_mismatch           | int            | 设备参数不匹配     | 设备参数与正常参数不匹配，例如8核手机检测为3核等，取值：0：参数正常1：参数不正常 |
 | b_mismatch_last_ts   | int            | 设备参数不匹配时间 |                                                              |
-
-
 
 device_suspicious_labels的详情内容如下：
 
@@ -229,15 +213,11 @@ device_suspicious_labels的详情内容如下：
 | b_console | int | 开启调试模式 | 设备开启调试模式，取值：0:设备没有开启调试模式1:设备开启调试 |
 | b_console_last_ts | int | 开启调试模式时间 | |
 
- 
-
 device_active_info的详情内容如下：
 
 | ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
 | ------------------------ | ------------------ | ------------------ | -------------- |
 | i_smid_boot_timestamp    | int                | 系统启动时间       |                |
-
- 
 
 monkey_device的详情内容如下：
 
@@ -246,7 +226,6 @@ monkey_device的详情内容如下：
 | common                   | int                | 通用               |                |
 | monkey_game              | int                | 游戏操控           |                |
 | monkey_read              | int                | 咨询阅读           |                |
-
 
 common的详情内容如下：
 
@@ -257,9 +236,6 @@ common的详情内容如下：
 | b_webdriver | int | 浏览器自动操作插件 | 浏览器自动操作插件，取值：0:浏览器没有自动操作查件1:浏览器自动操作插件 |
 | b_webdriver_last_ts | int | 浏览器自动操作插件时间 | |
 
-
-
-
 monkey_game的详情内容如下：
 
 | ***返回结果参数名***   | ***参数类型*** | ***参数说明*** | ***规范***                                               |
@@ -267,16 +243,12 @@ monkey_game的详情内容如下：
 | b_monkey_game_apps         | int                | 游戏操控工具       | 安装如游戏蜂窝等游戏操控工具的设备，取值：0：暂未发现1：安装游戏操控工具 |
 | b_monkey_game_apps_last_ts | int                | 游戏操控工具时间   |                                                              |
 
- 
-
 monkey_read的详情内容如下：
 
 | ***返回结果参数名***   | ***参数类型*** | ***参数说明*** | ***规范***                                               |
 | -------------------------- | ------------------ | ------------------ | ------------------------------------------------------------ |
 | b_monkey_read_apps         | int                | 资讯阅读工具       | 安装如聚合阅读等资讯阅读工具的设备，取值：0：暂未发现1：安装资讯阅读工具 |
 | b_monkey_read_apps_last_ts | int                | 资讯阅读工具时间   |                                                              |
-
- 
 
 其中标签类返回字段
 
@@ -291,8 +263,6 @@ monkey_read的详情内容如下：
 | timestamp                | int64              | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
 | detail                   | json_object        | 证据描述               | 证据细节                     |
 
- 
-
 ***2***）tokenRiskLabels的详情内容
 
 | ***返回结果参数名*** | ***参数类型*** | ***参数说明***     | ***规范***               |
@@ -303,8 +273,6 @@ monkey_read的详情内容如下：
 | description              | string             | 风险描述               | 展示账号风险标签的中文描述。 |
 | timestamp                | int64              | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
 | detail                   | json_object        | 证据描述               | 证据细节                     |
-
- 
 
 ***3***）deviceRiskLabels的详情内容
 
@@ -317,15 +285,9 @@ monkey_read的详情内容如下：
 | timestamp                | int64              | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
 | detail                   | json_object        | 证据描述               | 证据细节                     |
 
- 
+## 示例：
 
- 
-
- 
-
-## <span id = "example">示例：</span>
-
-### <span id = "requestExample">请求示例：</span>
+### 请求示例：
 
 ```json
 {
@@ -337,7 +299,7 @@ monkey_read的详情内容如下：
 }
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 
 ```json
 {
@@ -498,7 +460,7 @@ monkey_read的详情内容如下：
       "description": "年龄性别:年龄:未成年人",
       "timestamp": 1634732525000,
       "detail": {
-        
+
       }
     }
   ],
@@ -510,7 +472,7 @@ monkey_read的详情内容如下：
       "description": "风险设备账号:云手机账号:云手机账号",
       "timestamp": 1634732525000,
       "detail": {
-        
+
       }
     },
     {
@@ -520,7 +482,7 @@ monkey_read的详情内容如下：
       "description": "风险设备账号:hook设备:hook设备",
       "timestamp": 1634732525000,
       "detail": {
-        
+
       }
     }
   ],
@@ -532,7 +494,7 @@ monkey_read的详情内容如下：
       "description": "机器操控设备:游戏操控:安装",
       "timestamp": 1634732525000,
       "detail": {
-        
+
       }
     }
   ]

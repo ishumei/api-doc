@@ -6,51 +6,54 @@
 
 - - - - -
 
-* [一键登录接口](#oneClickleInterface)
-    + [请求参数](#requestParameter)
-        - [请求URL](#requestUrl)
-        - [字符编码格式](#requestEncode)
-        - [请求方法](#requestMethod)
-        - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [返回结果](#response)
-    + [示例](#example)
-        - [请求示例](#requestExample)
-        - [返回示例](#responseExample)
-* [本机号码验证接口](#phoneVerifyleInterface)
-    + [请求参数](#requestParameter)
-        - [请求URL](#requestUrl)
-        - [字符编码格式](#requestEncode)
-        - [请求方法](#requestMethod)
-        - [建议超时时长](#requestTimeout)
-        - [请求参数](#requestParameters)
-    + [返回结果](#response)
-    + [示例](#example)
-        - [请求示例](#requestExample)
-        - [返回示例](#responseExample)
+目录
 
-# <span id = "oneClickleInterface">一键登录接口</span>
+- [智能号码认证产品API文档](#智能号码认证产品api文档)
+- [一键登录接口](#一键登录接口)
+  - [一键登录请求](#一键登录请求)
+    - [请求URL：](#请求url)
+    - [请求方法：](#请求方法)
+    - [字符编码：](#字符编码)
+    - [建议超时时间：](#建议超时时间)
+    - [请求参数：](#请求参数)
+  - [返回结果](#返回结果)
+  - [示例：](#示例)
+    - [请求示例：](#请求示例)
+    - [同步返回示例：](#同步返回示例)
+- [本机号码校验接口](#本机号码校验接口)
+  - [本机号码校验请求](#本机号码校验请求)
+    - [请求URL：](#请求url-1)
+    - [请求方法：](#请求方法-1)
+    - [字符编码：](#字符编码-1)
+    - [建议超时时间：](#建议超时时间-1)
+    - [请求参数：](#请求参数-1)
+  - [返回结果](#返回结果-1)
+  - [示例：](#示例-1)
+    - [请求示例：](#请求示例-1)
+    - [同步返回示例：](#同步返回示例-1)
 
-## <span id = "requestParameter">一键登录请求</span>
+# 一键登录接口
 
-### <span id = "requestUrl">请求URL：</span>
+## 一键登录请求
+
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-oneclick-bj.fengkongcloud.com/oneclick/v1` | 一键登录 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 2s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
@@ -59,7 +62,7 @@
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -68,7 +71,7 @@
 | os | string | 平台类型标识 | 必传参数 | 平台类型<br/>可选值：<br/>`andrid`<br/>`ios`<br/>`weapp`<br/>`h5` |
 | deviceInfo  | string | 加密的浏览器指纹，由weapp/h5端SDK采集。android/ios可传空值 | 必传参数 | 调用数美sdk获取 |
 
-## <span id = "response">返回结果</span>
+## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -79,9 +82,9 @@
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | phoneRsa | string | 请求结果 | 是 | 加密后的手机号，加密方式为：RSA加密，客户使用私钥解密 |
 
-## <span id = "example">示例：</span>
+## 示例：
 
-### <span id = "requestExample">请求示例：</span>
+### 请求示例：
 
 ```json
 {
@@ -96,7 +99,7 @@
 }
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 
 ```json
 {
@@ -107,28 +110,28 @@
 }
 ```
 
-# <span id = "phoneVerifyleInterface">本机号码校验接口</span>
+# 本机号码校验接口
 
-## <span id = "requestParameter">本机号码校验请求</span>
+## 本机号码校验请求
 
-### <span id = "requestUrl">请求URL：</span>
+### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
 | 北京 | `http://api-phoneverify-bj.fengkongcloud.com/phoneverify/v1` | 本机号码校验 |
 
-### <span id = "requestMethod">请求方法：</span>
+### 请求方法：
 
-`POST` 
+`POST`
 
-### <span id = "requestEncode">字符编码：</span>
+### 字符编码：
 
 `UTF-8`
 
-### <span id = "requestTimeout">建议超时时间：</span>
+### 建议超时时间：
 
 2s
 
-### <span id = "requestParameters">请求参数：</span>
+### 请求参数：
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
@@ -138,7 +141,7 @@
 | eventId | string | 时间标识 | 必传参数 | 在本机号码验证场景中建议传入进行区分，否则为`default` |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 
-<span id = "data">其中，data的内容如下：</span>
+其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -149,7 +152,7 @@
 | os | string | 平台类型标识 | 必传参数 | 平台类型<br/>可选值：<br/>`andrid`<br/>`ios`<br/>`weapp`<br/>`h5` |
 | deviceInfo  | string | 加密的浏览器指纹，由weapp/h5端SDK采集。android/ios可传空值 | 必传参数 | 调用数美sdk获取 |
 
-## <span id = "response">返回结果</span>
+## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -160,9 +163,9 @@
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | riskLevel | string | 验证结果 | 是 | 可能返回值：<br/>`PASS`：正常（运营商返回认证通过）<br/>`REVIEW`：重试（运营商返回无法确认）<br/>`REJECT`：拒绝（运营商返回认证不通过） |
 
-## <span id = "example">示例：</span>
+## 示例：
 
-### <span id = "requestExample">请求示例：</span>
+### 请求示例：
 
 ```json
 {
@@ -179,7 +182,7 @@
     }
 ```
 
-### <span id = "syncResponseExample">同步返回示例：</span>
+### 同步返回示例：
 
 ```json
 {
