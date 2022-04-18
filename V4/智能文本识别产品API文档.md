@@ -30,8 +30,8 @@
 | 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
 | 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
-| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 英文文本 |
-| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 英语文本 <br/> 阿语文本 |
+| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
+| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 <br/> 阿语文本 |
 
 ### 字符编码格式：
 
