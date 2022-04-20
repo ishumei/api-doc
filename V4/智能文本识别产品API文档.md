@@ -30,8 +30,8 @@
 | 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
 | 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
-| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 英文文本 |
-| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 英语文本 <br/> 阿语文本 |
+| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
+| 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 <br/> 阿语文本 |
 
 ### 字符编码格式：
 
@@ -64,7 +64,7 @@
 | --- | --- | --- | --- | --- |
 | text | string | 需要检测的文本（200字内效果最佳） | Y | 文本字数上限2000字，<br/>若传递nickname字段，则会同时校验文本+昵称内容。<br/>注意：有超过2000字以上文本内容建议联系数美协商 |
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| lang | string | 文本内容语言类型 | Y | 可选值如下，（默认值为`zh`，传入`auto`自动识别失败时为`en`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`auto`：自动识别<br/>默认值zh，国内集群客户可传zh |
+| lang | string | 文本内容语言类型 | Y | 可选值如下，（默认值为`zh`，传入`auto`自动识别失败时为`en`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别<br/>默认值zh，国内集群客户可传zh |
 | nickname | string | 用户昵称 | N | 校验昵称内容风险 |
 | ip | string | ip地址 | N | 发送该文本的的用户公网ipv4地址 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
