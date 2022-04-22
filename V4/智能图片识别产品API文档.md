@@ -116,6 +116,7 @@
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo) |
+| receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 
 data中，streamInfo的内容如下：
 
@@ -499,6 +500,7 @@ businessLabels数组中的businessDetail的内容如下：
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json\_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息 |
+| receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 
 其中，extra内容如下：
 
@@ -592,6 +594,7 @@ businessLabels数组中的businessDetail的内容如下：
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
+| receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 
 其中，extra的内容如下：
 
@@ -840,6 +843,7 @@ UTF-8
 | room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，默认USER，必须在可选范围有效对不同角色可配置不同策略。直播领域可取值：房管：ADMIN主播：HOST系统角色：SYSTEM游戏领域可取值：管理员：ADMIN普通用户：USER |
+| receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 
 其中，extra的内容如下：
 
