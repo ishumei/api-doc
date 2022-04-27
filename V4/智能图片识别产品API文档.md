@@ -59,7 +59,7 @@
     - [建议超时时间：](#建议超时时间-4)
     - [请求参数：](#请求参数-4)
     - [查询请求示例](#查询请求示例)
-  - [查询放回参数](#查询放回参数)
+  - [查询返回参数](#查询返回参数)
 - [Demo](#demo)
 
 # 同步单张上传接口
@@ -134,6 +134,7 @@ data中，extra的内容如下：
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
 ## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -296,7 +297,7 @@ businessLabels数组中的businessDetail的内容如下：
 
 如果在请求参数中指定了回调协议接口URL callback，则需要支持POST方法，传输编码采用utf-8，审核结果放在HTTP Body中，采用Json格式，具体参数和V4单张同步请求结果相同。
 
-## 同步示例：
+## 同步单张示例：
 
 ### 同步请求示例：
 
@@ -601,6 +602,7 @@ businessLabels数组中的businessDetail的内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
 
 其中，imgs数组每个元素的具体内容如下：
 
@@ -793,6 +795,104 @@ requestIds详细如下：
 | requestId | string | 流水号 | 必返参数 | 返回的requestId |
 | btId | string | 图片编号 | 必返参数 | 图片的btId |
 
+
+## 同步批量示例：
+
+### 同步批量请求示例：
+
+```json
+{
+    "accessKey":"",
+    "eventId":"",
+    "type":"",
+    "data":{
+        "imgs":[
+            {
+               "btId":"123",
+               "img":""
+            },
+            {
+               "btId":"456",
+               "img":""
+            },
+        ]
+    }
+}
+```
+
+### 同步返回示例：
+
+```json
+{
+    "message":"成功",
+    "requestId":"faf10b672ddae5e5e51ea719c44ca94b",
+    "auxInfo":{
+
+    },
+    "code" :1100,
+    "imgs":[
+        {
+            "allLabels":[
+
+            ],
+            "auxInfo":{
+                "segments":1,
+                "typeVersion":{
+                    "OCR":"2001003.1",
+                    "PORN":"3043001.1"
+                }
+            },
+            "btId":"123",
+            "code":1100,
+            "message":"成功",
+            "requestId":"faf10b672ddae5e5e51ea719c44ca94b_123",
+            "riskDescription":"正常",
+            "riskDetail":{
+                "riskSource":1000
+            },
+            "riskLabel1":"normal",
+            "riskLabel2":"",
+            "riskLabel3":"",
+            "riskLevel":"PASS",
+            "tokenLabels":{
+                "UGC_account_risk":{
+
+                }
+            }
+        },
+        {
+            "allLabels":[
+
+            ],
+            "auxInfo":{
+                "segments":1,
+                "typeVersion":{
+                    "OCR":"2001003.1",
+                    "PORN":"3043001.1"
+                }
+            },
+            "btId":"456",
+            "code":1100,
+            "message":"成功",
+            "requestId":"faf10b672ddae5e5e51ea719c44ca94b_456",
+            "riskDescription":"正常",
+            "riskDetail":{
+                "riskSource":1000
+            },
+            "riskLabel1":"normal",
+            "riskLabel2":"",
+            "riskLabel3":"",
+            "riskLevel":"PASS",
+            "tokenLabels":{
+                "UGC_account_risk":{
+                }
+            }
+        }
+    ]
+}
+```
+
+
 # 异步批量接口
 
 ## 异步批量上传请求
@@ -947,7 +1047,7 @@ requestIds每一项是：
 }
 ```
 
-## 查询放回参数
+## 查询返回参数
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
