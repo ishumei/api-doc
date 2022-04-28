@@ -153,6 +153,7 @@ data中，extra的内容如下：
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 请求参数Type字段包含`OCR`，`SCREEN`，`SCENCE`，`MINOR`，`QR`，`FACE`，`QUALITY`，`FACECOMPARE`以上标签时不为空，[详见businessLabels参数](#businessLabels) |
+| tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
 
 其中，riskDetail结构如下：
 
@@ -286,6 +287,41 @@ businessLabels数组中的businessDetail的内容如下：
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
 | person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
 | person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
+
+tokenLabels的详情内容如下：
+
+| ***返回结果参数名*** | ***参数类型*** | ***参数说明***   | ***规范***                 |
+| -------------------- | -------------- | ---------------- | -------------------------- |
+| machine_account_risk | json_object    | 机器控制相关风险 |                            |
+| UGC_account_risk     | json_object    | UGC内容相关风险  |                            |
+| scene_account_risk   | json_object    | 场景账号风险     | 特殊场景才可取到，如航司等 |
+
+machine_account_risk的详情内容如下：
+
+| ***返回结果参数名***              | ***参数类型*** | ***参数说明*** | ***规范***                       |
+| --------------------------------- | -------------- | -------------- | -------------------------------- |
+| b_machine_control_tokenid         | int            | 机器账号       | 0：非机器控制账号1：机器控制账号 |
+| b_machine_control_tokenid_last_ts | int            | 机器账号时间   |                                  |
+| b_offer_wall_tokenid              | int            | 积分墙账号     | 0：非积分墙账号1：积分墙账号     |
+| b_offer_wall_tokenid_last_ts      | int            | 积分墙账号时间 |                                  |
+
+UGC_account_risk的详情内容如下：
+
+| ***返回结果参数名***             | ***参数类型*** | ***参数说明*** | ***规范***                         |
+| -------------------------------- | -------------- | -------------- | ---------------------------------- |
+| b_politics_risk_tokenid          | int            | 涉政风险       | 0：暂未发现涉政风险1：存在涉政风险 |
+| b_politics_risk_tokenid_last_ts  | int            | 涉政风险时间   |                                    |
+| b_sexy_risk_tokenid              | int            | 色情风险       | 0：暂未发现色情风险1：存在色情风险 |
+| b_sexy_risk_tokenid_last_ts      | int            | 色情风险时间   |                                    |
+| b_advertise_risk_tokenid         | int            | 广告风险       | 0：暂未发现广告风险1：存在广告风险 |
+| b_advertise_risk_tokenid_last_ts | int            | 广告风险时间   |                                    |
+
+scene_account_risk的详情内容如下：
+
+| ***返回结果参数名***    | ***参数类型*** | ***参数说明*** | ***规范***                   |
+| --------------------------- | ------------------ | ------------------ | -------------------------------- |
+| i_tout_risk_tokenid         | int                | 航司占座账号       | 0：非航司占座账号1：航司占座账号 |
+| i_tout_risk_tokenid_last_ts | int                | 航司占座时间       |                                  |
 
 ## 回调的同步返回参数
 
