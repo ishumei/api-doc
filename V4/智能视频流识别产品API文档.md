@@ -126,7 +126,7 @@ data 中，extra的内容如下
 | channel | string | 声网提供的频道名 | 必传参数 | |
 | token | string | | 非必传参数 | 安全要求较高的用户可以使用 token，获取方式详见声网文档token生成方式：[https://docs.agora.io/cn/Recording/token](https://docs.agora.io/cn/Recording/token) |
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
-| uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，必须提供生成channelKey时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
+| uid | int | 用户ID | 非必传参数 | 32位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
 
 其中，trtcParam内容如下：
 
@@ -156,6 +156,14 @@ data 中，extra的内容如下
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
 | code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
+| detail | json_object | 描述详细信息 | 否 |  |
+
+其中，detail结构如下：
+
+| **参数名称** | **参数类型** | **参数说明**                                                 | **是否必返** | **规范**         |
+| ------------ | ------------ | ------------------------------------------------------------ | ------------ | ---------------- |
+| errorCode    | int          | 状态码                                                       | 否           | `1001`：重复推流 |
+| dupRequestId | string       | 表示重复的requestId<br/>当errorCode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口 | 否           |                  |
 
 ## 异步回调结果
 

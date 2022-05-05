@@ -91,9 +91,9 @@
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供，数美分配 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
 | eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，可选值：<br/>`video`:智能视频识别<br/>`default`:默认事件<br/>`live`:交友秀场<br/>`ecommerce`:电商直播<br/>`education`:教育场景<br/>`presision`:默认高准确<br/>`recall`:默认高召回 |
-| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`SPAM`：机器灌水识别<br/>`OCR`：图片中的文字风险识别<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
+| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`SPAM`：机器灌水识别<br/>`OCR`：图片中的文字风险识别<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
 | audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`LOGO_FACE_MINOR`用于LOGO、人脸和未成年人识别 |
 | audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV4.requestParams.data) |
@@ -107,7 +107,7 @@
 | tokenId | string | | 必传参数 | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID； 最长40位 |
 | detectFrequency | float | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为0.5~60s；如不传递默认5s截帧一次 |
 | ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
-| returnAllImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片1：返回所有风险等级的图片默认为0 |
+| returnAllImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
 | returnAllAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParams.data.extra) |
@@ -175,9 +175,9 @@ data 中，extra的内容如下
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
-| time | int | 辅助信息 | 是 | 视频时长 |
-| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
+| frameCount | int | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是 |  |
+| time | int | 视频时长 | 是 |  |
+| passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
 
 其中，frameDetail数组中每个成员的具体内容如下：
 
