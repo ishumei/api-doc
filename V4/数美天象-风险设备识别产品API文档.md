@@ -1,4 +1,4 @@
-# 数美天象产品API接口说明文档
+# 数美天象风险设备产品API接口说明文档
 
 ---
 
@@ -35,10 +35,12 @@
 ### <span id = "requestUrl">请求URL：</span>
 
 
-| 集群   | URL                                                       | 支持产品列表 |
-| -------- | ----------------------------------------------------------- | -------------- |
-| 北京   | `http://api-tianxiang-bj.fengkongcloud.com/tianxiang/v4`  | 天象风险识别 |
-| 新加坡 | `http://api-tianxiang-xjp.fengkongcloud.com/tianxiang/v4` | 天象风险识别 |
+| 集群         | URL                                                       | 支持产品列表 |
+| -------------- | ----------------------------------------------------------- | -------------- |
+| 北京集群     | `http://api-tianxiang-bj.fengkongcloud.com/tianxiang/v4`  | 天象风险识别 |
+| 新加坡集群   | `http://api-tianxiang-xjp.fengkongcloud.com/tianxiang/v4` | 天象风险识别 |
+| 法兰克福集群 | http://api-tianxiang-eur.fengkongcloud.com/tianxiang/v4   | 天象风险识别 |
+| 弗吉尼亚集群 | http://api-tianxiang-fjny.fengkongcloud.com/tianxiang/v4  | 天象风险识别 |
 
 ### <span id = "requestMethod">请求方法：</span>
 
@@ -65,161 +67,28 @@
 <span id = "data">其中，data的内容如下：</span>
 
 
-| **请求参数名** | **类型** | **参数说明**                                                                                                                                    | **是否必传** | **规范**                                                 |
-| ---------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------- |
-| tokenId        | string   | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 不能同时为空 | 该ID为用户的唯一标识，且与其它数美接口的tokenId保持一致  |
-| deviceId       | string   | 待查询的设备指纹ID，由数美SDK生成                                                                                                               | 不能同时为空 | 该ID为用户设备的唯一标识，且与其他数美接口的smid保持一致 |
-| phone          | string   | 待查询的手机号                                                                                                                                  | 不能同时为空 | 该信息为客户要检测的手机号                               |
-| ip             | string   | 待检查的ip                                                                                                                                      | 不能同时为空 | 该信息为客户要检查的ip                                   |
+| **请求参数名** | **类型** | **参数说明**                      | **是否必传** | **规范**                                                 |
+| ---------------- | ---------- | ----------------------------------- | -------------- | ---------------------------------------------------------- |
+| deviceId       | string   | 待查询的设备指纹ID，由数美SDK生成 | 不能为空     | 该ID为用户设备的唯一标识，且与其他数美接口的smid保持一致 |
 
 ## <span id = "response">返回结果</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
 
-| **参数名称**       | **参数类型** | **参数说明**   | **是否必返** | **规范**                                                                                                                                                                                                    |
-| -------------------- | -------------- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| code               | int          | 返回码         | 是           | `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`1911`：图片下载失败<br>`9101`：无权限操作<br>`3000`：运营商错误<br>除message和requestId之外的字段，只有当code为1100时才会存在 |
-| message            | string       | 返回码描述     | 是           | 和code对应：`成功 QPS超限 参数不合法 服务失败 余额不足 无权限操作`                                                                                                                                          |
-| requestId          | string       | 请求标识       | 是           | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存                                                                                                                                                      |
-| profileExist       | int          | 设备画像存在   | 是           | `1`：画像库中存在该设备信息`0`：画像库中不存在该设备信息                                                                                                                                                    |
-| tokenLabels        | json_object  | 账号标签信息   | 否           | 见下面详情内容，仅在tokenId传入且服务开通时返回                                                                                                                                                             |
-| ipLabels           | json_object  | ip标签信息     | 否           | 见下面详情内容，仅在ip传入且服务开通时返回                                                                                                                                                                  |
-| deviceLabels       | json_object  | 设备标签信息   | 否           | 见下面详情内容，仅在deviceId传入且服务开通时返回                                                                                                                                                            |
-| tokenProfileLabels | json_array   | 账号属性标签   | 否           | 见下面详情内容，仅在tokenId传入且服务开通时返回                                                                                                                                                             |
-| tokenRiskLabels    | json_array   | 账号风险标签   | 否           | 见下面详情内容，仅在tokenId传入且服务开通时返回                                                                                                                                                             |
-| deviceRiskLabels   | json_array   | 设备风险标签   | 否           | 见下面详情内容，仅在deviceId传入且服务开通时返回                                                                                                                                                            |
-| phoneRiskLabels    | json_array   | 手机号风险标签 | 否           | 见下面详情内容，仅在phone传入时返回（不需要开通）                                                                                                                                                           |
+| **参数名称**      | **参数类型** | **参数说明** | **是否必返** | **规范**                                                                                                                                                                                                    |
+| ------------------- | -------------- | -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| code              | int          | 返回码       | 是           | `1100`：成功<br>`1901`：QPS超限<br>`1902`：参数不合法<br>`1903`：服务失败<br>`1911`：图片下载失败<br>`9101`：无权限操作<br>`3000`：运营商错误<br>除message和requestId之外的字段，只有当code为1100时才会存在 |
+| message           | string       | 返回码描述   | 是           | 和code对应：`成功 QPS超限 参数不合法 服务失败 余额不足 无权限操作`                                                                                                                                          |
+| requestId         | string       | 请求标识     | 是           | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存                                                                                                                                                      |
+| profileExist      | int          | 设备画像存在 | 是           | `1`：画像库中存在该设备信息`0`：画像库中不存在该设备信息                                                                                                                                                    |
+| deviceLabels      | json_object  | 设备标签信息 | 否           | 见下面详情内容，仅在deviceId传入且服务开通时返回                                                                                                                                                            |
+| devicePrimaryInfo | Json_object  | 设备属性信息 | 否           | 需要开通rawdata 上报，(建议使用加密返回接口v2/device/rawdata)                                                                                                                                               |
+| deviceRiskLabels  | json_array   | 设备风险标签 | 否           | 见下面详情内容，仅在deviceId传入且服务开通时返回                                                                                                                                                            |
 
 其中
 
-**1）tokenLabels的详情内容**
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明***   | ***规范***                 |
-| ---------------------- | ---------------- | ------------------ | ---------------------------- |
-| machine_account_risk | json_object    | 机器控制相关风险 |                            |
-| UGC_account_risk     | json_object    | UGC内容相关风险  |                            |
-| scene_account_risk   | json_object    | 场景账号风险     | 特殊场景才可取到，如航司等 |
-
-machine_account_risk的详情内容如下：
-
-
-| ***返回结果参数名***              | ***参数类型*** | ***参数说明*** | ***规范***                           |
-| ----------------------------------- | ---------------- | ---------------- | -------------------------------------- |
-| b_machine_control_tokenid         | int            | 机器账号       | `0`：非机器控制账号`1`：机器控制账号 |
-| b_machine_control_tokenid_last_ts | int            | 机器账号时间   |                                      |
-| b_offer_wall_tokenid              | int            | 积分墙账号     | `0`：非积分墙账号`1`：积分墙账号     |
-| b_offer_wall_tokenid_last_ts      | int            | 积分墙账号时间 |                                      |
-
-UGC_account_risk的详情内容如下：
-
-
-| ***返回结果参数名***             | ***参数类型*** | ***参数说明*** | ***规范***                             |
-| ---------------------------------- | ---------------- | ---------------- | ---------------------------------------- |
-| b_politics_risk_tokenid          | int            | 涉政风险       | `0`：暂未发现涉政风险`1`：存在涉政风险 |
-| b_politics_risk_tokenid_last_ts  | int            | 涉政风险时间   |                                        |
-| b_sexy_risk_tokenid              | int            | 色情风险       | `0`：暂未发现色情风险`1`：存在色情风险 |
-| b_sexy_risk_tokenid_last_ts      | int            | 色情风险时间   |                                        |
-| b_advertise_risk_tokenid         | int            | 广告风险       | `0`：暂未发现广告风险`1`：存在广告风险 |
-| b_advertise_risk_tokenid_last_ts | int            | 广告风险时间   |                                        |
-
-scene_account_risk的详情内容如下：
-
-
-| ***返回结果参数名***        | ***参数类型*** | ***参数说明*** | ***规范***                           |
-| ----------------------------- | ---------------- | ---------------- | -------------------------------------- |
-| i_tout_risk_tokenid         | int            | 航司占座账号   | `0`：非航司占座账号`1`：航司占座账号 |
-| i_tout_risk_tokenid_last_ts | int            | 航司占座时间   |                                      |
-
-**2）ipLabels的详情内容**
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明***   | ***规范*** |
-| ---------------------- | ---------------- | ------------------ | ------------ |
-| risk_ip              | json_object    | 风险ip           |            |
-| ip_continent         | json_object    | ip归属洲信息     |            |
-| ip_country           | json_object    | ip归属国信息     |            |
-| ip_province          | json_object    | ip归属省信息     |            |
-| ip_city              | json_object    | ip归属城市信息   |            |
-| ip_owner             | json_object    | ip归属运营商信息 |            |
-| ip_longitude         | json_object    | ip归属地维度     |            |
-| ip_latitude          | json_object    | ip归属地经度     |            |
-| b_cmwap              | json_object    | 移动梦网         |            |
-| b_cgn                | json_object    | 运营商保留NAT    |            |
-
-其中risk_ip
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| risk_ip              | int            | 风险ip         |            |
-| risk_ip_last_ts      | int            | 风险ip命中时间 |            |
-
-其中 ip_continent
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_continent         | string         | 归属洲         |            |
-
-其中 ip_country
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_country           | string         | 归属国家       |            |
-
-其中 ip_province
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_province          | string         | 归属省份       |            |
-
-其中 ip_city
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_city              | string         | 归属城市       |            |
-
-其中 ip_owner
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_owner             | string         | 归属运营商     |            |
-
-其中 ip_longitude
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_longitude         | float          | 归属地纬度     |            |
-
-其中 ip_latitude
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| ip_latitude          | json_object    | 归属地经度   |            |
-
-其中 b_cmwap
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| b_cmwap              | json_object    | 移动梦网       |            |
-
-其中 b_cgn
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| b_cgn                | json_object    | 运营商保留NAT  |            |
-
-**3）deviceLabels结果的详情内容**
+**1）deviceLabels结果的详情内容**
 
 
 | ***返回结果参数名***     | ***参数类型*** | ***参数说明***             | ***规范***             |
@@ -359,31 +228,62 @@ monkey_read的详情内容如下：
 | b_monkey_read_apps         | int            | 资讯阅读工具     | 安装如聚合阅读等资讯阅读工具的设备，取值：`0`：暂未发现`1`：安装资讯阅读工具 |
 | b_monkey_read_apps_last_ts | int            | 资讯阅读工具时间 |                                                                              |
 
-其中标签类返回字段
-
-***1***）tokenProfileLabels的详情内容
+***3***）设备属性标签字段说明
 
 
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明***         | ***规范***                   |
-| ---------------------- | ---------------- | ------------------------ | ------------------------------ |
-| label1               | string         | 一级标签               | 展示账号属性标签的一级标签。 |
-| label2               | string         | 二级标签               | 展示账号属性标签的二级标签。 |
-| label3               | string         | 三级标签               | 展示账号属性标签的三级标签。 |
-| description          | string         | 风险描述               | 展示账号属性标签的中文描述。 |
-| timestamp            | int64          | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
-| detail               | json_object    | 证据描述               | 证据细节                     |
-
-***2***）tokenRiskLabels的详情内容
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明***         | ***规范***                   |
-| ---------------------- | ---------------- | ------------------------ | ------------------------------ |
-| label1               | string         | 一级标签               | 展示账号风险标签的一级标签。 |
-| label2               | string         | 二级标签               | 展示账号风险标签的二级标签。 |
-| label3               | string         | 三级标签               | 展示账号风险标签的三级标签。 |
-| description          | string         | 风险描述               | 展示账号风险标签的中文描述。 |
-| timestamp            | int64          | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
-| detail               | json_object    | 证据描述               | 证据细节                     |
+| 标签名称                         | 返回字段              |
+| ---------------------------------- | ----------------------- |
+| 辅助服务信息                     | acc                   |
+| 安卓ID                           | adid                  |
+| app包名                          | appname               |
+| APP版本                          | appver                |
+| 可用空间                         | availableSpace        |
+| 基带版本                         | band                  |
+| 电池电量                         | battery               |
+| 电池充电状态                     | batteryState          |
+| 手机启动时间                     | boot                  |
+| 手机屏幕亮度                     | brightness            |
+| wifi热点的MAC地址                | bssid                 |
+| CPU核数量                        | cpuCount              |
+| CPU频率                          | cpuFreq               |
+| CPU型号                          | cpuModel              |
+| app私有文件路径                  | files                 |
+| 剩余空间                         | freeSpace             |
+| 输入法列表                       | input                 |
+| 总内存                           | memory                |
+| 模拟定位开关                     | mockLoc               |
+| 手机网络连接方式                 | network               |
+| 运营商编码                       | operator              |
+| 手机系统（android、ios）         | os                    |
+| Android操作系统版本              | osver                 |
+| 屏幕分辨率                       | screen                |
+| 数美SDK版本号                    | sdkver                |
+| 签名信息                         | signdn                |
+| wifi名称                         | ssid                  |
+| 采集数据时的时间戳               | devicet               |
+| 总空间                           | totalSpace            |
+| wifi的IP地址                     | wifiip                |
+| Android项目设置的targetSDK版本号 | targetSdk             |
+| 屏幕是否开启                     | screenOn              |
+| 国内设备标识                     | oaid                  |
+| adb开启                          | adbEnabled            |
+| sim卡状态                        | simstate              |
+| usb状态                          | usbstate              |
+| 型号                             | model                 |
+| 主板型号                         | board                 |
+| 品牌                             | brand                 |
+| 厂商                             | manufacturer          |
+| rom包信息                        | fingerprint           |
+| cpu架构                          | abi                   |
+| 启动标识                         | bootId                |
+| 设备启动时间                     | bootTime              |
+| 所属国家                         | countryIso            |
+| app安装时间                      | installTime           |
+| 系统版本号                       | osverStr              |
+| 屏幕的分辨率                     | scaledDensity         |
+| iCloud令牌                       | ubiquityIdentityToken |
+| 系统升级时间                     | updateTimes           |
+| 用户设备类型                     | userInterfaceIdiom    |
 
 ***3***）deviceRiskLabels的详情内容
 
@@ -396,18 +296,6 @@ monkey_read的详情内容如下：
 | description          | string         | 风险描述               | 展示设备风险标签的中文描述。 |
 | timestamp            | int64          | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
 | detail               | json_object    | 证据描述               | 证据细节                     |
-
-***4***）phoneRiskLabels的详情内容
-
-
-| ***返回结果参数名*** | ***参数类型*** | ***参数说明***         | ***规范***                     |
-| ---------------------- | ---------------- | ------------------------ | -------------------------------- |
-| label1               | string         | 一级标签               | 展示手机号风险标签的一级标签。 |
-| label2               | string         | 二级标签               | 展示手机号风险标签的二级标签。 |
-| label3               | string         | 三级标签               | 展示手机号风险标签的三级标签。 |
-| description          | string         | 风险描述               | 展示手机号风险标签的中文描述。 |
-| timestamp            | int64          | 最近一次命中策略的时间 | 最近一次命中策略的时间         |
-| detail               | json_object    | 证据描述               | 证据细节                       |
 
 ## <span id = "example">示例：</span>
 
@@ -432,104 +320,6 @@ monkey_read的详情内容如下：
   "message": "成功",
   "profileExist": 1,
   "requestId": "7a5445716f0581c2ab1d381a6af4d1b8",
-  "ipLabels": {
-    "risk_ip": {
-      "risk_ip": 1,
-      "risk_ip_last_ts": 1587711321232
-    },
-    "ip_continent": {
-      "ip_continent": "亚洲"
-    },
-    "ip_country": {
-      "ip_country": "中国"
-    },
-    "ip_province": {
-      "ip_province": "香港"
-    },
-    "ip_city": {
-      "ip_province": "浦东区"
-    },
-    "ip_owner": {
-      "ip_owner": "移动"
-    },
-    "ip_longitude": {
-      "ip_longitude": 39.90279
-    },
-    "ip_latitude": {
-      "ip_latitude": 39.90279
-    },
-    "b_cmwap": {
-      "b_cmwap": "xxx"
-    },
-    "b_cgn": {
-      "b_cgn": "xxx"
-    }
-  },
-  "tokenLabels": {
-    "machine_account_risk": {
-      "b_machine_control_tokenid": 1,
-      "b_machine_control_tokenid_last_ts": 1587711321232,
-      "b_offer_wall_tokenid": 1,
-      "b_offer_wall_tokenid_last_ts": 1587711321232
-    },
-    "UGC_account_risk": {
-      "b_politics_risk_tokenid": 1,
-      "b_politics_risk_tokenid_last_ts": 1587711321232,
-      "b_sexy_risk_tokenid": 1,
-      "b_sexy_risk_tokenid_last_ts": 1587711321232,
-      "b_advertise_risk_tokenid": 1,
-      "b_advertise_risk_tokenid_last_ts": 1587711321232
-    },
-    "scene_account_risk": {
-      "i_tout_risk_tokenid": 1,
-      "i_tout_risk_tokenid_last_ts": 1587711321232
-    },
-    "account_active_info": {
-      "i_tokenid_first_active_timestamp": 1587711321232,
-      "i_tokenid_active_days_7d": 5,
-      "i_tokenid_active_days_4w": 5
-    },
-    "account_freq_info": {
-      "i_tokenid_login_cnt_1d": 5,
-      "i_tokenid_login_cnt_7d": 5
-    },
-    "account_relate_info": {
-      "i_tokenid_relate_smid_cnt_1d": 5,
-      "i_tokenid_relate_smid_cnt_7d": 5,
-      "i_tokenid_relate_ip_city_cnt_1d": 5,
-      "i_tokenid_relate_ip_city_cnt_7d": 5
-    },
-    "account_common_info": {
-      "s_tokenid_relate_smid_info_map_4w": [
-        {
-          "smid": "xxxx1",
-          "days": "3"
-        },
-        {
-          "smid": "xxxx2",
-          "days": "5"
-        },
-        {
-          "smid": "xxxx3",
-          "days": "10"
-        }
-      ],
-      "s_tokenid_relate_ip_city_info_map_4w": [
-        {
-          "city": "北京",
-          "days": "3"
-        },
-        {
-          "city": "长沙",
-          "days": "5"
-        },
-        {
-          "city": "武汉",
-          "days": "10"
-        }
-      ]
-    }
-  },
   "deviceLabels": {
     "id": 123,
     "fake_device": {
@@ -618,37 +408,59 @@ monkey_read的详情内容如下：
       }
     }
   },
-  "tokenProfileLabels": [
-    {
-      "label1": "age_gender",
-      "lable2": "token_age",
-      "label3": "minor_token",
-      "description": "年龄性别:年龄:未成年人",
-      "timestamp": 1634732525000,
-      "detail": {
-      }
-    }
-  ],
-  "tokenRiskLabels": [
-    {
-      "label1": "risk_device_token",
-      "label2": "b_cloud_token_device",
-      "label3": "b_cloud_token_device",
-      "description": "风险设备账号:云手机账号:云手机账号",
-      "timestamp": 1634732525000,
-      "detail": {
-      }
-    },
-    {
-      "label1": "risk_device_token",
-      "label2": "b_hook_token",
-      "label3": "b_hook_token",
-      "description": "风险设备账号:hook设备:hook设备",
-      "timestamp": 1634732525000,
-      "detail": {
-      }
-    }
-  ],
+  "devicePrimaryInfo": {
+    "abi": null,
+    "acc": null,
+    "adbEnabled": null,
+    "adid": null,
+    "appname": "com.opay.pay",
+    "appver": "2.8.0",
+    "availableSpace": null,
+    "band": null,
+    "battery": 1,
+    "batteryState": 2,
+    "board": null,
+    "boot": 1650398254303,
+    "bootId": "A724B567-DBE4-42F0-842B-E620D730C844",
+    "bootTime": 1650398373,
+    "brand": null,
+    "brightness": 0.114379048347473,
+    "bssid": null,
+    "countryIso": "ng",
+    "cpuCount": 2,
+    "cpuFreq": null,
+    "cpuModel": null,
+    "devicet": 1650425202076,
+    "files": null,
+    "fingerprint": null,
+    "freeSpace": 47245746176,
+    "input": null,
+    "installTime": 1650425202,
+    "manufacturer": null,
+    "memory": 1037041664,
+    "mockLoc": null,
+    "model": "iPhone7,2",
+    "network": "UNKNOWN",
+    "oaid": null,
+    "operator": "62150",
+    "os": "ios",
+    "osver": "12.5.4",
+    "osverStr": "Version 12.5.4 (Build 16H50)",
+    "scaledDensity": 2,
+    "screen": "667,375",
+    "screenOn": null,
+    "sdkver": "3.0.6",
+    "signdn": null,
+    "simstate": null,
+    "ssid": "null",
+    "targetSdk": null,
+    "totalSpace": 63989469184,
+    "ubiquityIdentityToken": "\u003cdda70f66 d6605cc5 b0521820 695e53ec 9fe063d9\u003e",
+    "updateTimes": "1623192929,0,1623192929,0|625,344633291,625,349073249",
+    "usbstate": null,
+    "userInterfaceIdiom": 0,
+    "wifiip": null
+  },
   "deviceRiskLabels": [
     {
       "label1": "monkey_device",
@@ -658,36 +470,6 @@ monkey_read的详情内容如下：
       "timestamp": 1634732525000,
       "detail": {
       }
-    }
-  ],
-  "phoneRiskLabels": [
-    {
-      "description": "接码平台手机号:接码平台手机号:接码平台手机号",
-      "label1": "sms_platform_phone",
-      "label2": "sms_platform_phone",
-      "label3": "sms_platform_phone",
-      "timestamp": null
-    },
-    {
-      "description": "物联网卡手机号:物联网卡手机号:物联网卡手机号",
-      "label1": "iot_simcard_phone",
-      "label2": "iot_simcard_phone",
-      "label3": "iot_simcard_phone",
-      "timestamp": null
-    },
-    {
-      "description": "虚拟运营商手机号:虚拟运营商手机号:虚拟运营商手机号",
-      "label1": "mvno_simcard_phone",
-      "label2": "mvno_simcard_phone",
-      "label3": "mvno_simcard_phone",
-      "timestamp": null
-    },
-    {
-      "description": "黑产手机号:黑产手机号:黑产手机号",
-      "label1": "black_record_phone",
-      "label2": "black_record_phone",
-      "label3": "black_record_phone",
-      "timestamp": null
     }
   ]
 }
