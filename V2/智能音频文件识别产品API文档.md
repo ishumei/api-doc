@@ -133,6 +133,7 @@ POST
 | :------------ | :---------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | accessKey     | string      | Y            | 服务密匙，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICS：涉政识别</p><p>ANTHEN：国歌识别</p><p>PORN：色情</p><p>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>MOAN：娇喘识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色标签（需要同时传入GENDER才能生效）</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年识别</p><p>BANEDAUDIO：违禁歌曲</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICS_PORN_AD用于广告、色情和涉政识别。<br/>建议传入：<br/>POLITICS_PORN_AD_MOAN</p> |
+| functionType  | string      | N            | <p>可选值：</p><p>`COPYRIGHT`：版权识别</p><p>如需做组合识别，通过下划线连接即可</p>                                                                                                                                                                                                                                                                                                                                                                              |
 | appId         | string      | N            | 应用标识，此字段强校验，需要提前与数美约定好取值。不传取默认值default                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | btId          | string      | Y            | 音频唯一标识，限长128位字符长度, 不能重复，否则提示参数错误。                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | data          | json_object | Y            | 请求数据，最长1MB，详细内容参见下表                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -154,6 +155,7 @@ POST
 | nickname      | string      | N            | 用户昵称                                                                                                                                                                    |
 | timestamp     | int         | N            | 时间戳（毫秒级）                                                                                                                                                            |
 | room          | string      | N            | 房间号                                                                                                                                                                      |
+| copyright     | json_object | N            | 该字段在functionType字段含有COPYRIGHT类型时生效                                                                                                                |
 
 *formatInfo内容如下：*
 
@@ -162,6 +164,13 @@ POST
 | format       | string   | Y            | 语音数据格式，仅支持（取值）pcm、wav、mp3，严格小写。                             |
 | rate         | int      | N            | 语音数据采样率，当语音数据格式为pcm时必须存在，范围限制8000-32000。               |
 | track        | int      | N            | 语音数据声道数，当语音数据格式为pcm时必须存在，支持单声道(取值1)或双声道(取值2)。 |
+
+*copyright的内容如下：*
+
+| **参数名称** | **类型**   | **是否必选**   | **说明**                                                                          |
+| :----------- | :------- | :----------- | :-------------------------------------------------------------------------------- |
+| resultCount  | int      | N            | 非必传，默认返回top 1<br/>取值范围（0，20]，仅支持正整数格式<br/>将匹配结果按照相似度排序，只返回重复文章的前top K的结果 |
+
 
 ### 返回参数
 
@@ -193,13 +202,17 @@ code和message的列表如下：
 {
     "accessKey":"****************",
     "type": "DEFAULT",
+    "functionType": "COPYRIGHT",
     "appId": "default",
     "btId": "test01",
     "data": {
         "tokenId": "test_01",
         "url": "http://xxxxxxxx.mp3",
         "channel": "IM_MESSAGE",
-        "returnAllText": true
+        "returnAllText": true,
+        "copyright": {
+          "resultCount": 10
+        }
     },
     "callback": "http://xxxxxxxxx",
     "callbackParam": {
@@ -216,6 +229,7 @@ code和message的列表如下：
 {
     "accessKey": "****************",
     "type": "DEFAULT",
+    "functionType": "COPYRIGHT",
     "appId": "default",
     "btId": "test01",
     "data": {
@@ -227,7 +241,10 @@ code和message的列表如下：
         },
         "channel": "IM_MESSAGE",
         "tokenId": "asdwef",
-        "returnAllText": true
+        "returnAllText": true,
+        "copyright": {
+          "resultCount": 10
+        }
     },
     "callback": "http://xxxxxx",
     "callbackParam": {
@@ -302,6 +319,7 @@ POST
 | language       | json_array  | N            | 语种标签与概率值列表                                         |
 | tags           | json_array  | N            | 音色标签与概率值列表                                         |
 | businessLabels | json_array  | N            | 业务标签返回（目前只支持MINOR,策略命中返回标签内容,否则为空） |
+| copyright      | json_array  | N            | 版权重复结果详情，当functionType取值包含`COPYRIGHT`时返回，有可能为空数组 |
 
 *detail数组中每一项的具体参数如下：*
 
@@ -346,6 +364,13 @@ POST
 | businessLabel2      | string   | Y            | 注意：businessLabels不为空时必返 |
 | businessLabel3      | string   | Y            | 注意：businessLabels不为空时必返 |
 | businessDescription | string   | Y            | 注意：businessLabels不为空时必返 |
+
+*copyright数组中每一项具体参数如下：*
+
+| **参数名称**  | **类型** | **是否必返** | **说明**                                 |
+| :------------| :-----  | :----------| :--------------------------------------- |
+| chapter      | string  | Y          |匹配的章节标题                               |
+| similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
 
 code和message的列表如下：
 
@@ -413,6 +438,20 @@ code和message的列表如下：
             "label": "青年音",
             "confidence": 31
         }
+      ],
+    "copyright":[
+      {
+        "chapter":"测试1_章节1",
+        "similarity":0.33
+      },
+      {
+        "chapter":"测试1_章节2",
+        "similarity":0.33
+      },
+      {
+        "chapter":"测试2_章节1",
+        "similarity":0.33
+      }
     ]
 }
 ```
@@ -458,6 +497,7 @@ POST
 | detail        | json_array  | N            | 风险详情                                                                                         |
 | gender        | json_object | N            | 性别标签与概率值                                                                                 |
 | tags          | json_array  | N            | 音色标签与概率值列表                                                                             |
+| copyright     | json_array  | N            | 版权重复结果详情，当functionType取值包含`COPYRIGHT`时返回，有可能为空数组 |
 | callbackParam | json_object | Y            | 客户传入的透传字段                                                                               |
 
 *detail数组中每一项的具体参数如下：*
@@ -493,6 +533,13 @@ POST
 | :----------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
 | label        | string   | Y            | <p>音色标签类别，可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p> |
 | confidence   | int      | Y            | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大。                                                                                            |
+
+*copyright数组中每一项具体参数如下：*
+
+| **参数名称**  | **类型** | **是否必返** | **说明**                                 |
+| :------------| :-----  | :----------| :--------------------------------------- |
+| chapter      | string  | Y          |匹配的章节标题                               |
+| similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
 
 # 3. FAQ
 
