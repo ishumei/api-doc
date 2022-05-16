@@ -1038,7 +1038,7 @@ requestIds中每一项是：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-img-bj.fengkongcloud.com/v4/image/query` | 图片 |
+| 北京 | `http://api-img-active-query.fengkongcloud.com/v4/image/query` | 图片 |
 
 ### 请求方法：
 ```
