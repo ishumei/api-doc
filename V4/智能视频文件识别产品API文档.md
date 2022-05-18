@@ -91,10 +91,10 @@
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供，数美分配 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
 | eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，可选值：<br/>`video`:智能视频识别<br/>`default`:默认事件<br/>`live`:交友秀场<br/>`ecommerce`:电商直播<br/>`education`:教育场景<br/>`presision`:默认高准确<br/>`recall`:默认高召回 |
-| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`SPAM`：机器灌水识别<br/>`OCR`：图片中的文字风险识别<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
+| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别 |
 | audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`LOGO_FACE_MINOR`用于LOGO、人脸和未成年人识别 |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgBusinessType可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
+| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV4.requestParams.data) |
 
@@ -208,26 +208,43 @@ frameDetail中，riskDetail的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
-| objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
+| riskSource | int | 风险来源 | 是 | 可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
+| faces | json_array | 人脸信息 | 否 | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
+| face_num | int | 人脸数量 | 否 |  |
+| objects | json_array | 物品信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
+| persons | json_array | 人像信息 | 否 |  |
+| person_num | int | 人像数量 | 否 |  |
 | ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
 
-riskDetail中，faces数组每个成员的具体内容如下：
+riskDetail中，faces数组的每个元素的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| name | string | 人物名称 | 否 | |
-| location | int_array | 人物位置信息，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
-| probability | float | 置信度，值越大，可信度越高 | 否 | 可选值在0～1之间 |
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 人名         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高                         |
+| face_ratio  | float     | 人脸占比     | 否           |                                                              |
 
-riskDetail中，objects数组每个成员的具体内容如下：
+riskDetail中，objects数组的每个元素的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| name | string | 标识或物品名称 | 否 ||
-| location | int_array | 标识或物品位置，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 |位置信息|
-| probability | float | 置信度，值越大，可信度越高 | 否 |可选值在0～1之间|
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 名称         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高                         |
+| qrContent   | string    | 二维码信息   | 否           |                                                              |
+
+riskDetail中，persons数组的每个元素的内容如下：
+
+| **参数名**   | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id           | string    | 编号         | 是           |                                                              |
+| location     | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高                         |
+| person_ratio | float     | 人像占比     | 否           |                                                              |
+
 riskDetail中，ocrText数组每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
@@ -267,16 +284,57 @@ frameDetail中，allLabels数组的每个成员的内容如下：
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| riskDetail | json_object | 风险详情 | 是 | 同frameDetail中的riskDetail结构一致 |
 
 frameDetail中，businessLabels数组的每个成员的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| businessLabel1 | string | 一级标签 | 是 | 一级标签 |
-| businessLabel2 | string | 二级标签 | 是 | 二级标签 |
-| businessLabel3 | string | 三级标签 | 是 | 三级标签 |
-| businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
-| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                                 |
+| ------------------- | ----------- | ------------ | ------------ | -------------------------------------------------------- |
+| businessLabel1      | string      | 一级标签     | 是           | 一级标签                                                 |
+| businessLabel2      | string      | 二级标签     | 是           | 二级标签                                                 |
+| businessLabel3      | string      | 三级标签     | 是           | 三级标签                                                 |
+| businessDescription | string      | 标签描述     | 是           | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| confidenceLevel     | int         | 置信等级     | 是           | 可选值在0～2之间，值越大，可信度越高                     |
+| probability         | float       | 置信度       | 是           | 可选值为0~1，值越大，可信度越高                          |
+| businessDetail      | Json_object | 详细信息     | 是           |                                                          |
+
+businessLabels中，businessDetail的内容如下：
+
+| **参数名** | **类型**   | **参数说明** | **是否必返** | **规范** |
+| ---------- | ---------- | ------------ | ------------ | -------- |
+| faces      | json_array | 人脸信息     | 否           |          |
+| face_num   | int        | 人脸数量     | 否           |          |
+| objects    | json_array | 物品信息     | 否           |          |
+| persons    | Json_array | 人像信息     | 否           |          |
+| person_num | int        | 人像数量     | 否           |          |
+
+businessDetail中，faces数组的每个元素的内容如下：
+
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 人名         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| face_ratio  | float     | 人脸占比     | 否           |                                                              |
+
+businessDetail中，objects数组的每个元素的内容如下：
+
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 名称         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+
+businessDetail中，persons数组的每个元素的内容如下：
+
+| **参数名**   | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id           | string    | 编号         | 是           |                                                              |
+| location     | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| person_ratio | float     | 人像占比     | 否           |                                                              |
 
 其中，audioDetail数组中每个成员的具体内容如下：
 
@@ -335,6 +393,7 @@ audioDetail中，allLabels数组的每个成员的内容如下：
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| riskDetail | json_object | 风险详情 | 是 | 同audioDetail中的riskDetail结构一致 |
 
 audioDetail中，businessLabels数组的每个成员的内容如下：
 
@@ -344,7 +403,9 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| confidenceLevel | int | 置信等级 | 是 | 可选值在0～2之间，值越大，可信度越高<br/> |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| businessDetail | Json_object | 详细信息 | 是 |  |
 
 其中，tokenProfileLabels数组每个成员的具体内容如下：
 
@@ -451,28 +512,44 @@ frameDetail中，auxInfo的内容如下：
 
 frameDetail中，riskDetail的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息 |
-| objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息 |
-| ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息 |
+| **参数名** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
+| ---------- | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
+| riskSource | int         | 风险来源     | 是           | 可选值：<br/>`1000`：无风险<br/>`10001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
+| faces      | json_array  | 人脸信息     | 否           | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
+| face_num   | int         | 人脸数量     | 否           |                                                              |
+| objects    | json_array  | 物品信息     | 否           | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
+| persons    | json_array  | 人像信息     | 否           |                                                              |
+| person_num | int         | 人像数量     | 否           |                                                              |
+| ocrText    | json_object | 文字信息     | 否           | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
 
-riskDetail中，faces数组每个成员的具体内容如下：
+riskDetail中，faces数组的每个元素的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| name | string | 人物名称 | 否 | |
-| location | int_array | 人物位置信息，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
-| probability | float | 置信度，值越大，可信度越高 | 否 | 可选值在0～1之间 |
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 人名         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| face_ratio  | float     | 人脸占比     | 否           |                                                              |
 
-riskDetail中，objects数组每个成员的具体内容如下：
+riskDetail中，objects数组的每个元素的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| name | string | 标识或物品名称 | 否 | |
-| location | int_array | 标识或物品位置，四个值代表的是左上角的坐标和右下角的坐标。例如[207,522,340,567]，207代表的是左上角的x坐标，522代表左上角的y坐标，340代表的是右下角的x坐标，567代表的是右下角的y坐标 | 否 | 位置信息 |
-| probability | float | 置信度，值越大，可信度越高 | 否 | 可选值在0～1之间 |
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 名称         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| qrContent   | string    | 二维码信息   | 否           |                                                              |
+
+riskDetail中，persons数组的每个元素的内容如下：
+
+| **参数名**   | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id           | string    | 编号         | 是           |                                                              |
+| location     | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| person_ratio | float     | 人像占比     | 否           |                                                              |
 
 riskDetail中，ocrText数组每个成员的具体内容如下：
 
@@ -513,16 +590,57 @@ frameDetail，allLabels数组的每个成员的内容如下：
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| riskDetail | json_object | 风险详情 | 是 | 同frameDetail中的riskDetail结构一致 |
 
 frameDetail中，businessLabels数组的每个成员的内容如下：
 
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| businessLabel1 | string | 一级标签 | 是 | 一级标签 |
-| businessLabel2 | string | 二级标签 | 是 | 二级标签 |
-| businessLabel3 | string | 三级标签 | 是 | 三级标签 |
-| businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
-| probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                                 |
+| ------------------- | ----------- | ------------ | ------------ | -------------------------------------------------------- |
+| businessLabel1      | string      | 一级标签     | 是           | 一级标签                                                 |
+| businessLabel2      | string      | 二级标签     | 是           | 二级标签                                                 |
+| businessLabel3      | string      | 三级标签     | 是           | 三级标签                                                 |
+| businessDescription | string      | 标签描述     | 是           | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| confidenceLevel     | int         | 置信等级     | 是           | 可选值在0～2之间，值越大，可信度越高<br/>                |
+| probability         | float       | 置信度       | 是           | 可选值为0~1，值越大，可信度越高                          |
+| businessDetail      | Json_object | 详细信息     | 是           |                                                          |
+
+businessLabels中，businessDetail的内容如下：
+
+| **参数名** | **类型**   | **参数说明** | **是否必返** | **规范** |
+| ---------- | ---------- | ------------ | ------------ | -------- |
+| faces      | json_array | 人脸信息     | 否           |          |
+| face_num   | int        | 人脸数量     | 否           |          |
+| objects    | json_array | 物品信息     | 否           |          |
+| persons    | Json_array | 人像信息     | 否           |          |
+| person_num | int        | 人像数量     | 否           |          |
+
+businessDetail中，faces数组的每个元素的内容如下：
+
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 人名         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| face_ratio  | float     | 人脸占比     | 否           |                                                              |
+
+businessDetail中，objects数组的每个元素的内容如下：
+
+| **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id          | string    | 编号         | 是           |                                                              |
+| name        | string    | 名称         | 否           |                                                              |
+| location    | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+
+businessDetail中，persons数组的每个元素的内容如下：
+
+| **参数名**   | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | --------- | ------------ | ------------ | ------------------------------------------------------------ |
+| id           | string    | 编号         | 是           |                                                              |
+| location     | int_array | 位置坐标     | 否           | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |
+| probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
+| person_ratio | float     | 人脸占比     | 否           |                                                              |
 
 其中，audioDetail数组中每个成员的具体内容如下：
 
@@ -581,6 +699,7 @@ audioDetail中，allLabels数组的每个成员的内容如下：
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| riskDetail | json_object | 风险详情 | 是 | 同audioDetail中的riskDetail结构一致 |
 
 audioDetail中，businessLabels数组的每个成员的内容如下：
 
@@ -590,7 +709,9 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | businessLabel2 | string | 二级标签 | 是 | 二级标签 |
 | businessLabel3 | string | 三级标签 | 是 | 三级标签 |
 | businessDescription | string | 标签描述 | 是 | 格式为&quot;一级标签：二级标签：三级标签&quot;的中文名称 |
+| confidenceLevel | int | 置信等级 | 是 | 可选值在0～2之间，值越大，可信度越高<br/> |
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
+| businessDetail | Json_object | 详细信息 | 是 |  |
 
 其中，tokenProfileLabels数组每个成员的具体内容如下：
 
@@ -603,6 +724,71 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
 其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+
+## imgBusinessType可选值列表
+
+| **code**              | **message**                    |
+| --------------------- | ------------------------------ |
+| AGE                   | 人脸 - 年龄                    |
+| GENDER                | 人脸 - 性别                    |
+| BEAUTY                | 人脸 - 颜值打分                |
+| FACEDETECTION         | 人脸 - 人脸检测                |
+| FAKEFACE              | 人脸 - 伪造人脸                |
+| PUBLICFIGURE          | 人物 - 公众人物                |
+| TAINTEDSTAR           | 人物 - 劣迹人物                |
+| POSTURE               | 人像 - 人像姿态                |
+| DRESS                 | 人像 - 人像穿着                |
+| BODY                  | 人体                           |
+| PICTUREFORM           | 画面属性 - 画面类型            |
+| PICTURESTRUCT         | 画面属性 - 画面结构            |
+| LOWVISION             | 画面属性 - 画面低质            |
+| LOWCONTNET            | 画面属性 - 内容低质            |
+| LIVEPICTURE           | 画面属性 - 直播画面            |
+| SCREENSHOT            | 画面属性 - APP截图（内容搬运） |
+| FITNESS               | 场景主题 - 健身                |
+| CATE                  | 场景主题 - 美食                |
+| MUSIC                 | 场景主题 - 音乐                |
+| SPORTS                | 场景主题 - 体育                |
+| SCENERY               | 场景主题 - 自然风光            |
+| CITYVIEW              | 场景主题 - 城市风光            |
+| AUTOMOBILELOGO        | LOGO - 汽车品牌                |
+| 3CPRODUCTSLOGO        | LOGO - 3C电子类品牌            |
+| SHOPPINGAPPSLOGO      | LOGO - 购物比价类应用          |
+| RETOUCHAPPSLOGO       | LOGO - 拍摄美化类应用          |
+| SOCIALAPPSLOGO        | LOGO - 社交通讯类应用          |
+| PHOTOMATERIALLOGO     | LOGO - 素材版权类应用          |
+| NEWSAPPSLOGO          | LOGO - 新闻阅读类应用          |
+| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用          |
+| SPORTSLOGO            | LOGO - 体育赛事                |
+| VEHICLE               | 物品 - 交通工具                |
+| BUILDING              | 物品 - 建筑                    |
+| TABLEWARE             | 物品 - 餐具                    |
+| FOOD                  | 物品 - 食物                    |
+| HOMEAPPLICATION       | 物品 - 家用电器                |
+| OFFICESUPPLIES        | 物品 - 办公用品                |
+| FASHION               | 物品 - 穿着用品                |
+| SPORTEQUIPMENT        | 物品 - 运动器材                |
+| TOY                   | 物品 - 玩具                    |
+| MAKEUP                | 物品 - 化妆品                  |
+| DRUGS                 | 物品 - 药品                    |
+| PAINTING              | 物品 - 绘画作品                |
+| ELECTRONIC            | 物品 - 电子产品                |
+| MEDICALIMAGE          | 物品 - 医疗影像                |
+| FURNITURE             | 物品 - 家居用品                |
+| DAILYSUPPLIES         | 物品 - 生活用品                |
+| CONSTELLATION         | 物品 - 星座占卜                |
+| KITCHENWARE           | 物品 - 厨房用品                |
+| KEEPSAKE              | 物品 - 纪念品                  |
+| MAMMAL                | 动物 - 哺乳动物                |
+| BIRDS                 | 动物 - 鸟类                    |
+| REPTILE               | 动物 - 爬行动物                |
+| FISH                  | 动物 - 鱼                      |
+| ARTHROPOD             | 动物 - 节肢动物                |
+| COELENTERATE          | 动物 - 腔肠动物                |
+| MOLLUSKS              | 动物 - 软体动物                |
+| CRUSTACEAN            | 动物 - 甲壳动物                |
+| PLANT                 | 植物                           |
+| SETTING               | 场所                           |
 
 ## 接口响应码列表
 
