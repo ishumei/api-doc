@@ -649,6 +649,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | labelId | string | 一级标签英文标识 | 非必传参数 | 文本、图片服务各自对应的一级标签英文标识，参考下方表格 |
 
 其中，labelId的列表如下：
+
 | **风险类型** | **说明** |
 | --- | --- |
 | politics | 涉政 |
