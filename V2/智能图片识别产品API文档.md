@@ -139,7 +139,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>`FACE`: 人脸<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
@@ -477,7 +477,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入）|
-| businessType | string | 业务标签类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`MINOR`：未成年人识别<br/>`QUALITY`：图像质量识别<br/>`STAR`：公众人物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>`FACE`: 人脸<br/><br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
@@ -658,7 +658,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | ad | 广告 |
 | violence | 暴恐 |
 | ban | 违禁 |
-| logo | 商企logo |
+| logo | logo |
 | qr | 二维码 |
 | socialFace | 社交人脸 |
 | minor | 未成年人 |
@@ -703,6 +703,74 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
+
+# 附录
+
+
+| 业务标签识别类型 | 类型说明 | 备注 |
+| ------------- | ------------- | --------------- |
+| AGE           | 人脸 - 年龄   |  |
+| GENDER        | 人脸 -性别   |  |
+| BEAUTY        | 人脸 - 颜值   |  |
+| FACEDETECTION | 人脸-人脸检测 | 如识别真人、口罩人脸、正脸、侧脸等 |
+| FAKEFACE | 人脸 - 伪造人脸 |  |
+| FACECOMPARE | 人脸-人脸对比 |  |
+| PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
+| TAINTEDSTAR | 人物 - 劣迹人物 |  |
+| POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
+| DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
+| BODY | 人体 | 如识别头发、眼睛、鼻子等 |
+| PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
+| PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
+| LOWVISION | 画面属性  - 画面低质 | 如识别模糊、涂抹、马赛克等 |
+| LOWCONTNET | 画面属性 - 内容低质 | 如识别点线密集、虫类密集等 |
+| LIVEPICTURE | 画面属性-直播画面 | 如识别床上直播、开车直播等 |
+| SCREENSHOT | 画面属性 -  APP截图（内容搬运） | 如识别朋友圈截图、聊天截图等 |
+| FITNESS | 场景主题-健身 |  |
+| CATE | 场景主题-美食 |  |
+| MUSIC | 场景主题-音乐 |  |
+| SPORTS | 场景主题-体育 |  |
+| SCENERY | 场景主题-自然风光 |  |
+| CITYVIEW | 场景主题-城市风光 |  |
+| AUTOMOBILELOGO | LOGO - 汽车品牌 |  |
+| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 |  |
+| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 |  |
+| RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
+| SOCIALAPPSLOGO | LOGO - 社交通讯类应用 | 如识别微博、小红书等LOGO |
+| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
+| NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
+| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| SPORTSLOGO | LOGO  - 体育赛事 |  |
+| VEHICLE | 物品-交通工具 |  |
+| BUILDING | 物品-建筑 |  |
+| TABLEWARE | 物品-餐具 |  |
+| FOOD | 物品-食物 |  |
+| HOMEAPPLICATION | 物品-家用电器 |  |
+| OFFICESUPPLIES | 物品-办公用品 |  |
+| FASHION | 物品-穿着用品 |  |
+| SPORTEQUIPMENT | 物品-运动器材 |  |
+| TOY | 物品-玩具 |  |
+| MAKEUP | 物品-化妆品 |  |
+| DRUGS | 物品-药品 |  |
+| PAINTING | 物品-绘画作品 |  |
+| ELECTRONIC | 物品-电子产品 |  |
+| MEDICALIMAGE | 物品-医疗影像 |  |
+| FURNITURE | 物品-家居用品 |  |
+| DAILYSUPPLIES | 物品-生活用品 |  |
+| CONSTELLATION | 物品-星座占卜 |  |
+| KITCHENWARE | 物品-厨房用品 |  |
+| KEEPSAKE | 物品 - 纪念品 |  |
+| MAMMAL | 动物-哺乳动物 |  |
+| BIRDS | 动物 - 鸟类 |  |
+| REPTILE | 动物-爬行动物 |  |
+| FISH | 动物-鱼 |  |
+| ARTHROPOD | 动物  - 节肢动物 |  |
+| COELENTERATE | 动物  - 腔肠动物 |  |
+| MOLLUSKS | 动物  - 软体动物 |  |
+| CRUSTACEAN | 动物  - 甲壳动物 |  |
+| PLANT | 植物 |  |
+| SETTING | 场所 |  |
+
 
 # FAQ
 

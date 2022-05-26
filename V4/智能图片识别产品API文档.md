@@ -97,7 +97,7 @@
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务一级标签<br/>可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
 
@@ -520,7 +520,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -614,7 +614,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。 |
 
@@ -963,7 +963,7 @@ UTF-8
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
 | type | string | 检测的风险类型 | 必传参数 | 请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：<br/>`LOGO`：商企LOGO识别<br/>`OCR`：识别图片中所有文字<br/>`MINOR`：未成年人识别<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`QUALITY`: 图像质量识别<br/>`FACE`：人脸识别<br/>`STAR`：公众人物识<br/>`PORTRAIT`:人像识别<br/>`BEAUTY`: 颜值识别<br/>`ANIMAL`: 动物识别<br/>`OBJECT`：物品识别<br/>`IMAGECONTENT`: 画面属性识别<br/>`FACECOMPARE`: 人脸比对<br/>`PLANT`: 植物<br/>`BODY`: 人体<br/>如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -1253,3 +1253,72 @@ businessLabels数组中的businessDetail的内容如下：
 
 目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：
 [https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
+
+
+
+# 附录
+
+| 业务标签识别类型 | 类型说明 | 备注 |
+| ------------- | ------------- | --------------- |
+| AGE           | 人脸 - 年龄   |  |
+| GENDER        | 人脸 -性别   |  |
+| BEAUTY        | 人脸 - 颜值   |  |
+| FACEDETECTION | 人脸-人脸检测 | 如识别真人、口罩人脸、正脸、侧脸等 |
+| FAKEFACE | 人脸 - 伪造人脸 |  |
+| FACECOMPARE | 人脸-人脸对比 |  |
+| PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
+| TAINTEDSTAR | 人物 - 劣迹人物 |  |
+| POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
+| DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
+| BODY | 人体 | 如识别头发、眼睛、鼻子等 |
+| PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
+| PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
+| LOWVISION | 画面属性  - 画面低质 | 如识别模糊、涂抹、马赛克等 |
+| LOWCONTNET | 画面属性 - 内容低质 | 如识别点线密集、虫类密集等 |
+| LIVEPICTURE | 画面属性-直播画面 | 如识别床上直播、开车直播等 |
+| SCREENSHOT | 画面属性 -  APP截图（内容搬运） | 如识别朋友圈截图、聊天截图等 |
+| FITNESS | 场景主题-健身 |  |
+| CATE | 场景主题-美食 |  |
+| MUSIC | 场景主题-音乐 |  |
+| SPORTS | 场景主题-体育 |  |
+| SCENERY | 场景主题-自然风光 |  |
+| CITYVIEW | 场景主题-城市风光 |  |
+| AUTOMOBILELOGO | LOGO - 汽车品牌 |  |
+| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 |  |
+| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 |  |
+| RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
+| SOCIALAPPSLOGO | LOGO - 社交通讯类应用 | 如识别微博、小红书等LOGO |
+| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
+| NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
+| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| SPORTSLOGO | LOGO  - 体育赛事 |  |
+| VEHICLE | 物品-交通工具 |  |
+| BUILDING | 物品-建筑 |  |
+| TABLEWARE | 物品-餐具 |  |
+| FOOD | 物品-食物 |  |
+| HOMEAPPLICATION | 物品-家用电器 |  |
+| OFFICESUPPLIES | 物品-办公用品 |  |
+| FASHION | 物品-穿着用品 |  |
+| SPORTEQUIPMENT | 物品-运动器材 |  |
+| TOY | 物品-玩具 |  |
+| MAKEUP | 物品-化妆品 |  |
+| DRUGS | 物品-药品 |  |
+| PAINTING | 物品-绘画作品 |  |
+| ELECTRONIC | 物品-电子产品 |  |
+| MEDICALIMAGE | 物品-医疗影像 |  |
+| FURNITURE | 物品-家居用品 |  |
+| DAILYSUPPLIES | 物品-生活用品 |  |
+| CONSTELLATION | 物品-星座占卜 |  |
+| KITCHENWARE | 物品-厨房用品 |  |
+| KEEPSAKE | 物品 - 纪念品 |  |
+| MAMMAL | 动物-哺乳动物 |  |
+| BIRDS | 动物 - 鸟类 |  |
+| REPTILE | 动物-爬行动物 |  |
+| FISH | 动物-鱼 |  |
+| ARTHROPOD | 动物  - 节肢动物 |  |
+| COELENTERATE | 动物  - 腔肠动物 |  |
+| MOLLUSKS | 动物  - 软体动物 |  |
+| CRUSTACEAN | 动物  - 甲壳动物 |  |
+| PLANT | 植物 |  |
+| SETTING | 场所 |  |
+
