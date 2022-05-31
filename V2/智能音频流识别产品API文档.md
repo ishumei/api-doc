@@ -51,7 +51,6 @@
   - [3.2 调用接口返回无权限操作（9101）](#32-调用接口返回无权限操作9101)
   - [3.3 调用接口超时问题](#33-调用接口超时问题)
   - [3.4 数美接口支持哪些网络协议？](#34-数美接口支持哪些网络协议)
-- [4. Demo](#4-demo)
 
 版本
 
@@ -564,7 +563,3 @@ data字段结构：
 ## 3.4 数美接口支持哪些网络协议？
 
 数美音频流测试接口支持http、https、RTMP、HLS、HDL(HTTP-FLV)、RTP等所有主流网络协议。
-
-# 4. Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v2](https://github.com/ishumei/api-demo/tree/master/v2)

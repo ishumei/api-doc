@@ -30,7 +30,6 @@
     - [回调返回示例：](#回调返回示例)
     - [关流请求示例：](#关流请求示例)
     - [关流返回示例：](#关流返回示例)
-  - [Demo](#demo)
 
 ## 音频流上传请求
 
@@ -86,6 +85,7 @@
 | returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段                                                        |
 | returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一分钟文字；                                                      |
 | returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一分钟音频链接；                                                  |
+| returnFinishInfo | bool     | 音频流结束通知 | N            | <p>可选值（默认为false）：<br/>false：不返回状态码</p><p>true：回调参数增加statCode状态码</p>                                                                                                                                             |
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
 | anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入                                                                                                                 |
@@ -401,7 +401,3 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4' -d '
     "requestId": " a78eef377079acc6cdec24967ecde722",
 }
 ```
-
-## Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
