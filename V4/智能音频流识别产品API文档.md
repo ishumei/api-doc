@@ -161,6 +161,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | btId        | string      | 音频唯一标识                   | 是           |                                                                                                                                                               |
 | code        | int         | 请求返回码                     | 是           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message     | string      | 请求返回描述，和请求返回码对应 | 是           |                                                                                                                                                               |
+| statCode     | int        | 审核状态                   | 否            | <p>0 ：审核中： </p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | 否           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
 | passThrough | json_object | 透传字段                       | 否           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
 
