@@ -68,6 +68,7 @@
 | V2.0.4 | 2021/12/27 | 刘拴朋 | 1. trtcUserId替换为strUserId字段                                                                                                               |
 | V2.0.5 | 2022/03/29 | 朱晓峰 | 1. 增加声网renew token功能                                                                                                                     |
 | V2.0.7 | 2022/04/18 | 代俊凯 | 1. 增加callbackParam说明                                                                                                                       |
+| V2.0.8 | 2022/05/09 | 代俊凯 | 1. 增加违禁歌曲、人声属性、声音场景识别                                                                                                                       |
 
 # 1. 接入前准备
 
@@ -147,28 +148,28 @@ POST
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| :------------ | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| accessKey     | string      | Y            | 服务密钥，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                                                             |
-| type          | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
-| businessType  | string      | N            | <p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>MINOR:未成年</p><p>type和 businessType 必须填其一</p>                                                                                                                                                                                                                                                                      |
-| btId          | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度                                                                                                                                                                                                                                                                                                                                                                              |
-| appId         | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，该参数传递值可与数美服务协商用于区分应用</p><p>默认应用值：default</p>                                                                                                                                                                                                                                                                                                           |
-| callback      | string      | Y            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                                                                                                                                                                                                                                                                                                                                                                                   |
-| callbackParam | json_object | N            | 透传字段，当 callback 存在时可选，发送回调请求时服务将该字段内容同音频结果一起返回                                                                                                                                                                                                                                                                                                                                             |
-| data          | json_object | Y            | 请求数据内容，最长1MB                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| :----------- | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                                                             |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| businessType | string      | N            | <p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>MINOR:未成年</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p>                                                                                                                                                                                                                                                                      |
+| btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度                                                                                                                                                                                                                                                                                                                                                                              |
+| appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，该参数传递值可与数美服务协商用于区分应用</p><p>默认应用值：default</p>                                                                                                                                                                                                                                                                                                           |
+| callback     | string      | Y            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                                                                                                                                                                                                                                                                                                                                                                                   |
+| data         | json_object | Y            | 请求数据内容，最长1MB                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 其中，data的内容如下：
 
-| **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                  |
-| :----------- | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType   | string      | Y            | <p>流类型:可选择：<br/>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p> |
-| url          | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
-| agoraParam   | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
-| zegoParam    | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
-| trtcParam    | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
-| tokenId      | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
-| channel      | string      | Y            | 见渠道配置表                                                                                              |
+| **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
+| :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
+| streamType    | string      | Y            | <p>流类型:可选择：<br/>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p> |
+| url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
+| agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
+| zegoParam     | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
+| trtcParam     | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
+| tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
+| channel       | string      | Y            | 见渠道配置表                                                                                              |
+| callbackParam | json_object | N            | 透传参数                                                                                                  |
 
 ### 扩展请求参数
 
@@ -288,7 +289,7 @@ POST
 | model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                             |
 | isSing            | int         | N            | type取值包含SING时存在，取值0表示检测不存在唱歌片段，取值1表示检测存在唱歌片段                                                                                                                                                                                                                                                                |
 | requestParams     | json_object | Y            | 返回请求参数data中的所有字段                                                                                                                                                                                                                                                                                                                  |
-| riskType          | int         | Y            | <p>标识风险类型，可能取值：<br/>风险类型，静音时不返回，可能取值：<br/>0：正常</p><p>100：涉政</p><p>110: 暴恐</p><p>120: 国歌</p><p>200：色情</p><p>210：辱骂</p><p>250：娇喘</p><p>300：广告</p><p>400：灌水</p><p>500：无意义</p><p>600 : 违禁</p><p>700：其他</p><p>720：黑账号</p><p>730：黑IP</p><p>800：高危账号</p><p>900：自定义</p> |
+| riskType          | int         | Y            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政</p><p>110:暴恐</p><p>120:国歌</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
 | riskTypeDesc      | string      | N            | 风险原因描述                                                                                                                                                                                                                                                                                                                                  |
 | room              | string      | Y            | 房间号                                                                                                                                                                                                                                                                                                                                        |
 | userId            | int         | N            | 用户账号标识（仅分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。                                                                                                                                                                                                                                                   |
@@ -336,11 +337,6 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
     "appId": "default",
     "btid": "",
     "callback": "http://10.141.16.179:8900/",
-    "callbackParam": {
-        "test1": 1,
-        "test2": "qew",
-        "test3": true
-    },
     "data": {
         "streamType": "TRTC",
         "trtcParam": {
@@ -354,7 +350,12 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
         "returnPreAudio": true,
         "tokenId": "shumei-test",
         "channel": "",
-        "returnAllText": true
+        "returnAllText": true,
+        "callbackParam": {
+            "test1": 1,
+            "test2": "qew",
+            "test3": true
+        },
     }
 }'
 ```
@@ -387,10 +388,25 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
         "matchedItem": "鸡巴",
         "matchedList": "色情",
         "model": "M1020_20",
-        "requestParams": {
-            "test1": 1,
-            "test2": "qew",
-            "test3": true
+        "requestParams":{
+            "streamType": "TRTC",
+            "trtcParam": {
+                "sdkAppId": 1400498247,
+                "demoSences": 4,
+                "userId": "12345",
+                "userSig": "",
+                "roomId": 517067780
+            },
+            "returnPreText": true,
+            "returnPreAudio": true,
+            "tokenId": "shumei-test",
+            "channel": "",
+            "returnAllText": true,
+            "callbackParam": {
+                "test1": 1,
+                "test2": "qew",
+                "test3": true
+            },
         },
         "riskType": 200,
         "riskTypeDesc": "色情",

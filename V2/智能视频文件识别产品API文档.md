@@ -92,9 +92,9 @@
 | accessKey | string | 公司密钥 | 必传参数 | 由数美提供，数美分配 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用默认应用值：default |
 | btId | string | 视频唯一标识 | 必传参数 | 视频唯一标识，用于查询识别结果，最长64位 |
-| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：图片中的文字风险识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
+| imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`OCR`：图片中的文字风险识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
 | audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
-| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`QR`：二维码识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`QR_FACE_MINOR`用于二维码、人脸和未成年人识别 |
+| imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SCREEN`：特殊画面识别<br/>`SCENCE`：场景画面识别<br/>`FACE`：人脸识别<br/>`QUALITY`：图像质量识别<br/>`MINOR`：未成年人识别<br/>`LOGO`：商企LOGO识别<br/>`BEAUTY`：颜值识别<br/>`OBJECT`：物品识别<br/>`STAR`：公众人物识别<br/>如需做组合识别，通过下划线连接即可，例如`LOGO_FACE_MINOR`用于LOGO、人脸和未成年人识别 |
 | audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | callbackParam | json_object | 回调透传字段 | 非必传参数 |  |
@@ -193,8 +193,8 @@ result可反序列化为json结构，内容如下
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
-| time | int | 视频时长 | 是 | 视频时长 |
+| frameCount | int | 返回的视频截帧数量。retallImg=0时为风险数量，retallImg=1时为全部数量 | 是 |  |
+| time | int | 视频时长 | 是 |  |
 
 其中，截帧图片detail数组中每个成员的具体内容如下：
 
@@ -460,6 +460,7 @@ code请求返回码列表如下：
 | **code** | **message**      |
 | -------- | ---------------- |
 | 1100     | 成功             |
+| 1101     | 请求正在处理     |
 | 1901     | QPS超限          |
 | 1902     | 参数不合法       |
 | 1903     | 服务失败         |
