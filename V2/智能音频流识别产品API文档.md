@@ -51,7 +51,6 @@
   - [3.2 调用接口返回无权限操作（9101）](#32-调用接口返回无权限操作9101)
   - [3.3 调用接口超时问题](#33-调用接口超时问题)
   - [3.4 数美接口支持哪些网络协议？](#34-数美接口支持哪些网络协议)
-- [4. Demo](#4-demo)
 
 版本
 
@@ -182,7 +181,7 @@ POST
 | returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时只返回有风险（riskType为REJECT）的音频流片段识别结果和文本内容，默认是false</p>                                                                                                     |
 | returnPreText    | bool     | N            | <p>值为true时，返回的content字段包含违规音频前一个片段10秒文本内容；</p><p>值为false时，返回的content字段只包含违规音频片段文本内容，默认值为false(对于TRTC流该功能无效，当客户使用间隔审核功能时，即使returnPreAudio是true情况下，也不返回该字段）</p><p></p> |
 | returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p>                      |
-| returnFinishInfo | bool     | N            | <p>音频流结束通知</p><p>可选值（默认为false）：<br/>false：不返回状态码</p><p>true：回调参数增加statCode状态码</p>                                                                                                                                             |
+| returnFinishInfo | bool     | N            | <p>音频流结束回调通知</p><p>可选值（默认为false）：<br/>false：审核结束时不发送结束通知</p><p>true：审核结束时发起结束通知，回调参数增加statCode状态码</p>                                                                                                                                             |
 | initDomain       | int      | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能名                                                                                                  |
 | audioDetectStep  | int      | N            | 音频每个步长只会检测一次,取值范围1-5的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
 
@@ -564,7 +563,3 @@ data字段结构：
 ## 3.4 数美接口支持哪些网络协议？
 
 数美音频流测试接口支持http、https、RTMP、HLS、HDL(HTTP-FLV)、RTP等所有主流网络协议。
-
-# 4. Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v2](https://github.com/ishumei/api-demo/tree/master/v2)

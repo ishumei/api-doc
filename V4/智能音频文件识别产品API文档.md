@@ -45,7 +45,6 @@
     - [回调返回示例](#回调返回示例)
     - [主动查询结果请求示例](#主动查询结果请求示例)
     - [主动查询结果返回示例](#主动查询结果返回示例)
-  - [Demo](#demo)
 
 ## 音频文件上传请求
 
@@ -691,7 +690,3 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
     }
 }
 ```
-
-## Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)

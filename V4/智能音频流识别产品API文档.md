@@ -30,7 +30,6 @@
     - [回调返回示例：](#回调返回示例)
     - [关流请求示例：](#关流请求示例)
     - [关流返回示例：](#关流返回示例)
-  - [Demo](#demo)
 
 ## 音频流上传请求
 
@@ -73,7 +72,7 @@
 | **请求参数名** | **类型**    | **参数说明**                                           | **是否必传** | **规范**                                                                                                                                                     |
 | -------------- | ----------- | ------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | tokenId        | string      | 用户账号标识                                           | Y            | 用于区分用户账号，建议传入用户ID                                                                                                                             |
-| btId           | string      | 应用ID，用于区分相同公司的不同应用                     | Y            | 用于查询指定音频，限长128位字符                                                                                                                              |
+| btId           | string      | 音频唯一标识                     | Y            | 用于查询指定音频，限长128位字符                                                                                                                              |
 | streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制                                                                   |
 | url            | string      | 直播流地址                                             | N            | 当streamType为`NORMAL`时必传                                                                                                                                 |
 | lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语                                                                              |
@@ -86,6 +85,7 @@
 | returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段                                                        |
 | returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一分钟文字；                                                      |
 | returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一分钟音频链接；                                                  |
+| returnFinishInfo | int     | 音频流结束回调通知 | N            | 可选值如下（默认值为`0`）：<br/>`0`：审核结束时不发送结束通知<br/>`1`：审核结束时发起结束通知，回调参数增加statCode状态码                                                                                                                                             |
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
 | anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入                                                                                                                 |
@@ -161,6 +161,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | btId        | string      | 音频唯一标识                   | 是           |                                                                                                                                                               |
 | code        | int         | 请求返回码                     | 是           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message     | string      | 请求返回描述，和请求返回码对应 | 是           |                                                                                                                                                               |
+| statCode     | int        | 审核状态                   | 否            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | 否           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
 | passThrough | json_object | 透传字段                       | 否           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
 
@@ -401,7 +402,3 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4' -d '
     "requestId": " a78eef377079acc6cdec24967ecde722",
 }
 ```
-
-## Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v4](https://github.com/ishumei/api-demo/tree/master/v4)
