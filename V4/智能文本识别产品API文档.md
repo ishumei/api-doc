@@ -106,6 +106,13 @@ data 中 extra数组每个元素的内容如下：
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| langResult | json_array | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
+
+<span id="langResult">其中，语种信息langResult结构如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
+| detectedLang | string   | 语种识别结果 | N            | 当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如："zh"、"en"、"ar"等 |
 
 其中auxInfo字段如下：
 
