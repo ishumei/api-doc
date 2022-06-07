@@ -50,7 +50,6 @@
   - [3.1 调用接口返回参数错误（1902）](#31-调用接口返回参数错误1902)
   - [3.2 调用接口返回无权限操作（9101）](#32-调用接口返回无权限操作9101)
   - [3.3 调用接口超时问题](#33-调用接口超时问题)
-- [4. Demo](#4-demo)
 
 # 1. 接入前准备
 
@@ -524,7 +523,3 @@ POST
 2）网络问题:
 
 客户通过公网调用数美接口，公网网络延迟较长，导致少量请求存在超时。可以建议客户ping数美不同的集群网络，建议客户接入网络延迟较低的数美集群。
-
-# 4. Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v2](https://github.com/ishumei/api-demo/tree/master/v2)
