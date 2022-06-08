@@ -96,6 +96,7 @@
 | **请求参数名** | **类型** | **参数说明**     | **传入说明** | **规范** |
 | :----------- | :------ | :-------------- | :--------- | :------- |
 | resultCount  | int     | 返回命中结果的数量 | 非必传参数   | 非必传，默认返回top 1<br/>取值范围（0，20]，仅支持正整数格式<br/>将匹配结果按照相似度排序，只返回重复文章的前top K的结果 |
+| categoryId   | string  | 指定查询的样本库ID | 非必传参数   | 客户在管理样本库时可以创建多个样本库，通过该字段控制本次请求数据与哪一个样本库做匹配<br/>非必传，若客户不传，则默认为ALL，与全部样本库做匹配<br/>ALLOWLIST表示白样本库<br/>BLOCKLIST表示黑样本库<br/>可以传多个，用下划线_连接，例如ALLOWLIST_BLOCKLIST |
 
 ### 同步返回参数
 
@@ -205,6 +206,7 @@ audioTags中，copyright详细内容如下：
 | :----------- | :------ | :---------------------------- | :--------- | :------- |
 | chapter      | string  | 匹配的章节标题                   | 是         |          |
 | similarity   | float   | 本次检测的数据与命中的样本的相似度   | 是         | 取值范围(0，1] |
+| categoryId   | string  | 表示该命中结果所属的样本库ID       | 是         |          |
 
 *businessLabels数组中每一项具体参数如下：*
 
@@ -365,7 +367,8 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
         "room": "general",
         "tokenId": "token-short",
         "copyright": {
-          "resultCount": 10
+          "resultCount": 10,
+          "categoryId": "ALLOWLIST_BLOCKLIST"
         }
     }
 }'
@@ -530,14 +533,17 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
         ],
         "copyright":[
           {
+            "categoryId": "ALLOWLIST",
             "chapter":"测试1_章节1",
             "similarity":0.33
           },
           {
+            "categoryId": "ALLOWLIST",
             "chapter":"测试1_章节2",
             "similarity":0.33
           },
           {
+            "categoryId": "BLOCKLIST",
             "chapter":"测试2_章节1",
             "similarity":0.33
           }
@@ -702,14 +708,17 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
         ],
         "copyright":[
           {
+            "categoryId": "ALLOWLIST",
             "chapter":"测试1_章节1",
             "similarity":0.33
           },
           {
+            "categoryId": "ALLOWLIST",
             "chapter":"测试1_章节2",
             "similarity":0.33
           },
           {
+            "categoryId": "BLOCKLIST",
             "chapter":"测试2_章节1",
             "similarity":0.33
           }

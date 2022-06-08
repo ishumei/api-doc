@@ -170,6 +170,7 @@ POST
 | **参数名称** | **类型**   | **是否必选**   | **说明**                                                                          |
 | :----------- | :------- | :----------- | :-------------------------------------------------------------------------------- |
 | resultCount  | int      | N            | 非必传，默认返回top 1<br/>取值范围（0，20]，仅支持正整数格式<br/>将匹配结果按照相似度排序，只返回重复文章的前top K的结果 |
+| categoryId   | string   | N            | 客户在管理样本库时可以创建多个样本库，通过该字段控制本次请求数据与哪一个样本库做匹配<br/>非必传，若客户不传，则默认为ALL，与全部样本库做匹配<br/>ALLOWLIST表示白样本库<br/>BLOCKLIST表示黑样本库<br/>可以传多个，用下划线_连接，例如ALLOWLIST_BLOCKLIST |
 
 
 ### 返回参数
@@ -211,7 +212,8 @@ code和message的列表如下：
         "channel": "IM_MESSAGE",
         "returnAllText": true,
         "copyright": {
-          "resultCount": 10
+          "resultCount": 10,
+          "categoryId": "ALLOWLIST_BLOCKLIST"
         }
     },
     "callback": "http://xxxxxxxxx",
@@ -243,7 +245,8 @@ code和message的列表如下：
         "tokenId": "asdwef",
         "returnAllText": true,
         "copyright": {
-          "resultCount": 10
+          "resultCount": 10,
+          "categoryId": "ALLOWLIST_BLOCKLIST"
         }
     },
     "callback": "http://xxxxxx",
@@ -371,6 +374,7 @@ POST
 | :------------| :-----  | :----------| :--------------------------------------- |
 | chapter      | string  | Y          |匹配的章节标题                               |
 | similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
+| categoryId   | string  | Y          |表示该命中结果所属的样本库ID                   |
 
 code和message的列表如下：
 
@@ -441,14 +445,17 @@ code和message的列表如下：
       ],
     "copyright":[
       {
+        "categoryId": "ALLOWLIST",
         "chapter":"测试1_章节1",
         "similarity":0.33
       },
       {
+        "categoryId": "ALLOWLIST",
         "chapter":"测试1_章节2",
         "similarity":0.33
       },
       {
+        "categoryId": "BLOCKLIST",
         "chapter":"测试2_章节1",
         "similarity":0.33
       }
@@ -540,6 +547,7 @@ POST
 | :------------| :-----  | :----------| :--------------------------------------- |
 | chapter      | string  | Y          |匹配的章节标题                               |
 | similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
+| categoryId   | string  | Y          |表示该命中结果所属的样本库ID                   |
 
 # 3. FAQ
 
