@@ -52,7 +52,6 @@
 
 | 集群 | URL                                              | 支持产品列表                                   |
 | ---- | ------------------------------------------------ | ---------------------------------------------- |
-| 北京 | `http://api-audio-bj.fengkongcloud.com/audio/v4` | 中文音频文件                                   |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/audio/v4` | 中文音频文件                                   |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
 
@@ -235,7 +234,6 @@ audioTags中，language详细内容如下：
 
 | 集群 | URL                                                    | 支持产品列表                                   |
 | ---- | ------------------------------------------------------ | ---------------------------------------------- |
-| 北京 | `http://api-audio-bj.fengkongcloud.com/query_audio/v4` | 中文音频文件                                   |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文音频文件                                   |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/query_audio/v4` | 中文音频文件<br/>英语音频文件<br/>阿语音频文件 |
 

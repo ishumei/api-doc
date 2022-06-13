@@ -97,10 +97,6 @@
 
 ### 请求URL
 
-北京集群：
-
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/audio
-
 上海集群：
 
 http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
@@ -260,10 +256,6 @@ code和message的列表如下：
 该接口用于查询音频识别结果，最大支持10qps。
 
 ### 请求URL
-
-北京集群：
-
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/query_audio
 
 上海集群：
 
