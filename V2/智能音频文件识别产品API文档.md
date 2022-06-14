@@ -294,22 +294,22 @@ POST
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名称**   | **类型**    | **是否必选** | **说明**                                                                                         |
-| :------------- | :---------- | :----------- | :----------------------------------------------------------------------------------------------- |
-| code           | int         | Y            | 返回码                                                                                           |
-| message        | string      | Y            | 返回码详情描述                                                                                   |
-| requestId      | string      | Y            | 请求唯一标识                                                                                     |
-| btId           | string      | Y            | 音频唯一标识                                                                                     |
-| audioText      | string      | Y            | 整段音频转译文本结果                                                                             |
-| audioTime      | int         | N            | 整段音频的音频时长，单位秒，code为1100时存在                                                     |
-| labels         | string      | N            | 音频识别结果标签                                                                                 |
+| **参数名称**   | **类型**    | **是否必选** | **说明**                                                     |
+| :------------- | :---------- | :----------- | :----------------------------------------------------------- |
+| code           | int         | Y            | 返回码                                                       |
+| message        | string      | Y            | 返回码详情描述                                               |
+| requestId      | string      | Y            | 请求唯一标识                                                 |
+| btId           | string      | Y            | 音频唯一标识                                                 |
+| audioText      | string      | Y            | 整段音频转译文本结果                                         |
+| audioTime      | int         | N            | 整段音频的音频时长，单位秒，code为1100时存在                 |
+| labels         | string      | N            | 音频识别结果标签                                             |
 | riskLevel      | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br/>REVIEW：疑似违规内容<br/>REJECT：违规内容</p> |
-| detail         | json_array  | N            | 风险详情                                                                                         |
-| gender         | json_object | N            | 性别标签与概率值                                                                                 |
+| detail         | json_array  | N            | 风险详情                                                     |
+| gender         | json_object | N            | 性别标签与概率值                                             |
 | isSing         | int         | N            | <p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p> |
-| language       | json_array  | N            | 语种标签与概率值列表                                                                             |
-| tags           | json_array  | N            | 音色标签与概率值列表                                                                             |
-| businessLabels | json_array  | N            | 业务标签返回                                                                                     |
+| language       | json_array  | N            | 语种标签与概率值列表                                         |
+| tags           | json_array  | N            | 音色标签与概率值列表                                         |
+| businessLabels | json_array  | N            | 业务标签返回 (目前只支持MINOR，命中策略后返回标签内容)       |
 
 *detail数组中每一项的具体参数如下：*
 
