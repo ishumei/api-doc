@@ -301,7 +301,7 @@ POST
 | isSing         | int         | N            | <p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p> |
 | language       | json_array  | N            | 语种标签与概率值列表                                         |
 | tags           | json_array  | N            | 音色标签与概率值列表                                         |
-| businessLabels | json_array  | N            | 业务标签返回（目前只支持MINOR,策略命中返回标签内容）         |
+| businessLabels | json_array  | N            | 业务标签返回（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 
 *detail数组中每一项的具体参数如下：*
 

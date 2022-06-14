@@ -115,7 +115,7 @@
 | audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
-| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容）     |
+| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 
 其中，<span id="audioDetail">audioDetail</span>详细内容如下：
 
