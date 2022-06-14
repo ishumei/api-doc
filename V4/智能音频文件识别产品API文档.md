@@ -103,19 +103,19 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名**     | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                                                                                                                                  |
-| :------------- | :---------- | :----------------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| requestId      | string      | 本次请求的唯一标识             | 是           |                                                                                                                                                                           |
-| btId           | string      | 音频唯一标识                   | 是           |                                                                                                                                                                           |
+| **参数名**     | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                     |
+| :------------- | :---------- | :----------------------------- | :----------- | :----------------------------------------------------------- |
+| requestId      | string      | 本次请求的唯一标识             | 是           |                                                              |
+| btId           | string      | 音频唯一标识                   | 是           |                                                              |
 | code           | int         | 请求返回码                     | 是           | <p>1100：成功</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：服务失败</p><p>9101：无权限操作</p><p>除message和requestId之外的字段，只有当code为1100时才会存在</p> |
-| message        | string      | 请求返回描述，和请求返回码对应 | 是           |                                                                                                                                                                           |
-| riskLevel      | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p>                       |
-| audioText      | string      | 整段音频转译文本结果           | 是           |                                                                                                                                                                           |
-| audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                                                                                                                                    |
-| audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)                                                                                                                   |
-| audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                                                                                                                                            |
-| requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                                                                                                                                        |
-| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR）                                                                                                                                       |
+| message        | string      | 请求返回描述，和请求返回码对应 | 是           |                                                              |
+| riskLevel      | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p> |
+| audioText      | string      | 整段音频转译文本结果           | 是           |                                                              |
+| audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
+| audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
+| audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
+| requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
+| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容）     |
 
 其中，<span id="audioDetail">audioDetail</span>详细内容如下：
 
