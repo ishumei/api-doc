@@ -422,13 +422,13 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 ### 请求URL
 
-北京集群：
-
-http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
-
 上海集群：
 
 http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
+
+硅谷集群：
+
+http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 新加坡:
 

@@ -97,10 +97,6 @@
 
 ### 请求URL
 
-北京集群：
-
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/audio
-
 上海集群：
 
 http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
@@ -261,10 +257,6 @@ code和message的列表如下：
 
 ### 请求URL
 
-北京集群：
-
-http://api-audio-bj.fengkongcloud.com/v2/saas/anti_fraud/query_audio
-
 上海集群：
 
 http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/query_audio
@@ -307,9 +299,11 @@ POST
 | detail         | json_array  | N            | 风险详情                                                     |
 | gender         | json_object | N            | 性别标签与概率值                                             |
 | isSing         | int         | N            | <p>表示该条音频文件是否唱歌，0表示没有唱歌，1表示唱歌。</p><p>仅当type传入值包含SING时返回。</p> |
+
 | language       | json_array  | N            | 语种标签与概率值列表                                         |
 | tags           | json_array  | N            | 音色标签与概率值列表                                         |
 | businessLabels | json_array  | N            | 业务标签返回 (目前只支持MINOR，命中策略后返回标签内容)       |
+
 
 *detail数组中每一项的具体参数如下：*
 
