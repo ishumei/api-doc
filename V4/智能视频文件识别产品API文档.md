@@ -166,8 +166,8 @@ data 中，extra的内容如下
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
 | riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
-| frameDetail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[frameDetail说明](#callbackV4.callbackParameters.frameDetail) |
-| audioDetail | json_array | 音频片段信息 | 否 |code为`1100`时存在，详见[audioDetail说明](#callbackV4.callbackParameters.audioDetail)|
+| frameDetail | json_array | 风险详情 | 否 | 有风险片段或returnAllImg=1时返回，详见[frameDetail说明](#callbackV4.callbackParameters.frameDetail) |
+| audioDetail | json_array | 音频片段信息 | 否 |有风险片段或returnAllAudio=1时返回，详见[audioDetail说明](#callbackV4.callbackParameters.audioDetail)|
 | auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#callbackV4.callbackParameters.auxInfo)|
 | tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV4.callbackParameters.tokenProfileLabels)|
 | tokenRiskLabels | json_array | 账号风险标签 | 否 |仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV4.callbackParameters.tokenRiskLabels)|
