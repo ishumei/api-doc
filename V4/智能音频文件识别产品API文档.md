@@ -72,6 +72,7 @@
 | appId          | string      | 应用标识             | 必传参数     | <p>用于区分应用，可选值如下：</p><p>default：默认应用</p><p></p><p>额外应用值需数美单独分配提供</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | eventId        | string      | 事件标识             | 必传参数     | <p>用于区分场景数据<br/>可选值：</p><p>default：默认事件</p><p>audiobook：有声书</p><p>education：教育音频</p><p>game：游戏语音房</p><p>live：秀场直播</p><p>ecommerce：电商直播</p><p>voiceroom：交友语音房</p><p>private：私密语音聊天</p><p>other：其他</p>                                                                                                                                                                                                                                                                                         |
 | type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICS：涉政识别</p><p>PORN：色情识别</p><p>AD：广告识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>ABUSE：辱骂识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>BANEDAUDIO：违禁歌曲</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>MINOR：未成年人识别</p><p>如需识别音色，唱歌,语种GENDER必传</p><p>如需做组合识别，通过下划线连接即可，例如POLITICS_PORN_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITICS_PORN_AD_MOAN</p> |
+| functionType   | string      | 特殊功能检测         | 非必传参数   | <p>可选值：</p><p>`COPYRIGHT`：版权识别</p><p>如需做组合识别，通过下划线连接即可</p>                                                                                                                                                                                                                                                                                                                                 |
 | contentType    | string      | 待识别音频内容的格式 | 必传参数     | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p>                                                                                                                                                                                                                                                                                                                                                                                 |
 | data           | json object | 本次请求相关信息     | 必传参数     | 最长1MB，[详见data参数](#data)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -88,6 +89,14 @@
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
+| copyright      | json object | 版权识别参数    | 非必传参数  | 该字段在functionType字段含有COPYRIGHT类型时生效                                         |
+
+其中，copyright的内容如下：
+
+| **请求参数名** | **类型** | **参数说明**     | **传入说明** | **规范** |
+| :----------- | :------ | :-------------- | :--------- | :------- |
+| resultCount  | int     | 返回命中结果的数量 | 非必传参数   | 非必传，默认返回top 1<br/>取值范围（0，20]，仅支持正整数格式<br/>将匹配结果按照相似度排序，只返回重复文章的前top K的结果 |
+| categoryId   | string  | 指定查询的样本库ID | 非必传参数   | 客户在管理样本库时可以创建多个样本库，通过该字段控制本次请求数据与哪一个样本库做匹配<br/>非必传，若客户不传，则默认为ALL，与全部样本库做匹配<br/>ALLOWLIST表示白样本库<br/>BLOCKLIST表示黑样本库<br/>可以传多个，用下划线_连接，例如ALLOWLIST_BLOCKLIST |
 
 ### 同步返回参数
 
@@ -168,6 +177,7 @@ riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
 | timbre     | json_array  | 音色标签     | 否           | 当type取值包含TIMBRE时返回                                                         |
 | song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
 | language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                                         |
+| copyright  | json_array  | 版权重复结果详情 | 否         | 当functionType取值包含`COPYRIGHT`时返回，有可能为空数组 |
 
 audioTags中，gender详细内容如下：
 
@@ -189,6 +199,14 @@ audioTags中，language详细内容如下：
 | :---------- | :------- | :--------------------- | :----------- | :--------------------------------------------------------- |
 | label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
+
+audioTags中，copyright详细内容如下：
+
+| **请求参数名** | **类型** | **参数说明**                   | **传入说明** | **规范** |
+| :----------- | :------ | :---------------------------- | :--------- | :------- |
+| chapter      | string  | 匹配的章节标题                   | 是         |          |
+| similarity   | float   | 本次检测的数据与命中的样本的相似度   | 是         | 取值范围(0，1] |
+| categoryId   | string  | 表示该命中结果所属的样本库ID       | 是         |          |
 
 *businessLabels数组中每一项具体参数如下：*
 
@@ -299,6 +317,7 @@ riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
 | timbre     | json_array  | 音色标签     | 否           | 当type取值包含TIMBRE时返回                                                         |
 | song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
 | language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                                         |
+| copyright  | json_array  | 版权重复结果详情 | 否         | 当functionType取值包含`COPYRIGHT`时返回，有可能为空数组                               |
 
 audioTags中，gender详细内容如下：
 
@@ -321,6 +340,13 @@ audioTags中，language详细内容如下：
 | label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
 
+audioTags中，copyright详细内容如下：
+
+| **请求参数名** | **类型** | **参数说明**                   | **传入说明** | **规范** |
+| :----------- | :------ | :---------------------------- | :--------- | :------- |
+| chapter      | string  | 匹配的章节标题                   | 是         |          |
+| similarity   | float   | 本次检测的数据与命中的样本的相似度   | 是         | 取值范围(0，1] |
+
 ## 示例
 
 ### 上传请求示例
@@ -331,6 +357,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "appId": "default",
     "eventId": "default",
     "type": "PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE",
+    "functionType": "COPYRIGHT",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
@@ -338,7 +365,11 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "data": {
         "returnAllText": 1,
         "room": "general",
-        "tokenId": "token-short"
+        "tokenId": "token-short",
+        "copyright": {
+          "resultCount": 10,
+          "categoryId": "ALLOWLIST_BLOCKLIST"
+        }
     }
 }'
 
@@ -499,6 +530,23 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
                 "label":"萝莉",
                 "probability":24
             }
+        ],
+        "copyright":[
+          {
+            "categoryId": "ALLOWLIST",
+            "chapter":"测试1_章节1",
+            "similarity":0.33
+          },
+          {
+            "categoryId": "ALLOWLIST",
+            "chapter":"测试1_章节2",
+            "similarity":0.33
+          },
+          {
+            "categoryId": "BLOCKLIST",
+            "chapter":"测试2_章节1",
+            "similarity":0.33
+          }
         ]
     }
 }
@@ -657,6 +705,23 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
                 "label": "萝莉",
                 "probability": 24
             }
+        ],
+        "copyright":[
+          {
+            "categoryId": "ALLOWLIST",
+            "chapter":"测试1_章节1",
+            "similarity":0.33
+          },
+          {
+            "categoryId": "ALLOWLIST",
+            "chapter":"测试1_章节2",
+            "similarity":0.33
+          },
+          {
+            "categoryId": "BLOCKLIST",
+            "chapter":"测试2_章节1",
+            "similarity":0.33
+          }
         ]
     }
 }
