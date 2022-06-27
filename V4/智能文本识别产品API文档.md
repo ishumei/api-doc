@@ -27,7 +27,7 @@
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
+| 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本<br/> 国际化文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
 | 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
 | 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
@@ -54,8 +54,7 @@
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | Y | 可选值如下：<br/>额外事件值需数美单独分配提供 |
-| type | string | 检测的风险类型 | Y | 可选值：<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>以上type可以下划线组合，如：`DEFAULT_FRUAD` |
-| businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
+| type | string | 检测的风险类型 | Y | 可选值：<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD` |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  其中，data的内容如下：
@@ -107,6 +106,13 @@ data 中 extra数组每个元素的内容如下：
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| langResult | json_array | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
+
+<span id="langResult">其中，语种信息langResult结构如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
+| detectedLang | string   | 语种识别结果 | N            | 当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如："zh"、"en"、"ar"等 |
 
 其中auxInfo字段如下：
 
@@ -115,6 +121,7 @@ data 中 extra数组每个元素的内容如下：
 | filteredText| string | 辅助信息 | N| 敏感词被替换为*后的文本（该参数仅在命中敏感词时存在） <br/>语境模型，联系方式相关风险不返回该字段 |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
 | contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
+| unauthorizedType | string | 辅助信息 | N | 未授权的type。 |
 
 auxInfo中，contactResult数组每个元素的内容如下：
 
@@ -198,20 +205,20 @@ tokenLabels中，UGC_account_risk的详情内容如下：
 
 一级标签的内容如下：
 
-| 一级标签 | 一级标识    | 类型     | 备注                   |
-| -------- | ----------- | -------- | ---------------------- |
-| 涉政     | politics    | 监管标签 | type值为DEFAULT        |
-| 暴恐     | violence    | 监管标签 | type值为DEFAULT        |
-| 色情     | porn        | 监管标签 | type值为DEFAULT        |
-| 违禁     | ban         | 监管标签 | type值为DEFAULT        |
-| 辱骂     | abuse       | 监管标签 | type值为DEFAULT        |
-| 广告法   | ad_law      | 监管标签 | type值为DEFAULT        |
-| 广告     | ad          | 监管标签 | type值为DEFAULT        |
-| 黑名单   | blacklist   | 监管标签 | type值为DEFAULT        |
-| 无意义   | meaningless | 监管标签 | type值为DEFAULT        |
-| 隐私     | privacy     | 监管标签 | type值为DEFAULT        |
-| 网络诈骗 | fraud       | 监管标签 | type值为FRUAD、UNPOACH |
-| 未成年人 | minor       | 业务标签 | businessType值为MINOR  |
+| 一级标签 | 一级标识    | 类型     | 备注              |
+| -------- | ----------- | -------- | ----------------- |
+| 涉政     | politics    | 监管标签 | type值为TEXTRISK  |
+| 暴恐     | violence    | 监管标签 | type值为TEXTRISK  |
+| 色情     | porn        | 监管标签 | type值为TEXTRISK  |
+| 违禁     | ban         | 监管标签 | type值为TEXTRISK  |
+| 辱骂     | abuse       | 监管标签 | type值为TEXTRISK  |
+| 广告法   | ad_law      | 监管标签 | type值为TEXTRISK  |
+| 广告     | ad          | 监管标签 | type值为TEXTRISK  |
+| 黑名单   | blacklist   | 监管标签 | type值为TEXTRISK  |
+| 无意义   | meaningless | 监管标签 | type值为TEXTRISK  |
+| 隐私     | privacy     | 监管标签 | type值为TEXTRISK  |
+| 网络诈骗 | fraud       | 监管标签 | type值为FRUAD     |
+| 未成年人 | minor       | 监管标签 | type值为TEXTMINOR |
 
 ## 示例
 
