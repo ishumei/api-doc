@@ -96,10 +96,10 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 非必传参数 | ~~监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接（该字段与businessType字段必须选择一个传入）<br/>~~<br/>监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
-| data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
-| callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑 | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片 |
+| data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长10MB，[详见data参数](#data) |
+| callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑，回调http地址字段，当该字段非空时，服务将根据该字段回调通知用户审核结果，地址必须为http或https的规范的url | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
 
 其中，data的内容如下：
 
@@ -108,11 +108,11 @@
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB，异步最大30M |
 | imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
-| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
+| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 |  |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，默认为20帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo)，如需要了解或使用相似帧功能，请联系客服咨询 |
@@ -159,22 +159,22 @@ data中，extra的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
-| **face_num** | **int** | **人脸数量** | 否 | |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）** |  | |
-| **person_num** | **int** | **人像数量** |  | 有且仅有人像-多人下返回 |
-| objects | json_array | 其他情况下，仅有一个元素返回图片中标识或物品的名称及位置信息 | 否 | 数组仅会有一个元素 |
-| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
+| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
+| face_num | int | 人脸数量 | 否 |  |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
+| person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
+| objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
+| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>1001：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | **string** | **编号，保证同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID** |  |  |
-| name | string | 人物名称 | 否 | 风险人物名称 |
+| id | string | 人物编号 |  | 图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | 否 | 能识别的公众人物名称 |
 | location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
-| **face_ratio** | **float** | **人脸占比** | 否 | |
+| face_ratio | float | 人脸占比 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 riskDetail中，objects数组每个元素的内容如下：
@@ -185,7 +185,7 @@ riskDetail中，objects数组每个元素的内容如下：
 | name | string | 标识名称 | 否 | |
 | location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标  | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-| **qrContent** | **string** | **二维码的url信息** | 否 |  |
+| qrContent | string | 二维码的url信息 | 否 | 仅当命中二维码相关标签时返回 |
 
 riskDetail中，persons数组每个元素的内容如下：
 
@@ -241,25 +241,12 @@ auxInfo中，typeVersion的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| POLITICS | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
-| VIOLENCE | string | 暴恐版本号 | 否 | 组成形式同上 |
-| BAN | string | 违禁版本号 | 否 | 组成形式同上 |
-| PORN | string | 色情版本号 | 否 | 组成形式同上 |
-| MINOR | string | 未成年人版本号 | 否 | 组成形式同上 |
-| AD | string | 广告版本号 | 否 | 组成形式同上 |
-| SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
-| LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
-| STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
-| IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
-| SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
-| SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
-| QR | string | 二维码版本号 | 否 | 组成形式同上 |
-| FACE | string | 人脸版本号 | 否 | 组成形式同上 |
-| QUALITY | string | 图像质量版本号 | 否 | 组成形式同上 |
-| PORTRAIT | string | 人像版本号 | 否 | 组成形式同上 |
-| ANIMAL | string | 动物版本号 | 否 | 组成形式同上 |
-| BEAUTY | string | 颜值版本号 | 否 | 组成形式同上 |
+| POLITY | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
+| VIOLENT | string | 暴恐版本号 | 否 | 组成形式同上 |
+| EROTIC | string | 色情版本号 | 否 | 组成形式同上 |
+| ADVERT | string | 广告版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | 违规文字版本号 | 否 | 组成形式同上 |
+| QRCODE | string | 二维码版本号 | 否 | 组成形式同上 |
 
 其中allLabels数组的每个成员的内容如下：
 
@@ -269,21 +256,9 @@ auxInfo中，typeVersion的内容如下：
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
 | riskDescription | string | 风险原因 | 是 | |
-| **riskLevel** | **string** | **处置建议** | **是** | |
+| riskLevel | string | 处置建议 | **是** | |
 | probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 |  |
-| riskDetail | json_object | 风险详情 | 否 | |
-
-allLabels每个成员的riskDetail结构如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| faces | json_array | 人物信息，返回图片中涉政人物的名称及位置信息，<br/>内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
-| **face_num** | **int** | **仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个）** | 否 | |
-| objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图<br/>片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
-| **person_num** | **int** | **有且仅有人像-多人下返回** | **否** | |
-| **ocrText** | **json_array** | 返回图片中违规文字相关信息，当请求参数type<br/>字段包含`OCR`时存在，内部字段参考外层riskDetail下的faces字段 | 否 | |
-| **riskSource** | **string** | **标识资源哪里违规** | 是 | 标识风险结果的来源<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| riskDetail | json_object | 风险详情，字段内容见result下的riskDetail | 否 |  |
 
 其中businessLabels数组的每个成员的内容如下：
 
@@ -295,7 +270,7 @@ allLabels每个成员的riskDetail结构如下：
 | businessDescription | string | 业务标签描述 | 是 | 中文标签描述 |
 | businessDetail | json_object | 业务标签详情 | 否 | 格式详见下方businessDetail结构 |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 是 | |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
+| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高 | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
@@ -304,14 +279,14 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| **faces** | **json_array** | **内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段** | 否 | |
-| **objects** | **json_array** | **其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致** |  | 数组仅会有一个元素 |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段** |  |  |
+| faces | json_array | 内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |  | 数组仅会有一个元素 |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，businessType传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
-| person_num | int | 人体数量检测<br/>图片中检测到的人体个数type传值包含`PORTRAIT`且时存在 | 否 | |
-| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`PORTRAIT`时存在 | 否 | |
+| person_num | int | 人体数量检测 | 否 | 仅当命中多人标签时返回 |
+| person_ratio | float | 人像占比<br/>在区间0-1，数值越大，人脸占比越高 | 否 | |
 
 tokenLabels的详情内容如下：
 
@@ -378,147 +353,122 @@ scene_account_risk的详情内容如下：
 
 ```json
 {
-    "requestId":"9l25odfa5280c50f49f7c40988a1e400",
+    "requestId":"55cf0374642c5f2336ccb107aa9005e5",
     "code":1100,
     "message":"成功",
-    "riskLevel":"PASS",
-    "riskLabel1":"normal",
-    "riskLabel2":"",
-    "riskLabel3":"",
-    "riskDescription":"正常",
+    "riskLevel":"REJECT",
+    "riskLabel1":"politics",
+    "riskLabel2":"yihaolingdao",
+    "riskLabel3":"yihaolingdao",
+    "riskDescription":"涉政:一号领导:一号领导",
     "riskDetail":{
-        "riskSource":1000
+        "faces":[
+            {
+                "face_ratio":0.00357499998062849,
+                "id":"be82442eaf2fe5fcaba84e7f2b3b1dbc",
+                "location":[
+                    403,
+                    171,
+                    436,
+                    210
+                ],
+                "name":"习近平",
+                "probability":0.803125739097595
+            }
+        ],
+        "riskSource":1002
     },
     "auxInfo":{
         "segments":1,
         "typeVersion":{
-            "LOGO":"1001049.11"
+            "POLITICS":"2014014.1",
+            "VIOLENCE":"2012008.1",
+            "BAN":"1002102.1",
+            "PORN":"3048002.1"
         }
     },
     "allLabels":[
-        {
-            "probability":0.53285801410675,
-            "riskDescription":"涉政:国内领导人:国外领导",
-            "riskDetail":{
-
-            },
+       {
             "riskLabel1":"politics",
             "riskLabel2":"lingdaoren",
-            "riskLabel3":"guowailingdao"
+            "riskLabel3":"lingdaorenguaxiang",
+            "riskLevel":"REVIEW"
         },
         {
-            "probability":0.537527859210968,
-            "riskDescription":"涉政:涉政:涉政简图",
+            "probability":0.867621600627899,
+            "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
-
+                "riskSocrce":1002
             },
             "riskLabel1":"politics",
             "riskLabel2":"shezheng",
-            "riskLabel3":"shezhengjiantu"
+            "riskLabel3":"shezheng",
+            "riskLevel":"REJECT"
         },
         {
-            "probability":0.536710560321808,
+            "probability":0.855094926869849,
             "riskDescription":"涉政:一号领导:一号领导",
             "riskDetail":{
-
+                "faces":[
+                    {
+                        "face_ratio":0.00357499998062849,
+                        "id":"be82442eaf2fe5fcaba84e7f2b3b1dbc",
+                        "location":[
+                            403,
+                            171,
+                            436,
+                            210
+                        ],
+                        "name":"习近平",
+                        "probability":0.803125739097595
+                    }
+                ],
+                "riskSocrce":1002
             },
             "riskLabel1":"politics",
             "riskLabel2":"yihaolingdao",
-            "riskLabel3":"yihaolingdao"
-        },
-        {
-            "probability":0.983799457550049,
-            "riskDescription":"::",
-            "riskDetail":{
-                "objects":[
-                    {
-                        "location":[
-                            595,
-                            459,
-                            645,
-                            671
-                        ],
-                        "name":"south_weekend",
-                        "probability":0.983799457550049
-                    }
-                ]
-            },
-            "riskLabel1":"business",
-            "riskLabel2":"logo",
-            "riskLabel3":"south_weekend"
-        },
-        {
-            "probability":0.53285801410675,
-            "riskDescription":"涉政:反动分裂:港独人物",
-            "riskDetail":{
-
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"fandongfenlie",
-            "riskLabel3":"gangdurenwu"
-        },
-        {
-            "probability":0.529117465019226,
-            "riskDescription":"涉政:反动分裂:异见人士",
-            "riskDetail":{
-
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"fandongfenlie",
-            "riskLabel3":"yijianrenshi"
-        },
-        {
-            "probability":0.529117465019226,
-            "riskDescription":"涉政:国内领导人:常委领导",
-            "riskDetail":{
-
-            },
-            "riskLabel1":"politics",
-            "riskLabel2":"lingdaoren",
-            "riskLabel3":"changweilingdao"
+            "riskLabel3":"yihaolingdao",
+            "riskLevel":"REJECT"
         }
     ],
     "businessLabels":[
         {
-            "businessDescription":"商企LOGO:商企LOGO:商企LOGO",
+            "businessDescription":"人脸:人脸姿态:正脸",
             "businessDetail":{
-              "person_num": 2,
-              "location": [
-                              187,
-                              367,
-                              362,
-                              518
-                      ],
-                "probability": 0.716688692569733,
-                "persons":[ {
-                      "location": [
-                              187,
-                              367,
-                              362,
-                              518
-                      ],
-                      "person_ration": "0.3",
-                      "probability": 0.716688692569733,
-                      "location": [
-                              287,
-                              367,
-                              462,
-                              618
-                      ],
-                      "person_ration": "0.03",
-                      "probability": 0.516688692569733
-                }]
+
             },
-            "businessLabel1":"logo",
-            "businessLabel2":"south_weekend",
-            "businessLabel3":"south_weekend",
+            "businessLabel1":"face",
+            "businessLabel2":"renlianzitai",
+            "businessLabel3":"zhenglian",
+            "confidenceLevel":1,
+            "probability":0.450656906102068
+        },
+        {
+            "businessDescription":"人脸:人脸类型:多人脸",
+            "businessDetail":{
+
+            },
+            "businessLabel1":"face",
+            "businessLabel2":"renlianleixing",
+            "businessLabel3":"duorenlian",
+            "confidenceLevel":1,
+            "probability":0.458568899401581
+        },
+        {
+            "businessDescription":"人脸:人脸类型:真人",
+            "businessDetail":{
+
+            },
+            "businessLabel1":"face",
+            "businessLabel2":"renlianleixing",
+            "businessLabel3":"zhenren",
             "confidenceLevel":2,
-            "probability":0.983799457550049
+            "probability":0.867621600627899
         }
     ],
     "tokenLabels":{
         "UGC_account_risk":{
-            "sexy_risk_tokenid":0
+
         }
     }
 }
@@ -564,7 +514,7 @@ scene_account_risk的详情内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 公司密钥：用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 |
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | ~~请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/~~><br/>监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
@@ -573,13 +523,13 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | 必传参数 | 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
-| img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
-| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
+| room | string | 直播房间号 | 非必传参数 | |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，默认为20帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json\_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
@@ -658,10 +608,10 @@ scene_account_risk的详情内容如下：
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | ~~请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>如果需要多个识别功能，通过下划线连接~~监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
-| callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。 |
+| callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
 
 其中，data的内容如下：
 
@@ -671,9 +621,9 @@ scene_account_risk的详情内容如下：
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，默认为20帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
-| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
+| room | string | 直播房间号 | 非必传参数 |  |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
@@ -689,7 +639,7 @@ scene_account_risk的详情内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | imgCompareBase | string   | 要检测比对的基准图片，请求参数businessType字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
@@ -734,9 +684,9 @@ imgs中，riskDetail的内容如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
-| **face_num** | **int** | **人脸数量** | 否 | |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）** |  | |
-| **person_num** | **int** | **人像数量** |  | 有且仅有人像-多人下返回 |
+| face_num | int | 人脸数量 | 否 | |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个 |  | |
+| person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
@@ -745,21 +695,21 @@ riskDetail中，faces数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | **string** | **编号，保证同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID** |  |  |
+| id | string | 编号，图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |  |  |
 | name | string | 人物名称 | 否 | 风险人物名称 |
 | location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
-| **face_ratio** | **float** | **人脸占比** | 否 | |
+| face_ratio | float | 人脸占比 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 riskDetail中，objects数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | 否 |  |
+| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | 否 |  |
 | name | string | 标识名称 | 否 | |
 | location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-| **qrcontent** | string | 二维码的url信息 | 否 |  |
+| qrcontent | string | 二维码的url信息 | 否 |  |
 
 riskDetail中，ocrText的内容如下：
 
@@ -803,25 +753,12 @@ auxInfo中，typeVersion的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| POLITICS | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
-| VIOLENCE | string | 暴恐版本号 | 否 | 组成形式同上 |
-| BAN | string | 违禁版本号 | 否 | 组成形式同上 |
-| PORN | string | 色情版本号 | 否 | 组成形式同上 |
-| MINOR | string | 未成年人版本号 | 否 | 组成形式同上 |
-| AD | string | 广告版本号 | 否 | 组成形式同上 |
-| SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
-| LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
-| STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
-| IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
-| SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
-| SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
-| QR | string | 二维码版本号 | 否 | 组成形式同上 |
-| FACE | string | 人脸版本号 | 否 | 组成形式同上 |
-| QUALITY | string | 图像质量版本号 | 否 | 组成形式同上 |
-| PORTRAIT | string | 人像版本号 | 否 | 组成形式同上 |
-| ANIMAL | string | 动物版本号 | 否 | 组成形式同上 |
-| BEAUTY | string | 颜值版本号 | 否 | 组成形式同上 |
+| POLITY | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
+| VIOLENT | string | 暴恐版本号 | 否 | 组成形式同上 |
+| EROTIC | string | 色情版本号 | 否 | 组成形式同上 |
+| ADVERT | string | 广告版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | 违规文字版本号 | 否 | 组成形式同上 |
+| QRCODE | string | 二维码版本号 | 否 | 组成形式同上 |
 
 imgs中，allLabels数组的每个成员的内容如下：
 
@@ -831,7 +768,7 @@ imgs中，allLabels数组的每个成员的内容如下：
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
 | riskDescription | string | 风险原因 | 是 | |
-| **riskLevel** | **string** | **处置建议** | **是** | |
+| riskLevel | string | 处置建议 | **是** | |
 | probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 | |
 | riskDetail | json_object | 风险详情 | 否 | |
 
@@ -840,12 +777,12 @@ allLabels每个成员的riskDetail结构如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 人物信息，返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
-| **face_num** | **int** | **仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个）** | 否 | |
+| face_num | int | 仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 |  |
-| **persons** | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
-| **person_num** | **int** | **有且仅有人像-多人下返回** | **否** | |
-| **ocrText** | **json_array** | 返回图片中违规文字相关信息 | 否 | |
-| **riskSource** | **string** | **标识资源哪里违规** | 是 | 标识风险结果的来源：`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
+| person_num | int | 有且仅有人像-多人下返回 | 否 | |
+| ocrText | json_array | 返回图片中违规文字相关信息 | 否 | |
+| riskSource | string | 标识资源哪里违规 | 是 | 标识风险结果的来源：`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 
 其中imgs中businessLabels数组的每个成员的内容如下：
@@ -867,9 +804,9 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| **faces** | **json_array** | **内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段** | 否 | |
-| **objects** | **json_array** | **其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致** | 否 | 数组仅会有一个元素 |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段** | 否 |  |
+| faces | json_array | 内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 | 数组仅会有一个元素 |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，businessType传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
@@ -1025,7 +962,7 @@ UTF-8
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
 | eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
-| type | string | 检测的风险类型 | 必传参数 | ~~请使用数美单独提供的传值为准，可选值：<br/>`POLITICS`：涉政识别<br/>`VIOLENCE`：暴恐识别<br/>`BAN`：违禁识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：识别图片中所有文字<br/>`FACECOMPARE`：人脸比对<br/>~~**监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入）** |
+| type | string | 检测的风险类型 | 必传参数 | **监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入）** |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
@@ -1037,9 +974,9 @@ UTF-8
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
-| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，最大为20帧，默认为3帧 |
+| maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取gif等动图帧数，默认为20帧 |
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
-| room | string | 直播房间号 | 非必传参数 | 仅当event取值为 videoClip 时，可传入该字段 |
+| room | string | 直播房间号 | 非必传参数 |  |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，默认USER，必须在可选范围有效对不同角色可配置不同策略。直播领域可取值：房管：ADMIN主播：HOST系统角色：SYSTEM游戏领域可取值：管理员：ADMIN普通用户：USER |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
@@ -1054,7 +991,7 @@ UTF-8
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | imgCompareBase | string   | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
@@ -1186,9 +1123,9 @@ result如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
-| **face_num** | **int** | **人脸数量** | 否 | |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）** |  | |
-| **person_num** | **int** | **人像数量** |  | 有且仅有人像-多人下返回 |
+| face_num | int | 人脸数量 | 否 | |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） |  | |
+| person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中标识或物品的名称及位置信息 | 否 | |
 | ocrText | json_object | 返回图片中违规文字相关信息 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
@@ -1197,21 +1134,21 @@ riskDetail中，faces数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | **string** | **编号，保证同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID** |  |  |
+| id | string | 编号，图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |  |  |
 | name | string | 人物名称 | 否 | 风险人物名称 |
 | location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
-| **face_ratio** | **float** | **人脸占比** | 否 | |
+| face_ratio | float | 人脸占比 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 riskDetail中，objects数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | 否 |  |
+| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | 否 |  |
 | name | string | 标识名称 | 否 | |
 | location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标  | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-| **qrcontent** | **string** | **二维码的url信息** | 否 |  |
+| qrcontent | string | 二维码的url信息 | 否 |  |
 
 riskDetail中，ocrText的内容如下：
 
@@ -1256,25 +1193,12 @@ auxInfo中，typeVersion的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| POLITICS | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
-| VIOLENCE | string | 暴恐版本号 | 否 | 组成形式同上 |
-| BAN | string | 违禁版本号 | 否 | 组成形式同上 |
-| PORN | string | 色情版本号 | 否 | 组成形式同上 |
-| MINOR | string | 未成年人版本号 | 否 | 组成形式同上 |
-| AD | string | 广告版本号 | 否 | 组成形式同上 |
-| SPAM | string | 灌水版本号 | 否 | 组成形式同上 |
-| LOGO | string | 商企LOGO版本号 | 否 | 组成形式同上 |
-| STAR | string | 公众人物版本号 | 否 | 组成形式同上 |
-| OCR | string | OCR版本号 | 否 | 组成形式同上 |
-| IMGTEXT | string | 违规文字版本号 | 否 | 组成形式同上 |
-| SCREEN | string | 特殊画面版本号 | 否 | 组成形式同上 |
-| SCENCE | string | 场景画面版本号 | 否 | 组成形式同上 |
-| QR | string | 二维码版本号 | 否 | 组成形式同上 |
-| FACE | string | 人脸版本号 | 否 | 组成形式同上 |
-| QUALITY | string | 图像质量版本号 | 否 | 组成形式同上 |
-| PORTRAIT | string | 人像版本号 | 否 | 组成形式同上 |
-| ANIMAL | string | 动物版本号 | 否 | 组成形式同上 |
-| BEAUTY | string | 颜值版本号 | 否 | 组成形式同上 |
+| POLITY | string | 涉政版本号 | 否 | 组成形式为`X.Y`，`X`为主版本号，一般代表模型整体的效果迭代；`Y`为子版本号，一般代表日常的例行迭代<br/>例如`1001001.2`代表主版本号为`1001001`，子版本号为`2` |
+| VIOLENT | string | 暴恐版本号 | 否 | 组成形式同上 |
+| EROTIC | string | 色情版本号 | 否 | 组成形式同上 |
+| ADVERT | string | 广告版本号 | 否 | 组成形式同上 |
+| IMGTEXTRISK | string | 违规文字版本号 | 否 | 组成形式同上 |
+| QRCODE | string | 二维码版本号 | 否 | 组成形式同上 |
 
 其中allLabels数组的每个成员的内容如下：
 
@@ -1284,7 +1208,7 @@ auxInfo中，typeVersion的内容如下：
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
 | riskDescription | string | 风险原因 | 是 | |
-| **riskLevel** | **string** | **处置建议** | **是** | |
+| riskLevel | string | 处置建议 | **是** | |
 | probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 | |
 | riskDetail | json_object | 风险详情 | 否 | |
 
@@ -1293,11 +1217,11 @@ allLabels每个成员的riskDetail结构如下：
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
-| **face_num** | **int** | **仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个）** |||
+| face_num | int | 仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个） |||
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |||
-| **person_num** | **int** | **有且仅有人像-多人下返回** | **否** | |
-| **ocrText** | **json_array** | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在，内部字段参考外层riskDetail下的ocrText字段 |||
+| person_num | int | 有且仅有人像-多人下返回 | 否 | |
+| ocrText | json_array | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在，内部字段参考外层riskDetail下的ocrText字段 |||
 | riskSource | int | 标识资源哪里违规 |是|标识风险结果的来 源：<br/>1001 ：图片文字风险<br/>1002 ：视觉图片风险|
 
 其中businessLabels数组的每个成员的内容如下：
@@ -1319,9 +1243,9 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 人物名称<br/> | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高 | 否 |  |
-| **faces** | **json_array** | **内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段** | 否 | |
-| **objects** | **json_array** | **其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致** |  | 数组仅会有一个元素 |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段** |  |  |
+| faces | json_array | 内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |  | 数组仅会有一个元素 |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，businessType传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
@@ -1371,6 +1295,10 @@ businessLabels数组中的businessDetail的内容如下：
 | PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
 | NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| APPARELLOGO | LOGO - 鞋帽服饰类品牌 |  |
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 |  |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 |  |
+| FOODLOGO | LOGO - 食品类品牌 |  |
 | SPORTSLOGO | LOGO  - 体育赛事 |  |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
@@ -1401,4 +1329,5 @@ businessLabels数组中的businessDetail的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 |  |
+| TEMPERAMENT | 人像-气质 | |
 

@@ -138,11 +138,11 @@
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
-| callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
-| data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB，[详见data参数](#data) |
+| callback | string | 回调地址，传入该参数时，走异步回调逻辑 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
+| data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data长度最长10MB，[详见data参数](#data) |
 | callbackParam | json_object | 透传参数 | 非必传参数 |  |
 
 其中，data的内容如下：
@@ -150,7 +150,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、短杠组成的长度小于等于64位的字符串 |
-| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`, `hief`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`, `hief`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
 | btId | string | 用户指定的图片标识 | 非必传参数 | 当callback存在时，在回调请求中向用户返回，限制长度为30位 |
 | channel | string | 渠道配置 | 非必传参数 | 见渠道配置表 |
 | registerTime | int | 帐号注册时间 | 非必传参数 | 建议传递此参数，新注册帐号的异常操作风险较高，毫秒级时间戳 |
@@ -170,7 +170,7 @@
 | mac | string | 用户android设备唯一标识 | 非必传参数 | 同imei字段 |
 | idfv | string | 用户iOS应用唯一标识 | 非必传参数 | 相比tokenId和IP，idfv不能被修改，当恶意用户使用多个不同账户和IP进行恶意行为时，使用idfv能够发现和识别此类恶意行为 |
 | idfa | string | 用户iOS应用唯一标识 | 非必传参数 | 同idfv字段 |
-| maxFrame | int | gif最大截帧数量 | 非必传参数 | 最大截帧数量，GIF图检测专用，默认值为3，最大值为20。 |
+| maxFrame | int | gif最大截帧数量 | 非必传参数 | 最大截帧数量，GIF图检测专用，默认值为20。 |
 | interval | int | gif截帧频率 | 非必传参数 | GIF图检测专用，默认值为1。每interval张图片抽取一张进行检测。<br/>当interval*maxFrame小于该图片所包含的图片数量时，截帧间隔会自动修改为该图片所包含的图片数/maxFrame，以提高整体检测效果。 |
 | isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
 | passThrough | json_object | 透传参数 | 非必传参数 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
@@ -213,7 +213,6 @@
 | model | string | 策略规则标识 | 是 | 用来标识命中的策略规则。<br/>注：该参数为旧版API返回参数，兼容保留，后续版本会取消，请勿依赖此参数，仅供参考 |
 | description | string | 拦截的风险原因解释 | 是 | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | descriptionV2 | string | 新版策略规则风险原因描述 | 否 | 该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
-| hits | json_array | 命中的策略集 | 是 | |
 | text | string | OCR识别出的文字 | 否 | OCR识别出的文字，可根据需求返回该参数 |
 | matchedItem | string | 命中的具体敏感词 | 否 | 命中的具体敏感词（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedList | string | 命中敏感词所在的名单名称 | 否 | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
@@ -251,7 +250,7 @@
 | businessDescription | string | 业务标签中文描述 | 是 | |
 | businessDetail | json_object | 业务标签详情 | 否 | |
 | probability | float | 置信度<br/>可选值在0～1之间，值越大，可信度越高 | 是 | 格式详见下方businessDetail结构 |
-| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/>注意：当检测模型是QR,OCR时不返回<br/>注意：当检测模型是FACE且riskLabe2不等于`gender`时不返回 | 否 | |
+| confidenceLevel | int | 置信等级<br/>可选值在0～2之间，值越大，可信度越高<br/> | 否 | |
 
 businessLabels数组中的businessDetail的内容如下：
 
@@ -260,9 +259,9 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| **faces** | **json_array** | **内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段** | 否 | |
-| **objects** | **json_array** | **其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致** |  | 数组仅会有一个元素 |
-| **persons** | **json_array** | **仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段** |  |  |
+| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
+| objects | json_array | 返回图片中物品或标志二维码的位置信息 |  | 数组仅会有一个元素 |
+| persons | json_array | 人像数量 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | face_compare_num | int | 人脸比对人脸数检测<br/>图片中检测到的人脸个数，businessType传值包含`FACECOMPARE`时存在 | 否 | |
 | location | int_array | 标识位置信息<br/>type传值包含`OBJECT`且时存在，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
@@ -273,21 +272,21 @@ businessDetail中，faces数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | **string** | **编号，保证同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID** |  |  |
+| id | string | 编号，图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |  |  |
 | name | string | 人物名称 | 否 | 风险人物名称 |
 | location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
-| **face_ratio** | **float** | **人脸占比** | 否 | |
+| face_ratio | float | 人脸占比 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
 businessDetail中，objects数组每个元素的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| **id** | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | 否 |  |
+| id | string | 编号，图片同一个位置下的物品在不同标签下的编号相同 | 否 |  |
 | name | string | 标识名称 | 否 | |
 | location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-| **qrContent** | string | 二维码的url信息 | 否 |  |
+| qrContent | string | 二维码的url信息 | 否 |  |
 
 businessDetail中，persons数组每个元素的内容如下：
 
@@ -352,7 +351,7 @@ businessDetail中，persons数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | 是 | [详见code与message对应关系](#code-message) |
+| code | int | xxxxxxxxxx {    "code":1100,    "message":"成功",    "requestId":" a78eef377079acc6cdec24967ecde722"}json | 是 | [详见code与message对应关系](#code-message) |
 | message | string | 返回码描述 | 是 | 和code对应：成功/QPS超限/参数不合法/服务失败/余额不足/无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，唯一标识该次图片审核任务 |
 | taskId | string | 任务编号 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
@@ -397,32 +396,6 @@ businessDetail中，persons数组每个元素的内容如下：
   "detail":{
     "description":"二维码：微信二维码：微信二维码",
     "descriptionV2":"二维码：微信二维码：微信二维码",
-    "hits":[
-      {
-        "description":"广告：联系方式：联系方式",
-        "descriptionV2":"广告：联系方式：联系方式",
-        "model":"MA001020002001004",
-        "riskLevel":"REJECT",
-        "riskType":300,
-        "score":675
-      },
-      {
-        "description":"二维码",
-        "descriptionV2":"二维码：二维码：二维码",
-        "model":"MA001018001001001",
-        "riskLevel":"REJECT",
-        "riskType":310,
-        "score":700
-      },
-      {
-        "description":"二维码：微信二维码：微信二维码",
-        "descriptionV2":"二维码：微信二维码：微信二维码",
-        "model":"MA001018002001001",
-        "riskLevel":"REJECT",
-        "riskType":310,
-        "score":850
-      }
-    ],
     "model":"MA001018002001001",
     "original_text":"黑白印象0!度門，福建掃描上面的 QR Code 加我 Wechat",
     "original_text_context":"黑白印象0!度門，福建掃描上面的 QR Code 加我 Wechat",
@@ -459,7 +432,7 @@ businessDetail中，persons数组每个元素的内容如下：
   "btId":"xxx"
 }
 ```
-当用户的服务端收到推送结果，并返回HTTP状态码为200时，表示推送成功，否则系统将进行重试推送（直至达到重试次数上限）
+当用户的服务端收到推送结果，并返回HTTP状态码为200时，表示推送成功，否则系统将进行重试推送（直至达到重试次数上限）重试逻辑为间隔[1, 2, 3, 4, 5, 6, 7, 8]秒后重试，8次之后依然失败则不在重试。
 ### 回调请求示例
 ```json
 {
@@ -473,9 +446,6 @@ businessDetail中，persons数组每个元素的内容如下：
     "riskLevel":"REJECT",
     "detail":{
         "description":"涉政文字",
-        "hits":[
-
-        ],
         "matchedItem":"xxx",
         "matchedList":"test",
         "model":"M02601",
@@ -525,7 +495,7 @@ businessDetail中，persons数组每个元素的内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
-| type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`OCR`：图片中的OCR文字识别<br/>`AD`：广告识别<br/>`BEHAVIOR`：不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/><br/>多个type通过下划线连接，例如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别<br/>建议传入：`POLITICS_PORN_AD_BEHAVIOR`<br/><br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别 <br/>`VIOLENCE`：暴恐识别 <br/>（该字段与`businessType`字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
 | callback | string | 回调地址 | 非必传参数 | 回调http接口，当该字段非空时，服务将根据该字段回调通知用户审核结果<br/>地址必须为http或https的规范url |
@@ -550,7 +520,7 @@ businessDetail中，persons数组每个元素的内容如下：
 | sex | int | 用户的性别 | 非必传参数 | 用户的性别，可选值：<br/>0：女性<br/> 1：男性 |
 | age | int | 用户的年龄 | 非必传参数 | 用户的年龄，可选值：<br/>0：青年（大约18-45岁）<br/>1：中年（大约45-60岁）<br/>2：老年（大于60岁） |
 | level | int | 用户等级 | 非必传参数 | 用户等级，针对不同等级的用户可配置不同拦截策略 |
-| maxFrame | int | gif最大截帧数量 | 非必传参数 | 最大截帧数量，GIF图检测专用，默认值为3，最大值为20。 |
+| maxFrame | int | gif最大截帧数量 | 非必传参数 | 最大截帧数量，GIF图检测专用，默认值为20。 |
 | interval | int | gif截帧频率 | 非必传参数 | GIF图检测专用，默认值为1。每interval张图片抽取一张进行检测。<br/>当interval*maxFrame小于该图片所包含的图片数量时，截帧间隔会自动修改为该图片所包含的图片数/maxFrame，以提高整体检测效果。 |
 | isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
 | passThrough | json_object | 透传参数 | 非必传参数 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
@@ -609,16 +579,6 @@ curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","data":{"imgs":[
       "detail":{
         "description":"涉政：敏感政治事件：六四事件",
         "descriptionV2":"涉政：敏感政治事件：六四事件",
-        "hits":[
-          {
-            "description":"涉政：敏感政治事件：六四事件",
-            "descriptionV2":"涉政：敏感政治事件：六四事件",
-            "model":"MA001001007006003",
-            "riskLevel":"REJECT",
-            "riskType":100,
-            "score":850
-          }
-        ],
         "model":"MA001001007006003",
         "riskSource":1002,
         "riskType":100
@@ -789,6 +749,10 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
 | NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| APPARELLOGO | LOGO - 鞋帽服饰类品牌 |  |
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 |  |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 |  |
+| FOODLOGO | LOGO - 食品类品牌 |  |
 | SPORTSLOGO | LOGO  - 体育赛事 |  |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
@@ -819,6 +783,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 |  |
+| TEMPERAMENT | 人像-气质 | |
 
 
 # FAQ
