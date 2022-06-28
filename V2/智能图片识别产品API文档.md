@@ -351,7 +351,7 @@ businessDetail中，persons数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | xxxxxxxxxx {    "code":1100,    "message":"成功",    "requestId":" a78eef377079acc6cdec24967ecde722"}json | 是 | [详见code与message对应关系](#code-message) |
+| code | int | 返回码| 是 | [详见code与message对应关系](#code-message) |
 | message | string | 返回码描述 | 是 | 和code对应：成功/QPS超限/参数不合法/服务失败/余额不足/无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，唯一标识该次图片审核任务 |
 | taskId | string | 任务编号 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
