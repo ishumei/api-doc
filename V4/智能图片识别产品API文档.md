@@ -1287,7 +1287,6 @@ businessLabels数组中的businessDetail的内容如下：
 | SPORTS | 场景主题-体育 |  |
 | SCENERY | 场景主题-自然风光 |  |
 | CITYVIEW | 场景主题-城市风光 |  |
-| AUTOMOBILELOGO | LOGO - 汽车品牌 |  |
 | 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 |  |
 | SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 |  |
 | RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
@@ -1295,10 +1294,6 @@ businessLabels数组中的businessDetail的内容如下：
 | PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
 | NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
-| APPARELLOGO | LOGO - 鞋帽服饰类品牌 |  |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 |  |
-| COSMETICSLOGO | LOGO - 化妆品类品牌 |  |
-| FOODLOGO | LOGO - 食品类品牌 |  |
 | SPORTSLOGO | LOGO  - 体育赛事 |  |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
@@ -1329,5 +1324,4 @@ businessLabels数组中的businessDetail的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 |  |
-| TEMPERAMENT | 人像-气质 | |
 
