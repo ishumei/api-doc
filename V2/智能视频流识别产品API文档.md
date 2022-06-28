@@ -426,7 +426,6 @@ businessDetail中，persons数组的每个元素的内容如下：
 | SPORTS                | 场景主题 - 体育                |
 | SCENERY               | 场景主题 - 自然风光            |
 | CITYVIEW              | 场景主题 - 城市风光            |
-| AUTOMOBILELOGO        | LOGO - 汽车品牌                |
 | 3CPRODUCTSLOGO        | LOGO - 3C电子类品牌            |
 | SHOPPINGAPPSLOGO      | LOGO - 购物比价类应用          |
 | RETOUCHAPPSLOGO       | LOGO - 拍摄美化类应用          |
