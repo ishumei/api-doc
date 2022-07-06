@@ -130,6 +130,7 @@
 
 | **参数名**      | **类型**    | **参数说明**     | **是否必返** | **规范**                                                                 |
 | :-------------- | :---------- | :--------------- | :----------- | :----------------------------------------------------------------------- |
+| requestId       | string      | 音频片段请求唯一标识 | 是           |                                                                |
 | audioStarttime  | float       | 音频片段起始时间 | 是           | 相对音频开始的时间距离，单位是秒                                         |
 | audioEndtime    | float       | 音频片段结束时间 | 是           | 相对音频开始的时间距离，单位是秒                                         |
 | audioUrl        | string      | 音频片段链接     | 是           | mp3格式                                                                  |
@@ -397,6 +398,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "riskLevel":"PASS",
     "audioDetail":[
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0000",
             "audioStarttime":0,
             "audioEndtime":10,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0000.mp3",
@@ -410,6 +412,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0001",
             "audioStarttime":10,
             "audioEndtime":20,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0001.mp3",
@@ -423,6 +426,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0002",
             "audioStarttime":20,
             "audioEndtime":30,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0002.mp3",
@@ -436,6 +440,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0003",
             "audioStarttime":30,
             "audioEndtime":40,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0003.mp3",
@@ -449,6 +454,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0004",
             "audioStarttime":40,
             "audioEndtime":50,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0004.mp3",
@@ -462,6 +468,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0005",
             "audioStarttime":50,
             "audioEndtime":60,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0005.mp3",
@@ -475,6 +482,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0006",
             "audioStarttime":60,
             "audioEndtime":60,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0006.mp3",
@@ -572,6 +580,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
     "riskLevel": "PASS",
     "audioDetail": [
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0000",
             "audioStarttime": 0,
             "audioEndtime": 10,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0000.mp3",
@@ -585,6 +594,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0001",
             "audioStarttime": 10,
             "audioEndtime": 20,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0001.mp3",
@@ -598,6 +608,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0002",
             "audioStarttime": 20,
             "audioEndtime": 30,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0002.mp3",
@@ -611,6 +622,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0003",
             "audioStarttime": 30,
             "audioEndtime": 40,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0003.mp3",
@@ -624,6 +636,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0004",
             "audioStarttime": 40,
             "audioEndtime": 50,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0004.mp3",
@@ -637,6 +650,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0005",
             "audioStarttime": 50,
             "audioEndtime": 60,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0005.mp3",
@@ -650,6 +664,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             }
         },
         {
+            "requestId": "6a9cb980346dfea41111656a514e9109_a0006",
             "audioStarttime": 60,
             "audioEndtime": 60,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0006.mp3",
