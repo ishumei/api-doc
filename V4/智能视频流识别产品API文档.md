@@ -110,7 +110,7 @@
 | returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#callbackV4.callbackParameters.FinishCallback) |
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为0.5~60s；如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
-| room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户建议传入） |
+| room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户必须传入） |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParameters.data.extra) |
 
 data 中，extra的内容如下
