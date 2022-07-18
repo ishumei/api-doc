@@ -22,6 +22,7 @@
     - [同步请求示例：](#同步请求示例)
     - [同步返回示例：](#同步返回示例)
     - [回调的同步返回参数](#回调的同步返回参数-1)
+    - [回调请求示例](#回调请求示例)
 - [异步单张上传接口](#异步单张上传接口)
   - [异步单条请求](#异步单条请求)
     - [请求URL：](#请求url-1)
@@ -482,6 +483,39 @@ scene_account_risk的详情内容如下：
     "requestId":"69dbc1f81dc5c914b1f1b8a267fb9ec1"
 }
 ```
+当用户的服务端收到推送结果，并返回HTTP状态码为200时，表示推送成功，否则系统将进行重试推送（直至达到重试次数上限）重试逻辑为间隔[1, 2, 3, 4, 5, 6, 7, 8]秒后重试，8次之后依然失败则不在重试。
+
+### 回调请求示例
+
+```json
+{
+    "checksum":"236f8eea85c3c4407d96ff05d6108389b3b0cea8aa80bdf6642c1cecc77b2bde",
+    "result":{
+    "code":1100,
+    "message":"成功",
+    "requestId":"1e6e4e43cd35b545418fcef7d0f77ef4",
+    "taskId":"5ba3efe0-949ccac9-4e9ba8b2-31f84bdd",
+    "score":999,
+    "riskLevel":"REJECT",
+    "detail":{
+        "description":"涉政文字",
+        "matchedItem":"xxx",
+        "matchedList":"test",
+        "model":"M02601",
+        "polityName":"xxx",
+        "riskType":100,
+        "riskSource":1002
+    },
+    "status":0,
+    "callbackParam":{
+        " param1":1,
+        " param2":"qew",
+        " param3":true
+       }
+    }
+}
+```
+ 
 
 # 异步单张上传接口
 
