@@ -193,6 +193,7 @@ POST
 | tags           | json_array  | N            | 音色标签与概率值列表                                         |
 | businessLabels | json_array  | N            | 业务标签返回（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 | copyright      | json_array  | N            | 版权重复结果详情，当functionType取值包含`COPYRIGHT`时返回，有可能为空数组 |
+| auxInfo        | json_object | N            | 辅助信息                                                                |
 
 *detail数组中每一项的具体参数如下：*
 
@@ -246,6 +247,11 @@ POST
 | similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
 | categoryId   | string  | Y          |表示该命中结果所属的样本库ID                   |
 
+*auxInfo数组中每一项具体参数如下：*
+
+| **参数名称**  | **类型** | **是否必返** | **说明**                                 |
+| :------------| :-----  | :----------| :--------------------------------------- |
+| errorCode    | int     | Y          |<p>状态码</p><p>2003：音频下载失败</p>|
 
 
 ## 异步回调识别结果
@@ -291,6 +297,7 @@ POST
 | tags          | json_array  | N            | 音色标签与概率值列表                                                                             |
 | copyright     | json_array  | N            | 版权重复结果详情，当functionType取值包含`COPYRIGHT`时返回，有可能为空数组 |
 | callbackParam | json_object | Y            | 客户传入的透传字段                                                                               |
+| auxInfo       | json_object | N            | 辅助信息                                                                                       |
 
 *detail数组中每一项的具体参数如下：*
 
@@ -334,6 +341,11 @@ POST
 | similarity   | float   | Y          |本次检测的数据与命中的样本的相似度，取值范围(0，1] |
 | categoryId   | string  | Y          |表示该命中结果所属的样本库ID                   |
 
+*auxInfo数组中每一项具体参数如下：*
+
+| **参数名称**  | **类型** | **是否必返** | **说明**                                 |
+| :------------| :-----  | :----------| :--------------------------------------- |
+| errorCode    | int     | Y          |<p>状态码</p><p>2003：音频下载失败</p>|
 
 ## **接口响应码列表**
 code和message的列表如下：
