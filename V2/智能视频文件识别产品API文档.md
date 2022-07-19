@@ -393,8 +393,16 @@ addition中，videoCoverDetail的详细内容同subtitleDetail
 | labels | string | 风险标签（code为1100时存在）| 否|  |
 | detail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[detail说明](#callbackV2.callbackParameters.query..frameDetail) |
 | addition | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[addition说明](#callbackV2.callbackParameters.query.audioDetail)|
+| auxInfo | json_object | 辅助信息 | 是 | code为`1100`时存在，扩展辅助信息，详见[auxInfo说明](#queryV4.responseParameters.auxInfo) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV2.callbackParameters..query.query.tokenProfileLabels)|
 | tokenRiskLabels | json_array | 账号风险标签 | 否 |仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV2.callbackParameters.query.query.tokenRiskLabels)|
+
+其中，auxInfo数组中每个成员的具体内容如下：
+
+| **参数名** | **类型** | **参数说明** | **是否必返** | **规范**           |
+| ---------- | -------- | ------------ | ------------ | ------------------ |
+| frameCount | int      | 辅助信息     | 是           | 视频文件的截帧总数 |
+| time       | int      | 辅助信息     | 是           | 视频时长           |
 
 其中，detail中每个成员的具体内容如下：
 
