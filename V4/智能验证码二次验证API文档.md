@@ -25,7 +25,9 @@
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 全集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
+| 北京集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
+| 新加坡集群 | `http://captcha-xjp.fengkongcloud.com/ca/v1/sverify` |二次验证 |
+| 佛吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 
 ### <span id = "requestMethod">请求方法：</span>
 
