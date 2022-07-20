@@ -25,7 +25,9 @@
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 全集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
+| 北京集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
+| 新加坡集群 | `http://captcha-xjp.fengkongcloud.com/ca/v1/sverify` |二次验证 |
+| 佛吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 
 ### <span id = "requestMethod">请求方法：</span>
 
@@ -42,6 +44,7 @@
 ### <span id = "requestParameters">请求参数：</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
+
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
