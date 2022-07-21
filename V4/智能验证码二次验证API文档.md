@@ -18,9 +18,9 @@
         - [请求示例](#requestExample)
         - [返回示例](#responseExample)
 
-# <span id = "sverifyInterface">一键登录接口</span>
+# <span id = "sverifyInterface">二次验证接口</span>
 
-## <span id = "requestParameter">一键登录请求</span>
+## <span id = "requestParameter">请求参数</span>
 
 ### <span id = "requestUrl">请求URL：</span>
 | 集群 | URL | 支持产品列表 |
@@ -29,13 +29,13 @@
 | 新加坡集群 | `http://captcha-xjp.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 | 佛吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 
-### <span id = "requestMethod">请求方法：</span>
-
-`POST` 
-
-### <span id = "requestEncode">字符编码：</span>
+### <span id = "requestEncode">字符编码格式：</span>
 
 `UTF-8`
+
+### <span id = "requestMethod">请求方法：</span>
+
+`POST`
 
 ### <span id = "requestTimeout">建议超时时间：</span>
 
