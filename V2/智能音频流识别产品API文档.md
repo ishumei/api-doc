@@ -267,6 +267,7 @@ POST
 | riskLevel    | string      | Y            | <p>风险级别（code 为 1100 时存在）</p><p>可能返回值：PASS，REVIEW，REJECT</p><p>PASS：正常内容，建议直接放行</p><p>REVIEW：可疑内容，建议人工审核</p><p>REJECT：违规内容，建议直接拦截</p> |
 | statCode     | int         | N            | <p>审核状态：</p><p>0 ：审核中： </p><p>1 ：审核结束</p>                                                                                                                                   |
 | detail       | json_object | Y            | 风险详情                                                                                                                                                                                   |
+| auxInfo      | json_object | N            | 辅助信息                                                                                                                                                                                   |
 
 其中，detail 的内容如下：
 
@@ -314,6 +315,12 @@ detail.language数组中每一项具体参数如下：
 | businessLabel2      | string | 二级业务标签 | 否       |              |
 | businessLabel3      | string | 三级业务标签 | 否       |              |
 | businessDescription | string | 业务标签描述 | 否       | 中文标签描述 |
+
+其中，auxInfo 的内容如下：
+
+| **参数名称**      | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                      |
+| :---------------- | :---------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| errorCode         | int         | Y            |<p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>|
 
 code和message的列表如下：
 

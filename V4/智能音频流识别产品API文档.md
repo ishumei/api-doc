@@ -164,6 +164,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | statCode     | int        | 审核状态                   | 否            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | 否           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
 | passThrough | json_object | 透传字段                       | 否           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
+| auxInfo     | json_object | 辅助信息                       | 否           |                                                                                                                                                          |
 
 其中，audioDetail结构如下：
 
@@ -240,6 +241,12 @@ allLabels结构如下：
 | riskLabel2      | string   | 二级风险标签 | 是           | 二级风险标签 |
 | riskLabel3      | string   | 三级风险标签 | 是           | 三级风险标签 |
 | riskDescription | string   | 风险原因     | 是           | 风险原因     |
+
+其中最外层的auxInfo字段结构如下：
+
+| **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
+| --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| errorCode       | int         | 状态码           | 是           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
 
 ## 音频流关闭通知接口
 
