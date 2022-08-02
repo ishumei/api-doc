@@ -155,6 +155,7 @@
 | audioTime   | int         | 整段音频的音频时长             | 是           | 单位秒                                                                                                                                                                                                                |
 | audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail-1)                                                                                                                                                             |
 | audioTags   | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                                                                                                                                                                                        |
+| auxInfo     | json_object | 辅助信息                       | 否           |                                                            |
 
 <span id="audioDetail">audioDetail</span>内每个元素的内容如下：
 
@@ -238,6 +239,11 @@ audioTags中，copyright详细内容如下：
 | chapter      | string  | 匹配的章节标题                   | 是         |          |
 | similarity   | float   | 本次检测的数据与命中的样本的相似度   | 是         | 取值范围(0，1] |
 
+其中，<span id="auxInfo">auxInfo</span>详细内容如下：
+
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
+| :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
+| errorCode    | int        | 状态码                 | 是           |<p>状态码</p><p>2003：音频下载失败</p>  |
 
 ## 异步回调结果
 
@@ -258,6 +264,7 @@ audioTags中，copyright详细内容如下：
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
+| auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 
 其中，<span id="audioDetail">audioDetail</span>详细内容如下：
 
@@ -351,6 +358,11 @@ audioTags中，copyright详细内容如下：
 | businessLabel3      | string   | 三级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessDescription | string   | 描述     | 是           | 注意：businessLabels不为空时必返 |
 
+其中，<span id="auxInfo">auxInfo</span>详细内容如下：
+
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
+| :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
+| errorCode    | int        | 状态码                 | 是           |<p>状态码</p><p>2003：音频下载失败</p>  |
 
 ## 示例
 
