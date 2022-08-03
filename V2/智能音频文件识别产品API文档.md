@@ -395,7 +395,7 @@ code和message的列表如下：
 ```json
 {
     "accessKey": "****************",
-    "type": "DEFAULT",
+    "type": "PORN_AD_POLITICS",
     "functionType": "COPYRIGHT",
     "appId": "default",
     "btId": "test01",
