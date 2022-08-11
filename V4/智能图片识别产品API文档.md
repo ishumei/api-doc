@@ -95,8 +95,8 @@
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
-| appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
-| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准<br/>可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
+| appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 需要联系数美开通，请以数美单独提供的传值为准 |
+| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长10MB，[详见data参数](#data) |
@@ -546,8 +546,8 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | 必传参数 | 公司密钥：用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 |
-| appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据默认应用值：<br/>`default`传递其他值时需联系数美服务协助开通 |
-| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
+| appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
+| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
@@ -640,8 +640,8 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
-| appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据<br/>默认应用值：`default`<br/>传递其他值时需联系数美服务协助开通 |
-| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
+| appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
+| eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
@@ -994,8 +994,8 @@ UTF-8
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | 必传参数 | 由数美提供 |
-| appId | string | 应用标识 | 必传参数 | 用于区分应用，可选值如下：`default`：默认应用<br/>额外应用值需数美单独分配提供 |
-| eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准，可选值：<br/>`default`：默认<br/>`headImage`：头像<br/>`album`：相册<br/>`dynamic`：动态<br/>`article`：帖子<br/>`comment`：评论<br/>`roomCover`：房间封面<br/>`groupMessage`：群聊图片<br/>`message`：私聊图片<br/>`product`：商品图片 |
+| appId | string | 应用标识 | 必传参数 | 用于区分应用，需要联系数美开通，请以数美单独提供的传值为准 |
+| eventId | string | 事件标识 | 必传参数 |  需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | **监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入）** |
 | businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
