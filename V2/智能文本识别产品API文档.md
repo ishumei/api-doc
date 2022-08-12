@@ -53,7 +53,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
+| appId | string | 应用标识 | Y | 用于区分应用，需要联系数美开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
