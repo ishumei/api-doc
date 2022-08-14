@@ -59,6 +59,10 @@ http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
 
 http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
 
+新加坡集群：
+
+http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/audio
+
 ### 字符编码格式
 
 使用UTF-8字符集进行编码
