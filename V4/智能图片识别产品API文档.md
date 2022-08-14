@@ -154,6 +154,8 @@ data中，extra的内容如下：
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
 
 其中，riskDetail结构如下：
@@ -296,6 +298,16 @@ tokenLabels的详情内容如下：
 | machine_account_risk | json_object    | 机器控制相关风险 | 否       |                            |
 | UGC_account_risk     | json_object    | UGC内容相关风险  | 否       |                            |
 | scene_account_risk   | json_object    | 场景账号风险     | 否       | 特殊场景才可取到，如航司等 |
+
+其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+
+| 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
+| ----------- | ------ | ------------ | -------- | -------------------------- |
+| label1      | string | 一级标签     | 否       |                            |
+| label2      | string | 二级标签     | 否       |                            |
+| label3      | string | 三级标签     | 否       |                            |
+| description | string | 标签描述     | 否       |                            |
+| timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
 
 machine_account_risk的详情内容如下：
 
