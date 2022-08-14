@@ -191,6 +191,8 @@
 | status | int | 提示服务是否超时 | 是 | 提示服务是否超时<br/>0：正常<br/>501：超时 |
 | detail | json_object | 风险详情 | 否 | [详见detail参数](#detail) |
 | businessLabels | json_object | 业务标签 | 否 | 业务标签结果，仅在传入参数businessType不为空时存在，[详见businessLabels结构](#businessLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 
 其中，code和message的列表如下：
 
@@ -297,6 +299,16 @@ businessDetail中，persons数组每个元素的内容如下：
 | location | int_array | 人像位置坐标 | 否 | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
 
+
+其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+
+| 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
+| ----------- | ------ | ------------ | -------- | -------------------------- |
+| label1      | string | 一级标签     | 否       |                            |
+| label2      | string | 二级标签     | 否       |                            |
+| label3      | string | 三级标签     | 否       |                            |
+| description | string | 标签描述     | 否       |                            |
+| timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
 
 视觉riskType取值如下：
 
