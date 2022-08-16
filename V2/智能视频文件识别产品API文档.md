@@ -288,7 +288,7 @@ addition中，audio_evidence的每个元素详细内容如下：
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
 | riskLevel | string | 处置建议 | 是 | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政/国歌<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>260：一号领导人声纹<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>520：未成年人<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
 | riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br/>1000：无风险 <br/>1001：文字 <br/>1002：视觉图片 <br/>1003：音频语音 |
 | isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br/>0:表示没有唱歌，<br/>1:表示唱歌。<br/>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.addition.audio_evidence.language) |
@@ -496,7 +496,7 @@ addition中，audio_evidence的每个元素详细内容如下：
 | description | string | 音频片段风险原因描述 | 是 | |
 | requestId | string | 音频片段唯一标识 | 是 | 一般用户历史记录查询某一片段内容 |
 | riskLevel | string | 处置建议 | 是 | 取值范围：<br/>PASS：正常 <br/>REVIEW：审核 <br/>REJECT：拒绝|
-| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
+| riskType | int | 风险类型 | 是 | 标识风险类型，可能取值：<br/>0：正常<br/>100：涉政/国歌<br/>110: 暴恐<br/>200：色情<br/>210：辱骂<br/>250：娇喘<br/>260：一号领导人声纹<br/>300：广告<br/>400：灌水<br/>500：无意义<br/>520：未成年人<br/>600 : 违禁<br/>700：其他<br/>720：黑账号<br/>730：黑IP<br/>800：高危账号<br/>900：自定义 |
 | riskSource | int  | 音频转译文本的结果 | 是 |风险来源，可能取值：<br/>1000：无风险 <br/>1001：文字 <br/>1002：视觉图片 <br/>1003：音频语音 |
 | isSing | int  | 该条音频片段是否唱歌 | 否 | 取值范围：<br/>0:表示没有唱歌，<br/>1:表示唱歌。<br/>仅当type传入值包含SING时返回。 |
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.query.language) |
