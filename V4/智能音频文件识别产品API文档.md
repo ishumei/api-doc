@@ -349,7 +349,6 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "appId": "default",
     "eventId": "default",
     "type": "PORN_AD_POLITICS_MOAN_ABUSE_GENDER_TIMBRE_SING_LANGUAGE",
-    "functionType": "COPYRIGHT",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
@@ -357,10 +356,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "data": {
         "returnAllText": 1,
         "room": "general",
-        "tokenId": "token-short",
-        "copyright": {
-          "resultCount": 10,
-          "categoryId": "ALLOWLIST_BLOCKLIST"
+        "tokenId": "token-short"
         }
     }
 }'
