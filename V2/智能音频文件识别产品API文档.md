@@ -344,18 +344,13 @@ code和message的列表如下：
 {
     "accessKey":"****************",
     "type": "DEFAULT",
-    "functionType": "COPYRIGHT",
     "appId": "default",
     "btId": "test01",
     "data": {
         "tokenId": "test_01",
         "url": "http://xxxxxxxx.mp3",
         "channel": "IM_MESSAGE",
-        "returnAllText": true,
-        "copyright": {
-          "resultCount": 10,
-          "categoryId": "ALLOWLIST_BLOCKLIST"
-        }
+        "returnAllText": true
     },
     "callback": "http://xxxxxxxxx",
     "callbackParam": {
@@ -371,7 +366,6 @@ code和message的列表如下：
 {
     "accessKey": "****************",
     "type": "DEFAULT",
-    "functionType": "COPYRIGHT",
     "appId": "default",
     "btId": "test01",
     "data": {
