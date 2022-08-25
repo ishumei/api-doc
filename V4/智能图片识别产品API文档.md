@@ -1320,6 +1320,7 @@ businessLabels数组中的businessDetail的内容如下：
 | TAINTEDSTAR | 人物 - 劣迹人物 |  |
 | POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
 | DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
+| TEMPERAMENT | 人像 - 人像气质 | 如成熟大叔、靓丽女神等 |
 | BODY | 人体 | 如识别头发、眼睛、鼻子等 |
 | PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
 | PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
