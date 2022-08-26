@@ -1313,6 +1313,7 @@ businessLabels数组中的businessDetail的内容如下：
 | AGE           | 人脸 - 年龄   |  |
 | GENDER        | 人脸 -性别   |  |
 | BEAUTY        | 人脸 - 颜值   |  |
+| RACE          | 人脸 - 人种   | 如黑种人、白种人、黄种人 |
 | FACEDETECTION | 人脸-人脸检测 | 如识别真人、口罩人脸、正脸、侧脸等 |
 | FAKEFACE | 人脸 - 伪造人脸 |  |
 | FACECOMPARE | 人脸-人脸对比 |  |
