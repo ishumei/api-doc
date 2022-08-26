@@ -554,6 +554,7 @@ addition中，videoCoverDetail的详细内容同subtitleDetail
 | BEAUTY                | 人脸 - 颜值打分                |
 | FACEDETECTION         | 人脸 - 人脸检测                |
 | FAKEFACE              | 人脸 - 伪造人脸                |
+| RACE                  | 人脸-人种                      |
 | PUBLICFIGURE          | 人物 - 公众人物                |
 | TAINTEDSTAR           | 人物 - 劣迹人物                |
 | POSTURE               | 人像 - 人像姿态                |
