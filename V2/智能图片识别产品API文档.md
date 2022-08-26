@@ -736,6 +736,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | FACEDETECTION | 人脸-人脸检测 | 如识别真人、口罩人脸、正脸、侧脸等 |
 | FAKEFACE | 人脸 - 伪造人脸 |  |
 | FACECOMPARE | 人脸-人脸对比 |  |
+| RACE | 人脸-人种 | 如黑种人、白种人、黄种人 |
 | PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
 | TAINTEDSTAR | 人物 - 劣迹人物 |  |
 | POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
