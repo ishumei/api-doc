@@ -234,9 +234,12 @@ detail结构如下：
 
 | **参数名称** | **类型** | **是否必选** | **说明** |
 | :----------- | :------- | :----------- | :------- |
-| errorCode    | int      | Y            | 状态码   |
+        |
+| errorcode    | int      | Y            | 状态码   |
+| dupRequestId | string       |              | 否           | 表示重复的requestId<br/>当errorCode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口 |
 
-errorCode对应说明如下：
+
+errorcode对应说明如下：
 
 | **code** | **message** |
 | :------- | :---------- |
