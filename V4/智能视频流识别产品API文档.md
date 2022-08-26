@@ -535,6 +535,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | --------------------- | ------------------------------ |
 | AGE                   | 人脸 - 年龄                    |
 | GENDER                | 人脸 - 性别                    |
+| RACE                  | 人脸 - 人种                    |
 | BEAUTY                | 人脸 - 颜值打分                |
 | FACEDETECTION         | 人脸 - 人脸检测                |
 | FAKEFACE              | 人脸 - 伪造人脸                |
