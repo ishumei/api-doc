@@ -51,7 +51,6 @@
 ### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-videostream-bj.fengkongcloud.com/videostream/v4` | 中文视频流 |
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/videostream/v4` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
@@ -488,7 +487,6 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-videostream-bj.fengkongcloud.com/finish_videostream/v4` | 中文视频流 |
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/finish_videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
