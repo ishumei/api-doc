@@ -109,9 +109,11 @@ POST
 | tokenId       | string      | N            | 用户账号标识                                                                                                                                                                |
 | channel       | string      | N            | 业务场景名称，见渠道配置表                                                                                                                                                  |
 | returnAllText | bool        | N            | 取值为true时，返回所有音频片段识别结果（每10秒一个音频片段）；取值为false时，返回风险片段（riskLevel为REJECT或REVIEW）识别结果。默认为false。                               |
-| nickname      | string      | N            | 用户昵称                                                                                                                                                                    |
-| timestamp     | int         | N            | 时间戳（毫秒级）                                                                                                                                                            |
-| room          | string      | N            | 房间号                                                                                                                                                                      |                                                                                                            
+| audioDetectStep | int | N | 间隔审核步长，取值范围为1-5整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
+| nickname      | string      | N            | 用户昵称  |                                                                                                                                                                  
+| timestamp     | int         | N            | 时间戳（毫秒级）  |                                                                                                                                                          
+| room          | string      | N            | 房间号     |                                                                                                                                                                                                       
+
 *formatInfo内容如下：*
 
 | **参数名称** | **类型** | **是否必选** | **说明**                                                                          |
