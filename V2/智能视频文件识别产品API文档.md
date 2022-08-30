@@ -581,6 +581,10 @@ addition中，videoCoverDetail的详细内容同subtitleDetail
 | NEWSAPPSLOGO          | LOGO - 新闻阅读类应用          |
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用          |
 | SPORTSLOGO            | LOGO - 体育赛事                |
+| APPARELLOGO           | LOGO - 鞋帽服饰类品牌          |
+| ACCESSORIESLOGO       | LOGO - 饰品首饰类品牌          |
+| COSMETICSLOGO         | LOGO - 化妆品类品牌            |
+| FOODLOGO              | LOGO - 食品类品牌              |
 | VEHICLE               | 物品 - 交通工具                |
 | BUILDING              | 物品 - 建筑                    |
 | TABLEWARE             | 物品 - 餐具                    |
