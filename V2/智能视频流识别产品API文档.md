@@ -51,7 +51,6 @@
 ### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-videostream-bj.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
@@ -360,7 +359,6 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-videostream-bj.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/finish_videostream` | 中文视频流 |
