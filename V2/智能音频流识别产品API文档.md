@@ -163,11 +163,12 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | <p>流类型:可选择：<br/>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
+| streamType    | string      | Y            | <p>流类型,可选择：</p>普通流地址：NORMAL<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/></p><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
 | zegoParam     | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
 | trtcParam     | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
+| volcParam     | json_object | Y            | 火山引擎录制参数（当streamType为VOLC时必传），详见扩展参数                                                    |
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
 | callbackParam | json_object | N            | 透传参数                                                                                                  |
@@ -218,6 +219,19 @@ POST
 | userSig      | string   | Y            | 录制userId对应的验证签名，相当于登录密码                                                                                                                   |
 | roomId       | int      | Y            | <p>房间号码，取值范围：【1-4294967294】</p><p>roomId与strRoomId必传一个，若两者都有值优先选用roomId</p>                                                    |
 | strRoomId    | string   | Y            | <p>房间号码<br/>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
+
+其中data.volcParam内容如下:
+
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                                                                                                                                                                   |
+| :-------------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| appId           | string   | Y            | 火山引擎提供的appId，注意与数美的appId区分开                                                                                                                                                                   |
+| roomId         | string   | Y            | 房间号                                                                                                                                                                |
+| token           | string   | Y            | 火山引擎token，详见：https://www.volcengine.com/docs/6348/70121 |
+| userId            | string      | Y            | 分配给录制端的userId                                           |
+| subscribeMode | string     | N            | <p>订阅模式:</p><p>AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为。</p><p>UNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流。</p><p>TRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。</p>                                                                            |
+| trustedUserIdList  | string_array      | N            | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。      |
+| untrustedUserIdList   | string_array   | N            | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。  |                     
+
 
 ### 返回参数
 
