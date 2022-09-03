@@ -95,10 +95,11 @@
 | --- | --- | --- | --- | --- |
 | lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核<br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
+| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核<br/>`VOLC`：火山引擎审核<br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#uploadV4.requestParameters.data.agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#uploadV4.requestParameters.data.trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#uploadV4.requestParameters.data.zegoParam) |
+| volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#uploadV4.requestParameters.data.volcParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
@@ -147,6 +148,15 @@ data 中，extra的内容如下
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，用于token登陆（每次开流必须主动调用zego接口获取新的token） |
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
 | testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
+
+其中，data.volcParam内容如下：
+
+| 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
+| --- | --- | --- | --- | --- |
+| appId | string | 火山提供的应用标识 | 必传参数 | 
+| roomId | string | 房间号 | 必传参数 | 
+| userId | string | 分配给录制端的userId | 必传参数 | 
+| token | string | 录制userId对应的验证签名，相当于登录密码 | 必传参数 |
 
 ### 返回参数
 
