@@ -322,71 +322,83 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
 
 ```json
 {
-    "requestId":"db45ca0256775771262c7ca5419ca85f_0",
+    "requestId":"b639042cbfe229359e672074762c5583_2",
+    "btid":"1637847086612",
     "code":1100,
     "message":"成功",
-    "btid":"1604285930313",
-    "riskLevel":"PASS",
-    "riskLabel1":"normal",
-    "riskLabel2":"",
-    "riskLabel3":"",
-    "riskDescription":"正常",
-    "riskDetail":{
-        "audioEndtime":"2020-11-02 10:59:13",
-        "audioStartTime":"2020-11-02 10:59:03",
-        "audioText":"坚持爱汇仁牌六味地黄丸会人守护爱数学作业拍一下语文作业拍一下",
-        "audioUrl":"http://voice-bj.bj.bcebos.com/20201102/db45ca0256775771262c7ca5419ca85f_0.mp3"
-    },
-    "businessLabels":{
-        "gender":{
-            "label":"女性",
-            "probability":79
-        },
-        "language":[
-            {
-                "label":2,
-                "probability":0
-            },
-            {
-                "label":0,
+    "audioDetail":{
+        "audioTags":{
+            "gender":{
+                "label":"男性",
                 "probability":99
             },
+            "language":[
+                {
+                    "label":0,
+                    "probability":99
+                },
+                {
+                    "label":1,
+                    "probability":0
+                }
+            ],
+            "song":0,
+            "timbre":[
+                {
+                    "label":"大叔",
+                    "probability":7
+                },
+                {
+                    "label":"青年",
+                    "probability":34
+                },
+                {
+                    "label":"老年",
+                    "probability":58
+                },
+                {
+                    "label":"正太",
+                    "probability":0
+                }
+            ]
+        },
+        "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都",
+        "audioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=c0f9a66334bc00e1d92da40974756b9b4b9e7b26",
+        "auxInfo":{
+            "beginProcessTime":1637847113897,
+            "finishProcessTime":1637847114514,
+            "room":"test1"
+        },
+        "businessLabels":[
             {
-                "label":1,
+                "businessDescription":"未成年人:未成年人:未成年人",
+                "businessLabel1":"minor",
+                "businessLabel2":"weichengnianren",
+                "businessLabel3":"weichengnianren",
+                "confidenceLevel":0,
                 "probability":0
             }
         ],
-        "song":0,
-        "timbre":[
-            {
-                "label":"女王",
-                "probability":14
-            },
-            {
-                "label":"御姐",
-                "probability":13
-            },
-            {
-                "label":"少女",
-                "probability":15
-            },
-            {
-                "label":"大妈",
-                "probability":11
-            },
-            {
-                "label":"萝莉",
-                "probability":44
-            }
-        ]
+        "preAudioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=3a261ca2e46b32ec218be69a5802ec0e04c2c627",
+        "riskDescription":"正常",
+        "riskDetail":{
+            "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都"
+        },
+        "riskLabel1":"normal",
+        "riskLabel2":"normal",
+        "riskLabel3":"normal",
+        "riskLevel":"REJECT"
     },
     "requestParams":{
+        "channel":"default",
         "returnAllText":1,
         "returnPreAudio":1,
         "returnPreText":1,
-        "room":"1604285930313",
-        "tokenId":"2222",
-        "url":"rtmp://58.200.131.2:1935/livetv/hunantv?10"
+        "role":"USER",
+        "room":"test1",
+        "streamType":"DEFAULT",
+        "tokenId":"test_audio_v4",
+        "url":"http://dyscdnali1.douyucdn.cn/live/288016rlols5.flv?uuid=1637847086612"
     }
 }
 ```
