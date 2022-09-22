@@ -88,7 +88,8 @@
 | returnFinishInfo | int     | 音频流结束回调通知 | N            | 可选值如下（默认值为`0`）：<br/>`0`：审核结束时不发送结束通知<br/>`1`：审核结束时发起结束通知，回调参数增加statCode状态码                                                                                                                                             |
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
-| anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入                                                                                                                 |
+| anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入 |
+| audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
 
 data中，zegoParam详细内容如下：
 
