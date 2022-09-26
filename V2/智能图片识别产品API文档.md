@@ -215,6 +215,7 @@
 | model | string | 策略规则标识 | 是 | 用来标识命中的策略规则。<br/>注：该参数为旧版API返回参数，兼容保留，后续版本会取消，请勿依赖此参数，仅供参考 |
 | description | string | 拦截的风险原因解释 | 是 | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | descriptionV2 | string | 新版策略规则风险原因描述 | 否 | 该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
+| hits | string_array | 命中的策略集 | 否 | 默认为空，需与数美协商开通 |
 | text | string | OCR识别出的文字 | 否 | OCR识别出的文字，可根据需求返回该参数 |
 | matchedItem | string | 命中的具体敏感词 | 否 | 命中的具体敏感词（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedList | string | 命中敏感词所在的名单名称 | 否 | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
@@ -408,6 +409,32 @@ businessDetail中，persons数组每个元素的内容如下：
   "detail":{
     "description":"二维码：微信二维码：微信二维码",
     "descriptionV2":"二维码：微信二维码：微信二维码",
+    "hits":[
+      {
+      "description":"⼴告：联系⽅式：联系⽅式",
+      "descriptionV2":"⼴告：联系⽅式：联系⽅式",
+      "model":"MA001020002001004",
+      "riskLevel":"REJECT",
+      "riskType":300,
+      "score":675
+       },
+       {
+      "description":"⼆维码",
+      "descriptionV2":"⼆维码：⼆维码：⼆维码",
+      "model":"MA001018001001001",
+      "riskLevel":"REJECT",
+      "riskType":310,
+      "score":700
+       },
+       {
+      "description":"⼆维码：微信⼆维码：微信⼆维码",
+      "descriptionV2":"⼆维码：微信⼆维码：微信⼆维码",
+      "model":"MA001018002001001",
+      "riskLevel":"REJECT",
+      "riskType":310,
+      "score":850
+       }
+    ],
     "model":"MA001018002001001",
     "original_text":"黑白印象0!度門，福建掃描上面的 QR Code 加我 Wechat",
     "original_text_context":"黑白印象0!度門，福建掃描上面的 QR Code 加我 Wechat",
@@ -458,6 +485,8 @@ businessDetail中，persons数组每个元素的内容如下：
     "riskLevel":"REJECT",
     "detail":{
         "description":"涉政文字",
+        "hits":[
+        ]
         "matchedItem":"xxx",
         "matchedList":"test",
         "model":"M02601",
@@ -591,6 +620,16 @@ curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","data":{"imgs":[
       "detail":{
         "description":"涉政：敏感政治事件：六四事件",
         "descriptionV2":"涉政：敏感政治事件：六四事件",
+        "hits":[
+          {
+            "description":"涉政：敏感政治事件：六四事件",
+            "descriptionV2":"涉政：敏感政治事件：六四事件",
+            "model":"MA001001007006003",
+            "riskLevel":"REJECT",
+            "riskType":100,
+            "score":850
+           }
+        ],
         "model":"MA001001007006003",
         "riskSource":1002,
         "riskType":100
