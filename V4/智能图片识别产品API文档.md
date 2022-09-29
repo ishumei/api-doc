@@ -518,12 +518,7 @@ scene_account_risk的详情内容如下：
         "riskType":100,
         "riskSource":1002
     },
-    "status":0,
-    "callbackParam":{
-        " param1":1,
-        " param2":"qew",
-        " param3":true
-       }
+    "status":0
     }
 }
 ```
