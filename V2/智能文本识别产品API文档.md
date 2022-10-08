@@ -1,11 +1,5 @@
 # 数美智能文本识别产品API接口文档
 
-- - - - -
-
-***版权所有 翻版必究***
-
-- - - - -
-
 目录
 
 - [数美智能文本识别产品API接口文档](#数美智能文本识别产品api接口文档)
@@ -54,14 +48,14 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，需要联系数美开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
+| type | string | 检测的风险类型或者场景 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  其中，data的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| text | string | 需要检测的文本（200字内效果最佳） | Y | 文本字数上限2000字，<br/>若传递nickname字段，则会同时校验文本+昵称内容。<br/>注意：有超过2000字以上文本内容建议联系数美协商 |
+| text | string | 需要检测的文本 | Y | 文本字数上限1万字，超过1万字只截取前1万字进行识别<br/>若传递nickname字段，则会同时校验文本+昵称内容。 |
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | gender | int | 用户性别 | N | 可选值<br/>`0`:女性<br/>`1`:男性<br/> |
 | channel | string | 业务场景 | N | 渠道表配置 |
