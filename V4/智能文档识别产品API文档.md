@@ -103,6 +103,7 @@
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
 | callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
+| returnCount | int | 是否需要返回数美统计的字符数与图片数 | N | 可选值：<br/> `0`：不返回 <br/> `1`：返回 <br/> 默认值为0 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  其中，<span id="data">data</span>的内容如下：
@@ -133,6 +134,7 @@
 | riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
 | status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
+| count | json_object | 返回当前请求中的字符数与图片数 | N | [详见count参数](#Acount) |
 
 <span id="Adetail">其中detail字段如下：</span>
 
@@ -189,6 +191,13 @@
 | word         | string   | 辅助信息     | N            | 命中的敏感词   |
 | position     | string   | 辅助信息     | N            | 敏感词所在位置 |
 
+<span id="Acount">其中count字段如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
+| ------------ | -------- | ------------ | ------------ | -------------- |
+| textNum      | int   | 当前请求中的字符数，与计费数目一致     | N            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
+| imgNum       | int   | 当前请求中的图片数，与计费数目一致     | N            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
+
 ### <span id="Ab2">回调模式</span>
 
 如果在请求参数中指定了 callback，系统会自动推送机审结果至指定URL
@@ -218,6 +227,7 @@
 {"accessKey":"xxxxxxxx",
  "type":"NOVEL", 
  "appId":"xxxx",
+ "returnCount":1,
  "data":{
      "tokenId":"xxxx",
      "contents":"xxxx",
@@ -268,7 +278,11 @@
             "300":5
         }
     },
-    "status":0
+    "status":0,
+    "count":{
+        "textNum":"100",
+        "imgNum":"10"
+        }
 }
 ```
 
@@ -286,10 +300,11 @@
  "callbackParam":{
      "callbackId":"Id123"
  },
+ "returnCount":1
  "data"{
-  "tokenId":"xxxx",
-  "contents":"xxxx",
-  "returnHtml":true
+     "tokenId":"xxxx",
+     "contents":"xxxx",
+     "returnHtml":true
  }
 }
 ```
@@ -311,16 +326,16 @@
   "status": 0
 }
 
-回调结果：
+回调结果:
 
 {
     "code":1100,
     "message":"成功",
     "requestId":"xxxxxxxxxxxxxxxxxx",
     "score":700,
-"riskLevel":"REJECT",
-"callbackParam":{
-"callbackId"："Id123"
+    "riskLevel":"REJECT",
+    "callbackParam":{
+        "callbackId":"Id123"
 }
     "detail":{
         "description":"图片违规",
@@ -355,7 +370,11 @@
             "300":5
         }
     },
-    "status":0
+    "status":0,
+    "count":{
+        "textNum":"100",
+        "imgNum":"10"
+        }
 }
 ```
 
@@ -397,6 +416,7 @@
 | txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:默认识别涉政、色情、广告，等 价于 POLITICS_PORN_AD<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`NONE`:不需要识别文本<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉 政识别 |
 | appId          | string       | 应用标识             | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
 | data           | json\_object | 请求的数据内容       | Y            | 最长1MB, [详见data参数](#data)                               |
+| returnCount | int | 是否需要返回数美统计的字符数与图片数 | N | 可选值：<br/> `0`：不返回 <br/> `1`：返回 <br/> 默认值为0 |
 
  其中，data的内容同同步接口：
 
@@ -429,6 +449,7 @@
     "tokenId":"",
     "serviceId":"POST_ARTICLE",
     "appId":"",
+    "returnCount":"1",
     "data":{
         "channel":"",
         "contents":"<div>凡涉及到发进来客人爱斯达克解放军阿卡丽色绕口令加凉开水的解放路口而爱上对方<img src=\"http://www.chedan5.net/upload/article/202012/05/1854275fcb66e37e370KkBbBv_thumb.jpg\" alt=\"图片加载失败\"></div>",
@@ -641,7 +662,11 @@
                 "message":"正常",
                 "requestId":"tye7ert12asdfasdf31236633346662333312",
                 "riskLevel":"REJECT",
-                "score":700
+                "score":700,
+                "count":{
+                    "textNum":"100",
+                    "imgNum":"10"
+                }
             },
             "mergeResult":{
                 "riskLevel":"REJECT"
