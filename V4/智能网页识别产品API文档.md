@@ -228,7 +228,7 @@
 {"accessKey":"xxxxxxxx",
  "type":"NOVEL", 
  "appId":"xxxx",
- "returnCount":"1",
+ "returnCount":1,
  "data":{
      "tokenId":"xxxx",
      "contents":"xxxx",
@@ -301,7 +301,7 @@
  "callbackParam":{
      "callbackId":"Id123"
  },
- "returnCount":"1",
+ "returnCount":1,
  "data"{
      "tokenId":"xxxx",
      "contents":"xxxx",
@@ -450,6 +450,7 @@
     "tokenId":"",
     "serviceId":"POST_ARTICLE",
     "appId":"",
+    "returnCount":1,
     "data":{
         "channel":"",
         "contents":"<div>凡涉及到发进来客人爱斯达克解放军阿卡丽色绕口令加凉开水的解放路口而爱上对方<img src=\"http://www.chedan5.net/upload/article/202012/05/1854275fcb66e37e370KkBbBv_thumb.jpg\" alt=\"图片加载失败\"></div>",
