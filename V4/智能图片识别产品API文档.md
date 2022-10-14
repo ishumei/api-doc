@@ -507,7 +507,6 @@ scene_account_risk的详情内容如下：
     "code":1100,
     "message":"成功",
     "requestId":"1e6e4e43cd35b545418fcef7d0f77ef4",
-    "taskId":"5ba3efe0-949ccac9-4e9ba8b2-31f84bdd",
     "score":999,
     "riskLevel":"REJECT",
     "detail":{
