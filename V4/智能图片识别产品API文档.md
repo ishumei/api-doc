@@ -115,7 +115,7 @@
 | lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取git等动图帧数，最大为20帧，默认为3帧，计费按照实际截帧数量计费，如默认为截取3帧时按照3帧进行计费 |
-| interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
+| interval | int | gif截帧图片的检测间隔 | 非必传参数 | 默认值为`1`，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo)，如需要了解或使用相似帧功能，请联系客服咨询 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
