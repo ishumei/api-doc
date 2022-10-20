@@ -133,6 +133,7 @@
 | riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
 | status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
+| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#AauxInfo)  |
 
 <span id="Adetail">其中detail字段如下：</span>
 
@@ -188,6 +189,13 @@
 | ------------ | -------- | ------------ | ------------ | -------------- |
 | word         | string   | 辅助信息     | N            | 命中的敏感词   |
 | position     | string   | 辅助信息     | N            | 敏感词所在位置 |
+
+<span id="AauxInfo">其中auxInfo字段如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
+| ------------ | -------- | ------------ | ------------ | -------------- |
+| textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
+| imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
 
 ### <span id="Ab2">回调模式</span>
 
@@ -268,7 +276,11 @@
             "300":5
         }
     },
-    "status":0
+    "status":0,
+    "auxInfo":{
+         "textNum":"100",
+         "imgNum":"10"
+    }
 }
 ```
 
@@ -286,10 +298,10 @@
  "callbackParam":{
      "callbackId":"Id123"
  },
- "data"{
-  "tokenId":"xxxx",
-  "contents":"xxxx",
-  "returnHtml":true
+ "data":{
+     "tokenId":"xxxx",
+     "contents":"xxxx",
+     "returnHtml":true
  }
 }
 ```
@@ -318,10 +330,10 @@
     "message":"成功",
     "requestId":"xxxxxxxxxxxxxxxxxx",
     "score":700,
-"riskLevel":"REJECT",
-"callbackParam":{
-"callbackId"："Id123"
-}
+    "riskLevel":"REJECT",
+    "callbackParam":{
+        "callbackId":"Id123"
+    }
     "detail":{
         "description":"图片违规",
         "hits":[
@@ -355,7 +367,11 @@
             "300":5
         }
     },
-    "status":0
+    "status":0,
+    "auxInfo":{
+         "textNum":"100",
+         "imgNum":"10"
+    }
 }
 ```
 
@@ -641,7 +657,11 @@
                 "message":"正常",
                 "requestId":"tye7ert12asdfasdf31236633346662333312",
                 "riskLevel":"REJECT",
-                "score":700
+                "score":700,
+                "auxInfo":{
+                    "textNum":"100",
+                    "imgNum":"10"
+                }
             },
             "mergeResult":{
                 "riskLevel":"REJECT"
