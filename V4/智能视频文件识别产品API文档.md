@@ -861,485 +861,230 @@ code请求返回码列表如下：
 
 ```json
 {
-    "code": 1100,
-    "message": "成功",
-    "requestId": "1639731708004",
-    "btId": "btid_test",
-    "frameDetail": [
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "涉政:负面事件:恶性刑事案件",
-                    "riskLabel1": "politics",
-                    "riskLabel2": "fumianshijian",
-                    "riskLabel3": "exingxingshianjian",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "涉政:政治象征:军装",
-                    "riskLabel1": "politics",
-                    "riskLabel2": "zhengzhixiangzheng",
-                    "riskLabel3": "junzhuang",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.61328125
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "抖音抖音号：xxx劳荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别今天上午，荣技案开庭。法庭审理中，检察机关指控劳荣枝在南昌，温州、常州合肥四起犯罪事实，涉谦犯故意杀人、绑架、抢劫罪。",
-            "imgUrl": "http://xxx.cos.ap-beijing.xxx.com/image202112171639004_v0.jpg",
-            "requestId": "1639731708004_v0",
-            "riskDescription": "涉政:负面事件:恶性刑事案件",
-            "riskDetail": {
-                "riskSource": 1001
-            },
-            "riskLabel1": "politics",
-            "riskLabel2": "fumianshijian",
-            "riskLabel3": "exingxingshianjian",
-            "riskLevel": "REJECT",
-            "time": 0
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "涉政:涉政:涉政",
-                    "riskLabel1": "politics",
-                    "riskLabel2": "shezheng",
-                    "riskLabel3": "shezheng",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "涉政:政治象征:军装",
-                    "riskLabel1": "politics",
-                    "riskLabel2": "zhengzhixiangzheng",
-                    "riskLabel3": "junzhuang",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.87109375
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "抖音直播 抖音号：xxx劳荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别12月21日上午南昌市中级人民法院今天上午，劳荣枝案开庭。法庭审理中，检察机关指控劳荣枝在南昌、温州、常州合肥四起犯罪事实，涉谦犯故意杀人、绑架、抢劫罪。",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image20211171639731708004_v3.jpg",
-            "requestId": "1639731708004_v3",
-            "riskDescription": "涉政:涉政:涉政",
-            "riskDetail": {
-                "ocrText": {
-                    "matchedLists": [
-                        {
-                            "name": "测试01",
-                            "words": [
-                                {
-                                    "position": [
-                                        17,
-                                        18,
-                                        19
-                                    ],
-                                    "word": "111"
-                                }
-                            ]
-                        }
-                    ],
-                    "text": "抖音直播 抖音号：xxx劳荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别12月21日上午南昌市中级人民法院今天上午，劳荣枝案开庭。法庭审理中，检察机关指控劳荣枝在南昌、温州、常州合肥四起犯罪事实，涉谦犯故意杀人、绑架、抢劫罪。"
-                },
-                "riskSource": 1001
-            },
-            "riskLabel1": "politics",
-            "riskLabel2": "shezheng",
-            "riskLabel3": "shezheng",
-            "riskLevel": "REJECT",
-            "time": 3
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "色情:性骚扰:重度性骚扰",
-                    "riskLabel1": "porn",
-                    "riskLabel2": "xingsaorao",
-                    "riskLabel3": "zhongduxingsaorao",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.625
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "直播  机荣荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别9荣技法庭上多次为自己辩解，称20年来过着暗无天日的生话。她称自己會为法子英多次堕胎，常被酸打、。抖音抖音号：xxx",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image202112171639731708004_v6.jpg",
-            "requestId": "1639731708004_v6",
-            "riskDescription": "色情:性骚扰:重度性骚扰",
-            "riskDetail": {
-                "ocrText": {
-                    "riskSegments": [
-                        {
-                            "position": [
-                                23,
-                                24
-                            ],
-                            "segment": "性侵"
-                        }
-                    ],
-                    "text": "直播  机荣荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别9荣技法庭上多次为自己辩解，称20年来过着暗无天日的生话。她称自己會为法子英多次堕胎，常被酸打、。抖音抖音号：xxx"
-                },
-                "riskSource": 1001
-            },
-            "riskLabel1": "porn",
-            "riskLabel2": "xingsaorao",
-            "riskLabel3": "zhongduxingsaorao",
-            "riskLevel": "REJECT",
-            "time": 6
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "涉政:负面事件:恶性刑事案件",
-                    "riskLabel1": "politics",
-                    "riskLabel2": "fumianshijian",
-                    "riskLabel3": "exingxingshianjian",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.71484375
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "直播  礼劳荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别我们的愿望是干刀万别被害人熊义弟媳：熊正英抖音抖音号：xxx",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image%2F20211217%2F1639731708004_v9.jpg",
-            "requestId": "1639731708004_v9",
-            "riskDescription": "涉政:负面事件:恶性刑事案件",
-            "riskDetail": {
-                "ocrText": {
-                    "riskSegments": [
-                        {
-                            "position": [
-                                5,
-                                6,
-                                7
-                            ],
-                            "segment": "劳荣枝"
-                        }
-                    ],
-                    "text": "直播  礼劳荣枝拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别我们的愿望是干刀万别被害人熊义弟媳：熊正英抖音抖音号：xxx"
-                },
-                "riskSource": 1001
-            },
-            "riskLabel1": "politics",
-            "riskLabel2": "fumianshijian",
-            "riskLabel3": "exingxingshianjian",
-            "riskLevel": "REJECT",
-            "time": 9
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "色情:性骚扰:重度性骚扰",
-                    "riskLabel1": "porn",
-                    "riskLabel2": "xingsaorao",
-                    "riskLabel3": "zhongduxingsaorao",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.79296875
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "直播  荣技拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别”此前据法子英供述1996年月为抢劫钱财劳荣技诱骗商人熊启义至出租屋事先躲藏在屋内的法子英将其杀害再将其胶解太恶毒了被害人熊后义弟媳：熊正英抖音抖音号：xxx",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image%2F20211217%2F1639731708004_v12.jpg",
-            "requestId": "1639731708004_v12",
-            "riskDescription": "色情:性骚扰:重度性骚扰",
-            "riskDetail": {
-                "ocrText": {
-                    "riskSegments": [
-                        {
-                            "position": [
-                                21,
-                                22
-                            ],
-                            "segment": "性侵"
-                        }
-                    ],
-                    "text": "直播  荣技拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别”此前据法子英供述1996年月为抢劫钱财劳荣技诱骗商人熊启义至出租屋事先躲藏在屋内的法子英将其杀害再将其胶解太恶毒了被害人熊后义弟媳：熊正英抖音抖音号：xxx"
-                },
-                "riskSource": 1001
-            },
-            "riskLabel1": "porn",
-            "riskLabel2": "xingsaorao",
-            "riskLabel3": "zhongduxingsaorao",
-            "riskLevel": "REJECT",
-            "time": 12
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "色情:性骚扰:重度性骚扰",
-                    "riskLabel1": "porn",
-                    "riskLabel2": "xingsaorao",
-                    "riskLabel3": "zhongduxingsaorao",
-                    "riskLevel": "REJECT"
-                },
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.79296875
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "直播  物哪啊广播电视台劳荣技拒绝认罪当庭哭诉称自己是男友的性侵和赚钱工具爱害者家属：“希望她被干刀万别”两人随后来到熊家劫财法子英将熊启义的妻女杀害女儿当时3岁连个三岁的小孩都不放过被害人熊义弟编：熊正英抖音抖音号：xxx",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image%2F20211217%2F1639731708004_v15.jpg",
-            "requestId": "1639731708004_v15",
-            "riskDescription": "色情:性骚扰:重度性骚扰",
-            "riskDetail": {
-                "riskSource": 1001
-            },
-            "riskLabel1": "porn",
-            "riskLabel2": "xingsaorao",
-            "riskLabel3": "zhongduxingsaorao",
-            "riskLevel": "REJECT",
-            "time": 15
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "商企LOGO:LOGO:抖音",
-                    "riskLabel1": "logo",
-                    "riskLabel2": "logo",
-                    "riskLabel3": "douyin",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "auxInfo": {
-                "similarity": 0.6328125
-            },
-            "businessLabels": [
-                {
-                    "businessDescription": "商企LOGO:LOGO:抖音",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "douyin"
-                },
-                {
-                    "businessDescription": "商企LOGO:LOGO:火山",
-                    "businessLabel1": "logo",
-                    "businessLabel2": "logo",
-                    "businessLabel3": "huoshan"
-                }
-            ],
-            "imgText": "重播的聊来抖音 发现更多有趣创作者抖音号：xxx",
-            "imgUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/image%2F20211217%2F1639731708004_v18.jpg",
-            "requestId": "1639731708004_v18",
-            "riskDescription": "商企LOGO:LOGO:抖音",
-            "riskDetail": {
-                "riskSource": 1002
-            },
-            "riskLabel1": "logo",
-            "riskLabel2": "logo",
-            "riskLabel3": "douyin",
-            "riskLevel": "REJECT",
-            "time": 18
-        }
-    ],
-    "audioDetail": [
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "唱歌:唱歌:唱歌",
-                    "riskLabel1": "sing",
-                    "riskLabel2": "changge",
-                    "riskLabel3": "changge",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "audioEndtime": 10,
-            "audioStarttime": 0,
-            "audioText": "把自己打过打过打过我们的夜晚",
-            "audioUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/audio%2F20211217%2F1639731708004_a0000.wav",
-            "businessLabels": [
-                {
-                    "businessDescription": "唱歌:唱歌:唱歌",
-                    "businessLabel1": "sing",
-                    "businessLabel2": "changge",
-                    "businessLabel3": "changge"
-                },
-                {
-                    "businessDescription": "性别:男性:男性",
-                    "businessLabel1": "gender",
-                    "businessLabel2": "male",
-                    "businessLabel3": "male"
-                }
-            ],
-            "requestId": "1639731708004_a0000",
-            "riskDescription": "唱歌:唱歌:唱歌",
-            "riskDetail": {
-                "riskSource": 1003
-            },
-            "riskLabel1": "sing",
-            "riskLabel2": "changge",
-            "riskLabel3": "changge",
-            "riskLevel": "REJECT"
-        },
-        {
-            "allLabels": [
-                {
-                    "riskDescription": "唱歌:唱歌:唱歌",
-                    "riskLabel1": "sing",
-                    "riskLabel2": "changge",
-                    "riskLabel3": "changge",
-                    "riskLevel": "REJECT"
-                }
-            ],
-            "audioEndtime": 18.55275,
-            "audioStarttime": 10,
-            "audioText": "是千刀万太恶毒了，连个三岁的小孩子都犯不过，抖音",
-            "audioUrl": "http://bj-video-xxx.cos.ap-beijing.xxx.com/audio%2F20211217%2F1639731708004_a0001.wav",
-            "businessLabels": [
-                {
-                    "businessDescription": "性别:男性:男性",
-                    "businessLabel1": "gender",
-                    "businessLabel2": "male",
-                    "businessLabel3": "male"
-                },
-                {
-                    "businessDescription": "唱歌:唱歌:唱歌",
-                    "businessLabel1": "sing",
-                    "businessLabel2": "changge",
-                    "businessLabel3": "changge"
-                }
-            ],
-            "requestId": "1639731708004_a0001",
-            "riskDescription": "唱歌:唱歌:唱歌",
-            "riskDetail": {
-                "riskSource": 1003
-            },
-            "riskLabel1": "sing",
-            "riskLabel2": "changge",
-            "riskLabel3": "changge",
-            "riskLevel": "REJECT"
-        }
-    ],
-    "riskLevel": "REJECT",
-    "auxInfo": {
-        "frameCount": 7,
-        "time": 18
-    }
+	"code": 1100,
+	"message": "成功",
+	"requestId": "66fb85e3149bb9e13d6c72161cc6c6cf",
+	"btId": "1666684506188",
+	"frameDetail": [
+		{
+			"allLabels": [
+				{
+					"probability": 0.665125370025635,
+					"riskDescription": "涉政:政治象征:党徽",
+					"riskDetail": {
+						"ocrText": {
+							"text": "2022/101/25 09:05"
+						},
+						"riskSource": 1002
+					},
+					"riskLabel1": "politics",
+					"riskLabel2": "zhengzhixiangzheng",
+					"riskLabel3": "danghui",
+					"riskLevel": "REJECT"
+				}
+			],
+			"auxInfo": {
+				"similarity": 0.4765625
+			},
+			"businessLabels": [
+				{
+					"businessDescription": "人脸:人脸姿态:正脸",
+					"businessDetail": {},
+					"businessLabel1": "face",
+					"businessLabel2": "renlianzitai",
+					"businessLabel3": "zhenglian",
+					"confidenceLevel": 1,
+					"probability": 0.450656906102068
+				},
+				{
+					"businessDescription": "人脸:人脸类型:真人",
+					"businessDetail": {
+						"face_num": 1,
+						"faces": [
+							{
+								"face_ratio": 0.00227673095650971,
+								"id": "f7bf8842f80a5a2192781064bd69e776",
+								"location": [
+									352,
+									237,
+									381,
+									278
+								],
+								"name": "郭荣铿",
+								"probability": 0.499512671029603
+							}
+						]
+					},
+					"businessLabel1": "face",
+					"businessLabel2": "renlianleixing",
+					"businessLabel3": "zhenren",
+					"confidenceLevel": 2,
+					"probability": 0.979977369308472
+				}
+			],
+			"imgText": "2022/101/25 09:05",
+			"imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v81.jpg?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684548%3B1669276548&q-key-time=1666684548%3B1669276548&q-header-list=host&q-url-param-list=&q-signature=d7692c37694f1219092cbd3d7364481ab690d62e",
+			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_v81",
+			"riskDescription": "涉政:政治象征:党徽",
+			"riskDetail": {
+				"ocrText": {
+					"text": "2022/101/25 09:05"
+				},
+				"riskSource": 1002
+			},
+			"riskLabel1": "politics",
+			"riskLabel2": "zhengzhixiangzheng",
+			"riskLabel3": "danghui",
+			"riskLevel": "REJECT",
+			"time": 81
+		},
+		{
+			"allLabels": [
+				{
+					"probability": 0.553634166717529,
+					"riskDescription": "涉政:政治象征:党徽",
+					"riskDetail": {
+						"ocrText": {
+							"text": "新器 20210/2509:05"
+						},
+						"riskSource": 1002
+					},
+					"riskLabel1": "politics",
+					"riskLabel2": "zhengzhixiangzheng",
+					"riskLabel3": "danghui",
+					"riskLevel": "REJECT"
+				}
+			],
+			"auxInfo": {
+				"similarity": 0.95703125
+			},
+			"businessLabels": [
+				{
+					"businessDescription": "人脸:人脸类型:无人脸",
+					"businessDetail": {},
+					"businessLabel1": "face",
+					"businessLabel2": "renlianleixing",
+					"businessLabel3": "wurenlian",
+					"confidenceLevel": 1,
+					"probability": 0.457959338261496
+				}
+			],
+			"imgText": "新器 20210/2509:05",
+			"imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v82.jpg?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684549%3B1669276549&q-key-time=1666684549%3B1669276549&q-header-list=host&q-url-param-list=&q-signature=2606d67861e62622926d9d7f10037d70f068ceb5",
+			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_v82",
+			"riskDescription": "涉政:政治象征:党徽",
+			"riskDetail": {
+				"ocrText": {
+					"text": "新器 20210/2509:05"
+				},
+				"riskSource": 1002
+			},
+			"riskLabel1": "politics",
+			"riskLabel2": "zhengzhixiangzheng",
+			"riskLabel3": "danghui",
+			"riskLevel": "REJECT",
+			"time": 82
+		}
+	],
+	"audioDetail": [
+		{
+			"allLabels": [
+				{
+					"probability": 0.998463273048401,
+					"riskDescription": "辱骂:人身攻击:重度人身攻击",
+					"riskDetail": {
+						"audioText": "操你妈，几个，那你几个一起干，操你妈，你和奶奶的都还在不捣蛋也不",
+						"riskSource": 1001
+					},
+					"riskLabel1": "abuse",
+					"riskLabel2": "renshengongji",
+					"riskLabel3": "zhongdurenshengongji",
+					"riskLevel": "REJECT"
+				}
+			],
+			"audioEndtime": 20,
+			"audioStarttime": 10,
+			"audioText": "操你妈，几个，那你几个一起干，操你妈，你和奶奶的都还在不捣蛋也不",
+			"audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0001.wav?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684511%3B1669276511&q-key-time=1666684511%3B1669276511&q-header-list=host&q-url-param-list=&q-signature=e87204b53077ddc763ddd2b7b5bd5e1382d4cc63",
+			"businessLabels": [],
+			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0001",
+			"riskDescription": "辱骂:人身攻击:重度人身攻击",
+			"riskDetail": {
+				"audioText": "操你妈，几个，那你几个一起干，操你妈，你和奶奶的都还在不捣蛋也不",
+				"riskSource": 1001
+			},
+			"riskLabel1": "abuse",
+			"riskLabel2": "renshengongji",
+			"riskLabel3": "zhongdurenshengongji",
+			"riskLevel": "REJECT"
+		},
+		{
+			"allLabels": [
+				{
+					"probability": 0.857458027460472,
+					"riskDescription": "涉政:国家机构:国家机构",
+					"riskDetail": {
+						"audioText": "妈一起干，没事，让他报警，让他报警，找警察来，去干，备",
+						"riskSource": 1001
+					},
+					"riskLabel1": "politics",
+					"riskLabel2": "guojiajigou",
+					"riskLabel3": "guojiajigou",
+					"riskLevel": "REJECT"
+				}
+			],
+			"audioEndtime": 40,
+			"audioStarttime": 30,
+			"audioText": "妈一起干，没事，让他报警，让他报警，找警察来，去干，备",
+			"audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0003.wav?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684511%3B1669276511&q-key-time=1666684511%3B1669276511&q-header-list=host&q-url-param-list=&q-signature=fcf1b1275ca7dbafacaf06bd61cd05f5d612e9dc",
+			"businessLabels": [],
+			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0003",
+			"riskDescription": "涉政:国家机构:国家机构",
+			"riskDetail": {
+				"audioText": "妈一起干，没事，让他报警，让他报警，找警察来，去干，备",
+				"riskSource": 1001
+			},
+			"riskLabel1": "politics",
+			"riskLabel2": "guojiajigou",
+			"riskLabel3": "guojiajigou",
+			"riskLevel": "REJECT"
+		},
+		{
+			"allLabels": [
+				{
+					"probability": 0.998539209365845,
+					"riskDescription": "辱骂:人身攻击:重度人身攻击",
+					"riskDetail": {
+						"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+						"riskSource": 1001
+					},
+					"riskLabel1": "abuse",
+					"riskLabel2": "renshengongji",
+					"riskLabel3": "zhongdurenshengongji",
+					"riskLevel": "REJECT"
+				}
+			],
+			"audioEndtime": 70,
+			"audioStarttime": 60,
+			"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+			"audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0006.wav?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684511%3B1669276511&q-key-time=1666684511%3B1669276511&q-header-list=host&q-url-param-list=&q-signature=55b6544e7408f29d4b7286690eb7494113ad7b31",
+			"businessLabels": [],
+			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0006",
+			"riskDescription": "辱骂:人身攻击:重度人身攻击",
+			"riskDetail": {
+				"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+				"riskSource": 1001
+			},
+			"riskLabel1": "abuse",
+			"riskLabel2": "renshengongji",
+			"riskLabel3": "zhongdurenshengongji",
+			"riskLevel": "REJECT"
+		}
+	],
+	"riskLevel": "REJECT",
+	"auxInfo": {
+		"frameCount": 2,
+		"time": 85
+	}
 }
 ```
