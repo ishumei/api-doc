@@ -814,6 +814,17 @@ imgs中，allLabels数组的每个成员的内容如下：
 | probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 | |
 | riskDetail | json_object | 风险详情 | 否 | |
 
+riskLabel返回一级标签内容为：
+| **一级标签** | **一级标识** | **类型** | **type类型** |
+| --- | --- | --- | --- |
+| 涉政 | politics | 监管标签 | POLITY |
+| 色情 | porn | 监管标签 | EROTIC |
+| 性感 | sexy | 监管标签 | EROTIC |
+| 暴恐 | violence | 监管标签 | VIOLENT |
+| 违禁 | ban | 监管标签 | VIOLENT |
+| 广告 | ad | 监管标签 | ADVERT |
+| 二维码 | qr | 监管标签 | QRCODE |
+
 allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
