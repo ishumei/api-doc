@@ -401,6 +401,8 @@ audioDetail中auxInfo的内容如下：
 | --- | --- | --- | --- | --- |
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
+| audio_starttime | string | 辅助参数 | 是 | 违规内容开始时间（绝对时间） |
+| audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
 | userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | strUserId | string | trtc流的用户id字段 | 否 | 分流的用户id（`TRTC`流才会有） |
 | room | string | 房间号 | 否 | |
