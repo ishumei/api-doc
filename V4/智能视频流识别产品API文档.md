@@ -674,6 +674,7 @@ code请求返回码列表如下：
 
 ### 异步回调结果示例：
 
+**截帧图片回调**
 ```json
 {
     "code": 1100,
@@ -718,6 +719,65 @@ code请求返回码列表如下：
             "passThrough3": "333"
         }
     }
+}
+```
+
+**音频回调**
+```json
+{
+    "requestId":"y28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3",
+    "code":1100,
+    "message":"成功",
+    "contentType":2,
+    "audioDetail":{
+        "allLabels":[
+            {
+                "riskDescription":"涉政:一号领导:一号领导",
+                "riskLabel1":"politics",
+                "riskLabel2":"yihaolingdao",
+                "riskLabel3":"yihaolingdao",
+                "riskLevel":"REJECT"
+            }
+        ],
+        "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+        "audioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
+        "auxInfo":{
+            "audioEndTime":"2022-10-27 21:08:42",
+            "audioStartTime":"2022-10-27 21:08:32",
+            "beginProcessTime":1666876123332,
+            "finishProcessTime":1666876123893,
+            "room":"y1123413312ewe24sv2"
+        },
+        "businessLabels":[
+
+        ],
+        "content":"现代化国家新征程中职业教育前途广阔中共中央总书记国家主席中央军委主席习近平近日对职业教育工作作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+        "preAudioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
+        "riskDescription":"涉政:一号领导:一号领导",
+        "riskDetail":{
+            "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+            "riskSource":1001
+        },
+        "riskLabel1":"politics",
+        "riskLabel2":"yihaolingdao",
+        "riskLabel3":"yihaolingdao",
+        "riskLevel":"REJECT"
+    },
+    "requestParams":{
+        "dedup":"room",
+        "eventId":"nickname",
+        "isVideoNewStream":true,
+        "returnAlltext":1,
+        "returnFinishInfo":1,
+        "returnPreAudio":1,
+        "returnPreText":1,
+        "role":"USER",
+        "room":"y1123413312ewe24sv2",
+        "streamType":"DEFAULT",
+        "tokenId":"tokenzyp",
+        "url":"rtmp://10.141.3.139:1936/live/stream"
+    },
+    "statCode":0
 }
 ```
 
