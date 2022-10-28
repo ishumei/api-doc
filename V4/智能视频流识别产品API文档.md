@@ -480,6 +480,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | requestId         | string      | 请求唯一标识                                 | 是           |                                                              |
 | statCode          | int         | 回调状态码                                   | 是           | 回调状态码，当returnFinishInfo为true时存在。状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调 <br/>当statCode=1时，如下参数存在 |
 | contentType       | int         | ⽤来区分⾳频和图⽚回调，当code等于1100时返回 | 是           | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
+| riskLevel              | string         | 流风险处置建议                         | 是           | 回调结束时返回整体流的处置建议                             |
 | pullStreamSuccess | bool        | 拉流是否成功                                 | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败<br/>如果一张截图都没有获取成功即认为拉流失败 |
 | detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#callbackV4.callbackParameters.Finish.Detail) |
 
