@@ -178,9 +178,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
-    "callback": "*************",
     "data": {
-        "returnAllText": 1,
         "room": "general",
         "tokenId": "token-short"
         }
