@@ -682,7 +682,7 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
-| imgCompareBase | string   | 要检测比对的基准图片，请求参数businessType字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
+| imgCompareBase | string   | 要检测比对的基准图片，请求参数businessType字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>批量请求一次性不超过12张，建议图片像素不小于256\*256，图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
 ## 同步批量返回参数
