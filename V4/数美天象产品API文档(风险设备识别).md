@@ -8,7 +8,7 @@
 
 目录
 
-- [数美天象产品API接口说明文档](#数美天象产品api接口说明文档)
+- [数美天象产品API接口说明文档](#数美天象产品API接口说明文档)
 - [天象风险识别](#天象风险识别)
   - [调用时机](#调用时机)
   - [具体接口](#具体接口)
@@ -67,6 +67,8 @@
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 不能同时为空 | 该ID为用户的唯一标识，且与其它数美接口的tokenId保持一致 |
 | deviceId | string | 待查询的设备指纹ID，由数美SDK生成 | 不能同时为空 | 该ID为用户设备的唯一标识，且与其他数美接口的smid保持一致 |
+| phone | string | 待查询手机号 | 不能同时为空  | 该手机号为客户待检测的手机号 |
+| ip |  string |  待检测IPv4地址 | 不同同时为空 | 该IP为客户待检测的IPv4地址 |
 
 ## 返回结果
 
@@ -80,9 +82,10 @@
 | profileExist       | int          | 设备画像存在 | 是 | `1`：画像库中存在该设备信息`0`：画像库中不存在该设备信息    |
 | tokenLabels        | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
 | deviceLabels       | json_object  | 设备标签信息 | 否 | 见下面详情内容，仅在deviceId传入且服务开通时返回 |
-| tokenProfileLabels | json_array   | 账号属性标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
-| tokenRiskLabels    | json_array   | 账号风险标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
-| deviceRiskLabels   | json_array   | 设备风险标签 | 否 | 见下面详情内容，仅在deviceId传入且服务开通时返回 |
+| tokenProfileLabels | json_object   | 账号属性标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
+| tokenRiskLabels    | json_object   | 账号风险标签 | 否 | 见下面详情内容，仅在tokenId传入且服务开通时返回 |
+| deviceRiskLabels   | json_object   | 设备风险标签 | 否 | 见下面详情内容，仅在deviceId传入且服务开通时返回 |
+  devicePrimayInfo  | json_object | 设备基础属性标签  | 否  | 见下面详情内容，仅在deviceID传入且服务开通时返回 |
 
 其中
 
@@ -223,12 +226,15 @@ device_suspicious_labels的详情内容如下：
 | b_wangzhuan_active | int | 网赚平台活跃设备 | 网赚平台活跃设备，取值<br/>0：未在网赚平台活跃<br/>1：在网赚平台活跃
 | b_wangzhuan_active_count | int | 网赚平台活跃次数 | 该设备在网赚平台的特定周期内活跃次数的累加值
 | b_wangzhuan_active_last_ts | int | 网赚平台活跃设备标签最近命中时间 | |
+ | b_malware_installed | array | 返回风险应用的应用名 | 风险应用的应用列表，示例: vmos、virtualapp、redfinger等  | 
 
 device_active_info的详情内容如下：
 
 | ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
 | ------------------------ | ------------------ | ------------------ | -------------- |
-| i_smid_boot_timestamp    | int                | 系统启动时间       |                |
+| i_smid_boot_timestamp    | int                | 系统启动时间       |                
+| b_device_first_activation | int               | 设备是否首次出现，取值：<br/>0:非首次出现<br/>1:首次出现  | 
+| b_device_first_activation_ts | int            | 设备首次出现时间 | 
 
 monkey_device的详情内容如下：
 
@@ -295,6 +301,13 @@ monkey_read的详情内容如下：
 | description              | string             | 风险描述               | 展示设备风险标签的中文描述。 |
 | timestamp                | int64              | 最近一次命中策略的时间 | 最近一次命中策略的时间       |
 | detail                   | json_object        | 证据描述               | 证据细节                     |
+
+
+***4***）devicePrimayInfo的详情内容
+| ***返回结果参数名*** | ***参数类型*** | ***参数说明***     | ***规范***               |
+| ------------------------ | ------------------ | ---------------------- | ---------------------------- |
+| 
+
 
 ## 示例：
 
