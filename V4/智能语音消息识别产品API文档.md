@@ -14,7 +14,7 @@
 
 | 集群 | URL                                              | 支持产品列表                                   |
 | ---- | ------------------------------------------------ | ---------------------------------------------- |
-| 上海 | `http://api-audio-sh.fengkongcloud.com/audiomessage/v4` | 中文音频文件                                   |
+| 上海 | `http://api-audio-sh.fengkongcloud.com/audiomessage/v4` | 中文音频文件同步接口                           |
 
 ### 字符编码
 
@@ -26,7 +26,7 @@
 
 ### 建议超时时长
 
-5s
+10s
 
 ### 音频格式限制
 
@@ -60,6 +60,7 @@
 | rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                        |
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
+| returnAllText | int | 返回音频片段的等级 | 非必传参数 | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
 
 ### 同步返回参数
 
@@ -80,7 +81,6 @@ detail内容：
 | audioText      | string      | 整段音频转译文本结果           | 是           |                                                              |
 | audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
 | audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
-| audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 
 其中，<span id="audioDetail">audioDetail</span>详细内容如下：
@@ -127,41 +127,7 @@ riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
 | segment    | string    | 高风险内容片段         | 否           |          |
 | position   | int_array | 高风险内容片段所在位置 | 否           |          |
 
-其中，<span id="audioTags">audioTags</span>详细内容如下：
 
-| **参数名** | **类型**    | **参数说明** | **是否必返** | **规范**                                                                           |
-| :--------- | :---------- | :----------- | :----------- | :--------------------------------------------------------------------------------- |
-| gender     | json_object | 性别标签     | 否           | 当type取值包含GENDER时返回                                                         |
-| timbre     | json_array  | 音色标签     | 否           | 当type取值包含TIMBRE时返回                                                         |
-| song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
-| language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                                         |
-
-audioTags中，gender详细内容如下：
-
-| **参数名**  | **类型** | **参数说明**       | **是否必返** | **规范**                                |
-| :---------- | :------- | :----------------- | :----------- | :-------------------------------------- |
-| label       | string   | 性别标签名称       | 是           | <p>可能取值：</p><p>男性</p><p>女性</p> |
-| probability | int      | 对应性别可能性大小 | 是           | 取值0-100，数值越高表示概率越大         |
-
-audioTags中，timbre详细内容如下：
-
-| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                                                                                               |
-| :---------- | :------- | :--------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p> |
-| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                                                                                                        |
-
-audioTags中，language详细内容如下：
-
-| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                   |
-| :---------- | :------- | :--------------------- | :----------- | :--------------------------------------------------------- |
-| label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
-| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
-
-其中，<span id="auxInfo">auxInfo</span>详细内容如下：
-
-| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
-| :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
-| errorCode    | int        | 状态码                 | 是           |<p>状态码</p><p>2003：音频下载失败</p><p>2007：无有效数据</p>  |
 
 ## 示例
 
@@ -191,153 +157,38 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
 {
     "code":1100,
     "message":"成功",
-    "requestId":" *************",
-    "btId":"*************",
+    "requestId":"817c8509359500c898a762ffe93a582b",
+    "btId":"1667392054643",
     "detail":{
         "audioDetail":[
             {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0000",
+                "requestId":"817c8509359500c898a762ffe93a582b_a0000",
                 "audioStarttime":0,
                 "audioEndtime":10,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0000.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
+                "audioUrl":"http://voice-stream.oss-cn-hangzhou.aliyuncs.com/POST_AUDIO%2F20221102%2F817c8509359500c898a762ffe93a582b_a0000.mp3?Expires=1669984055&amp;OSSAccessKeyId=LTAI4GCEw42chQY7RgPbGxhv&amp;Signature=pG4zurQ%2F%2F9laWauXo4mFfQoHrdE%3D",
+                "riskLevel":"REJECT",
+                "riskLabel1":"abuse",
+                "riskLabel2":"buwenmingyongyu",
+                "riskLabel3":"qingdubuwenmingyongyu",
+                "riskDescription":"辱骂:不文明用语:轻度不文明用语",
                 "riskDetail":{
-                    "audioText":""
+                    "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你"
                 }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0001",
-                "audioStarttime":10,
-                "audioEndtime":20,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0001.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
-                "riskDetail":{
-                    "audioText":""
-                }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0002",
-                "audioStarttime":20,
-                "audioEndtime":30,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0002.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
-                "riskDetail":{
-                    "audioText":""
-                }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0003",
-                "audioStarttime":30,
-                "audioEndtime":40,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0003.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
-                "riskDetail":{
-                    "audioText":""
-                }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0004",
-                "audioStarttime":40,
-                "audioEndtime":50,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0004.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
-                "riskDetail":{
-                    "audioText":""
-                }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0005",
-                "audioStarttime":50,
-                "audioEndtime":60,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0005.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常",
-                "riskDetail":{
-                    "audioText":""
-                }
-            },
-            {
-                "requestId":"6a9cb980346dfea41111656a514e9109_a0006",
-                "audioStarttime":60,
-                "audioEndtime":60,
-                "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0006.mp3",
-                "riskLevel":"PASS",
-                "riskLabel1":"normal",
-                "riskLabel2":"",
-                "riskLabel3":"",
-                "riskDescription":"正常"
             }
         ],
         "audioTags":{
-            "gender":{
-                "label":"女性",
-                "probability":95
-            },
-            "language":[
-                {
-                    "confidence":0,
-                    "label":2
-                },
-                {
-                    "confidence":99,
-                    "label":0
-                },
-                {
-                    "confidence":0,
-                    "label":1
-                }
-            ],
-            "song":0,
-            "timbre":[
-                {
-                    "label":"女性",
-                    "probability":95
-                },
-                {
-                    "label":"女王",
-                    "probability":12
-                },
-                {
-                    "label":"御姐",
-                    "probability":37
-                },
-                {
-                    "label":"少女",
-                    "probability":56
-                },
-                {
-                    "label":"大妈",
-                    "probability":67
-                },
-                {
-                    "label":"萝莉",
-                    "probability":24
-                }
-            ]
-        }
+
+        },
+        "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
+        "audioTime":10,
+        "code":1100,
+        "requestParams":{
+            "channel":"TEST",
+            "lang":"zh",
+            "returnAllText":1,
+            "tokenId":"test01"
+        },
+        "riskLevel":"REJECT"
     }
 }
 ```
