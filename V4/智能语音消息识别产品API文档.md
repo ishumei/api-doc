@@ -134,21 +134,21 @@ riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
 ### 上传请求示例
 
 ```bash
-curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
+curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
     "accessKey": "*************",
     "appId": "default",
     "eventId": "default",
-    "type": "POLITY_EROTIC_MOAN_ADVERT_GENDER_TIMBRE_SING_LANGUAGE",
+    "type": "TIMBRE_POLITICAL_PORN",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
     "data": {
+    		"returnAllText":1,
         "room": "general",
         "tokenId": "token-short"
         }
     }
 }'
-
 ```
 
 ### 同步返回示例
