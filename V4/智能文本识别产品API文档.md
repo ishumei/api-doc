@@ -109,7 +109,7 @@ data 中 extra数组每个元素的内容如下：
 | ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
 | detectedLang | string   | 语种识别结果 | N            | 当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如："zh"、"en"、"ar"等 |
 
-<span id="auxlnfo">其中auxInfo字段如下：
+<span id="auxlnfo">其中auxInfo字段如下：</span>
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -118,54 +118,54 @@ data 中 extra数组每个元素的内容如下：
 | contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
 | unauthorizedType | string | 辅助信息 | N | 未授权的type。 |
 
-<span id="contactResult">auxInfo中，contactResult数组每个元素的内容如下：
+<span id="contactResult">auxInfo中，contactResult数组每个元素的内容如下：</span>
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
-<span id="riskDetail">其中，riskDetail的内容如下：
+<span id="riskDetail">其中，riskDetail的内容如下：</span>
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | matchedLists | json_array | 辅助信息 | N| 命中的客户自定义名单列表。[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N| [详见riskSegments参数](#riskSegments) |
 
-<span id="matchedLists">riskDetail中，matchedLists数组每个元素的内容如下：
+<span id="matchedLists">riskDetail中，matchedLists数组每个元素的内容如下：</span>
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | name | string | 辅助信息 | N| 命中的名单名称|
 | words| json_array | 辅助信息 | N| 命中的敏感词数组。[详见words参数](#words) |
 
-<span id="words">matchedLists中，words数组每个元素的内容如下：
+<span id="words">matchedLists中，words数组每个元素的内容如下：</span>
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string| 辅助信息 | N| 命中的敏感词 |
 | position | int_array | 辅助信息 | N| 敏感词所在位置 |
 
-<span id="riskSegments">riskDetail中，riskSegments的内容如下：
+<span id="riskSegments">riskDetail中，riskSegments的内容如下：</span>
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment| string| 辅助信息 | N| 高风险内容片段 |
 | position | int_array | 辅助信息 | N| 高风险内容片段所在位置 |
 
-<span id="tokenLabels">其中，tokenLabels的详情内容：
+<span id="tokenLabels">其中，tokenLabels的详情内容：</span>
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | UGC_account_risk | json_object | 辅助信息 | N| UGC内容相关风险。[详见UGC_account_risk参数](#UGC_account_risk) |
 
-<span id="UGC_account_risk">tokenLabels中，UGC_account_risk的详情内容如下：
+<span id="UGC_account_risk">tokenLabels中，UGC_account_risk的详情内容如下：</span>
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | sexy_risk_tokenid | float| 辅助信息 | N| 色情账号风险分取值区间[0-1] |
 
-<span id="allLabels">其中，allLabels的内容如下：
+<span id="allLabels">其中，allLabels的内容如下：</span>
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -177,7 +177,7 @@ data 中 extra数组每个元素的内容如下：
 | riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
 | riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
 
-<span id="businessLabels">其中，businessLabels的内容如下：
+<span id="businessLabels">其中，businessLabels的内容如下：</span>
 
 | 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
 | ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
@@ -188,7 +188,7 @@ data 中 extra数组每个元素的内容如下：
 | probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
-<span id="tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
