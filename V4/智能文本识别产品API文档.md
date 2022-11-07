@@ -56,7 +56,7 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| text | string | 需要检测的文本 | Y | 文本字数上限1万字，超过1万字只截取前1万字进行检测<br/>若传递nickname字段，则会同时校验文本+昵称内容。|
+| text | string | 需要检测的文本 | Y | 当lang字段为zh或不传入lang字段时，文本字数上限1万字，超过1万字时会报错<br/>若传递nickname字段，则会同时校验文本+昵称内容。|
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
 | nickname | string | 用户昵称 | N | 校验昵称内容风险 |
@@ -109,7 +109,7 @@ data 中 extra数组每个元素的内容如下：
 | ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
 | detectedLang | string   | 语种识别结果 | N            | 当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如："zh"、"en"、"ar"等 |
 
-其中auxInfo字段如下：
+<span id="auxlnfo">其中auxInfo字段如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -118,54 +118,54 @@ data 中 extra数组每个元素的内容如下：
 | contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
 | unauthorizedType | string | 辅助信息 | N | 未授权的type。 |
 
-auxInfo中，contactResult数组每个元素的内容如下：
+<span id="contactResult">auxInfo中，contactResult数组每个元素的内容如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
-其中，riskDetail的内容如下：
+<span id="riskDetail">其中，riskDetail的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | matchedLists | json_array | 辅助信息 | N| 命中的客户自定义名单列表。[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N| [详见riskSegments参数](#riskSegments) |
 
-riskDetail中，matchedLists数组每个元素的内容如下：
+<span id="matchedLists">riskDetail中，matchedLists数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | name | string | 辅助信息 | N| 命中的名单名称|
 | words| json_array | 辅助信息 | N| 命中的敏感词数组。[详见words参数](#words) |
 
-matchedLists中，words数组每个元素的内容如下：
+<span id="words">matchedLists中，words数组每个元素的内容如下：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string| 辅助信息 | N| 命中的敏感词 |
 | position | int_array | 辅助信息 | N| 敏感词所在位置 |
 
-riskDetail中，riskSegments的内容如下：
+<span id="riskSegments">riskDetail中，riskSegments的内容如下：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment| string| 辅助信息 | N| 高风险内容片段 |
 | position | int_array | 辅助信息 | N| 高风险内容片段所在位置 |
 
-其中，tokenLabels的详情内容：
+<span id="tokenLabels">其中，tokenLabels的详情内容：
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | UGC_account_risk | json_object | 辅助信息 | N| UGC内容相关风险。[详见UGC_account_risk参数](#UGC_account_risk) |
 
-tokenLabels中，UGC_account_risk的详情内容如下：
+<span id="UGC_account_risk">tokenLabels中，UGC_account_risk的详情内容如下：
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范**|
 | --- | --- | --- | --- | --- |
 | sexy_risk_tokenid | float| 辅助信息 | N| 色情账号风险分取值区间[0-1] |
 
-其中，allLabels的内容如下：
+<span id="allLabels">其中，allLabels的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -177,7 +177,7 @@ tokenLabels中，UGC_account_risk的详情内容如下：
 | riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
 | riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
 
-其中，businessLabels的内容如下：
+<span id="businessLabels">其中，businessLabels的内容如下：
 
 | 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
 | ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
@@ -188,7 +188,7 @@ tokenLabels中，UGC_account_risk的详情内容如下：
 | probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
-其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
@@ -224,8 +224,7 @@ tokenLabels中，UGC_account_risk的详情内容如下：
     "accessKey":"*************",
     "appId":"default",
     "eventId":"text",
-	"type":"DEFAULT",
-	"businessType":"MINOR",
+	"type":"TEXTRISK",
     "data":
     {
         "text":"加个好友吧 qq12345",
