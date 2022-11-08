@@ -226,7 +226,10 @@ device_suspicious_labels的详情内容如下：
 | b_wangzhuan_active | int | 网赚平台活跃设备 | 网赚平台活跃设备，取值<br/>0：未在网赚平台活跃<br/>1：在网赚平台活跃
 | b_wangzhuan_active_count | int | 网赚平台活跃次数 | 该设备在网赚平台的特定周期内活跃次数的累加值
 | b_wangzhuan_active_last_ts | int | 网赚平台活跃设备标签最近命中时间 | |
- | b_malware_installed | array | 返回风险应用的应用名 | 风险应用的应用列表，示例: vmos、virtualapp、redfinger等  | 
+ | b_malware_installed | json_object | 返回风险应用的应用名 | 风险应用的应用列表，示例: vmos、virtualapp、redfinger等  | 
+ | b_device_proxy | int | 设备使用代理 | 该设备当前在使用代理服务，取值：<br/>0:未使用代理，<br/>1:使用代理模式
+ | b_device_proxy_ts | int | 设备使用代理最近标签命中时间 | |
+ 
 
 device_active_info的详情内容如下：
 
