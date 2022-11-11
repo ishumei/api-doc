@@ -281,6 +281,7 @@ POST
 | riskLevel     | string      | N            | <p>识别结果，可能返回值：</p><p>PASS：正常内容<br/>REVIEW：疑似违规内容<br/>REJECT：违规内容</p> |
 | detail        | json_array  | N            | 风险详情                                                                                         |
 | gender        | json_object | N            | 性别标签与概率值                                                                                 |
+| language       | json_array  | N            | 语种标签与概率值列表                                         |
 | tags          | json_array  | N            | 音色标签与概率值列表                                                                             |
 | callbackParam | json_object | Y            | 客户传入的透传字段                                                                               |
 | auxInfo       | json_object | N            | 辅助信息                                                                                       |
