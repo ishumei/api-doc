@@ -169,7 +169,7 @@ data中，extra的内容如下：
 | person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>1001：文字风险<br/>`1002`：视觉图片风险 |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -835,7 +835,7 @@ allLabels每个成员的riskDetail结构如下：
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
 | person_num | int | 有且仅有人像-多人下返回 | 否 | |
 | ocrText | json_array | 返回图片中违规文字相关信息 | 否 | |
-| riskSource | string | 标识资源哪里违规 | 是 | 标识风险结果的来源：`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| riskSource | string | 标识资源哪里违规 | 是 | 标识风险结果的来源：`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 
 其中imgs中businessLabels数组的每个成员的内容如下：
@@ -1275,7 +1275,7 @@ allLabels每个成员的riskDetail结构如下：
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |||
 | person_num | int | 有且仅有人像-多人下返回 | 否 | |
 | ocrText | json_array | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在，内部字段参考外层riskDetail下的ocrText字段 |||
-| riskSource | int | 标识资源哪里违规 |是|标识风险结果的来 源：<br/>1001 ：图片文字风险<br/>1002 ：视觉图片风险|
+| riskSource | int | 标识资源哪里违规 |是|标识风险结果的来 源：<br/>`1000`：无风险<br/>1001 ：图片文字风险<br/>1002 ：视觉图片风险|
 
 其中businessLabels数组的每个成员的内容如下：
 
