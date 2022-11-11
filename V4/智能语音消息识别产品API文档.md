@@ -95,7 +95,7 @@ detail内容：
 | riskLabel1      | string      | 一级风险标签     | 是           |                                                                          |
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
-| riskDescription | string      | 风险原因         | 是           |                                                                          |
+| riskDescription | string      | 风险原因         | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                         |
 | riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                                        |
 
 其中，<span id="riskDetail">riskDetail</span>详细内容如下：

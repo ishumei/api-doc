@@ -177,7 +177,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel1      | string      | 一级标签               | 是           | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal`                                                                                  |
 | riskLabel2      | string      | 二级标签               | 是           | 二级标签归属于一级标签，当riskLevel为`PASS`时为空                                                                                                |
 | riskLabel3      | string      | 三级标签               | 是           | 三级标签归属于二级标签，当riskLevel为`PASS`时为空                                                                                                |
-| riskDescription | string      | 标签解释               | 是           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
+| riskDescription | string      | 标签解释               | 是           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | audioText       | string      | 音频转译文本的结果     | 否           | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容        |
 | preAudioUrl     | string      | 前一个音频片段音频地址 | 否           | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回                                                  |
 | riskDetail      | json_object | 风险详情信息           | 否           | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)                                                                                        |
@@ -235,7 +235,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | businessLabel1      | string   | 一级业务标签 | 否           | 一级业务标签 |
 | businessLabel2      | string   | 二级业务标签 | 否           | 二级业务标签 |
 | businessLabel3      | string   | 三级业务标签 | 否           | 三级业务标签 |
-| businessDescription | string   | 中文标签描述 | 否           | 业务标签描述 |
+| businessDescription | string   | 中文标签描述 | 否           | 业务标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 allLabels结构如下：
 
@@ -244,7 +244,7 @@ allLabels结构如下：
 | riskLabel1      | string   | 一级风险标签 | 是           | 一级风险标签 |
 | riskLabel2      | string   | 二级风险标签 | 是           | 二级风险标签 |
 | riskLabel3      | string   | 三级风险标签 | 是           | 三级风险标签 |
-| riskDescription | string   | 风险原因     | 是           | 风险原因     |
+| riskDescription | string   | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
 
 其中最外层的auxInfo字段结构如下：
 
