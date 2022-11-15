@@ -5,44 +5,6 @@
 ***版权所有 翻版必究***
 
 - - - - -
-
-目录
-
-- [数美智能视频文件识别产品API文档](#数美智能视频文件识别产品api文档)
-  - [视频文件上传请求](#视频文件上传请求)
-    - [接口描述](#接口描述)
-    - [请求URL：](#请求url)
-    - [请求方法：](#请求方法)
-    - [字符编码：](#字符编码)
-    - [建议超时时间：](#建议超时时间)
-    - [视频格式限制：](#视频格式限制)
-    - [视频大小限制：](#视频大小限制)
-    - [视频时长限制：](#视频时长限制)
-    - [请求参数：](#请求参数)
-    - [返回参数：](#返回参数)
-  - [异步回调结果](#异步回调结果)
-    - [接口描述](#接口描述-1)
-    - [请求方法：](#请求方法-1)
-    - [字符编码：](#字符编码-1)
-    - [建议超时时间：](#建议超时时间-1)
-    - [支持协议：](#支持协议)
-    - [回调策略：](#回调策略)
-    - [回调参数：](#回调参数)
-  - [查询视频结果](#查询视频结果)
-    - [接口描述](#接口描述-2)
-    - [请求URL：](#请求url-1)
-    - [请求方法：](#请求方法-2)
-    - [支持协议：](#支持协议-1)
-    - [字符编码：](#字符编码-2)
-    - [建议超时时间：](#建议超时时间-2)
-    - [请求参数：](#请求参数-1)
-    - [返回参数](#返回参数-1)
-  - [接口响应码列表](#接口响应码列表)
-  - [示例](#示例)
-    - [上传接口请求示例：](#上传接口请求示例)
-    - [上传接口返回示例：](#上传接口返回示例)
-    - [异步回调结果示例：](#异步回调结果示例)
-
 ## 视频文件上传请求
 
 ### 接口描述
@@ -96,9 +58,9 @@
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgBusinessType可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
 | audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
-| data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#uploadV4.requestParams.data) |
+| data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#data) |
 
-其中，data的内容如下：
+<span id="data">其中，data的内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -112,9 +74,9 @@
 | returnAllImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
 | returnAllAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
-| extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#uploadV4.requestParams.data.extra) |
+| extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
 
-data 中，extra的内容如下
+<span id="extra">data 中，extra的内容如下</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -127,7 +89,7 @@ data 中，extra的内容如下
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
-| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
+| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 请求返回描述 | 是 | 详情描述如上 |
 | btId | string | 唯一标识客户上传的视频 | 是 | 仅当code=1100时返回，与请求参数中的btId字段对应 |
 
@@ -163,17 +125,17 @@ data 中，extra的内容如下
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | 是 | 详见[接口响应码列表](#codeList) |
+| code | int | 返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
 | riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
-| frameDetail | json_array | 风险详情 | 否 | 有风险片段或returnAllImg=1时返回，详见[frameDetail说明](#callbackV4.callbackParameters.frameDetail) |
-| audioDetail | json_array | 音频片段信息 | 否 |有风险片段或returnAllAudio=1时返回，详见[audioDetail说明](#callbackV4.callbackParameters.audioDetail)|
-| auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#callbackV4.callbackParameters.auxInfo)|
-| tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV4.callbackParameters.tokenProfileLabels)|
-| tokenRiskLabels | json_array | 账号风险标签 | 否 |仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV4.callbackParameters.tokenRiskLabels)|
-其中，auxInfo中的具体内容如下：
+| frameDetail | json_array | 风险详情 | 否 | 有风险片段或returnAllImg=1时返回，详见[frameDetail说明](#frameDetail) |
+| audioDetail | json_array | 音频片段信息 | 否 |有风险片段或returnAllAudio=1时返回，详见[audioDetail说明](#audioDetail)|
+| auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#auxInfo)|
+| tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels)|
+| tokenRiskLabels | json_array | 账号风险标签 | 否 |仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels)|
+<span id="auxInfo">其中，auxInfo中的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -181,7 +143,7 @@ data 中，extra的内容如下
 | time | int | 视频时长 | 是 |  |
 | passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
 
-其中，frameDetail数组中每个成员的具体内容如下：
+<span id="frameDetail">其中，frameDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -194,31 +156,31 @@ data 中，extra的内容如下
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
 | riskDescription | string | 标签解释 | 是 | 对于命中用户自定义名单时返回：`命中自定义名单`；当riskLevel为`PASS`时返回:`正常`；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
-| riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#callbackV4.callbackParameters.frameDetail.riskDetail) |
-| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#callbackV4.callbackParameters.frameDetail.allLabels) |
-| businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#callbackV4.callbackParameters.frameDetail.businessLabels) |
-| auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#callbackV4.callbackParameters.frameDetail.auxInfo) |
+| riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#riskDetail) |
+| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#allLabels) |
+| businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#businessLabels) |
+| auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#auxInfo3) |
 
-frameDetail中，auxInfo的内容如下：
+<span id="auxInfo3">frameDetail中，auxInfo的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
-frameDetail中，riskDetail的内容如下：
+<span id="riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | riskSource | int | 风险来源 | 是 | 可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| faces | json_array | 人脸信息 | 否 | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
+| faces | json_array | 人脸信息 | 否 | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#faces) |
 | face_num | int | 人脸数量 | 否 |  |
-| objects | json_array | 物品信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
+| objects | json_array | 物品信息 | 否 | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#objects) |
 | persons | json_array | 人像信息 | 否 |  |
 | person_num | int | 人像数量 | 否 |  |
-| ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
+| ocrText | json_object | 文字信息 | 否 | 返回图片中文字相关信息，详见[ocrText说明](#ocrText) |
 
-riskDetail中，faces数组的每个元素的内容如下：
+<span id="faces">riskDetail中，faces数组的每个元素的内容如下：</span>
 
 | **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
 | ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
@@ -228,7 +190,7 @@ riskDetail中，faces数组的每个元素的内容如下：
 | probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高                         |
 | face_ratio  | float     | 人脸占比     | 否           |                                                              |
 
-riskDetail中，objects数组的每个元素的内容如下：
+<span id="objects">riskDetail中，objects数组的每个元素的内容如下：</span>
 
 | **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
 | ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
@@ -247,22 +209,22 @@ riskDetail中，persons数组的每个元素的内容如下：
 | probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高                         |
 | person_ratio | float     | 人像占比     | 否           |                                                              |
 
-riskDetail中，ocrText数组每个成员的具体内容如下：
+<span id="ocrText">riskDetail中，ocrText数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | text | string | 图片中识别出的文字 | 否 | 识别出来所有文字内容 |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 仅在命中客户自定义名单时返回，详见[matchedLists说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists) |
-| riskSegments | json_array | 高风险内容片段 | 否 | 在启用涉政、暴恐、违禁、广告等功能时存在，详见[riskSegments说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.riskSegments) |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 仅在命中客户自定义名单时返回，详见[matchedLists说明](#matchedLists) |
+| riskSegments | json_array | 高风险内容片段 | 否 | 在启用涉政、暴恐、违禁、广告等功能时存在，详见[riskSegments说明](#riskSegments) |
 
-ocrText中，matchedLists数组每个成员的具体内容如下：
+<span id="matchedLists">ocrText中，matchedLists数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名称 | 否 | |
-| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText.matchedLists.words) |
+| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#words) |
 
-matchedLists中，words数组每个成员的具体内容如下：
+<span id="words">matchedLists中，words数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -276,7 +238,7 @@ ocrText中，riskSegments每个成员的具体内容如下：
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-frameDetail中，allLabels数组的每个成员的内容如下：
+<span id="allLabels">frameDetail中，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -288,7 +250,7 @@ frameDetail中，allLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | riskDetail | json_object | 风险详情 | 是 | 同frameDetail中的riskDetail结构一致 |
 
-frameDetail中，businessLabels数组的每个成员的内容如下：
+<span id="businessLabels">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                                 |
 | ------------------- | ----------- | ------------ | ------------ | -------------------------------------------------------- |
@@ -338,7 +300,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
 | person_ratio | float     | 人像占比     | 否           |                                                              |
 
-其中，audioDetail数组中每个成员的具体内容如下：
+<span id="audioDetail">其中，audioDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -351,41 +313,41 @@ businessDetail中，persons数组的每个元素的内容如下：
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
 | riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#callbackV4.callbackParameters.audioDetail.riskDetail) |
-| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#callbackV4.callbackParameters.audioDetail.allLabels) |
-| businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会返回，详见[businessLabels说明](#callbackV4.callbackParameters.audioDetail.businessLabels) |
+| riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#riskDetail2) |
+| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#allLabels2) |
+| businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会返回，详见[businessLabels说明](#businessLabels2) |
 
-audioDetail中，riskDetail的每个元素详细内容如下：
+<span id="riskDetail2">audioDetail中，riskDetail的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | audioText | string | 音频转译文本的结果 | 否 | |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists) |
-| riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#callbackV4.callbackParameters.audioDetail.riskDetail.riskSegments) |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2) |
+| riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2) |
 
-riskDetail中，matchedLists的每个元素详细内容如下：
+<span id="matchedLists2">riskDetail中，matchedLists的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 否 | |
-| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#callbackV4.callbackParameters.audioDetail.riskDetail.matchedLists.words) |
+| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#words2) |
 
-matchedLists中，words的每个元素详细内容如下：
+<span id="words2">matchedLists中，words的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 否 | |
 | position | int_array | 敏感词所在位置 | 否 | 下标从0开始计数 |
 
-riskDetail中，riskSegments的每个元素详细内容如下：
+<span id="riskSegments2">riskDetail中，riskSegments的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-audioDetail中，allLabels数组的每个成员的内容如下：
+<span id="allLabels2">audioDetail中，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -397,7 +359,7 @@ audioDetail中，allLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | riskDetail | json_object | 风险详情 | 是 | 同audioDetail中的riskDetail结构一致 |
 
-audioDetail中，businessLabels数组的每个成员的内容如下：
+<span id="businessLabels2">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -409,7 +371,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | businessDetail | Json_object | 详细信息 | 是 |  |
 
-其中，tokenProfileLabels数组每个成员的具体内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -419,7 +381,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+<span id="tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
 ## 查询视频结果
 
@@ -469,25 +431,25 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | 是 | 详见[接口响应码列表](#codeList) |
+| code | int | 返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 返回码详情描述 | 是 | |
 | requestId | string | 请求唯一标识 | 是 | |
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
 | riskLevel | string | 风险级别，code为1100时存在 | 否 | 可能返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
-| frameDetail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[frameDetail](#queryV4.responseParameters.frameDetail) |
-| audioDetail | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[audioDetail](#queryV4.responseParameters.audioDetail) |
-| auxInfo | json_object | 辅助信息 | 是 | code为`1100`时存在，扩展辅助信息，详见[auxInfo说明](#queryV4.responseParameters.auxInfo) |
-| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#queryV4.responseParameters.tokenProfileLabels) |
-| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#queryV4.responseParameters.tokenRiskLabels) |
+| frameDetail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[frameDetail](#frameDetail2) |
+| audioDetail | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[audioDetail](#audioDetail2) |
+| auxInfo | json_object | 辅助信息 | 是 | code为`1100`时存在，扩展辅助信息，详见[auxInfo说明](#auxInfo2) |
+| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels2) |
+| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels2) |
 
-其中，auxInfo数组中每个成员的具体内容如下：
+<span id="auxInfo2">其中，auxInfo数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
 | time | int | 辅助信息 | 是 | 视频时长 |
 
-其中，frameDetail数组中每个成员的具体内容如下：
+<span id="frameDetail2">其中，frameDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -500,31 +462,31 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
 | riskDescription | string | 标签解释 | 是 | 对于命中用户自定义名单时返回：`命中自定义名单`；当riskLevel为`PASS`时返回:`正常`；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
-| riskDetail | json_object | 风险详情信息 | 是 | 风险详情，详见[riskDetail说明](#queryV4.responseParameters.frameDetail.riskDetail) |
-| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#queryV4.responseParameters.frameDetail.allLabels) |
-| businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#queryV4.responseParameters.frameDetail.businessLabels) |
-| auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#queryV4.responseParameters.frameDetail.auxInfo) |
+| riskDetail | json_object | 风险详情信息 | 是 | 风险详情，详见[riskDetail说明](#riskDetail3) |
+| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#allLabels3) |
+| businessLabels | json_array | 业务标签列表 | 否 | 传入imgBusinessType时返回，详见[businessLabels说明](#businessLabels3) |
+| auxInfo | json_object | 辅助信息 | 是 | 一些辅助信息放在这里，详见[auxInfo说明](#auxInfo4) |
 
-frameDetail中，auxInfo的内容如下：
+<span id="auxInfo4">frameDetail中，auxInfo的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | qrContent | string | 截帧图片二维码链接识别 | 否 | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含`AD` |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | 是 | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
-frameDetail中，riskDetail的内容如下：
+<span id="riskDetail3">frameDetail中，riskDetail的内容如下：</span>
 
 | **参数名** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
 | ---------- | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
 | riskSource | int         | 风险来源     | 是           | 可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| faces      | json_array  | 人脸信息     | 否           | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#callbackV4.callbackParameters.frameDetail.riskDetail.faces) |
+| faces      | json_array  | 人脸信息     | 否           | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#faces2) |
 | face_num   | int         | 人脸数量     | 否           |                                                              |
-| objects    | json_array  | 物品信息     | 否           | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#callbackV4.callbackParameters.frameDetail.riskDetail.objects) |
+| objects    | json_array  | 物品信息     | 否           | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#objects2) |
 | persons    | json_array  | 人像信息     | 否           |                                                              |
 | person_num | int         | 人像数量     | 否           |                                                              |
-| ocrText    | json_object | 文字信息     | 否           | 返回图片中文字相关信息，详见[ocrText说明](#callbackV4.callbackParameters.frameDetail.riskDetail.ocrText) |
+| ocrText    | json_object | 文字信息     | 否           | 返回图片中文字相关信息，详见[ocrText说明](#ocrText2) |
 
-riskDetail中，faces数组的每个元素的内容如下：
+<span id="faces2">riskDetail中，faces数组的每个元素的内容如下：</span>
 
 | **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
 | ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
@@ -534,7 +496,7 @@ riskDetail中，faces数组的每个元素的内容如下：
 | probability | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
 | face_ratio  | float     | 人脸占比     | 否           |                                                              |
 
-riskDetail中，objects数组的每个元素的内容如下：
+<span id="objects2">riskDetail中，objects数组的每个元素的内容如下：</span>
 
 | **参数名**  | **类型**  | **参数说明** | **是否必返** | **规范**                                                     |
 | ----------- | --------- | ------------ | ------------ | ------------------------------------------------------------ |
@@ -553,7 +515,7 @@ riskDetail中，persons数组的每个元素的内容如下：
 | probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
 | person_ratio | float     | 人像占比     | 否           |                                                              |
 
-riskDetail中，ocrText数组每个成员的具体内容如下：
+<span id="ocrText2">riskDetail中，ocrText数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -582,7 +544,7 @@ ocrText中，riskSegments的每个元素详细内容如下：
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-frameDetail，allLabels数组的每个成员的内容如下：
+<span id="allLabels3">frameDetail，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -594,7 +556,7 @@ frameDetail，allLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | riskDetail | json_object | 风险详情 | 是 | 同frameDetail中的riskDetail结构一致 |
 
-frameDetail中，businessLabels数组的每个成员的内容如下：
+<span id="businessLabels3">frameDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                                 |
 | ------------------- | ----------- | ------------ | ------------ | -------------------------------------------------------- |
@@ -644,7 +606,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
 | person_ratio | float     | 人脸占比     | 否           |                                                              |
 
-其中，audioDetail数组中每个成员的具体内容如下：
+<span id="audioDetail2">其中，audioDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -657,41 +619,41 @@ businessDetail中，persons数组的每个元素的内容如下：
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
 | riskDescription | string | 标签解释 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
-| riskDetail | json_object | 风险详情信息 | 是 | 风险详情，详见[riskDetail说明](#queryV4.responseParameters.audioDetail.riskDetail) |
-| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#queryV4.responseParameters.audioDetail.allLabels) |
-| businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会有，详见[businessLabels说明](#queryV4.responseParameters.audioDetail.businessLabels) |
+| riskDetail | json_object | 风险详情信息 | 是 | 风险详情，详见[riskDetail说明](#riskDetail4) |
+| allLabels | json_array | 全部的风险标签列表 | 是 | 全部的风险标签列表，详见[allLabels说明](#allLabels4) |
+| businessLabels | json_array | 业务标签列表 | 否 | 传入audioBusinessType时会有，详见[businessLabels说明](#businessLabels4) |
 
-audioDetail中，riskDetail的每个元素详细内容如下：
+<span id="riskDetail4">audioDetail中，riskDetail的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
 | audioText | string | 音频转译文本的结果 | 否 | |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#queryV4.responseParameters.audioDetail.riskDetail.matchedLists) |
-| riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#queryV4.responseParameters.audioDetail.riskDetail.riskSegments) |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists3) |
+| riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments3) |
 
-riskDetail中，matchedLists数组每个成员的具体内容如下：
+<span id="matchedLists3">riskDetail中，matchedLists数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 客户自定义名单名 | 否 | |
-| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#queryV4.responseParameters.audioDetail.riskDetail.matchedLists.words) |
+| words | json_array | 命中的这个名单中的敏感词信息 | 否 | 下标从0开始计数，详见[words说明](#words3) |
 
-matchedLists中，words的每个元素详细内容如下：
+<span id="words3">matchedLists中，words的每个元素详细内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 敏感词 | 否 | |
 | position | int_array | 敏感词所在位置 | 否 | 下标从0开始计数 |
 
-riskDetail中，riskSegments数组每个成员的具体内容如下：
+<span id="riskSegments3">riskDetail中，riskSegments数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | 下标从0开始计数 |
 
-audioDetail中，allLabels数组的每个成员的内容如下：
+<span id="allLabels4">audioDetail中，allLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -703,7 +665,7 @@ audioDetail中，allLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | riskDetail | json_object | 风险详情 | 是 | 同audioDetail中的riskDetail结构一致 |
 
-audioDetail中，businessLabels数组的每个成员的内容如下：
+<span id="businessLabels4">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -715,7 +677,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | businessDetail | Json_object | 详细信息 | 是 |  |
 
-其中，tokenProfileLabels数组每个成员的具体内容如下：
+<span id="tokenProfileLabels2">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -725,7 +687,7 @@ audioDetail中，businessLabels数组的每个成员的内容如下：
 | description | string | 标签描述 | 否 | |
 | timestamp | int | 打标签时间戳 | 否 | 13位Unix时间戳，单位：毫秒 |
 
-其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+<span id="tokenRiskLabels2">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
 ## imgBusinessType可选值列表
 

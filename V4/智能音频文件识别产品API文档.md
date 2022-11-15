@@ -6,34 +6,6 @@
 
 - - - - -
 
-目录
-
-- [智能音频文件识别产品API文档](#智能音频文件识别产品api文档)
-  - [音频文件上传请求](#音频文件上传请求)
-    - [请求URL](#请求url)
-    - [字符编码](#字符编码)
-    - [请求方法](#请求方法)
-    - [建议超时时长](#建议超时时长)
-    - [音频格式限制](#音频格式限制)
-    - [请求体限制](#请求体限制)
-    - [请求参数](#请求参数)
-    - [同步返回参数](#同步返回参数)
-  - [主动查询结果](#主动查询结果)
-    - [请求URL](#请求url-1)
-    - [字符编码](#字符编码-1)
-    - [请求方法](#请求方法-1)
-    - [建议超时时长](#建议超时时长-1)
-    - [请求参数](#请求参数-1)
-    - [返回参数](#返回参数)
-  - [异步回调结果](#异步回调结果)
-    - [回调参数](#返回参数)
-  - [示例](#示例)
-    - [上传请求示例](#上传请求示例)
-    - [同步返回示例](#同步返回示例)
-    - [回调返回示例](#回调返回示例)
-    - [主动查询结果请求示例](#主动查询结果请求示例)
-    - [主动查询结果返回示例](#主动查询结果返回示例)
-
 ## 音频文件上传请求
 
 ### 请求URL
@@ -82,17 +54,15 @@
 
 其中，<span id="data">data</span>的内容如下：
 
-| **请求参数名**       | **类型** | **参数说明**  | **传入说明** | **规范**                                                                                                       |
-|:----------------|:-------|:----------|:---------|:-------------------------------------------------------------------------------------------------------------|
-| tokenId         | string | 用户账号      | 非必传参数    | 用于用户行为分析，建议传入用户UID                                                                                           |
-| formatInfo      | string | 音频数据格式    | 非必传参数    | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3                                                                             |
-| rate            | int    | 音频数据采样率   | 非必传参数    | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                                                             |
-| track           | int    | 音频数据声道数   | 非必传参数    | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>                                                       |
-| returnAllText   | int    | 返回音频片段的等级 | 非必传参数    | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p>                                                  |
-| audioDetectStep | int    | 间隔审核步长    | 非必传参数    | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
-| lang            | string | 音频流语言类型   | 非必传参数    | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                              |
-| deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                                                              |  
-| ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                                             |
+| **请求参数名** | **类型** | **参数说明**       | **传入说明** | **规范**                                                                                   |
+| :------------- | :------- | :----------------- | :----------- | :----------------------------------------------------------------------------------------- |
+| tokenId        | string   | 用户账号           | 非必传参数   | 用于用户行为分析，建议传入用户UID                                                          |
+| formatInfo     | string   | 音频数据格式       | 非必传参数   | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3                                       |
+| rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                        |
+| track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
+| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
+| audioDetectStep | int | 间隔审核步长 | 非必传参数 | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
+| lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
 
 ### 同步返回参数
 
@@ -148,7 +118,7 @@
 | riskLevel   | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p>                                                                   |
 | audioText   | string      | 整段音频转译文本结果           | 是           |                                                                                                                                                                                                                       |
 | audioTime   | int         | 整段音频的音频时长             | 是           | 单位秒                                                                                                                                                                                                                |
-| audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail-1)                                                                                                                                                             |
+| audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)                                                                                                                                                             |
 | audioTags   | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                                                                                                                                                                                        |
 | auxInfo     | json_object | 辅助信息                       | 否           |                                                            |
 
@@ -164,7 +134,7 @@
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
 | riskDescription | string      | 风险原因         | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                         |
-| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail-1)                                      |
+| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                                      |
 
 
 其中，<span id="riskDetail">riskDetail</span>详细内容如下：
@@ -172,15 +142,15 @@
 | **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                  |
 | :----------- | :--------- | :----------------------- | :----------- | :---------------------------------------------------------------------------------------- |
 | audioText    | string     | 音频转译文本的结果       | 否           |                                                                                           |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists-1)                         |
-| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments-1) |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
+| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
 riskDetail中，<span id="matchedLists">matchedLists</span>详细内容如下：
 
 | **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范**                  |
 | :--------- | :--------- | :--------------------------- | :----------- | :------------------------ |
 | name       | string     | 客户自定义名单名称           | 是           |                           |
-| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words-1) |
+| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words) |
 
 matchedLists中，<span id="words">words</span>详细内容如下：
 
@@ -247,15 +217,13 @@ audioTags中，language详细内容如下：
 | riskLevel      | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p> |
 | audioText      | string      | 整段音频转译文本结果           | 是           |                                                              |
 | audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
-| audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
+| audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail2)      |
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
-| tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
-| tokenRiskLabels | json_array  | 账号风险标签                   | 否           | 仅在开启功能时返回  |
 
-其中，<span id="audioDetail">audioDetail</span>详细内容如下：
+其中，<span id="audioDetail2">audioDetail</span>详细内容如下：
 
 | **参数名**      | **类型**    | **参数说明**     | **是否必返** | **规范**                                                                 |
 | :-------------- | :---------- | :--------------- | :----------- | :----------------------------------------------------------------------- |
@@ -268,31 +236,31 @@ audioTags中，language详细内容如下：
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
 | riskDescription | string      | 风险原因         | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                         |
-| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                                        |
+| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail2)                                        |
 
-其中，<span id="riskDetail">riskDetail</span>详细内容如下：
+其中，<span id="riskDetail2">riskDetail</span>详细内容如下：
 
 | **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
 | :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
 | audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
-| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists2)                         |
+| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments2) |
 
-riskDetail中，<span id="matchedLists">matchedLists</span>详细内容如下：
+riskDetail中，<span id="matchedLists2">matchedLists</span>详细内容如下：
 
 | **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范**                |
 | :--------- | :--------- | :--------------------------- | :----------- | :---------------------- |
 | name       | string     | 客户自定义名单名称           | 是           |                         |
-| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words) |
+| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | [详见words参数](#words2) |
 
-matchedLists中，<span id="words">words</span>详细内容如下：
+matchedLists中，<span id="words2">words</span>详细内容如下：
 
 | **参数名** | **类型**  | **参数说明**   | **是否必返** | **规范** |
 | :--------- | :-------- | :------------- | :----------- | :------- |
 | word       | string    | 敏感词         | 是           |          |
 | position   | int_array | 敏感词所在位置 | 是           |          |
 
-riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
+riskDetail中，<span id="riskSegments2">riskSegments</span>详细内容如下：
 
 | **参数名** | **类型**  | **参数说明**           | **是否必返** | **规范** |
 | :--------- | :-------- | :--------------------- | :----------- | :------- |
@@ -337,16 +305,6 @@ audioTags中，language详细内容如下：
 | businessLabel2      | string   | 二级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessLabel3      | string   | 三级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessDescription | string   | 描述     | 是           | 注意：businessLabels不为空时必返，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-
-*tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
-
-| **参数名称**        | **类型** | 参数说明 | **是否必返** | **说明**                                 |
-| :------------------ | :------- | -------- | :----------- |:---------------------------------------|
-| label1      | string   | 一级标签     | 否           |                                        |
-| label2      | string   | 二级标签     | 否           |                                        |
-| label3      | string   | 三级标签     | 否           |                                        |
-| description | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
 
 其中，<span id="auxInfo">auxInfo</span>详细内容如下：
 
