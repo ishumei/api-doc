@@ -113,6 +113,8 @@ POST
 | nickname      | string      | N            | 用户昵称  |                                                                                                                                                                  
 | timestamp     | int         | N            | 时间戳（毫秒级）  |                                                                                                                                                          
 | room          | string      | N            | 房间号     |                                                                                                                                                                                                       
+| deviceId        | string | N  |  数美设备指纹生成的设备唯一标识                                                                                              |  
+| ip              | string | N    |  发送该音频的用户公网ipv4地址                                                                                             |
 
 *formatInfo内容如下：*
 
