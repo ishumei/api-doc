@@ -160,6 +160,8 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | businessLabels  | json_array  | 音频业务标签           | 否           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
 | allLabels       | json_array  | 风险标签               | 否           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
 | riskSource      | int         | 风险来源               | 是           | 风险来源                                                                                                                                         |
+| tokenProfileLabels  | json_array  | 账号属性标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
+| tokenRiskLabels  | json_array  | 账号风险标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 
 其中，auxInfo结构如下：
 
@@ -211,6 +213,16 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | businessLabel2      | string   | 二级业务标签 | 否           | 二级业务标签 |
 | businessLabel3      | string   | 三级业务标签 | 否           | 三级业务标签 |
 | businessDescription | string   | 中文标签描述 | 否           | 业务标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+
+<span id="tokenRiskLabels">其中，tokenProfileLabels，tokenRiskLabels 结构如下</span>
+
+| **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**                                 |
+| ------------------- | -------- | ------------ | ------------ |----------------------------------------|
+| label1      | string   | 一级标签     | 否           |                                        |
+| label2      | string   | 二级标签     | 否           |                                        |
+| label3      | string   | 三级标签     | 否           |                                        |
+| description | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
 
 allLabels结构如下：
 

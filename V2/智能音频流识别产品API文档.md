@@ -23,7 +23,7 @@
 | V2.0.7 | 2022/04/18 | 代俊凯 | 1. 增加callbackParam说明                                                                                                                       |
 | V2.0.8 | 2022/05/09 | 代俊凯 | 1. 增加违禁歌曲、人声属性、声音场景识别  
 | V2.0.9 | 2022/08/12 | 管铭 | 1. 增加SDK录制费用说明  
-|
+| v2.1.0 | 2022/11/14 | 杨杰 | 增加 tokenProfileLabels tokenRiskLabels 说明
 
 # 1. 接入前准备
 
@@ -271,7 +271,9 @@ POST
 | seiInfo           | array       | N            | <p>（需要联系数美开通）</p><p>展示流片段插入的SEI信息</p>                                                                                                                                                                                                                                                                                     |
 | language          | json_array  | N            | 语种识别与概率值列表,在type下传入返回。                                                                                                                                                                                                                                                                                                       |
 | minorLabel        | int         | N            | <p>当type传入MINOR且命中未成年人标签时，才会返回；</p><p>1：未成年人</p>                                                                                                                                                                                                                                                                      |
-| businessLabels    | json_array  | Y            | 音频业务标签返回                                                                                                                                                                                                                                                                                                                              |
+| businessLabels    | json_array  | Y            | 音频业务标签返回                                                                                                                                                                                                                                                                                                                             |
+| tokenProfileLabels| json_array  | N            | 账号属性标签，仅在开启功能时返回                                                                                                                                                                                                                                                                                                                              |
+| tokenRiskLabels   | json_array  | N            | 账号风险标签，仅在开启功能时返回                                                                                                                                                                                                                                                                                                                              |
 | riskSource        | int         | Y            | <p>风险来源</p><p>1000：无风险</p><p>1001：文字</p><p>1003：音频</p>                                                                                                                                                                                                                                                                          |
 
 detail.language数组中每一项具体参数如下：
@@ -288,6 +290,16 @@ detail.language数组中每一项具体参数如下：
 | businessLabel2      | string | 二级业务标签 | 否       |              |
 | businessLabel3      | string | 三级业务标签 | 否       |              |
 | businessDescription | string | 业务标签描述 | 否       | 中文标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+
+其中，tokenProfileLabels，tokenRiskLabels 详细内容如下
+
+| 参数名              | 类型   | 参数说明     | 是否必返 | 备注                                     |
+|:-----------------| :----- | :----------- | :------- |:---------------------------------------|
+| label1           | string   | 一级标签     | 否           |                                        |
+| label2           | string   | 二级标签     | 否           |                                        |
+| label3           | string   | 三级标签     | 否           |                                        |
+| description      | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp        | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
 
 其中，auxInfo 的内容如下：
 

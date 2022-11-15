@@ -63,6 +63,17 @@
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p> |
 | audioDetectStep | int | 间隔审核步长 | 非必传参数 | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
+| **请求参数名**       | **类型** | **参数说明**  | **传入说明** | **规范**                                                                                                       |
+|:----------------|:-------|:----------|:---------|:-------------------------------------------------------------------------------------------------------------|
+| tokenId         | string | 用户账号      | 非必传参数    | 用于用户行为分析，建议传入用户UID                                                                                           |
+| formatInfo      | string | 音频数据格式    | 非必传参数    | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3                                                                             |
+| rate            | int    | 音频数据采样率   | 非必传参数    | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                                                             |
+| track           | int    | 音频数据声道数   | 非必传参数    | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>                                                       |
+| returnAllText   | int    | 返回音频片段的等级 | 非必传参数    | <p>0：返回风险等级为非pass的音频片段</p><p>1：返回所有风险等级的音频片段</p><p>默认为0</p>                                                  |
+| audioDetectStep | int    | 间隔审核步长    | 非必传参数    | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
+| lang            | string | 音频流语言类型   | 非必传参数    | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                              |
+| deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                                                              |  
+| ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                                             |
 
 ### 同步返回参数
 
@@ -222,6 +233,8 @@ audioTags中，language详细内容如下：
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
+| tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
+| tokenRiskLabels | json_array  | 账号风险标签                   | 否           | 仅在开启功能时返回  |
 
 其中，<span id="audioDetail2">audioDetail</span>详细内容如下：
 
@@ -305,6 +318,16 @@ audioTags中，language详细内容如下：
 | businessLabel2      | string   | 二级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessLabel3      | string   | 三级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessDescription | string   | 描述     | 是           | 注意：businessLabels不为空时必返，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+
+*tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
+
+| **参数名称**        | **类型** | 参数说明 | **是否必返** | **说明**                                 |
+| :------------------ | :------- | -------- | :----------- |:---------------------------------------|
+| label1      | string   | 一级标签     | 否           |                                        |
+| label2      | string   | 二级标签     | 否           |                                        |
+| label3      | string   | 三级标签     | 否           |                                        |
+| description | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
 
 其中，<span id="auxInfo">auxInfo</span>详细内容如下：
 
