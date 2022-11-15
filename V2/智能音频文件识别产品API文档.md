@@ -189,6 +189,8 @@ POST
 | tags           | json_array  | N            | 音色标签与概率值列表                                         |
 | businessLabels | json_array  | N            | 业务标签返回（目前只支持MINOR,策略命中返回标签内容,否则为空） |
 | auxInfo        | json_object | N            | 辅助信息                                                                |
+| tokenProfileLabels | json_array  | N            | 账号属性标签，仅在开启功能时返回 |
+| tokenRiskLabels | json_array  | N            | 账号风险标签，仅在开启功能时返回 |
 
 *detail数组中每一项的具体参数如下：*
 
@@ -240,6 +242,15 @@ POST
 | :------------| :-----  | :----------| :--------------------------------------- |
 | errorCode    | int     | Y          |<p>状态码</p><p>2003：音频下载失败</p><p>2007：无有效数据</p>|
 
+*tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
+
+| **参数名称**    | **类型** | **是否必返** | **说明**                                 |
+|:------------|:-------|:---------|:---------------------------------------|
+| label1      | string | 否        | 一级标签                                   |
+| label2      | string | 否        | 二级标签                                   |
+| label3      | string | 否        | 三级标签                                   |
+| description | string | 否        | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp   | int    | 否        | 打标签时间戳 13位Unix时间戳，单位：毫秒                |
 
 ## 异步回调识别结果
 
