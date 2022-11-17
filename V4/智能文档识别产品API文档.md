@@ -2,7 +2,7 @@
 
 
 
-# 数美智能网页识别产品API接口文档
+# 数美智能文档识别产品API接口文档
 
 - - - - -
 
@@ -12,7 +12,7 @@
 
 目录
 
-- [智能网页过滤服务](#A)
+- [智能文档过滤服务](#A)
   
   - [请求参数](#Aa)
     - [请求URL](#Aa1)
@@ -28,7 +28,7 @@
       - [请求示例](#Ac21)
       - [响应示例](#Ac22)
   
-- [智能网页上传服务](#B)
+- [智能文档上传服务](#B)
   
   - [请求参数](#Ba)
     - [请求URL](#Ba1)
@@ -64,7 +64,7 @@
     
       
 
-# <span id="A">智能网页过滤服务接入说明</span>
+# <span id="A">智能文档过滤服务接入说明</span>
 
 ## <span id="Aa">请求参数</span>
 
@@ -329,7 +329,7 @@
 | accessKey      | string       | 接口认证密钥         | Y            | 由数美提供                                                   |
 | type           | string       | 平台业务类型         | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
 | imgType        | string       | 网页中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
-| txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:默认识别涉政、色情、广告，等 价于 POLITICS_PORN_AD<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`NONE`:不需要识别文本<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉 政识别 |
+| txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
 | appId          | string       | 应用标识             | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
 | data           | json\_object | 请求的数据内容       | Y            | 最长1MB, [详见data参数](#data)                               |
 
