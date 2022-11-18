@@ -174,15 +174,8 @@
 | contentType | int | 用来区分音频和图片回调，当code等于1100时返回 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
 | frameDetail | json_object | 风险截帧信息 | 否 | 当code等于`1100`时返回，详见[frameDetail说明](#frameDetail) |
 | audioDetail | json_object | 风险音频片段信息 | 否 | 当code等于`1100`时返回，详见[audioDetail说明](#audioDetail) |
-| auxInfo | json_object | 辅助信息 | 否 | 当code等于`1100`时返回，详见[auxInfo说明](#auxInfo) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
-
-<span id="auxInfo">其中，auxInfo中的具体内容如下：</span>
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 
 <span id="frameDetail">其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：</span>
 
@@ -368,6 +361,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
 | userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
+| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 | room | string | 房间号 | 否 | |
 
 <span id="riskDetail2">audioDetail中，riskDetail的详细内容如下：</span>
