@@ -81,7 +81,7 @@
 | riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常"|
 | riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
 | tokenLabels | json object| 辅助信息 | Y | 账号风险画像标签信息见下面详情内容。[详见tokenLabels参数](#tokenLabels) |
-| auxlnfo| json_object| 辅助信息 | Y | [详见auxlnfo参数](#auxlnfo)|
+| auxInfo| json_object| 辅助信息 | Y | [详见auxInfo参数](#auxlnfo)|
 | allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
