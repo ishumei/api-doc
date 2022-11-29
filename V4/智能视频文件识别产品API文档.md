@@ -69,12 +69,20 @@
 | tokenId | string | | 必传参数 | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID； 最长40位 |
 | lang | string | 语言类型 | 非必传参数 | 可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>不传默认进行中文检测 |
 | detectFrequency | float | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为0.5~60s；如不传递默认5s截帧一次 |
+| advancedFrequency | json_object | 高级截帧间隔，单位为秒 | 非必传参数 | 高级截帧设置，此项填写，默认截帧策略失效<br/>参数配置如下<br/>{"durationPoints":[300,600],"frequencies":[1,5,10]}<br/>含义为：<br/>视频文件时长≤300s ——选用1s一截帧<br/>300s<视频文件时长≤600s ——选用5s一截帧<br/>视频文件时长>600s ——选用10s一截帧 |
 | ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
 | audioDetectStep | int | 视频文件中的音频审核步长 | 非必传参数 | 单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审 |
 | returnAllImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
 | returnAllAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
+
+<span id="advancedFrequency">data 中，advancedFrequency的内容如下</span>
+
+| **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
+| --- | --- | --- | --- | --- |
+| durationPoints | Object[] | 视频时长区间分割 | 非必传参数 | 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个 |
+| frequencies | Object[] | 视频时长区间对应的截帧频率 | 非必传参数 | 可设置范围为0.5~60秒，数组最多6个<br/>说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902|
 
 <span id="extra">data 中，extra的内容如下</span>
 
@@ -792,6 +800,7 @@ code请求返回码列表如下：
         "btId": "1639824316368",
         "channel": "video",
         "detectFrequency": 3,
+	"advancedFrequency": {"durationPoints":[300,600],"frequencies":[1,5,10]},
         "tokenId": "test",
         "ip":"123.171.34.3",
         "url": "http://oss.xxx.com/static/photo/117608703147396.mp4",
