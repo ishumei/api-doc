@@ -143,6 +143,7 @@
 | detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
 | status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
 | auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#AauxInfo)  |
+| callbackParam | json_object | 透传字段	 | N	 |透传参数，原样返回  |
 
 <span id="Adetail">其中detail字段如下：</span>
 
@@ -154,6 +155,7 @@
 | riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
 | hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
+| passThrough | json_object | N            | 透传参数，原样返回             |
 
 其中，<span id="AriskSummary">riskSummary</span>内容是风险类型，具体如下：
 
@@ -435,7 +437,7 @@
 | -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
 | requestId      | string      | 请求唯一标识                 | Y            |                                                              |
 | humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
-| machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考同步接口返回字段](#Ab1)                                 |
+| machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考回调接口返回字段](#Ab1)                                 |
 | mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
 
 其中，humanResult/mergeResult的内容如下：
