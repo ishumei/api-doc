@@ -1,22 +1,18 @@
 # 数美智能图片识别产品API接口文档
 
-- - - - -
 
-***版权所有 翻版必究***
-
-- - - - -
 # 同步单张上传接口
 
 ## 同步单条请求
 
 ### 请求URL：
-| 集群 | URL | 支持产品列表 |
-| --- | --- | --- |
-| 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 图片 |
-| 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 图片 |
-| 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 图片 |
-| 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
-| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
+| 集群 | URL |
+| --- | --- | 
+| 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 
+| 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 
+| 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 
+| 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 
 
 ### 请求方法：
 
@@ -36,10 +32,10 @@
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
+| accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 |  |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入）<br/>涉政、色情、暴恐只包含了图片本身的违规检测，如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能 |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑，回调http地址字段，当该字段非空时，服务将根据该字段回调通知用户审核结果，地址必须为http或https的规范的url | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
@@ -77,8 +73,8 @@
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数，来控制是否要忽略ca证书的验证 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
-| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 |  |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 否 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
+| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 否 |  |
 ## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -97,8 +93,8 @@
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
-| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | 否 | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | 否 | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
@@ -108,7 +104,7 @@
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
 | face_num | int | 人脸数量 | 否 |  |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
-| person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
+| person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
 | riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
@@ -499,7 +495,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -523,7 +519,7 @@ scene_account_risk的详情内容如下：
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-| room | string | 直播房间号 | 非必传参数 | |
+| room | string | 直播房间号 | 否 | |
 ## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -593,7 +589,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
 
@@ -617,7 +613,7 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 否 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
 
 其中，imgs数组每个元素的具体内容如下：
 
