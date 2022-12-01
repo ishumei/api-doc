@@ -1,10 +1,5 @@
 # 数美智能视频文件识别产品API文档
 
-- - - - -
-
-***版权所有 翻版必究***
-
-- - - - -
 ## 视频文件上传请求
 
 ### 接口描述
@@ -12,13 +7,13 @@
 该接口用于提交视频相关信息，自定义截帧频率等参数。识别结果需客户自行定期调用查询接口获取。
 
 ### 请求URL：
-| 集群 | URL | 支持产品列表 |
-| --- | --- | --- |
-| 北京 | `http://api-video-bj.fengkongcloud.com/video/v4` | 中文视频文件 |
-| 上海 | `http://api-video-sh.fengkongcloud.com/video/v4` | 中文视频文件 |
-| 新加坡 | `http://api-video-xjp.fengkongcloud.com/video/v4` | 中文视频文件 |
-| 硅谷 | `http://api-video-gg.fengkongcloud.com/video/v4` | 中文视频文件 |
-| 印度 | `http://api-video-yd.fengkongcloud.com/video/v4` | 中文视频文件 |
+| 集群 | URL | 
+| --- | --- | 
+| 北京 | `http://api-video-bj.fengkongcloud.com/video/v4` | 
+| 上海 | `http://api-video-sh.fengkongcloud.com/video/v4` | 
+| 新加坡 | `http://api-video-xjp.fengkongcloud.com/video/v4` | 
+| 硅谷 | `http://api-video-gg.fengkongcloud.com/video/v4` | 
+| 印度 | `http://api-video-yd.fengkongcloud.com/video/v4` | 
 
 ### 请求方法：
 
