@@ -1051,6 +1051,11 @@ code请求返回码列表如下：
 	"auxInfo": {
 		"frameCount": 2,
 		"time": 85
+		"passThrough": {
+                "passThrough1": "透传字段1",
+                "passThrough2": "透传字段2",
+                "passThrough3": "透传字段3"
+		}
 	}
 }
 ```
