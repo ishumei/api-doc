@@ -4,11 +4,7 @@
 
 # 数美智能网页识别产品API接口文档
 
-- - - - -
 
-***版权所有 翻版必究***
-
-- - - - -
 
 目录
 
@@ -74,9 +70,9 @@
 
 ### <span id="Aa1">请求URL：</span>
 
-| 集群 | URL | 支持产品列表 |
-| --- | --- | --- |
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 网页产品 |
+| 集群 | URL | 
+| --- | --- | 
+| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 
 
 ### <span id="Aa2">字符编码格式：</span>
 
