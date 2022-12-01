@@ -5,11 +5,11 @@
 
 ### 请求URL：
 
-| 集群   | URL                                                           | 支持产品列表                             |
+| 集群   | URL                                                           | 支持语种                             |
 | ------ | ------------------------------------------------------------- | ---------------------------------------- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
-| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文音频流<br/>英语音频流<br/>阿语音频流 |
-| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文音频流                               |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、英语、阿语 |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、英语、阿语 |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文       |
 
 ### 请求方法：
 
@@ -22,6 +22,14 @@
 ### 建议超时时间：
 
 1s
+
+### 拉流重试机制
+
+为防止网络异常导致的拉流失败问题发生，数美音频流服务设置了拉流失败后的重试机制，具体机制如下：
+
+普通rtmp、http、hls流会重试12次，第一次间隔5秒，第二次间隔10秒，以此类推，最大间隔不超过60秒<br/>
+通过声网SDK录制方式拉流，重试2次，间隔为0<br/>
+通过即构SDK录制方式拉流，重试10次，每次重试间隔30秒
 
 ### 请求参数：
 
