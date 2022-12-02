@@ -306,13 +306,21 @@ businessDetail中，persons数组的每个元素的内容如下：
 | contentType       | int         | ⽤来区分⾳频和图⽚回调，当code等于1100时返回 | 是           | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
 | riskLevel              | string         | 流风险处置建议                         | 是           | 回调结束时返回整体流的处置建议                             |
 | pullStreamSuccess | bool        | 拉流是否成功                                 | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败<br/>如果一张截图都没有获取成功即认为拉流失败 |
-| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#finishDetail) |
+| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#FinishDetail) |
+| auxinfo         | json_object | 辅助信息                                    | 是           | 详见[auxinfo说明](#auxinfo2) |
 
-<span id="finishDetail">结束回调中的detail内容如下：</span>
+<span id="FinishDetail">结束回调中的detail内容如下：</span>
 
 | **参数名**    | **类型**    | **参数说明**                 | **是否必返** | **规范** |
 | ------------- | ----------- | ---------------------------- | ------------ | -------- |
 | requestParams | json_object | 返回请求参数data中的所有字段 | 是           | 无       |
+
+<span id="auxinfo2">其中auxInfo字段结构如下：
+
+| **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
+| --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| errorCode       | int         | 状态码           | 是           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
+| streamTime       | int         | 流审核时长           | 否           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
 
 ## 视频流关闭接口
 
