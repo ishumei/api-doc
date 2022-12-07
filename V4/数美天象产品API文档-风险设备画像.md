@@ -1,4 +1,5 @@
 # 数美天象产品API接口说明文档
+## 设备风险画像
 
 - - - - -
 
@@ -231,12 +232,21 @@ device_suspicious_labels的详情内容如下：
 | b_device_proxy_last_ts | int | 设备使用代理最近标签命中时间 | |
 | b_camera_hook | int |  当前设备存在摄像头被劫持风险 | 当前设备存在摄像头被劫持风险，取值：<br/>0:摄像头未被劫持，<br/>1:摄像头被劫持
 | b_camera_hook_last_ts | int | 设当前设备存在摄像头被劫持标签命中时间 | |
+| b_adb_enable | int |  当前设备存在开启adb调试模式风险 | 当前设备存在开启adb调试模式风险，取值：<br/>0:未开启adb调试模式，<br/>1:开启了adb调试
+| b_adb_enable_last_ts | int | 当前设备存命中开启adb调试模式风险的时间 | |
+
+
 
 device_active_info的详情内容如下：
 
 | ***返回结果参数名*** | ***参数类型*** | ***参数说明*** | ***规范*** |
 | ------------------------ | ------------------ | ------------------ | -------------- |
 | i_smid_boot_timestamp    | int                | 系统启动时间       |                
+| b_active_timeh | int |   设备启动到当前的小时数，仅记录24小时内的活跃时间，超过24小时候之后，设备没有重启之前，值不会再更新； |
+| b_active_timeh_last_ts | int |   最近一次写入设备启动当当前小时数值的时间； |
+| b_model_release_timestamp | int | 设备型号的工信部入网时间或公开发布时间； |
+| b_usespaceg | int | 设备已用的磁盘空间，仅记录20G以内的数据； | 
+| b_usespaceg_last_ts | int | 设备易用磁盘空间最近一次入值的时间； |
 | b_device_first_activation | int               | 设备是否首次出现，取值：<br/>0:非首次出现<br/>1:首次出现  | 
 | b_device_first_activation_ts | int            | 设备首次出现时间 | 
 
