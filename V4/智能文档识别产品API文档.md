@@ -106,7 +106,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | contents | string | 要检测的网页内容 | Y | 可填入url链接或文本内容<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字。图片张数限制500张。 |
-| fileFormat | string | 要检测的文档格式 | N | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`TXT`<br/>若不传或传空值，则默认按网页链接或文本内容检测<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
+| fileFormat | string | 要检测的文档格式 | N | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>若不传或传空值，则默认按网页链接或文本内容检测<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
 | tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y | 如果是网页识别场景，传入网页url即可 |
 | channel | string | 业务场景 | N | 渠道表配置 |
 | returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
