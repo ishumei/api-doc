@@ -57,10 +57,8 @@
 | topic | string | 可为话题编号、书评区编号、论坛帖子编号 | N | eventId值为`article`必传 |
 | atId | string | 群聊场景下被@用户的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为`groupChat`必传 |
 | room | string | 直播间/游戏房间编号 | N | eventId值为`groupChat`时必传|
-| level | int | 用户等级 | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
-| role | string | 用户角色 | N | 用于区分直播／游戏行业不同角色的用户，可选值（默认为普通用户）：<br/>`ADMIN`：房管／管理员<br/>`HOST`：主播<br/>`SYSTEM`：系统<br/>`USER`：普通用户<br/>当传入值为`SYSTEM`时，数美会默认当前请求是没有风险的 |
+| role | string | 用户角色 | N | 用于区分直播／游戏行业不同角色的用户，可选值（默认为普通用户）：<br/>`SYSTEM`：系统<br/>`USER`：普通用户<br/>当传入值为`SYSTEM`时，数美会默认当前请求是没有风险的 |
 | sex | int | 性别 | N | 用于用户性别，可选值：<br/>`0`：男性<br/>`1`：女性<br/>`2`：性别不明 |
-| isTokenSeparate| int | 应用体系，取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效 | N | 区分不同应用下的账号,可取值（默认值为`0`）：<br/>`0`:不区分<br/>`1`:区分<br/> |
 | passThrough | Json | 透传字段 | N | 该字段内容会随着返回值一起返回 |
 
 ## 返回结果
@@ -86,7 +84,7 @@
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-| langResult | json_array | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
+| langResult | json_object | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
 
 <span id="langResult">其中，语种信息langResult结构如下：</span>
 
@@ -183,7 +181,7 @@
 | description | string | 标签描述     | 否       |                            |
 | timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
 
-一级标签的内容如下：
+当lang字段取值zh，或取值auto被识别为中文时，一级标签的内容如下：
 
 | 一级标签 | 一级标识    | 类型     | 备注              |
 | -------- | ----------- | -------- | ----------------- |
@@ -199,6 +197,19 @@
 | 隐私     | privacy     | 监管标签 | type值为TEXTRISK  |
 | 网络诈骗 | fraud       | 监管标签 | type值为FRUAD     |
 | 未成年人 | minor       | 监管标签 | type值为TEXTMINOR |
+
+当为非中文时，一级标签的内容如下：
+
+| 一级标签 | 一级标识    | 类型     | 备注              |
+| -------- | ----------- | -------- | ----------------- |
+| 涉政     | Politics    | 监管标签 | type值为TEXTRISK  |
+| 暴恐     | Violence    | 监管标签 | type值为TEXTRISK  |
+| 色情     | Erotic      | 监管标签 | type值为TEXTRISK  |
+| 违禁     | Prohibit    | 监管标签 | type值为TEXTRISK  |
+| 辱骂     | Abuse       | 监管标签 | type值为TEXTRISK  |
+| 广告     | Ads         | 监管标签 | type值为TEXTRISK  |
+| 黑名单   | Blacklist   | 监管标签 | type值为TEXTRISK  |
+
 
 ## 示例
 
@@ -223,8 +234,7 @@
             "atId":"username1",
             "room":"ceshi123",
             "receiveTokenId":"username2",
-            "level":1,
-            "role":"ADMIN"
+            "role":"USER"
     	}
     }
 }
