@@ -441,23 +441,40 @@ scene_account_risk的详情内容如下：
 
 ```json
 {
-    "checksum":"236f8eea85c3c4407d96ff05d6108389b3b0cea8aa80bdf6642c1cecc77b2bde",
-    "result":{
+    "requestId":"testcallback002",
     "code":1100,
     "message":"成功",
-    "requestId":"1e6e4e43cd35b545418fcef7d0f77ef4",
-    "score":999,
     "riskLevel":"REJECT",
-    "detail":{
-        "description":"涉政文字",
-        "matchedItem":"xxx",
-        "matchedList":"test",
-        "model":"M02601",
-        "polityName":"xxx",
-        "riskType":100,
+    "riskLabel1":"politics",
+    "riskLabel2":"zhengzhixiangzheng",
+    "riskLabel3":"guoqiguohui",
+    "riskDescription":"涉政:政治象征:国旗国徽",
+    "riskDetail":{
         "riskSource":1002
     },
-    "status":0
+    "auxInfo":{
+        "segments":1,
+        "typeVersion":{
+
+        }
+    },
+    "allLabels":[
+        {
+            "probability":0.989746093754127,
+            "riskDescription":"涉政:政治象征:国旗国徽",
+            "riskDetail":{
+                "riskSource":1002
+            },
+            "riskLabel1":"politics",
+            "riskLabel2":"zhengzhixiangzheng",
+            "riskLabel3":"guoqiguohui",
+            "riskLevel":"REJECT"
+        }
+    ],
+    "tokenLabels":{
+        "UGC_account_risk":{
+
+        }
     }
 }
 ```
