@@ -169,18 +169,18 @@
 | --- | --- | --- | --- | --- |
 | type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>          |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
-| beginPosition | int       | 当前内容片段在输入中的起始位置 | Y            |                                      |
-| endPosition | int     | 当前内容片段在输入中的结束位置 | Y           |                |
+| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`img`时该字段不返回 | N            |                                      |
+| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`img`时该字段不返回 | N           |                |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
 | riskLevel | string | 当前内容片段的处置建议 | Y           | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
 | riskType | int | 当前内容片段的标识风险类型 | Y | 当type为文本时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义<br/><br/>当type为图片时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`520`：未成年人<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
+| index | int | 当前处理的片段索引 | Y | 索引不区分文本和图片 |
 | riskTypeDec | string | riskType对应的描述 | N |  |
 | model | string | 规则标识，用来标识文本命中的策略规则 | N |  |
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在） | N |  |
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时存在） | N |  |
 | matchedField | string | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在） | N | 可选值：<br/>`text`：文本命中敏感词<br/>`nickname`：昵称命中敏感词 |
 | matchedDetail | json_array | 命中的名单详情 | N | [详见详细结构](#matcheddetail) |
-| index | int | 当前处理的片段索引 | N | 索引不区分文本和图片 |
 | keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
 
 其中，<span id="matcheddetail">matchedDetail</span>结构如下:
