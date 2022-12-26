@@ -525,8 +525,8 @@ audioTags中，language详细内容如下：
 | riskLabel2      | string   | 二级风险标签 | 是           | 二级风险标签 |
 | riskLabel3      | string   | 三级风险标签 | 是           | 三级风险标签 |
 | riskDescription | string   | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
-| riskLevel | string | 处置建议 | 是 | |
-| probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 |  |
+| riskLevel   | string      | 处置建议   | 否           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p> |
+| probability | float | 置信度 | 否 | 可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 |
 | riskDetail | json_object | 风险详情 | 否 | [详见riskDetail参数](#riskDetail) |
 
 *tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
