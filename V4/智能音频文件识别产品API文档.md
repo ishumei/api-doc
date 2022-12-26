@@ -100,6 +100,7 @@ detail内容：
 | audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
 | riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
 
 riskDetail中，<span id="matchedLists">matchedLists</span>详细内容如下：
 
@@ -428,6 +429,7 @@ POST
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
+| allLabels       | json_array  | 风险标签               | 否           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 | tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
 | tokenRiskLabels | json_array  | 账号风险标签                   | 否           | 仅在开启功能时返回  |
@@ -514,6 +516,18 @@ audioTags中，language详细内容如下：
 | businessLabel2      | string   | 二级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessLabel3      | string   | 三级标签 | 是           | 注意：businessLabels不为空时必返 |
 | businessDescription | string   | 描述     | 是           | 注意：businessLabels不为空时必返，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+
+*<span id="allLabels">allLabels</span>结构如下：*
+
+| **参数名**      | **类型** | **参数说明** | **是否必返** | **规范**     |
+| --------------- | -------- | ------------ | ------------ | ------------ |
+| riskLabel1      | string   | 一级风险标签 | 是           | 一级风险标签 |
+| riskLabel2      | string   | 二级风险标签 | 是           | 二级风险标签 |
+| riskLabel3      | string   | 三级风险标签 | 是           | 三级风险标签 |
+| riskDescription | string   | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
+| riskLevel | string | 处置建议 | 是 | |
+| probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 |  |
+| riskDetail | json_object | 风险详情 | 否 | [详见riskDetail参数](#riskDetail) |
 
 *tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
 
