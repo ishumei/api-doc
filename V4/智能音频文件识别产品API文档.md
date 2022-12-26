@@ -100,7 +100,7 @@ detail内容：
 | audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
 | riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| riskSource | int | 标识资源哪里违规 | 否 | 标识风险结果的来源：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
 
 riskDetail中，<span id="matchedLists">matchedLists</span>详细内容如下：
 
