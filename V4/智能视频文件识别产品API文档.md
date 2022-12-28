@@ -307,6 +307,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
+| requestId | string | 请求唯一标识 | 是 | |
 | audioStarttime | float | 音频片段发生时间 | 是 | |
 | audioEndtime | float | 音频片段结束时间 | 是 | |
 | audioUrl | string | 音频片段地址 | 是 | |
@@ -613,6 +614,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
+| requestId | string | 请求唯一标识 | 是 | |
 | audioStarttime | float | 音频片段发生时间 | 是 | |
 | audioEndtime | float | 音频片段结束时间 | 是 | |
 | audioUrl | string | 音频片段地址 | 是 | |
