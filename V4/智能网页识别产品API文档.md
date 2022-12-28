@@ -96,6 +96,8 @@
 | type | string | 平台业务类型 | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> 默认值为`NOVEL`|
 | imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
 | txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
+| videoImgType | string | 网页中视频截帧图片的识别类型 | N | 可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别
+| videoAudioType | string | 网页中视频内音频的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL_PORN_MOAN用于广告、色情和涉政识别
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
 | callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
@@ -112,6 +114,7 @@
 | returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
 | nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N |  |
 | ip | string | 客户端ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N |  |
+| detectFrequency | float | 视频中的截帧频率间隔，取值范围为0.5~60s；如不传递默认5s截帧一次 | N | 单位为秒s |
 | passThrough | json_object | 透传参数，原样返回 | N |  |
 
 ## <span id="Ab">返回结果</span>
@@ -148,16 +151,18 @@
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskType | int| 对应riskType风险出现的次数 | N| 风险类型：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
+| riskType | int| 对应riskType风险出现的次数 | N| 风险类型：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`250`：娇喘<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
 
 其中，<span id="AriskDetail">riskDetail</span>是json array，其中每一项是一个内容片段的风险详情，具体如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>          |
+| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>`video`：视频      |
+| videoImgDetail     | json_array       | 当前视频片段中截帧图片详情，当type为video且审核视频截帧时返回 | N       | [详见videoImgDetail参数](#AvideoImgDetail)   |
+| videoAudioDetail     | json_array       | 当前视频片段中音频详情，当type为video且审核音频时返回 | N       | [详见videoAudioDetail参数](#AvideoAudioDetail)   |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
-| beginPosition | int       | 当前内容片段在输入中的起始位置 | Y            |                                      |
-| endPosition | int     | 当前内容片段在输入中的结束位置 | Y           |                |
+| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`img`时该字段不返回 | N            |                                      |
+| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`img`时该字段不返回 | N           |                |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
 | riskLevel | string | 当前内容片段的处置建议 | Y           | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
 | riskType | int | 当前内容片段的标识风险类型 | Y | 当type为文本时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义<br/><br/>当type为图片时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`520`：未成年人<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
@@ -167,8 +172,32 @@
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时存在） | N |  |
 | matchedField | string | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在） | N | 可选值：<br/>`text`：文本命中敏感词<br/>`nickname`：昵称命中敏感词 |
 | matchedDetail | json_array | 命中的名单详情 | N | [详见详细结构](#matcheddetail) |
-| index | int | 当前处理的片段索引 | N | 索引不区分文本和图片 |
+| index | int | 当前处理的片段索引 | Y | 索引不区分文本和图片 |
 | keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
+
+其中，<span id="AvideoImgDetail">videoImgDetail</span>结构如下:
+
+| **参数名称**   | **类型**     | **参数说明** | **是否必返** | **规范**                                                     |
+| -------------- | ------------ | ------------ | ------------ | ------------------------------------------------------------ |
+| time         | float       | 该图片在视频中的位置     | Y            | 截帧图片相对视频文件的时间                                  |
+| riskLevel   | string | 当前截帧的处置建议             | Y            | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
+| imgText   | string       | 截帧图片OCR文本内容        | N            | 截帧图片OCR文字识别，识别类型包含OCR时会返回             |
+| riskType   | int       | 截帧图片风险类型        | Y         | 返回值：<br/>`0`： 正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义        |
+| matchedList   | string       | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）  | N            |  |
+| matchedltem   | string       | 命中的具体敏感词（该参数仅在命中敏感词时存在）        | N            |  |
+| riskSource   | int       | 风险来源           | Y            | 可返值：<br/>`1000`：无风险 <br/>`1001`：文字风险 <br/>`1002`：视觉图片风险    |
+
+其中，<span id="AvideoAudioDetail">videoAudioDetail</span>结构如下:
+
+| **参数名称**   | **类型**     | **参数说明** | **是否必返** | **规范**                                                     |
+| -------------- | ------------ | ------------ | ------------ | ------------------------------------------------------------ |
+| audio_starttime         | float       | 违规音频发生时间     | N            |  |
+| audio_endtime           | float       | 违规音频结束时间     | N            |  |
+| riskLevel   | string | 当前截帧的处置建议             | Y            | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
+| audioText   | string       | 返回音转文文字        | N            | 截帧图片OCR文字识别，识别类型包含OCR时会有             |
+| riskType   | int       | 风险类型        | Y            | 返回值：<br/>`0`：正常<br/>`100`：涉政/国歌<br/>`110`: 暴恐<br/>`200`：色情<br/>`210`：辱骂<br/>`250`：娇喘<br/>`260`：一号领导人声纹<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`: 违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义             |
+| audio_matchedItem   | string       | 违规音频敏感词内容 （该参数仅在命中敏感词时存在）        | N            |  |
+| riskSource   | int       | 风险来源           | Y            | 可返值：<br/>`1000`：无风险 <br/>`1001`：文字风险 <br/>`1003`：语音风险      |
 
 其中，<span id="matcheddetail">matchedDetail</span>结构如下:
 
