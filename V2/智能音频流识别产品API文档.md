@@ -113,9 +113,10 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | <p>流类型,可选择：</p>普通流地址：NORMAL<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
+| streamType    | string      | Y            | <p>流类型,可选择：</p>普通流地址：NORMAL<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
+| ginParam    | json_object | Y            | 巨人录制参数（当streamType为GIN时必传），详见扩展参数                                                   |
 | zegoParam     | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
 | trtcParam     | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
 | volcParam     | json_object | Y            | 火山引擎录制参数（当streamType为VOLC时必传），详见扩展参数                                                    |
@@ -150,6 +151,16 @@ POST
 | isMixingEnabled | bool     | N            | <p>单流/合流录制，默认合流录制。</p><p>true:合流</p><p>false:分流</p><p>合流是指一个直播房间一路流，分流是指一个麦位一路流</p>                                                                             |
 | channelProfile  | int      | N            | <p>声网录制的频道模式，取值：</p><p>0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；</p><p>1: 直播，有两种用户角色: 主播和观众。</p><p>默认以通信模式录制，即默认值为0。</p>      |
 | renewTokenURL   | string   | N            | <p>用于更新声网Token的接口，详见更新声网Token接口规范</p><p>如果不提供该参数，则不会更新Token，当Token失效时就该声网流无法继续审核</p>                                                                     |
+
+其中data.ginParam内容如下:
+
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                                                                                                                                                                   |
+| :-------------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tokenId           | string   | Y            | 巨人提供的身份验证信息，获取巨人的identify_token用于登录，需要巨人提供                                                                                                                                                                   |
+| roomId         | string   | Y            | 房间编号，唯一对应一个房间，服务端以房间为单位拉流录制                                                                                                                                                                |
+| isMixingEnabled | bool     | Y            | <p>录制模式，可能取值：</p><p>flase：分流，房间内每个用户单独录制审核</p><p>true：合流，房间内所有用户合成一路流录制审核</p>                                                                             |
+| ip  | string      | Y            | 指定服务器ip      |
+| port   | string   | Y            | 指定端口                                                                     |
 
 其中data.zegoParam内容如下
 
