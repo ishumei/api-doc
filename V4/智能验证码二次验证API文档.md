@@ -58,7 +58,7 @@
 | lastReq | string | 此次验证交互前一次的天网事件返回请求的requestId | 必传参数 | 传入对应此次验证码验证的前置的请求ID
 | ip | string | ip地址 | 必传参数 | 用户滑动验证码时的客户端公网ipv4地址 |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| deviceId | string | 数美设备标识 | 必传参数 | 数美设备指纹生成的设备唯一标识 |
+| deviceId | string | 数美设备标识 | 建议参数 | 数美设备指纹生成的设备唯一标识 |
 | expectedMode | string | 验证码的类型 | 建议参数 | 验证码类型包括: <br/> - slide: 滑动验证码<br/> - select: 文字点选验证码<br/>- icon_select: 图标点选验证码<br/> - seq_select: 语序点选验证码<br/> - spatial_select:空间推理验证码<br/> |
 | expectedAppId | string | 预期验证码参与验证的应用标识（AppId：该标识为在数美创建的应用标识） | 建议参数 | 回传预期需要校验验证码验证结果的应用标识|
 
