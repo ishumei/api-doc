@@ -88,6 +88,7 @@
 | token | string | | 必传参数 | 安全要求较高的用户可以使用 token，获取方式详见声网文档token生成方式：[https://docs.agora.io/cn/Recording/token](https://docs.agora.io/cn/Recording/token) |
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
+| resModel | int | 录制订阅大小流类型，具体分辨率由发流端决定，过低可能会影响识别结果，建议使用大流 | 非必传参数 | 仅在开启声网双流模式时有效，可选值如下：（默认值为0）<br/>`0`:大流<br/>`1`:小流 |
 
 <span id="trtcParam">其中，trtcParam内容如下：</span>
 
