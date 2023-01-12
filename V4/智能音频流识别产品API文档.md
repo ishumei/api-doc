@@ -176,6 +176,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskSource      | int         | 风险来源               | 是           | 风险来源                                                                                                                                         |
 | tokenProfileLabels  | json_array  | 账号属性标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | tokenRiskLabels  | json_array  | 账号风险标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
+| speakers         | json_array | 该音频片段说话人信息     |否       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
 
 其中，auxInfo结构如下：
 
@@ -237,6 +238,13 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | label3      | string   | 三级标签     | 否           |                                        |
 | description | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
+
+<span id="speakers">其中，speakers 是个**二维数组**，每个元素的结构如下</span>
+
+| **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**                                 |
+| ------------------- | -------- | ------------ | ------------ |----------------------------------------|
+| uid         | int   | 说话人uid     | 是           |                                        |
+| volume      | int   | 音量大小      | 是           |                                        |
 
 allLabels结构如下：
 
@@ -393,7 +401,39 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
         "riskLabel1":"normal",
         "riskLabel2":"normal",
         "riskLabel3":"normal",
-        "riskLevel":"REJECT"
+        "riskLevel":"REJECT",
+        "speakers":[
+            [
+                {
+                    "uid":2,
+                    "volume":100
+                },
+                {
+                    "uid":1,
+                    "volume":255
+                },
+                {
+                    "uid":3,
+                    "volume":50
+                }
+            ],
+            [
+                {
+                    "uid":2,
+                    "volume":200
+                },
+                {
+                    "uid":3,
+                    "volume":50
+                }
+            ],
+            [
+                {
+                    "uid":4,
+                    "volume":255
+                }
+            ]
+        ]
     },
     "requestParams":{
         "channel":"default",
