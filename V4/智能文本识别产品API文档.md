@@ -34,7 +34,7 @@
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | Y | 可选值：<br/>`TEXTRISK`：常规风险检测（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`: 未成年人内容检测<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD` |
+| type | string | 检测的风险类型 | Y | 可选值：<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`TEXTRISK`：常规风险检测（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`: 未成年人内容检测<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD`<br/>type间组合取并集，如：`TEXTRISK_POLITY`按照常规风险检测处理 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
 <span id="data"> 其中，data的内容如下：</span>
