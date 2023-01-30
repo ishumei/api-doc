@@ -124,17 +124,17 @@
 
 | **返回结果参数名** | **参数类型** | **参数说明**       | **是否必返** | **规范**                                                                                            |
 | ------------------ | ------------ | ------------------ | ------------ | --------------------------------------------------------------------------------------------------- |
-| requestId          | string       | 本次请求的唯一标识 | 是           | 请求唯一标识                                                                                        |
-| code               | int          | 请求返回码         | 是           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
-| message            | string       | 请求返回描述       | 是           | 和请求返回码对应                                                                                    |
-| detail             | json_object  | 描述详细信息       | 否           | 描述错误码请求，[详见detail参数](#detail)                                                           |
+| requestId          | string       | 本次请求的唯一标识 | Y           | 请求唯一标识                                                                                        |
+| code               | int          | 请求返回码         | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
+| message            | string       | 请求返回描述       | Y          | 和请求返回码对应                                                                                    |
+| detail             | json_object  | 描述详细信息       | N           | 描述错误码请求，[详见detail参数](#detail)                                                           |
 
 <span id="detail">其中，detail结构如下：</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **说明**                                                                                                                                                                                                                                                           |
 | ------------ | ------------ | ------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| errorcode    | int          |              | 否           | 状态码<br/>`1001`：重复推流                                                                                                                                                                                                                                        |
-| dupRequestId | string       |              | 否           | 表示重复的requestId<br/>当errorCode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口 |
+| errorcode    | int          |              | N           | 状态码<br/>`1001`：重复推流                                                                                                                                                                                                                                        |
+| dupRequestId | string       |              | N           | 表示重复的requestId<br/>当errorCode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口 |
 
 ## 回调返回结果
 
@@ -148,119 +148,119 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 | **参数名**  | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                                                                                                                      |
 | ----------- | ----------- | ------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| requestId   | string      | 本次请求的唯一标识             | 是           |                                                                                                                                                               |
-| btId        | string      | 音频唯一标识                   | 是           |                                                                                                                                                               |
-| code        | int         | 请求返回码                     | 是           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
-| message     | string      | 请求返回描述，和请求返回码对应 | 是           |                                                                                                                                                               |
-| statCode     | int        | 审核状态                   | 否            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
-| audioDetail | json_object | 风险音频片段信息               | 否           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
-| passThrough | json_object | 透传字段                       | 否           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
-| auxInfo     | json_object | 辅助信息                       | 否           |                                                                                                                                                          |
+| requestId   | string      | 本次请求的唯一标识             | Y           |                                                                                                                                                               |
+| btId        | string      | 音频唯一标识                   | Y           |                                                                                                                                                               |
+| code        | int         | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
+| message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
+| statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
+| audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
+| passThrough | json_object | 透传字段                       | N           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
+| auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
 <span id="audioDetail">其中，audioDetail结构如下：</span>
 
 | **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
 | --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| audioUrl        | string      | 音频片段地址           | 是           |                                                                                                                                                  |
-| riskLevel       | string      | 当前事件的处置建议     | 是           | `PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`：拒绝                                                                                               |
-| riskLabel1      | string      | 一级标签               | 是           | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal`                                                                                  |
-| riskLabel2      | string      | 二级标签               | 是           | 二级标签归属于一级标签，当riskLevel为`PASS`时为空                                                                                                |
-| riskLabel3      | string      | 三级标签               | 是           | 三级标签归属于二级标签，当riskLevel为`PASS`时为空                                                                                                |
-| riskDescription | string      | 标签解释               | 是           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-| audioText       | string      | 音频转译文本的结果     | 否           | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容        |
-| preAudioUrl     | string      | 前一个音频片段音频地址 | 否           | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回                                                  |
-| riskDetail      | json_object | 风险详情信息           | 否           | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)                                                                                        |
-| auxInfo         | json_object | 其他辅助信息           | 是           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
-| businessLabels  | json_array  | 音频业务标签           | 否           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
-| allLabels       | json_array  | 风险标签               | 否           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
-| riskSource      | int         | 风险来源               | 是           | 风险来源                                                                                                                                         |
-| tokenProfileLabels  | json_array  | 账号属性标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
-| tokenRiskLabels  | json_array  | 账号风险标签           | 否           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
-| speakers         | json_array | 该音频片段说话人信息     |否       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
+| audioUrl        | string      | 音频片段地址           | Y           |                                                                                                                                                  |
+| riskLevel       | string      | 当前事件的处置建议     | Y           | `PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`：拒绝                                                                                               |
+| riskLabel1      | string      | 一级标签               | Y           | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal`                                                                                  |
+| riskLabel2      | string      | 二级标签               | Y           | 二级标签归属于一级标签，当riskLevel为`PASS`时为空                                                                                                |
+| riskLabel3      | string      | 三级标签               | Y           | 三级标签归属于二级标签，当riskLevel为`PASS`时为空                                                                                                |
+| riskDescription | string      | 标签解释               | Y           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| audioText       | string      | 音频转译文本的结果     | N           | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容        |
+| preAudioUrl     | string      | 前一个音频片段音频地址 | N           | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回                                                  |
+| riskDetail      | json_object | 风险详情信息           | N          | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)                                                                                        |
+| auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
+| businessLabels  | json_array  | 音频业务标签           | N           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
+| allLabels       | json_array  | 风险标签               | N           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
+| riskSource      | int         | 风险来源               | Y           | 风险来源                                                                                                                                         |
+| tokenProfileLabels  | json_array  | 账号属性标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
+| tokenRiskLabels  | json_array  | 账号风险标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
+| speakers         | json_array | 该音频片段说话人信息     |N       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
 
 其中，auxInfo结构如下：
 
 | **参数名**        | **类型** | **参数说明**     | **是否必返** | **规范**                                                                                        |
 | ----------------- | -------- | ---------------- | ------------ | ----------------------------------------------------------------------------------------------- |
-| audioStartTime  | string      | 辅助参数         | 是           | 违规内容开始时间（绝对时间）                                                                    |
-| audioEndTime | string      | 辅助参数         | 是           | 违规内容结束时间（绝对时间）                                                                    |
-| beginProcessTime  | int      | 辅助参数         | 是           | 开始处理的时间（13位时间戳）                                                                    |
-| finishProcessTime | int      | 辅助参数         | 是           | 结束处理的时间（13位时间戳）                                                                    |
-| userId            | int      | 声网用户账号标识 | 否           | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。                     |
-| strUserId         | string   | trtc用户账号标识 | 否           | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
-| room              | string   | 房间号           | 否           |                                                                                                 |
-| seiInfo           | array    | SEI信息          | 否           | （需要联系数美开通）                                                                            |
+| audioStartTime  | string      | 辅助参数         | Y          | 违规内容开始时间（绝对时间）                                                                    |
+| audioEndTime | string      | 辅助参数         | Y           | 违规内容结束时间（绝对时间）                                                                    |
+| beginProcessTime  | int      | 辅助参数         | Y           | 开始处理的时间（13位时间戳）                                                                    |
+| finishProcessTime | int      | 辅助参数         | Y          | 结束处理的时间（13位时间戳）                                                                    |
+| userId            | int      | 声网用户账号标识 | N           | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。                     |
+| strUserId         | string   | trtc用户账号标识 | N           | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
+| room              | string   | 房间号           | N           |                                                                                                 |
+| seiInfo           | array    | SEI信息          | N           | （需要联系数美开通）                                                                            |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
 | **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
 | ------------ | ---------- | ------------------------ | ------------ | --------------------------------------------------------------------------------------- |
-| audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists)           |
-| riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
+| audioText    | string     | 音频转译文本的结果       | N           |                                                                                         |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N           | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists)           |
+| riskSegments | json_array | 高风险内容片段           | N           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
 <span id="matchedLists">其中，matchedLists结构如下：</span>
 
 | **参数名** | **类型**   | **参数说明**                 | **是否必返** | **规范**                                 |
 | ---------- | ---------- | ---------------------------- | ------------ | ---------------------------------------- |
-| name       | string     | 客户自定义名单名             | 是           |                                          |
-| words      | json_array | 命中的这个名单中的敏感词信息 | 是           | 下标从0开始计数，[详见words参数](#words) |
+| name       | string     | 客户自定义名单名             | Y           |                                          |
+| words      | json_array | 命中的这个名单中的敏感词信息 | Y           | 下标从0开始计数，[详见words参数](#words) |
 
 <span id="words">其中，words结构如下：</span>
 
 | **参数名** | **类型**  | **参数说明**   | **是否必返** | **规范**        |
 | ---------- | --------- | -------------- | ------------ | --------------- |
-| word       | string    | 敏感词         | 是           |                 |
-| position   | int_array | 敏感词所在位置 | 是           | 下标从0开始计数 |
+| word       | string    | 敏感词         | Y           |                 |
+| position   | int_array | 敏感词所在位置 | Y           | 下标从0开始计数 |
 
 <span id="riskSegments">其中，riskSegments结构如下：</span>
 
 | **参数名** | **类型**  | **参数说明**           | **是否必返** | **规范**        |
 | ---------- | --------- | ---------------------- | ------------ | --------------- |
-| segment    | string    | 高风险内容片段         | 否           |                 |
-| position   | int_array | 高风险内容片段所在位置 | 否           | 下标从0开始计数 |
+| segment    | string    | 高风险内容片段         | N           |                 |
+| position   | int_array | 高风险内容片段所在位置 | N           | 下标从0开始计数 |
 
 其中，businessLabels结构如下：
 
 | **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**     |
 | ------------------- | -------- | ------------ | ------------ | ------------ |
-| businessLabel1      | string   | 一级业务标签 | 否           | 一级业务标签 |
-| businessLabel2      | string   | 二级业务标签 | 否           | 二级业务标签 |
-| businessLabel3      | string   | 三级业务标签 | 否           | 三级业务标签 |
-| businessDescription | string   | 中文标签描述 | 否           | 业务标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| businessLabel1      | string   | 一级业务标签 | N           | 一级业务标签 |
+| businessLabel2      | string   | 二级业务标签 | N           | 二级业务标签 |
+| businessLabel3      | string   | 三级业务标签 | N           | 三级业务标签 |
+| businessDescription | string   | 中文标签描述 | N           | 业务标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 <span id="tokenRiskLabels">其中，tokenProfileLabels，tokenRiskLabels 结构如下</span>
 
 | **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**                                 |
 | ------------------- | -------- | ------------ | ------------ |----------------------------------------|
-| label1      | string   | 一级标签     | 否           |                                        |
-| label2      | string   | 二级标签     | 否           |                                        |
-| label3      | string   | 三级标签     | 否           |                                        |
-| description | string   | 标签描述     | 否           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-| timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒                       |
+| label1      | string   | 一级标签     | N           |                                        |
+| label2      | string   | 二级标签     | N           |                                        |
+| label3      | string   | 三级标签     | N           |                                        |
+| description | string   | 标签描述     | N           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp   | int      | 打标签时间戳 | N           | 13位Unix时间戳，单位：毫秒                       |
 
 <span id="speakers">其中，speakers 是个**二维数组**，每个元素的结构如下</span>
 
 | **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**                                 |
 | ------------------- | -------- | ------------ | ------------ |----------------------------------------|
-| uid         | int   | 说话人uid     | 是           |                                        |
-| volume      | int   | 音量大小      | 是           |      取值范围为 [0,255]                                  |
+| uid         | int   | 说话人uid     | Y           |                                        |
+| volume      | int   | 音量大小      | Y           |      取值范围为 [0,255]                                  |
 
 allLabels结构如下：
 
 | **参数名**      | **类型** | **参数说明** | **是否必返** | **规范**     |
 | --------------- | -------- | ------------ | ------------ | ------------ |
-| riskLabel1      | string   | 一级风险标签 | 是           | 一级风险标签 |
-| riskLabel2      | string   | 二级风险标签 | 是           | 二级风险标签 |
-| riskLabel3      | string   | 三级风险标签 | 是           | 三级风险标签 |
-| riskDescription | string   | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
+| riskLabel1      | string   | 一级风险标签 | Y           | 一级风险标签 |
+| riskLabel2      | string   | 二级风险标签 | Y           | 二级风险标签 |
+| riskLabel3      | string   | 三级风险标签 | Y           | 三级风险标签 |
+| riskDescription | string   | 风险原因     | Y           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
 
 其中最外层的auxInfo字段结构如下：
 
 | **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
 | --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| errorCode       | int         | 状态码           | 是           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
-| streamTime       | int         | 流审核时长           | 否           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
+| errorCode       | int         | 状态码           | Y           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
+| streamTime       | int         | 流审核时长           | N           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
 
 ## 音频流关闭通知接口
 
@@ -303,9 +303,9 @@ allLabels结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明**                   | **是否必返** | **规范**                                                                                            |
 | ------------------ | ------------ | ------------------------------ | ------------ | --------------------------------------------------------------------------------------------------- |
-| requestId          | string       | 本次请求的唯一标识             | 是           | 请求唯一标识                                                                                        |
-| code               | int          | 请求返回码                     | 是           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
-| message            | string       | 请求返回描述，和请求返回码对应 | 是           | 枚举值：成功该路流不存在                                                                            |
+| requestId          | string       | 本次请求的唯一标识             | Y           | 请求唯一标识                                                                                        |
+| code               | int          | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
+| message            | string       | 请求返回描述，和请求返回码对应 | Y           | 枚举值：成功该路流不存在                                                                            |
 
 ## 示例
 
