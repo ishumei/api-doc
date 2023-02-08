@@ -43,7 +43,7 @@
 | organization | xxxx | 数美分配的企业唯一标识码，调用SDK时需要传入 |
 | 数美管理后台账号 | xxxx | 用于登陆数美管理后台 |
 | 数美管理后台密码 | xxxx | 用于登陆数美管理后台 |
-| 数美管理后台地址 | https://www.fengkongcloud.com | 用于登陆数美管理后台 |
+| 数美管理后台地址 | https://console.ishumei.com | 用于登陆数美管理后台 |
 
 # 智能图片过滤服务单张接口接入说明
 
