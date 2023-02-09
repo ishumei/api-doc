@@ -460,8 +460,8 @@ addition中，audio_evidence的每个元素详细内容如下：
 | --- | --- | --- | --- | --- |
 | audioModel | string | 命中规则编号 | 是 |  |
 | audioText | string | 返回音转文文字 | 否 | |
-| audio_starttime | float | 违规音频发生时间 | 否 | |
-| audio_endtime | float | 违规音频结束时间 | 否 | |
+| audio_starttime | float | 音频片段发生时间 | 否 | |
+| audio_endtime | float | 音频片段结束时间 | 否 | |
 | audio_url | string | 音频片段地址 | 否 | |
 | audio_matchedItem | string | 违规音频敏感词内容 | 否 | |
 | description | string | 音频片段风险原因描述 | 是 | |
