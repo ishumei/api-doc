@@ -283,7 +283,7 @@
                 "model":"",
                 "riskLevel":"REJECT",
                 "riskType":300,
-                "type":"image"
+                "type":"img"
             }
         ],
         "riskHtml":"xxxx",
