@@ -167,8 +167,8 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>          |
-| content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
+| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`image`：图片<br/>          |
+| content | string | 当前内容片段的内容 | Y           | text是文本内容，image是图片url |
 | beginPosition | int       | 当前内容片段在输入中的起始位置 | Y            |                                      |
 | endPosition | int     | 当前内容片段在输入中的结束位置 | Y           |                |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
