@@ -66,7 +66,7 @@ POST
 | url           | string      | N            | 待识别音频url地址，url和content至少提供一个                                                                                                                                 |
 | lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                                                                     |
 | content       | string      | N            | 待识别音频的base64编码数据（上限15M，仅支持pcm、wav、mp3）, pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输。url和content至少提供一个，同时存在时仅支持content |
-| formatInfo    | json_object | N            | 当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明                                                                                                     |
+| formatInfo    | json_object | N            | 当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明<br/>（另外，如有其他特定音频格式的需求，在与数美沟通后，可传入该字段表示特殊解码逻辑）                               |
 | audioName     | string      | N            | 音频文件名称                                                                                                                                                                |
 | tokenId       | string      | N            | 用户账号标识                                                                                                                                                                |
 | channel       | string      | N            | 业务场景名称，见渠道配置表                                                                                                                                                  |
@@ -82,7 +82,7 @@ POST
 
 | **参数名称** | **类型** | **是否必选** | **说明**                                                                          |
 | :----------- | :------- | :----------- | :-------------------------------------------------------------------------------- |
-| format       | string   | Y            | 语音数据格式，仅支持（取值）pcm、wav、mp3，严格小写。                             |
+| format       | string   | Y            | 语音数据格式，仅支持（取值）pcm、wav、mp3、opus-gin，严格小写。                             |
 | rate         | int      | N            | 语音数据采样率，当语音数据格式为pcm时必须存在，范围限制8000-32000。               |
 | track        | int      | N            | 语音数据声道数，当语音数据格式为pcm时必须存在，支持单声道(取值1)或双声道(取值2)。 |
 
