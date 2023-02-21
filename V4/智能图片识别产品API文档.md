@@ -1,80 +1,18 @@
 # 数美智能图片识别产品API接口文档
 
-- - - - -
-
-***版权所有 翻版必究***
-
-- - - - -
-
-目录
-
-- [数美智能图片识别产品API接口文档](#数美智能图片识别产品api接口文档)
-- [同步单张上传接口](#同步单张上传接口)
-  - [同步单条请求](#同步单条请求)
-    - [请求URL：](#请求url)
-    - [请求方法：](#请求方法)
-    - [字符编码：](#字符编码)
-    - [建议超时时间：](#建议超时时间)
-    - [请求参数：](#请求参数)
-  - [同步返回结果](#同步返回结果)
-  - [回调的同步返回参数](#回调的同步返回参数)
-  - [同步示例：](#同步示例)
-    - [同步请求示例：](#同步请求示例)
-    - [同步返回示例：](#同步返回示例)
-    - [回调的同步返回参数](#回调的同步返回参数-1)
-    - [回调请求示例](#回调请求示例)
-- [异步单张上传接口](#异步单张上传接口)
-  - [异步单条请求](#异步单条请求)
-    - [请求URL：](#请求url-1)
-    - [请求方法：](#请求方法-1)
-    - [字符编码：](#字符编码-1)
-    - [建议超时时间：](#建议超时时间-1)
-    - [请求参数：](#请求参数-1)
-  - [返回结果](#返回结果)
-  - [异步单条示例](#异步单条示例)
-    - [异步单条请求示例](#异步单条请求示例)
-    - [异步单条返回示例](#异步单条返回示例)
-- [同步批量接口](#同步批量接口)
-  - [同步批量请求参数](#同步批量请求参数)
-    - [请求URL：](#请求url-2)
-    - [请求方法：](#请求方法-2)
-    - [字符编码：](#字符编码-2)
-    - [建议超时时间：](#建议超时时间-2)
-    - [请求参数：](#请求参数-2)
-  - [同步批量返回参数](#同步批量返回参数)
-  - [同步批量回调返回参数](#同步批量回调返回参数)
-- [异步批量接口](#异步批量接口)
-  - [异步批量上传请求](#异步批量上传请求)
-    - [请求URL：](#请求url-3)
-    - [请求方法：](#请求方法-3)
-    - [字符编码：](#字符编码-3)
-    - [建议超时时间：](#建议超时时间-3)
-    - [请求参数：](#请求参数-3)
-  - [异步批量返回参数](#异步批量返回参数)
-    - [异步批量返回示例](#异步批量返回示例)
-- [主动查询接口](#主动查询接口)
-  - [同步查询请求](#同步查询请求)
-    - [请求URL：](#请求url-4)
-    - [请求方法：](#请求方法-4)
-    - [字符编码：](#字符编码-4)
-    - [建议超时时间：](#建议超时时间-4)
-    - [请求参数：](#请求参数-4)
-    - [查询请求示例](#查询请求示例)
-  - [查询返回参数](#查询返回参数)
-- [Demo](#demo)
 
 # 同步单张上传接口
 
 ## 同步单条请求
 
 ### 请求URL：
-| 集群 | URL | 支持产品列表 |
-| --- | --- | --- |
-| 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 图片 |
-| 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 图片 |
-| 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 图片 |
-| 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 图片 |
-| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 图片 |
+| 集群 | URL |
+| --- | --- | 
+| 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` | 
+| 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` | 
+| 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` | 
+| 印度 | `http://api-img-yd.fengkongcloud.com/image/v4` | 
+| 硅谷 | `http://api-img-gg.fengkongcloud.com/image/v4` | 
 
 ### 请求方法：
 
@@ -94,22 +32,21 @@
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 | accessKey |
+| accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 |  |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入） |
+| type | string | 检测的风险类型 | 非必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别<br/>（该字段与businessType字段必须选择一个传入）<br/>涉政、色情、暴恐只包含了图片本身的违规检测，如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能 |
 | businessType | string | 业务标签类型 | 非必传参数 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长10MB，[详见data参数](#data) |
 | callback | string | 回调请求url，传callback表示走异步回调逻辑，否则走同步逻辑，回调http地址字段，当该字段非空时，服务将根据该字段回调通知用户审核结果，地址必须为http或https的规范的url | 非必传参数 | 异步回调逻辑支持30M图片<br/>同步支持10M图片<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
 
-其中，data的内容如下：
+<span id="data">其中，data的内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB，异步最大30M |
-| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
-| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 非必传参数 |  |
+| img | string | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 **建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核** | 必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256，目前支持20\*20~6000\*6000以内分辨率的图片，图片大小最大10MB，异步最大30M <br/>默认长图不切分，需要时请联系数美开通，切分后的计费以实际截取的帧数为准。|
+| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256，图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
@@ -120,7 +57,7 @@
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo)，如需要了解或使用相似帧功能，请联系客服咨询 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 
-data中，streamInfo的内容如下：
+<span id="streamInfo">data中，streamInfo的内容如下：</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -130,13 +67,14 @@ data中，streamInfo的内容如下：
 | frameTime | int | 透传参数 | 否 | 截帧时间，单位ms， similarDedup为true时，必传 |
 | riskNum | int | 透传参数 | 否 | 相似截帧图片不改变张数    数量范围(1-5)，默认为1 |
 
-data中，extra的内容如下：
+<span id="extra">data中，extra的内容如下：</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数，来控制是否要忽略ca证书的验证 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 否 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
+| room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 否 |  |
 ## 同步返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -155,21 +93,21 @@ data中，extra的内容如下：
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
-| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | 否 | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | 否 | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
 
-其中，riskDetail结构如下：
+<span id="riskDetail">其中，riskDetail结构如下：</span>
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
 | face_num | int | 人脸数量 | 否 |  |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
-| person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
+| person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>1001：文字风险<br/>`1002`：视觉图片风险 |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
@@ -229,7 +167,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | |
 
-其中，auxInfo的内容如下：
+<span id="auxInfo">其中，auxInfo的内容如下：</span>
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -264,7 +202,7 @@ auxInfo中，typeVersion的内容如下：
 | probability | float | 置信度，可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 | 否 |  |
 | riskDetail | json_object | 风险详情，字段内容见result下的riskDetail | 否 |  |
 
-其中businessLabels数组的每个成员的内容如下：
+<span id="businessLabels">其中businessLabels数组的每个成员的内容如下：</span>
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -300,7 +238,7 @@ tokenLabels的详情内容如下：
 | UGC_account_risk     | json_object    | UGC内容相关风险  | 否       |                            |
 | scene_account_risk   | json_object    | 场景账号风险     | 否       | 特殊场景才可取到，如航司等 |
 
-其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
@@ -503,23 +441,40 @@ scene_account_risk的详情内容如下：
 
 ```json
 {
-    "checksum":"236f8eea85c3c4407d96ff05d6108389b3b0cea8aa80bdf6642c1cecc77b2bde",
-    "result":{
+    "requestId":"testcallback002",
     "code":1100,
     "message":"成功",
-    "requestId":"1e6e4e43cd35b545418fcef7d0f77ef4",
-    "score":999,
     "riskLevel":"REJECT",
-    "detail":{
-        "description":"涉政文字",
-        "matchedItem":"xxx",
-        "matchedList":"test",
-        "model":"M02601",
-        "polityName":"xxx",
-        "riskType":100,
+    "riskLabel1":"politics",
+    "riskLabel2":"zhengzhixiangzheng",
+    "riskLabel3":"guoqiguohui",
+    "riskDescription":"涉政:政治象征:国旗国徽",
+    "riskDetail":{
         "riskSource":1002
     },
-    "status":0
+    "auxInfo":{
+        "segments":1,
+        "typeVersion":{
+
+        }
+    },
+    "allLabels":[
+        {
+            "probability":0.989746093754127,
+            "riskDescription":"涉政:政治象征:国旗国徽",
+            "riskDetail":{
+                "riskSource":1002
+            },
+            "riskLabel1":"politics",
+            "riskLabel2":"zhengzhixiangzheng",
+            "riskLabel3":"guoqiguohui",
+            "riskLevel":"REJECT"
+        }
+    ],
+    "tokenLabels":{
+        "UGC_account_risk":{
+
+        }
     }
 }
 ```
@@ -557,7 +512,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 应用标识：用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 
 其中，data的内容如下：
@@ -565,9 +520,8 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 用户账号标识 | 必传参数 | 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
-| img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
-| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
-| room | string | 直播房间号 | 非必传参数 | |
+| img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256，目前支持20\*20~6000\*6000以内分辨率的图片，图片大小最大10MB <br/>默认长图不切分，需要时请联系数美开通，切分后的计费以实际截取的帧数为准。|
+| imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不低于256\*256，图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
@@ -582,6 +536,7 @@ scene_account_risk的详情内容如下：
 | --- | --- | --- | --- | --- |
 | isIgnoreTls | bool | 辅助参数 | 否 | 可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+| room | string | 直播房间号 | 否 | |
 ## 返回结果
 
 放在HTTP Body中，采用Json格式，具体参数如下：
@@ -651,7 +606,7 @@ scene_account_risk的详情内容如下：
 | appId | string | 应用标识 | 必传参数 | 用于区分相同公司的不同应用数据，需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | 必传参数 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情&性感违规识别 <br/>VIOLENT :暴恐&违禁识别 <br/>QRCODE :二维码识别<br/>ADVERT :广告识别<br/>IMGTEXTRISK :图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别（该字段与businessType字段必须选择一个传入） |
-| businessType | string | 业务标签类型 | 否 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
+| businessType | string | 业务标签类型 | 非必传参数 | 业务标签识别类型，可选值：[见附录](#附录) 如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求数据内容 | 必传参数 | 请求的数据内容，最长10MB |
 | callback | string | 回调请求url | 非必传参数 | 传callback表示走异步回调逻辑，异步回调逻辑支持30M图片；否则走同步逻辑，同步支持10M图片。<br/>异步单张和异步批量都是需要调用查询接口来查结果的； 同步的接口不能调用查询，如果传callback是将结果回调给对应的服务器，如果没有传callback就是走同步返回 |
 
@@ -675,14 +630,14 @@ scene_account_risk的详情内容如下：
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传参数 | 否 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
-| isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
+| isTokenSeparate | int | 是否区分不同应用下的账号 | 否 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0 |
 
 其中，imgs数组每个元素的具体内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
-| imgCompareBase | string   | 要检测比对的基准图片，请求参数businessType字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
+| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB <br/>默认长图不切分，需要时请联系数美开通，切分后的计费以实际截取的帧数为准。|
+| imgCompareBase | string   | 要检测比对的基准图片，请求参数businessType字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>批量请求一次性不超过12张，建议图片像素不小于256\*256，图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
 ## 同步批量返回参数
@@ -835,7 +790,7 @@ allLabels每个成员的riskDetail结构如下：
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
 | person_num | int | 有且仅有人像-多人下返回 | 否 | |
 | ocrText | json_array | 返回图片中违规文字相关信息 | 否 | |
-| riskSource | string | 标识资源哪里违规 | 是 | 标识风险结果的来源：`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| riskSource | string | 标识资源哪里违规 | 是 | 标识风险结果的来源：`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
 
 
 其中imgs中businessLabels数组的每个成员的内容如下：
@@ -1044,7 +999,7 @@ UTF-8
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB |
+| img            | string   | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256, 目前最低支持20\*20分辨率的图片，图片大小最大10MB <br/>默认长图不切分，需要时请联系数美开通，切分后的计费以实际截取的帧数为准。|
 | imgCompareBase | string   | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数   | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | btId | string | 图片唯一标识 | 必传参数 | 同一次请求中不可重复，btId长度在30以内 |
 
@@ -1275,7 +1230,7 @@ allLabels每个成员的riskDetail结构如下：
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |||
 | person_num | int | 有且仅有人像-多人下返回 | 否 | |
 | ocrText | json_array | 返回图片中违规文字相关信息，当请求参数type字段包含`OCR`时存在，内部字段参考外层riskDetail下的ocrText字段 |||
-| riskSource | int | 标识资源哪里违规 |是|标识风险结果的来 源：<br/>1001 ：图片文字风险<br/>1002 ：视觉图片风险|
+| riskSource | int | 标识资源哪里违规 |是|标识风险结果的来 源：<br/>`1000`：无风险<br/>1001 ：图片文字风险<br/>1002 ：视觉图片风险|
 
 其中businessLabels数组的每个成员的内容如下：
 

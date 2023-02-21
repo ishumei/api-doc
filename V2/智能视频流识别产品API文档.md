@@ -6,42 +6,6 @@
 
 - - - - -
 
-目录
-
-- [数美智能视频流识别产品API文档](#数美智能视频流识别产品api文档)
-  - [视频流上传请求](#视频流上传请求)
-    - [接口描述](#接口描述)
-    - [请求URL：](#请求url)
-    - [请求方法：](#请求方法)
-    - [支持协议](#支持协议)
-    - [字符编码：](#字符编码)
-    - [建议超时时间：](#建议超时时间)
-    - [请求参数：](#请求参数)
-    - [返回参数](#返回参数)
-  - [异步回调结果](#异步回调结果)
-    - [接口描述](#接口描述-1)
-    - [请求方法：](#请求方法-1)
-    - [字符编码：](#字符编码-1)
-    - [建议超时时间：](#建议超时时间-1)
-    - [回调策略](#回调策略)
-    - [回调参数](#回调参数)
-  - [视频流关闭接口](#视频流关闭接口)
-    - [接口描述](#接口描述-2)
-    - [请求URL：](#请求url-1)
-    - [请求方法：](#请求方法-2)
-    - [支持协议：](#支持协议-1)
-    - [字符编码：](#字符编码-2)
-    - [建议超时时间：](#建议超时时间-2)
-    - [请求参数：](#请求参数-1)
-    - [返回参数](#返回参数-1)
-  - [接口响应码列表](#接口响应码列表)
-  - [示例](#示例)
-    - [上传接口请求示例](#上传接口请求示例)
-    - [上传接口返回示例：](#上传接口返回示例)
-    - [异步回调结果示例：](#异步回调结果示例)
-    - [关闭接口请求示例：](#关闭接口请求示例)
-    - [关闭接口返回示例](#关闭接口返回示例)
-
 ## 视频流上传请求
 
 ### 接口描述
@@ -81,22 +45,22 @@
 | accessKey | string | 公司密钥 | 必传参数 | 数美分配 |
 | appId | string | 应用标识 | 必传参数 | 该参数传递值可与数美协商 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PERSON`：涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`OCR`：图片中的文字风险识别<br/>`PORTRAIT`：识别坐姿<br/>`BUSINESSRISK`：行业违规<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频流中的音频需要识别的监管类型，**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`SING`：唱歌识别<br/>`ANTHEN`：国歌识别<br/>`LANGUAGE`：语种识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频流中的音频需要识别的监管类型，**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`SING`：唱歌识别<br/>`ANTHEN`：国歌识别<br/>`ABUSE`: 辱骂识别<br/>`LANGUAGE`：语种识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于、色情和娇喘识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型，**和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgBusinessType可选值列表)<br/> |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型，**和audioType至少传一个** | 非必传参数 |  业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | imgCallback | string | 图片回调地址 | 必传参数 | 将视频流中截帧图片的检测结果通过该地址回调给用户 |
 | audioCallback | string | 音频回调地址 | 非必传参数 | 将视频流中音频片段的检测结果通过该地址回调给用户；需要识别音频时必传 |
-| data | json_object | 请求数据内容， | 必传参数 | 最长1MB，其中[data内容如下](#uploadV2.requestParameters.data) |
+| data | json_object | 请求数据内容， | 必传参数 | 最长1MB，其中[data内容如下](#data) |
 
-其中，data的内容如下：
+<span id="data">其中，data的内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
 | streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
-| agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#uploadV2.requestParameters.data.agoraParam) |
-| trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#uploadV2.requestParameters.data.trtcParam) |
-| zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#uploadV2.requestParameters.data.zegoParam) |
+| agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
+| trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#trtcParam) |
+| zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#zegoParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
@@ -105,7 +69,7 @@
 | returnAllText | bool | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下：(默认值为`false`)<br/>`false`：返回风险等级为非pass的音频片段与文本内容<br/>`true`：返回所有风险等级的音频片段与文本内容 |
 | returnPreText | bool | 为true表示返回前10秒和当前10秒共20秒音频片段的文本内容| 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回的content字段包含违规音频前10秒文本内容<br/>`false`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | bool |  为true表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回违规音频前10秒音频链接<br/>`false`:只返回违规片段音频链接 |
-| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#callbackV2.callbackParameters.FinishCallback) |
+| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为true时返回）：) |
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | channel | string | 渠道标识 | 非必传参数 | 用户根据不同业务场景，选配不同的渠道 |
@@ -114,7 +78,7 @@
 | liveCover | string | 直播封面 | 非必传参数 | 直播封面，一般用于人审需要字段|
 | anchorName | string | 主播名称 | 非必传参数 | 主播名称，一般用于人审需要字段|
 
-其中，agoraParam内容如下：
+<span id="agoraParam">其中，agoraParam内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -123,8 +87,11 @@
 | channelKey | string | | 非必传参数 | 安全要求较高的用户可以使用 ChannelKey，<br/>[获取方式详见声网文档ChannelKey生成方式](https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms "声网channelKey说明地址")|
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，<br/>频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，<br/>必须提供生成channelKey时所使用的用户ID。<br/>注意，此处需要区别实际房间中的用户uid，<br/>提供给服务端录制所用的uid不允许在房间中存在 |
+| subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。 |
+| trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
+| untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 
-其中，trtcParam内容如下：
+<span id="trtcParam">其中，trtcParam内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -135,7 +102,7 @@
 | roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId,注意：目前一个房间最多只能审核8个用户 |
 | strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
 
-其中，data.zegoParam内容如下：
+<span id="zegoParam">其中，data.zegoParam内容如下：</span>
 
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
@@ -150,8 +117,8 @@
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
-| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
-| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
+| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
+| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | detail | Json_object | 描述详细信息 | 否 |  |
 
 其中，detail结构如下：
@@ -190,16 +157,16 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 本次请求的唯一标识 | 是 | 请求唯一标识 |
-| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#codeList) |
-| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#codeList) |
+| code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
+| message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | statCode | int | 回调状态码 | 否 |状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调|
 | riskLevel | string |风险级别（code为1100时存在），可能取值：PASS，REVIEW，REJECT | 是 | PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
 | contentType | int | 用来区分音频和图片回调，当code等于1100时返回 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
-| detail | json_object | 风险详情 | 否 | 视频流中截帧图片或者音频片段的风险详情（code为1100时存在）详见[detail说明](#callbackV2.callbackParameters.frameDetail) |
-| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#callbackV2.callbackParameters.tokenProfileLabels) |
-| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#callbackV2.callbackParameters.tokenRiskLabels) |
+| detail | json_object | 风险详情 | 否 | 视频流中截帧图片或者音频片段的风险详情（code为1100时存在）详见[detail说明](#frameDetail) |
+| tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
 
-其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：
+<span id="frameDetail">其中，在图片回调时（contentType为`1`时），detail每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -222,7 +189,7 @@
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
-|businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.frameDetail.businessLabels) |
+|businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
 截帧图片detail中，businessLabels数组的每个成员的内容如下：
 
@@ -236,7 +203,7 @@
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | businessDetail | Json_object | 详细信息 | 是 |  |
 
-businessLabels中，businessDetail的内容如下：
+<span id="businessLabels">businessLabels中，businessDetail的内容如下：</span>
 
 | **参数名** | **类型**   | **参数说明** | **是否必返** | **规范** |
 | ---------- | ---------- | ------------ | ------------ | -------- |
@@ -294,13 +261,13 @@ businessDetail中，persons数组的每个元素的内容如下：
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时有效）| 否 ||
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）| 否 ||
 | isSing | int | 检测该片段是否为唱歌| 否 |type取值包含SING时存在，<br/>取值0表示检测不存在唱歌片段，<br/>取值1表示检测存在唱歌片段|
-| language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#callbackV2.callbackParameters.audioDetail.language) |
+| language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#language) |
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
-|businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#callbackV2.callbackParameters.audioDetail.businessLabels) |
+|businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
 
-音频的detail中，businessLabels数组的每个成员的内容如下：
+<span id="audioBusinessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -312,14 +279,14 @@ businessDetail中，persons数组的每个元素的内容如下：
 | probability | float | 置信度 | 是 | 可选值为0~1，值越大，可信度越高 |
 | businessDetail | Json_object | 详细信息 | 是 |  |
 
-音频的detail中，language数组中每一项具体参数如下：
+<span id="language">音频的detail中，language数组中每一项具体参数如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | label | int | 语种识别类别 | 是 |语种识别类别标识，可能取值：<br/>0:普通话<br/>1:英语<br/>2:粤语 |
 | probability | int | 对应音色标签可能性大小，取值0-100，数值越高表示概率越大 | 是 | 取值范围[0,100] |
 
-其中，tokenProfileLabels数组每个成员的具体内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels数组每个成员的具体内容如下：</span>
 
 | **参数名**  | **类型** | **参数说明** | **是否必返** | **规范**                   |
 | ----------- | -------- | ------------ | ------------ | -------------------------- |
@@ -329,26 +296,34 @@ businessDetail中，persons数组的每个元素的内容如下：
 | description | string   | 标签描述     | 否           |                            |
 | timestamp   | int      | 打标签时间戳 | 否           | 13位Unix时间戳，单位：毫秒 |
 
-其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels
+<span id="tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
 ### 审核结束回调参数（returnFinishInfo为true时返回）：
 
 | **参数名**        | **类型**    | **参数说明**                                 | **是否必返** | **规范**                                                     |
 | ----------------- | ----------- | -------------------------------------------- | ------------ | ------------------------------------------------------------ |
-| code              | int         | 请求返回码                                   | 是           | 详见[接口响应码列表](#codeList)                              |
-| message           | string      | 请求返回描述，和请求返回码对应               | 是           | 详见[接口响应码列表](#codeList)                              |
+| code              | int         | 请求返回码                                   | 是           | 详见[接口响应码列表](#接口响应码列表)                              |
+| message           | string      | 请求返回描述，和请求返回码对应               | 是           | 详见[接口响应码列表](#接口响应码列表)                              |
 | requestId         | string      | 请求唯一标识                                 | 是           |                                                              |
 | statCode          | int         | 回调状态码                                   | 是           | 回调状态码，当returnFinishInfo为true时存在。状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调 <br/>当statCode=1时，如下参数存在 |
 | contentType       | int         | ⽤来区分⾳频和图⽚回调，当code等于1100时返回 | 是           | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
 | riskLevel              | string         | 流风险处置建议                         | 是           | 回调结束时返回整体流的处置建议                             |
 | pullStreamSuccess | bool        | 拉流是否成功                                 | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败<br/>如果一张截图都没有获取成功即认为拉流失败 |
-| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#callbackV2.callbackParameters.Finish.Detail) |
+| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#FinishDetail) |
+| auxinfo         | json_object | 辅助信息                                    | 是           | 详见[auxinfo说明](#auxinfo2) |
 
-结束回调中的detail内容如下：
+<span id="FinishDetail">结束回调中的detail内容如下：</span>
 
 | **参数名**    | **类型**    | **参数说明**                 | **是否必返** | **规范** |
 | ------------- | ----------- | ---------------------------- | ------------ | -------- |
 | requestParams | json_object | 返回请求参数data中的所有字段 | 是           | 无       |
+
+<span id="auxinfo2">其中auxInfo字段结构如下：</span>
+
+| **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
+| --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| errorCode       | int         | 状态码           | 是           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
+| streamTime       | int         | 流审核时长           | 否           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
 
 ## 视频流关闭接口
 

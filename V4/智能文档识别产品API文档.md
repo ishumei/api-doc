@@ -2,7 +2,7 @@
 
 
 
-# 数美智能网页识别产品API接口文档
+# 数美智能文档识别产品API接口文档
 
 - - - - -
 
@@ -12,7 +12,7 @@
 
 目录
 
-- [智能网页过滤服务](#A)
+- [智能文档过滤服务](#A)
   
   - [请求参数](#Aa)
     - [请求URL](#Aa1)
@@ -21,18 +21,14 @@
     - [建议超时时长](#Aa4)
     - [请求参数](#Aa5)
   - [返回结果](#Ab)
-    - [同步模式](#Ab1)
     - [回调模式](#Ab2)
   
   - [示例](#Ac)
-    - [同步模式](#Ac1)
-      - [请求示例](#Ac11)
-      - [响应示例](#Ac12)
     - [回调模式](#Ac2)
       - [请求示例](#Ac21)
       - [响应示例](#Ac22)
   
-- [智能网页上传服务](#B)
+- [智能文档上传服务](#B)
   
   - [请求参数](#Ba)
     - [请求URL](#Ba1)
@@ -68,7 +64,7 @@
     
       
 
-# <span id="A">智能网页过滤服务接入说明</span>
+# <span id="A">智能文档过滤服务接入说明</span>
 
 ## <span id="Aa">请求参数</span>
 
@@ -98,8 +94,8 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | type | string | 平台业务类型 | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> 默认值为`NOVEL`|
-| imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
-| txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:默认识别涉政、色情、广告，等 价于 POLITICS_PORN_AD<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`NONE`:不需要识别文本<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉 政识别<br/>不传时按涉政、色情、广告进行识别。 |
+| imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
+| txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
 | callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
@@ -110,7 +106,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | contents | string | 要检测的网页内容 | Y | 可填入url链接或文本内容<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字。图片张数限制500张。 |
-| fileFormat | string | 要检测的文档格式 | N | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`TXT`<br/>若不传或传空值，则默认按网页链接或文本内容检测<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
+| fileFormat | string | 要检测的文档格式 | N | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>若不传或传空值，则默认按网页链接或文本内容检测<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
 | tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y | 如果是网页识别场景，传入网页url即可 |
 | channel | string | 业务场景 | N | 渠道表配置 |
 | returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
@@ -120,9 +116,22 @@
 
 ## <span id="Ab">返回结果</span>
 
-### <span id="Ab1">同步模式</span>
+### <span id="Ab2">回调模式</span>
 
-放在HTTP Body中，采用Json格式，具体参数如下：
+系统会自动推送机审结果至callback字段指定的URL上
+
+#### 请求返回参数：
+
+| **参数名称** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
+| ------------ | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
+| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
+| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
+| requestId    | string      | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| score        | int         | 风险分数     | N            | code为1100时存在，取值范围[0,1000]，分数越高风险越大         |
+| riskLevel    | string      | 处置建议     | N            | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| detail       | json_object | 风险详情     | N            | [详见detail参数](#Adetail)                                   |
+
+#### 回调返回参数：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -134,6 +143,7 @@
 | detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
 | status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
 | auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#AauxInfo)  |
+| callbackParam | json_object | 透传字段	 | N	 |透传参数，原样返回  |
 
 <span id="Adetail">其中detail字段如下：</span>
 
@@ -145,6 +155,7 @@
 | riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
 | hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
+| passThrough | json_object | N            | 透传参数，原样返回             |
 
 其中，<span id="AriskSummary">riskSummary</span>内容是风险类型，具体如下：
 
@@ -156,8 +167,8 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>          |
-| content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
+| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`image`：图片<br/>          |
+| content | string | 当前内容片段的内容 | Y           | text是文本内容，image是图片url |
 | beginPosition | int       | 当前内容片段在输入中的起始位置 | Y            |                                      |
 | endPosition | int     | 当前内容片段在输入中的结束位置 | Y           |                |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
@@ -197,94 +208,7 @@
 | textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
 | imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
 
-### <span id="Ab2">回调模式</span>
-
-如果在请求参数中指定了 callback，系统会自动推送机审结果至指定URL
-
-#### 请求返回参数：
-
-| **参数名称** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
-| ------------ | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
-| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
-| requestId    | string      | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
-| score        | int         | 风险分数     | N            | code为1100时存在，取值范围[0,1000]，分数越高风险越大         |
-| riskLevel    | string      | 处置建议     | N            | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| detail       | json_object | 风险详情     | N            | [详见detail参数](#Adetail)                                   |
-
-#### 回调返回参数：
-
-回调返回结构[同同步请求响应](#Ab1)；返回HTTP状态码为200时，表示推送成功；否则系统将进行最多8次推送。
-
 ## <span id="Ac">示例</span>
-
-### <span id="Ac1">同步模式</span>
-
-#### <span id="Ac11">请求示例</span>
-
-```json
-{"accessKey":"xxxxxxxx",
- "type":"NOVEL", 
- "appId":"xxxx",
- "data":{
-     "tokenId":"xxxx",
-     "contents":"xxxx",
-     "returnHtml":true
-  }
- }
-```
-
-#### <span id="Ac12">响应示例</span>
-
-```json
-{
-    "code":1100,
-    "message":"成功",
-    "requestId":"918123911b23cf4077119dd58c8edf91",
-    "score":700,
-    "riskLevel":"REJECT",
-    "detail":{
-        "description":"图片违规",
-        "hits":[
-
-        ],
-        "model":"M04301",
-        "riskDetail":[
-            {
-                "beginPosition":1235,
-                "content":"为了防范电信网络诈骗，如网民接到962110电话，请立即接听",
-                "description":"包含联系方式",
-                "endPosition":1264,
-                "index":287,
-                "model":"",
-                "riskLevel":"REJECT",
-                "riskType":300,
-                "type":"text"
-            },
-            {
-                "content":"http://icon.qiantucdn.com/img/searchnew/wechat-g.png",
-                "description":"二维码",
-                "index":281,
-                "model":"",
-                "riskLevel":"REJECT",
-                "riskType":300,
-                "type":"image"
-            }
-        ],
-        "riskHtml":"xxxx",
-        "riskSummary":{
-            "300":5
-        }
-    },
-    "status":0,
-    "auxInfo":{
-         "textNum":"100",
-         "imgNum":"10"
-    }
-}
-```
-
-
 
 ### <span id="Ac2">回调模式</span>
 
@@ -376,9 +300,6 @@
 ```
 
 
-
-
-
 # <span id="B">智能网页过滤上传接口</span>
 
 ## <span id="Ba">请求参数</span>
@@ -409,8 +330,8 @@
 | -------------- | ------------ | -------------------- | ------------ | ------------------------------------------------------------ |
 | accessKey      | string       | 接口认证密钥         | Y            | 由数美提供                                                   |
 | type           | string       | 平台业务类型         | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType        | string       | 网页中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
-| txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:默认识别涉政、色情、广告，等 价于 POLITICS_PORN_AD<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`NONE`:不需要识别文本<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉 政识别 |
+| imgType        | string       | 网页中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
+| txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
 | appId          | string       | 应用标识             | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
 | data           | json\_object | 请求的数据内容       | Y            | 最长1MB, [详见data参数](#data)                               |
 
@@ -516,7 +437,7 @@
 | -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
 | requestId      | string      | 请求唯一标识                 | Y            |                                                              |
 | humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
-| machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考同步接口返回字段](#Ab1)                                 |
+| machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考回调接口返回字段](#Ab1)                                 |
 | mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
 
 其中，humanResult/mergeResult的内容如下：
