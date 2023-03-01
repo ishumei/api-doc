@@ -202,7 +202,7 @@
 | strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
-| similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数） |
+| similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
 
 <span id="riskDetail">frameDetail中，riskDetail的内容如下：</span>
 

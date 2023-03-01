@@ -182,8 +182,8 @@
 | descriptionV2 | string | 策略规则风险原因描述| 否 |中文描述|
 | detectType | int | 区分截帧图片是否过了机审| 否|可取值为1和2（仅当请求参数传了detectStep时才会返回该参数）<br/>1：截帧图片过了检测<br/>2：截帧图片没过检测|
 | similarity | float | 与上一张截帧图片的相似概率值| 否 |取值范围[0-1]，数值越接近1越相似|
-| similarityDedup | int | 辅助参数 | 否 |可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数）|
-| stillTime | int | 展示静止画面时间，单位秒| 否 |1：相似帧去重推审功能生效请求参数type传值包含BUSINESSRISK时返回|
+| similarityDedup | int | 辅助参数 | 否 |可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/>|
+| stillTime | int | 展示静止画面时间，单位秒| 否 |请求参数type传值包含BUSINESSRISK时返回|
 | matchedDetail | string | 命中所有名单详情| 否 |命中名单是返回 |
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时有效）| 否 |命中名单是返回|
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）| 否 |命中名单是返回 |
