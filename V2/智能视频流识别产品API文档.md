@@ -160,9 +160,9 @@
 | code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | statCode | int | 回调状态码 | 否 |状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调|
-| riskLevel | string |风险级别（code为1100时存在），可能取值：PASS，REVIEW，REJECT | 是 | PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
-| contentType | int | 用来区分音频和图片回调，当code等于1100时返回 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
-| detail | json_object | 风险详情 | 否 | 视频流中截帧图片或者音频片段的风险详情（code为1100时存在）详见[detail说明](#frameDetail) |
+| riskLevel | string |风险级别（code为1100时存在），可能取值：PASS，REVIEW，REJECT | 否 | PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| contentType | int | 用来区分音频和图片回调 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
+| detail | json_object | 风险详情 | 否 | 视频流中截帧图片或者音频片段的风险详情，详见[detail说明](#frameDetail) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
 
@@ -170,18 +170,19 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| imgUrl | string | 当前截帧的URL | 是 | |
+| imgUrl | string | 当前截帧的URL | 否 | |
 | room | string | 房间号，当客户传入时返回该字段| 否 | |
 | requestParams | json object | 返回请求参数data中的所有字段 | 是 | |
 | beginProcessTime  | int | 开始处理时间（13位时间戳）| 是 | |
 | finishProcessTime | int | 检测完成时间（13位时间戳）| 是 | |
-| imgTime | string | 视频流截帧图片的时间（绝对时间）| 是 | |
-| riskType | int | 风险类型| 是 |标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义|
-| riskSource | int | 风险来源（图片还是图片中OCR）| 是 |风险来源，可能取值：<br/>1000：无风险<br/>1001：文字风险<br/>1002：视觉图片风险<br/>1003：音频语音风险|
-| model | string | 策略规则标识| 是 |用来标识命中的策略规则|
-| descriptionV2 | string | 策略规则风险原因描述| 是 |中文描述|
+| imgTime | string | 视频流截帧图片的时间（绝对时间）| 否 | |
+| riskType | int | 风险类型| 否 |标识风险类型，可能取值：<br/>0：       正常<br/>100：涉政<br/>200：色情<br/>210：性感<br/>300：广告<br/>310：二维码<br/>320：水印<br/>400：暴恐<br/>500：违规<br/>510：不良场景<br/>520：未成年人<br/>530：人脸<br/>531：人像<br/>532：伪造人脸<br/>533：颜值<br/>535：公众人物<br/>540：物品<br/>541：动物<br/>542：植物<br/>550：场景<br/>560：行业违规<br/>570：画面属性<br/>700：黑名单<br/>710：白名单<br/>800：高危账号<br/>900：自定义|
+| riskSource | int | 风险来源（图片还是图片中OCR）| 否 |风险来源，可能取值：<br/>1000：无风险<br/>1001：文字风险<br/>1002：视觉图片风险<br/>1003：音频语音风险|
+| model | string | 策略规则标识| 否 |用来标识命中的策略规则|
+| descriptionV2 | string | 策略规则风险原因描述| 否 |中文描述|
 | detectType | int | 区分截帧图片是否过了机审| 否|可取值为1和2（仅当请求参数传了detectStep时才会返回该参数）<br/>1：截帧图片过了检测<br/>2：截帧图片没过检测|
 | similarity | float | 与上一张截帧图片的相似概率值| 否 |取值范围[0-1]，数值越接近1越相似|
+| similarityDedup | int | 辅助参数 | 否 |可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/>|
 | stillTime | int | 展示静止画面时间，单位秒| 否 |请求参数type传值包含BUSINESSRISK时返回|
 | matchedDetail | string | 命中所有名单详情| 否 |命中名单是返回 |
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时有效）| 否 |命中名单是返回|

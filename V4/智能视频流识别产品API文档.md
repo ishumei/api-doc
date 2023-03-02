@@ -170,9 +170,9 @@
 | code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | statCode | int | 回调状态码 | 否 |状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调|
-| contentType | int | 用来区分音频和图片回调，当code等于1100时返回 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
-| frameDetail | json_object | 风险截帧信息 | 否 | 当code等于`1100`时返回，详见[frameDetail说明](#frameDetail) |
-| audioDetail | json_object | 风险音频片段信息 | 否 | 当code等于`1100`时返回，详见[audioDetail说明](#audioDetail) |
+| contentType | int | 用来区分音频和图片回调 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
+| frameDetail | json_object | 风险截帧信息 | 否 | 详见[frameDetail说明](#frameDetail) |
+| audioDetail | json_object | 风险音频片段信息 | 否 | 详见[audioDetail说明](#audioDetail) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
 
@@ -180,14 +180,14 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| imgUrl | string | 当前截帧的URL | 是 | |
-| riskLevel | string | 当前截帧的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
-| riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
-| riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
-| riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 | 三级标签 |
-| riskDescription | string | 标签解释 | 是 | 对于命中用户自定义名单时返回：`命中自定义名单`；当riskLevel为`PASS`时返回:`正常`；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
-| riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#riskDetail) |
-| allLabels | json_array | 全部的风险标签列表 | 是 | 详见[allLabels说明](#allLabels) |
+| imgUrl | string | 当前截帧的URL | 否 | |
+| riskLevel | string | 当前截帧的处置建议 | 否 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
+| riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 否 | 一级标签 |
+| riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 否 | 二级标签 |
+| riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 否 | 三级标签 |
+| riskDescription | string | 标签解释 | 否 | 对于命中用户自定义名单时返回：`命中自定义名单`；当riskLevel为`PASS`时返回:`正常`；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
+| riskDetail | json_object | 风险详情信息 | 否 | 详见[riskDetail说明](#riskDetail) |
+| allLabels | json_array | 全部的风险标签列表 | 否 | 详见[allLabels说明](#allLabels) |
 | businessLabels | json_array | 业务标签列表，传入imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 | auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo2) |
 
@@ -195,13 +195,14 @@
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| imgTime | float | 截帧图片发生时间 | 是 | 视频流截帧图片违规发生的时间（绝对时间） |
+| imgTime | float | 截帧图片发生时间 | 否 | 视频流截帧图片违规发生的时间（绝对时间） |
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | userId | int | 声网用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
+| similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
 
 <span id="riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
