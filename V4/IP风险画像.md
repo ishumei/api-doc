@@ -82,10 +82,14 @@
 
 其中ipLabels的详情内容为：
 
-| ***返回结果参数名*** | ***参数类型*** | ***是否必反*** | ***规范*** |
+| **返回结果参数名** | **参数类型** | **是否必反** | **规范** |
 | ---------------------- | ---------------- | ---------------- | ------------ |
-| b_cgn        | string         | 否          | 运营商保留IP    |
-| b_cmwap      | string         | 否          | 移动梦网IP     |
+| b_cgn        | int         | 否          | 运营商保留IP    |
+| b_cmwap      | int         | 否          | 移动梦网IP     |
+| risk_ip      | int            | 否          | 是否为风险IP，风险IP是指通过数美风控策略和模型检测到的风险IP |
+| b_secdial    | int            | 否          | 是否为秒拨IP，秒拨IP是指利用宽带频繁拨号上网所获取的IP | 
+| b_idc        | int            | 否          | 是否为机房IP，机房IP是指机房中心服务器使用的IP | 
+| b_proxy      | int            | 否          | 是否为代理IP，代理IP是指代理网络用户去取得网络信息的中转IP | 
 | ip_continent | string         | 否          | IP归属洲       |
 | ip_country   | string         | 否          | IP归属国家     |
 | ip_province  | string         | 否          | IP归属省份     |
@@ -93,10 +97,6 @@
 | ip_latitude  | float64        | 否          | IP归属纬度        |
 | ip_longitude | float64        | 否          | IP归属经度        |
 | ip_owner     | string         | 否          | IP运营商归属   |
-| risk_ip      | int            | 否          | 是否为风险IP，风险IP是指通过数美风控策略和模型检测到的风险IP |
-| b_secdial    | int            | 否          | 是否为秒拨IP，秒拨IP是指利用宽带频繁拨号上网所获取的IP | 
-| b_idc        | int            | 否          | 是否为机房IP，机房IP是指机房中心服务器使用的IP | 
-| b_proxy      | int            | 否          | 是否为代理IP，代理IP是指代理网络用户去取得网络信息的中转IP | 
 
 
 ## <span id = "example">示例：</span>
