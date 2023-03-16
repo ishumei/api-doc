@@ -708,10 +708,10 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 
 | 业务标签识别类型 | 类型说明 | 备注 |
 | ------------- | ------------- | --------------- |
-| AGE           | 人脸 - 年龄   |  |
+| AGE           | 人脸 - 年龄   | 可识别未成年人  |
 | GENDER        | 人脸 -性别   |  |
 | BEAUTY        | 人脸 - 颜值   |  |
-| FACEDETECTION | 人脸-人脸检测 | 如识别真人、口罩人脸、正脸、侧脸等 |
+| FACEDETECTION | 人脸-人脸检测 | 如识别无人脸、真人、口罩人脸、正脸、侧脸等 |
 | FAKEFACE | 人脸 - 伪造人脸 |  |
 | FACECOMPARE | 人脸-人脸对比 |  |
 | RACE | 人脸-人种 | 如黑种人、白种人、黄种人 |
@@ -731,20 +731,20 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | CATE | 场景主题-美食 |  |
 | MUSIC | 场景主题-音乐 |  |
 | SPORTS | 场景主题-体育 |  |
-| SCENERY | 场景主题-自然风光 |  |
-| CITYVIEW | 场景主题-城市风光 |  |
-| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 |  |
-| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 |  |
+| SCENERY | 场景主题-自然风光 | 如识别天空、大海、草原等 |
+| CITYVIEW | 场景主题-城市风光 | 如识别街景 |
+| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 | 如识别华为、小米、OPPO等LOGO |
+| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 | 如识别拼多多等LOGO |
 | RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
 | SOCIALAPPSLOGO | LOGO - 社交通讯类应用 | 如识别微博、小红书等LOGO |
-| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 |  |
+| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 | 如识别CFP等LOGO |
 | NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
-| SPORTSLOGO | LOGO  - 体育赛事 |  |
-| APPARELLOGO | LOGO - 鞋帽服饰类品牌 |  |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 |  | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 |  | 
-| FOODLOGO | LOGO - 食品类品牌 |  | 
+| SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
+| APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -773,7 +773,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | MOLLUSKS | 动物  - 软体动物 |  |
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
-| SETTING | 场所 |  |
+| SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
 
 
 # FAQ
