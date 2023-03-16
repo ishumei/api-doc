@@ -154,6 +154,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
 | statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
+| requestParams | json_object | 请求参数 | N | 该字段为入参data下所有参数，历史字段，不建议使用 |
 | passThrough | json_object | 透传字段                       | N           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
 | auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
@@ -434,17 +435,6 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
                 }
             ]
         ]
-    },
-    "requestParams":{
-        "channel":"default",
-        "returnAllText":1,
-        "returnPreAudio":1,
-        "returnPreText":1,
-        "role":"USER",
-        "room":"test1",
-        "streamType":"DEFAULT",
-        "tokenId":"test_audio_v4",
-        "url":"http://dyscdnali1.douyucdn.cn/live/288016rlols5.flv?uuid=1637847086612"
     }
 }
 ```
