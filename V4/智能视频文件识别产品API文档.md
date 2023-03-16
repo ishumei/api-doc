@@ -703,13 +703,11 @@ businessDetail中，persons数组的每个元素的内容如下：
 | BEAUTY        | 人脸 - 颜值   |  |
 | FACEDETECTION | 人脸-人脸检测 | 如识别无人脸、真人、口罩人脸、正脸、侧脸等 |
 | FAKEFACE | 人脸 - 伪造人脸 |  |
-| FACECOMPARE | 人脸-人脸对比 |  |
 | RACE | 人脸-人种 | 如黑种人、白种人、黄种人 |
 | PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
 | TAINTEDSTAR | 人物 - 劣迹人物 |  |
 | POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
 | DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
-| TEMPERAMENT | 人像 - 人像气质 | 如成熟大叔、靓丽女神等 |
 | BODY | 人体 | 如识别头发、眼睛、鼻子等 |
 | PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
 | PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
