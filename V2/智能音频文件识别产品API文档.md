@@ -70,7 +70,7 @@ POST
 | audioName     | string      | N            | 音频文件名称                                                                                                                                                                |
 | tokenId       | string      | N            | 用户账号标识                                                                                                                                                                |
 | channel       | string      | N            | 业务场景名称，见渠道配置表                                                                                                                                                  |
-| returnAllText | bool        | N            | <p>可选值如下（默认为`false`）：</p><br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.detail |
+| returnAllText | bool        | N            | 可选值如下（默认为`false`）：<br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.detail |
 | audioDetectStep | int | N | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
 | nickname      | string      | N            | 用户昵称  |
 | timestamp     | int         | N            | 时间戳（毫秒级）  |

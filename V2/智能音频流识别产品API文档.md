@@ -133,7 +133,7 @@ POST
 | :--------------- | :------- | :----------- | :----------------------------------------------------------- |
 | room             | string   | N            | 房间号，强烈建议传入                                         |
 | role             | string   | N            | <p>用户角色</p><p>对不同角色可配置不同策略。</p><p>直播领域可取值：</p><p>房管：ADMIN</p><p>主播：HOST</p><p>系统角色：SYSTEM</p><p>游戏领域可取值：</p><p>管理员：ADMIN</p><p>普通用户：USER</p><p>默认值：普通用户</p> |
-| returnAllText    | bool     | N            | <p>可选值如下（默认为`false`）：</p><br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REJECT的内容；<br/>片段处理结果对应参数为response.detail |
+| returnAllText    | bool     | N            | 可选值如下（默认为`false`）：<br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REJECT的内容；<br/>片段处理结果对应参数为response.detail |
 | returnPreText    | bool     | N            | <p>值为true时，返回的content字段包含违规音频前一个片段10秒文本内容；</p><p>值为false时，返回的content字段只包含违规音频片段文本内容，默认值为false(对于TRTC流该功能无效，当客户使用间隔审核功能时，即使returnPreAudio是true情况下，也不返回该字段）</p><p></p> |
 | returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p> |
 | returnFinishInfo | bool     | N            | <p>音频流结束回调通知</p><p>可选值（默认为false）：<br/>false：审核结束时不发送结束通知</p><p>true：审核结束时发起结束通知，回调参数增加statCode状态码</p> |
