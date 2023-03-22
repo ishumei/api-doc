@@ -696,72 +696,72 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 ## imgBusinessType可选值列表
 
-| **code**              | **message**                    |
-| --------------------- | ------------------------------ |
-| AGE                   | 人脸 - 年龄                    |
-| GENDER                | 人脸 - 性别                    |
-| RACE                  | 人脸 - 人种                    |
-| BEAUTY                | 人脸 - 颜值打分                |
-| FACEDETECTION         | 人脸 - 人脸检测                |
-| FAKEFACE              | 人脸 - 伪造人脸                |
-| PUBLICFIGURE          | 人物 - 公众人物                |
-| TAINTEDSTAR           | 人物 - 劣迹人物                |
-| POSTURE               | 人像 - 人像姿态                |
-| DRESS                 | 人像 - 人像穿着                |
-| BODY                  | 人体                           |
-| PICTUREFORM           | 画面属性 - 画面类型            |
-| PICTURESTRUCT         | 画面属性 - 画面结构            |
-| LOWVISION             | 画面属性 - 画面低质            |
-| LOWCONTNET            | 画面属性 - 内容低质            |
-| LIVEPICTURE           | 画面属性 - 直播画面            |
-| SCREENSHOT            | 画面属性 - APP截图（内容搬运） |
-| FITNESS               | 场景主题 - 健身                |
-| CATE                  | 场景主题 - 美食                |
-| MUSIC                 | 场景主题 - 音乐                |
-| SPORTS                | 场景主题 - 体育                |
-| SCENERY               | 场景主题 - 自然风光            |
-| CITYVIEW              | 场景主题 - 城市风光            |
-| 3CPRODUCTSLOGO        | LOGO - 3C电子类品牌            |
-| SHOPPINGAPPSLOGO      | LOGO - 购物比价类应用          |
-| RETOUCHAPPSLOGO       | LOGO - 拍摄美化类应用          |
-| SOCIALAPPSLOGO        | LOGO - 社交通讯类应用          |
-| PHOTOMATERIALLOGO     | LOGO - 素材版权类应用          |
-| NEWSAPPSLOGO          | LOGO - 新闻阅读类应用          |
-| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用          |
-| SPORTSLOGO            | LOGO - 体育赛事                |
-| APPARELLOGO           | LOGO - 鞋帽服饰类品牌          |
-| ACCESSORIESLOGO       | LOGO - 饰品首饰类品牌          |
-| COSMETICSLOGO         | LOGO - 化妆品类品牌            |
-| FOODLOGO              | LOGO - 食品类品牌              |
-| VEHICLE               | 物品 - 交通工具                |
-| BUILDING              | 物品 - 建筑                    |
-| TABLEWARE             | 物品 - 餐具                    |
-| FOOD                  | 物品 - 食物                    |
-| HOMEAPPLICATION       | 物品 - 家用电器                |
-| OFFICESUPPLIES        | 物品 - 办公用品                |
-| FASHION               | 物品 - 穿着用品                |
-| SPORTEQUIPMENT        | 物品 - 运动器材                |
-| TOY                   | 物品 - 玩具                    |
-| MAKEUP                | 物品 - 化妆品                  |
-| DRUGS                 | 物品 - 药品                    |
-| PAINTING              | 物品 - 绘画作品                |
-| ELECTRONIC            | 物品 - 电子产品                |
-| MEDICALIMAGE          | 物品 - 医疗影像                |
-| FURNITURE             | 物品 - 家居用品                |
-| DAILYSUPPLIES         | 物品 - 生活用品                |
-| CONSTELLATION         | 物品 - 星座占卜                |
-| KITCHENWARE           | 物品 - 厨房用品                |
-| KEEPSAKE              | 物品 - 纪念品                  |
-| MAMMAL                | 动物 - 哺乳动物                |
-| BIRDS                 | 动物 - 鸟类                    |
-| REPTILE               | 动物 - 爬行动物                |
-| FISH                  | 动物 - 鱼                      |
-| ARTHROPOD             | 动物 - 节肢动物                |
-| COELENTERATE          | 动物 - 腔肠动物                |
-| MOLLUSKS              | 动物 - 软体动物                |
-| CRUSTACEAN            | 动物 - 甲壳动物                |
-| PLANT                 | 植物                           |
-| SETTING               | 场所                           |
+| 业务标签识别类型 | 类型说明 | 备注 |
+| ------------- | ------------- | --------------- |
+| AGE           | 人脸 - 年龄   | 可识别未成年人  |
+| GENDER        | 人脸 -性别   |  |
+| BEAUTY        | 人脸 - 颜值   |  |
+| FACEDETECTION | 人脸-人脸检测 | 如识别无人脸、真人、口罩人脸、正脸、侧脸等 |
+| FAKEFACE | 人脸 - 伪造人脸 |  |
+| RACE | 人脸-人种 | 如黑种人、白种人、黄种人 |
+| PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
+| TAINTEDSTAR | 人物 - 劣迹人物 |  |
+| POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
+| DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
+| BODY | 人体 | 如识别头发、眼睛、鼻子等 |
+| PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
+| PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
+| LOWVISION | 画面属性  - 画面低质 | 如识别模糊、涂抹、马赛克等 |
+| LOWCONTNET | 画面属性 - 内容低质 | 如识别点线密集、虫类密集等 |
+| LIVEPICTURE | 画面属性-直播画面 | 如识别床上直播、开车直播等 |
+| SCREENSHOT | 画面属性 -  APP截图（内容搬运） | 如识别朋友圈截图、聊天截图等 |
+| FITNESS | 场景主题-健身 |  |
+| CATE | 场景主题-美食 |  |
+| MUSIC | 场景主题-音乐 |  |
+| SPORTS | 场景主题-体育 |  |
+| SCENERY | 场景主题-自然风光 | 如识别天空、大海、草原等 |
+| CITYVIEW | 场景主题-城市风光 | 如识别街景 |
+| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 | 如识别华为、小米、OPPO等LOGO |
+| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 | 如识别拼多多等LOGO |
+| RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
+| SOCIALAPPSLOGO | LOGO - 社交通讯类应用 | 如识别微博、小红书等LOGO |
+| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 | 如识别CFP等LOGO |
+| NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
+| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
+| APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| VEHICLE | 物品-交通工具 |  |
+| BUILDING | 物品-建筑 |  |
+| TABLEWARE | 物品-餐具 |  |
+| FOOD | 物品-食物 |  |
+| HOMEAPPLICATION | 物品-家用电器 |  |
+| OFFICESUPPLIES | 物品-办公用品 |  |
+| FASHION | 物品-穿着用品 |  |
+| SPORTEQUIPMENT | 物品-运动器材 |  |
+| TOY | 物品-玩具 |  |
+| MAKEUP | 物品-化妆品 |  |
+| DRUGS | 物品-药品 |  |
+| PAINTING | 物品-绘画作品 |  |
+| ELECTRONIC | 物品-电子产品 |  |
+| MEDICALIMAGE | 物品-医疗影像 |  |
+| FURNITURE | 物品-家居用品 |  |
+| DAILYSUPPLIES | 物品-生活用品 |  |
+| CONSTELLATION | 物品-星座占卜 |  |
+| KITCHENWARE | 物品-厨房用品 |  |
+| KEEPSAKE | 物品 - 纪念品 |  |
+| MAMMAL | 动物-哺乳动物 |  |
+| BIRDS | 动物 - 鸟类 |  |
+| REPTILE | 动物-爬行动物 |  |
+| FISH | 动物-鱼 |  |
+| ARTHROPOD | 动物  - 节肢动物 |  |
+| COELENTERATE | 动物  - 腔肠动物 |  |
+| MOLLUSKS | 动物  - 软体动物 |  |
+| CRUSTACEAN | 动物  - 甲壳动物 |  |
+| PLANT | 植物 |  |
+| SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
 
 ## 接口响应码列表
 
