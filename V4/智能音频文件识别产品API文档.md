@@ -243,7 +243,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | formatInfo     | string   | 音频数据格式       | 非必传参数   | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3                                       |
 | rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。                                        |
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
-| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>可选值如下（默认为`0`）：</p><br/>`0`：返回风险片段结果<br/>`1`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REJECT的内容；<br/>片段处理结果对应参数为response.detail |
+| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | <p>可选值如下（默认为`0`）：</p><br/>`0`：返回风险片段结果<br/>`1`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.detail |
 | audioDetectStep | int | 间隔审核步长 | 非必传参数 | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |

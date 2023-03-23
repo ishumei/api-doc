@@ -66,7 +66,7 @@
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
 | audioDetectStep | int | 视频流中音频的审核步长 | 非必传参数 | 单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审 |
 | returnAllImg | int | 用户可根据需求选择返回不同审核结果的图片 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`0`：回调reject、review结果的图片审核信息<br/>`1`：回调所有结果的图片审核信息 |
-| returnAllText | bool | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下（默认为`false`）：<br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REJECT的内容；<br/>片段处理结果对应参数为response.detail |
+| returnAllText | bool | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下（默认为`false`）：<br/>`false`：返回风险片段结果<br/>`true`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.detail |
 | returnPreText | bool | 为true表示返回前10秒和当前10秒共20秒音频片段的文本内容| 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回的content字段包含违规音频前10秒文本内容<br/>`false`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | bool |  为true表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回违规音频前10秒音频链接<br/>`false`:只返回违规片段音频链接 |
 | returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为true时返回）：) |
