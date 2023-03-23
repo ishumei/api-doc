@@ -55,7 +55,7 @@
 | formatInfo     | string   | 音频数据格式       | 非必传参数   | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3、opus-gin |
 | rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。          |
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p> |
-| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br/>`0`：返回风险片段结果<br/>`1`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.detail |
+| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br/>`0`：返回风险片段结果<br/>`1`：返回所有片段结果<br/>该参数仅用于控制片段结果的返回逻辑， 不影响整体识别结果的返回。<br/>当选择“返回所有片段结果”时，片段结果中包含riskLevel为PASS、REVIEW和REJECT的内容；<br/>当选择“返回风险片段结果”时，片段结果中仅会包含riskLevel为REVIEW和REJECT的内容；<br/>片段处理结果对应参数为response.audioDetail |
 
 ### 返回参数
 
