@@ -434,17 +434,6 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
                 }
             ]
         ]
-    },
-    "requestParams":{
-        "channel":"default",
-        "returnAllText":1,
-        "returnPreAudio":1,
-        "returnPreText":1,
-        "role":"USER",
-        "room":"test1",
-        "streamType":"DEFAULT",
-        "tokenId":"test_audio_v4",
-        "url":"http://dyscdnali1.douyucdn.cn/live/288016rlols5.flv?uuid=1637847086612"
     }
 }
 ```
