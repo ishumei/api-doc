@@ -177,6 +177,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | tokenProfileLabels  | json_array  | 账号属性标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | tokenRiskLabels  | json_array  | 账号风险标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | speakers         | json_array | 该音频片段说话人信息     |N       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
+| vadCode          | int | 该音频片段的静音状态     |N       | 静音状态：<br/>`0` ：静音片段<br/>`1` ：非静音片段 |
 
 其中，auxInfo结构如下：
 
