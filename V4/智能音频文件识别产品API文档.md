@@ -95,10 +95,11 @@ detail内容：
 
 其中，<span id="riskDetail">riskDetail</span>详细内容如下：
 
-| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
-| :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
-| audioText    | string     | 音频转译文本的结果       | 否           |                                                                                         |
-| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists)                         |
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                     |
+| :----------- | :--------- | :----------------------- | :----------- | :----------------------------------------------------------- |
+| audioText    | string     | 音频转译文本的结果       | 否           |                                                              |
+| riskSource   | int        | 风险来源                 | 否           | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | 否           | 命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists) |
 | riskSegments | json_array | 高风险内容片段           | 否           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
 riskDetail中，<span id="matchedLists">matchedLists</span>详细内容如下：
@@ -223,17 +224,18 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型**    | **参数说明**         | **传入说明** | **规范**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| :------------- | :---------- | :------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| accessKey      | string      | 公司密钥             | 必传参数     | 由数美提供                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| appId          | string      | 应用标识             | 必传参数     | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| eventId        | string      | 事件标识             | 必传参数     | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准                                                                                                                                                                                                                                                                                         |
-| type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>GENDER：性别识别</p><p>TIMBRE：音色识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>BANEDAUDIO：违禁歌曲</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>MINOR：未成年人识别</p><p>如需识别音色，唱歌,语种GENDER必传</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |                                                                                                                                                                                                                                                                                                                  |
-| contentType    | string      | 待识别音频内容的格式 | 必传参数     | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p>                                                                                                                                                                                                                                                                                                                                                                                 |
-| data           | json object | 本次请求相关信息     | 必传参数     | 最长1MB，[详见data参数](#data)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| btId           | string      | 音频文件唯一标识     | 必传参数     | 唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| callback       | string      | 回调http接口         | 非必传参数   | 当该字段非空时，服务将根据该字段回调通知用户审核结果                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **请求参数名** | **类型**    | **参数说明**         | **传入说明**               | **规范**                                                     |
+| :------------- | :---------- | :------------------- | :------------------------- | :----------------------------------------------------------- |
+| accessKey      | string      | 公司密钥             | 必传参数                   | 由数美提供                                                   |
+| appId          | string      | 应用标识             | 必传参数                   | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| eventId        | string      | 事件标识             | 必传参数                   | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| type           | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| businessType   | string      | 检测的风险类型       | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>如需识别音色、唱歌、语种GENDER必传<br>type和 businessType 必须填其一 |
+| contentType    | string      | 待识别音频内容的格式 | 必传参数                   | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
+| content        | string      | 待识别的音频内容     | 必传参数                   | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
+| data           | json object | 本次请求相关信息     | 必传参数                   | 最长1MB，[详见data参数](#data)                               |
+| btId           | string      | 音频文件唯一标识     | 必传参数                   | 唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复 |
+| callback       | string      | 回调http接口         | 非必传参数                 | 当该字段非空时，服务将根据该字段回调通知用户审核结果         |
 
 其中，<span id="data">data</span>的内容如下：
 
@@ -309,17 +311,19 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 
 <span id="audioDetail">audioDetail</span>内每个元素的内容如下：
 
-| **参数名**      | **类型**    | **参数说明**     | **是否必返** | **规范**                                                                 |
-| :-------------- | :---------- | :--------------- | :----------- | :----------------------------------------------------------------------- |
-| audioStarttime  | float       | 音频片段起始时间 | 是           | 相对音频开始的时间距离，单位是秒                                         |
-| audioEndtime    | float       | 音频片段结束时间 | 是           | 相对音频开始的时间距离，单位是秒                                         |
-| audioUrl        | string      | 音频片段链接     | 是           | mp3格式                                                                  |
+| **参数名**      | **类型**    | **参数说明**     | **是否必返** | **规范**                                                     |
+| :-------------- | :---------- | :--------------- | :----------- | :----------------------------------------------------------- |
+| audioStarttime  | float       | 音频片段起始时间 | 是           | 相对音频开始的时间距离，单位是秒                             |
+| audioEndtime    | float       | 音频片段结束时间 | 是           | 相对音频开始的时间距离，单位是秒                             |
+| audioUrl        | string      | 音频片段链接     | 是           | mp3格式                                                      |
 | riskLevel       | string      | 音频片段识别结果 | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p> |
-| riskLabel1      | string      | 一级风险标签     | 是           |                                                                          |
-| riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
-| riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
-| riskDescription | string      | 风险原因         | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                         |
-| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                                      |
+| businessLabels  | json_array  | 业务标签返回     | 否           | 全部业务标签，[详见businessLabels参数](#businessLabels2)     |
+| allLabels       | json_array  | 风险标签返回     | 否           | 全部风险标签，[详见allLabels参数](#allLabels2)               |
+| riskLabel1      | string      | 一级风险标签     | 是           |                                                              |
+| riskLabel2      | string      | 二级风险标签     | 是           |                                                              |
+| riskLabel3      | string      | 三级风险标签     | 是           |                                                              |
+| riskDescription | string      | 风险原因         | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| riskDetail      | json_object | 风险详情         | 否           | [详见riskDetail参数](#riskDetail)                            |
 
 
 其中，<span id="riskDetail">riskDetail</span>详细内容如下：
@@ -427,7 +431,7 @@ POST
 | audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail2)      |
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
 | requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
-| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空） |
+| businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空,历史字段不建议使用） |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 | tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
 | tokenRiskLabels | json_array  | 账号风险标签                   | 否           | 仅在开启功能时返回  |
@@ -441,6 +445,8 @@ POST
 | audioEndtime    | float       | 音频片段结束时间 | 是           | 相对音频开始的时间距离，单位是秒                                         |
 | audioUrl        | string      | 音频片段链接     | 是           | mp3格式                                                                  |
 | riskLevel       | string      | 音频片段识别结果 | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p> |
+| businessLabels | json_array | 业务标签返回 | 否 | 全部业务标签，[详见businessLabels参数](#businessLabels2) |
+| allLabels | json_array | 风险标签返回 | 否 | 全部风险标签，[详见allLabels参数](#allLabels2) |
 | riskLabel1      | string      | 一级风险标签     | 是           |                                                                          |
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
 | riskLabel3      | string      | 三级风险标签     | 是           |                                                                          |
@@ -506,14 +512,29 @@ audioTags中，language详细内容如下：
 | label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
 | probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
 
-*businessLabels数组中每一项具体参数如下：*
+*<span id="businessLabels2">businessLabels</span>*数组中每一项具体参数如下：
 
-| **参数名称**        | **类型** | 参数说明 | **是否必返** | **说明**                         |
-| :------------------ | :------- | -------- | :----------- | :------------------------------- |
-| businessLabel1      | string   | 一级标签 | 是           | 注意：businessLabels不为空时必返 |
-| businessLabel2      | string   | 二级标签 | 是           | 注意：businessLabels不为空时必返 |
-| businessLabel3      | string   | 三级标签 | 是           | 注意：businessLabels不为空时必返 |
-| businessDescription | string   | 描述     | 是           | 注意：businessLabels不为空时必返，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                     |
+| ------------------- | ----------- | ------------ | ------------ | -------------------------------------------- |
+| businessLabel1      | string      | 一级标签     | 是           | 一级标签                                     |
+| businessLabel2      | string      | 二级标签     | 是           | 二级标签                                     |
+| businessLabel3      | string      | 三级标签     | 是           | 三级标签                                     |
+| businessDescription | string      | 标签描述     | 是           | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| confidenceLevel     | int         | 置信等级     | 否           | 可选值在0～2之间，值越大，可信度越高         |
+| probability         | float       | 置信度       | 否           | 可选值为0~1，值越大，可信度越高              |
+| businessDetail      | json_object | 详细信息     | 否           | 保留字段                                     |
+
+ *<span id="allLabels2">allLabels</span>*数组中每一项具体参数如下：
+
+| **参数名**      | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
+| riskLabel1      | string      | 一级风险标签 | 是           | 一级风险标签                                                 |
+| riskLabel2      | string      | 二级风险标签 | 是           | 二级风险标签                                                 |
+| riskLabel3      | string      | 三级风险标签 | 是           | 三级风险标签                                                 |
+| riskDescription | string      | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| riskLevel       | string      | 处置建议     | 是           | 可能返回值： PASS：通过REVIEW：审核REJECT：拒绝              |
+| probability     | float       | 置信度       | 否           | 可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 |
+| riskDetail      | json_object | 风险详情     | 否           | [详见riskDetail参数](#riskDetail2)                           |
 
 *tokenProfileLabels，tokenRiskLabels 数组中每一项具体参数如下:*
 
@@ -591,6 +612,29 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             "audioStarttime": 0,
             "audioEndtime": 10,
             "audioUrl": "https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0000.mp3",
+            "businessLabels":[
+                {
+                    "businessDescription":"唱歌:唱歌:唱歌",
+                    "businessLabel1":"sing",
+                    "businessLabel2":"changge",
+                    "businessLabel3":"changge",
+                    "confidenceLevel":2,
+                    "probability":0.858334402569294
+                }
+            ],
+            "allLabels":[
+                {
+                    "probability":1,
+                    "riskDescription":"色情:性骚扰:重度性骚扰",
+                    "riskDetail":{
+                        "riskSource":1001
+                    },
+                    "riskLabel1":"porn",
+                    "riskLabel2":"xingsaorao",
+                    "riskLabel3":"zhongduxingsaorao",
+                    "riskLevel":"REJECT"
+                }
+            ],          
             "riskLevel": "PASS",
             "riskLabel1": "normal",
             "riskLabel2": "",
@@ -747,6 +791,32 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
             "audioStarttime":0,
             "audioEndtime":10,
             "audioUrl":"https://voice-bj-1251671073.cos.ap-beijing.myqcloud.com/20201102/6a9cb980346dfea41111656a514e9109_a0000.mp3",
+            "businessLabels":[
+                {
+                    "businessDescription":"唱歌:唱歌:唱歌",
+                    "businessDetail":{
+
+                    },
+                    "businessLabel1":"sing",
+                    "businessLabel2":"changge",
+                    "businessLabel3":"changge",
+                    "confidenceLevel":2,
+                    "probability":0.858334402569294
+                }
+            ],       
+            "allLabels":[
+                {
+                    "probability":1,
+                    "riskDescription":"色情:性骚扰:重度性骚扰",
+                    "riskDetail":{
+                        "riskSource":1001
+                    },
+                    "riskLabel1":"porn",
+                    "riskLabel2":"xingsaorao",
+                    "riskLabel3":"zhongduxingsaorao",
+                    "riskLevel":"REJECT"
+                }
+            ],           
             "riskLevel":"PASS",
             "riskLabel1":"normal",
             "riskLabel2":"",
