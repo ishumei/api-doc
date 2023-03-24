@@ -1060,6 +1060,8 @@ Each item in requestIds is:
 #  Active query interface
 
 ## Synchronous query request
+### Interface description
+This interface is used for customers to actively query the image recognition results, and supports the query of results in the past 15 days.
 
 ### Request URL:
 
@@ -1126,12 +1128,12 @@ The contents are composed as follows:
 | **Parameter name**                                           | **Parameter type** | **Must be returned or not** | **Detailed description**                                     |
 | ------------------------------------------------------------ | ------------------ | --------------------------- | ------------------------------------------------------------ |
 | requestId                                                    | string             | Y                           | Request unique identification                                |
-| result                                                       | json object        | N                           | Return results                                               |
+| Result                                                       | json object        | N                           | Return results                                               |
 | btId                                                         | string             | N                           | Image id                                                     |
 | code(Indicates the status of the request corresponding to the requestId) | int                | Y                           | `1102`:Processing<br/>`1100`:Processing Completed<br/>`1910`:Fail<br/>`1912`:Processing Timeout (default 24h) |
 | message                                                      | string             | Y                           | Corresponds to code: <br/>Processing<br/>Processing completed<br/>Failed(Display specific failure reasons according to different situations)<br/>Processing Timeout (default 24h) |
 
-result are as follows:
+Result are as follows:
 
 | **Parameter name** | **Parameter type** | **Parameter Description**   | **Must be returned or not** | **Detailed description**                                     |
 | ------------------ | ------------------ | --------------------------- | --------------------------- | ------------------------------------------------------------ |
