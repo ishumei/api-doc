@@ -209,12 +209,12 @@
 | **参数名** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
 | ---------- | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
 | riskSource | int         | 风险来源     | 是           | 可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| faces      | json_array  | 人脸信息     | 否           | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#faces) |
+| faces      | json_array  | 人脸信息     | 否           | 返回图片中涉政人物的名称及位置信息，详见[faces说明](#faces)  |
 | face_num   | int         | 人脸数量     | 否           |                                                              |
 | objects    | json_array  | 物品信息     | 否           | 返回图片中标识或物品的名称及位置信息，详见[objects说明](#objects) |
-| persons    | json_array  | 人像信息     | 否           |                                                              |
+| persons    | json_array  | 人像信息     | 否           | 仅当命中人像-多人时，数组元素会有多个，最多10个              |
 | person_num | int         | 人像数量     | 否           |                                                              |
-| ocrText    | json_object | 文字信息     | 否           | 返回图片中文字相关信息，详见[ocrText说明](#ocrText) |
+| ocrText    | json_object | 文字信息     | 否           | 返回图片中文字相关信息，详见[ocrText说明](#ocrText)          |
 
 <span id="faces">riskDetail中，faces数组每个成员的具体内容如下：</span>
 
@@ -300,13 +300,13 @@ riskDetail中，persons数组的每个元素的内容如下：
 
 businessLabels中，businessDetail的内容如下：
 
-| **参数名** | **类型**   | **参数说明** | **是否必返** | **规范** |
-| ---------- | ---------- | ------------ | ------------ | -------- |
-| faces      | json_array | 人脸信息     | 否           |          |
-| face_num   | int        | 人脸数量     | 否           |          |
-| objects    | json_array | 物品信息     | 否           |          |
-| persons    | Json_array | 人像信息     | 否           |          |
-| person_num | int        | 人像数量     | 否           |          |
+| **参数名** | **类型**   | **参数说明** | **是否必返** | **规范**                                        |
+| ---------- | ---------- | ------------ | ------------ | ----------------------------------------------- |
+| faces      | json_array | 人脸信息     | 否           |                                                 |
+| face_num   | int        | 人脸数量     | 否           |                                                 |
+| objects    | json_array | 物品信息     | 否           |                                                 |
+| persons    | Json_array | 人像信息     | 否           | 仅当命中人像-多人时，数组元素会有多个，最多10个 |
+| person_num | int        | 人像数量     | 否           |                                                 |
 
 businessDetail中，faces数组的每个元素的内容如下：
 
