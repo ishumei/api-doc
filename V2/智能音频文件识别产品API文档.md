@@ -277,14 +277,15 @@ POST
 
 *<span id="businessLabels">businessLabels</span>数组中每一项具体参数如下：*
 
-| **参数名**          | **类型** | **是否必返** | **说明**                                     |
-| ------------------- | -------- | ------------ | -------------------------------------------- |
-| businessLabel1      | string   | Y            | 一级标签                                     |
-| businessLabel2      | string   | Y            | 二级标签                                     |
-| businessLabel3      | string   | Y            | 三级标签                                     |
-| businessDescription | string   | Y            | 格式为"一级标签:二级标签:三级标签"的中文名称 |
-| confidenceLevel     | int      | N            | 可选值在0～2之间，值越大，可信度越高         |
-| probability         | float    | N            | 可选值为0~1，值越大，可信度越高              |
+| **参数名**          | **类型**    | **是否必返** | **说明**                                     |
+| ------------------- | ----------- | ------------ | -------------------------------------------- |
+| businessLabel1      | string      | Y            | 一级标签                                     |
+| businessLabel2      | string      | Y            | 二级标签                                     |
+| businessLabel3      | string      | Y            | 三级标签                                     |
+| businessDescription | string      | Y            | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| confidenceLevel     | int         | N            | 可选值在0～2之间，值越大，可信度越高         |
+| probability         | float       | N            | 可选值为0~1，值越大，可信度越高              |
+| businessDetail      | json_object | N            | 详细信息，保留字段                           |
 
 *language数组中每一项具体参数如下：*
 
@@ -413,6 +414,9 @@ code和message的列表如下：
             "businessLabels":[
                 {
                     "businessDescription":"语种:其他语种:其他语种",
+                    "businessDetail":{
+
+                    },                  
                     "businessLabel1":"language",
                     "businessLabel2":"Languageother",
                     "businessLabel3":"Languageother",

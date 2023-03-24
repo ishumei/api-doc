@@ -514,14 +514,15 @@ audioTags中，language详细内容如下：
 
 *<span id="businessLabels2">businessLabels</span>*数组中每一项具体参数如下：
 
-| **参数名**          | **类型** | **参数说明** | **是否必返** | **规范**                                     |
-| ------------------- | -------- | ------------ | ------------ | -------------------------------------------- |
-| businessLabel1      | string   | 一级标签     | 是           | 一级标签                                     |
-| businessLabel2      | string   | 二级标签     | 是           | 二级标签                                     |
-| businessLabel3      | string   | 三级标签     | 是           | 三级标签                                     |
-| businessDescription | string   | 标签描述     | 是           | 格式为"一级标签:二级标签:三级标签"的中文名称 |
-| confidenceLevel     | int      | 置信等级     | 否           | 可选值在0～2之间，值越大，可信度越高         |
-| probability         | float    | 置信度       | 否           | 可选值为0~1，值越大，可信度越高              |
+| **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                     |
+| ------------------- | ----------- | ------------ | ------------ | -------------------------------------------- |
+| businessLabel1      | string      | 一级标签     | 是           | 一级标签                                     |
+| businessLabel2      | string      | 二级标签     | 是           | 二级标签                                     |
+| businessLabel3      | string      | 三级标签     | 是           | 三级标签                                     |
+| businessDescription | string      | 标签描述     | 是           | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| confidenceLevel     | int         | 置信等级     | 否           | 可选值在0～2之间，值越大，可信度越高         |
+| probability         | float       | 置信度       | 否           | 可选值为0~1，值越大，可信度越高              |
+| businessDetail      | json_object | 详细信息     | 否           | 保留字段                                     |
 
  *<span id="allLabels2">allLabels</span>*数组中每一项具体参数如下：
 
