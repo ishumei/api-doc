@@ -55,7 +55,7 @@
 | formatInfo     | string   | 音频数据格式       | 非必传参数   | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3、opus-gin |
 | rate           | int      | 音频数据采样率     | 非必传参数   | 当音频数据格式为pcm时必须存在，范围限制8000-32000。          |
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p> |
-| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br> `0`：返回风险片段识别结果<br/> `1`：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择“返回所有片段识别结果”时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；<br/>当选择“返回风险片段识别结果”时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；<br/>片段识别结果对应响应中的audioDetail字段。 |
+| returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br/> `0`：返回风险片段识别结果<br/> `1`：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择“返回所有片段识别结果”时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；<br/>当选择“返回风险片段识别结果”时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；<br/>片段识别结果对应响应中的audioDetail字段。 |
 
 ### 返回参数
 
@@ -230,7 +230,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | appId          | string      | 应用标识             | 必传参数                   | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId        | string      | 事件标识             | 必传参数                   | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type           | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
-| businessType   | string      | 检测的风险类型       | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>如需识别音色、唱歌、语种GENDER必传<br>type和 businessType 必须填其一 |
+| businessType   | string      | 检测的风险类型       | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
 | contentType    | string      | 待识别音频内容的格式 | 必传参数                   | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
 | content        | string      | 待识别的音频内容     | 必传参数                   | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
 | data           | json object | 本次请求相关信息     | 必传参数                   | 最长1MB，[详见data参数](#data)                               |
