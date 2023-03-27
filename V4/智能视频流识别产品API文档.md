@@ -70,7 +70,7 @@
 | returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为1时返回）：) |
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
-| room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略；（使用声网协议的用户必须传入） |
+| room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
 
 <span id="extra">data 中，extra的内容如下</span>
@@ -91,6 +91,8 @@
 | subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。 |
 | trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 | untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
+
+参数使用说明：若您需要对同一个房间中的不同用户进行审核，请您在每次传入时生成不同的uid，以防止审核同一房间内不同用户出现拉流互踢的现象；若您没有uid字段（不使用token的情况），您可以考虑传入相应的订阅模式参数：subscribeMode，当不传此字段或者传此字段为AUTO，自动订阅房间内的所有流，当传此字段为TRUSTED，请传入相应的trustedUserIdList，数美不会订阅房间内该列表指定的用户流，当传此字段为UNTRUSTED，请传入相应的untrustedUserIdList，数美只订阅房间内该列表指定的用户流，我们会根据此字段subscribeMode配合相应列表筛选特定用户进行审核。
 
 <span id="trtcParam">其中，trtcParam内容如下：</span>
 
