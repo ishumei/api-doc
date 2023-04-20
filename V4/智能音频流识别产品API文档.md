@@ -106,11 +106,13 @@
 | ---------- | ------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | sdkAppId   | int    | Y            | 腾讯提供的sdkAppId                                                                                                                       |
 | demoSences | int    | Y            | 录制类型可选值：分流录制：2 合流录制：4                                                                                                  |
-| userId     | string | Y            | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                 |
-| uid     | string | N            | 指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，建议使用不同的录制端userId和userSig分多次请求。 注意区分此参数和userId的区别。                            |
+| userId     | string | Y            | 分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                 |
+| uid     | string | N            | 指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，**请使用不同的录制端userId和userSig分多次请求。 注意区分此参数和userId的区别**。                            |
 | userSig    | string | Y            | 录制userId对应的验证签名，相当于登录密码                                                                                                 |
 | roomId     | int    | Y            | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId                                                |
 | strRoomId  | string | Y            | 房间号码 取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId |
+
+trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
 
 <span id="extra">data中，extra的内容如下：</span>
 
