@@ -315,7 +315,7 @@ allLabels结构如下：
 ### 上传请求示例：
 
 ```bash
-curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
+curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "appId": "default",
     "eventId": "default",
@@ -334,6 +334,17 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
     }
 }'
 ```
+
+### 同步返回示例：
+
+```json
+{
+    "code":1100,
+    "message":"成功",
+    "requestId":"b639042cbfe229359e672074762c5583"
+}
+```
+
 
 ### 回调返回示例：
 
@@ -444,7 +455,7 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
 ###  关流请求示例：
 
 ```bash
-curl -v 'http://api-audiostream-bj.fengkongcloud.com/finish_audiostream/v4' -d '{
+curl -v 'http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "requestId": "xxxxx"
 }'
