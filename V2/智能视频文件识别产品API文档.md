@@ -153,7 +153,7 @@
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
 | riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | labels | string | 风险标签（code为1100时存在）| 否|  |
-| detail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[detail说明](#frameDetail) |
+| detail | json_array | 风险详情 | 否 | 详见[detail说明](#frameDetail) |
 | addition | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[addition说明](#addition)|
 | callbackParam | json_object | 回调透传字段 | 否 | 当提交请求中，callbackParam字段有值时存在 |
 | auxInfo | json_object | 辅助信息 | 否 |code为`1100`时存在，详见[auxInfo说明](#auxInfo)|
@@ -362,7 +362,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | btId | string | 视频唯一标识 | 是 | 最长64位 |
 | riskLevel | string | 风险级别，code为1100时存在 | 否 | 返回值：<br/>`PASS`：正常内容，建议直接放行<br/>`REVIEW`：可疑内容，建议人工审核<br/>`REJECT`：违规内容，建议直接拦截 |
 | labels | string | 风险标签（code为1100时存在）| 否|  |
-| detail | json_array | 风险详情 | 否 | code为`1100`时存在，详见[detail说明](#callbackV2.callbackParameters.query..frameDetail) |
+| detail | json_array | 风险详情 | 否 | 详见[detail说明](#callbackV2.callbackParameters.query..frameDetail) |
 | addition | json_array | 音频片段信息 | 否 | code为`1100`时存在，详见[addition说明](#callbackV2.callbackParameters.query.audioDetail)|
 | auxInfo | json_object | 辅助信息 | 是 | code为`1100`时存在，扩展辅助信息，详见[auxInfo说明](#queryV4.responseParameters.auxInfo) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 |仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels2)|
