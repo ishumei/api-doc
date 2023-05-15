@@ -523,6 +523,7 @@ scene_account_risk的详情内容如下：
 | img            | string       | 要检测的图片，可使用base64编码的图片数据或者图片的url链接 建议图片下载从CDN源站下载，并且源站不能为单点<br/>风险：如果不是从源站下载，可能存在图片下载失败，导致无法审核 | 必传参数     | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不小于256\*256，目前支持20\*20~6000\*6000以内分辨率的图片，图片大小最大10MB <br/>默认长图不切分，需要时请联系数美开通，切分后的计费以实际截取的帧数为准。|
 | imgCompareBase | string | 要检测比对的基准图片，请求参数Type字段包含标签`FACECOMPARE`时存在<br/>可使用base64编码的图片数据或者图片的url链接 | 非必传参数 | 支持格式：<br/>`jpg`，`jpeg`，`png`，`webp`，`gif`，`tiff`，`tif`，`heif`<br/>建议图片像素不低于256\*256，图片大小最大10MB<br/><br/>基准图暂时不支持长图和动图格式 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
 | ip | string | ip地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
 | maxFrame | int | gif图片的最大截帧数量 | 非必传参数 | 截取git等动图帧数，最大为20帧，默认为3帧，计费按照实际截帧数量计费，如默认为截取3帧时按照3帧进行计费 |
@@ -624,6 +625,7 @@ scene_account_risk的详情内容如下：
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
 
 其中，extra的内容如下：
 
@@ -988,6 +990,7 @@ UTF-8
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助文本检测的相关信息 |
 | role | string | 用户角色 | 非必传参数 | 用户角色，默认USER，必须在可选范围有效对不同角色可配置不同策略。直播领域可取值：房管：ADMIN主播：HOST系统角色：SYSTEM游戏领域可取值：管理员：ADMIN普通用户：USER |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
+| lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
 
 其中，extra的内容如下：
 
