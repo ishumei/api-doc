@@ -27,7 +27,7 @@
 | --- | --- | --- |
 | 北京集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
 | 新加坡集群 | `http://captcha-xjp.fengkongcloud.com/ca/v1/sverify` |二次验证 |
-| 佛吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
+| 弗吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 
 ### <span id = "requestEncode">字符编码格式：</span>
 
