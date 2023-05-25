@@ -471,6 +471,17 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4' -d '
 }
 ```
 
+当关闭的流不存在时：
+
+```json
+{
+    "code": 1909,
+    "message": "该路流不存在",
+    "requestId": " a78eef377079acc6cdec24967ecde722",
+}
+```
+
+
 # FAQ
 
 ## 调用接口返回参数错误（1902）
