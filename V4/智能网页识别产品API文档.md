@@ -94,7 +94,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | type | string | 平台业务类型 | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> 默认值为`NOVEL`|
-| imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。注意：这里POLITICS实际上等价于以下两个类型：<br/>PERSON：涉政人脸识别<br/>VIOLENCE：暴恐识别 |
+| imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 `POLITICS_PORN_AD` 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别 |
 | txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
 | videoImgType | string | 网页中视频截帧图片的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`：涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情&性感违规识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`OCR`：图片文字违规识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别<br/>如果审核视频，该字段必传|
 | videoAudioType | string | 网页中视频内音频的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL_PORN_MOAN用于广告、色情和涉政识别<br/>不支持只审核视频中音频的情况|
