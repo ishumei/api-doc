@@ -123,7 +123,7 @@ POST
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
 | callbackParam | json_object | N            | 透传参数                                                                                                  |
-| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                                                                     |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语                                                                                                     |
 
 ### 扩展请求参数
 
