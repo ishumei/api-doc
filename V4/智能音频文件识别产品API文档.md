@@ -247,7 +247,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br/> `0`：返回风险片段识别结果<br/> `1`：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择“返回所有片段识别结果”时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；<br/>当选择“返回风险片段识别结果”时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；<br/>片段识别结果对应回调或者查询响应中的audioDetail字段。 |
 | audioDetectStep | int | 间隔审核步长 | 非必传参数 | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
-| lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
+| lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |
 | ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                    |
 
