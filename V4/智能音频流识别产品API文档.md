@@ -298,7 +298,7 @@ allLabels结构如下：
 | **请求参数名** | **类型** | **参数说明**       | **是否必传** | **规范**                               |
 | -------------- | -------- | ------------------ | ------------ | -------------------------------------- |
 | accessKey      | string   | 公司密钥           | Y            | 用于权限认证，开通账号服务时由数美提供 |
-| requestId      | string   | 本次请求的唯一标识 | Y            | 需要关闭视频流的requestId              |
+| requestId      | string   | 本次请求的唯一标识 | Y            | 需要关闭音频流的requestId              |
 
 ## 返回参数
 
@@ -470,6 +470,17 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4' -d '
     "requestId": " a78eef377079acc6cdec24967ecde722",
 }
 ```
+
+当关闭的流不存在时：
+
+```json
+{
+    "code": 1909,
+    "message": "该路流不存在",
+    "requestId": " a78eef377079acc6cdec24967ecde722",
+}
+```
+
 
 # FAQ
 
