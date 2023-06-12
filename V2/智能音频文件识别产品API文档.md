@@ -112,6 +112,14 @@ POST
 
 http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/query_audio
 
+硅谷集群：
+
+http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/query_audio
+
+新加坡集群：
+
+http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/query_audio
+
 ### 字符编码格式
 
 请求及返回结果都使用UTF-8字符集进行编码
