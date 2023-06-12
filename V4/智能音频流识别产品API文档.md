@@ -5,10 +5,10 @@
 
 ### 请求URL：
 
-| 集群   | URL                                                           | 支持语种                             |
+| 集群   | URL                                                           | <span id="language">支持语种</span> |
 | ------ | ------------------------------------------------------------- | ---------------------------------------- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、英语、阿语 |
-| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、英语、阿语 |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、国际化 |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、国际化 |
 | 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文       |
 
 ### 请求方法：
@@ -53,7 +53,7 @@
 | btId           | string      | 音频唯一标识                     | Y            | 用于查询指定音频，限长128位字符                                                                                                                              |
 | streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制<br/>`GIN`： 巨人录制<br/>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商                                                                |
 | url            | string      | 直播流地址                                             | N            | 当streamType为`NORMAL`时必传                                                                                                                                 |
-| lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语                                                                              |
+| lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化 |
 | zegoParam      | json_object | 要检测的流参数                                         | N            | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam)                                                                                                  |
 | initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0  |
 | trtcParam      | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                                                                       |
