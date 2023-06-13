@@ -73,10 +73,11 @@ POST
 | channel       | string      | N            | 业务场景名称，见渠道配置表                                                                                                                                                  |
 | returnAllText | bool        | N            | 取值为true时，返回所有音频片段识别结果（每10秒一个音频片段）；取值为false时，返回风险片段（riskLevel为REJECT或REVIEW）识别结果。默认为false。                               |
 | audioDetectStep | int | N | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
-| nickname      | string      | N            | 用户昵称  |                                                                                                                                                                  
-| timestamp     | int         | N            | 时间戳（毫秒级）  |                                                                                                                                                          
-| room          | string      | N            | 房间号     |                                                                                                                                                                                                       
-| deviceId        | string | N  |  数美设备指纹生成的设备唯一标识                                                                                              |  
+| receiveTokenId | string | N | 私聊场景下消息接收者的tokenId,由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| nickname      | string      | N            | 用户昵称  |
+| timestamp     | int         | N            | 时间戳（毫秒级）  |
+| room          | string      | N            | 房间号     |
+| deviceId        | string | N  |  数美设备指纹生成的设备唯一标识                                                                                              |
 | ip              | string | N    |  发送该音频的用户公网ipv4地址                                                                                             |
 
 *formatInfo内容如下：*

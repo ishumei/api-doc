@@ -138,7 +138,6 @@ POST
 | returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p> |
 | returnFinishInfo | bool     | N            | <p>音频流结束回调通知</p><p>可选值（默认为false）：<br/>false：审核结束时不发送结束通知</p><p>true：审核结束时发起结束通知，回调参数增加statCode状态码</p><p>建议传入true（默认为false，在流结束时不会产生回调）</p> |
 | initDomain       | int      | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0 |
-| receiveTokenId   | string   | N            | 私聊场景下消息接收者的tokenId，由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | audioDetectStep  | int      | N            | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注） |
 
 其中data.agoraParam内容如下:
