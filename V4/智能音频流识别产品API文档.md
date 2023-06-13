@@ -68,7 +68,6 @@
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
 | anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入 |
-| receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
 
 <span id="zegoParam">data中，zegoParam详细内容如下：</span>
