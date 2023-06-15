@@ -261,7 +261,6 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | code               | int          | 请求返回码                     | 是           | <p>1100：成功</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：服务失败</p><p>9101：无权限操作</p> |
 | message            | string       | 请求返回描述，和请求返回码对应 | 是           |                                                                                                          |
 
-
 ## 主动查询结果
 
 ### 请求URL
@@ -270,6 +269,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | ---- | ------------------------------------------------------ | ---------------------------------------------- |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文               |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/query_audio/v4` | 中文、英文、阿拉伯语 |
+| 新加坡 | `http://api-audio-xjp.fengkongcloud.com/query_audio/v4` | 中文、英文、阿拉伯语 |
 
 ### 字符编码
 
