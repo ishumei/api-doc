@@ -1,57 +1,6 @@
 # 智能音频流识别产品API文档
 
-- - - - -
 
-***版权所有 翻版必究***
-
-- - - - -
-
-目录
-
-- [智能音频流识别产品API文档](#智能音频流识别产品api文档)
-- [1. 接入前准备](#1-接入前准备)
-  - [1.1 数美服务账号申请](#11-数美服务账号申请)
-  - [1.2 渠道配置表](#12-渠道配置表)
-  - [1.2 数美服务账号信息接收](#12-数美服务账号信息接收)
-- [2. 智能音频流过滤服务接口说明](#2-智能音频流过滤服务接口说明)
-  - [2.1 音频流检测请求](#21-音频流检测请求)
-    - [接口描述](#接口描述)
-    - [请求URL](#请求url)
-    - [字符编码格式](#字符编码格式)
-    - [请求方法](#请求方法)
-    - [建议超时时长](#建议超时时长)
-    - [通用请求参数](#通用请求参数)
-    - [扩展请求参数](#扩展请求参数)
-    - [返回参数](#返回参数)
-    - [回调策略](#回调策略)
-    - [请求方法](#请求方法-1)
-    - [字符编码格式](#字符编码格式-1)
-    - [回调参数](#回调参数)
-    - [示例](#示例)
-      - [请求示例](#请求示例)
-      - [返回示例](#返回示例)
-      - [回调接口返回的内容示例](#回调接口返回的内容示例)
-  - [2.2 音频流关闭通知接口](#22-音频流关闭通知接口)
-    - [接口描述](#接口描述-1)
-    - [请求URL](#请求url-1)
-    - [字符编码格式](#字符编码格式-2)
-    - [请求方法](#请求方法-2)
-    - [建议超时时长](#建议超时时长-1)
-    - [请求参数](#请求参数)
-    - [返回参数](#返回参数-1)
-    - [示例](#示例-1)
-      - [请求示例](#请求示例-1)
-      - [返回示例](#返回示例-1)
-  - [3.更新声网Token接口规范](#3更新声网token接口规范)
-    - [请求方式](#请求方式)
-    - [请求参数](#请求参数-1)
-    - [返回结果](#返回结果)
-- [3. FAQ](#3-faq)
-  - [3.1 调用接口返回参数错误（1902）](#31-调用接口返回参数错误1902)
-  - [3.2 调用接口返回无权限操作（9101）](#32-调用接口返回无权限操作9101)
-  - [3.3 调用接口超时问题](#33-调用接口超时问题)
-  - [3.4 数美接口支持哪些网络协议？](#34-数美接口支持哪些网络协议)
-- [4. Demo](#4-demo)
 
 版本
 
@@ -68,7 +17,9 @@
 | V2.0.4 | 2021/12/27 | 刘拴朋 | 1. trtcUserId替换为strUserId字段                                                                                                               |
 | V2.0.5 | 2022/03/29 | 朱晓峰 | 1. 增加声网renew token功能                                                                                                                     |
 | V2.0.7 | 2022/04/18 | 代俊凯 | 1. 增加callbackParam说明                                                                                                                       |
-| V2.0.8 | 2022/05/09 | 代俊凯 | 1. 增加违禁歌曲、人声属性、声音场景识别                                                                                                                       |
+| V2.0.8 | 2022/05/09 | 代俊凯 | 1. 增加违禁歌曲、人声属性、声音场景识别  
+| V2.0.9 | 2022/08/12 | 管铭 | 1. 增加SDK录制费用说明  
+| v2.1.0 | 2022/11/14 | 杨杰 | 增加 tokenProfileLabels tokenRiskLabels 说明
 
 # 1. 接入前准备
 
@@ -106,7 +57,7 @@
 | organization     | xxxxxx                        | 数美分配的企业唯一标识码，调用SDK时需要传入 |
 | 数美管理后台账号 | xxxxxx                        | 用于登陆数美管理后台                        |
 | 数美管理后台密码 | xxxxxx                        | 用于登陆数美管理后台                        |
-| 数美管理后台地址 | https://www.fengkongcloud.com | 用于登陆数美管理后台                        |
+| 数美管理后台地址 | https://console.ishumei.com | 用于登陆数美管理后台                        |
 
 # 2. 智能音频流过滤服务接口说明
 
@@ -151,10 +102,10 @@ POST
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | :----------- | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                                                                                                                                                                                                                                                                                                                                                                                             |
-| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>SING：唱歌识别</p><p>LANGUAGE：语种识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
-| businessType | string      | N            | <p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>MINOR:未成年</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p>                                                                                                                                                                                                                                                                      |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| businessType | string      | N            | <p>识别类型，可选值：</p><p>SING:唱歌</p><p>LANGUAGE:语种</p><p>GENDER:性别</p><p>TIMBRE:音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p>                                                                                                                                                                                                                                                                      |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度                                                                                                                                                                                                                                                                                                                                                                              |
-| appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，该参数传递值可与数美服务协商用于区分应用</p><p>默认应用值：default</p>                                                                                                                                                                                                                                                                                                           |
+| appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，需要联系数美开通，请以数美单独提供的传值为准</p>                                                                                                                                                                                                                                                                                                           |
 | callback     | string      | Y            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                                                                                                                                                                                                                                                                                                                                                                                   |
 | data         | json_object | Y            | 请求数据内容，最长1MB                                                                                                                                                                                                                                                                                                                                                                                                          |
 
@@ -162,29 +113,32 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | <p>流类型:可选择：<br/>流地址：NORMAL</p><p>声网录制：AGORA</p><p>即构录制：ZEGO</p><p>腾讯录制：TRTC</p> |
+| streamType    | string      | Y            | <p>流类型,可选择：</p>普通流地址：NORMAL<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
+| ginParam    | json_object | Y            | 巨人录制参数（当streamType为GIN时必传），详见扩展参数                                                   |
 | zegoParam     | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
 | trtcParam     | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
+| volcParam     | json_object | Y            | 火山引擎录制参数（当streamType为VOLC时必传），详见扩展参数                                                    |
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
 | callbackParam | json_object | N            | 透传参数                                                                                                  |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                                                                     |
 
 ### 扩展请求参数
 
 放在data下，其中具体参数如下：
 
-| **参数名称**     | **类型** | **是否必选** | **说明**                                                                                                                                                                                                                                                       |
-| :--------------- | :------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| room             | string   | N            | 房间号，强烈建议传入                                                                                                                                                                                                                                           |
-| role             | string   | N            | <p>用户角色</p><p>对不同角色可配置不同策略。</p><p>直播领域可取值：</p><p>房管：ADMIN</p><p>主播：HOST</p><p>系统角色：SYSTEM</p><p>游戏领域可取值：</p><p>管理员：ADMIN</p><p>普通用户：USER</p><p>默认值：普通用户</p>                                       |
-| returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时只返回有风险（riskType为REJECT）的音频流片段识别结果和文本内容，默认是false</p>                                                                                                     |
+| **参数名称**     | **类型** | **是否必选** | **说明**                                                     |
+| :--------------- | :------- | :----------- | :----------------------------------------------------------- |
+| room             | string   | N            | 房间号，强烈建议传入                                         |
+| role             | string   | N            | <p>用户角色</p><p>对不同角色可配置不同策略。</p><p>直播领域可取值：</p><p>房管：ADMIN</p><p>主播：HOST</p><p>系统角色：SYSTEM</p><p>游戏领域可取值：</p><p>管理员：ADMIN</p><p>普通用户：USER</p><p>默认值：普通用户</p> |
+| returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时只返回有风险（riskLevel为REJECT）的音频流片段识别结果和文本内容，默认是false</p><p>建议传入true （默认为false，在静音的情况下不会产生回调）</p> |
 | returnPreText    | bool     | N            | <p>值为true时，返回的content字段包含违规音频前一个片段10秒文本内容；</p><p>值为false时，返回的content字段只包含违规音频片段文本内容，默认值为false(对于TRTC流该功能无效，当客户使用间隔审核功能时，即使returnPreAudio是true情况下，也不返回该字段）</p><p></p> |
-| returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p>                      |
-| returnFinishInfo | bool     | N            | <p>音频流结束通知</p><p>可选值（默认为false）：<br/>false：不返回状态码</p><p>true：回调参数增加statCode状态码</p>                                                                                                                                             |
-| initDomain       | int      | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能名                                                                                                  |
-| audioDetectStep  | int      | N            | 音频每个步长只会检测一次,取值范围1-5的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
+| returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p> |
+| returnFinishInfo | bool     | N            | <p>音频流结束回调通知</p><p>可选值（默认为false）：<br/>false：审核结束时不发送结束通知</p><p>true：审核结束时发起结束通知，回调参数增加statCode状态码</p><p>建议传入true（默认为false，在流结束时不会产生回调）</p> |
+| initDomain       | int      | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0 |
+| audioDetectStep  | int      | N            | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注） |
 
 其中data.agoraParam内容如下:
 
@@ -197,6 +151,16 @@ POST
 | isMixingEnabled | bool     | N            | <p>单流/合流录制，默认合流录制。</p><p>true:合流</p><p>false:分流</p><p>合流是指一个直播房间一路流，分流是指一个麦位一路流</p>                                                                             |
 | channelProfile  | int      | N            | <p>声网录制的频道模式，取值：</p><p>0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；</p><p>1: 直播，有两种用户角色: 主播和观众。</p><p>默认以通信模式录制，即默认值为0。</p>      |
 | renewTokenURL   | string   | N            | <p>用于更新声网Token的接口，详见更新声网Token接口规范</p><p>如果不提供该参数，则不会更新Token，当Token失效时就该声网流无法继续审核</p>                                                                     |
+
+其中data.ginParam内容如下:
+
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                                                                                                                                                                   |
+| :-------------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tokenId           | string   | Y            | 房间token，用于拉流端登陆房间，需要巨人提供                                                                                                                                                                   |
+| roomId         | string   | Y            | 房间编号，唯一对应一个房间，服务端以房间为单位拉流录制                                                                                                                                                                |
+| isMixingEnabled | bool     | Y            | <p>录制模式，可能取值：</p><p>`false`：分流，房间内每个用户单独录制审核</p><p>`true`：合流，房间内所有用户合成一路流录制审核</p>                                                                             |
+| ip  | string      | Y            | 指定服务器ip      |
+| port   | string   | Y            | 指定端口                                                                     |
 
 其中data.zegoParam内容如下
 
@@ -213,10 +177,26 @@ POST
 | :----------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sdkAppId     | int      | Y            | 腾讯提供的sdkAppId                                                                                                                                         |
 | demoSences   | int      | Y            | <p>录制类型可选值：</p><p>分流录制：2<br/>合流录制：4</p>                                                                                                  |
-| userId       | string   | Y            | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                                   |
+| userId       | string   | Y            | 分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                                   |
 | userSig      | string   | Y            | 录制userId对应的验证签名，相当于登录密码                                                                                                                   |
+| uid       | string   | N            | 指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，**请使用不同的录制端userId和userSig分多次请求。注意此参数和userId的区别**。                                            |
 | roomId       | int      | Y            | <p>房间号码，取值范围：【1-4294967294】</p><p>roomId与strRoomId必传一个，若两者都有值优先选用roomId</p>                                                    |
 | strRoomId    | string   | Y            | <p>房间号码<br/>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
+
+trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
+
+其中data.volcParam内容如下:
+
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                                                                                                                                                                   |
+| :-------------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| appId           | string   | Y            | 火山引擎提供的appId，注意与数美的appId区分开                                                                                                                                                                   |
+| roomId         | string   | Y            | 房间号                                                                                                                                                                |
+| token           | string   | Y            | 火山引擎token，详见：https://www.volcengine.com/docs/6348/70121 |
+| userId            | string      | Y            | 分配给录制端的userId                                           |
+| subscribeMode | string     | N            | <p>订阅模式:</p><p>AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为。</p><p>UNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流。</p><p>TRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。</p>                                                                            |
+| trustedUserIdList  | string_array      | N            | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。      |
+| untrustedUserIdList   | string_array   | N            | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。  |                     
+
 
 ### 返回参数
 
@@ -233,9 +213,11 @@ detail结构如下：
 
 | **参数名称** | **类型** | **是否必选** | **说明** |
 | :----------- | :------- | :----------- | :------- |
-| errorCode    | int      | Y            | 状态码   |
+| errorcode    | int      | Y            | 状态码   |
+| dupRequestId | string       |  N|  表示重复的requestId<br/>当errorcode为1001，表示重复推流时，会返回dupRequestId字段<br/>例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核<br/>可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口 |
 
-errorCode对应说明如下：
+
+errorcode对应说明如下：
 
 | **code** | **message** |
 | :------- | :---------- |
@@ -268,6 +250,7 @@ POST
 | riskLevel    | string      | Y            | <p>风险级别（code 为 1100 时存在）</p><p>可能返回值：PASS，REVIEW，REJECT</p><p>PASS：正常内容，建议直接放行</p><p>REVIEW：可疑内容，建议人工审核</p><p>REJECT：违规内容，建议直接拦截</p> |
 | statCode     | int         | N            | <p>审核状态：</p><p>0 ：审核中： </p><p>1 ：审核结束</p>                                                                                                                                   |
 | detail       | json_object | Y            | 风险详情                                                                                                                                                                                   |
+| auxInfo      | json_object | N            | 辅助信息                                                                                                                                                                                   |
 
 其中，detail 的内容如下：
 
@@ -281,15 +264,15 @@ POST
 | audio_starttime   | string      | Y            | 违规内容开始时间（绝对时间）                                                                                                                                                                                                                                                                                                                  |
 | audioText         | string      | Y            | 音频片段文本                                                                                                                                                                                                                                                                                                                                  |
 | content           | string      | N            | returnPreText为true时返回违规内容前一个片段10秒文本和违规内容片段文本                                                                                                                                                                                                                                                                         |
-| description       | string      | Y            | 策略规则风险原因描述<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                                               |
-| descriptionV2     | string      | Y            | 策略规则风险原因描述<br/>注：该参数为 API 返回参数<br/>请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                               |
+| description       | string      | Y            | 策略规则风险原因描述<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                                                                                                                                                                               |
+| descriptionV2     | string      | Y            | 策略规则风险原因描述<br/>注：该参数为 API 返回参数<br/>请勿依赖此参数，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                                                                                                                                                                                                               |
 | matchedItem       | string      | N            | 命中的具体敏感词（该参数仅在命中敏感词时存在）                                                                                                                                                                                                                                                                                                |
 | matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中<br/>敏感词时存在）                                                                                                                                                                                                                                                                                   |
 | hits              | json_array  | Y            | 展示风险详情，请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                                                                        |
 | model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                             |
 | isSing            | int         | N            | type取值包含SING时存在，取值0表示检测不存在唱歌片段，取值1表示检测存在唱歌片段                                                                                                                                                                                                                                                                |
 | requestParams     | json_object | Y            | 返回请求参数data中的所有字段                                                                                                                                                                                                                                                                                                                  |
-| riskType          | int         | Y            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政</p><p>110:暴恐</p><p>120:国歌</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
+| riskType          | int         | Y            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
 | riskTypeDesc      | string      | N            | 风险原因描述                                                                                                                                                                                                                                                                                                                                  |
 | room              | string      | Y            | 房间号                                                                                                                                                                                                                                                                                                                                        |
 | userId            | int         | N            | 用户账号标识（仅分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。                                                                                                                                                                                                                                                   |
@@ -298,23 +281,50 @@ POST
 | seiInfo           | array       | N            | <p>（需要联系数美开通）</p><p>展示流片段插入的SEI信息</p>                                                                                                                                                                                                                                                                                     |
 | language          | json_array  | N            | 语种识别与概率值列表,在type下传入返回。                                                                                                                                                                                                                                                                                                       |
 | minorLabel        | int         | N            | <p>当type传入MINOR且命中未成年人标签时，才会返回；</p><p>1：未成年人</p>                                                                                                                                                                                                                                                                      |
-| businessLabels    | json_array  | Y            | 音频业务标签返回                                                                                                                                                                                                                                                                                                                              |
+| businessLabels    | json_array  | Y            | 音频业务标签返回                                                                                                                                                                                                                                                                                                                             |
+| tokenProfileLabels| json_array  | N            | 账号属性标签，仅在开启功能时返回                                                                                                                                                                                                                                                                                                                              |
+| tokenRiskLabels   | json_array  | N            | 账号风险标签，仅在开启功能时返回                                                                                                                                                                                                                                                                                                                              |
 | riskSource        | int         | Y            | <p>风险来源</p><p>1000：无风险</p><p>1001：文字</p><p>1003：音频</p>                                                                                                                                                                                                                                                                          |
+| speakers          | json_array | N            | <p>该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。</p><p>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小</p><p>备注：目前仅在声网合流中生效</p>                                                                                                                                                  |
 
 detail.language数组中每一项具体参数如下：
 
 | 参数名称   | 类型 | 是否必选 | 说明                                                                         |
 | :--------- | :--- | :------- | :--------------------------------------------------------------------------- |
-| label      | int  | Y        | <p>语种识别类别标识，可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
+| label      | int  | Y        | <p>语种识别类别标识，可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p><p>3:藏语</p><p>4:维语</p><p>5:蒙语</p><p>6:朝鲜语</p><p>-1:其他语种</p> |
 | confidence | int  | Y        | 对应语种标签可能性大小，取值0-100，数值越高表示概率越大。                    |
 其中，businessLabels详细内容如下：
 
 | 参数名              | 类型   | 参数说明     | 是否必返 | 备注         |
 | :------------------ | :----- | :----------- | :------- | :----------- |
-| businessLabel1      | string | 一级业务标签 | 否       |              |
-| businessLabel2      | string | 二级业务标签 | 否       |              |
-| businessLabel3      | string | 三级业务标签 | 否       |              |
-| businessDescription | string | 业务标签描述 | 否       | 中文标签描述 |
+| businessLabel1      | string | 一级业务标签 | N       |              |
+| businessLabel2      | string | 二级业务标签 | N       |              |
+| businessLabel3      | string | 三级业务标签 | N       |              |
+| businessDescription | string | 业务标签描述 | N       | 中文标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+
+其中，tokenProfileLabels，tokenRiskLabels 详细内容如下
+
+| 参数名              | 类型   | 参数说明     | 是否必返 | 备注                                     |
+|:-----------------| :----- | :----------- | :------- |:---------------------------------------|
+| label1           | string   | 一级标签     | N           |                                        |
+| label2           | string   | 二级标签     | N           |                                        |
+| label3           | string   | 三级标签     | N           |                                        |
+| description      | string   | 标签描述     | N           | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| timestamp        | int      | 打标签时间戳 | N           | 13位Unix时间戳，单位：毫秒                       |
+
+其中，auxInfo 的内容如下：
+
+| **参数名称**      | **类型**    | **是否必选** | **说明**                                                                                                                                                                                                                                                                                                                                      |
+| :---------------- | :---------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| errorCode         | int         | Y           |<p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>|
+| streamTime       | int         | N           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
+
+其中，speakers 是个**二维数组**，每个元素的详细内容如下
+
+| 参数名              | 类型   | 参数说明     | 是否必返 | 备注                                     |
+|:-----------------| :----- | :----------- | :------- |:---------------------------------------|
+| uid              | int      | 说话人uid   | Y           |                                        |
+| volume           | int      | 音量大小     | Y           | 取值范围为 [0,255]                                       |
 
 code和message的列表如下：
 
@@ -410,7 +420,39 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
         },
         "riskType": 200,
         "riskTypeDesc": "色情",
-        "room": "16037880"
+        "room": "16037880",
+        "speakers":[
+            [
+                {
+                    "uid":2,
+                    "volume":100
+                },
+                {
+                    "uid":1,
+                    "volume":255
+                },
+                {
+                    "uid":3,
+                    "volume":50
+                }
+            ],
+            [
+                {
+                    "uid":2,
+                    "volume":200
+                },
+                {
+                    "uid":3,
+                    "volume":50
+                }
+            ],
+            [
+                {
+                    "uid":4,
+                    "volume":255
+                }
+            ]
+        ]
     }
 }
 ```
@@ -423,13 +465,13 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
 
 ### 请求URL
 
-北京集群：
-
-http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
-
 上海集群：
 
 http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
+
+硅谷集群：
+
+http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/finish_audiostream
 
 新加坡:
 
@@ -564,7 +606,3 @@ data字段结构：
 ## 3.4 数美接口支持哪些网络协议？
 
 数美音频流测试接口支持http、https、RTMP、HLS、HDL(HTTP-FLV)、RTP等所有主流网络协议。
-
-# 4. Demo
-
-目前提供了 go、java、lua、nodes、php、python 的 demo，代码位置：[https://github.com/ishumei/api-demo/tree/master/v2](https://github.com/ishumei/api-demo/tree/master/v2)

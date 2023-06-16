@@ -169,17 +169,18 @@
 
 ```json
 {
-    "accessKey":"",
-    "appId":"",
-    "eventId":"",
-    "data":{
-        "lastReq":"",
-        "tokenId":"username123",
-        "accessToken":"",
-        "phoneRsa":"",
-        "os":"android",
-        "deviceInfo":""
-    }
+  "accessKey": "",
+  "appId": "",
+  "eventId": "",
+  "data": {
+    "lastReq": "",
+    "tokenId": "username123",
+    "accessToken": "",
+    "phoneRsa": "",
+    "os": "android",
+    "deviceInfo": ""
+  }
+}
 ```
 
 ### 同步返回示例：

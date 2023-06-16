@@ -1,26 +1,5 @@
 # 数美智能文本识别产品API接口文档
 
-- - - - -
-
-***版权所有 翻版必究***
-
-- - - - -
-
-目录
-
-- [数美智能文本识别产品API接口文档](#数美智能文本识别产品api接口文档)
-  - [请求参数](#请求参数)
-    - [请求URL：](#请求url)
-    - [字符编码格式：](#字符编码格式)
-    - [请求方法：](#请求方法)
-    - [建议超时时长：](#建议超时时长)
-    - [请求参数：](#请求参数-1)
-  - [返回结果](#返回结果)
-    - [返回结果](#返回结果-1)
-  - [示例](#示例)
-    - [请求示例](#请求示例)
-    - [返回示例](#返回示例)
-
 ## 请求参数
 
 ### 请求URL：
@@ -53,16 +32,15 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| appId | string | 应用标识 | Y | 用于区分应用，可选值如下：<br/>`default`：默认应用<br/>额外应用值需数美单独分配提供 |
-| type | string | 检测的风险类型 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`DEFAULT`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、灌水、无意义、隐私、广告法、黑名单）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>以上type可以下划线组合，如：`ZHIBO_DEFAULT_FRUAD` |
-| businessType | string | 检测的业务类型 | N | 可选值：<br/>`MINOR`：未成年人 |
+| appId | string | 应用标识 | Y | 用于区分应用，需要联系数美开通，请使用数美单独提供的传值为准 |
+| type | string | 检测的风险类型或者场景 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
- 其中，data的内容如下：
+ <span id="data">其中，data的内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| text | string | 需要检测的文本（200字内效果最佳） | Y | 文本字数上限2000字，<br/>若传递nickname字段，则会同时校验文本+昵称内容。<br/>注意：有超过2000字以上文本内容建议联系数美协商 |
+| text | string | 需要检测的文本 | Y | 文本字数上限1万字，超过1万字只截取前1万字进行识别<br/>若传递nickname字段，则会同时校验文本+昵称内容。 |
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | gender | int | 用户性别 | N | 可选值<br/>`0`:女性<br/>`1`:男性<br/> |
 | channel | string | 业务场景 | N | 渠道表配置 |
@@ -105,8 +83,9 @@
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| unauthorizedType | string | 辅助信息 | N | 未授权的type |
 
-其中detail字段如下：
+<span id="detail">其中detail字段如下：</span>
 
 | 参数名称          | **类型**    | **是否必选** | **说明**                                                     |
 | ----------------- | ----------- | ------------ | ------------------------------------------------------------ |
@@ -126,14 +105,14 @@
 | contextProcessed  | bool        | Y            | true时说明该请求联系了上下文；<br/>false时说明该请求未关联上下文，如需该功能，可与数美协商 |
 | contextText       | string      | Y            | 未开启联系上下文服务则只返回当前文本                         |
 
-contactResult中的每一项内容：
+<span id="contactResult">contactResult中的每一项内容：</span>
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
-其中，matchedDetail内容：
+<span id="matchedDetail">其中，matchedDetail内容：</span>
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -144,14 +123,14 @@ contactResult中的每一项内容：
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
 | wordPostitions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words) |
 
-wordPostitions中的每一项内容：
+<span id="words">wordPostitions中的每一项内容：</span>
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string| 辅助信息 | N| 命中的敏感词 |
 | position | string | 辅助信息 | N| 敏感词所在位置 |
 
-其中，businessLabels的内容如下：
+<span id="businessLabels">其中，businessLabels的内容如下：</span>
 
 | 参数名称            | 类型        | 参数说明                                                     | 是否必返 | 规范         |
 | ------------------- | ----------- | ------------------------------------------------------------ | -------- | ------------ |
@@ -162,7 +141,7 @@ wordPostitions中的每一项内容：
 | probability         | float       | businessLabels不为空必返<br/>可选值在0～1之间，值越大，可信度越高 | Y        | 置信度       |
 | businessDetail      | Json_object | businessLabels不为空必返                                     | Y        | 业务详情     |
 
-其中，tokenProfileLabels、tokenRiskLabels的内容如下：
+<span id="tokenProfileLabels">其中，tokenProfileLabels、tokenRiskLabels的内容如下：</span>
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
