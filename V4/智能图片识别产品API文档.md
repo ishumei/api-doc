@@ -7,8 +7,8 @@
 
 ### 请求URL：
 
-| 集群             | URL                                                 | 支持产品列表 |
-| ------------------ | ----------------------------------------------------- | -------------- |
+| 集群             | URL                             |
+| ------------------ | ------------------------------- |
 | 北京 | `http://api-img-bj.fengkongcloud.com/image/v4` |
 | 上海 | `http://api-img-sh.fengkongcloud.com/image/v4` |
 | 新加坡 | `http://api-img-xjp.fengkongcloud.com/image/v4` |
