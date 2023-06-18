@@ -325,8 +325,9 @@ businessDetail中，persons数组每个元素的内容如下：
 ```json
 {
     "accessKey":"",
-    "eventId":"",
-    "type":"",
+    "channel":"default",
+    "appId":"default",
+    "type":"PORN",
     "data":{
         "tokenId":"username123",
         "img":""
@@ -543,7 +544,7 @@ businessDetail中，persons数组每个元素的内容如下：
 ## 批量请求示例
 ### 同步批量接口请求示例
 ```
-curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","data":{"imgs":[{"img":"xxxx","btId":"xxxx"}],"tokenId":"username"}}' 'http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/imgs'
+curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","appId":"default","data":{"imgs":[{"img":"xxxx","btId":"xxxx"}],"tokenId":"username"}}' 'http://api-img-bj.fengkongcloud.com/v2/saas/anti_fraud/imgs'
 ```
 
 ### 同步批量接口返回示例
@@ -681,6 +682,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
   "requestId":"3fe2d8ba7d4b290ee8baaf336110fe8y",
   "timestamp":1554345195048,
   "riskLevel":"REJECT",
+  "appId":"default",
   "type":"miss",
   "imgUrl":"http://www.fengkongcloud.com/xxx.jpg",
   "labelId":"ad"
