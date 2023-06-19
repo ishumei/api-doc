@@ -173,7 +173,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | --- | --- | --- | --- | --- |
 | segments | int | 实际处理的图片数量 | 是 | |
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
-| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
+| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片过大，超过了10M<br/>`2004`：图片下载失败<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
 | passThrough | json_object | 客户传入的透传字段 | 否 |  |
 | streamId | string | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
 | frameTime | int | 请求参数中传入streamInfo功能时满足相似功能会返回 | 否 |  |
@@ -291,9 +291,9 @@ scene_account_risk的详情内容如下：
 
 ```json
 {
-    "accessKey":"",
-    "appId":"",
-    "eventId":"",
+    "accessKey":"xxxx",
+    "appId":"default",
+    "eventId":"default",
     "type":"",
     "data":{
         "tokenId":"username123",
@@ -555,6 +555,7 @@ scene_account_risk的详情内容如下：
 {
     "accessKey":"",
     "eventId":"",
+    "appId":"default",
     "type":"",
     "data":{
         "tokenId":"username123",
@@ -651,7 +652,7 @@ scene_account_risk的详情内容如下：
 | code | int | 返回码 | 是 |  `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败<br/>`9101`：无权限操作<br/>  |
 | message | string | 返回码描述 | 是 | 和code对应：成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
 | requestId | string | 请求标识 | 是 | |
-| imgs | json_array | 图片识别结果 | 是 | |
+| imgs | json_array | 图片识别结果 | 是 |一次最多可以包含12张图片 |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 
 其中，外层auxInfo内容如下：
@@ -739,13 +740,13 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | segment | string | 高风险内容片段 | 否 | |
 | position | int_array | 高风险内容片段所在位置 | 否 | |
 
-imgs中，auxInfo的内容如下：
+imgs中，auxInfo的内容如下：图片过大，超过了10M
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segments | int | 实际处理的图片数量 | 是 | |
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
-| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式 |
+| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片过大，超过了10M<br/>`2004`：图片下载失败<br/>`2005`：非法图片格式 |
 | qrContent | string | 返回识别的二维码地址| 否 | 需要联系数美配置返回 |
 
 auxInfo中，typeVersion的内容如下：
@@ -850,6 +851,7 @@ requestIds详细如下：
 {
     "accessKey":"",
     "eventId":"",
+    "appId":"default",
     "type":"",
     "data":{
         "imgs":[
@@ -1199,7 +1201,7 @@ ocrText中，riskSegments的每个元素的详细内容如下：
 | --- | --- | --- | --- | --- |
 | segments | int | 实际处理的图片数量 | 是 | |
 | typeVersion | json_object | 针对各个传入type的效果版本号 | 是 | |
-| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过了10M<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
+| errorCode | int | | 否 | `2001`：输入数据格式不对，不是合法的json数据<br/>`2002`：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）<br/>`2003`：图片过大，超过了10M<br/>`2004`：图片下载失败<br/>`2005`：非法图片格式<br/>`2006`：无效风险监测类型 |
 | passThrough | json_object | 客户传入的透传字段 | 否 | |
 | qrContent | string | 返回识别的二维码地址| 否 | 需要联系数美配置返回 |
 

@@ -247,6 +247,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | track          | int      | 音频数据声道数     | 非必传参数   | <p>当音频数据格式为pcm时必须存在，可选值：</p><p>1: 单声道</p><p>2: 双声道</p>             |
 | returnAllText  | int      | 返回音频片段的等级 | 非必传参数   | 可选值如下（默认为`0`）：<br/> `0`：返回风险片段识别结果<br/> `1`：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择“返回所有片段识别结果”时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；<br/>当选择“返回风险片段识别结果”时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；<br/>片段识别结果对应回调或者查询响应中的audioDetail字段。 |
 | audioDetectStep | int | 间隔审核步长 | 非必传参数 | 间隔审核步长，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过两个，以此类推，不使用该功能时音频内容全部过审。启用该功能时，建议开启returnAllText，采用每个片段的ASR识别结果。 |
+| receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | lang           | string   | 音频流语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |
 | ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                    |
@@ -261,7 +262,6 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | code               | int          | 请求返回码                     | 是           | <p>1100：成功</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：服务失败</p><p>9101：无权限操作</p> |
 | message            | string       | 请求返回描述，和请求返回码对应 | 是           |                                                                                                          |
 
-
 ## 主动查询结果
 
 ### 请求URL
@@ -270,6 +270,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | ---- | ------------------------------------------------------ | ---------------------------------------------- |
 | 上海 | `http://api-audio-sh.fengkongcloud.com/query_audio/v4` | 中文               |
 | 硅谷 | `http://api-audio-gg.fengkongcloud.com/query_audio/v4` | 中文、英文、阿拉伯语 |
+| 新加坡 | `http://api-audio-xjp.fengkongcloud.com/query_audio/v4` | 中文、英文、阿拉伯语 |
 
 ### 字符编码
 
