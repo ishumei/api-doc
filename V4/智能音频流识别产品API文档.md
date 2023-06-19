@@ -77,7 +77,7 @@
 | tokenId        | string   | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/article/15258](https://doc-zh.zego.im/article/15258) 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | N            |                                                             |
 | streamId       | string   | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流                                                  | N            |                                                             |
 | roomId         | string   | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流                                                        | N            |                                                             |
-| testEnv        | bool     | 是否使用zego测试环境                                                                                                                                                                                                | N            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
+| testEnv        | bool     | 是否使用zego测试环境                                                                                                                                                                                                | Y            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
 
 <span id="agoraParam">data中，agoraParam详细内容如下：</span>
 
