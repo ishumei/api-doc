@@ -51,13 +51,14 @@
 | -------------- | ----------- | ------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | tokenId        | string      | 用户账号标识                                           | Y            | 用于区分用户账号，建议传入用户ID                                                                                                                             |
 | btId           | string      | 音频唯一标识                     | Y            | 用于查询指定音频，限长128位字符                                                                                                                              |
-| streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制<br/>`GIN`： 巨人录制<br/>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商                                                                |
+| streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制<br/>`VOLC`：火山引擎录制<br/>`GIN`： 巨人录制<br/>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商                                                                |
 | url            | string      | 直播流地址                                             | N            | 当streamType为`NORMAL`时必传                                                                                                                                 |
 | lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化 |
 | zegoParam      | json_object | 要检测的流参数                                         | N            | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam)                                                                                                  |
 | initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0  |
 | trtcParam      | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                                                                       |
 | agoraParam     | json_object | 要检测的声网流参数                                     | N            | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam)                                                                                                |
+| volcParam      | json_object | 要检测的声网流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
 | ginParam     | json_object | 要检测的巨人流参数                                     | N            | 当streamType为`GIN`时必传,[详见ginParam参数](#ginParam)                                                                                                |
 | room           | string      | 直播房间号                                             | N            |                                                                                                                                                              |
 | role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
@@ -113,6 +114,18 @@
 | strRoomId  | string | Y            | 房间号码 取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId |
 
 trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
+
+<span id="volcParam">data中，volcParam详细内容如下：</span>
+
+| **请求参数名**  | **类型** | **参数说明**                                                                                                                                                                                   | **是否必传** | **规范**                                                |
+| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------- |
+| appId           | string   | 火山引擎提供的appId，注意与数美的appId区分开                                                                                                                                                       | Y            | 非数美的appId                                           |
+| roomId          | string   | 房间号                                                                                                                                                                               | Y            |                                                         |
+| token           | string   | 火山引擎token，详见：[https://www.volcengine.com/docs/6348/70121](https://www.volcengine.com/docs/6348/70121) | Y            |                                                         |
+| userId          | string   | 分配给录制端的userId                                                 | Y            |                                          |
+| subscribeMode          | string   | 订阅模式:<br/>AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为。<br/>UNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流。<br/>TRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。                                                 | N            |                                          |
+| trustedUserIdList          | string_array   | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。                                                 | N            |                                          |
+| untrustedUserIdList          | string_array   | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。                                                 | N            |                                          |
 
 <span id="extra">data中，extra的内容如下：</span>
 
