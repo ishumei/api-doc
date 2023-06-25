@@ -54,9 +54,9 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为`message`时必传 |
-| topic | string | 可为话题编号、书评区编号、论坛帖子编号 | N | eventId值为`article`必传 |
+| topic | string | 可为话题编号、书评区编号、论坛帖子编号 | N | 传入的是帖子等数据（eventId值为article）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
 | atId | string | 群聊场景下被@用户的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为`groupChat`必传 |
-| room | string | 直播间/游戏房间编号 | N | eventId值为`groupChat`时必传|
+| room | string | 直播间/游戏房间编号 | N | 传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
 | role | string | 用户角色 | N | 用于区分直播／游戏行业不同角色的用户，可选值（默认为普通用户）：<br/>`SYSTEM`：系统<br/>`USER`：普通用户<br/>当传入值为`SYSTEM`时，数美会默认当前请求是没有风险的 |
 | sex | int | 性别 | N | 用于用户性别，可选值：<br/>`0`：男性<br/>`1`：女性<br/>`2`：性别不明 |
 | passThrough | Json | 透传字段 | N | 该字段内容会随着返回值一起返回 |
