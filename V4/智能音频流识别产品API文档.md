@@ -69,7 +69,7 @@
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
 | anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入 |
-| audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
+| audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）<br/>举例：该参数设置为1，会审核第一个片段、第三个片段、第五个片段，以此类推。该参数设置为2，会审核第一个片段、第四个片段、第个七个片段，以此类推。                                                                                                           |
 
 <span id="zegoParam">data中，zegoParam详细内容如下：</span>
 
