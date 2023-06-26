@@ -5,10 +5,10 @@
 
 ### 请求URL：
 
-| 集群   | URL                                                           | 支持语种                             |
+| 集群   | URL                                                           | <span id="language">支持语种</span> |
 | ------ | ------------------------------------------------------------- | ---------------------------------------- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、英语、阿语 |
-| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、英语、阿语 |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、国际化 |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、国际化 |
 | 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文       |
 
 ### 请求方法：
@@ -35,15 +35,15 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型**    | **参数说明**   | **是否必传**               | **规范**                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| -------------- | ----------- | -------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| accessKey      | string      | 公司密钥       | Y                          | 由数美提供                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| appId          | string      | 应用标识       | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/>                                                                                                                                                                                                                                                                                                                                                            |
-| eventId        | string      | 事件标识       | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/>                                                                                                                                                                                                 |
+| **请求参数名** | **类型**    | **参数说明**   | **是否必传**               | **规范**                                                     |
+| -------------- | ----------- | -------------- | -------------------------- | ------------------------------------------------------------ |
+| accessKey      | string      | 公司密钥       | Y                          | 由数美提供                                                   |
+| appId          | string      | 应用标识       | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
+| eventId        | string      | 事件标识       | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
 | type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`ABUSE`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
-| businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景                                                                                                                                                                                                                                                                                      |
-| data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)                                                                                                                                                                                                                                                                                                                                                                                                |
-| callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                                                                                                                                                                                                                                                                                                                                                                                                   |
+| businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景 |
+| data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
+| callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
 
 <span id="data">其中，data的内容如下：</span>
 
@@ -51,24 +51,25 @@
 | -------------- | ----------- | ------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | tokenId        | string      | 用户账号标识                                           | Y            | 用于区分用户账号，建议传入用户ID                                                                                                                             |
 | btId           | string      | 音频唯一标识                     | Y            | 用于查询指定音频，限长128位字符                                                                                                                              |
-| streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制<br/>`GIN`： 巨人录制<br/>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商                                                                |
+| streamType     | string      | 流类型                                                 | Y            | 可选值：<br/>`NORMAL`：普通流地址<br/>`ZEGO`：即构<br/>`AGORA`：声网 <br/>`TRTC`：腾讯录制<br/>`VOLC`：火山引擎录制<br/>`GIN`： 巨人录制<br/>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商                                                                |
 | url            | string      | 直播流地址                                             | N            | 当streamType为`NORMAL`时必传                                                                                                                                 |
-| lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语                                                                              |
+| lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化 |
 | zegoParam      | json_object | 要检测的流参数                                         | N            | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam)                                                                                                  |
 | initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0  |
 | trtcParam      | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                                                                       |
 | agoraParam     | json_object | 要检测的声网流参数                                     | N            | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam)                                                                                                |
+| volcParam      | json_object | 要检测的声网流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
 | ginParam     | json_object | 要检测的巨人流参数                                     | N            | 当streamType为`GIN`时必传,[详见ginParam参数](#ginParam)                                                                                                |
 | room           | string      | 直播房间号                                             | N            |                                                                                                                                                              |
 | role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
-| returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段                                                        |
+| returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段<br/>建议传入1 （默认为0，在静音的情况下不会产生回调）             |
 | returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一分钟文字；                                                      |
 | returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一分钟音频链接；                                                  |
-| returnFinishInfo | int     | 音频流结束回调通知 | N            | 可选值如下（默认值为`0`）：<br/>`0`：审核结束时不发送结束通知<br/>`1`：审核结束时发起结束通知，回调参数增加statCode状态码                                                                                                                                             |
+| returnFinishInfo | int     | 音频流结束回调通知 | N            | 可选值如下（默认值为`0`）：<br/>`0`：审核结束时不发送结束通知<br/>`1`：审核结束时发起结束通知，回调参数增加statCode状态码<br/>建议传入1（默认值为0，在流结束时不会产生回调）                                                                                                        |
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
 | anchorName     | string      | 昵称                                                   | N            | 用户昵称，非必填参数，在客户开通人审服务传入 |
-| audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）                                                                                                                                                                                         |
+| audioDetectStep  | int     | 抽帧审核步长                                             | N          | 音频每个步长只会检测一次,取值范围1-36的整数，默认每个片段都审核（备注）<br/>举例：该参数设置为1，会审核第一个片段、第三个片段、第五个片段，以此类推。该参数设置为2，会审核第一个片段、第四个片段、第个七个片段，以此类推。                                                                                                           |
 
 <span id="zegoParam">data中，zegoParam详细内容如下：</span>
 
@@ -77,7 +78,7 @@
 | tokenId        | string   | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/article/15258](https://doc-zh.zego.im/article/15258) 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | N            |                                                             |
 | streamId       | string   | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流                                                  | N            |                                                             |
 | roomId         | string   | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流                                                        | N            |                                                             |
-| testEnv        | bool     | 是否使用zego测试环境                                                                                                                                                                                                | N            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
+| testEnv        | bool     | 是否使用zego测试环境                                                                                                                                                                                                | Y            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
 
 <span id="agoraParam">data中，agoraParam详细内容如下：</span>
 
@@ -113,6 +114,18 @@
 | strRoomId  | string | Y            | 房间号码 取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId |
 
 trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
+
+<span id="volcParam">data中，volcParam详细内容如下：</span>
+
+| **请求参数名**  | **类型** | **参数说明**                                                                                                                                                                                   | **是否必传** | **规范**                                                |
+| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------- |
+| appId           | string   | 火山引擎提供的appId，注意与数美的appId区分开                                                                                                                                                       | Y            | 非数美的appId                                           |
+| roomId          | string   | 房间号                                                                                                                                                                               | Y            |                                                         |
+| token           | string   | 火山引擎token，详见：[https://www.volcengine.com/docs/6348/70121](https://www.volcengine.com/docs/6348/70121) | Y            |                                                         |
+| userId          | string   | 分配给录制端的userId                                                 | Y            |                                          |
+| subscribeMode          | string   | 订阅模式:<br/>AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为。<br/>UNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流。<br/>TRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。                                                 | N            |                                          |
+| trustedUserIdList          | string_array   | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。                                                 | N            |                                          |
+| untrustedUserIdList          | string_array   | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。                                                 | N            |                                          |
 
 <span id="extra">data中，extra的内容如下：</span>
 
@@ -193,6 +206,8 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | strUserId         | string   | trtc用户账号标识 | N           | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | room              | string   | 房间号           | N           |                                                                                                 |
 | seiInfo           | array    | SEI信息          | N           | （需要联系数美开通）                                                                            |
+| passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同                                            |
+
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -298,7 +313,7 @@ allLabels结构如下：
 | **请求参数名** | **类型** | **参数说明**       | **是否必传** | **规范**                               |
 | -------------- | -------- | ------------------ | ------------ | -------------------------------------- |
 | accessKey      | string   | 公司密钥           | Y            | 用于权限认证，开通账号服务时由数美提供 |
-| requestId      | string   | 本次请求的唯一标识 | Y            | 需要关闭视频流的requestId              |
+| requestId      | string   | 本次请求的唯一标识 | Y            | 需要关闭音频流的requestId              |
 
 ## 返回参数
 
@@ -470,6 +485,17 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4' -d '
     "requestId": " a78eef377079acc6cdec24967ecde722",
 }
 ```
+
+当关闭的流不存在时：
+
+```json
+{
+    "code": 1909,
+    "message": "该路流不存在",
+    "requestId": " a78eef377079acc6cdec24967ecde722",
+}
+```
+
 
 # FAQ
 

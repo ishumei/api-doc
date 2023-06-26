@@ -27,7 +27,7 @@
 | --- | --- | --- |
 | 北京集群 | `http://captcha-s.fengkongcloud.com/ca/v1/sverify` | 二次验证 |
 | 新加坡集群 | `http://captcha-xjp.fengkongcloud.com/ca/v1/sverify` |二次验证 |
-| 佛吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
+| 弗吉尼亚集群 | `http://captcha-fjny.fengkongcloud.com/ca/v1/sverify` |二次验证 |
 
 ### <span id = "requestEncode">字符编码格式：</span>
 
@@ -55,7 +55,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | rid | string | 滑动验证码请求标识 | 必传参数 | 调用数美sdk获取 |
-| lastReq | string | 此次验证交互前一次的天网事件返回请求的requestId | 必传参数 | 传入对应此次验证码验证的前置的请求ID
+| lastReq | string | 此次验证交互前一次的天网事件返回请求的requestId | 建议参数 | 传入对应此次验证码验证的前置的请求ID
 | ip | string | ip地址 | 必传参数 | 用户滑动验证码时的客户端公网ipv4地址 |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | deviceId | string | 数美设备标识 | 建议参数 | 数美设备指纹生成的设备唯一标识 |
