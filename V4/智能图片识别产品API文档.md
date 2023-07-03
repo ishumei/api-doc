@@ -616,7 +616,7 @@ scene_account_risk的详情内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| imgs | json_array | 要检测的图片数组 | 必传参数 | |
+| imgs | json_array | 要检测的图片数组 | 必传参数 |一次最多可以包含12张图片 |
 | tokenId | string | 用户账号标识 | 必传参数 | 用于区分用户账号，建议传入用户ID |
 | ip | string | ipv4地址 | 非必传参数 | 发送该图片的用户公网ipv4地址 |
 | deviceId | string | 数美设备指纹标识 | 非必传参数 | 数美设备指纹生成的设备唯一标识 |
@@ -652,7 +652,7 @@ scene_account_risk的详情内容如下：
 | code | int | 返回码 | 是 |  `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败<br/>`9101`：无权限操作<br/>  |
 | message | string | 返回码描述 | 是 | 和code对应：成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
 | requestId | string | 请求标识 | 是 | |
-| imgs | json_array | 图片识别结果 | 是 |一次最多可以包含12张图片 |
+| imgs | json_array | 图片识别结果 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 
 其中，外层auxInfo内容如下：
