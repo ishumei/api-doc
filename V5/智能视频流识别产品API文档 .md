@@ -13,7 +13,6 @@
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/videostream/v5` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
-| 印度 | `http://api-videostream-yd.fengkongcloud.com/videostream/v5` | 中文视频流 |
 
 ### 请求方法：
 

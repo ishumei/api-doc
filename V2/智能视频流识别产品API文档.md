@@ -18,7 +18,6 @@
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
-| 印度 | `http://api-videostream-yd.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 
 ### 请求方法：
 
