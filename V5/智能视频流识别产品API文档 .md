@@ -10,10 +10,10 @@
 ### 请求URL：
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 上海 | `http://api-videostream-sh.fengkongcloud.com/videostream/v4` | 中文视频流 |
-| 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
-| 硅谷 | `http://api-videostream-gg.fengkongcloud.com/videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
-| 印度 | `http://api-videostream-yd.fengkongcloud.com/videostream/v4` | 中文视频流 |
+| 上海 | `http://api-videostream-sh.fengkongcloud.com/videostream/v5` | 中文视频流 |
+| 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
+| 硅谷 | `http://api-videostream-gg.fengkongcloud.com/videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
+| 印度 | `http://api-videostream-yd.fengkongcloud.com/videostream/v5` | 中文视频流 |
 
 ### 请求方法：
 
@@ -29,7 +29,7 @@
 
 ### 建议超时时间：
 
-7s
+5s
 
 ### 请求参数：
 
@@ -44,8 +44,7 @@
 | audioType | string | 视频流中的音频需要识别的监管类型，**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`ABUSE`: 辱骂识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型，**和audioType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>`APPNAME`：app名称识别 |
-| imgCallback | string | 图片回调地址 | 必传参数 | 将视频流中截帧图片的检测结果通过该地址回调给用户 |
-| audioCallback | string | 音频回调地址 | 非必传参数 | 将视频流中音频片段的检测结果通过该地址回调给用户；需要识别音频时必传 |
+| callback | string | 视频回调地址 | 必传参数 | 将视频流中视频片段的检测结果通过该地址回调给用户 |
 | data | json_object | 请求数据内容， | 必传参数 | 最长1MB，其中[data内容如下](#data) |
 
 <span id="data">其中，data的内容如下：</span>
@@ -55,21 +54,12 @@
 | lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
 | streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核<br/>`VOLC`：火山引擎审核<br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
-| agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
-| trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#trtcParam) |
-| zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#zegoParam) |
-| volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#volcParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
-| audioDetectStep | int | 视频流中音频的审核步长 | 非必传参数 | 单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审 |
-| returnAllImg | int | 用户可根据需求选择返回不同审核结果的图片 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`0`：回调reject、review结果的图片审核信息<br/>`1`：回调所有结果的图片审核信息 |
-| returnAllText | int | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下：(默认值为`0`)<br/>`0`：返回风险等级为非pass的音频片段与文本内容<br/>`1`：返回所有风险等级的音频片段与文本内容 |
-| returnPreText | int | 为1表示返回前10秒和当前10秒共20秒音频片段的文本内容 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回的content字段包含违规音频前一分钟文本内容<br/>`0`:返回的content字段只包含违规音频片段文本内容 |
-| returnPreAudio | int | 为1表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回违规音频前一分钟音频链接<br/>`0`:只返回违规片段音频链接 |
+| returnAllVideo | int | 用户可根据需求选择返回不同审核结果的视频片段**（此处返回的是顶层判断为非PASS的videodetail，里面仅需包含此视频片段的非pass截帧图片/音频）** | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`0`：回调reject、review结果的视频片段审核信息<br/>`1`：回调所有结果的视频片段审核信息 |
 | returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为1时返回）：) |
 | detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
-| detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
 
@@ -78,49 +68,6 @@
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | passThrough | json_object | 透传字段 | 非必传参数 | 该字段内容会随着回调结果一起原样返回 |
-
-<span id="agoraParam">其中，agoraParam内容如下：</span>
-
-| **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
-| --- | --- | --- | --- | --- |
-| appId | string | 声网提供的应用标识 | 必传参数 | |
-| channel | string | 声网提供的频道名 | 必传参数 | |
-| token | string | | 必传参数 | 安全要求较高的用户可以使用 token，获取方式详见声网文档token生成方式：[https://docs.agora.io/cn/Recording/token](https://docs.agora.io/cn/Recording/token) |
-| channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
-| uid | int | 用户ID | 非必传参数 | 32位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
-| subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。 |
-| trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
-| untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
-
-参数使用说明：若您需要对同一个房间中的不同用户进行审核，请您在每次传入时生成不同的uid，以防止审核同一房间内不同用户出现拉流互踢的现象；若您没有uid字段（不使用token的情况），您可以考虑传入相应的订阅模式参数：subscribeMode，当不传此字段或者传此字段为AUTO，自动订阅房间内的所有流，当传此字段为TRUSTED，请传入相应的trustedUserIdList，数美不会订阅房间内该列表指定的用户流，当传此字段为UNTRUSTED，请传入相应的untrustedUserIdList，数美只订阅房间内该列表指定的用户流，我们会根据此字段subscribeMode配合相应列表筛选特定用户进行审核。
-
-<span id="trtcParam">其中，trtcParam内容如下：</span>
-
-| **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
-| --- | --- | --- | --- | --- |
-| sdkAppId | int | Y | 必传参数 | 腾讯提供的sdkAppId |
-| demoSences | int | Y | 必传参数 | 录制类型可选值：<br/>`2`:分流录制<br/>`4`:合流录制 |
-| userId | string | Y | 必传参数 | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符 |
-| userSig | string | Y | 必传参数 | 录制userId对应的验证签名，相当于登录密码 |
-| roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户|
-| strRoomId | string | Y | 必传参数 | 房间号码取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符，若您选用strRoomId时，需注意strRoomId和roomId两者都有值，优先选用roomId |
-
-<span id="zegoParam">其中，data.zegoParam内容如下：</span>
-
-| 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
-| --- | --- | --- | --- | --- |
-| tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
-| streamId | string | Zego流Id | 必传参数 | Zego的流ID |
-| testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
-
-<span id="volcParam">其中，data.volcParam内容如下：</span>
-
-| 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
-| --- | --- | --- | --- | --- |
-| appId | string | 火山提供的应用标识 | 必传参数 | 
-| roomId | string | 房间号 | 必传参数 | 
-| userId | string | 分配给录制端的userId | 必传参数 | 
-| token | string | 录制userId对应的验证签名，相当于登录密码 | 必传参数 |
 
 ### 返回参数
 
@@ -172,17 +119,40 @@
 | code | int | 请求返回码 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | message | string | 请求返回描述，和请求返回码对应 | 是 | 详见[接口响应码列表](#接口响应码列表) |
 | statCode | int | 回调状态码 | 否 |状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调|
-| contentType | int | 用来区分音频和图片回调 | 否 | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
-| frameDetail | json_object | 风险截帧信息 | 否 | 详见[frameDetail说明](#frameDetail) |
-| audioDetail | json_object | 风险音频片段信息 | 否 | 详见[audioDetail说明](#audioDetail) |
+| riskLevel | string | 当前视频片段的处置建议 | 是 |当code等于1100时返回<br/>`PASS`：正常内容<br/>`REVIEW`：可疑内容 <br/>`REJECT`：违规内容|
+| riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 是 |一级标签|
+| riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 |二级标签|
+| riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为`PASS`时为空 | 是 |三级标签|
+| videoDetail | json_object | 风险视频片段信息 | 否 | 有风险片段或returnAllvideo=1时返回，详见[videoDetail说明](#videoDetail) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
+| auxInfo | json_object | 辅助信息 | 否 | 当code等于`1100`时返回，详见[auxInfo说明](#auxInfo) |
 
-<span id="frameDetail">其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：</span>
+<span id="auxInfo">其中，auxInfo中的具体内容如下：</span>
+
+| 参数名      | 类型        | 参数说明         | 是否必返 | 规范                                                         |
+| :---------- | :---------- | :--------------- | :------- | :----------------------------------------------------------- |
+| passThrough | json_object | 透传字段         | 否       | 该字段内容与请求参数data中extra的passThrough的值相同         |
+| frameCount  | int         | 视频片段截帧数量 | 是       | 返回的视频截帧数量。returnAllvideo=0时为风险数量，returnAllvideo=1时为全部数量 |
+
+<span id="videoDetail">其中，videoDetail中的具体内容如下：</span>
+
+| 参数名      | 类型       | 参数说明                     | 是否必返 | 规范                                |
+| :---------- | :--------- | :--------------------------- | :------- | :---------------------------------- |
+| audioDetail | json_array | 音频片段信息                 | 是       |                                     |
+| endTime     | float      | 视频片段结束时间（绝对时间） | 是       |                                     |
+| frameDetail | json_array | 截帧图片信息                 | 是       | 详见[frameDetail说明](#frameDetail) |
+| startTime   | float      | 视频片段开始时间（绝对时间） | 是       |                                     |
+| videoUrl    | string     | 当前视频片段的URL            | 是       |                                     |
+
+<span id="frameDetail">其中，frameDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
+| time | float | 截帧在视频文件中的时间，单位为秒 | 是 | 截帧图片相对视频文件的时间 |
+| requestId | string | 当前截帧片段的唯一标识 | 是 |  |
 | imgUrl | string | 当前截帧的URL | 否 | |
+| imgText | string | 截帧图片OCR文本内容 | 否 | 截帧图片OCR文字识别，仅传入ADVERT、IMGTEXTRISK时返回 |
 | riskLevel | string | 当前截帧的处置建议 | 否 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为`PASS`时返回`normal` | 否 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 否 | 二级标签 |
@@ -191,20 +161,6 @@
 | riskDetail | json_object | 风险详情信息 | 否 | 详见[riskDetail说明](#riskDetail) |
 | allLabels | json_array | 全部的风险标签列表 | 否 | 详见[allLabels说明](#allLabels) |
 | businessLabels | json_array | 业务标签列表，传入imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
-| auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo2) |
-
-<span id="auxInfo2">frameDetail中auxInfo的内容如下：</span>
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| imgTime | string | 截帧图片发生时间 | 否 | 视频流截帧图片违规发生的时间（绝对时间） |
-| beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
-| finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
-| userId | int | 声网用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
-| strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
-| detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
-| room | string | 房间号 | 否 | |
-| similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
 
 <span id="riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
@@ -338,11 +294,12 @@ businessDetail中，persons数组的每个元素的内容如下：
 | probability  | float     | 置信度       | 否           | 可选值在0～1之间，值越大，可信度越高<br/>                    |
 | person_ratio | float     | 人像占比     | 否           |                                                              |
 
-<span id="audioDetail">其中，在音频回调时（contentType为2时），audioDetail每个成员的具体内容如下：</span>
+<span id="audioDetail">其中，audioDetail数组中每个成员的具体内容如下：</span>
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| audioUrl | string | 音频片段地址 | 是 | |
+| requestId       | stringstring | 当前音频片段的唯一标识音频片段地址 | 是 | |
+| audioText       | string | 音转文文字 | 否 | 识别出文本会返回 |
 | riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |
@@ -351,20 +308,6 @@ businessDetail中，persons数组的每个元素的内容如下：
 | riskDetail | json_object | 风险详情信息 | 是 | 详见[riskDetail说明](#riskDetail2) |
 | allLabels | json_array | 全部的风险标签列表 | 是 | 详见[allLabels说明](#allLabels2) |
 | businessLabels | json_array | 业务标签列表，传入audioBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels2) |
-| auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo3) |
-
-<span id="auxInfo3">audioDetail中auxInfo的内容如下：</span>
-
-| **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
-| finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
-| audio_starttime | string | 辅助参数 | 是 | 违规内容开始时间（绝对时间） |
-| audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
-| userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
-| strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
-| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
-| room | string | 房间号 | 否 | |
 
 <span id="riskDetail2">audioDetail中，riskDetail的详细内容如下：</span>
 
@@ -440,24 +383,15 @@ businessDetail中，persons数组的每个元素的内容如下：
 | message           | string      | 请求返回描述，和请求返回码对应               | 是           | 详见[接口响应码列表](#接口响应码列表)                              |
 | requestId         | string      | 请求唯一标识                                 | 是           |                                                              |
 | statCode          | int         | 回调状态码                                   | 是           | 回调状态码，当returnFinishInfo为true时存在。状态码对应关系：<br/>0 ：审核结果回调 <br/>1 ：流结束结果回调 <br/>当statCode=1时，如下参数存在 |
-| contentType       | int         | ⽤来区分⾳频和图⽚回调，当code等于1100时返回 | 是           | 可能取值如下：<br/>`1`：该回调为图片回调<br/>`2`：该回调为音频回调 |
-| riskLevel              | string         | 流风险处置建议                         | 是           | 回调结束时返回整体流的处置建议                             |
-| pullStreamSuccess | bool        | 拉流是否成功                                 | 是           | 可能取值如下：<br/>`true`：拉流成功<br/>`false`：拉流失败<br/>如果一张截图都没有获取成功即认为拉流失败 |
-| detail            | json_object | 结果详情                                     | 是           | 详见[detail说明](#detail2) |
-| auxinfo         | json_object | 辅助信息                                    | 是           | 详见[auxinfo说明](#auxinfo2) |
-
-<span id="detail2">结束回调中的detail内容如下：</span>
-
-| **参数名**    | **类型**    | **参数说明**                 | **是否必返** | **规范** |
-| ------------- | ----------- | ---------------------------- | ------------ | -------- |
-| requestParams | json_object | 返回请求参数data中的所有字段 | 是           | 无       |
+| auxInfo        | json_object | 辅助信息                                    | 是           | 详见[auxinfo说明](#auxinfo2) |
 
 <span id="auxinfo2">其中auxInfo字段结构如下：</span>
 
-| **参数名**      | **类型**    | **参数说明**           | **是否必返** | **规范**                                                                                                                                         |
-| --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| errorCode       | int         | 状态码           | 是           | <p>状态码</p><p>3001：流地址访问失败，例如资源HTTP状态码404、403</p><p>3002：流数据无效，例如“Invalid data found when processing input”</p><p>3003：流不存在，例如zego返回197612错误码</p><p>3004：流未返回音频数据</p><p>3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效</p>  |
-| streamTime       | int         | 流审核时长           | 否           | 流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致  |
+| **参数名** | **类型** | **参数说明**       | **是否必返** | **规范** |
+| ---------- | -------- | ------------------ | ------------ | -------- |
+| streamTime | int      | 返回整个流的总时长 | 是           | 向上取整 |
+
+
 
 ## 视频流关闭接口
 
@@ -469,10 +403,10 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 上海 | `http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4` | 中文视频流 |
-| 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
-| 硅谷 | `http://api-videostream-gg.fengkongcloud.com/finish_videostream/v4` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
-| 印度 | `http://api-videostream-yd.fengkongcloud.com/finish_videostream/v4` | 中文视频流 |
+| 上海 | `http://api-videostream-sh.fengkongcloud.com/finish_videostream/v5` | 中文视频流 |
+| 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
+| 硅谷 | `http://api-videostream-gg.fengkongcloud.com/finish_videostream/v5` | 中文视频流<br/>英语视频流<br/>阿语视频流 |
+| 印度 | `http://api-videostream-yd.fengkongcloud.com/finish_videostream/v5` | 中文视频流 |
 
 ### 请求方法：
 
@@ -605,20 +539,15 @@ code请求返回码列表如下：
     "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY",
     "audioType": "POLITICAL_PORN_AD_MOAN",
     "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
-    "imgCallback": "http://www.xxx.top/xxx",
-    "audioCallback": "http://www.xxx.top/xxx",
+    "callback": "http://www.xxx.top/xxx",
     "data": {
         "streamType": "NORMAL",
         "tokenId": "123",
         "ip": "123.171.34.4",
         "detectFrequency": 10,
-        "detectStep": 1,
         "room": "5e1854a6a0a79d0001a09bc3",
         "url": "http://rtmp.xxxx.cn/live/3637778raLSXdOdu.flv",
-        "returnAllImg": 1,
-        "returnAllText": 1,
-        "returnPreText": 1,
-        "returnPreAudio": 1,
+        "returnAllVideo": 1,
         "lang": "zh",
         "extra": {
             "passThrough": {
@@ -643,110 +572,85 @@ code请求返回码列表如下：
 
 ### 异步回调结果示例：
 
-**截帧图片回调**
+**视频片段回调**
+
 ```json
 {
     "code": 1100,
-    "contentType": 1,
     "message": "成功",
-    "requestId": "1639825145166_vs130_1639825248361471656",
-    "frameDetail": {
-        "allLabels": [
+    "requestId": "1639825145166_v130_1639825248361471656",
+    "statCode": 0,
+    "riskLevel": "PASS",
+    "riskLabel1": "normal",
+    "riskLabel2": "",
+    "riskLabel3": "",
+    "videoDetail": {
+        "frameDetail": [
             {
+                "allLabels": [
+                    {
+                        "riskDescription": "涉政:涉政:涉政",
+                        "riskLabel1": "politics",
+                        "riskLabel2": "shezheng",
+                        "riskLabel3": "shezheng",
+                        "riskLevel": "REJECT"
+                    }
+                ],
+                "businessLabels": [],
+                "imgUrl": "http://bj.cos.ap-beijing.xxx.com/image/1639825145166_vs130_1639825248361471656.jpg",
                 "riskDescription": "涉政:涉政:涉政",
+                "riskDetail": {
+                    "ocrText": {
+                        "text": "第四页（ban第五页（violence"
+                    },
+                    "riskSource": 1002
+                },
                 "riskLabel1": "politics",
                 "riskLabel2": "shezheng",
                 "riskLabel3": "shezheng",
-                "riskLevel": "REJECT"
+                "riskLevel": "REJECT",
+                "time": 5,
+                "requestId": "1639825145166_v130_1639825248361471656",
+                "imgText": "OCR文字"
             }
         ],
-        "auxInfo": {
-            "beginProcessTime": 1639825248361,
-            "detectType": 1,
-            "finishProcessTime": 1639825248809,
-            "imgTime": "2021-12-18 19:00:48.375",
-            "room": "5e1854a6a0a79d0001a09bc3"
-        },
-        "businessLabels": [],
-        "imgUrl": "http://bj.cos.ap-beijing.xxx.com/image/1639825145166_vs130_1639825248361471656.jpg",
-        "riskDescription": "涉政:涉政:涉政",
-        "riskDetail": {
-            "ocrText": {
-                "text": "第四页（ban第五页（violence"
+        "audioDetail": {
+            "allLabels": [
+                {
+                    "riskDescription": "涉政:涉政:涉政",
+                    "riskLabel1": "politics",
+                    "riskLabel2": "shezheng",
+                    "riskLabel3": "shezheng",
+                    "riskLevel": "REJECT"
+                }
+            ],
+            "businessLabels": [],
+            "audioText": "ASR问题",
+            "riskDescription": "涉政:涉政:涉政",
+            "riskDetail": {
+                "ocrText": {
+                    "text": "第四页（ban第五页（violence"
+                },
+                "riskSource": 1002
             },
-            "riskSource": 1002
+            "riskLabel1": "politics",
+            "riskLabel2": "shezheng",
+            "riskLabel3": "shezheng",
+            "riskLevel": "REJECT",
+            "requestId": "1639825145166_v130_1639825248361471656"
         },
-        "riskLabel1": "politics",
-        "riskLabel2": "shezheng",
-        "riskLabel3": "shezheng",
-        "riskLevel": "REJECT"
+        "videoUrl": "http://xxx.com/xxx",
+        "startTime": 1639825145166,
+        "endTime": 1639825145166
     },
     "auxInfo": {
         "passThrough": {
             "passThrough1": "111",
             "passThrough2": "222",
             "passThrough3": "333"
-        }
+        },
+        "frameCount": 1
     }
-}
-```
-
-**音频回调**
-```json
-{
-    "requestId":"y28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3",
-    "code":1100,
-    "message":"成功",
-    "contentType":2,
-    "audioDetail":{
-        "allLabels":[
-            {
-                "riskDescription":"涉政:一号领导:一号领导",
-                "riskLabel1":"politics",
-                "riskLabel2":"yihaolingdao",
-                "riskLabel3":"yihaolingdao",
-                "riskLevel":"REJECT"
-            }
-        ],
-        "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
-        "audioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
-        "auxInfo":{
-            "audioEndTime":"2022-10-27 21:08:42",
-            "audioStartTime":"2022-10-27 21:08:32",
-            "beginProcessTime":1666876123332,
-            "finishProcessTime":1666876123893,
-            "room":"y1123413312ewe24sv2"
-        },
-        "businessLabels":[
-
-        ],
-        "content":"现代化国家新征程中职业教育前途广阔中共中央总书记国家主席中央军委主席习近平近日对职业教育工作作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
-        "preAudioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
-        "riskDescription":"涉政:一号领导:一号领导",
-        "riskDetail":{
-            "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
-            "riskSource":1001
-        },
-        "riskLabel1":"politics",
-        "riskLabel2":"yihaolingdao",
-        "riskLabel3":"yihaolingdao",
-        "riskLevel":"REJECT"
-    },
-    "requestParams":{
-        "dedup":"room",
-        "eventId":"nickname",
-        "isVideoNewStream":true,
-        "returnAlltext":1,
-        "returnFinishInfo":1,
-        "returnPreAudio":1,
-        "returnPreText":1,
-        "role":"USER",
-        "room":"y1123413312ewe24sv2",
-        "streamType":"DEFAULT",
-        "tokenId":"tokenzyp",
-        "url":"rtmp://10.141.3.139:1936/live/stream"
-    },
-    "statCode":0
 }
 ```
 
@@ -754,7 +658,7 @@ code请求返回码列表如下：
 
 ```json
 {
-    "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey": "*********",
     "requestId": "1639825145166"
 }
 ```
