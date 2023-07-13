@@ -125,7 +125,7 @@ POST
 | :-------------- | :------- | :----------- | :----------------------------------------------------------- |
 | appId           | string   | Y            | 声网提供的appId，注意与数美的appId区分开                     |
 | channel         | string   | Y            | 声网提供的频道名，注意与数美channel区分开。                  |
-| token           | string   | N            | 安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档： <https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms><br>建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为true）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。</br> |
+| token           | string   | N            | 安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档： <https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms><br/>建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为true）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。 |
 | uid             | int      | N            | 用户 ID，32 位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在。 |
 | isMixingEnabled | bool     | N            | <p>单流/合流录制，默认合流录制。</p><p>true:合流</p><p>false:分流</p><p>合流是指一个直播房间一路流，分流是指一个麦位一路流</p> |
 | channelProfile  | int      | N            | <p>声网录制的频道模式，取值：</p><p>0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；</p><p>1: 直播，有两种用户角色: 主播和观众。</p><p>默认以通信模式录制，即默认值为0。</p> |
