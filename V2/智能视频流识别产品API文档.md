@@ -18,7 +18,6 @@
 | 上海 | `http://api-videostream-sh.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 新加坡 | `http://api-videostream-xjp.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 | 硅谷 | `http://api-videostream-gg.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
-| 印度 | `http://api-videostream-yd.fengkongcloud.com/v3/saas/anti_fraud/videostream` | 中文视频流 |
 
 ### 请求方法：
 
@@ -109,7 +108,7 @@
 
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
-| tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，<br/>用于token登陆（每次开流必须主动调用zego接口获取新的token） |
+| tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，<br/>用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
 | testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
 

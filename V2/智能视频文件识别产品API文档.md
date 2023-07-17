@@ -18,7 +18,6 @@
 | 上海 | `http://api-video-sh.fengkongcloud.com/v2/saas/anti_fraud/video` | 中文视频文件 |
 | 新加坡 | `http://api-video-xjp.fengkongcloud.com/v2/saas/anti_fraud/video` | 中文视频文件 |
 | 硅谷 | `http://api-video-gg.fengkongcloud.com/v2/saas/anti_fraud/video` | 中文视频文件 |
-| 印度 | `http://api-video-yd.fengkongcloud.com/v2/saas/anti_fraud/video` | 中文视频文件 |
 
 ### 请求方法：
 
