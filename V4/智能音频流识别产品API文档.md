@@ -84,8 +84,8 @@
 
 | **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                                |
 | --------------- | -------- | ------------------------------------------------------------ | ------------ | ------------------------------------------------------- |
-| appId           | string   | 声网提供的appId，注意与数美的appId区分开                     | N            | 非数美的appId                                           |
-| channel         | string   | 声网提供的频道名                                             | N            |                                                         |
+| appId           | string   | 声网提供的appId，注意与数美的appId区分开                     | Y            | 非数美的appId                                           |
+| channel         | string   | 声网提供的频道名                                             | Y            |                                                         |
 | token           | string   | 安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档：[https://docs.agora.io/cn/Recording/token\_server?platform=CPP](https://docs.agora.io/cn/Recording/token\_server?platform=CPP) <br>建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为1）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。</br> | N            |                                                         |
 | uid             | int      | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 | N            | 32 位无符号整数                                         |
 | isMixingEnabled | bool     | 单流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流， | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流         |
