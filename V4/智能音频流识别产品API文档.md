@@ -169,7 +169,6 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
 | statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
-| passThrough | json_object | 透传字段                       | N           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
 | auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
 <span id="audioDetail">其中，audioDetail结构如下：</span>
