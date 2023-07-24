@@ -44,6 +44,7 @@
 | businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景 |
 | data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
 | callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
+| acceptLang     | string      | 返回标签的语种类型 | N                        | <br>选择返回标签的语种类型</br><br>可选值：</br><br>zh：中文</br><br>en：英文</br><br>不传入默认为返回中文标签</br> |
 
 <span id="data">其中，data的内容如下：</span>
 
