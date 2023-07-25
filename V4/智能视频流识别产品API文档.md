@@ -406,8 +406,6 @@ businessDetail中，persons数组的每个元素的内容如下：
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
 | riskDescription | string | 风险描述 | 是 | 格式为&quot;一级风险标签：二级风险标签：三级风险标签&quot;的中文名称<br/>对于命中用户自定义名单时返回：`命中自定义名单` |
 | riskLevel | string | 处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
-| probability | float | 置信度 | 是 | 可选值为0～1，值越大，可信度越高 |
-| riskDetail | json_object | 风险详情 | 是 | 同audioDetail中的riskDetail结构一致 |
 
 <span id="businessLabels2">audioDetail中，businessLabels数组的每个成员的内容如下：</span>
 
