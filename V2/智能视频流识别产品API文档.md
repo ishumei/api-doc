@@ -276,6 +276,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | isSing | int | 检测该片段是否为唱歌| 否 |type取值包含SING时存在，<br/>取值0表示检测不存在唱歌片段，<br/>取值1表示检测存在唱歌片段|
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#language) |
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
+| content  | string | 视频中音频识别出的文字内容 | 否 | content在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本|
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
