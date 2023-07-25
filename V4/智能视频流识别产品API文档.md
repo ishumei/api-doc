@@ -364,6 +364,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
+| content | string | 视频中音频识别出的文字内容 | 否 | 在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本 |
 | room | string | 房间号 | 否 | |
 
 <span id="riskDetail2">audioDetail中，riskDetail的详细内容如下：</span>
