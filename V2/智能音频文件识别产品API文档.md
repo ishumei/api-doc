@@ -173,6 +173,7 @@ POST
 | requestId        | string     | Y            | 风险音频片段请求唯一标识                                     |
 | audioStarttime   | string     | Y            | 风险音频片段在音频中的起始时间，单位秒                       |
 | audioEndtime     | string     | Y            | 风险音频片段在音频中的结束时间，单位秒                       |
+| audioModel       | string     | Y            | 规则标识，命中的最高优先级规则标识（废弃字段，不建议使用 ）  |
 | audioUrl         | string     | Y            | 风险音频片段地址，MP3格式                                    |
 | audioText        | string     | Y            | 音频片段转译的文本内容                                       |
 | riskLevel        | string     | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p><p>PASS：正常内容</p> |

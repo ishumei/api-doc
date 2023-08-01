@@ -785,7 +785,6 @@ code请求返回码列表如下：
 {
     "accessKey": "**********",
     "appId": "default",
-    "btId": "1639824316368",
     "eventId": "video",
     "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR_OCR",
     "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
@@ -1051,7 +1050,7 @@ code请求返回码列表如下：
 	"riskLevel": "REJECT",
 	"auxInfo": {
 		"frameCount": 2,
-		"time": 85
+		"time": 85,
 		"passThrough": {
                 "passThrough1": "透传字段1",
                 "passThrough2": "透传字段2",

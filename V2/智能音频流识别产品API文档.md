@@ -1,26 +1,5 @@
 # 智能音频流识别产品API文档
 
-
-
-版本
-
-| 版本号 | 更新时间   | 作者   | 更新说明                                                                                                                                       |
-| :----- | :--------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| V1.9.5 | 2021/06/05 | 张阳   | <p>1. 新增版本说明</p><p>2. 新增seiInfo字段展示sei信息</p>                                                                                     |
-| V1.9.6 | 2021/07/28 | 张阳   | 1.  新增语种识别                                                                                                                               |
-| V1.9.7 | 2021/07/28 | 张阳   | 1.  新增语种识别                                                                                                                               |
-| V1.9.8 | 2021/08/06 | 毛帅   | <p>1. 新增用户角色字段，role</p><p>2. 调整audioText含义为前一个片段内容</p><p>3. 优化preAudioUrl逻辑为前一个音频片段</p>                       |
-| V2.0.0 | 2021/10/29 | 刘拴朋 | 1.添加trtcUserId字段                                                                                                                           |
-| V2.0.1 | 2021/11/08 | 刘拴朋 | 1.添加海外url地址，删除北京url                                                                                                                 |
-| V2.0.2 | 2021/11/23 | 惠聪   | <p>1. 添加业务标签入参businessType，返回businessLabels</p><p>2. 新增风险来源字段riskSource </p>                                                |
-| V2.0.3 | 2021/12/07 | 惠聪   | <p>1.新增加间隔审核功能，关键字段audioDetectStep</p><p>2.returnPreText功能说明改动</p><p>3.returnPreAudio功能说明改动</p><p>4.支持集群更新</p> |
-| V2.0.4 | 2021/12/27 | 刘拴朋 | 1. trtcUserId替换为strUserId字段                                                                                                               |
-| V2.0.5 | 2022/03/29 | 朱晓峰 | 1. 增加声网renew token功能                                                                                                                     |
-| V2.0.7 | 2022/04/18 | 代俊凯 | 1. 增加callbackParam说明                                                                                                                       |
-| V2.0.8 | 2022/05/09 | 代俊凯 | 1. 增加违禁歌曲、人声属性、声音场景识别  
-| V2.0.9 | 2022/08/12 | 管铭 | 1. 增加SDK录制费用说明  
-| v2.1.0 | 2022/11/14 | 杨杰 | 增加 tokenProfileLabels tokenRiskLabels 说明
-
 # 1. 接入前准备
 
 ## 1.1 数美服务账号申请
@@ -133,7 +112,7 @@ POST
 | :--------------- | :------- | :----------- | :----------------------------------------------------------- |
 | room             | string   | N            | 房间号，强烈建议传入                                         |
 | role             | string   | N            | <p>用户角色</p><p>对不同角色可配置不同策略。</p><p>直播领域可取值：</p><p>房管：ADMIN</p><p>主播：HOST</p><p>系统角色：SYSTEM</p><p>游戏领域可取值：</p><p>管理员：ADMIN</p><p>普通用户：USER</p><p>默认值：普通用户</p> |
-| returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时只返回有风险（riskLevel为REJECT）的音频流片段识别结果和文本内容，默认是false</p><p>建议传入true （默认为false，在静音的情况下不会产生回调）</p> |
+| returnAllText    | bool     | N            | <p>取值为true时返回全量的音频流片段识别结果和文本内容；</p><p>取值为false时返回riskLevel为非pass的音频流片段识别结果和文本内容，默认是false</p><p>建议传入true （默认为false，在静音的情况下不会产生回调）</p> |
 | returnPreText    | bool     | N            | <p>值为true时，返回的content字段包含违规音频前一个片段10秒文本内容；</p><p>值为false时，返回的content字段只包含违规音频片段文本内容，默认值为false(对于TRTC流该功能无效，当客户使用间隔审核功能时，即使returnPreAudio是true情况下，也不返回该字段）</p><p></p> |
 | returnPreAudio   | bool     | N            | <p>值为true，返回违规音频前一个片段10秒链接；值为false时，只返回违规片段音频链接。默认值为false(对于TRTC流该功能无效)，</p><p>当客户使用间隔审核功能时，即使returnPreText为true情况下，也只返回当前片段文本，不返回前一个片段的文本。</p> |
 | returnFinishInfo | bool     | N            | <p>音频流结束回调通知</p><p>可选值（默认为false）：<br/>false：审核结束时不发送结束通知</p><p>true：审核结束时发起结束通知，回调参数增加statCode状态码</p><p>建议传入true（默认为false，在流结束时不会产生回调）</p> |
@@ -142,15 +121,14 @@ POST
 
 其中data.agoraParam内容如下:
 
-| **参数名称**    | **类型** | **是否必选** | **说明**                                                                                                                                                                                                   |
-| :-------------- | :------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| appId           | string   | Y            | 声网提供的appId，注意与数美的appId区分开                                                                                                                                                                   |
-| channel         | string   | Y            | 声网提供的频道名，注意与数美channel区分开。                                                                                                                                                                |
-| token           | string   | N            | <p>安全要求较高的用户可以使用 Token进行认证，生成方式详见声网文档： <https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms></p><p>数美建议token最小有效期为15分钟以上</p> |
-| uid             | int      | N            | 用户 ID，32 位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在。                                           |
-| isMixingEnabled | bool     | N            | <p>单流/合流录制，默认合流录制。</p><p>true:合流</p><p>false:分流</p><p>合流是指一个直播房间一路流，分流是指一个麦位一路流</p>                                                                             |
-| channelProfile  | int      | N            | <p>声网录制的频道模式，取值：</p><p>0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；</p><p>1: 直播，有两种用户角色: 主播和观众。</p><p>默认以通信模式录制，即默认值为0。</p>      |
-| renewTokenURL   | string   | N            | <p>用于更新声网Token的接口，详见更新声网Token接口规范</p><p>如果不提供该参数，则不会更新Token，当Token失效时就该声网流无法继续审核</p>                                                                     |
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                     |
+| :-------------- | :------- | :----------- | :----------------------------------------------------------- |
+| appId           | string   | Y            | 声网提供的appId，注意与数美的appId区分开                     |
+| channel         | string   | Y            | 声网提供的频道名，注意与数美channel区分开。                  |
+| token           | string   | N            | 安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档： <https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms><br/>建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为true）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。 |
+| uid             | int      | N            | 用户 ID，32 位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在。 |
+| isMixingEnabled | bool     | N            | <p>单流/合流录制，默认合流录制。</p><p>true:合流</p><p>false:分流</p><p>合流是指一个直播房间一路流，分流是指一个麦位一路流</p> |
+| channelProfile  | int      | N            | <p>声网录制的频道模式，取值：</p><p>0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；</p><p>1: 直播，有两种用户角色: 主播和观众。</p><p>默认以通信模式录制，即默认值为0。</p> |
 
 其中data.ginParam内容如下:
 
@@ -262,7 +240,7 @@ POST
 | preAudioUrl       | string      | N            | 违规内容前一个10秒音频片段地址（该参数只有在请求参数中returnPreAudio是true情况下存在）                                                                                                                                                                                                                                                        |
 | audio_endtime     | string      | Y            | 违规内容结束时间（绝对时间）                                                                                                                                                                                                                                                                                                                  |
 | audio_starttime   | string      | Y            | 违规内容开始时间（绝对时间）                                                                                                                                                                                                                                                                                                                  |
-| audioText         | string      | Y            | 音频片段文本                                                                                                                                                                                                                                                                                                                                  |
+| audioText         | string      | N            | 音频片段文本                                                                                                                                                                                                                                                                                                                                  |
 | content           | string      | N            | returnPreText为true时返回违规内容前一个片段10秒文本和违规内容片段文本                                                                                                                                                                                                                                                                         |
 | description       | string      | Y            | 策略规则风险原因描述<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                                                                                                                                                                               |
 | descriptionV2     | string      | Y            | 策略规则风险原因描述<br/>注：该参数为 API 返回参数<br/>请勿依赖此参数，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                                                                                                                                                                                                                                               |
@@ -333,6 +311,7 @@ code和message的列表如下：
 | 1100     | 成功        |
 | 1902     | 参数不合法  |
 | 1903     | 服务失败    |
+| 1904     | 流路数超限    |
 | 9100     | 余额不足    |
 | 9101     | 无权限操作  |
 
@@ -538,48 +517,6 @@ curl 'http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/finish_audi
     "requestId":" a78eef377079acc6cdec24967ecde722"
 }
 ```
-
-## 3.更新声网Token接口规范
-
-声网的Token存在有效期，过期后需要更新Token，详见：
-
-<https://docs.agora.io/cn/Agora%20Platform/channel_key>
-
-<https://docs.agora.io/cn/All/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_constants.html#ac7ed64c7dc79350210daef29296d28dc>
-
-当声网的Token失效时，数美会根据客户提供的renewTokenURL接口获取更新后的Token。
-
-为了统一，该接口需要满足以下规范：
-
-### 请求方式
-
-POST
-
-### 请求参数
-
-至少会携带以下字段：
-
-| 参数名称   | 类型        | 是否必填 | 说明                                                  |
-| :--------- | :---------- | :------- | :---------------------------------------------------- |
-| requestId  | string      | Y        | 开启审核时的requestId                                 |
-| streamType | string      | Y        | 返回码详情描述                                        |
-| data       | json_object | Y        | 在请求更新Token接口时，会携带客户开启审核时的部分参数 |
-
-data字段结构：
-
-| 参数名称   | 类型        | 是否必填 | 说明                                                                  |
-| :--------- | :---------- | :------- | :-------------------------------------------------------------------- |
-| agoraParam | json_object | Y        | 与客户当时开启审核时传的参数一致，详见开启审核接口中的data.agoraParam |
-
-### 返回结果
-
-至少需要返回以下字段：
-
-| 参数名称 | 类型   | 是否必填 | 说明                                                                                                                     |
-| :------- | :----- | :------- | :----------------------------------------------------------------------------------------------------------------------- |
-| code     | int    | Y        | 0为成功，非0代表失败                                                                                                     |
-| msg      | string | Y        | <p>code为0时：成功</p><p>code非0时：具体失败原因</p>                                                                     |
-| token    | string | Y        | <p>更新后的声网Token。如果是失败的情况，则不返回token或将token置为空字符串</p><p>数美建议token最小有效期为15分钟以上</p> |
 
 # 3. FAQ
 

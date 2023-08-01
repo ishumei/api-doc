@@ -58,7 +58,7 @@
 | initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0  |
 | trtcParam      | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                                                                       |
 | agoraParam     | json_object | 要检测的声网流参数                                     | N            | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam)                                                                                                |
-| volcParam      | json_object | 要检测的声网流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
+| volcParam      | json_object | 要检测的火山流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
 | ginParam     | json_object | 要检测的巨人流参数                                     | N            | 当streamType为`GIN`时必传,[详见ginParam参数](#ginParam)                                                                                                |
 | room           | string      | 直播房间号                                             | N            |                                                                                                                                                              |
 | role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
@@ -82,14 +82,14 @@
 
 <span id="agoraParam">data中，agoraParam详细内容如下：</span>
 
-| **请求参数名**  | **类型** | **参数说明**                                                                                                                                                                                   | **是否必传** | **规范**                                                |
-| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------- |
-| appId           | string   | 声网提供的appId，注意与数美的appId区分开                                                                                                                                                       | N            | 非数美的appId                                           |
-| channel         | string   | 声网提供的频道名                                                                                                                                                                               | N            |                                                         |
-| token           | string   | 安全要求较高的用户可以使用 Token进行认证，生成方式详见声网文档：[https://docs.agora.io/cn/Recording/token\_server?platform=CPP](https://docs.agora.io/cn/Recording/token\_server?platform=CPP) | N            |                                                         |
-| uid             | int      | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在                                                  | N            | 32 位无符号整数                                         |
-| isMixingEnabled | bool     | 单流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流，                                                                                                                      | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流         |
-| channelProfile  | int      | 声网录制的频道模式<br/>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br/>直播，有两种用户角色: 主播和观众                                                                         | N            | 可选值如下（默认值为`0`）：<br/>`0`: 通信<br/>`1`: 直播 |
+| **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                                |
+| --------------- | -------- | ------------------------------------------------------------ | ------------ | ------------------------------------------------------- |
+| appId           | string   | 声网提供的appId，注意与数美的appId区分开                     | N            | 非数美的appId                                           |
+| channel         | string   | 声网提供的频道名                                             | N            |                                                         |
+| token           | string   | 安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档：[https://docs.agora.io/cn/Recording/token\_server?platform=CPP](https://docs.agora.io/cn/Recording/token\_server?platform=CPP) <br/>建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为1）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。 | N            |                                                         |
+| uid             | int      | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 | N            | 32 位无符号整数                                         |
+| isMixingEnabled | bool     | 单流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流， | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流         |
+| channelProfile  | int      | 声网录制的频道模式<br/>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br/>直播，有两种用户角色: 主播和观众 | N            | 可选值如下（默认值为`0`）：<br/>`0`: 通信<br/>`1`: 直播 |
 
 <span id="ginParam">data中，ginParam详细内容如下：</span>
 
@@ -169,7 +169,6 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
 | statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
 | audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
-| passThrough | json_object | 透传字段                       | N           | 该字段内容与请求参数data中extra的passThrough的值相同。                                                                                                        |
 | auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
 <span id="audioDetail">其中，audioDetail结构如下：</span>
@@ -322,7 +321,7 @@ allLabels结构如下：
 | **返回结果参数名** | **参数类型** | **参数说明**                   | **是否必返** | **规范**                                                                                            |
 | ------------------ | ------------ | ------------------------------ | ------------ | --------------------------------------------------------------------------------------------------- |
 | requestId          | string       | 本次请求的唯一标识             | Y           | 请求唯一标识                                                                                        |
-| code               | int          | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
+| code               | int          | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：流路数超限<br/>`9101`：无权限操作 |
 | message            | string       | 请求返回描述，和请求返回码对应 | Y           | 枚举值：成功该路流不存在                                                                            |
 
 ## 示例
