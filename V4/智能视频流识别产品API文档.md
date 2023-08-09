@@ -67,7 +67,7 @@
 | returnPreText | int | 为1表示返回前10秒和当前10秒共20秒音频片段的文本内容 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回的content字段包含违规音频前一分钟文本内容<br/>`0`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | int | 为1表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回违规音频前一分钟音频链接<br/>`0`:只返回违规片段音频链接 |
 | returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为1时返回）：) |
-| detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
+| detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
@@ -87,6 +87,8 @@
 | token | string | | 必传参数 | 安全要求较高的用户可以使用 token，获取方式详见声网文档token生成方式：[https://docs.agora.io/cn/Recording/token](https://docs.agora.io/cn/Recording/token) |
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 |
+| enableIntraRequest | bool | 是否启用关键帧请求 | 非必传参数 | 该参数默认为 true，可改善弱网下的音视频体验。如需使单流模式下录制的视频可指定播放位置，须将 `enableIntraRequest` 设为 false。<br/>false：禁用关键帧请求，频道内的所有发流端均每 2 秒发送一次关键帧。禁用后，单流模式下录制的视频可指定播放位置。<br/>true：（默认）由发流端控制是否启用关键帧请求。启用后，单流模式下录制的视频文件播放时无法指定播放位置。 |
+| enableH265Support | bool | 是否支持录制 H.265 视频流 | 非必传参数 | false：（默认）不支持录制 H.265 视频流。频道内的远端用户无法发 H.265 视频流。<br/>true：支持录制 H.265 视频流。 |
 | subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有trustedUserIdList名单外的用户进入房间，即untrustedUserIdList列表为空，数美将主动结束审核。 |
 | trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 | untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
@@ -342,6 +344,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | audioUrl | string | 音频片段地址 | 是 | |
+| vadCode | int | 是否静音片段 | 是 | 0 ：静音片段<br/>1 ：非静音片段 |
 | riskLevel | string | 当前事件的处置建议 | 是 | `PASS`：正常内容<br/>`REVIEW`：可疑内容<br/>`REJECT`：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，riskLevel为`PASS`时返回`normal` | 是 | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为`PASS`时为空 | 是 | 二级标签 |

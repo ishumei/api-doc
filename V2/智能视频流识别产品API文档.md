@@ -70,7 +70,7 @@
 | returnPreText | bool | 为true表示返回前10秒和当前10秒共20秒音频片段的文本内容| 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回的content字段包含违规音频前10秒文本内容<br/>`false`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | bool |  为true表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回违规音频前10秒音频链接<br/>`false`:只返回违规片段音频链接 |
 | returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为true时返回）：) |
-| detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认3s截帧一次 |
+| detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | channel | string | 渠道标识 | 非必传参数 | 用户根据不同业务场景，选配不同的渠道 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
@@ -87,6 +87,8 @@
 | channelKey | string | | 非必传参数 | 安全要求较高的用户可以使用 ChannelKey，<br/>[获取方式详见声网文档ChannelKey生成方式](https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms "声网channelKey说明地址")|
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，<br/>频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，<br/>必须提供生成channelKey时所使用的用户ID。<br/>注意，此处需要区别实际房间中的用户uid，<br/>提供给服务端录制所用的uid不允许在房间中存在 |
+| enableIntraRequest | bool | 是否启用关键帧请求 | 非必传参数 | 该参数默认为 true，可改善弱网下的音视频体验。如需使单流模式下录制的视频可指定播放位置，须将 `enableIntraRequest` 设为 false。<br/>false：禁用关键帧请求，频道内的所有发流端均每 2 秒发送一次关键帧。禁用后，单流模式下录制的视频可指定播放位置。<br/>true：（默认）由发流端控制是否启用关键帧请求。启用后，单流模式下录制的视频文件播放时无法指定播放位置。 |
+| enableH265Support | bool | 是否支持录制 H.265 视频流 | 非必传参数 | false：（默认）不支持录制 H.265 视频流。频道内的远端用户无法发 H.265 视频流。<br/>true：支持录制 H.265 视频流。 |
 | subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有trustedUserIdList名单外的用户进入房间，即untrustedUserIdList为空，数美将主动结束审核。 |
 | trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 | untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
