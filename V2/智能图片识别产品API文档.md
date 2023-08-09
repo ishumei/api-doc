@@ -154,7 +154,7 @@
 | description | string | 拦截的风险原因解释 | 是 | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | descriptionV2 | string | 新版策略规则风险原因描述 | 否 | 该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
 | hits | string_array | 命中的策略集 | 否 | 默认为空，需与数美协商开通 |
-| text | string | OCR识别出的文字 | 否 | OCR识别出的文字,original_text、original_text_context字段也text返回内容一样，为老字段，后续废弃 |
+| text | string | OCR识别出的文字 | 否 | OCR识别出的文字,original_text、original_text_context字段同text返回内容一样，为老字段，后续废弃，不建议客户使用 |
 | matchedItem | string | 命中的具体敏感词 | 否 | 命中的具体敏感词（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedList | string | 命中敏感词所在的名单名称 | 否 | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedDetail | string | 命中的敏感词详细信息 | 否 | 命中的敏感词详细信息，可以反序列化为json_array，可根据需求返回该参数 |
