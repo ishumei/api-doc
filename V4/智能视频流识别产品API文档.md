@@ -351,6 +351,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | allLabels | json_array | 全部的风险标签列表 | 是 | 详见[allLabels说明](#allLabels2) |
 | businessLabels | json_array | 业务标签列表，传入audioBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels2) |
 | content | string | 视频中音频识别出的文字内容 | 否 | 在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本 |
+| preAudioUrl | string      | 前一个音频片段音频地址 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回  
 | auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo3) |
 
 <span id="auxInfo3">audioDetail中auxInfo的内容如下：</span>
@@ -363,8 +364,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
 | userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
-| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
-| preAudioUrl | string      | 前一个音频片段音频地址 | 否 | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回                                                  |
+| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |                                                |
 | room | string | 房间号 | 否 | |
 
 <span id="riskDetail2">audioDetail中，riskDetail的详细内容如下：</span>
@@ -372,7 +372,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | riskSource | int | 风险来源 | 是 | 风险来源，可选值：<br/>`1000`：无风险<br/>`1001`：文本风险<br/>`1002`：视觉风险<br/>`1003`：音频风险 |
-| audioText | string | 音频转译文本的结果 | 否 | |
+| audioText | string | 音频转译文本的结果 | 否 | 和audioDetail下面的audioText内容一致，建议使用这个，audioDetail下的audioText为老字段，建议优先使用这个 |
 | matchedLists | json_array | 命中的客户自定义名单信息 | 否 | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2) |
 | riskSegments | json_array | 高风险内容片段 | 否 | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2) |
 
@@ -707,6 +707,7 @@ code请求返回码列表如下：
                 "riskLevel":"REJECT"
             }
         ],
+        "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
         "audioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
         "auxInfo":{
             "audioEndTime":"2022-10-27 21:08:42",
