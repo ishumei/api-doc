@@ -90,6 +90,10 @@
 | uid             | int      | 用户 ID，当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在 | N            | 32 位无符号整数                                         |
 | isMixingEnabled | bool     | 单流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流， | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流         |
 | channelProfile  | int      | 声网录制的频道模式<br/>通信，常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话<br/>直播，有两种用户角色: 主播和观众 | N            | 可选值如下（默认值为`0`）：<br/>`0`: 通信<br/>`1`: 直播 |
+| subscribeMode  | string      | 订阅模式:<br/>`AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合`untrustedUserIdList`只订阅该列表指定的用户流，仅在声网分流里生效<br/>`TRUSTED`: 配合`trustedUserIdList`只订阅该列表以外的用户流，仅在声网分流中生效 |
+| trustedUserIdList  | string_array      | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。其中每个元素uid的范围应为uint32的范围，但类型为string。例如：["123","456"] |
+| untrustedUserIdList  | string_array      | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。其中每个元素uid的范围应为uint32的范围，但类型为string。例如：["123","456"] |
+
 
 <span id="ginParam">data中，ginParam详细内容如下：</span>
 
