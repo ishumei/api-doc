@@ -220,7 +220,7 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明            |
 | ----------- | ---------- | -------- | --------------- |
-| tokenId     | string     | 是        | 用户账号        |
+| tokenId     | string     | 否        | 用户账号        |
 | room        | string     | 否       | 房间号          |
 | streamId    | string     | 否       | 音频流/视频流ID |
 | channel     | string     | 否      | 渠道            |
