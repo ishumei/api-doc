@@ -82,19 +82,19 @@ POST
 
 | 参数名称  | 类型        | 是否必返 | 说明                                                         |
 | --------- | ----------- | -------- | ------------------------------------------------------------ |
-| requestId | string      | Y        | 请求流水号                                                   |
-| serviceId | string      | Y        | POST_TEXT：文本POST_IMG：图片POST_AUDIO：音频POST_VIDEO：视频 |
-| result    | json object | Y        | 人审结果                                                     |
-| data      | json_object | Y        | 请求数据内容                                                 |
+| requestId | string      | 是        | 请求流水号                                                   |
+| serviceId | string      | 是        | POST_TEXT：文本POST_IMG：图片POST_AUDIO：音频POST_VIDEO：视频 |
+| result    | json object | 是        | 人审结果                                                     |
+| data      | json_object | 是        | 请求数据内容                                                 |
 
 其中，result的内容如下：
 
 | 参数名称    | 类型        | 是否必返 | 说明                                                         |
 | ----------- | ----------- | -------- | ------------------------------------------------------------ |
-| operation   | int         | Y        | 人审结果1：通过2：不通过                                     |
-| description | string      | N        | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
-| tips        | string      | N        | 用户侧显示文案；用户于用户端反馈                             |
-| evidences   | json_object | N        | 证据信息（音频/视频返回）                                    |
+| operation   | int         | 是        | 人审结果1：通过2：不通过                                     |
+| description | string      | 否        | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
+| tips        | string      | 否        | 用户侧显示文案；用户于用户端反馈                             |
+| evidences   | json_object | 否        | 证据信息（音频/视频返回）                                    |
 
  
 
@@ -102,29 +102,29 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明                  |
 | ----------- | ---------- | -------- | --------------------- |
-| frameDetail | json_array | N        | 风险截帧              |
-| audioDetail | json_array | N        | 风险音频片段          |
-| title       | string     | N        | 音频文件/视频文件名称 |
-| cover       | string     | N        | 视频封面              |
+| frameDetail | json_array |   否      | 风险截帧              |
+| audioDetail | json_array |   否      | 风险音频片段          |
+| title       | string     |  否     | 音频文件/视频文件名称 |
+| cover       | string     |   否     | 视频封面              |
 
 其中，frameDetail的内容如下：
 
 | 参数名称  | 类型   | 是否必返 | 说明                                       |
 | --------- | ------ | -------- | ------------------------------------------ |
-| requestId | string | N        | 截帧流水号                                 |
-| imgUrl    | string | N        | 截帧图片地址                               |
-| time      | float  | N        | 截帧在视频文件中的时间，单位为秒           |
-| imgText   | string | N        | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
+| requestId | string | 否   | 截帧流水号                                 |
+| imgUrl    | string | 否   | 截帧图片地址                               |
+| time      | float  |   否     | 截帧在视频文件中的时间，单位为秒           |
+| imgText   | string | 否   | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
 
 其中，audioDetail的内容如下：
 
 | 参数名称       | 类型   | 是否必返 | 说明                                               |
 | -------------- | ------ | -------- | -------------------------------------------------- |
-| requestId      | string | N        | 音频片段流水号                                     |
-| audioUrl       | string | N        | 音频片段地址                                       |
-| audioText      | string | N        | 音频转译文本的结果                                 |
-| audioStarttime | float  | N        | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
-| audioEndtime   | float  | N        | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
+| requestId      | string | 否        | 音频片段流水号                                     |
+| audioUrl       | string |  否        | 音频片段地址                                       |
+| audioText      | string |  否        | 音频转译文本的结果                                 |
+| audioStarttime | float  | 否       | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
+| audioEndtime   | float  | 否       | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
 
  
 
@@ -132,22 +132,22 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明                                                         |
 | ----------- | ---------- | -------- | ------------------------------------------------------------ |
-| content     | string     | Y        | 审核内容：文本-审核文字内容图片-图片链接地址音频-音频链接地址视频-视频链接地址 |
-| tokenId     | string     | Y        | 用户账号                                                     |
-| btId        | string     | N        | 图片/音频文件/视频文件唯一标识                               |
-| room        | string     | N        | 房间号                                                       |
-| appId       | string     | N        | 应用                                                         |
-| channel     | string     | N        | 渠道                                                         |
-| passThrough | json_array | N        | 透传字段                                                     |
+| content     | string     | 是       | 审核内容：文本-审核文字内容图片-图片链接地址音频-音频链接地址视频-视频链接地址 |
+| tokenId     | string     | 是       | 用户账号                                                     |
+| btId        | string     | 否       | 图片/音频文件/视频文件唯一标识                               |
+| room        | string     | 否       | 房间号                                                       |
+| appId       | string     | 否      | 应用                                                         |
+| channel     | string     |  否     | 渠道                                                         |
+| passThrough | json_array | 否    | 透传字段                                                     |
 
 ##### 返回参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| 参数名称 | 类型   | 是否必选 | 说明                                                     |
+| 参数名称 | 类型   | 是否必返 | 说明                                                     |
 | -------- | ------ | -------- | -------------------------------------------------------- |
-| code     | int    | Y        | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
-| message  | string | Y        | 返回码详情描述                                           |
+| code     | int    | 是       | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
+| message  | string | 是      | 返回码详情描述                                           |
 
  
 
@@ -171,21 +171,21 @@ POST
 
 | 参数名称  | 类型        | 是否必返 | 说明                                             |
 | --------- | ----------- | -------- | ------------------------------------------------ |
-| requestId | string      | Y        | 请求流水号                                       |
-| serviceId | string      | Y        | POST_AUDIOSTREAM：音频流POST_VIDEOSTREAM：视频流 |
-| result    | json object | Y        | 人审结果                                         |
-| data      | json_object | Y        | 请求数据内容                                     |
+| requestId | string      | 是        | 请求流水号                                       |
+| serviceId | string      | 是      | POST_AUDIOSTREAM：音频流POST_VIDEOSTREAM：视频流 |
+| result    | json object |   是      | 人审结果                                         |
+| data      | json_object |  是     | 请求数据内容                                     |
 
 其中，result的内容如下：
 
 | 参数名称    | 类型        | 是否必返 | 说明                                                         |
 | ----------- | ----------- | -------- | ------------------------------------------------------------ |
-| target      | int         | Y        | 处置对象，可选值如下1：用户2：房间                           |
-| operation   | int         | Y        | 人审结果1. 警告2. 禁言3. 断流4. 封禁                         |
-| description | String      | N        | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
-| tips        | string      | N        | 用户侧显示文案；用户于用户端反馈                             |
-| duration    | int         | N        | 处置时长，单位为秒，处置结果为“禁言”“封禁”时存在             |
-| evidences   | json_object | N        | 证据信息                                                     |
+| target      | int         | 是     | 处置对象，可选值如下1：用户2：房间                           |
+| operation   | int         | 是     | 人审结果1. 警告2. 禁言3. 断流4. 封禁                         |
+| description | String      |  否    | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
+| tips        | string      | 否     | 用户侧显示文案；用户于用户端反馈                             |
+| duration    | int         | 否    | 处置时长，单位为秒，处置结果为“禁言”“封禁”时存在             |
+| evidences   | json_object | 否     | 证据信息                                                     |
 
  
 
@@ -193,8 +193,8 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明         |
 | ----------- | ---------- | -------- | ------------ |
-| frameDetail | json_array | N        | 风险截帧     |
-| audioDetail | json_array | N        | 风险音频片段 |
+| frameDetail | json_array | 否      | 风险截帧     |
+| audioDetail | json_array | 否    | 风险音频片段 |
 
  
 
@@ -202,17 +202,17 @@ POST
 
 | 参数名称         | 类型   | 是否必返 | 说明                         |
 | ---------------- | ------ | -------- | ---------------------------- |
-| requestId        | string | N        | 截帧流水号                   |
-| imgUrl           | string | N        | 截帧图片地址                 |
-| beginProcessTime | string | N        | 截帧开始处理时间（绝对时间） |
+| requestId        | string | 否      | 截帧流水号                   |
+| imgUrl           | string | 否       | 截帧图片地址                 |
+| beginProcessTime | string | 否       | 截帧开始处理时间（绝对时间） |
 
 其中，audioDetail的内容如下：
 
 | 参数名称         | 类型   | 是否必返 | 说明                             |
 | ---------------- | ------ | -------- | -------------------------------- |
-| requestId        | string | N        | 音频片段流水号                   |
-| audioUrl         | string | N        | 音频片段地址                     |
-| beginProcessTime | string | N        | 音频片段开始处理时间（绝对时间） |
+| requestId        | string | 否      | 音频片段流水号                   |
+| audioUrl         | string | 否     | 音频片段地址                     |
+| beginProcessTime | string | 否       | 音频片段开始处理时间（绝对时间） |
 
  
 
@@ -220,11 +220,11 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明            |
 | ----------- | ---------- | -------- | --------------- |
-| tokenId     | string     | Y        | 用户账号        |
-| room        | string     | N        | 房间号          |
-| streamId    | string     | N        | 音频流/视频流ID |
-| channel     | string     | N        | 渠道            |
-| passThrough | json_array | N        | 透传字段        |
+| tokenId     | string     | 是        | 用户账号        |
+| room        | string     | 否       | 房间号          |
+| streamId    | string     | 否       | 音频流/视频流ID |
+| channel     | string     | 否      | 渠道            |
+| passThrough | json_array | 否        | 透传字段        |
 
 ##### 返回参数
 
@@ -232,8 +232,8 @@ POST
 
 | 参数名称 | 类型   | 是否必选 | 说明                                                     |
 | -------- | ------ | -------- | -------------------------------------------------------- |
-| code     | int    | Y        | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
-| message  | string | Y        | 返回码详情描述                                           |
+| code     | int    | 是       | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
+| message  | string | 是       | 返回码详情描述                                           |
 
  
 
@@ -257,10 +257,10 @@ HTTP或HTTPS
 
 POST
 
-| 请求参数名               | 字段类型               | 是否必反 | 参数说明                                                     | 规范                                                         |
+| 请求参数名               | 字段类型               | 是否必返 | 参数说明                                                     | 规范                                                         |
 | ------------------------ | ---------------------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | requestId                | string                 | 是       |    请求标识                                                       |                                                              |
-| code                     | int                 | 是       |  返回码                                                            |  1100：成功；|
+| code                     | int                 | 是       |  返回码                                                            |  1100：成功|
 | message                  | string                 | 是       |    返回码描述                                                          |                                                              |
 | riskLevel                | string                 | 否       | 数美人审处置建议                                             |                                                              |
 | riskLabel1               | string                 | 否       | 人审确认的数美一级标签                                       |                                                              |
@@ -273,7 +273,7 @@ POST
 
 其中disposal的内容如下：
 
-| 请求参数名               | 字段类型               | 是否必反 | 参数说明                                                     | 规范                                                         |
+| 请求参数名               | 字段类型               | 是否必返 | 参数说明                                                     | 规范                                                         |
 | ------------------------ | ---------------------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | riskLevel       | string                 | 否       | 若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；如未配置自定义处置默认返回数美处置建议 | 当数美标签未映射上自定义标签时，值为PASS                     |
 | riskLabel1      | string                 | 否       | 自定义一级标签标识                                           | 当riskLevel为PASS时返回空字符串                              |
