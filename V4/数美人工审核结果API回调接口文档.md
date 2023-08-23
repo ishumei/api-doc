@@ -84,7 +84,7 @@ POST
 | --------- | ----------- | -------- | ------------------------------------------------------------ |
 | requestId | string      | 是        | 请求流水号                                                   |
 | serviceId | string      | 是        | POST_TEXT：文本POST_IMG：图片POST_AUDIO：音频POST_VIDEO：视频 |
-| result    | json object | 是        | 人审结果                                                     |
+| result    | json_object | 是        | 人审结果                                                     |
 | data      | json_object | 是        | 请求数据内容                                                 |
 
 其中，result的内容如下：
@@ -173,7 +173,7 @@ POST
 | --------- | ----------- | -------- | ------------------------------------------------ |
 | requestId | string      | 是        | 请求流水号                                       |
 | serviceId | string      | 是      | POST_AUDIOSTREAM：音频流POST_VIDEOSTREAM：视频流 |
-| result    | json object |   是      | 人审结果                                         |
+| result    | json_object |   是      | 人审结果                                         |
 | data      | json_object |  是     | 请求数据内容                                     |
 
 其中，result的内容如下：
@@ -224,7 +224,7 @@ POST
 | room        | string     | 否       | 房间号          |
 | streamId    | string     | 否       | 音频流/视频流ID |
 | channel     | string     | 否      | 渠道            |
-| passThrough | json_array | 否        | 透传字段        |
+| passThrough | json_object | 否        | 透传字段        |
 
 ##### 返回参数
 
@@ -241,7 +241,7 @@ POST
 
 （当前只支持文本、图片）
 
-​	   人机一体人审结果接口参数与机审参数保持一致，数美可支持按照贵司自定义标签体系和处置进行结果回调，详细可咨询数美销售/客户关于“人机一体”接入方案。
+​	   人机一体人审结果接口参数与机审参数保持一致，数美可支持按照贵司自定义标签体系和处置进行结果回调，详细可咨询数美销售/客服关于“人机一体”接入方案。
 
 ##### 支持协议：
 
