@@ -202,8 +202,8 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | audioEndTime | string      | 辅助参数         | Y           | 违规内容结束时间（绝对时间）                                                                    |
 | beginProcessTime  | int      | 辅助参数         | Y           | 开始处理的时间（13位时间戳）                                                                    |
 | finishProcessTime | int      | 辅助参数         | Y          | 结束处理的时间（13位时间戳）                                                                    |
-| userId            | int      | 用户账号标识 | N           | AGORA分流情况下存在。返回的userId是实际房间中的用户id，与请求参数agoraParam中的uid无关。 |
-| strUserId         | string   | 用户账号标识 | N           | TRTC、ZEGO、BYTE、GIN分流情况下存在。返回的strUserId是实际房间中的用户id。当流类型为TRTC分流，与请求参数trtcParam中的uid无关。 |
+| userId            | int      | 用户账号标识 | N           | AGORA(声网)分流情况下存在。返回的userId是实际房间中的用户id，与请求参数agoraParam中的uid无关。 |
+| strUserId         | string   | 用户账号标识 | N           | TRTC(腾讯)、ZEGO(即构)、VOLC(火山)、GIN(巨人)分流情况下存在。返回的strUserId是实际房间中的用户id。当流类型为TRTC(腾讯)分流，与请求参数trtcParam中的uid无关。 |
 | room              | string   | 房间号           | N           |                                                                                                 |
 | seiInfo           | array    | SEI信息          | N           | （需要联系数美开通）                                                                            |
 | passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同                                            |
