@@ -250,6 +250,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | lang           | string   | 音频语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |
+| dataId | string | 数据标识 | 非必填参数 | 数据标识 |
 | ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                    |
 
 ### 返回参数
