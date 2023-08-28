@@ -252,6 +252,13 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | lang           | string   | 音频语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |
 | ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                    |
+| extra | json object | 辅助参数 | 非必传参数 | [详见extra参数](#extra) |
+
+<span id="extra">data中，extra的内容如下：</span>
+
+| **请求参数名** | **类型**    | **参数说明** | **是否必传** | **规范**                         |
+| -------------- | ----------- | ------------ | ------------ | -------------------------------- |
+| passThrough    | json_object | 透传字段     | N            | 该字段内容会随着回调结果一起返回 |
 
 ### 返回参数
 
@@ -432,7 +439,7 @@ POST
 | audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
 | audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail2)      |
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
-| requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
+| requestParams  | json_object | 透传字段                       | 是           | 返回请求参数data中的所有字段，`requestParams["extra"]["passThrough"]`为请求参数`data["extra"]["passThrough"]`中所有字段。 |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空,历史字段不建议使用） |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 | tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
