@@ -135,7 +135,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
     "accessKey": "*************",
     "appId": "default",
     "eventId": "default",
-    "type": "TIMBRE_POLITICAL_PORN",
+    "type": "TIMBRE_POLITY_EROTIC",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",

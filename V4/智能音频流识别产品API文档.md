@@ -40,7 +40,7 @@
 | accessKey      | string      | 公司密钥       | Y                          | 由数美提供                                                   |
 | appId          | string      | 应用标识       | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
 | eventId        | string      | 事件标识       | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
-| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`ABUSE`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
+| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITICS`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITY`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
 | businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景 |
 | data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
 | callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
@@ -337,7 +337,7 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "appId": "default",
     "eventId": "default",
-    "type": "PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE",
+    "type": "EROTIC_ADVERT_POLITY_GENDER_TIMBRE_DIRTY_SING_LANGUAGE",
     "callback": "xxxxx",
     "streamType": "NORMAL",
     "data": {

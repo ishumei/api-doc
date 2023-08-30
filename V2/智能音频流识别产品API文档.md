@@ -75,7 +75,7 @@ POST
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                     |
 | :----------- | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                           |
-| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>EROTIC：色情识别<br/>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN_ADVERT 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
 | businessType | string      | N            | <p>识别类型，可选值：</p><p>SING：唱歌</p><p>AGE：年龄</p><p>LANGUAGE：语种</p><p>GENDER：性别</p><p>TIMBRE：音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p> |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度            |
 | appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，需要联系数美开通，请以数美单独提供的传值为准</p> |
