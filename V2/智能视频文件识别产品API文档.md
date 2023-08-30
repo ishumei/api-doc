@@ -551,9 +551,10 @@ addition中，audio_evidence的每个元素详细内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |

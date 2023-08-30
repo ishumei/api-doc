@@ -66,7 +66,7 @@
 | returnAllText | int | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下：(默认值为`0`)<br/>`0`：返回风险等级为非pass的音频片段与文本内容<br/>`1`：返回所有风险等级的音频片段与文本内容 |
 | returnPreText | int | 为1表示返回前10秒和当前10秒共20秒音频片段的文本内容 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回的content字段包含违规音频前一分钟文本内容<br/>`0`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | int | 为1表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:返回违规音频前一分钟音频链接<br/>`0`:只返回违规片段音频链接 |
-| returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为1时返回）：) |
+| returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数) |
 | detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
@@ -434,7 +434,9 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 <span id="tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
-### 审核结束回调参数（returnFinishInfo为1时返回）：
+### 审核结束回调参数
+
+仅当returnFinishInfo为1时返回
 
 | **参数名**        | **类型**    | **参数说明**                                 | **是否必返** | **规范**                                                     |
 | ----------------- | ----------- | -------------------------------------------- | ------------ | ------------------------------------------------------------ |
@@ -547,9 +549,10 @@ businessDetail中，persons数组的每个元素的内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
