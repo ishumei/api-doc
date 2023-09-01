@@ -83,7 +83,7 @@ POST
 | 参数名称  | 类型        | 是否必返 | 说明                                                         |
 | --------- | ----------- | -------- | ------------------------------------------------------------ |
 | requestId | string      | 是        | 请求流水号                                                   |
-| serviceId | string      | 是        | POST_TEXT：文本POST_IMG：图片POST_AUDIO：音频POST_VIDEO：视频 |
+| serviceId | string      | 是        | POST_TEXT：文本，POST_IMG：图片，POST_AUDIO：音频，POST_VIDEO：视频 |
 | result    | json_object | 是        | 人审结果                                                     |
 | data      | json_object | 是        | 请求数据内容                                                 |
 
@@ -93,7 +93,7 @@ POST
 | ----------- | ----------- | -------- | ------------------------------------------------------------ |
 | operation   | int         | 是        | 人审结果1：通过2：不通过                                     |
 | description | string      | 否        | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
-| tips        | string      | 否        | 用户侧显示文案；用户于用户端反馈                             |
+| tips        | string      | 否        | 用户侧显示文案；用于用户端反馈                             |
 | evidences   | json_object | 否        | 证据信息（音频/视频返回）                                    |
 
  
@@ -123,7 +123,7 @@ POST
 | requestId      | string | 否        | 音频片段流水号                                     |
 | audioUrl       | string |  否        | 音频片段地址                                       |
 | audioText      | string |  否        | 音频转译文本的结果                                 |
-| audioStarttime | float  | 否       | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
+| audioStarttime | float  | 否       | 音频片段开始时间，相对音频开始时间的距离，单位是秒 |
 | audioEndtime   | float  | 否       | 音频片段结束时间，相对音频开始时间的距离，单位是秒 |
 
  
@@ -132,7 +132,7 @@ POST
 
 | 参数名称    | 类型       | 是否必返 | 说明                                                         |
 | ----------- | ---------- | -------- | ------------------------------------------------------------ |
-| content     | string     | 是       | 审核内容：文本-审核文字内容图片-图片链接地址音频-音频链接地址视频-视频链接地址 |
+| content     | string     | 是       | 审核内容：文本-审核文字内容，图片-图片链接地址，音频-音频链接地址，视频-视频链接地址 |
 | tokenId     | string     | 是       | 用户账号                                                     |
 | btId        | string     | 否       | 图片/音频文件/视频文件唯一标识                               |
 | room        | string     | 否       | 房间号                                                       |
@@ -172,7 +172,7 @@ POST
 | 参数名称  | 类型        | 是否必返 | 说明                                             |
 | --------- | ----------- | -------- | ------------------------------------------------ |
 | requestId | string      | 是        | 请求流水号                                       |
-| serviceId | string      | 是      | POST_AUDIOSTREAM：音频流POST_VIDEOSTREAM：视频流 |
+| serviceId | string      | 是      | POST_AUDIOSTREAM：音频流，POST_VIDEOSTREAM：视频流 |
 | result    | json_object |   是      | 人审结果                                         |
 | data      | json_object |  是     | 请求数据内容                                     |
 
@@ -183,7 +183,7 @@ POST
 | target      | int         | 是     | 处置对象，可选值如下1：用户2：房间                           |
 | operation   | int         | 是     | 人审结果1. 警告2. 禁言3. 断流4. 封禁                         |
 | description | String      |  否    | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过“/”进行拼接，例如：色情/露点 |
-| tips        | string      | 否     | 用户侧显示文案；用户于用户端反馈                             |
+| tips        | string      | 否     | 用户侧显示文案；用于用户端反馈                             |
 | duration    | int         | 否    | 处置时长，单位为秒，处置结果为“禁言”“封禁”时存在             |
 | evidences   | json_object | 否     | 证据信息                                                     |
 
