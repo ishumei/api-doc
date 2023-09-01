@@ -81,11 +81,25 @@
 | riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
 | tokenLabels | json object| 辅助信息 | Y | 账号风险画像标签信息见下面详情内容。[详见tokenLabels参数](#tokenLabels) |
 | auxInfo| json_object| 辅助信息 | Y | [详见auxInfo参数](#auxlnfo)|
+| finalResult       | int  | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType       | int  | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
 | businessLabels | json_array | 辅助信息 | Y | 命中的所有业务标签以及详细信息。[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | langResult | json_object | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
+| disposal       | json_object  | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；如未配置自定义处置默认返回数美处置建议，当数美标签未映射上自定义标签时，值为PASS|
+| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 否 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="langResult">其中，语种信息langResult结构如下：</span>
 
