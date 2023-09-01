@@ -91,11 +91,24 @@
 | riskDescription | string | 风险原因 | 是 | 当riskLevel为`PASS`时为`正常` |
 | riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
+| finalResult       | int  | 处置和映射结果 | 是 |字段取值:如果需要送人审，该字段=0，否则=1， 0:非最终结果 1:最终结果 |
+| resultType       | int  | 当前结果来自于人审还是机审 |是|0:机审，1:人审 |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | 否 | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | 否 | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 否 |可能返回值：PASS：正常，建议直接放行，REVIEW：可疑，建议人工审核，REJECT：违规，建议直接拦截|
+| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 否 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -103,7 +116,7 @@
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
 | face_num | int | 人脸数量 | 否 |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |否  | |
 | person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
@@ -677,7 +690,20 @@ scene_account_risk的详情内容如下：
 | riskDetail | json_object | 风险详情 | 是 | 风险详情 |
 | auxInfo | json_object | 其他辅助信息 | 是 | 其他辅助信息 |
 | allLabels | json_array | 当riskLevel为PASS时为空 | 是 | 命中的所有风险标签以及详情信息 |
+| finalResult       | int  | 处置和映射结果 | 是 |字段取值:如果需要送人审，该字段=0，否则=1， 0:非最终结果 1:最终结果 |
+| resultType       | int  | 当前结果来自于人审还是机审 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 否 |可能返回值：PASS：正常，建议直接放行，REVIEW：可疑，建议人工审核，REJECT：违规，建议直接拦截|
+| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 否 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 imgs中，riskDetail的内容如下：
 
