@@ -80,9 +80,9 @@
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| description | string | 当前事件的风险描述 | 是 | 调用数美sdk获取 |
-| descriptionV2 | string | 当前事件的风险描述 | 是 | 用户滑动验证码时的客户端公网ipv4地址 |
-| model | string | 规则标识，命中的最高优先级规则标识 | 是 | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| description | string | 当前事件的风险描述 | 是 |  |
+| descriptionV2 | string | 当前事件的风险描述 | 是 |  |
+| model | string | 规则标识，命中的最高优先级规则标识 | 是 |  |
 
 ## <span id = "example">示例：</span>
 
