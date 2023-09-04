@@ -268,7 +268,7 @@ POST
 | riskLabel3               | string                   | 否       |人审确认的数美三级标签                                                              |                                                              |
 | riskDescription          | string                 | 否       | 风险描述                                                     | 当riskLevel为PASS时为"正常" |
 | finalResult              | int                    | 否       | 值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用；值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 | 0:非最终结果1:最终结果                                       |
-| resultType               | int                    | 否       | 当前结果是机审还是人审环节给出的                             | 0：机审1：人审                                               |
+| resultType               | int                    | 否       | 当前结果是机审还是人审环节给出的                             | 0：机审，1：人审                                               |
 | disposal                 | json_object            | 否       | 数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |                                       |
 
 其中disposal的内容如下：
