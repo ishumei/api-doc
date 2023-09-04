@@ -104,11 +104,11 @@
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | 否 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；如未配置自定义处置默认返回数美处置建议，当数美标签未映射上自定义标签时，值为PASS|
-| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时返回normal |
-| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskDescription | string | 映射后风险原因 | 否 |当riskLevel为PASS时为"正常" |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑返回对应的处置建议；默认返回贵司配置的自定义标签处置建议，如标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
 | riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
@@ -700,11 +700,11 @@ scene_account_risk的详情内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | 否 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；如未配置自定义处置默认返回数美处置建议，当数美标签未映射上自定义标签时，值为PASS|
-| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时返回normal |
-| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskDescription | string | 映射后风险原因 | 否 |当数美标签未映射上自定义标签时，riskLevel为PASS时为"正常" |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；若贵司有自己的处置规则，数美可按照贵司的处置逻辑返回对应的处置建议；默认返回贵司配置的自定义标签处置建议，如标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当数美标签未映射上自定义标签时，riskLevel为PASS时为"正常" |
 | riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 
@@ -1161,7 +1161,21 @@ Result如下：
 | riskDetail | json_object | 风险详情 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
+| finalResult | int | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType | int | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal | json_object | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；若贵司有自己的处置规则，数美可按照贵司的处置逻辑返回对应的处置建议；默认返回贵司配置的自定义标签处置建议，如标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 其中，riskDetail的内容如下：
 
