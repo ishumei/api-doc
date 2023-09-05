@@ -205,7 +205,51 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
             }
         ],
         "audioTags":{
-
+        "gender": {
+            "label": "女性",
+            "probability": 95
+        },
+        "language": [
+            {
+                "confidence": 0,
+                "label": 2
+            },
+            {
+                "confidence": 99,
+                "label": 0
+            },
+            {
+                "confidence": 0,
+                "label": 1
+            }
+        ],
+        "song": 0,
+        "timbre": [
+            {
+                "label": "女性",
+                "probability": 95
+            },
+            {
+                "label": "女王",
+                "probability": 12
+            },
+            {
+                "label": "御姐",
+                "probability": 37
+            },
+            {
+                "label": "少女",
+                "probability": 56
+            },
+            {
+                "label": "大妈",
+                "probability": 67
+            },
+            {
+                "label": "萝莉",
+                "probability": 24
+            }
+          ]
         },
         "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
         "audioTime":10,
