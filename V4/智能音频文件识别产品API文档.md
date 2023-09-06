@@ -175,8 +175,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
         "room": "general",
         "tokenId": "token-short"
         }
-    }
-}'
+    }'
 ```
 
 ### 同步返回示例
