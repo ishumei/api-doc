@@ -573,7 +573,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "appId": "default",
     "eventId": "default",
     "type": "POLITY_EROTIC_ADVERT_MOAN",
-    "businessType":"GENDER_TIMBRE_SING_LANGUAGE"
+    "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
