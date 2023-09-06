@@ -336,7 +336,8 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "appId": "default",
     "eventId": "default",
-    "type": "EROTIC_ADVERT_POLITY_GENDER_TIMBRE_DIRTY_SING_LANGUAGE",
+    "type": "EROTIC_ADVERT_POLITY_DIRTY",
+    "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "callback": "xxxxx",
     "streamType": "NORMAL",
     "data": {
