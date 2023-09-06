@@ -209,8 +209,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | strUserId         | string   | trtc用户账号标识 | N           | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | room              | string   | 房间号           | N           |                                                                                                 |
 | seiInfo           | array    | SEI信息          | N           | （需要联系数美开通）                                                                            |
-| passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同                                            |
-
+| passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同 |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
