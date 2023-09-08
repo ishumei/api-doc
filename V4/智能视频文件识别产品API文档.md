@@ -142,7 +142,7 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是 |  |
-| billingAudioDuration | int | 审核的视频中音频的时长 | 是 |  |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
 | billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 | passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
