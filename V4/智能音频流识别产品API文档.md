@@ -40,7 +40,7 @@
 | accessKey      | string      | 公司密钥       | Y                          | 由数美提供                                                   |
 | appId          | string      | 应用标识       | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
 | eventId        | string      | 事件标识       | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
-| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`ABUSE`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
+| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
 | businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景 |
 | data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
 | callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
@@ -191,7 +191,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
 | businessLabels  | json_array  | 音频业务标签           | N           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
 | allLabels       | json_array  | 风险标签               | N           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
-| riskSource      | int         | 风险来源               | Y           | 风险来源                                                                                                                                         |
+| riskSource      | int         | 风险来源               | Y           | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险                                                                                            |
 | tokenProfileLabels  | json_array  | 账号属性标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | tokenRiskLabels  | json_array  | 账号风险标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | speakers         | json_array | 该音频片段说话人信息     |N       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
@@ -209,8 +209,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | strUserId         | string   | trtc用户账号标识 | N           | 用户账号标识（仅TRTC分流情况下存在）。返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
 | room              | string   | 房间号           | N           |                                                                                                 |
 | seiInfo           | array    | SEI信息          | N           | （需要联系数美开通）                                                                            |
-| passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同                                            |
-
+| passThrough       | json_object | 透传字段       | N           | 该字段内容与请求参数data中extra的passThrough的值相同 |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -267,7 +266,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | uid         | int   | 说话人uid     | Y           |                                        |
 | volume      | int   | 音量大小      | Y           |      取值范围为 [0,255]                                  |
 
-allLabels结构如下：
+<span id="allLabels">allLabels结构如下：</span>
 
 | **参数名**      | **类型** | **参数说明** | **是否必返** | **规范**     |
 | --------------- | -------- | ------------ | ------------ | ------------ |
@@ -337,7 +336,8 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "appId": "default",
     "eventId": "default",
-    "type": "PORN_AD_POLITICAL_GENDER_TIMBRE_ABUSE_SING_LANGUAGE",
+    "type": "EROTIC_ADVERT_POLITY_DIRTY",
+    "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "callback": "xxxxx",
     "streamType": "NORMAL",
     "data": {

@@ -71,13 +71,14 @@
 
 detail内容：
 
-| **参数名**  | **类型**    | **参数说明**         | **是否必返** | **规范**                                                                                                                                            |
-| :---------- | :---------- | :------------------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **参数名**  | **类型**    | **参数说明**         | **是否必返** | **规范**                                                     |
+| :---------- | :---------- | :------------------- | :----------- | :----------------------------------------------------------- |
 | riskLevel   | string      | 当前事件的处置建议   | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p> |
-| audioText   | string      | 整段音频转译文本结果 | 是           |                                                                                                                                                     |
-| audioTime   | int         | 整段音频的音频时长   | 是           | 单位秒                                                                                                                                              |
-| audioDetail | json_array  | 音频片段信息         | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)                                                                                             |
-| auxInfo     | json_object | 辅助信息             | 否           |                                                                                                                                                     |
+| audioText   | string      | 整段音频转译文本结果 | 是           |                                                              |
+| audioTime   | int         | 整段音频的音频时长   | 是           | 单位秒                                                       |
+| audioDetail | json_array  | 音频片段信息         | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
+| audioTags   | json_object | 音频标签             | 否           | 返回性别、音色、是否唱歌、语种等标签                         |
+| auxInfo     | json_object | 辅助信息             | 否           |                                                              |
 
 其中，<span id="audioDetail">audioDetail</span>详细内容如下：
 
@@ -124,6 +125,36 @@ riskDetail中，<span id="riskSegments">riskSegments</span>详细内容如下：
 | segment    | string    | 高风险内容片段         | 否           |          |
 | position   | int_array | 高风险内容片段所在位置 | 否           |          |
 
+其中，<span id="audioTags">audioTags</span>详细内容如下：
+
+| **参数名** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
+| :--------- | :---------- | :----------- | :----------- | :----------------------------------------------------------- |
+| gender     | json_object | 性别标签     | 否           | 当type取值包含GENDER时返回                                   |
+| timbre     | json_array  | 音色标签     | 否           | 当type取值包含TIMBRE时返回                                   |
+| song       | int         | 唱歌标签     | 否           | <p>当type取值包含SING时返回</p><p>可能取值：</p><p>0：没有唱歌</p><p>1：有唱歌</p> |
+| language   | json_object | 语种识别     | 否           | type取值包含LANGUAGE时返回                                   |
+
+audioTags中，gender详细内容如下：
+
+| **参数名**  | **类型** | **参数说明**       | **是否必返** | **规范**                                |
+| :---------- | :------- | :----------------- | :----------- | :-------------------------------------- |
+| label       | string   | 性别标签名称       | 是           | <p>可能取值：</p><p>男性</p><p>女性</p> |
+| probability | int      | 对应性别可能性大小 | 是           | 取值0-100，数值越高表示概率越大         |
+
+audioTags中，timbre详细内容如下：
+
+| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                     |
+| :---------- | :------- | :--------------------- | :----------- | :----------------------------------------------------------- |
+| label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p><p>无人声</p> |
+| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                              |
+
+audioTags中，language详细内容如下：
+
+| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                     |
+| :---------- | :------- | :--------------------- | :----------- | :----------------------------------------------------------- |
+| label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p><p>3:藏语</p><p>4:维语</p><p>5:蒙语</p><p>6:朝鲜语</p><p>-1:其他语种</p> |
+| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                              |
+
 
 
 ## 示例
@@ -135,7 +166,8 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
     "accessKey": "*************",
     "appId": "default",
     "eventId": "default",
-    "type": "TIMBRE_POLITICAL_PORN",
+    "type": "POLITY_EROTIC",
+    "businessType":"TIMBRE",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",
@@ -144,8 +176,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
         "room": "general",
         "tokenId": "token-short"
         }
-    }
-}'
+    }'
 ```
 
 ### 同步返回示例
@@ -174,7 +205,51 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
             }
         ],
         "audioTags":{
-
+            "gender":{
+                "label":"女性",
+                "probability":95
+            },
+            "language":[
+                {
+                    "confidence":0,
+                    "label":2
+                },
+                {
+                    "confidence":99,
+                    "label":0
+                },
+                {
+                    "confidence":0,
+                    "label":1
+                }
+            ],
+            "song":0,
+            "timbre":[
+                {
+                    "label":"女性",
+                    "probability":95
+                },
+                {
+                    "label":"女王",
+                    "probability":12
+                },
+                {
+                    "label":"御姐",
+                    "probability":37
+                },
+                {
+                    "label":"少女",
+                    "probability":56
+                },
+                {
+                    "label":"大妈",
+                    "probability":67
+                },
+                {
+                    "label":"萝莉",
+                    "probability":24
+                }
+            ]
         },
         "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
         "audioTime":10,
@@ -252,6 +327,13 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | lang           | string   | 音频语言类型     | 非必传参数   | 可选值如下，（默认值为zh）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语                    |
 | deviceId        | string | 数美设备指纹标识  | 非必传参数    | 数美设备指纹生成的设备唯一标识                                                               |
 | ip              | string | ipv4地址    | 非必传参数    | 发送该音频的用户公网ipv4地址                                                                    |
+| extra | json object | 辅助参数 | 非必传参数 | [详见extra参数](#extra) |
+
+<span id="extra">data中，extra的内容如下：</span>
+
+| **请求参数名** | **类型**    | **参数说明** | **是否必传** | **规范**                                   |
+| -------------- | ----------- | ------------ | ------------ | ------------------------------------------ |
+| passThrough    | json_object | 透传字段     | N            | 透传字段，该字段下所有内容会通过回调返回。 |
 
 ### 返回参数
 
@@ -298,18 +380,19 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名**  | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                                                                                                                                                                              |
-| :---------- | :---------- | :----------------------------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| requestId   | string      | 本次请求的唯一标识             | 是           |                                                                                                                                                                                                                       |
-| btId        | string      | 音频唯一标识                   | 是           |                                                                                                                                                                                                                       |
-| code        | int         | 请求返回码                     | 是           | <p>1100：成功</p><p>1101：正在处理中</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：解码失败</p><p>9100：余额不足</p><p>9101：无权限操作</p><p>除message和requestId之外的字段，只有当code为1100时才会存在</p> |
-| message     | string      | 请求返回描述，和请求返回码对应 | 是           |                                                                                                                                                                                                                       |
-| riskLevel   | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p>                                                                   |
-| audioText   | string      | 整段音频转译文本结果           | 是           |                                                                                                                                                                                                                       |
-| audioTime   | int         | 整段音频的音频时长             | 是           | 单位秒                                                                                                                                                                                                                |
-| audioDetail | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)                                                                                                                                                             |
-| audioTags   | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                                                                                                                                                                                        |
-| auxInfo     | json_object | 辅助信息                       | 否           |                                                            |
+| **参数名**    | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                     |
+| :------------ | :---------- | :----------------------------- | :----------- | :----------------------------------------------------------- |
+| requestId     | string      | 本次请求的唯一标识             | 是           |                                                              |
+| btId          | string      | 音频唯一标识                   | 是           |                                                              |
+| code          | int         | 请求返回码                     | 是           | <p>1100：成功</p><p>1101：正在处理中</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：解码失败</p><p>9100：余额不足</p><p>9101：无权限操作</p><p>除message和requestId之外的字段，只有当code为1100时才会存在</p> |
+| message       | string      | 请求返回描述，和请求返回码对应 | 是           |                                                              |
+| riskLevel     | string      | 当前事件的处置建议             | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p><p>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用</p> |
+| audioText     | string      | 整段音频转译文本结果           | 是           |                                                              |
+| audioTime     | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
+| audioDetail   | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
+| audioTags     | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
+| requestParams | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
+| auxInfo       | json_object | 辅助信息                       | 否           |                                                              |
 
 <span id="audioDetail">audioDetail</span>内每个元素的内容如下：
 
@@ -432,7 +515,7 @@ POST
 | audioTime      | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
 | audioDetail    | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail2)      |
 | audioTags      | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
-| requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
+| requestParams  | json_object | 透传字段                       | 是           | 返回data下所有字段 |
 | businessLabels | json_array  | 业务标签返回                   | 否           | 返回业务标签内容（目前只支持MINOR,策略命中返回标签内容,否则为空,历史字段不建议使用） |
 | auxInfo        | json_object | 辅助信息                      | 否           |                                                            |
 | tokenProfileLabels | json_array  | 账号属性标签                   | 否           | 仅在开启功能时返回 |
@@ -502,17 +585,17 @@ audioTags中，gender详细内容如下：
 
 audioTags中，timbre详细内容如下：
 
-| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                                                                                               |
-| :---------- | :------- | :--------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p> |
-| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                                                                                                        |
+| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                     |
+| :---------- | :------- | :--------------------- | :----------- | :----------------------------------------------------------- |
+| label       | string   | 音色标签类别           | 是           | <p>可能取值：</p><p>大叔音</p><p>青年音</p><p>正太音</p><p>老年音</p><p>女王音</p><p>御姐音</p><p>少女音</p><p>萝莉音</p><p>大妈音</p><p>无人声</p> |
+| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                              |
 
 audioTags中，language详细内容如下：
 
-| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                   |
-| :---------- | :------- | :--------------------- | :----------- | :--------------------------------------------------------- |
-| label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p> |
-| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                            |
+| **参数名**  | **类型** | **参数说明**           | **是否必返** | **规范**                                                     |
+| :---------- | :------- | :--------------------- | :----------- | :----------------------------------------------------------- |
+| label       | int      | 语种识别类别标识       | 是           | <p>可能取值：</p><p>0:普通话</p><p>1:英语</p><p>2:粤语</p><p>3:藏语</p><p>4:维语</p><p>5:蒙语</p><p>6:朝鲜语</p><p>-1:其他语种</p> |
+| probability | int      | 对应音色标签可能性大小 | 是           | 取值0-100，数值越高表示概率越大                              |
 
 *<span id="businessLabels2">businessLabels</span>*数组中每一项具体参数如下：
 
@@ -563,7 +646,8 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "accessKey": "*************",
     "appId": "default",
     "eventId": "default",
-    "type": "POLITY_EROTIC_MOAN_ADVERT_GENDER_TIMBRE_SING_LANGUAGE",
+    "type": "POLITY_EROTIC_ADVERT_MOAN",
+    "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "btId": "test1",
     "contentType": "URL",
     "content": "*************",

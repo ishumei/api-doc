@@ -40,7 +40,7 @@
 | appId | string | 应用标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 |  用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别 |
-| audioType | string | 视频流中的音频需要识别的监管类型，**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICAL`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`ABUSE`: 辱骂识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频流中的音频需要识别的监管类型，**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`DIRTY`: 辱骂识别<br/>`ADLAW`:广告法<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
 | audioBusinessType | string | 视频流中的音频需要识别的业务类型，**和audioType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>`APPNAME`：app名称识别 |
 | callback | string | 视频回调地址 | 必传参数 | 将视频流中视频片段的检测结果通过该地址回调给用户 |
@@ -57,8 +57,8 @@
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
 | returnAllVideo | int | 用户可根据需求选择返回不同审核结果的视频片段**（此处返回的是顶层判断为非PASS的videodetail，里面仅需包含此视频片段的非pass截帧图片/音频）** | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`0`：回调reject、review结果的视频片段审核信息<br/>`1`：回调所有结果的视频片段审核信息 |
-| returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为1时返回）：) |
-| detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
+| returnFinishInfo | int | 为1时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`0`）<br/>`1`:审核结束时发起结束通知<br/>`0`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数) |
+| detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~10s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
 
@@ -374,7 +374,9 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 <span id="tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
-### 审核结束回调参数（returnFinishInfo为1时返回）：
+### 审核结束回调参数
+
+仅当returnFinishInfo为1时返回
 
 | **参数名**        | **类型**    | **参数说明**                                 | **是否必返** | **规范**                                                     |
 | ----------------- | ----------- | -------------------------------------------- | ------------ | ------------------------------------------------------------ |
@@ -478,9 +480,10 @@ businessDetail中，persons数组的每个元素的内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -534,10 +537,10 @@ code请求返回码列表如下：
     "accessKey": "*********",
     "appId": "defaulttest",
     "eventId": "VIDEOSTREAM",
-    "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY",
-    "audioType": "POLITICAL_PORN_AD_MOAN",
-    "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "imgBusinessType": "BODY_FOOD_3CPRODUCTSLOGO",
+    "audioType": "POLITY_EROTIC_ADVERT_MOAN",
+    "audioBusinessType": "SING_LANGUAGE",
     "callback": "http://www.xxx.top/xxx",
     "data": {
         "streamType": "NORMAL",

@@ -77,7 +77,7 @@
 | room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 否 |  |
 ## 同步返回结果
 
-放在HTTP Body中，采用Json格式，具体参数如下：
+<span id="singleRet">放在HTTP Body中，采用Json格式，具体参数如下：</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -91,11 +91,25 @@
 | riskDescription | string | 风险原因 | 是 | 当riskLevel为`PASS`时为`正常` |
 | riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
+| finalResult       | int  | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType       | int  | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | 否 | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | 否 | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -103,7 +117,7 @@
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
 | face_num | int | 人脸数量 | 否 |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |否  | |
 | person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
@@ -677,7 +691,22 @@ scene_account_risk的详情内容如下：
 | riskDetail | json_object | 风险详情 | 是 | 风险详情 |
 | auxInfo | json_object | 其他辅助信息 | 是 | 其他辅助信息 |
 | allLabels | json_array | 当riskLevel为PASS时为空 | 是 | 命中的所有风险标签以及详情信息 |
+| finalResult       | int  | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType        | int  | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回，未配置自定义标签体系则不返回该字段，如需开通可联系商务经理。对于批量图片异步接口，处置映射功能开启后，回调结果会由之前的整体回调改为分开回调，分开回调参数可参考[单条返回结果](#singleRet) |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当数美标签未映射上自定义标签时，riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
+
 
 imgs中，riskDetail的内容如下：
 
@@ -1132,7 +1161,21 @@ Result如下：
 | riskDetail | json_object | 风险详情 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
+| finalResult | int | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType | int | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal | json_object | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 其中，riskDetail的内容如下：
 
