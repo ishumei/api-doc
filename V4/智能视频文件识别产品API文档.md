@@ -142,6 +142,8 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是 |  |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 | passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
 
@@ -450,6 +452,8 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 辅助信息 | 是 | 视频时长 |
 
 <span id="frameDetail2">其中，frameDetail数组中每个成员的具体内容如下：</span>
@@ -1052,6 +1056,8 @@ code请求返回码列表如下：
 	"auxInfo": {
 		"frameCount": 2,
 		"time": 85,
+		"billingAudioDuration":85,
+		"billingImgNum":2,
 		"passThrough": {
                 "passThrough1": "透传字段1",
                 "passThrough2": "透传字段2",
