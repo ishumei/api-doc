@@ -164,7 +164,7 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。retallImg=0时为风险数量，retallImg=1时为全部数量 | 是 |  |
-| billingAudioDuration | float | 返回的视频中音频的时长  | 是 |  |
+| billingAudioDuration | int | 返回的视频中音频的时长  | 是 |  |
 | billingImgNum | int | 返回的视频截帧数量。 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 
