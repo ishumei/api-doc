@@ -165,6 +165,7 @@
 | matchedDetail | json_array | 命中的名单详情 | N | [详见详细结构](#matcheddetail) |
 | index | int | 当前处理的片段索引 | Y | 索引不区分文本和图片 |
 | keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
+| text | string | 图片中的ocr内容 | N | 图片片段识别出ocr内容时会返回该字段 |
 
 其中，<span id="AvideoImgDetail">videoImgDetail</span>结构如下:
 
