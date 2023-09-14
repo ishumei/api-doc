@@ -842,7 +842,7 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| faces | json_array | 当命中人脸，未成年等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| faces | json_array | 当命中人脸标签下的年龄，颜值等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 | 数组仅会有一个元素 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
@@ -1300,7 +1300,7 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 人物名称<br/> | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高 | 否 |  |
-| faces | json_array | 当命中人脸，未成年等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| faces | json_array | 当命中人脸标签下的年龄，颜值等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |  | 数组仅会有一个元素 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
