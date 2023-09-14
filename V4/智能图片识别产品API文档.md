@@ -710,7 +710,7 @@ imgs中，riskDetail的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array | 涉证人脸中的恐怖组织人物 | 否 | |
+| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
 | face_num | int | 人脸数量 | 否 | |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个 |  | |
 | person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
@@ -814,7 +814,7 @@ allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array |内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
+| faces | json_array |人物信息，返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
 | face_num | int | 仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 |  |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
