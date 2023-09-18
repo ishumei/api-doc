@@ -48,7 +48,7 @@
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`DIRTY`: 辱骂识别<br/>`ADLAW`:广告法<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
 | audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
@@ -142,6 +142,8 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是 |  |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 | passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
 
@@ -450,6 +452,8 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 辅助信息 | 是 | 视频时长 |
 
 <span id="frameDetail2">其中，frameDetail数组中每个成员的具体内容如下：</span>
@@ -787,10 +791,10 @@ code请求返回码列表如下：
     "accessKey": "**********",
     "appId": "default",
     "eventId": "video",
-    "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR_OCR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
-    "audioType": "POLITICAL_PORN_AD_MOAN_ABUSE",
-    "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "imgBusinessType": "BODY_FOOD_3CPRODUCTSLOGO",
+    "audioType": "POLITY_EROTIC_ADVERT_MOAN",
+    "audioBusinessType": "SING_LANGUAGE",
     "callback": "http://www.xxx.top/xxx",
     "data": {
         "btId": "1639824316368",
@@ -1052,6 +1056,8 @@ code请求返回码列表如下：
 	"auxInfo": {
 		"frameCount": 2,
 		"time": 85,
+		"billingAudioDuration":85,
+		"billingImgNum":2,
 		"passThrough": {
                 "passThrough1": "透传字段1",
                 "passThrough2": "透传字段2",

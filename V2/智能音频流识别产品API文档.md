@@ -75,7 +75,7 @@ POST
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                     |
 | :----------- | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                           |
-| type         | string      | N            | <p>识别类型，可选值：</p><p>PORN：色情识别<br/>ABUSE: 辱骂识别</p><p>AD：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITICAL：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITICAL_PORN_MOAN_AD 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>EROTIC：色情识别<br/>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN_ADVERT 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
 | businessType | string      | N            | <p>识别类型，可选值：</p><p>SING：唱歌</p><p>AGE：年龄</p><p>LANGUAGE：语种</p><p>GENDER：性别</p><p>TIMBRE：音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p> |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度            |
 | appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，需要联系数美开通，请以数美单独提供的传值为准</p> |
@@ -95,8 +95,8 @@ POST
 | volcParam     | json_object | Y            | 火山引擎录制参数（当streamType为VOLC时必传），详见扩展参数                                                    |
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
-| callbackParam | json_object | N            | 透传参数                                                                                                  |
 | lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语                                                                                                     |
+| extra | json_object | N | 辅助参数 [详见extra参数](#extra) |
 
 ### 扩展请求参数
 
@@ -173,6 +173,11 @@ trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
 | trustedUserIdList  | string_array      | N            | 信任用户的列表，subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。      |
 | untrustedUserIdList   | string_array   | N            | 非信任用户的列表，subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。  |                     
 
+<span id="extra">data中，extra的内容如下：</span>
+
+| **请求参数名** | **类型**    | **是否必传** | **规范**                                 |
+| -------------- | ----------- | ------------ | ---------------------------------------- |
+| passThrough    | json_object | N            | 透传字段，该字段下所有内容会通过回调返回 |
 
 ### 返回参数
 
@@ -247,7 +252,7 @@ POST
 | hits              | json_array  | Y            | 展示风险详情，请勿依赖此参数，仅供参考                                                                                                                                                                                                                                                                                                        |
 | model             | string      | Y            | 规则标识，用来标识文本命中的策略规则。<br/>注：该参数为旧版 API 返回参数，兼容保留，<br/>后续版本将去除，请勿依赖此参数，仅供参考                                                                                                                                                                                                             |
 | isSing            | int         | N            | type取值包含SING时存在，取值0表示检测不存在唱歌片段，取值1表示检测存在唱歌片段                                                                                                                                                                                                                                                                |
-| requestParams     | json_object | Y            | 返回请求参数data中的所有字段                                                                                                                                                                                                                                                                                                                  |
+| requestParams     | json_object | Y            | 返回请求参数data中的所有字段                                                                                                                                                                                                           |
 | riskType          | int         | Y            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
 | riskTypeDesc      | string      | N            | 风险原因描述                                                                                                                                                                                                                                                                                                                                  |
 | room              | string      | Y            | 房间号                                                                                                                                                                                                                                                                                                                                        |
@@ -320,7 +325,7 @@ code和message的列表如下：
 ```bash
 curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream' -d'{
     "accessKey": "",
-    "type": "LANGUAGE",
+    "type": "POLITY_EROTIC_MOAN_ADVERT",
     "appId": "default",
     "btid": "",
     "callback": "http://10.141.16.179:8900/",

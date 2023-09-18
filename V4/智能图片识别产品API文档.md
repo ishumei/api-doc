@@ -22,9 +22,8 @@
 
 `UTF-8`
 
-### 建议超时时间：
-
-5s
+### 建议超时时间：10s
+目前数美侧下载图片时的连接超时时间是2s，读取超时时间是3s，内部平均处理时间在500ms左右（具体时长和请求type，图片大小相关），下载失败会重试一次，建议客户设置超时时间为7-10s
 
 ### 请求参数：
 
@@ -77,7 +76,7 @@
 | room | string | 直播房间号，高曝光群聊等业务场景建议传入房间号 | 否 |  |
 ## 同步返回结果
 
-放在HTTP Body中，采用Json格式，具体参数如下：
+<span id="singleRet">放在HTTP Body中，采用Json格式，具体参数如下：</span>
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -91,11 +90,25 @@
 | riskDescription | string | 风险原因 | 是 | 当riskLevel为`PASS`时为`正常` |
 | riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 | auxInfo | json_object | 其他辅助信息 | 是 | [详见auxInfo参数](#auxInfo) |
+| finalResult       | int  | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType       | int  | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回，[详见businessLabels参数](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | 否 | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | 否 | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenLabels    | json_object  | 账号标签信息 | 否 | 见下面详情内容，仅在tokenId传入且联系数美开通时返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -103,7 +116,7 @@
 | --- | --- | --- | --- | --- |
 | faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
 | face_num | int | 人脸数量 | 否 |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |  | |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |否  | |
 | person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 | 否 | 数组仅会有一个元素 |
 | ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | 否 | |
@@ -498,9 +511,8 @@ scene_account_risk的详情内容如下：
 
 `UTF-8`
 
-### 建议超时时间：
-
-5s
+### 建议超时时间：5s
+目前数美侧访问第三方组件时：连接超时时间是1s，读超时时间是1s，写超时时间是1s；平均异步请求的提交时间为100ms以内，访问第三方组件失败会重试一次，建议客户设置超时时间为3-6s
 
 ### 请求参数：
 
@@ -594,9 +606,9 @@ scene_account_risk的详情内容如下：
 
 `UTF-8`
 
-### 建议超时时间：
+### 建议超时时间：20s
+目前数美侧单张图片下载时的连接超时时间是2s，读取超时时间是3s，内部平均处理时间在500ms左右（具体时长和请求type，图片大小相关），下载失败会重试一次，批量图片服务内部分两次并行处理，建议客户设置超时时间为14-20s
 
-60s
 
 ### 请求参数：
 
@@ -677,7 +689,22 @@ scene_account_risk的详情内容如下：
 | riskDetail | json_object | 风险详情 | 是 | 风险详情 |
 | auxInfo | json_object | 其他辅助信息 | 是 | 其他辅助信息 |
 | allLabels | json_array | 当riskLevel为PASS时为空 | 是 | 命中的所有风险标签以及详情信息 |
+| finalResult       | int  | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType        | int  | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal       | json_object  | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回，未配置自定义标签体系则不返回该字段，如需开通可联系商务经理。对于批量图片异步接口，处置映射功能开启后，回调结果会由之前的整体回调改为分开回调，分开回调参数可参考[单条返回结果](#singleRet) |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当数美标签未映射上自定义标签时，riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
+
 
 imgs中，riskDetail的内容如下：
 
@@ -787,7 +814,7 @@ allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array | 人物信息，返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
+| faces | json_array |人物信息，返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 |  |
 | face_num | int | 仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个） | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 |  |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 | |
@@ -815,7 +842,7 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| faces | json_array | 内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| faces | json_array | 当命中人脸标签下的年龄，颜值等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 | 否 | 数组仅会有一个元素 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 | 否 |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
@@ -962,8 +989,8 @@ POST
 UTF-8
 ```
 
-### 建议超时时间：
-5s
+### 建议超时时间：5s
+目前数美侧访问第三方组件时：连接超时时间是1s，读超时时间是1s，写超时时间是1s；平均异步请求的提交时间为100ms以内，访问第三方组件失败会重试一次，建议客户设置超时时间为3-6s
 
 ### 请求参数：
 
@@ -1066,8 +1093,8 @@ POST
 UTF-8
 ```
 
-### 建议超时时间：
-5s
+### 建议超时时间：5s
+目前数美侧访问第三方组件时：连接超时时间是3s，读超时时间是3s，写超时时间是3s；平均查询请求的返回时间为100ms以内，建议客户设置超时时间为3-6s
 
 ### 请求参数：
 
@@ -1132,13 +1159,27 @@ Result如下：
 | riskDetail | json_object | 风险详情 | 是 | |
 | auxInfo | json_object | 其他辅助信息 | 是 | |
 | allLabels | json_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
+| finalResult | int | 是否最终结果 | 是 |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType | int | 当前结果是机审还是人审环节结果 |是|0:机审，1:人审 |
 | businessLabels | json_array | 业务标签详情 | 否 | 当仅做识别，不需要配置reject、review策略的结果在此返回 |
+| disposal | json_object | 处置和映射结果 | 否 |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时返回normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签时，当disposal下的riskLevel为PASS时为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 其中，riskDetail的内容如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
+| faces | json_array |返回图片中涉政人物的名称及位置信息 | 否 | |
 | face_num | int | 人脸数量 | 否 | |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） |  | |
 | person_num | int | 人像数量 |  | 有且仅有人像-多人下返回 |
@@ -1232,7 +1273,7 @@ allLabels每个成员的riskDetail结构如下：
 
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json_array | 人物信息 | 否 | 返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
+| faces | json_array | 人物信息 | 否 |返回图片中涉政人物的名称及位置信息，内容与外层riskDetail.faces格式一致 |
 | face_num | int | 仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，<br/>最多10（如果超过10个，选择probability最高的10个） |||
 | objects | json_array | 标识信息 | 否 | 返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |||
@@ -1259,7 +1300,7 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 人物名称<br/> | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高 | 否 |  |
-| faces | json_array | 内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
+| faces | json_array | 当命中人脸标签下的年龄，颜值等相关的标签时返回，内容与外层riskDetail.faces格式一致，内部字段参考外层riskDetail下的faces字段 | 否 | |
 | objects | json_array | 其他情况下，仅有一个数组元素标识信息，返回图片中标识或物品的名称及位置信息，内容与外层riskDetail.objects格式一致 |  | 数组仅会有一个元素 |
 | persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10（如果<br/>超过10个，选择probability最高的10个），其他情况下，<br/>仅有一个元素，内部字段参考外层riskDetail下的persons字段 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
