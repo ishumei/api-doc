@@ -92,13 +92,15 @@
 
 <span id="disposal">其中，disposal结构如下：</span>
 
+<span id="disposal">其中，disposal结构如下：</span>
+
 | **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则与处置手段，数美可按照贵司的处置逻辑返回对应的处置建议；如未配置自定义处置默认返回数美处置建议，当数美标签未映射上自定义标签时，值为PASS|
-| riskLabel1 | string | 映射后一级风险标签 | 否 | 一级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时返回normal |
-| riskLabel2 | string | 映射后二级风险标签 | 否 |二级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskLabel3 | string | 映射后三级风险标签 | 否 |三级风险标签，当数美标签未映射上自定义标签时，当riskLevel为PASS时为空 |
-| riskDescription | string | 映射后风险原因 | 否 |当riskLevel为PASS时为"正常" |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | 是 | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | 是 |二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | 是 |三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskDescription | string | 映射后风险原因 | 是 |当riskLevel为PASS时为"正常" |
 | riskDetail | json_object | 映射后风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
 
 <span id="langResult">其中，语种信息langResult结构如下：</span>
