@@ -140,12 +140,13 @@ POST
 
 其中data.zegoParam内容如下
 
-| **参数名称** | **类型** | **是否必选** | **说明**                                                                                                                                                             |
-| :----------- | :------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tokenId      | string   | Y            | zego提供的身份验证信息，用于token登陆                                                                                                                                |
-| streamId     | string   | Y            | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流。 |
-| roomId       | string   | Y            | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当roomId生效时，服务端以房间为单位拉流。       |
-| testEnv      | bool     | Y            | 是否使用zego测试环境，指定true时为测试环境，指定false时为正式环境。默认为false                                                                                       |
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                     |
+| :-------------- | :------- | :----------- | :----------------------------------------------------------- |
+| tokenId         | string   | Y            | zego提供的身份验证信息，用于token登陆                        |
+| streamId        | string   | N            | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流。 |
+| roomId          | string   | N            | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一。isMixingEnabled为ture或者不传，如果streamId与roomId同时存在时，streamId有效，服务端以用户为单位拉流；streamId不存在roomId存在时，服务端以房间为单位拉流，为混流录制。isMixingEnabled为false时，如果streamId与roomId同时存在时，roomId有效。streamId不存在roomId存在时，roomId有效，服务端以房间为单位拉流且为分流录制 |
+| isMixingEnabled | bool     | N            | <p>录制模式，可能取值：</p><p>`false`：分流，房间内每个用户单独录制审核</p><p>`true`：合流，房间内所有用户合成一路流录制审核</p> |
+| testEnv         | bool     | Y            | 是否使用zego测试环境，指定true时为测试环境，指定false时为正式环境。默认为false |
 
 其中 data.trtcParam内容如下
 
