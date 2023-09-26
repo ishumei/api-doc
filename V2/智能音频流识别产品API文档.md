@@ -145,7 +145,7 @@ POST
 | tokenId         | string   | Y            | zego提供的身份验证信息，用于token登陆                        |
 | streamId        | string   | N            | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一。 |
 | roomId          | string   | N            | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一。 |
-| isMixingEnabled | bool     | N            | 录制模式，可能取值（不传默认为true）：<br/>true：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。<br/>false：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值 |
+| isMixingEnabled | bool     | N            | 录制模式，可能取值（不传默认为true）：<br/>true：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。<br/>false：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值。 |
 | testEnv         | bool     | Y            | 是否使用zego测试环境，指定true时为测试环境，指定false时为正式环境。默认为false |
 
 其中 data.trtcParam内容如下
