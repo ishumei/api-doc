@@ -76,9 +76,9 @@
 | **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                                    |
 | --------------- | -------- | ------------------------------------------------------------ | ------------ | ----------------------------------------------------------- |
 | tokenId         | string   | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/article/15258](https://doc-zh.zego.im/article/15258) 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | Y            |                                                             |
-| streamId        | string   | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一，如果streamId与roomId同时存在时，streamId有效；当streamId生效时，服务端以用户为单位拉流 | N            |                                                             |
-| roomId          | string   | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一。isMixingEnabled为ture或者不传，如果streamId与roomId同时存在时，streamId有效，服务端以用户为单位拉流；streamId不存在roomId存在时，服务端以房间为单位拉流，为混流录制。isMixingEnabled为false时，如果streamId与roomId同时存在时，roomId有效。streamId不存在roomId存在时，roomId有效，服务端以房间为单位拉流且为分流录制 | N            |                                                             |
-| isMixingEnabled | bool     | 分流/合流录制<br/>合流是指一个直播房间一路流<br/>分流是指一个麦位一路流 | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流             |
+| streamId        | string   | 用户设置的音频流编号，唯一对应一路音频流，streamId与roomId至少存在其中之一。 | N            |                                                             |
+| roomId          | string   | 用户设置的房间编号，唯一对应一个房间，streamId与roomId至少存在其中之一。 |              |                                                             |
+| isMixingEnabled | bool     | 录制模式<br/>true：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。<br/>false：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值。 | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流             |
 | testEnv         | bool     | 是否使用zego测试环境                                         | Y            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
 
 <span id="agoraParam">data中，agoraParam详细内容如下：</span>
