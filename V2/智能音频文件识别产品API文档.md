@@ -52,7 +52,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                     |
 | :------------ | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey     | string      | Y            | 服务密匙，开通账号服务时由数美提供                           |
-| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法检测</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
 | businessType  | string      | N            | 识别类型，可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色标签 （需要同时传入GENDER才能生效）<br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>type和 businessType 必须填其一 |
 | appId         | string      | N            | 需要联系数美开通，请以数美单独提供的传值为准                 |
 | btId          | string      | Y            | 音频唯一标识，超过128位将被截断, 不能重复，否则提示参数错误。 |
