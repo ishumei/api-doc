@@ -186,7 +186,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel3      | string      | 三级标签               | Y           | 三级标签归属于二级标签，当riskLevel为`PASS`时为空                                                                                                |
 | riskDescription | string      | 标签解释               | Y           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | audioText       | string      | 音频转译文本的结果     | N           | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容        |
-| preAudioUrl     | string      | 前一个音频片段音频地址 | N           | 当returnPreAudio值为`1`时，包含违规音频前一个片段音频地址；<br/>returnPreAudio值为`0`时，不返回                                                  |
+| preAudioUrl     | string      | 前一个音频片段音频地址 | N           | 当returnPreAudio值为`1`时，返回的是前一片段加后一片段的20S音频片段地址；<br/>returnPreAudio值为`0`时，不返回                           |
 | riskDetail      | json_object | 风险详情信息           | N          | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)                                                                                        |
 | auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
 | businessLabels  | json_array  | 音频业务标签           | N           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
