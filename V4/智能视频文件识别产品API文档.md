@@ -70,6 +70,7 @@
 | returnAllAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
+| dataId | string | 数据标识 | 非必传参数 |  |
 
 <span id="advancedFrequency">data 中，advancedFrequency的内容如下</span>
 
