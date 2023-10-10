@@ -503,3 +503,263 @@ files里每个元素的内容：
 | --- | --- | --- | --- |
 | code | int | Y | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
 | message | string | Y | 返回码详情描述 |
+
+## 示例
+
+### 上传接口请求示例：
+
+```json
+{
+    "accessKey":"xxxxxxx",
+    "appId":"1580843258245054465",
+    "callback":"https://callback/mapping",
+    "data":{
+        "btId":"1054078867_61ed6f2e801a648ea71748d0067ecb10",
+        "contents":[
+            {
+                "audioType":"POLITICAL_PORN_AD_MOAN_ABUSE",
+                "btId":"f338c6a3ce094188c5ad7379837d396e",
+                "content":"https://video/1054078867_5191515227_56.mp4",
+                "dataType":"video",
+                "imgType":"POLITY_EROTIC_VIOLENT_ADVERT_QRCODE_IMGTEXTRISK_TAINTEDSTAR_ENTERTAINMENTAPPSLOGO_AGE_PUBLICFIGURE"
+            },
+            {
+                "btId":"a7b58140f37a7d5c3293233fede4fc29",
+                "content":"10月5日（发布）河北石家庄，来自遵纪守法的快乐！男子酒后叫,10月5日（发布）河北石家庄，来自遵纪守法的快乐！男子酒后叫",
+                "dataType":"text",
+                "txtType":"TEXTRISK"
+            },
+            {
+                "btId":"96273f7420ba4cd4e79f58706d8a5a90",
+                "content":"https://image/557155_H169_sc.jpg",
+                "dataType":"image",
+                "imgType":"POLITY_EROTIC_VIOLENT_ADVERT_QRCODE_IMGTEXTRISK_TAINTEDSTAR_ENTERTAINMENTAPPSLOGO_AGE_PUBLICFIGURE"
+            }
+        ],
+        "detectFrequency":1,
+        "returnAudioAllText":0,
+        "returnVideoAllAudio":0,
+        "returnVideoAllImg":0,
+        "tokenId":"1054078867"
+    },
+    "eventId":"201",
+    "passThrough":{
+        "ack":"T6bRheiofkGwku6gXQGi",
+        "taskIdImageUrMap":{
+            "96273f7420ba4cd4e79f58706d8a5a90":"xxxxxx"
+        }
+    }
+}
+```
+
+### 上传接口返回示例：
+
+```json
+{
+    "code": 1100,
+    "message": "成功",
+    "requestId": "871fe334c04301fbfc1d2dce919383a5"
+}
+```
+
+### 异步回调结果示例：
+
+```json
+{
+    "btId":"1054078867_61ed6f2e801a648ea71748d0067ecb10",
+    "details":{
+        "audios":[
+
+        ],
+        "files":[
+
+        ],
+        "images":[
+
+        ],
+        "texts":[
+
+        ],
+        "videos":[
+            {
+                "btId":"f338c6a3ce094188c5ad7379837d396e",
+                "code":1100,
+                "frameDetail":[
+                    {
+                        "auxInfo":{
+                            "similarity":0.63671875
+                        },
+                        "imgText":"星沙时报掌上星图@@咕男子酒后叫代驾送自己团家途中偶遇交警查酒驾骂大方打招呼",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v0.jpg?Expires=1699514866\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=LLOAfFq0Ii9aBbzrojeLMxuvuKA%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v0",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星图@@咕男子酒后叫代驾送自己团家途中偶遇交警查酒驾骂大方打招呼"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":0
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.7421875
+                        },
+                        "imgText":"星沙时报掌上TV：0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报IN行专HA TIME510月5日（发布时间）河北石家庄如有侵权 联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v1.jpg?Expires=1699514866\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=8DMpchD7vwYuTc%2B4CBq1voAA0gM%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v1",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上TV：0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报IN行专HA TIME510月5日（发布时间）河北石家庄如有侵权 联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":1
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.875
+                        },
+                        "imgText":"星沙时报掌上星 米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报XINGSHA TIME510月5日（发布时间）河北石家庄如有侵权 联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v3.jpg?Expires=1699514866\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=H2ZtcBLWeOl88wXTXsng4lt%2Btm4%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v3",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星 米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报XINGSHA TIME510月5日（发布时间）河北石家庄如有侵权 联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":3
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.734375
+                        },
+                        "imgText":"星沙时报掌上星0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报XING5HA TIME5如有侵权 联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v6.jpg?Expires=1699514867\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=nr%2B3BQGOj6aqIrDkLm776HiTvxs%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v6",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报XING5HA TIME5如有侵权 联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":6
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.6953125
+                        },
+                        "imgText":"星沙时报掌上星y.o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报INGSHA TIMEs如有侵权 联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v9.jpg?Expires=1699514867\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=%2Bixrpu9pU6VX4Bw%2BZbC%2BEbPukWc%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v9",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星y.o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报INGSHA TIMEs如有侵权 联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":9
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.62890625
+                        },
+                        "imgText":"星沙时报掌上星y 0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满如有侵权联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v11.jpg?Expires=1699514868\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=niYP2Ps5UEWrsVClMzcKQaWw3TQ%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v11",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星y 0米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满如有侵权联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":11
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.6796875
+                        },
+                        "imgText":"星沙时报掌上星.o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报当事人史先生：喝酒肯定是不能开车的嘛如有侵权联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v12.jpg?Expires=1699514868\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=oxS9mKa%2BZRND8OKjVEWXcHHsjrc%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v12",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星.o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报当事人史先生：喝酒肯定是不能开车的嘛如有侵权联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":12
+                    },
+                    {
+                        "auxInfo":{
+                            "similarity":0.8203125
+                        },
+                        "imgText":"星沙时报掌上星 o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报当事人史先生：拍这个视频如有侵权联系删除",
+                        "imgUrl":"http://sh-oss-jan1.cn-shanghai.oss.aliyuncs.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20231010%2F5ccdcac4d3c017ba3a28e6cec6497037_v13.jpg?Expires=1699514868\u0026OSSAccessKeyId=LTAI5tLsVBxJ8nhyy5gQVW3K\u0026Signature=qAD%2BuEk8iNovLM7hl%2Fi%2BA2WMFYM%3D",
+                        "requestId":"5ccdcac4d3c017ba3a28e6cec6497037_v13",
+                        "riskDescription":"涉政:政治象征:公检法制服",
+                        "riskDetail":{
+                            "ocrText":{
+                                "text":"星沙时报掌上星 o米咕男子酒后叫代驾送自己回家途中偶遇交警查酒驾大方打招呼底气满满星沙时报当事人史先生：拍这个视频如有侵权联系删除"
+                            },
+                            "riskSource":1002
+                        },
+                        "riskLabel1":"politics",
+                        "riskLabel2":"zhengzhixiangzheng",
+                        "riskLabel3":"gongjianfazhifu",
+                        "riskLevel":"REJECT",
+                        "time":13
+                    }
+                ],
+                "message":"success",
+                "requestId":"5ccdcac4d3c017ba3a28e6cec6497037",
+                "riskLevel":"REJECT"
+            }
+        ]
+    },
+    "passThrough":{
+        "ack":"T6bRheiofkGwku6gXQGi",
+        "taskIdImageUrMap":{
+            "96273f7420ba4cd4e79f58706d8a5a90":"xxxxxx"
+        }
+    },
+    "requestId":"871fe334c04301fbfc1d2dce919383a5",
+    "resultType":0,
+    "riskLevel":"REJECT"
+}
+```
