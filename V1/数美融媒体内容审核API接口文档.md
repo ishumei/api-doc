@@ -1,6 +1,10 @@
-# **数美融媒体内容审核API接口文档V1.0.5**
+# **数美融媒体内容审核API接口文档**
 
-## 目录
+------
+
+版权所有 翻版必究
+
+------
 
 [检测提交接口](#_Toc1242200993_WPSOffice_Level1_) 
 
@@ -200,28 +204,28 @@ details的内容是：
 | matchedLists | json\_array | 辅助信息 | N | 命中的客户自定义名单列表。[详见](#matchedLists)[matchedLists参数](#matchedLists) |
 | riskSegments | json\_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N | [详见](#riskSegments)riskSegments参数 |
 
-riskDetail中，_matchedLists_数组每个元素的内容如下：
+riskDetail中，matchedLists数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 辅助信息 | N | 命中的名单名称 |
 | words | json\_array | 辅助信息 | N | 命中的敏感词数组。[详见](#words)[words参数](#words) |
 
-_matchedLists_中，_words_数组每个元素的内容如下：
+matchedLists中，words数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 辅助信息 | N | 命中的敏感词 |
 | position | int\_array | 辅助信息 | N | 敏感词所在位置 |
 
-riskDetail中，_riskSegments_的内容如下：
+riskDetail中，riskSegments的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 辅助信息 | N | 高风险内容片段 |
 | position | int\_array | 辅助信息 | N | 高风险内容片段所在位置 |
 
-**images**** 里每个元素的内容**
+**images** 里每个元素的内容
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -261,7 +265,7 @@ riskDetail中，_riskSegments_的内容如下：
 | ocrText | json\_object | 返回图片中违规文字相关信息，当请求参数type字段包含IMGTEXTRISK和ADVERT时存在 | N ||
 | riskSource | int | 标识资源哪里违规 | Y | 标识风险结果的来源：<br/>1000：无风险<br/>1001：文字风险<br/>1002：视觉图片风险 |
 
-riskDetail中，_faces_数组每个元素的内容如下：
+riskDetail中，faces数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -271,7 +275,7 @@ riskDetail中，_faces_数组每个元素的内容如下：
 | face\_ratio | float | 人脸占比 | N | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 
-riskDetail中，_objects_数组每个元素的内容如下：
+riskDetail中，objects数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -281,7 +285,7 @@ riskDetail中，_objects_数组每个元素的内容如下：
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 | qrContent | string | 二维码的url信息 | N | 仅当命中二维码相关标签时返回 |
 
-riskDetail中，_persons_数组每个元素的内容如下：
+riskDetail中，persons数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -290,7 +294,7 @@ riskDetail中，_persons_数组每个元素的内容如下：
 | location | int\_array | 人像位置坐标 | N ||
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 
-riskDetail中，_ocrText_的内容如下：
+riskDetail中，ocrText的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** |
 | --- | --- | --- | --- |
@@ -298,7 +302,7 @@ riskDetail中，_ocrText_的内容如下：
 | matchedLists | json\_array | 命中的客户自定义名单列表，_matchedLists_数组每个元素的内容见上文_matchedLists_说明 | N |
 | riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在，_riskSegments_的每个元素的详细内容见上文_riskSegments_说明 | N |
 
-**audios**** 里每个元素的内容**
+**audios** 里每个元素的内容
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -312,7 +316,7 @@ riskDetail中，_ocrText_的内容如下：
 | audioTime | int | 整段音频的音频时长 | Y | 单位秒 |
 | audioDetail | json\_array | 音频片段信息 | Y | 回调的音频片段信息，[详见](#audioDetail)[audioDetail参数](#audioDetail) |
 
-其中，_audioDetail_详细内容如下：
+其中，audioDetail详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -335,7 +339,7 @@ riskDetail中，_ocrText_的内容如下：
 | matchedLists | json\_array | 命中的客户自定义名单信息 | N | 命中客户自定义名单时返回，_matchedLists_数组每个元素的内容见上文_matchedLists_说明 |
 | riskSegments | json\_array | 高风险内容片段 | N | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，_riskSegments_的每个元素的详细内容见上文_riskSegments_说明 |
 
-**videos**** 里的每个元素的内容**
+**videos** 里的每个元素的内容
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -408,7 +412,7 @@ audioDetail中，riskDetail的每个元素详细内容如下：
 | matchedLists | json\_array | 命中的客户自定义名单信息 | N | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2) |
 | riskSegments | json\_array | 高风险内容片段 | N | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2) |
 
-**files**** 里每个元素的内容**
+**files** 里每个元素的内容
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -420,7 +424,7 @@ audioDetail中，riskDetail的每个元素详细内容如下：
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | detail | json\_array | 风险详情 | Y | [详见](#Adetail)detail参数 |
 
-其中_detail_字段如下：
+其中detail字段如下：
 
 | **参数名称** | **类型** | **是否必选** | **说明** |
 | --- | --- | --- | --- |
@@ -497,7 +501,7 @@ videos里每个元素的内容：
 | frameDetail | json\_array | N | 截帧片段详情，见下表说明 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
 
-_frameDetail_内容
+frameDetail内容
 
 | **参数名称** | **类型** | **是否必填** | **参数说明** |
 | --- | --- | --- | --- |
@@ -506,7 +510,7 @@ _frameDetail_内容
 | time | float | N | 截帧在视频文件中的时间，单位为秒 |
 | imgText | string | N | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
 
-_audioDetail_内容
+audioDetail内容
 
 | **参数名称** | **类型** | **是否必填** | **参数说明** |
 | --- | --- | --- | --- |
