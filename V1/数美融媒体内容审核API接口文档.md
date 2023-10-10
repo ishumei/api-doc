@@ -521,7 +521,7 @@ files里每个元素的内容：
                 "btId":"f338c6a3ce094188c5ad7379837d396e",
                 "content":"https://video/1054078867_5191515227_56.mp4",
                 "dataType":"video",
-                "imgType":"POLITY_EROTIC_VIOLENT_ADVERT_QRCODE_IMGTEXTRISK_TAINTEDSTAR_ENTERTAINMENTAPPSLOGO_AGE_PUBLICFIGURE"
+                "imgType":"POLITICS_AD_PORN"
             },
             {
                 "btId":"a7b58140f37a7d5c3293233fede4fc29",
