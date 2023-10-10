@@ -6,39 +6,6 @@
 
 ------
 
-[检测提交接口](#_Toc1242200993_WPSOffice_Level1_) 
-
-[接口说明](#_Toc1983556864_WPSOffice_Level2_) 
-
-[检测数据要求](#_Toc104077220_WPSOffice_Level2_) 
-
-[文本要求](#_Toc1174147882_WPSOffice_Level3_) 
-
-[图片要求](#_Toc676220491_WPSOffice_Level3_) 
-
-[音频文件要求](#_Toc754332313_WPSOffice_Level3_) 
-
-[视频文件要求](#_Toc1467216350_WPSOffice_Level3_) 
-
-[文档要求](#_Toc2097959596_WPSOffice_Level3_) 
-
-[请求参数](#_Toc872929879_WPSOffice_Level2_) 
-
-[响应参数](#_Toc1871683696_WPSOffice_Level2_) 
-
-[异步回调结果](#_Toc1047417416_WPSOffice_Level1_) 
-
-[接口说明](#_Toc1021056253_WPSOffice_Level2_) 
-
-[机器检测结果](#_Toc350620994_WPSOffice_Level2_) 
-
-[响应码参数](#_Toc1193541879_WPSOffice_Level3_) 
-
-[人工审核结果](#_Toc213613726_WPSOffice_Level2_) 
-
-
-
-
 ## 检测提交接口
 
 ### 接口说明
@@ -112,7 +79,7 @@ data里包含的内容
 | advancedFrequency | json\_object | N | 高级截帧间隔，单位为秒，此项填写，默认截帧策略失效，参数配置如{"durationPoints":[300,600],"frequencies":[1,5,10]}含义为：视频文件时长≤300s ——选用1s一截帧300s\<视频文件时长≤600s ——选用5s一截帧视频文件时长\>600s ——选用10s一截帧 |
 | returnVideoAllImg | int | N | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为1 |
 | returnVideoAllAudio | int | N | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为1 |
-| returnAudioAllText | int | N | 可选值如下（默认为1）：<br>0：返回风险片段识别结果<br/>1：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择"返回所有片段识别结果"时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；当选择"返回风险片段识别结果"时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；片段识别结果对应响应中的audioDetail字段。 |
+| returnAudioAllText | int | N | 可选值如下（默认为1）：<br/>0：返回风险片段识别结果<br/>1：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择"返回所有片段识别结果"时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；当选择"返回风险片段识别结果"时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；片段识别结果对应响应中的audioDetail字段。 |
 
 data 中，advancedFrequency的内容如下
 
