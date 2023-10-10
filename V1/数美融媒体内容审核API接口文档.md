@@ -1,69 +1,10 @@
-#
+# **数美融媒体内容审核API接口文档**
 
-#
-# 数美融媒体内容审核
+------
 
-# API
+版权所有 翻版必究
 
-# 接口文档
-
-# **V1.0.5**
-
-**北京数美时代科技有限公司提供**
-
-**（版权所有，翻版必究）**
-
-目录
-
-[检测提交接口](#_Toc1242200993_WPSOffice_Level1_) 2
-
-[接口说明](#_Toc1983556864_WPSOffice_Level2_) 3
-
-[检测数据要求](#_Toc104077220_WPSOffice_Level2_) 3
-
-[文本要求](#_Toc1174147882_WPSOffice_Level3_) 3
-
-[图片要求](#_Toc676220491_WPSOffice_Level3_) 3
-
-[音频文件要求](#_Toc754332313_WPSOffice_Level3_) 3
-
-[视频文件要求](#_Toc1467216350_WPSOffice_Level3_) 3
-
-[文档要求](#_Toc2097959596_WPSOffice_Level3_) 3
-
-[请求参数](#_Toc872929879_WPSOffice_Level2_) 4
-
-[响应参数](#_Toc1871683696_WPSOffice_Level2_) 8
-
-[异步回调结果](#_Toc1047417416_WPSOffice_Level1_) 9
-
-[接口说明](#_Toc1021056253_WPSOffice_Level2_) 9
-
-[机器检测结果](#_Toc350620994_WPSOffice_Level2_) 9
-
-[texts](#_Toc191918790_WPSOffice_Level3_)里每个元素的内容 10
-
-[images](#_Toc58665736_WPSOffice_Level3_)里每个元素的内容 12
-
-[audios](#_Toc300030979_WPSOffice_Level3_)里每个元素的内容 17
-
-[videos](#_Toc329060897_WPSOffice_Level3_)里的每个元素的内容 19
-
-[files](#_Toc756104854_WPSOffice_Level3_)里每个元素的内容 23
-
-[响应码参数](#_Toc1193541879_WPSOffice_Level3_) 24
-
-[人工审核结果](#_Toc213613726_WPSOffice_Level2_) 24
-
-####
-
-##
-
-##
-
-##
-
-##
+------
 
 ## 检测提交接口
 
@@ -73,18 +14,10 @@
 
 ### 请求URL
 
-|
-### 上海集群
- |
-### http://api-media-sh.fengkongcloud.com/media/v1
- |
-| --- | --- |
-|
-### 硅谷集群
- |
-### http://api-media-gg.fengkongcloud.com/media/v1
- |
-
+| 集群名称 | url                                            |
+| -------- | ---------------------------------------------- |
+| 硅谷集群 | http://api-media-gg.fengkongcloud.com/media/v1 |
+| 上海集群 | http://api-media-sh.fengkongcloud.com/media/v1 |
 ### 检测数据要求
 
 请求体限制：所有请求参数大小总和不能超过10M
@@ -146,13 +79,7 @@ data里包含的内容
 | advancedFrequency | json\_object | N | 高级截帧间隔，单位为秒，此项填写，默认截帧策略失效，参数配置如{"durationPoints":[300,600],"frequencies":[1,5,10]}含义为：视频文件时长≤300s ——选用1s一截帧300s\<视频文件时长≤600s ——选用5s一截帧视频文件时长\>600s ——选用10s一截帧 |
 | returnVideoAllImg | int | N | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为1 |
 | returnVideoAllAudio | int | N | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为1 |
-| returnAudioAllText | int | N | 可选值如下（默认为1）：
- 0：返回风险片段识别结果
- 1：返回所有片段识别结果
-该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。
-当选择"返回所有片段识别结果"时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；
-当选择"返回风险片段识别结果"时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；
-片段识别结果对应响应中的audioDetail字段。 |
+| returnAudioAllText | int | N | 可选值如下（默认为1）：<br/>0：返回风险片段识别结果<br/>1：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择"返回所有片段识别结果"时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；当选择"返回风险片段识别结果"时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；片段识别结果对应响应中的audioDetail字段。 |
 
 data 中，advancedFrequency的内容如下
 
@@ -165,55 +92,14 @@ contents里包含的内容
 
 | **名称** | **类型** | **是否必填** | **说明** |
 | --- | --- | --- | --- |
-| dataType | string | Y | 数据类型，可能取值：
-- text：文本
-- image：图片
-- audio：音频文件
-- video：视频文件
-- file：文档
- |
+| dataType | string | Y | 数据类型，可能取值： <br/> text：文本<br/> image：图片 <br/>audio：音频文件 <br/>video：视频文件 <br/>file：文档 |
 | content | string | Y | 检测数据类型是文本时传入原始文本数据，检测数据类型是其他时传入数据url |
 | dataId | string | N | 作品Id，用于查询作品 |
 | btId | string | Y | 数据唯一标识，用于查询历史记录，注意：重复会报错 |
 | txtType | string | N | 文本和文档中文本检测风险类型，可选值：TEXTRISKdataType为text或者file时必传 |
-| audioType | string | N | 音频和视频中音频部分检测风险类型，可选值：
-- PORN：色情识别
-- AD：广告识别
-- POLITICAL：涉政识别
-- ABUSE：辱骂识别
-- MOAN：娇喘识别
-- ANTHEN：国歌识别
-- AUDIOPOLITICAL：一号领导人声纹识别
-- NONE不审核视频中的音频,并且不支持传入音频文件审核
-如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
-| imgType | string | N | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：
-- POLITICS:涉政识别
-- PORN:色情识别
-- AD:广告识别
-- LOGO:水印logo识别
-- BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面
-- OCR:图片中的OCR文字识别
-- VIOLENCE:暴恐识别
-如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
-| fileFormat | string | N | 要检测的文档格式，传入数据为文档时必传，可选值：DOCX
-PDF
-DOC
-XLS
-XLSX
-PPT
-PPTX
-PPS
-PPSX
-XLTX
-XLTM
-XLSB
-XLSM
-TXT
-CSV
-EPUB
-若fileFormat与文档实际格式不一致，则返回报错参数错误 |
-
-###
+| audioType | string | N | 音频和视频中音频部分检测风险类型，可选值：<br/>PORN：色情识别<br/>AD：广告识别<br/>POLITICAL：涉政识别<br/>ABUSE：辱骂识别<br/>MOAN：娇喘识别<br/>ANTHEN：国歌识别<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
+| imgType | string | N | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITICS:涉政识别<br/>PORN:色情识别<br/>AD:广告识别<br/>LOGO:水印logo识别<br/>BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>OCR:图片中的OCR文字识别<br/>VIOLENCE:暴恐识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
+| fileFormat | string | N | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
 
 ### 响应参数
 
@@ -235,10 +121,7 @@ EPUB
 | --- | --- | --- | --- |
 | btId | string | Y | 任务Id |
 | requestId | string | Y | 流水号 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | resultType | int | Y | 0：机审，1：人审 |
 | details | json\_object | Y | 风险详情 |
 | passThrough | json\_object | N | 透传字段 |
@@ -253,7 +136,7 @@ details的内容是：
 | videos | json\_array | Y | 视频文件审核结果，如果没有传入，则为空 |
 | files | json\_array | Y | 文档审核结果，如果没有传入，则为空 |
 
-**texts**** 里每个元素的内容**
+**texts** 里每个元素的内容
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -262,10 +145,7 @@ details的内容是：
 | requestId | string | 该条数据任务的唯一标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 文本唯一标识 | Y | 和传入的btId对应 |
-| riskLevel | string | 处置建议 | Y | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为PASS时返回normal |
 | riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为PASS时为空 |
 | riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为PASS时为空 |
@@ -277,10 +157,7 @@ REJECT：违规，建议直接拦截 |
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | N | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | N | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | riskLabel1 | string | 映射后一级风险标签 | N | 一级风险标签，当riskLevel为PASS时返回normal |
 | riskLabel2 | string | 映射后二级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
 | riskLabel3 | string | 映射后三级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
@@ -294,28 +171,28 @@ REJECT：违规，建议直接拦截 |
 | matchedLists | json\_array | 辅助信息 | N | 命中的客户自定义名单列表。[详见](#matchedLists)[matchedLists参数](#matchedLists) |
 | riskSegments | json\_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N | [详见](#riskSegments)riskSegments参数 |
 
-riskDetail中，_matchedLists_数组每个元素的内容如下：
+riskDetail中，matchedLists数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | name | string | 辅助信息 | N | 命中的名单名称 |
 | words | json\_array | 辅助信息 | N | 命中的敏感词数组。[详见](#words)[words参数](#words) |
 
-_matchedLists_中，_words_数组每个元素的内容如下：
+matchedLists中，words数组每个元素的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | word | string | 辅助信息 | N | 命中的敏感词 |
 | position | int\_array | 辅助信息 | N | 敏感词所在位置 |
 
-riskDetail中，_riskSegments_的内容如下：
+riskDetail中，riskSegments的内容如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | segment | string | 辅助信息 | N | 高风险内容片段 |
 | position | int\_array | 辅助信息 | N | 高风险内容片段所在位置 |
 
-**images**** 里每个元素的内容**
+**images** 里每个元素的内容
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -324,10 +201,7 @@ riskDetail中，_riskSegments_的内容如下：
 | requestId | string | 该条数据任务的唯一标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 单条数据唯一标识 | Y | 和传入的btId对应 |
-| riskLevel | string | 处置建议 | Y | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为PASS时返回normal |
 | riskLabel2 | string | 二级风险标签 | Y | 当riskLevel为PASS时为空 |
 | riskLabel3 | string | 三级风险标签 | Y | 当riskLevel为PASS时为空 |
@@ -339,10 +213,7 @@ REJECT：违规，建议直接拦截 |
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | N | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | N | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | riskLabel1 | string | 映射后一级风险标签 | N | 一级风险标签，当riskLevel为PASS时返回normal |
 | riskLabel2 | string | 映射后二级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
 | riskLabel3 | string | 映射后三级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
@@ -353,68 +224,44 @@ REJECT：违规，建议直接拦截 |
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| faces | json\_array | 返回图片中涉政人物的名称及位置信息 | N |
- |
-| face\_num | int | 人脸数量 | N |
- |
-| persons | json\_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 | N |
- |
+| faces | json\_array | 返回图片中涉政人物的名称及位置信息 | N ||
+| face\_num | int | 人脸数量 | N ||
+| persons | json\_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 | N ||
 | person\_num | int | 人像数量 | N | 有且仅有人像-多人下返回 |
 | objects | json\_array | 返回图片中物品或标志二维码的位置信息 | N | 数组仅会有一个元素 |
-| ocrText | json\_object | 返回图片中违规文字相关信息，当请求参数type字段包含IMGTEXTRISK和ADVERT时存在 | N |
- |
-| riskSource | int | 标识资源哪里违规 | Y | 标识风险结果的来源
-1000：无风险
-1001：文字风险
-1002：视觉图片风险 |
+| ocrText | json\_object | 返回图片中违规文字相关信息，当请求参数type字段包含IMGTEXTRISK和ADVERT时存在 | N ||
+| riskSource | int | 标识资源哪里违规 | Y | 标识风险结果的来源：<br/>1000：无风险<br/>1001：文字风险<br/>1002：视觉图片风险 |
 
-riskDetail中，_faces_数组每个元素的内容如下：
+riskDetail中，faces数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。
-如果同一个人在图片中出现n次，分配n个ID |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
 | name | string | 人物名称 | N | 能识别的公众人物名称 |
-| location | int\_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]
- 207代表的是左上角的x坐标
- 522代表左上角的y坐标
- 340代表的是右下角的x坐标
- 567代表的是右下角的y坐标 | N |
- |
-| face\_ratio | float | 人脸占比 | N |
- |
+| location | int\_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 |N | |
+| face\_ratio | float | 人脸占比 | N | |
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 
-riskDetail中，_objects_数组每个元素的内容如下：
+riskDetail中，objects数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | N |
- |
-| name | string | 标识名称 | N |
- |
-| location | int\_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]
- 207代表的是左上角的x坐标
- 522代表左上角的y坐标
- 340代表的是右下角的x坐标
- 567代表的是右下角的y坐标 | N |
- |
+| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | N | |
+| name | string | 标识名称 | N ||
+| location | int\_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/> 522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | N ||
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 | qrContent | string | 二维码的url信息 | N | 仅当命中二维码相关标签时返回 |
 
-riskDetail中，_persons_数组每个元素的内容如下：
+riskDetail中，persons数组每个元素的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| id | string | 编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID | N |
- |
-| person\_ratio | string | 人像在图中的占比 | N |
- |
-| location | int\_array | 人像位置坐标 | N |
- |
+| id | string | 编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID | N ||
+| person\_ratio | string | 人像在图中的占比 | N ||
+| location | int\_array | 人像位置坐标 | N ||
 | probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
 
-riskDetail中，_ocrText_的内容如下：
+riskDetail中，ocrText的内容如下：
 
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** |
 | --- | --- | --- | --- |
@@ -422,7 +269,7 @@ riskDetail中，_ocrText_的内容如下：
 | matchedLists | json\_array | 命中的客户自定义名单列表，_matchedLists_数组每个元素的内容见上文_matchedLists_说明 | N |
 | riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在，_riskSegments_的每个元素的详细内容见上文_riskSegments_说明 | N |
 
-**audios**** 里每个元素的内容**
+**audios** 里每个元素的内容
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -431,35 +278,23 @@ riskDetail中，_ocrText_的内容如下：
 | requestId | string | 该条数据任务的唯一标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 单条数据唯一标识 | Y | 和传入的btId对应 |
-| riskLevel | string | 当前事件的处置建议 | Y | 返回值：
-PASS：正常内容，建议直接放行
-REVIEW：可疑内容，建议人工审核
-REJECT：违规内容，建议直接拦截 |
-| audioText | string | 整段音频转译文本结果 | Y |
- |
+| riskLevel | string | 当前事件的处置建议 | Y | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| audioText | string | 整段音频转译文本结果 | Y ||
 | audioTime | int | 整段音频的音频时长 | Y | 单位秒 |
 | audioDetail | json\_array | 音频片段信息 | Y | 回调的音频片段信息，[详见](#audioDetail)[audioDetail参数](#audioDetail) |
 
-其中，_audioDetail_详细内容如下：
+其中，audioDetail详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| requestId | string | 音频片段请求唯一标识 | Y |
- |
+| requestId | string | 音频片段请求唯一标识 | Y ||
 | audioStarttime | float | 音频片段起始时间 | Y | 相对音频开始的时间距离，单位是秒 |
 | audioEndtime | float | 音频片段结束时间 | Y | 相对音频开始的时间距离，单位是秒 |
 | audioUrl | string | 音频片段链接 | Y | mp3格式 |
-| riskLevel | string | 音频片段识别结果 | Y | 可能返回值：
-PASS：正常内容，建议直接放行
-REVIEW：可疑内容，建议人工审核
-REJECT：违规内容，建议直接拦截
- |
-| riskLabel1 | string | 一级风险标签 | Y |
- |
-| riskLabel2 | string | 二级风险标签 | Y |
- |
-| riskLabel3 | string | 三级风险标签 | Y |
- |
+| riskLevel | string | 音频片段识别结果 | Y | 可能返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截|
+| riskLabel1 | string | 一级风险标签 | Y ||
+| riskLabel2 | string | 二级风险标签 | Y ||
+| riskLabel3 | string | 三级风险标签 | Y ||
 | riskDescription | string | 风险原因 | Y | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | riskDetail | json\_object | 风险详情 | N | [详见](#riskDetail)riskDetail参数 |
 
@@ -467,12 +302,11 @@ REJECT：违规内容，建议直接拦截
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| audioText | string | 音频转译文本的结果 | N |
- |
+| audioText | string | 音频转译文本的结果 | N ||
 | matchedLists | json\_array | 命中的客户自定义名单信息 | N | 命中客户自定义名单时返回，_matchedLists_数组每个元素的内容见上文_matchedLists_说明 |
 | riskSegments | json\_array | 高风险内容片段 | N | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，_riskSegments_的每个元素的详细内容见上文_riskSegments_说明 |
 
-**videos**** 里的每个元素的内容**
+**videos** 里的每个元素的内容
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -481,10 +315,7 @@ REJECT：违规内容，建议直接拦截
 | requestId | string | 该条数据任务的唯一标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 视频唯一标识 | Y | 和传入的btId对应 |
-| riskLevel | string | 风险级别，code为1100时存在 | Y | 返回值：
-PASS：正常内容，建议直接放行
-REVIEW：可疑内容，建议人工审核
-REJECT：违规内容，建议直接拦截 |
+| riskLevel | string | 风险级别，code为1100时存在 | Y | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
 | frameDetail | json\_array | 风险详情 | N | 有风险片段或returnAllImg=1时返回，详见[frameDetail说明](#frameDetail) |
 | audioDetail | json\_array | 音频片段信息 | N | 有风险片段或returnAllAudio=1时返回，详见[audioDetail说明](#audioDetail) |
 
@@ -493,14 +324,10 @@ REJECT：违规内容，建议直接拦截 |
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | time | float | 截帧在视频文件中的时间，单位为秒 | Y | 截帧图片相对视频文件的时间 |
-| requestId | string | 当前截帧片段的唯一标识 | Y |
- |
-| imgUrl | string | 当前截帧的URL | Y |
- |
+| requestId | string | 当前截帧片段的唯一标识 | Y ||
+| imgUrl | string | 当前截帧的URL | Y ||
 | imgText | string | 截帧图片OCR文本内容 | N | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
-| riskLevel | string | 当前截帧的处置建议 | Y | PASS：正常内容
-REVIEW：可疑内容
-REJECT：违规内容 |
+| riskLevel | string | 当前截帧的处置建议 | Y | PASS：正常内容<br/>REVIEW：可疑内容<br/>REJECT：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，当riskLevel为PASS时返回normal | Y | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为PASS时为空 | Y | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为PASS时为空 | Y | 三级标签 |
@@ -513,10 +340,7 @@ REJECT：违规内容 |
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLevel | string | 处置建议 | N | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | N | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | riskLabel1 | string | 映射后一级风险标签 | N | 一级风险标签，当riskLevel为PASS时返回normal |
 | riskLabel2 | string | 映射后二级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
 | riskLabel3 | string | 映射后三级风险标签 | N | 二级风险标签，当riskLevel为PASS时为空 |
@@ -527,48 +351,35 @@ frameDetail中，auxInfo的内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| qrContent | string | 截帧图片二维码链接识别 | N | 截帧图片二维码链接识别，如有需要可联系数美开启
-注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含AD |
+| qrContent | string | 截帧图片二维码链接识别 | N | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含AD |
 | similarity | float | 当前截帧图片和上一帧截帧图片的相似度 | Y | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
 其中，audioDetail数组中每个成员的具体内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| requestId | string | 流水号 | Y |
- |
-| audioStarttime | float | 音频片段发生时间 | Y |
- |
-| audioEndtime | float | 音频片段结束时间 | Y |
- |
-| audioUrl | string | 音频片段地址 | Y |
- |
+| requestId | string | 流水号 | Y ||
+| audioStarttime | float | 音频片段发生时间 | Y ||
+| audioEndtime | float | 音频片段结束时间 | Y ||
+| audioUrl | string | 音频片段地址 | Y ||
 | audioText | string | 音转文文字 | N | 识别出文本会返回 |
-| riskLevel | string | 当前事件的处置建议 | Y | PASS：正常内容
-REVIEW：可疑内容
-REJECT：违规内容 |
+| riskLevel | string | 当前事件的处置建议 | Y | PASS：正常内容<br/>REVIEW：可疑内容<br/>REJECT：违规内容 |
 | riskLabel1 | string | 各个一级标签之间是并列的关系，riskLevel为PASS时返回normal | Y | 一级标签 |
 | riskLabel2 | string | 二级标签归属于一级标签，当riskLevel为PASS时为空 | Y | 二级标签 |
 | riskLabel3 | string | 三级标签归属于二级标签，当riskLevel为PASS时为空 | Y | 三级标签 |
-| riskDescription | string | 标签解释 | Y | 格式为"一级风险标签：二级风险标签：三级风险标签"的中文名称
-对于命中用户自定义名单时返回：命中自定义名单 |
+| riskDescription | string | 标签解释 | Y | 格式为"一级风险标签：二级风险标签：三级风险标签"的中文名称；对于命中用户自定义名单时返回：命中自定义名单 |
 | riskDetail | json\_object | 风险详情信息 | Y | 详见[riskDetail说明](#riskDetail2) |
 
 audioDetail中，riskDetail的每个元素详细内容如下：
 
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskSource | int | 风险来源 | Y | 风险来源，可选值：
-1000：无风险
-1001：文本风险
-1002：视觉风险
-1003：音频风险 |
-| audioText | string | 音频转译文本的结果 | N |
- |
+| riskSource | int | 风险来源 | Y | 风险来源，可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1002：视觉风险<br/>1003：音频风险 |
+| audioText | string | 音频转译文本的结果 | N ||
 | matchedLists | json\_array | 命中的客户自定义名单信息 | N | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2) |
 | riskSegments | json\_array | 高风险内容片段 | N | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2) |
 
-**files**** 里每个元素的内容**
+**files** 里每个元素的内容
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -577,13 +388,10 @@ audioDetail中，riskDetail的每个元素详细内容如下：
 | requestId | string | 该条数据任务的唯一标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 请求标识 | Y | 和传入的btId对应 |
-| riskLevel | string | 处置建议 | Y | 可能返回值：
-PASS：正常，建议直接放行
-REVIEW：可疑，建议人工审核
-REJECT：违规，建议直接拦截 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
 | detail | json\_array | 风险详情 | Y | [详见](#Adetail)detail参数 |
 
-其中_detail_字段如下：
+其中detail字段如下：
 
 | **参数名称** | **类型** | **是否必选** | **说明** |
 | --- | --- | --- | --- |
@@ -606,9 +414,7 @@ REJECT：违规，建议直接拦截 |
 | --- | --- | --- | --- |
 | btId | string | Y | 任务唯一标识 |
 | requestId | string | Y | 请求唯一流水号 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规 |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | resultType | int | Y | 0：机审，1：人审 |
 | details | json\_object | Y | 审核结果详情（需要后台配置开关，默认是关闭状态，里层的字段为空） |
 | passThrough | json\_object | N | 透传字段 |
@@ -629,9 +435,7 @@ texts里每个元素的内容：
 | --- | --- | --- | --- |
 | btId | string | Y | 文本唯一标识，和传入值一致 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规 |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 
 images里每个元素的内容：
@@ -640,10 +444,7 @@ images里每个元素的内容：
 | --- | --- | --- | --- |
 | btId | string | Y | 数据唯一标识 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规
- |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规|
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 
 audios里每个元素的内容：
@@ -652,10 +453,7 @@ audios里每个元素的内容：
 | --- | --- | --- | --- |
 | btId | string | Y | 数据唯一标识 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规
- |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规|
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
 
@@ -665,14 +463,12 @@ videos里每个元素的内容：
 | --- | --- | --- | --- |
 | btId | string | Y | 数据唯一标识 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规 |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 | frameDetail | json\_array | N | 截帧片段详情，见下表说明 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
 
-_frameDetail_内容
+frameDetail内容
 
 | **参数名称** | **类型** | **是否必填** | **参数说明** |
 | --- | --- | --- | --- |
@@ -681,7 +477,7 @@ _frameDetail_内容
 | time | float | N | 截帧在视频文件中的时间，单位为秒 |
 | imgText | string | N | 截帧图片OCR文字识别，识别类型包含OCR时会有 |
 
-_audioDetail_内容
+audioDetail内容
 
 | **参数名称** | **类型** | **是否必填** | **参数说明** |
 | --- | --- | --- | --- |
@@ -696,9 +492,7 @@ files里每个元素的内容：
 | --- | --- | --- | --- |
 | btId | string | Y | 数据唯一标识 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
-| riskLevel | string | Y | 可能返回值：
-PASS：正常
-REJECT：违规 |
+| riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 
 **返回参数**
