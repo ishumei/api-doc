@@ -533,7 +533,7 @@ files里每个元素的内容：
                 "btId":"96273f7420ba4cd4e79f58706d8a5a90",
                 "content":"https://image/557155_H169_sc.jpg",
                 "dataType":"image",
-                "imgType":"POLITY_EROTIC_VIOLENT_ADVERT_QRCODE_IMGTEXTRISK_TAINTEDSTAR_ENTERTAINMENTAPPSLOGO_AGE_PUBLICFIGURE"
+                "imgType":"POLITICS_AD_PORN"
             }
         ],
         "detectFrequency":1,
