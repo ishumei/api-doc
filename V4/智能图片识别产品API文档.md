@@ -55,6 +55,7 @@
 | extra | json_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息，[详见extra参数](#extra) |
 | streamInfo | json_object | 相似帧审核参数 | 非必传参数 | 用于检测相似帧的相关信息，[详见streamInfo参数](#streamInfo)，如需要了解或使用相似帧功能，请联系客服咨询 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 <span id="streamInfo">data中，streamInfo的内容如下：</span>
 
@@ -542,6 +543,7 @@ scene_account_risk的详情内容如下：
 | interval | int | gif图片的截帧间隔 | 非必传参数 | 默认值为1，代表每一帧都需要进行检测，服务会自动调整该值以保证完全覆盖全部帧 |
 | extra | json\_object | 辅助参数 | 非必传参数 | 用于辅助检测的相关信息 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 其中，extra内容如下：
 
@@ -639,6 +641,7 @@ scene_account_risk的详情内容如下：
 | role | string | 用户角色 | 非必传参数 | 用户角色，必须在可选范围有效对不同角色可配置不同策略。(默认为`USER`)<br/>直播领域可取值：<br/>`ADMIN`：房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>游戏领域可取值：<br/>`ADMIN`：管理员<br/>`USER`：普通用户 |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 | lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 其中，extra的内容如下：
 
@@ -1020,6 +1023,7 @@ UTF-8
 | role | string | 用户角色 | 非必传参数 | 用户角色，默认USER，必须在可选范围有效对不同角色可配置不同策略。直播领域可取值：房管：ADMIN主播：HOST系统角色：SYSTEM游戏领域可取值：管理员：ADMIN普通用户：USER |
 | receiveTokenId | string | 接收者的tokenId | 非必传参数 | 接收者的tokenId，私聊场景必选 |
 | lang | string | 语言类型 | 非必传参数 | 请求type中包含 IMGTEXTRISK 时，可指定对应检测语种类型，可选值：<br/>zh：中⽂<br/>en：英语<br/>ar：阿拉伯语<br/>默认使⽤中⽂检测，请注意传⼊可选值之外的标识时⽆效 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 其中，extra的内容如下：
 
