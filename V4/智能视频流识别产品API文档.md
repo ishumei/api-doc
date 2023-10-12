@@ -1,4 +1,4 @@
-# 数美智能视频流识别产品API文档
+![image](https://github.com/liushuanpeng/api-doc/assets/8817987/250f7f37-b31a-47a2-877c-b831edf460be)# 数美智能视频流识别产品API文档
 
 
 ## 视频流上传请求
@@ -178,6 +178,7 @@
 | audioDetail | json_object | 风险音频片段信息 | 否 | 详见[audioDetail说明](#audioDetail) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
+| auxInfo | json_object | 辅助信息 | 否 |  |
 
 <span id="frameDetail">其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：</span>
 
@@ -192,7 +193,7 @@
 | riskDetail | json_object | 风险详情信息 | 否 | 详见[riskDetail说明](#riskDetail) |
 | allLabels | json_array | 全部的风险标签列表 | 否 | 详见[allLabels说明](#allLabels) |
 | businessLabels | json_array | 业务标签列表，传入imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
-| auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo2) |
+| auxInfo | json_object | 其他辅助信息 | 是 | 请求参数data中extra的passThrough放入该值返回 |
 
 <span id="auxInfo2">frameDetail中auxInfo的内容如下：</span>
 
@@ -206,7 +207,6 @@
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
 | similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
-| passThrough | json | 透传字段 | 否 |该字段内容与请求参数data中extra的passThrough的值相同 |
 
 <span id="riskDetail">frameDetail中，riskDetail的内容如下：</span>
 
