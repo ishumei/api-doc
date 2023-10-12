@@ -1,4 +1,4 @@
-![image](https://github.com/liushuanpeng/api-doc/assets/8817987/250f7f37-b31a-47a2-877c-b831edf460be)# 数美智能视频流识别产品API文档
+# 数美智能视频流识别产品API文档
 
 
 ## 视频流上传请求
@@ -178,7 +178,7 @@
 | audioDetail | json_object | 风险音频片段信息 | 否 | 详见[audioDetail说明](#audioDetail) |
 | tokenProfileLabels | json_array | 账号属性标签 | 否 | 仅在开启功能时返回，详见[tokenProfileLabels说明](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 账号风险标签 | 否 | 仅在开启功能时返回，详见[tokenRiskLabels说明](#tokenRiskLabels) |
-| auxInfo | json_object | 辅助信息 | 否 |  |
+| auxInfo | json_object | 辅助信息 | 否 | 请求参数data中extra的passThrough放入该值返回 |
 
 <span id="frameDetail">其中，在图片回调时（contentType为`1`时），frameDetail每个成员的具体内容如下：</span>
 
@@ -193,7 +193,7 @@
 | riskDetail | json_object | 风险详情信息 | 否 | 详见[riskDetail说明](#riskDetail) |
 | allLabels | json_array | 全部的风险标签列表 | 否 | 详见[allLabels说明](#allLabels) |
 | businessLabels | json_array | 业务标签列表，传入imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
-| auxInfo | json_object | 其他辅助信息 | 是 | 请求参数data中extra的passThrough放入该值返回 |
+| auxInfo | json_object | 其他辅助信息 | 是 | 详见[auxInfo说明](#auxInfo2) |
 
 <span id="auxInfo2">frameDetail中auxInfo的内容如下：</span>
 
