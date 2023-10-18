@@ -203,6 +203,7 @@
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
+| qrContent | string | 截帧图片二维码识别内容 | 否 |imgType传值需要包含AD，且只有完整可以正常识别到的二维码才会返回|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
 截帧图片detail中，businessLabels数组的每个成员的内容如下：
