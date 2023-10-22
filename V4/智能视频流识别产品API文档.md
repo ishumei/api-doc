@@ -760,7 +760,7 @@ code请求返回码列表如下：
 
 ```json
 {
-    "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey": "xxxxxxxxxx",
     "requestId": "1639825145166"
 }
 ```
