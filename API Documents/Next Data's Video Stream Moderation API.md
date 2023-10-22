@@ -756,7 +756,7 @@ contentType = 2
 
 ```json
 {
-    "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey": "xxxxxxxx",
     "requestId": "1639825145166"
 }
 ```
