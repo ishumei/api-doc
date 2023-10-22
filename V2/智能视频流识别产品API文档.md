@@ -559,7 +559,7 @@ code请求返回码列表如下：
 **TRTC流**
 ```json
 {
-    "accessKey":"4Ky6AV4hE0pWLeG1bXNw}",
+    "accessKey":"xxxxxxx",
     "appId":"default",
     "imgType":"PORN_AD",
     "audioType":"NONE",
@@ -683,7 +683,7 @@ code请求返回码列表如下：
 
 ```json
 {
-    "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey": "xxxxxxxxxx",
     "requestId": "1639825145166"
 }
 ```
