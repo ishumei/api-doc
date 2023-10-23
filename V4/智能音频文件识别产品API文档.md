@@ -193,7 +193,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
                 "requestId":"817c8509359500c898a762ffe93a582b_a0000",
                 "audioStarttime":0,
                 "audioEndtime":10,
-                "audioUrl":"http://voice-stream.oss-cn-hangzhou.aliyuncs.com/POST_AUDIO%2F20221102%2F817c8509359500c898a762ffe93a582b_a0000.mp3?Expires=1669984055&amp;OSSAccessKeyId=LTAI4GCEw42chQY7RgPbGxhv&amp;Signature=pG4zurQ%2F%2F9laWauXo4mFfQoHrdE%3D",
+                "audioUrl":"http://voice-stream.oss-cn-hangzhou.aliyuncs.com/POST_AUDIO%2F20221102%2F817c8509359500c898a762ffe93a582b_a0000.mp3",
                 "riskLevel":"REJECT",
                 "riskLabel1":"abuse",
                 "riskLabel2":"buwenmingyongyu",
