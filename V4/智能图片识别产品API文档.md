@@ -1373,6 +1373,7 @@ businessLabels数组中的businessDetail的内容如下：
 | ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
 | COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
 | FOODLOGO | LOGO - 食品类品牌 |	如识别Starbucks、LOTTE等LOGO  |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 |如识别懂车帝、易车、太平洋汽车、爱卡等LOGO  |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -1402,5 +1403,4 @@ businessLabels数组中的businessDetail的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 |如识别卫生间、酒店、厨房等  |
-| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 |如识别懂车帝、易车、太平洋汽车、爱卡等LOGO  |
 
