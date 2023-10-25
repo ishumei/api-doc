@@ -1402,4 +1402,5 @@ businessLabels数组中的businessDetail的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 |如识别卫生间、酒店、厨房等  |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 |如识别懂车帝、易车、太平洋汽车、爱卡等LOGO  |
 
