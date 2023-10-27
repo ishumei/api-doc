@@ -358,7 +358,7 @@
 
 ```json
 {
-    "accessKey":"4K8S6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "type":"NOVEL",
     "callback":"",
     "txtType":"",
@@ -453,7 +453,7 @@
 
 ```json
 {
-    "accessKey":"4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "requestIds":[
         "tye7ert12asdfasdf31236633346662333312"
     ]
