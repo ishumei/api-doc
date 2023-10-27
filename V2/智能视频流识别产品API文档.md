@@ -488,6 +488,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx",
     "audioType":"PORN_AD",
     "data":{
+        "lang":"zh",
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
         "returnAllImg":1,
@@ -510,6 +511,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "agoraParam":{
             "appId":"xxx",
             "channel":"letdo",
@@ -538,6 +540,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "zegoParam":{
             "tokenId":"xxx",
             "streamId":"xxxx",
@@ -568,6 +571,7 @@ code请求返回码列表如下：
     "imgCallback":"http://10.0.20.208:8000/",
     "audioCallback":"http://10.0.20.208:8000/",
     "data":{
+        "lang":"zh",
         "streamType":"TRTC",
         "tokenId":"test_videostream_v2",
         "trtcParam":{
