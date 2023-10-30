@@ -169,8 +169,8 @@
 | --- | --- | --- | --- | --- |
 | type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`image`：图片<br/>          |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，image是图片url |
-| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`image`时该字段不返回 | N            |                                      |
-| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`image`时该字段不返回 | N           |                |
+| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`image`时该字段不返回 | N            | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的首字在全局检测出文本中的位置 |
+| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`image`时该字段不返回 | N           | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的末尾字在全局检测出文本中的位置 |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
 | riskLevel | string | 当前内容片段的处置建议 | Y           | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
 | riskType | int | 当前内容片段的标识风险类型 | Y | 当type为文本时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义<br/><br/>当type为图片时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`520`：未成年人<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
@@ -358,7 +358,7 @@
 
 ```json
 {
-    "accessKey":"4K8S6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "type":"NOVEL",
     "callback":"",
     "txtType":"",
@@ -453,7 +453,7 @@
 
 ```json
 {
-    "accessKey":"4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "requestIds":[
         "tye7ert12asdfasdf31236633346662333312"
     ]
