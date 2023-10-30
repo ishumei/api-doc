@@ -55,6 +55,7 @@
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
+| lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
 | streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议，支持`flv`,`m3u8`格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>`VOLC`：火山引擎审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
@@ -487,6 +488,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx",
     "audioType":"PORN_AD",
     "data":{
+        "lang":"zh",
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
         "returnAllImg":1,
@@ -509,6 +511,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "agoraParam":{
             "appId":"xxx",
             "channel":"letdo",
@@ -537,6 +540,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "zegoParam":{
             "tokenId":"xxx",
             "streamId":"xxxx",
@@ -567,6 +571,7 @@ code请求返回码列表如下：
     "imgCallback":"http://10.0.20.208:8000/",
     "audioCallback":"http://10.0.20.208:8000/",
     "data":{
+        "lang":"zh",
         "streamType":"TRTC",
         "tokenId":"test_videostream_v2",
         "trtcParam":{
