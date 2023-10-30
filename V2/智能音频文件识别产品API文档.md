@@ -180,8 +180,10 @@ POST
 | riskLevel        | string     | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p><p>PASS：正常内容</p> |
 | businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
 | riskType         | int        | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
-| audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
-| matchedList      | string     | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
+| audioMatchedItem | string     | N            | 音频中可能出现的敏感词（废弃字段，不建议使用 ）              |
+| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
+| matchedItem      | string     | N            | 命中的具体敏感词                                             |
+| matchedDetail    | string     | N            | 命中所有名单详情                                             |
 | description      | string     | Y            | 音频片段风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 *gender参数结构如下：*
@@ -277,8 +279,10 @@ POST
 | riskLevel        | string     | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p> |
 | businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
 | riskType         | int        | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
-| audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
-| matchedList      | string     | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
+| audioMatchedItem | string     | N            | 音频中可能出现的敏感词（废弃字段，不建议使用 ）              |
+| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
+| matchedItem      | string     | N            | 命中的具体敏感词                                             |
+| matchedDetail    | string     | N            | 命中所有名单详情                                             |
 | description      | string     | Y            | 风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 *gender参数结构如下：*
