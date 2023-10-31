@@ -224,16 +224,16 @@ POST
 
 <span id="matchedDetail1">其中，matchedDetail内容：</span>
 
-| **参数名称**   | **类型**     | **是否必返** | 说明                                                         |
-| -------------- | ------------ | ------------ | ------------------------------------------------------------ |
-| listId         | string       | N            | 返回码                                                       |
-| matchedFiled   | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
-| name           | string       | N            | 命中敏感词所在的名单名称                                     |
-| organization   | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
-| words          | string_array | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPostitions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words1) |
+| **参数名称**  | **类型**     | **是否必返** | 说明                                                         |
+| ------------- | ------------ | ------------ | ------------------------------------------------------------ |
+| listId        | string       | N            | 返回码                                                       |
+| matchedFiled  | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
+| name          | string       | N            | 命中敏感词所在的名单名称                                     |
+| organization  | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
+| words         | string_array | N            | 命中的对应名单中的所有敏感词                                 |
+| wordPositions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words1) |
 
-<span id="words1">wordPostitions中的每一项内容：</span>
+<span id="words1">wordPositions中的每一项内容：</span>
 
 | **参数名称** | **类型** | **是否必返** | 说明           |
 | ------------ | -------- | ------------ | -------------- |
@@ -342,16 +342,16 @@ POST
 
 <span id="matchedDetail2">其中，matchedDetail内容：</span>
 
-| **参数名称**   | **类型**     | **是否必返** | 说明                                                         |
-| -------------- | ------------ | ------------ | ------------------------------------------------------------ |
-| listId         | string       | N            | 返回码                                                       |
-| matchedFiled   | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
-| name           | string       | N            | 命中敏感词所在的名单名称                                     |
-| organization   | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
-| words          | string_array | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPostitions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words2) |
+| **参数名称**  | **类型**     | **是否必返** | 说明                                                         |
+| ------------- | ------------ | ------------ | ------------------------------------------------------------ |
+| listId        | string       | N            | 返回码                                                       |
+| matchedFiled  | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
+| name          | string       | N            | 命中敏感词所在的名单名称                                     |
+| organization  | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
+| words         | string_array | N            | 命中的对应名单中的所有敏感词                                 |
+| wordPositions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words2) |
 
-<span id="words2">wordPostitions中的每一项内容：</span>
+<span id="words2">wordPositions中的每一项内容：</span>
 
 | **参数名称** | **类型** | **是否必返** | **说明**       |
 | ------------ | -------- | ------------ | -------------- |
