@@ -200,9 +200,9 @@
 | name           | string       |              | Y            | 命中敏感词所在的名单名称                                     |
 | organization   | string       |              | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPostitions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words) |
+| wordPositions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words) |
 
-<span id="words">wordPostitions</span>中的每一项内容：
+<span id="words">wordPositions</span>中的每一项内容：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
 | ------------ | -------- | ------------ | ------------ | -------------- |
