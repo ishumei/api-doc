@@ -537,8 +537,7 @@ code请求返回码列表如下：
     "data":{
         "zegoParam":{
             "tokenId":"xxx",
-            "streamId":"xxxx",
-            "testEnv":654321
+            "streamId":"xxxx"
         },
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
