@@ -113,7 +113,6 @@
 | --- | --- | --- | --- | --- |
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，<br/>用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
-| testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
 
 <span id="volcParam">其中，data.volcParam内容如下：</span>
 
@@ -543,8 +542,7 @@ code请求返回码列表如下：
         "lang":"zh",
         "zegoParam":{
             "tokenId":"xxx",
-            "streamId":"xxxx",
-            "testEnv":654321
+            "streamId":"xxxx"
         },
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
