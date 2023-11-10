@@ -73,13 +73,12 @@
 
 <span id="zegoParam">data中，zegoParam详细内容如下：</span>
 
-| **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                                    |
-| --------------- | -------- | ------------------------------------------------------------ | ------------ | ----------------------------------------------------------- |
-| tokenId         | string   | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/article/15258](https://doc-zh.zego.im/article/15258) 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | Y            |                                                             |
-| streamId        | string   | 音频流编号，唯一对应一路音频流，streamId与roomId至少传入其中之一。 | N            |                                                             |
-| roomId          | string   | 房间编号，唯一对应一个房间。                                 |              |                                                             |
-| isMixingEnabled | bool     | 录制模式<br/>true：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。<br/>false：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值。 | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流             |
-| testEnv         | bool     | 是否使用zego测试环境                                         | Y            | 默认值为`false`:<br/>`true`：测试环境<br/>`false`：正式环境 |
+| **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                        |
+| --------------- | -------- | ------------------------------------------------------------ | ------------ | ----------------------------------------------- |
+| tokenId         | string   | zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：[https://doc-zh.zego.im/article/15258](https://doc-zh.zego.im/article/15258) 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的 | Y            |                                                 |
+| streamId        | string   | 音频流编号，唯一对应一路音频流，streamId与roomId至少传入其中之一。 | N            |                                                 |
+| roomId          | string   | 房间编号，唯一对应一个房间。                                 |              |                                                 |
+| isMixingEnabled | bool     | 录制模式<br/>true：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。<br/>false：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值。 | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流 |
 
 <span id="agoraParam">data中，agoraParam详细内容如下：</span>
 
