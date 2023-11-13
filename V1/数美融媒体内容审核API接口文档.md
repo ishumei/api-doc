@@ -99,6 +99,8 @@ contents里包含的内容
 | txtType | string | N | 文本和文档中文本检测风险类型，可选值：TEXTRISK。dataType为text或者file时必传 |
 | audioType | string | N | 音频和视频中音频部分检测风险类型，可选值：<br/>PORN：色情识别<br/>AD：广告识别<br/>POLITICAL：涉政识别<br/>ABUSE：辱骂识别<br/>MOAN：娇喘识别<br/>ANTHEN：国歌识别<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
 | imgType | string | N | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITICS:涉政识别<br/>PORN:色情识别<br/>AD:广告识别<br/>LOGO:水印logo识别<br/>BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>OCR:图片中的OCR文字识别<br/>VIOLENCE:暴恐识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
+| imageBusinessType | string | N |图片业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和imgType必须选择一个传入  |
+| audioBusinessType | string | N | 可选值：音频业务标签的一、二、三级标签<br/>GENDER：性别识别<br/>AGE：年龄识别<br/>TIMBRE：音色识别<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>VOICE：人声属性<br/>AUDIOSCENE：声音场景，如果需要多个识别功能，通过下划线连接，该字段和audioType必须选择一个传入 |
 | fileFormat | string | N | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
 
 ### 响应参数
@@ -454,6 +456,7 @@ audios里每个元素的内容：
 | btId | string | Y | 数据唯一标识 |
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规|
+| audioTime | int | Y | 整段音频的音频时长，单位秒|
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
 
@@ -465,8 +468,14 @@ videos里每个元素的内容：
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
+| auxInfo | json_object | Y | 额外信息,1100时，必返 |
 | frameDetail | json\_array | N | 截帧片段详情，见下表说明 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
+
+auxInfo内容
+| **参数名称** | **类型** | **是否必填** | **参数说明** |
+| --- | --- | --- | --- |
+| time | int | Y | 视频时长，单位秒 |
 
 frameDetail内容
 
@@ -503,6 +512,80 @@ files里每个元素的内容：
 | --- | --- | --- | --- |
 | code | int | Y | 返回码，成功返回1100，会判断请求是否成功；非1100认为失败 |
 | message | string | Y | 返回码详情描述 |
+
+# 附录
+
+
+| 业务标签识别类型 | 类型说明 | 备注 |
+| ------------- | ------------- | --------------- |
+| AGE           | 人脸 - 年龄   | 可识别未成年人 |
+| GENDER        | 人脸 -性别   |  |
+| BEAUTY        | 人脸 - 颜值   |  |
+| RACE          | 人脸 - 人种   | 如黑种人、白种人、黄种人 |
+| FACEDETECTION | 人脸-人脸检测 | 如识别无人脸、真人、口罩人脸、正脸、侧脸等 |
+| FAKEFACE | 人脸 - 伪造人脸 |  |
+| FACECOMPARE | 人脸-人脸对比 |  |
+| PUBLICFIGURE | 人物  - 公众人物 | 如识别知名明星、网红等 |
+| TAINTEDSTAR | 人物 - 劣迹人物 |  |
+| POSTURE | 人像-人像姿态 | 如识别坐姿、跪姿等 |
+| DRESS | 人像 - 人像穿着 | 如识别jk、汉服等 |
+| TEMPERAMENT | 人像 - 人像气质 | 如成熟大叔、靓丽女神等 |
+| BODY | 人体 | 如识别头发、眼睛、鼻子等 |
+| PICTUREFORM | 画面属性 - 画面类型 | 如识别动漫、表情包等 |
+| PICTURESTRUCT | 画面属性-画面结构 | 如识别宫格图、桥段图等 |
+| LOWVISION | 画面属性  - 画面低质 | 如识别模糊、涂抹、马赛克等 |
+| LOWCONTNET | 画面属性 - 内容低质 | 如识别点线密集、虫类密集等 |
+| LIVEPICTURE | 画面属性-直播画面 | 如识别床上直播、开车直播等 |
+| SCREENSHOT | 画面属性 -  APP截图（内容搬运） | 如识别朋友圈截图、聊天截图等 |
+| FITNESS | 场景主题-健身 |  |
+| CATE | 场景主题-美食 |  |
+| MUSIC | 场景主题-音乐 |  |
+| SPORTS | 场景主题-体育 |  |
+| SCENERY | 场景主题-自然风光 | 如识别天空、大海、草原等 |
+| CITYVIEW | 场景主题-城市风光 | 如识别街景 |
+| 3CPRODUCTSLOGO | LOGO - 3C电子类品牌 | 如识别华为、小米、OPPO等LOGO |
+| SHOPPINGAPPSLOGO | LOGO - 购物比价类应用 | 如识别拼多多等LOGO |
+| RETOUCHAPPSLOGO | LOGO - 拍摄美化类应用 | 如识别快剪辑、秒拍等LOGO |
+| SOCIALAPPSLOGO | LOGO - 社交通讯类应用 | 如识别微博、小红书等LOGO |
+| PHOTOMATERIALLOGO | LOGO - 素材版权类应用 | 如识别CFP等LOGO |
+| NEWSAPPSLOGO | LOGO - 新闻阅读类应用 | 如识别新浪、视觉中国等LOGO |
+| ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
+| SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
+| APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 |	如识别Starbucks、LOTTE等LOGO  |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 |如识别懂车帝、易车、太平洋汽车、爱卡等LOGO  |
+| VEHICLE | 物品-交通工具 |  |
+| BUILDING | 物品-建筑 |  |
+| TABLEWARE | 物品-餐具 |  |
+| FOOD | 物品-食物 |  |
+| HOMEAPPLICATION | 物品-家用电器 |  |
+| OFFICESUPPLIES | 物品-办公用品 |  |
+| FASHION | 物品-穿着用品 |  |
+| SPORTEQUIPMENT | 物品-运动器材 |  |
+| TOY | 物品-玩具 |  |
+| MAKEUP | 物品-化妆品 |  |
+| DRUGS | 物品-药品 |  |
+| PAINTING | 物品-绘画作品 |  |
+| ELECTRONIC | 物品-电子产品 |  |
+| MEDICALIMAGE | 物品-医疗影像 |  |
+| FURNITURE | 物品-家居用品 |  |
+| DAILYSUPPLIES | 物品-生活用品 |  |
+| CONSTELLATION | 物品-星座占卜 |  |
+| KITCHENWARE | 物品-厨房用品 |  |
+| KEEPSAKE | 物品 - 纪念品 |  |
+| MAMMAL | 动物-哺乳动物 |  |
+| BIRDS | 动物 - 鸟类 |  |
+| REPTILE | 动物-爬行动物 |  |
+| FISH | 动物-鱼 |  |
+| ARTHROPOD | 动物  - 节肢动物 |  |
+| COELENTERATE | 动物  - 腔肠动物 |  |
+| MOLLUSKS | 动物  - 软体动物 |  |
+| CRUSTACEAN | 动物  - 甲壳动物 |  |
+| PLANT | 植物 |  |
+| SETTING | 场所 |如识别卫生间、酒店、厨房等  |
+
 
 ## 示例
 
@@ -746,6 +829,7 @@ files里每个元素的内容：
                         "time":13
                     }
                 ],
+                "auxInfo":{"time":13},
                 "message":"success",
                 "requestId":"5ccdcac4d3c017ba3a28e6cec6497037",
                 "riskLevel":"REJECT"
