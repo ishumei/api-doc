@@ -829,6 +829,7 @@ files里每个元素的内容：
                         "time":13
                     }
                 ],
+                "auxInfo":{"time":13},
                 "message":"success",
                 "requestId":"5ccdcac4d3c017ba3a28e6cec6497037",
                 "riskLevel":"REJECT"
