@@ -1404,4 +1404,4 @@ businessLabels数组中的businessDetail的内容如下：
 | PLANT | 植物 |  |
 | SETTING | 场所 |如识别卫生间、酒店、厨房等  |
 | EXTREMEWEATHER  | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等  |
-
+| LICENCEPLATE    | 车牌识别     |  |
