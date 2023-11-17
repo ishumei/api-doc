@@ -582,10 +582,10 @@ code请求返回码列表如下：
     "message": "成功",
     "requestId": "1639825145166_v130_1639825248361471656",
     "statCode": 0,
-    "riskLevel": "PASS",
-    "riskLabel1": "normal",
-    "riskLabel2": "",
-    "riskLabel3": "",
+    "riskLevel": "REJECT",
+    "riskLabel1": "politics",
+    "riskLabel2": "shezheng",
+    "riskLabel3": "shezheng",
     "videoDetail": {
         "frameDetail": [
             {
@@ -633,7 +633,7 @@ code请求返回码列表如下：
                 "ocrText": {
                     "text": "第四页（ban第五页（violence"
                 },
-                "riskSource": 1002
+                "riskSource": 1003
             },
             "riskLabel1": "politics",
             "riskLabel2": "shezheng",
