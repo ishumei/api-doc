@@ -77,6 +77,7 @@
 | subtitle | string | 视频字幕 | 非必传参数 | 文本内容审核 |
 | videoCover | string | 视频封面 | 非必传参数 | 视频封面图片审核 |
 | channel | string | 客户渠道（不传为默认值） | 非必传参数 |[渠道配置表示例参考](#channel)  |
+| dataId | string | 数据标识 | 非必传参数 | |
 
 <span id="advancedFrequency">data 中，advancedFrequency的内容如下</span>
 

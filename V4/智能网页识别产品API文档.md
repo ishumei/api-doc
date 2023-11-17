@@ -110,7 +110,7 @@
 
 ### 返回结果
 
-#### 同步模式
+#### <span id="Ab1">同步模式</span>
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -152,8 +152,8 @@
 | videoImgDetail     | json_array       | 当前视频片段中截帧图片详情，当type为video且审核视频截帧时返回 | N       | [详见videoImgDetail参数](#AvideoImgDetail)   |
 | videoAudioDetail     | json_array       | 当前视频片段中音频详情，当type为video且审核音频时返回 | N       | [详见videoAudioDetail参数](#AvideoAudioDetail)   |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
-| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`img`时该字段不返回 | N            |                                      |
-| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`img`时该字段不返回 | N           |                |
+| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`img`时该字段不返回 | N            | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的首字在全局检测出文本中的位置 |
+| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`img`时该字段不返回 | N           | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的末尾字在全局检测出文本中的位置 |
 | description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
 | riskLevel | string | 当前内容片段的处置建议 | Y           | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
 | riskType | int | 当前内容片段的标识风险类型 | Y<br/>说明：当type为文本和图片时必返，当type为视频时为非必返 | 当type为文本时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义<br/><br/>当type为图片时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`520`：未成年人<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
@@ -165,6 +165,7 @@
 | matchedDetail | json_array | 命中的名单详情 | N | [详见详细结构](#matcheddetail) |
 | index | int | 当前处理的片段索引 | Y | 索引不区分文本和图片 |
 | keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
+| text | string | 图片中的ocr内容 | N | 图片片段识别出ocr内容时会返回该字段 |
 
 其中，<span id="AvideoImgDetail">videoImgDetail</span>结构如下:
 
@@ -199,9 +200,9 @@
 | name           | string       |              | Y            | 命中敏感词所在的名单名称                                     |
 | organization   | string       |              | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPostitions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words) |
+| wordPositions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words) |
 
-<span id="words">wordPostitions</span>中的每一项内容：
+<span id="words">wordPositions</span>中的每一项内容：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
 | ------------ | -------- | ------------ | ------------ | -------------- |
@@ -457,7 +458,7 @@
 
 ```json
 {
-    "accessKey":"4K8S6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "type":"NOVEL",
     "callback":"",
     "txtType":"",
@@ -552,7 +553,7 @@
 
 ```json
 {
-    "accessKey":"4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey":"xxxxxxxx",
     "requestIds":[
         "tye7ert12asdfasdf31236633346662333312"
     ]

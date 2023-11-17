@@ -78,6 +78,7 @@ POST
 | timestamp     | int         | N            | 时间戳（毫秒级）  |
 | room          | string      | N            | 房间号     |
 | deviceId        | string | N  |  数美设备指纹生成的设备唯一标识                                                                                              |
+| dataId | string | N | 数据标识 |
 | ip              | string | N    |  发送该音频的用户公网ipv4地址                                                                                             |
 
 *formatInfo内容如下：*
@@ -327,6 +328,8 @@ code和message的列表如下：
 | 1901     | QPS超限     |
 | 1902     | 参数不合法  |
 | 1903     | 服务失败    |
+| 1904     | 下载失败    |
+| 1905     | 处理失败    |
 | 9100     | 余额不足    |
 | 9101     | 无权限操作  |
 
