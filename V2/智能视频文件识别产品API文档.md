@@ -589,6 +589,7 @@ addition中，audio_evidence的每个元素详细内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
+| EXTREMEWEATHER | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等 |
 
 ## 接口响应码列表
 
