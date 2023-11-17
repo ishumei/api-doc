@@ -173,7 +173,6 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
     "content": "*************",
     "data": {
     		"returnAllText":1,
-        "room": "general",
         "tokenId": "token-short"
         }
     }'
@@ -655,7 +654,6 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audio/v4' -d '{
     "callback": "*************",
     "data": {
         "returnAllText": 1,
-        "room": "general",
         "tokenId": "token-short"
         }
     }
