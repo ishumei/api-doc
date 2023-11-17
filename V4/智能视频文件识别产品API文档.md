@@ -48,9 +48,9 @@
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`DIRTY`: 辱骂识别<br/>`ADLAW`:广告法<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别 |
+| audioType | string | 视频中的音频需要识别的监管类型,**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`DIRTY`: 辱骂识别<br/>`ADLAW`:广告法<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
+| audioBusinessType | String | 视频中的音频业务识别类型， **和audioType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#data) |
 
