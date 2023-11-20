@@ -275,6 +275,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel2      | string   | 二级风险标签 | Y           | 二级风险标签 |
 | riskLabel3      | string   | 三级风险标签 | Y           | 三级风险标签 |
 | riskDescription | string   | 风险原因     | Y           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
+| riskDetail | json_object | 风险详情 | N | [详见riskDetail参数](#riskDetail) |
 
 其中最外层的auxInfo字段结构如下：
 
