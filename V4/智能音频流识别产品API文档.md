@@ -219,7 +219,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | audioText    | string     | 音频转译文本的结果       | N           |                                                                                         |
 | matchedLists | json_array | 命中的客户自定义名单信息 | N           | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists)           |
 | riskSegments | json_array | 高风险内容片段           | N           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
-| riskSource | string | 风险来源 | N | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险 |
+| riskSource | int | 风险来源 | N | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险 |
 
 <span id="matchedLists">其中，matchedLists结构如下：</span>
 
