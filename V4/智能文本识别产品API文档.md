@@ -188,7 +188,7 @@
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| qlabel| string | 问题标签| Y| 可选值：<br/>`UNKNOWN`:  没有匹配<br/>`CANNOT_ASK`：问题本身不可提问/不可输入<br/>`EXACTNESS`：问题答案必须正确。包括意立场正确<br/>`POSITIVE`：问题答案需要包含正向引导<br/> |
+| qlabel| string | 问题标签| Y| 可选值：<br/>`UNKNOWN`:  没有匹配<br/>`CANNOT_ASK`：问题本身不可提问/不可输入<br/>`EXACTNESS`：问题答案必须正确。包括立场正确<br/>`POSITIVE`：问题答案需要包含正向引导<br/> |
 | answer | string | 建议答案 | Y | 当qlabel为“EXACTNESS”或者“POSITIVE”时，会给出数美建议的符合要求的答案。 |
 
 
