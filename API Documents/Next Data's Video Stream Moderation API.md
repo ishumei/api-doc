@@ -54,8 +54,8 @@ The parameters are placed in the HTTP Body in Json format. The specific paramete
 | **Request parameter name** | **Data type** | **Parameter Description** | **Must be transferred in or not** | **Detailed description** |
 | --- | --- | --- | --- | --- |
 | lang | string | Identify language for audio risk support | Y | Optional values:<br/>`zh`:Chinese<br/>`en`:English<br/>`ar`:Arabic<br/>Default:`zh` |
-| tokenId | string | Unique ID of client user account | Y | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | Video stream type | Y | 可选值为：<br/>`NORMAL`：Normal stream address, currently supported`rtmp`、`rtmps`、`hls`、`http`、`https` agreement<br/>`AGORA`：Agora stream<br/>`TRTC`:TRTC stream<br/>`ZEGO`：ZEGO stream<br/>`VOLC`：VOLC stream<br/>*Note: When using the RTC SDK recording solution, additional recording fees may be incurred on the RTC side. Please consult the relevant RTC manufacturer for specific fees* |
+| tokenId | string | Unique ID of client user account | Y | Unique identifier of the client user account, used for user behavior analysis, it is recommended to pass in the user UID; up to 40 bits |
+| streamType | string | Video stream type | Y | Optional values：<br/>`NORMAL`：Normal stream address, currently supported`rtmp`、`rtmps`、`hls`、`http`、`https` agreement<br/>`AGORA`：Agora stream<br/>`TRTC`:TRTC stream<br/>`ZEGO`：ZEGO stream<br/>`VOLC`：VOLC stream<br/>*Note: When using the RTC SDK recording solution, additional recording fees may be incurred on the RTC side. Please consult the relevant RTC manufacturer for specific fees* |
 | agoraParam | json_object | Agora stream parameters | N | The agora stream parameter to be detected (required when the streamType is`AGORA`),[agoraParam](#agoraParam) |
 | trtcParam | json_object | TRTC stream parameters | N | The trtc stream parameter to be detected (required when the streamType is`TRTC`),[trtcParam](#trtcParam) |
 | zegoParam | json_object | ZEGO stream parameters | N | The zego stream parameter to be detected (required when the streamType is`ZEGO`),[zegoParam](#zegoParam) |
@@ -457,8 +457,8 @@ The auxInfo field structure is as follows:
 
 | **Parameter name** | **Parameter type** | **Parameter Description** | **Must be returned or not** | **Detailed description**                                     |
 | --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| errorCode       | int         | 状态码           | Y           | <p> Status code </p><p>3001: The access to the stream address fails. For example, HTTP status codes 404 and 403</p><p>3002: The stream data is Invalid, for example, Invalid data found when processing input </p><p>3003: The stream does not exist. For example, zego returns 197612 error code </p><p>3004: The stream does not return audio data. </p><p>3005: The pull stream token is invalid or expired. |
-| streamTime       | int         | 流审核时长           | N           | The last return after the end of the stream represents the time of sending for review. If there is interval review logic, it may not be consistent with the real time of the stream |
+| errorCode       | int         | error code | Y           | <p> Status code </p><p>3001: The access to the stream address fails. For example, HTTP status codes 404 and 403</p><p>3002: The stream data is Invalid, for example, Invalid data found when processing input </p><p>3003: The stream does not exist. For example, zego returns 197612 error code </p><p>3004: The stream does not return audio data. </p><p>3005: The pull stream token is invalid or expired. |
+| streamTime       | int         | Stream review duration | N           | The last return after the end of the stream represents the time of sending for review. If there is interval review logic, it may not be consistent with the real time of the stream |
 
 ## Video stream shutdown interface
 
@@ -481,7 +481,7 @@ This interface is used by the client to notify the server that a video stream is
 
 ### Support protocol:
 
-`HTTP`或`HTTPS`
+`HTTP`/`HTTPS`
 
 ### Character Encoding:
 
