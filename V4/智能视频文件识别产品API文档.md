@@ -48,9 +48,9 @@
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>如果需要识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICAL_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频中的音频需要识别的监管类型,**和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`DIRTY`: 辱骂识别<br/>`ADLAW`:广告法<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`ANTHEN`：国歌识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/>如果需要识别多个功能，通过下划线连接 |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
+| audioBusinessType | String | 视频中的音频业务识别类型， **和audioType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效<br/>如果需要识别多个功能，通过下划线连接 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#data) |
 
@@ -62,21 +62,22 @@
 | url | string | 要检测的视频url地址 | 必传参数 | |
 | tokenId | string | | 必传参数 | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID； 最长40位 |
 | lang | string | 语言类型 | 非必传参数 | 可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>不传默认进行中文检测 |
-| detectFrequency | float | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为0.5~60s；如不传递默认5s截帧一次 |
+| detectFrequency | int | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为1~60s；如不传递默认5s截帧一次 |
 | advancedFrequency | json_object | 高级截帧间隔，单位为秒 | 非必传参数 | 高级截帧设置，此项填写，默认截帧策略失效<br/>参数配置如下<br/>{"durationPoints":[300,600],"frequencies":[1,5,10]}<br/>含义为：<br/>视频文件时长≤300s ——选用1s一截帧<br/>300s<视频文件时长≤600s ——选用5s一截帧<br/>视频文件时长>600s ——选用10s一截帧 |
-| ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
+| ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库,支持ipv4和ipv6的传入 |
 | audioDetectStep | int | 视频文件中的音频审核步长 | 非必传参数 | 单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审 |
 | returnAllImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
 | returnAllAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
 | videoTitle | string | 视频名称 | 非必传参数 | 视频名称，用于后台界面展示 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
+| dataId | string | 数据标识 | 非必传参数 |  |
 
 <span id="advancedFrequency">data 中，advancedFrequency的内容如下</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| durationPoints | Object[] | 视频时长区间分割 | 非必传参数 | 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个 |
-| frequencies | Object[] | 视频时长区间对应的截帧频率 | 非必传参数 | 可设置范围为0.5~60秒，数组最多6个<br/>说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902|
+| durationPoints | int_array | 视频时长区间分割 | 非必传参数 | 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个 |
+| frequencies | int_array | 视频时长区间对应的截帧频率 | 非必传参数 | 可设置范围为1~60秒，数组最多6个<br/>说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902 |
 
 <span id="extra">data 中，extra的内容如下</span>
 
@@ -142,6 +143,8 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是 |  |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 | passThrough | json_object | 透传字段，该字段内容与请求参数data中extra的passThrough的值相同 | 否 |  |
 
@@ -450,6 +453,8 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 辅助信息 | 是 | 视频文件的截帧总数 |
+| billingAudioDuration | float | 审核的视频中音频的时长 | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 辅助信息 | 是 | 视频时长 |
 
 <span id="frameDetail2">其中，frameDetail数组中每个成员的具体内容如下：</span>
@@ -729,9 +734,10 @@ businessDetail中，persons数组的每个元素的内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -761,6 +767,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
+| EXTREMEWEATHER | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等 |
 
 ## 接口响应码列表
 
@@ -773,7 +780,7 @@ code请求返回码列表如下：
 | 1901     | QPS超限          |
 | 1902     | 参数不合法       |
 | 1903     | 服务失败         |
-| 1907     | 获取视频长度超时 |
+| 1905     | 识别内容不规范   |
 | 9100     | 余额不足         |
 | 9101     | 无权限操作       |
 
@@ -785,12 +792,11 @@ code请求返回码列表如下：
 {
     "accessKey": "**********",
     "appId": "default",
-    "btId": "1639824316368",
     "eventId": "video",
-    "imgType": "POLITICS_VIOLENCE_BAN_PORN_MINOR_AD_SPAM_LOGO_STAR_OCR",
-    "imgBusinessType": "SCREEN_SCENCE_QR_FACE_QUALITY_MINOR_LOGO_BEAUTY_FACECOMPARE",
-    "audioType": "POLITICAL_PORN_AD_MOAN_ABUSE",
-    "audioBusinessType": "SING_LANGUAGE_MINOR_GENDER_TIMBRE",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "imgBusinessType": "BODY_FOOD_3CPRODUCTSLOGO",
+    "audioType": "POLITY_EROTIC_ADVERT_MOAN",
+    "audioBusinessType": "SING_LANGUAGE",
     "callback": "http://www.xxx.top/xxx",
     "data": {
         "btId": "1639824316368",
@@ -1051,7 +1057,9 @@ code请求返回码列表如下：
 	"riskLevel": "REJECT",
 	"auxInfo": {
 		"frameCount": 2,
-		"time": 85
+		"time": 85,
+		"billingAudioDuration":85,
+		"billingImgNum":2,
 		"passThrough": {
                 "passThrough1": "透传字段1",
                 "passThrough2": "透传字段2",

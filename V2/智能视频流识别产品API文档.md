@@ -55,8 +55,9 @@
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
+| lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>`VOLC`：火山引擎审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
+| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议，支持`flv`,`m3u8`格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>`VOLC`：火山引擎审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#zegoParam) |
@@ -69,8 +70,8 @@
 | returnAllText | bool | 返回音频流片段识别结果的风险等级 | 非必传参数 | 可选值如下：(默认值为`false`)<br/>`false`：返回风险等级为非pass的音频片段与文本内容<br/>`true`：返回所有风险等级的音频片段与文本内容 |
 | returnPreText | bool | 为true表示返回前10秒和当前10秒共20秒音频片段的文本内容| 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回的content字段包含违规音频前10秒文本内容<br/>`false`:返回的content字段只包含违规音频片段文本内容 |
 | returnPreAudio | bool |  为true表示返回前10秒和当前10s共20秒的音频片段链接 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:返回违规音频前10秒音频链接<br/>`false`:只返回违规片段音频链接 |
-| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数（returnFinishInfo为true时返回）：) |
-| detectFrequency | float | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认3s截帧一次 |
+| returnFinishInfo | bool |为true时，流结束时返回结束通知 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:审核结束时发起结束通知<br/>`false`:审核结束时不发送结束通知 ，详细返回参数见[结束流返回参数](#审核结束回调参数) |
+| detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s；如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | channel | string | 渠道标识 | 非必传参数 | 用户根据不同业务场景，选配不同的渠道 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
@@ -87,7 +88,9 @@
 | channelKey | string | | 非必传参数 | 安全要求较高的用户可以使用 ChannelKey，<br/>[获取方式详见声网文档ChannelKey生成方式](https://docs.agora.io/cn/Interactive%20Broadcast/token_server?platform=All%20Platforms "声网channelKey说明地址")|
 | channelProfile | int | 声网录制的频道模式 | 否 | 可选值如下：（默认值为`0`）<br/>`0`: 通信（默认）,即常见的 1 对 1 单聊或群聊，<br/>频道内任何用户可以自由说话；<br/>`1`: 直播，有两种用户角色: 主播和观众。 |
 | uid | int | 用户ID | 非必传参数 | 32位无符号整数。当channelKey存在时，<br/>必须提供生成channelKey时所使用的用户ID。<br/>注意，此处需要区别实际房间中的用户uid，<br/>提供给服务端录制所用的uid不允许在房间中存在 |
-| subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。 |
+| enableIntraRequest | bool | 是否启用关键帧请求 | 非必传参数 | 该参数默认为 true，可改善弱网下的音视频体验。如需使单流模式下录制的视频可指定播放位置，须将 `enableIntraRequest` 设为 false。<br/>false：禁用关键帧请求，频道内的所有发流端均每 2 秒发送一次关键帧。禁用后，单流模式下录制的视频可指定播放位置。<br/>true：（默认）由发流端控制是否启用关键帧请求。启用后，单流模式下录制的视频文件播放时无法指定播放位置。 |
+| enableH265Support | bool | 是否支持录制 H.265 视频流 | 非必传参数 | false：（默认）不支持录制 H.265 视频流。频道内的远端用户无法发 H.265 视频流。<br/>true：支持录制 H.265 视频流。 |
+| subscribeMode | string | 订阅模式 | 非必传参数 | `AUTO`: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为<br/>`UNTRUSTED`: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流<br/>`TRUSTED`: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有trustedUserIdList名单外的用户进入房间，即untrustedUserIdList为空，数美将主动结束审核。 |
 | trustedUserIdList | int_array | 信任用户的列表 | 非必传参数 | subscribeMode为`TRUSTED`时生效，不允许为空，数美不会订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 | untrustedUserIdList | int_array | 非信任用户的列表 | 非必传参数 | subscribeMode为`UNTRUSTED`时生效，不允许为空，数美只订阅房间内该列表指定的用户流<br/>逗号拼接的UID数组，如`[1,2]`，用户上限17个 |
 
@@ -110,7 +113,6 @@
 | --- | --- | --- | --- | --- |
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，<br/>用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
 | streamId | string | Zego流Id | 必传参数 | Zego的流ID |
-| testEnv | bool | 是否使用zego测试环境 | 非必传参数 | 可选值如下：（默认值为`false`）<br/>`true`:测试环境<br/>`false`:正式环境 |
 
 <span id="volcParam">其中，data.volcParam内容如下：</span>
 
@@ -201,6 +203,7 @@
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
+| qrContent | string | 截帧图片二维码识别内容 | 否 |imgType传值需要包含AD，且只有完整可以正常识别到的二维码才会返回|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
 截帧图片detail中，businessLabels数组的每个成员的内容如下：
@@ -275,6 +278,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | isSing | int | 检测该片段是否为唱歌| 否 |type取值包含SING时存在，<br/>取值0表示检测不存在唱歌片段，<br/>取值1表示检测存在唱歌片段|
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#language) |
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
+| content  | string | 视频中音频识别出的文字内容 | 否 | content在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本|
 | userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
 | strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
@@ -310,7 +314,9 @@ businessDetail中，persons数组的每个元素的内容如下：
 
 <span id="tokenRiskLabels">其中，tokenRiskLabels数组每个成员的具体字段同tokenProfileLabels</span>
 
-### 审核结束回调参数（returnFinishInfo为true时返回）：
+### 审核结束回调参数
+
+returnFinishInfo为true时返回
 
 | **参数名**        | **类型**    | **参数说明**                                 | **是否必返** | **规范**                                                     |
 | ----------------- | ----------- | -------------------------------------------- | ------------ | ------------------------------------------------------------ |
@@ -423,9 +429,10 @@ businessDetail中，persons数组的每个元素的内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -480,6 +487,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx",
     "audioType":"PORN_AD",
     "data":{
+        "lang":"zh",
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
         "returnAllImg":1,
@@ -502,6 +510,7 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "agoraParam":{
             "appId":"xxx",
             "channel":"letdo",
@@ -530,10 +539,10 @@ code请求返回码列表如下：
     "audioCallback":"http://xxx/",
     "audioType":"AD_PORN",
     "data":{
+        "lang":"zh",
         "zegoParam":{
             "tokenId":"xxx",
-            "streamId":"xxxx",
-            "testEnv":654321
+            "streamId":"xxxx"
         },
         "channel":"VIDEOSTREAM",
         "detectFrequency":3,
@@ -553,13 +562,14 @@ code请求返回码列表如下：
 **TRTC流**
 ```json
 {
-    "accessKey":"4Ky6AV4hE0pWLeG1bXNw}",
+    "accessKey":"xxxxxxx",
     "appId":"default",
     "imgType":"PORN_AD",
     "audioType":"NONE",
     "imgCallback":"http://10.0.20.208:8000/",
     "audioCallback":"http://10.0.20.208:8000/",
     "data":{
+        "lang":"zh",
         "streamType":"TRTC",
         "tokenId":"test_videostream_v2",
         "trtcParam":{
@@ -677,7 +687,7 @@ code请求返回码列表如下：
 
 ```json
 {
-    "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+    "accessKey": "xxxxxxxxxx",
     "requestId": "1639825145166"
 }
 ```

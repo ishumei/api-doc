@@ -7,7 +7,7 @@
 
 | 集群 | URL | 支持产品列表 |
 | --- | --- | --- |
-| 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本<br/> 国际化文本 |
+| 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
 | 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
 | 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
@@ -36,6 +36,7 @@
 | eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | Y | 可选值：<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`TEXTRISK`：常规风险检测（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`: 未成年人内容检测<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD`<br/>type间组合取并集，如：`TEXTRISK_POLITY`按照常规风险检测处理 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
+| kbType | string | 知识库类型 | N | 知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务<br/>可选值：<br/>`PKB`：启用涉政知识库功能<br/> |
 
 <span id="data"> 其中，data的内容如下：</span>
 
@@ -44,10 +45,11 @@
 | text | string | 需要检测的文本 | Y | 单次请求字符数上限1万字，超过1万字符时会报错。<br/>若传递nickname字段，则会同时校验文本+昵称内容。|
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
-| nickname | string | 用户昵称 | N | 校验昵称内容风险 |
+| nickname | string | 用户昵称 | N | 校验昵称内容风险，长度限制150字符，超出部分会被截断 |
 | ip | string | ip地址 | N | 发送该文本的的用户公网ipv4地址 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
 | extra | json\_object | 辅助参数 | N | 用于辅助文本检测的相关信息,[详见extra参数](#extra) |
+| dataId | string | 数据标识 | N | 数据标识 |
 
 <span id="extra">data 中 extra数组每个元素的内容如下：</span>
 
@@ -69,8 +71,8 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905` : 字数超限<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
+| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905` : 字数超限<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>字数超限<br/>无权限操作 |
 | requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | riskLabel1| string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
@@ -85,6 +87,7 @@
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | langResult | json_object | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
+| kbDetail | json_object| 知识库详情 | N |知识库详情，[详见kbDetail参数](#kbDetail)|
 
 <span id="langResult">其中，语种信息langResult结构如下：</span>
 
@@ -98,14 +101,14 @@
 | --- | --- | --- | --- | --- |
 | filteredText| string | 辅助信息 | N| 敏感词被替换为*后的文本（该参数仅在命中敏感词时存在） <br/>语境模型，联系方式相关风险不返回该字段 |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
-| contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
+| contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
 | unauthorizedType | string | 辅助信息 | N | 未授权的type。 |
 
 <span id="contactResult">auxInfo中，contactResult数组每个元素的内容如下：</span>
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
+| contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号  |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
 <span id="riskDetail">其中，riskDetail的内容如下：</span>
@@ -180,6 +183,14 @@
 | label3      | string | 三级标签     | 否       |                            |
 | description | string | 标签描述     | 否       |                            |
 | timestamp   | Int    | 打标签时间戳 | 否       | 13位Unix时间戳，单位：毫秒 |
+
+<span id="kbDetail">其中，kbDetail字段内容如下：</span>
+
+| **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| qlabel| string | 问题标签| Y| 可选值：<br/>`UNKNOWN`:  没有匹配<br/>`CANNOT_ASK`：问题本身不可提问/不可输入<br/>`EXACTNESS`：问题答案必须正确。包括立场正确<br/>`POSITIVE`：问题答案需要包含正向引导<br/> |
+| answer | string | 建议答案 | Y | 当qlabel为“EXACTNESS”或者“POSITIVE”时，会给出数美建议的符合要求的答案。 |
+
 
 当lang字段取值zh，或取值auto被识别为中文时，一级标签的内容如下：
 

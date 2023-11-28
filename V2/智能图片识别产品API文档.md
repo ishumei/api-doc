@@ -66,9 +66,8 @@
 
 `UTF-8`
 
-### 建议超时时间：
-
-5s
+### 建议超时时间：10s
+目前数美侧下载图片时的连接超时时间是2s，读取超时时间是3s，内部平均处理时间在500ms左右（具体时长和请求type，图片大小相关），下载失败会重试一次，建议客户设置超时时间为7-10s
 
 ### 请求参数：
 
@@ -113,6 +112,7 @@
 | interval | int | gif截帧频率 | 非必传参数 | GIF图检测专用，默认值为1。每interval张图片抽取一张进行检测。<br/>当interval*maxFrame小于该图片所包含的图片数量时，截帧间隔会自动修改为该图片所包含的图片数/maxFrame，以提高整体检测效果。 |
 | isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
 | passThrough | json_object | 透传参数 | 非必传参数 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 ## 同步返回结果
 
@@ -121,9 +121,9 @@
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | code | int | 返回码 | 是 | [详见code与message对应关系](#code-message) |
-| message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败余额不足无权限操作 |
+| message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，唯一标识该次图片审核任务 |
-| taskId | string | 任务编号 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| taskId | string | 任务编号 | 是 |  |
 | btId | string | 用户上传的图片标识 | 否 | 用户请求的图片标识（当请求中传入btId时存在）|
 | score | int | 风险分数 | 否 | 风险分数（callback不存在或者为空并且code为1100时存在）取值范围[0,1000]，分数越高风险越大 |
 | riskLevel | string | 风险级别 | 否 | 风险级别（callback不存在或者为空并且code为1100时存在）可能返回值：PASS，REVIEW，REJECT<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
@@ -141,8 +141,8 @@
 | 1901 | QPS超限 |
 | 1902 | 参数不合法 |
 | 1903 | 服务失败 |
+| 1905 | 识别内容不规范 |
 | 1911 | 下载超时 |
-| 9100 | 余额不足 |
 | 9101 | 无权限操作 |
 
 <span id="detail">其中，detail结构如下：</span>
@@ -155,7 +155,7 @@
 | description | string | 拦截的风险原因解释 | 是 | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | descriptionV2 | string | 新版策略规则风险原因描述 | 否 | 该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
 | hits | string_array | 命中的策略集 | 否 | 默认为空，需与数美协商开通 |
-| text | string | OCR识别出的文字 | 否 | OCR识别出的文字 |
+| text | string | OCR识别出的文字 | 否 | OCR识别出的文字,original_text、original_text_context字段同text返回内容一样，为老字段，后续废弃，不建议客户使用 |
 | matchedItem | string | 命中的具体敏感词 | 否 | 命中的具体敏感词（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedList | string | 命中敏感词所在的名单名称 | 否 | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在），可根据需求返回该参数 |
 | matchedDetail | string | 命中的敏感词详细信息 | 否 | 命中的敏感词详细信息，可以反序列化为json_array，可根据需求返回该参数 |
@@ -201,7 +201,7 @@ businessLabels数组中的businessDetail的内容如下：
 | name | string | 明星人物名称<br/>图片中的明星人名type传值包含`FACE`时存在 | 否 |  |
 | probability | float | 明星人物置信区间<br/>可选值在0～1之间，值越大，可信度越高，当且仅当name存在时出现 | 否 |  |
 | face_ratio | float | 人脸占比<br/>在区间0-1，数值越大，人脸占比越高type传值包含`FACE`时存在 | 否 |  |
-| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 | |
+| faces | json_array | 当命中人脸标签下的年龄，颜值等相关的标签时返回 | 否 | |
 | objects | json_array | 返回图片中物品或标志二维码的位置信息 |  | 数组仅会有一个元素 |
 | persons | json_array | 人像数量 |  |  |
 | face_num | int | 其他情况下，仅有一个数组元素人脸数检测<br/>图片中检测到的人脸个数<br/>仅当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个） | 否 | |
@@ -304,9 +304,9 @@ businessDetail中，persons数组每个元素的内容如下：
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | code | int | 返回码| 是 | [详见code与message对应关系](#code-message) |
-| message | string | 返回码描述 | 是 | 和code对应：成功/QPS超限/参数不合法/服务失败/余额不足/无权限操作 |
+| message | string | 返回码描述 | 是 | 和code对应：成功/QPS超限/参数不合法/服务失败/无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，唯一标识该次图片审核任务 |
-| taskId | string | 任务编号 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| taskId | string | 任务编号 | 是 |  |
 | btId | string | 用户上传的图片标识 | 否 | 用户请求的图片标识（当请求中传入btId时存在）|
 
 如果在请求参数中指定了回调协议接口URL callback，则需要支持POST方法，传输编码采用utf-8，审核结果放在HTTP Body中，采用Json格式，具体参数和V2单张同步请求结果相同。
@@ -465,9 +465,8 @@ businessDetail中，persons数组每个元素的内容如下：
 
 `UTF-8`
 
-### 建议超时时间：
-
-60s
+### 建议超时时间：20s
+目前数美侧单张图片下载时的连接超时时间是2s，读取超时时间是3s，内部平均处理时间在500ms左右（具体时长和请求type，图片大小相关），下载失败会重试一次，批量图片服务内部分两次并行处理，建议客户设置超时时间为14-20s
 
 ### 请求参数：
 
@@ -505,6 +504,7 @@ businessDetail中，persons数组每个元素的内容如下：
 | interval | int | gif截帧频率 | 非必传参数 | GIF图检测专用，默认值为1。每interval张图片抽取一张进行检测。<br/>当interval*maxFrame小于该图片所包含的图片数量时，截帧间隔会自动修改为该图片所包含的图片数/maxFrame，以提高整体检测效果。 |
 | isTokenSeparate | int | 是否区分不同应用下的账号 | 非必传参数 | 是否区分不同应用下的账号，可能取值：<br/>0:不区分<br/>1:区分<br/>默认值为0。<br/>取值为1时不同应用下的账号体系各自独立，账号相关的策略特征在不同应用下单独统计和生效。 |
 | passThrough | json_object | 透传参数 | 非必传参数 | 客户传入透传字段，数美内部不回对该字段进行识别处理，随结果返回给用户，必须为json_object类型 |
+| dataId | string | 客户自定义数据Id | 非必传参数 |可以用于数美saas后台检索 |
 
 其中，imgs数组每个成员的具体内容如下：
 
@@ -520,7 +520,7 @@ businessDetail中，persons数组每个元素的内容如下：
 | **参数名称** | **参数类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | code | int | 返回码 | 是 | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败<br/>`9101`：无权限操作<br/>除message和requestId之外的字段，只有当code为1100时才会存在 |
-| message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败余额不足无权限操作 |
+| message | string | 返回码描述 | 是 | 和code对应：成功QPS超限参数不合法服务失败无权限操作 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | imgs | json_array | 检测结果 | 否 | 多张图片的识别结果（code为1100时存在） |
 | statistics | int_array | 整形数组 | 否 | 整形数组，长度为4，分别表示一次批量图片请求中拒绝数、审核数、通过数（code为1100时存在）和错误数 |
@@ -747,6 +747,7 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
 | COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
 | FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 |如识别懂车帝、易车、太平洋汽车、爱卡等LOGO  |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -776,6 +777,8 @@ https://webapi.fengkongcloud.com/saas/feedback/add/v1
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
+| EXTREMEWEATHER  | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等  |
+| LICENCEPLATE    | 车牌识别     |  |
 
 
 # FAQ

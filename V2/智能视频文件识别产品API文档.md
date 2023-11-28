@@ -53,9 +53,9 @@
 | appId | string | 应用标识 | 必传参数 | 用于区分应用，需要联系数美开通，请使用数美单独提供的传值为准 |
 | btId | string | 视频唯一标识 | 必传参数 | 视频唯一标识，用于查询识别结果，最长64位 |
 | imgType | string | 视频中的画面需要识别的监管类型，**和imgBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`OCR`：图片中的文字风险识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如`AD_PORN_POLITICS`用于广告、色情和涉政组合识别 |
-| audioType | string | 视频中的音频需要识别的监管类型 | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
+| audioType | string | 视频中的音频需要识别的监管类型， **和audioBusinessType至少传一个** | 非必传参数 | 监管一级标签<br/>可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如`POLITICS_PORN_MOAN`用于广告、色情和涉政识别 |
 | imgBusinessType | string | 视频中的画面需要识别的业务类型， **和imgType至少传一个** | 非必传参数 | 可选值参考[imgBusinessType可选值列表](#imgbusinesstype可选值列表)<br/> |
-| audioBusinessType | String | 视频中的音频业务识别类型 | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
+| audioBusinessType | String | 视频中的音频业务识别类型， **和audioType至少传一个** | 非必传参数 | 业务一级标签<br/>可选值：<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）<br/>`MINOR`：未成年人识别<br/>`GENDER`：性别识别<br/>`TIMBRE`：音色识别，需要同时传入`GENDER`才能生效 |
 | callback | string | 指定回调url地址 | 非必传参数 | 当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | callbackParam | json_object | 回调透传字段 | 非必传参数 |  |
 | data | json\_object | 本次请求相关信息，最长1MB | 必传参数 | 最长1MB，其中[data内容如下](#data) |
@@ -67,9 +67,9 @@
 | url | string | 要检测的视频url地址 | 必传参数 | |
 | tokenId | string | | 必传参数 | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID； 最长40位 |
 | lang | string | 语言类型 | 非必传参数 | 可选值：<br/>zh ：中文<br/>en ：英文<br/>ar ：阿拉伯语<br/>不传默认进行中文检测 |
-| detectFrequency | float | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为0.5~60s；如不传递默认5s截帧一次 |
+| detectFrequency | int | 截帧频率间隔，单位为秒 | 非必传参数 | 取值范围为1~60s；如不传递默认5s截帧一次 |
 | advancedFrequency | json_object | 高级截帧间隔，单位为秒 | 非必传参数 | 高级截帧设置，此项填写，默认截帧策略失效<br/>参数配置如下<br/>{"durationPoints":[300,600],"frequencies":[1,5,10]}<br/>含义为：<br/>视频文件时长≤300s ——选用1s一截帧<br/>300s<视频文件时长≤600s ——选用5s一截帧<br/>视频文件时长>600s ——选用10s一截帧 |
-| ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
+| ip | string | 客户端IP | 非必传参数 | 用于IP维度的用户行为分析，同时可用于比对数美IP黑库，支持ipv4和ipv6的传入 |
 | audioDetectStep | int | 视频文件中的音频审核步长 | 非必传参数 | 单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审 |
 | retallImg | int | | 非必传参数 | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片1：返回所有风险等级的图片默认为0 |
 | retallAudio | int | | 非必传参数 | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为0 |
@@ -77,13 +77,14 @@
 | subtitle | string | 视频字幕 | 非必传参数 | 文本内容审核 |
 | videoCover | string | 视频封面 | 非必传参数 | 视频封面图片审核 |
 | channel | string | 客户渠道（不传为默认值） | 非必传参数 |[渠道配置表示例参考](#channel)  |
+| dataId | string | 数据标识 | 非必传参数 | |
 
 <span id="advancedFrequency">data 中，advancedFrequency的内容如下</span>
 
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
-| durationPoints | Object[] | 视频时长区间分割 | 非必传参数 | 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个 |
-| frequencies | Object[] | 视频时长区间对应的截帧频率 | 非必传参数 | 可设置范围为0.5~60秒，数组最多6个<br/>说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902|
+| durationPoints | int_array | 视频时长区间分割 | 非必传参数 | 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个 |
+| frequencies | int_array | 视频时长区间对应的截帧频率 | 非必传参数 | 可设置范围为1~60秒，数组最多6个<br/>说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902 |
 
 <span id="channel">data 中，channel的内容如下</span>
 
@@ -164,6 +165,8 @@
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | frameCount | int | 返回的视频截帧数量。retallImg=0时为风险数量，retallImg=1时为全部数量 | 是 |  |
+| billingAudioDuration | float | 审核的视频中音频的时长  | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time | int | 视频时长 | 是 |  |
 
 <span id="frameDetail">其中，截帧图片detail数组中每个成员的具体内容如下：</span>
@@ -372,6 +375,8 @@ businessDetail中，persons数组的每个元素的内容如下：
 | **参数名** | **类型** | **参数说明** | **是否必返** | **规范**           |
 | ---------- | -------- | ------------ | ------------ | ------------------ |
 | frameCount | int      | 辅助信息     | 是           | 视频文件的截帧总数 |
+| billingAudioDuration | float | 审核的视频中音频的时长  | 是 |  |
+| billingImgNum | int | 审核的视频截帧数量 | 是 |  |
 | time       | int      | 辅助信息     | 是           | 视频时长           |
 
 <span id="callbackV2.callbackParameters.query..frameDetail">其中，detail中每个成员的具体内容如下：</span>
@@ -551,9 +556,10 @@ addition中，audio_evidence的每个元素详细内容如下：
 | ENTERTAINMENTAPPSLOGO | LOGO - 影音娱乐类应用 | 如识别抖音、快手等LOGO |
 | SPORTSLOGO | LOGO  - 体育赛事 | 如识别奥运会等LOGO |
 | APPARELLOGO | LOGO - 鞋帽服饰类品牌 | 如识别VANS、H&M等LOGO |
-| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO | 
-| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO | 
-| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO | 
+| ACCESSORIESLOGO | LOGO - 饰品首饰类品牌 | 如识别AudemarsPiguet、Nomos等LOGO |
+| COSMETICSLOGO | LOGO - 化妆品类品牌 | 如识别LOTTE、EyesLipsFace等LOGO |
+| FOODLOGO | LOGO - 食品类品牌 | 如识别Starbucks、LOTTE等LOGO |
+| AUTOTRADEAPPSLOGO | LOGO - 汽车交易平台类 | 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO |
 | VEHICLE | 物品-交通工具 |  |
 | BUILDING | 物品-建筑 |  |
 | TABLEWARE | 物品-餐具 |  |
@@ -583,6 +589,7 @@ addition中，audio_evidence的每个元素详细内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
+| EXTREMEWEATHER | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等 |
 
 ## 接口响应码列表
 
@@ -646,7 +653,7 @@ code请求返回码列表如下：
 ### 异步回调结果示例：
 
 ```json
-{"checksum":"fcb7908131854c7bd451194a7d87f0d832bbd724bd2affbb70d75e109ed4c243","result":"{\"code\":1100,\"message\":\"成功\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8\",\"btId\":\"515032468\",\"labels\":\"音频文字:色情：性骚扰：重度性骚扰-音频 正常-图像 \",\"detail\":[{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v0.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D2d0c13df3ea2235b4fc97dfdeb8ac2b6357f05a6\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v0\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0,\"time\":0},{\"description\":\"正常-图像\",\"imgText\":\"0D入\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v5.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D1445219d6ffc3101c66defb8931c5d8e99be1e7c\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v5\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.3828125,\"time\":5},{\"description\":\"正常-图像\",\"imgText\":\"LD\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v10.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3Dd073b20f6472b10f324659c1d99f42a2b2b4ab8d\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v10\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.6640625,\"time\":10},{\"description\":\"正常-图像\",\"imgText\":\"山\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v15.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D02fefdc10611061b450c1ec64e1342442e8206fe\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v15\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.77734375,\"time\":15},{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v20.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D40829c647570c532d8faab28c36f0898757eaed3\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v20\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.7421875,\"time\":20},{\"description\":\"正常-图像\",\"imgText\":\"#######\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v25.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D64701f589de799dfed252e6a7b86d2db1764b255\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v25\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.796875,\"time\":25},{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v30.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D97c04340256ec3394baa010f9becdc30d971669d\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v30\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.7265625,\"time\":30}],\"auxInfo\":{\"frameCount\":7,\"time\":31},\"addition\":{\"audio_evidence\":[{\"audioModel\":\"MA000003002001000\",\"audioText\":\"想你等五百头我还是一样喜欢你，自慰，的\",\"audio_endtime\":30,\"audio_starttime\":20,\"audio_url\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/audio%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_a0002.wav?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D95d7c542d6546f85d3801f06744991620806f982\",\"description\":\"音频文字:色情：性骚扰：重度性骚扰-音频\",\"isSing\":0,\"language\":[{\"confidence\":0.0314832,\"label\":2},{\"confidence\":99.9603,\"label\":0},{\"confidence\":0.0366747,\"label\":1}],\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_a0002\",\"riskLevel\":\"REJECT\",\"riskSource\":1001,\"riskType\":200}],\"subtitleDetail\":{\"code\":1100,\"description\":\"辱骂:辱骂:辱骂\",\"message\":\"成功\",\"requestId\":\"dbdddcbd4684a10e71bce2f768b9ec9csubtitle\",\"riskLevel\":\"REJECT\"},\"videoCoverDetail\":{\"code\":1100,\"description\":\"色情:色情:色情\",\"message\":\"成功\",\"requestId\":\"dbdddcbd4684a10e71bce2f768b9ec9cvideoCover\",\"riskLevel\":\"REJECT\"}},\"riskLevel\":\"REJECT\"}"}
+{"checksum":"fcb7908131854c7bd451194a7d87f0d832bbd724bd2affbb70d75e109ed4c243","result":"{\"code\":1100,\"message\":\"成功\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8\",\"btId\":\"515032468\",\"labels\":\"音频文字:色情：性骚扰：重度性骚扰-音频 正常-图像 \",\"detail\":[{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v0.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D2d0c13df3ea2235b4fc97dfdeb8ac2b6357f05a6\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v0\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0,\"time\":0},{\"description\":\"正常-图像\",\"imgText\":\"0D入\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v5.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D1445219d6ffc3101c66defb8931c5d8e99be1e7c\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v5\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.3828125,\"time\":5},{\"description\":\"正常-图像\",\"imgText\":\"LD\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v10.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3Dd073b20f6472b10f324659c1d99f42a2b2b4ab8d\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v10\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.6640625,\"time\":10},{\"description\":\"正常-图像\",\"imgText\":\"山\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v15.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D02fefdc10611061b450c1ec64e1342442e8206fe\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v15\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.77734375,\"time\":15},{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v20.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D40829c647570c532d8faab28c36f0898757eaed3\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v20\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.7421875,\"time\":20},{\"description\":\"正常-图像\",\"imgText\":\"#######\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v25.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D64701f589de799dfed252e6a7b86d2db1764b255\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v25\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.796875,\"time\":25},{\"description\":\"正常-图像\",\"imgUrl\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/image%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_v30.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452139%3B1644044139%26q-key-time%3D1641452139%3B1644044139%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D97c04340256ec3394baa010f9becdc30d971669d\",\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_v30\",\"riskLevel\":\"PASS\",\"riskSource\":1000,\"riskType\":0,\"similarity\":0.7265625,\"time\":30}],\"auxInfo\":{\"frameCount\":7,\"time\":31,\"billingAudioDuration\":31,\"billingImgNum\":7},\"addition\":{\"audio_evidence\":[{\"audioModel\":\"MA000003002001000\",\"audioText\":\"想你等五百头我还是一样喜欢你，自慰，的\",\"audio_endtime\":30,\"audio_starttime\":20,\"audio_url\":\"http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/audio%2F20220106%2Fe7a59eebd431415e92684cb6151c4de8_a0002.wav?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW%26q-sign-time%3D1641452138%3B1644044138%26q-key-time%3D1641452138%3B1644044138%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D95d7c542d6546f85d3801f06744991620806f982\",\"description\":\"音频文字:色情：性骚扰：重度性骚扰-音频\",\"isSing\":0,\"language\":[{\"confidence\":0.0314832,\"label\":2},{\"confidence\":99.9603,\"label\":0},{\"confidence\":0.0366747,\"label\":1}],\"requestId\":\"e7a59eebd431415e92684cb6151c4de8_a0002\",\"riskLevel\":\"REJECT\",\"riskSource\":1001,\"riskType\":200}],\"subtitleDetail\":{\"code\":1100,\"description\":\"辱骂:辱骂:辱骂\",\"message\":\"成功\",\"requestId\":\"dbdddcbd4684a10e71bce2f768b9ec9csubtitle\",\"riskLevel\":\"REJECT\"},\"videoCoverDetail\":{\"code\":1100,\"description\":\"色情:色情:色情\",\"message\":\"成功\",\"requestId\":\"dbdddcbd4684a10e71bce2f768b9ec9cvideoCover\",\"riskLevel\":\"REJECT\"}},\"riskLevel\":\"REJECT\"}"}
 ```
 
 ### 查询接口结果示例：
@@ -659,6 +666,12 @@ code请求返回码列表如下：
     "requestId": "25321f666ac62c57e2d59ac47e815350",
     "btId": "515032468",
     "labels": "音频文字:色情：性骚扰：重度性骚扰-音频 正常-图像 ",
+    "auxInfo":{
+        "frameCount":7,
+        "billingAudioDuration":31,
+        "billingImgNum":7,
+        "time":31
+    },
     "detail": [
         {
             "description": "正常-图像",

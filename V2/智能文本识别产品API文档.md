@@ -44,7 +44,7 @@
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | gender | int | 用户性别 | N | 可选值<br/>`0`:女性<br/>`1`:男性<br/> |
 | channel | string | 业务场景 | N | 渠道表配置 |
-| nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N |  |
+| nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险，长度限制150字符，超出部分会被截断 | N |  |
 | ip | string | ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N |  |
 | phone | string | 用户手机号，可用于比对数美手机号黑库 | N |  |
 | deviceId | string | 数美设备标识，强烈建议传入该参数，数美设备指纹标识，用于用户行为分析。当恶意用户篡改mac、imei等设备信息时，使用deviceId能够发现和识别此类恶意行为，同时可用于比对数美设备指纹黑名单 | N |  |
@@ -64,6 +64,7 @@
 | idfv | string | 用户iOS应用唯一标识，相比tokenId和IP，idfv不能被修改，当恶意用户使用多个不同账户和IP进行恶意行为时，使用idfv能够发现和识别此类恶意行为。 | N |  |
 | idfa | string | 用户iOS应用唯一标识，相比tokenId和IP，idfv不能被修改，当恶意用户使用多个不同账户和IP进行恶意行为时，使用idfv能够发现和识别此类恶意行为。 | N |  |
 | passThrough | json_object | 该字段内容同返回结果一起返回 | N |  |
+| dataId | string | 数据标识 | N |  |
 
 ## 返回结果
 
@@ -73,8 +74,8 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
+| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>字数超限<br/>无权限操作 |
 | requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
 | score | int | 风险分数 | N | 取值范围[0,1000]，分数越高风险越大 |
 | riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
@@ -98,7 +99,7 @@
 | filteredText      | string      | N            | 命中的敏感词被替换为*后的文本（该参数仅在命中敏感词时存在）  |
 | matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
 | matchedItem       | string      | N            | 命中的具体敏感词（该参数仅在命中敏感词时存在）               |
-| contactResult     | json_array  | N            | 联系方式识别结果，包含识别出的微信、微博、QQ、手机号的字符串类型和内容。详细信息见下表说明。[详见联系方式](#contactResult) |
+| contactResult     | json_array  | N            | 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。详细信息见下表说明。[详见联系方式](#contactResult) |
 | matchedDetail     | string      | N            | 命中的敏感词详细信息（需要和数美沟通开启相应策略）,可以反序列化为json_array。[详见matchedDetail](#matchedDetail) |
 | passThrough       | json_object | N            | 该字段是客户传入透传字段                                     |
 | sexy_risk_tokenid | float       | N            | 色情账号分，取值[0,1]                                        |
@@ -109,7 +110,7 @@
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号 <br/>`3`: 微博号 |
+| contactType | int| 辅助信息 | N| 联系方式类型，可选值区间【0-3】，详情如下：<br/>`0`: 手机号 <br/>`1`: QQ号 <br/>`2`: 微信号  |
 | contactString | string | 辅助信息 | N| 联系方式串 |
 
 <span id="matchedDetail">其中，matchedDetail内容：</span>
@@ -121,9 +122,9 @@
 | name           | string       |              | Y            | 命中敏感词所在的名单名称                                     |
 | organization   | string       |              | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
 | words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPostitions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPostitions](#words) |
+| wordPositions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words) |
 
-<span id="words">wordPostitions中的每一项内容：</span>
+<span id="words">wordPositions中的每一项内容：</span>
 
 | **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
