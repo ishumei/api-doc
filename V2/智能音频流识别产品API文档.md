@@ -86,7 +86,7 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | <p>流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
+| streamType    | string      | Y            | 流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
 | ginParam    | json_object | Y            | 巨人录制参数（当streamType为GIN时必传），详见扩展参数                                                   |
