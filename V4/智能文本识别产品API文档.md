@@ -88,6 +88,21 @@
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | langResult | json_object | 语种信息 | N | 语种信息。[详见语种信息参数](#langResult) |
 | kbDetail | json_object| 知识库详情 | N |知识库详情，[详见kbDetail参数](#kbDetail)|
+| finalResult       | int  | 是否最终结果 | Y |值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用<br/>值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司 |
+| resultType       | int  | 当前结果是机审还是人审环节结果 |Y|0:机审，1:人审 |
+| disposal       | json_object  | 处置和映射结果 | N |数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段 |
+
+<span id="disposal">其中，disposal结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 |若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议|
+| riskLabel1 | string | 映射后一级风险标签 | Y | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | Y |二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | Y |三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskDescription | string | 映射后风险原因 | Y |当riskLevel为PASS时为"正常" |
+| riskDetail | json_object | 映射后风险详情 | Y | [详见riskDetail参数](#riskDetail) |
+
 
 <span id="langResult">其中，语种信息langResult结构如下：</span>
 
@@ -304,6 +319,8 @@
     ],
     "code":1100,
     "message":"成功",
+    "finalResult":1,
+    "resultType":0,
     "requestId":"bb917ec5fa11fd02d226fb384968feb1",
     "riskDescription":"广告:联系方式:联系方式",
     "riskDetail":{
