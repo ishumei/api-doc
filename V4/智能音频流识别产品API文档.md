@@ -9,7 +9,7 @@
 | ------ | ------------------------------------------------------------- | ---------------------------------------- |
 | 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、国际化 |
 | 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、国际化 |
-| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文       |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文、阿语 |
 
 ### 请求方法：
 
