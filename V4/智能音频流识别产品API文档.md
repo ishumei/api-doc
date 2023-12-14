@@ -290,11 +290,11 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 ### 请求URL：
 
-| 集群   | URL                                                          | 支持产品列表                             |
-| ------ | ------------------------------------------------------------ | ---------------------------------------- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
-| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
-| 上海   | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>阿语音频流                |
+| 集群   | URL                                                          | 支持产品列表 |
+| ------ | ------------------------------------------------------------ | ------------ |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文、国际化 |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文、国际化 |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文、阿语   |
 
 ### 
 
