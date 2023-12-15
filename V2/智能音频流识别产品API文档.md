@@ -42,19 +42,13 @@
 
 该接口用于提交音频流相关信息，接口会实时检测音频流中是否出现违规内容，并通过回调把违规信息发送给客户指定的url。
 
-### 请求URL
+### 请求URL：
 
-上海集群：
-
-http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/audiostream
-
-硅谷集群：
-
-http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream
-
-新加坡:
-
-http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/audiostream
+| 集群   | URL                                                          | <span id="language">支持语种</span> |
+| ------ | ------------------------------------------------------------ | ----------------------------------- |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、英语、阿语                    |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、英语、阿语                    |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、阿语                          |
 
 ### 字符编码格式
 
