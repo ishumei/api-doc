@@ -11,19 +11,13 @@
 
 该接口用于提交音频识别请求。
 
-### 请求URL
+### 请求URL：
 
-上海集群：
-
-http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
-
-硅谷集群：
-
-http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
-
-新加坡集群：
-
-http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/audio
+| 集群   | URL                                                          | <span id="language">支持语种</span> |
+| ------ | ------------------------------------------------------------ | ----------------------------------- |
+| 新加坡 | `http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、国际化                        |
+| 硅谷   | `http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、国际化                        |
+| 上海   | `http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、阿语                          |
 
 ### 字符编码格式
 
@@ -65,7 +59,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                                                                                    |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | url           | string      | N            | 待识别音频url地址，url和content至少提供一个                                                                                                                                 |
-| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语                                                                                                     |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化                                          |
 | content       | string      | N            | 待识别音频的base64编码数据（上限15M，仅支持pcm、wav、mp3）, pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输。url和content至少提供一个，同时存在时仅支持content |
 | formatInfo    | json_object | N            | 当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明<br/>（另外，如有其他特定音频格式的需求，在与数美沟通后，可传入该字段表示特殊解码逻辑）                               |
 | audioName     | string      | N            | 音频文件名称                                                                                                                                                                |
