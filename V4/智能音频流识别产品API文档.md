@@ -9,7 +9,7 @@
 | ------ | ------------------------------------------------------------- | ---------------------------------------- |
 | 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4` | 中文、国际化 |
 | 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/audiostream/v4`  | 中文、国际化 |
-| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文       |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/audiostream/v4`  | 中文、阿语 |
 
 ### 请求方法：
 
@@ -40,7 +40,7 @@
 | accessKey      | string      | 公司密钥       | Y                          | 由数美提供                                                   |
 | appId          | string      | 应用标识       | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
 | eventId        | string      | 事件标识       | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
-| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
+| type           | string      | 检测的风险类型 | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
 | businessType   | string      | 业务标签       | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景 |
 | data           | json_object | 请求的数据内容 | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
 | callback       | string      | 回调地址       | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
@@ -167,7 +167,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 | **参数名**  | **类型**    | **参数说明**                   | **是否必返** | **规范**                                                                                                                                                      |
 | ----------- | ----------- | ------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| requestId   | string      | 本次请求的唯一标识             | Y           |                                                                                                                                                               |
+| requestId   | string      | 本次请求的唯一标识             | Y           | 流片段唯一标识 |
 | btId        | string      | 音频唯一标识                   | Y           |                                                                                                                                                               |
 | code        | int         | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限、流路数超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：拉流失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
@@ -290,13 +290,15 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 
 ### 请求URL：
 
-| 集群   | URL                                                                  | 支持产品列表                             |
-| ------ | -------------------------------------------------------------------- | ---------------------------------------- |
-| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文音频流<br/>英语音频流<br/>阿语音频流 |
-| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4`  | 中文音频流                               |
-| 上海   | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4`  | 中文音频流                               |
+| 集群   | URL                                                          | 支持产品列表 |
+| ------ | ------------------------------------------------------------ | ------------ |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4` | 中文、国际化 |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4` | 中文、国际化 |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4` | 中文、阿语   |
 
-### 字符编码：
+### 
+
+字符编码：
 
 `UTF-8`
 

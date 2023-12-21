@@ -42,19 +42,13 @@
 
 该接口用于提交音频流相关信息，接口会实时检测音频流中是否出现违规内容，并通过回调把违规信息发送给客户指定的url。
 
-### 请求URL
+### 请求URL：
 
-上海集群：
-
-http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/audiostream
-
-硅谷集群：
-
-http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream
-
-新加坡:
-
-http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/audiostream
+| 集群   | URL                                                          | <span id="language">支持语种</span> |
+| ------ | ------------------------------------------------------------ | ----------------------------------- |
+| 新加坡 | `http://api-audiostream-xjp.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、英语、阿语                    |
+| 硅谷   | `http://api-audiostream-gg.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、英语、阿语                    |
+| 上海   | `http://api-audiostream-sh.fengkongcloud.com/v2/saas/anti_fraud/audiostream` | 中文、阿语                          |
 
 ### 字符编码格式
 
@@ -75,7 +69,7 @@ POST
 | **参数名称** | **类型**    | **是否必选** | **说明**                                                     |
 | :----------- | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                           |
-| type         | string      | N            | <p>识别类型，可选值：</p><p>EROTIC：色情识别<br/>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN_ADVERT 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
+| type         | string      | N            | <p>识别类型，可选值：</p><p>EROTIC：色情识别<br/>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN_ADVERT 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
 | businessType | string      | N            | <p>识别类型，可选值：</p><p>SING：唱歌</p><p>AGE：年龄</p><p>LANGUAGE：语种</p><p>GENDER：性别</p><p>TIMBRE：音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p> |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度            |
 | appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，需要联系数美开通，请以数美单独提供的传值为准</p> |
@@ -86,7 +80,7 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | <p>流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
+| streamType    | string      | Y            | 流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
 | ginParam    | json_object | Y            | 巨人录制参数（当streamType为GIN时必传），详见扩展参数                                                   |
@@ -222,16 +216,16 @@ POST
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名称** | **类型**    | **是否必选** | **说明**                                                                                                                                                                                   |
-| :----------- | :---------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| code         | int         | Y            | 返回码                                                                                                                                                                                     |
-| message      | string      | Y            | 返回码详情描述                                                                                                                                                                             |
-| requestId    | string      | Y            | 请求唯一标识                                                                                                                                                                               |
-| score        | int         | N            | <p>风险分数（code 为 1100 且riskLevel=REJECT时存在）</p><p>取值范围[0,1000]，分数越高风险越大</p>                                                                                          |
+| **参数名称** | **类型**    | **是否必选** | **说明**                                                     |
+| :----------- | :---------- | :----------- | :----------------------------------------------------------- |
+| code         | int         | Y            | 返回码                                                       |
+| message      | string      | Y            | 返回码详情描述                                               |
+| requestId    | string      | Y            | 流片段唯一标识                                               |
+| score        | int         | N            | <p>风险分数（code 为 1100 且riskLevel=REJECT时存在）</p><p>取值范围[0,1000]，分数越高风险越大</p> |
 | riskLevel    | string      | Y            | <p>风险级别（code 为 1100 时存在）</p><p>可能返回值：PASS，REVIEW，REJECT</p><p>PASS：正常内容，建议直接放行</p><p>REVIEW：可疑内容，建议人工审核</p><p>REJECT：违规内容，建议直接拦截</p> |
-| statCode     | int         | N            | <p>审核状态：</p><p>0 ：审核中： </p><p>1 ：审核结束</p>                                                                                                                                   |
-| detail       | json_object | Y            | 风险详情                                                                                                                                                                                   |
-| auxInfo      | json_object | N            | 辅助信息                                                                                                                                                                                   |
+| statCode     | int         | N            | <p>审核状态：</p><p>0 ：审核中： </p><p>1 ：审核结束</p>     |
+| detail       | json_object | Y            | 风险详情                                                     |
+| auxInfo      | json_object | N            | 辅助信息                                                     |
 
 其中，detail 的内容如下：
 

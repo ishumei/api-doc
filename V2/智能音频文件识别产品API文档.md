@@ -11,19 +11,13 @@
 
 该接口用于提交音频识别请求。
 
-### 请求URL
+### 请求URL：
 
-上海集群：
-
-http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio
-
-硅谷集群：
-
-http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio
-
-新加坡集群：
-
-http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/audio
+| 集群   | URL                                                          | <span id="language">支持语种</span> |
+| ------ | ------------------------------------------------------------ | ----------------------------------- |
+| 新加坡 | `http://api-audio-xjp.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、国际化                        |
+| 硅谷   | `http://api-audio-gg.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、国际化                        |
+| 上海   | `http://api-audio-sh.fengkongcloud.com/v2/saas/anti_fraud/audio` | 中文、阿语                          |
 
 ### 字符编码格式
 
@@ -52,7 +46,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                     |
 | :------------ | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey     | string      | Y            | 服务密匙，开通账号服务时由数美提供                           |
-| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
 | businessType  | string      | N            | 识别类型，可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色标签 （需要同时传入GENDER才能生效）<br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>type和 businessType 必须填其一 |
 | appId         | string      | N            | 需要联系数美开通，请以数美单独提供的传值为准                 |
 | btId          | string      | Y            | 音频唯一标识，超过128位将被截断, 不能重复，否则提示参数错误。 |
@@ -65,7 +59,7 @@ POST
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                                                                                    |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | url           | string      | N            | 待识别音频url地址，url和content至少提供一个                                                                                                                                 |
-| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语                                                                                                     |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化                                          |
 | content       | string      | N            | 待识别音频的base64编码数据（上限15M，仅支持pcm、wav、mp3）, pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输。url和content至少提供一个，同时存在时仅支持content |
 | formatInfo    | json_object | N            | 当content存在时必须存在，本地语音文件格式信息。json内具体格式见下方说明<br/>（另外，如有其他特定音频格式的需求，在与数美沟通后，可传入该字段表示特殊解码逻辑）                               |
 | audioName     | string      | N            | 音频文件名称                                                                                                                                                                |
