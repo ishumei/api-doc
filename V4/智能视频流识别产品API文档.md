@@ -112,7 +112,7 @@
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
-| streamId | string | Zego流Id | 必传参数 | Zego的流ID |
+| roomId     | string | Zego房间号    | 必传参数 | 需要审核的房间号                                             |
 
 <span id="volcParam">其中，data.volcParam内容如下：</span>
 
@@ -202,8 +202,8 @@
 | imgTime | string | 截帧图片发生时间 | 否 | 视频流截帧图片违规发生的时间（绝对时间） |
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
-| userId | int | 声网用户账号标识 | 否 | 仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
-| strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
+| userId            | int      | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
+| strUserId         | string   | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
 | similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
@@ -366,9 +366,9 @@ businessDetail中，persons数组的每个元素的内容如下：
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | audio_starttime | string | 辅助参数 | 是 | 违规内容开始时间（绝对时间） |
 | audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
-| userId | int | 声网用户账号标识 | 否 |仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。 |
-| strUserId | string | trtc流/volc流的用户id字段 | 否 | 分流的用户id（`TRTC`流和`VOLC`才会有） |
-| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |                                                |
+| userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
+| passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 | room | string | 房间号 | 否 | |
 
 <span id="riskDetail2">audioDetail中，riskDetail的详细内容如下：</span>
