@@ -1,0 +1,204 @@
+[
+  {
+    "type": "title-1",
+    "value": "关闭接口"
+  },
+  {
+    "type": "desc",
+    "value": "视频流关闭接口"
+  },
+  {
+    "type": "title-2",
+    "value": "接口功能"
+  },
+  {
+    "type": "desc",
+    "value": "视频流关流接口，该接口用于关闭指定的视频流。"
+  },
+  {
+    "type": "title-3",
+    "value": "接口要求"
+  },
+  {
+    "type": "desc",
+    "value": " 通信协议：http或https协议\n请求方法：POST方法\n字符编码：utf-8\n参数格式：所有请求参数和返回参数都是采用json格式"
+  },
+  {
+    "type": "title-3",
+    "value": "超时时间"
+  },
+  {
+    "type": "desc",
+    "value": " 建议超时时间：7s\n内部处理的超时时间为3s，且会重试一次。正常接口返回时间100ms之内"
+  },
+  {
+    "type": "title-3",
+    "value": "历史版本"
+  },
+  {
+    "herf": "/docs/tj/videoStream/history/developDoc",
+    "type": "link",
+    "value": "历史版本"
+  },
+  {
+    "type": "title-2",
+    "value": "请求"
+  },
+  {
+    "type": "title-3",
+    "value": "请求地址"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "上海视频流集群",
+        "url": "http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4",
+        "supportProduct": "中文视频流"
+      },
+      {
+        "description": "新加坡视频流集群",
+        "url": "http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4",
+        "supportProduct": "中文视频流\n英语视频流\n阿语视频流"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "请求参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必传"
+      },
+      {
+        "key": "length",
+        "title": "最大长度"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "公司密钥。用于权限认证，开通服务时由数美提供",
+        "req_name": "accessKey",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "32",
+        "param_description": "需要关闭视频流的requestId",
+        "req_name": "requestId",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "响应"
+  },
+  {
+    "type": "title-3",
+    "value": "返回参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "数美请求唯一标识",
+        "req_name": "requestId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "和code对应：\n1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "message",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "code",
+        "required": true,
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "示例"
+  },
+  {
+    "type": "title-3",
+    "value": "请求示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxxxxxxx",
+      "requestId": "1639824316368"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "返回示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "成功",
+      "requestId": " a78eef377079acc6cdec24967ecde722"
+    }
+  }
+]
