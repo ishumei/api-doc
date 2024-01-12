@@ -1,0 +1,2645 @@
+[
+  {
+    "type": "title-1",
+    "value": "请求接口"
+  },
+  {
+    "type": "desc",
+    "value": "视频流检测接口，可识别：\n截帧画面中，涉政、色情、广告，暴恐等监管风险；同时可结合您的业务场景，识别人脸、LOGO、动植物等业务内容。\n音频片段中，涉政、色情、广告等监管风险；同时可结合您的业务场景，识别性别，音色，未成年等业务内容。"
+  },
+  {
+    "type": "title-2",
+    "value": "接口说明"
+  },
+  {
+    "type": "desc",
+    "value": "接口用于提交视频流鉴定等相关信息，稳定拉流后将持续回调对应的识别结果至指定的callback地址。"
+  },
+  {
+    "type": "title-3",
+    "value": "接口要求"
+  },
+  {
+    "type": "desc",
+    "value": " 通信协议：http或https协议\n请求方法：POST方法\n字符编码：utf-8\n参数格式：所有请求参数和返回参数都是采用json格式"
+  },
+  {
+    "type": "title-3",
+    "value": "支持协议"
+  },
+  {
+    "type": "desc",
+    "value": " 普通流地址，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式。"
+  },
+  {
+    "type": "title-3",
+    "value": "回调机制"
+  },
+  {
+    "type": "desc",
+    "value": "当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行最多20次推送。"
+  },
+  {
+    "type": "title-3",
+    "value": "重试拉流机制"
+  },
+  {
+    "type": "desc",
+    "value": "为防止网络异常导致的拉流失败问题发生，数美视频流服务设置了拉流失败后的重试机制，具体机制如下：\n普通流、即构/腾讯/火山流：总共会重试12次，每次持续五分钟，时间间隔为【5、10、15、20.....60秒】。例如，数美会先进行5分钟的持续拉流，拉不到的话，间隔5秒后再持续5分钟拉流，如果还拉不到则间隔10秒后再次进行5分钟拉流，以此类推。\n声网流：无重试，拉流5分钟超时后断开。"
+  },
+  {
+    "type": "title-3",
+    "value": "超时时间"
+  },
+  {
+    "type": "desc",
+    "value": " 建议超时时间：7s\n内部处理的超时时间为3s，且会重试一次。正常接口返回时间100ms之内"
+  },
+  {
+    "type": "title-3",
+    "value": "历史版本"
+  },
+  {
+    "herf": "/docs/tj/videoStream/history/developDoc",
+    "type": "link",
+    "value": "历史版本"
+  },
+  {
+    "type": "title-2",
+    "value": "请求"
+  },
+  {
+    "type": "title-3",
+    "value": "请求地址"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "上海视频流集群",
+        "url": "http://api-videostream-sh.fengkongcloud.com/videostream/v4",
+        "supportProduct": "中文视频流"
+      },
+      {
+        "description": "新加坡视频流集群",
+        "url": "http://api-videostream-xjp.fengkongcloud.com/videostream/v4",
+        "supportProduct": "中文视频流\n英语视频流\n阿语视频流"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "请求参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必传"
+      },
+      {
+        "key": "length",
+        "title": "最大长度"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "公司密钥。用于权限认证，开通服务时由数美提供",
+        "req_name": "accessKey",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "事件标识。需要与数美约定好取值。",
+        "req_name": "eventId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "应用标识。此字段强校验，需要提前与数美约定好取值。",
+        "req_name": "appId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "视频流中的画面需要识别的监管类型，和imgBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情\u0026性感违规识别\nVIOLENT：暴恐\u0026违禁识别\nQRCODE：二维码识别\nADVERT：广告识别\nIMGTEXTRISK：图片文字违规识别\n如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别",
+        "req_name": "imgType",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "视频流中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：声音涉政\nANTHEN：国歌识别\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
+        "req_name": "audioType",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "视频流中的画面需要识别的业务类型， 和imgType至少传一个，可选值见业务标签类型",
+        "req_name": "imgBusinessType",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "视频流中的音频业务识别类型，和audioType至少传一个。\n可选值：\nSING：唱歌识别\nLANGUAGE：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）\nMINOR：未成年人识别\nGENDER：性别识别\nTIMBRE：音色识别，需要同时传入GENDER才能生效，\nAPPNAME：app名称识别。\n如果需要识别多个功能，通过下划线连接",
+        "req_name": "audioBusinessType",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "1024",
+        "param_description": "图片回调地址 将视频流中截帧图片的检测结果通过该地址回调给用户",
+        "req_name": "imgCallback",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "1024",
+        "param_description": "音频回调地址 将视频流中音频片段的检测结果通过该地址回调给用户；需要识别音频时必传",
+        "req_name": "audioCallback",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "请求的数据内容，大小不超过1M",
+        "req_name": "data",
+        "required": true,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "视频流类型 可选值为：\nNORMAL：普通流地址，目前支持rtmp、rtmps、hls、http、https协议\nAGORA：声网审核\nTRTC:腾讯审核\nZEGO：即构审核 \nVOLC：火山引擎审核 \n注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商",
+            "req_name": "streamType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "40",
+            "param_description": "用户账号标识。建议传入用户ID，可用于灌水、广告等行为维度的风险识别。",
+            "req_name": "tokenId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "视频流中的音频审核步长。单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审",
+            "req_name": "audioDetectStep",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "视频流中的画面截帧频率间隔。单位为秒，取值范围为1~60秒，遇到小数向下取整，不足1的按照1秒处理，如不传递默认3秒截帧一次。",
+            "req_name": "detectFrequency",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "视频流截帧图片检测步长。已截帧图片每个步长只会检测一次，取值大于等于1。不使用该功能时所有截帧全部过审",
+            "req_name": "detectStep",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "客户端公网IP地址。该参数用于IP维度的用户行为分析。",
+            "req_name": "ip",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "语言类型。可指定对截帧及音频片段内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语",
+            "req_name": "lang",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "返回截帧识别结果的风险等级。可选值如下：(默认值为0)\n0：返回风险等级为非pass的图片审核信息。\n1：返回所有风险等级的图片审核信息。",
+            "req_name": "returnAllImg",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "返回音频识别结果的风险等级。可选值如下（默认为0）：\n0：返回风险等级为非pass的音频片段与文本内容。\n1：返回所有风险等级的音频片段与文本内容。",
+            "req_name": "returnAllText",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "视频流结束回调通知。可选值如下：（默认值为0）\n1：审核结束时发起结束通知，回调参数增加statCode状态码。\n0：审核结束时不发送结束通知。",
+            "req_name": "returnFinishInfo",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "是否返回前一片段信息。可选值如下：\n1：返回的preAudioUrl字段包含前10秒和当前10秒共20秒的音频片段链接。\n0：不返回前一片段信息。",
+            "req_name": "returnPreAudio",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "是否返回前一片段文本信息。可选值如下：\n1：返回的content字段包含前10秒和当前10秒共20秒的音频片段文本内容\n0：不返回前一片段文本信息。",
+            "req_name": "returnPreText",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "直播间/游戏房间编号，可针对单个房间制定不同的策略",
+            "req_name": "room",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "视频流名称 用于后台界面展示，建议传入",
+            "req_name": "streamName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "600",
+            "param_description": "要检测的视频流的普通流的url地址",
+            "req_name": "url",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "声网录制参数（当streamType为AGORA时必传）",
+            "req_name": "agoraParam",
+            "required": false,
+            "son": [
+              {
+                "length": "64",
+                "param_description": "声网提供的应用标识",
+                "req_name": "appId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "声网提供的频道名",
+                "req_name": "channel",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "声网录制的频道模式，取值：\n0: 通信（默认），即常见的 1 对 1 单聊或群聊，频道内任何用户可以自由说话；\n1: 直播，有两种用户角色: 主播和观众。",
+                "req_name": "channelProfile",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "是否支持录制H.265视频流。\nfalse：（默认）不支持录制 H.265 视频流。频道内的远端用户无法发 H.265 视频流。\ntrue：支持录制 H.265 视频流。",
+                "req_name": "enableH265Support",
+                "required": false,
+                "type": "boolean"
+              },
+              {
+                "length": "-",
+                "param_description": "是否启用关键帧请求。该参数默认为true，可改善弱网下的音视频体验。如需使单流模式下录制的视频可指定播放位置，须将enableIntraRequest设为 false。\nfalse：禁用关键帧请求，频道内的所有发流端均每2秒发送一次关键帧。禁用后，单流模式下录制的视频可指定播放位置。\ntrue：由发流端控制是否启用关键帧请求。启用后，单流模式下录制的视频文件播放时无法指定播放位置。",
+                "req_name": "enableIntraRequest",
+                "required": false,
+                "type": "boolean"
+              },
+              {
+                "length": "-",
+                "param_description": "订阅模式。\nAUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为\nUNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流\nTRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有trustedUserIdList名单外的用户进入房间，即untrustedUserIdList列表为空，数美将主动结束审核。",
+                "req_name": "subscribeMode",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "安全要求较高的用户可以使用 token进行认证，生成方式详见声网文档：(https://docs.agora.io/cn/Recording/token_server?platform=CPP)\n\u003e建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为1）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期，如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。",
+                "req_name": "token",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "32位无符号整数。当token存在时，必须提供生成token时所使用的用户ID。\n注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在",
+                "req_name": "uid",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "信任用户的列表，subscribeMode为TRUSTED时生效，不允许为空，数美不会订阅房间内该列表指定的用户流\n逗号拼接的UID数组，如[1,2]，用户上限17个",
+                "req_name": "trustedUserIdList",
+                "required": false,
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "非信任用户的列表，subscribeMode为UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流\n逗号拼接的UID数组，如[1,2]，用户上限17个",
+                "req_name": "untrustedUserIdList",
+                "required": false,
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "辅助信息",
+            "req_name": "extra",
+            "required": false,
+            "son": [
+              {
+                "length": "1024",
+                "param_description": "客户传入透传字段。数美内部不会对该字段进行识别处理，随结果返回给用户。",
+                "req_name": "passThrough",
+                "required": false,
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "腾讯录制参数（当streamType为TRTC时必传）",
+            "req_name": "trtcParam",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "录制类型可选值:\n分流录制:2\n合流录制:4",
+                "req_name": "demoSences",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "腾讯提供的sdkAppId",
+                "req_name": "sdkAppId",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "128",
+                "param_description": "房间号码。取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符\n若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId",
+                "req_name": "strRoomId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符",
+                "req_name": "userId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "128",
+                "param_description": "录制userId对应的验证签名，相当于登录密码",
+                "req_name": "userSig",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "128",
+                "param_description": "房间号码。取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户",
+                "req_name": "roomId",
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "火山引擎录制参数（当streamType为VOLC时必传）",
+            "req_name": "volcParam",
+            "required": false,
+            "son": [
+              {
+                "length": "64",
+                "param_description": "火山提供的应用标识",
+                "req_name": "appId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "128",
+                "param_description": "房间号",
+                "req_name": "roomId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "录制userId对应的验证签名，相当于登录密码",
+                "req_name": "token",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符",
+                "req_name": "userId",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "即构录制参数（当streamType为ZEGO时必传）",
+            "req_name": "zegoParam",
+            "required": false,
+            "son": [
+              {
+                "length": "64",
+                "param_description": "zego的房间号",
+                "req_name": "roomId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "40",
+                "param_description": "zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：https://doc-zh.zego.im/article/15258 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的",
+                "req_name": "tokenId",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "响应"
+  },
+  {
+    "type": "title-3",
+    "value": "返回参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "数美请求唯一标识",
+        "req_name": "requestId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "和code对应：\n1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "message",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "code",
+        "required": true,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "req_name": "detail",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "表示重复的requestId\n当errorcode为1001，表示重复推流时，会返回dupRequestId字段\n例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核\n可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口",
+            "req_name": "dupRequestId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "1001：重复推流",
+            "req_name": "errorcode",
+            "required": false,
+            "type": "int32"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "流片段回调参数"
+  },
+  {
+    "type": "desc",
+    "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "数美请求唯一标识",
+        "req_name": "requestId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "和code对应：\n1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "message",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "code",
+        "required": true,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "回调状态码。状态码对应关系：\n0 ：审核结果回调 \n1 ：流结束结果回调",
+        "req_name": "statCode",
+        "required": false,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "用来区分音频和图片回调。可能取值如下：\n1：该回调为图片回调\n2：该回调为音频回调",
+        "req_name": "contentType",
+        "required": false,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "辅助信息，请求参数data中extra的passThrough放入该值返回",
+        "req_name": "auxInfo",
+        "required": false,
+        "son": [
+          {
+            "length": "1024",
+            "param_description": "客户传入透传字段。数美内部不会对该字段进行识别处理，随结果返回给用户。",
+            "req_name": "passThrough",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "截帧图片信息风险详情。有风险片段或returnAllImg=1时返回",
+        "req_name": "frameDetail",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "截帧图片地址",
+            "req_name": "imgUrl",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "标签解释 对于命中用户自定义名单时返回：命中自定义名单；\n当riskLevel为PASS时返回正常；\n其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理",
+            "req_name": "riskDescription",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "一级风险标签，当riskLevel为PASS时返回normal",
+            "req_name": "riskLabel1",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "二级风险标签,当riskLevel为PASS时为空",
+            "req_name": "riskLabel2",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "三级风险标签, 当riskLevel为PASS时为空",
+            "req_name": "riskLabel3",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "识别结果，可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截",
+            "req_name": "riskLevel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "全部的风险标签列表",
+            "req_name": "allLabels",
+            "required": true,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                "req_name": "probability",
+                "required": false,
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "当riskLevel为PASS时返回正常；\n其他情况展现形式为：\"一级标签:二级标签:三级标签\"的中文名\n仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理",
+                "req_name": "riskDescription",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "一级风险标签",
+                "req_name": "riskLabel1",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "二级风险标签",
+                "req_name": "riskLabel2",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "三级风险标签",
+                "req_name": "riskLabel3",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "识别结果，可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截",
+                "req_name": "riskLevel",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "风险详情信息",
+                "req_name": "riskDetail",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险 \n1002：视觉图片风险",
+                    "req_name": "riskSource",
+                    "required": true,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人脸数量",
+                    "req_name": "face_num",
+                    "required": false,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人像数量",
+                    "req_name": "person_num",
+                    "required": false,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "图片中涉政人物的名称及位置信息。当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                    "req_name": "faces",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "人脸占比，在区间0-1，数值越大，人脸占比越高",
+                        "req_name": "face_ratio",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "编号，图片同一个位置下的人在不同标签下的编号相同。\n如果同一个人在图片中出现n次，分配n个ID",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人物名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "物品信息。返回图片中标识或物品的名称及位置信息",
+                    "req_name": "objects",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "物品或标识编号，保证同一个位置下的物品在不同标签下的编号相同",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "物品名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "返回图片中识别的二维码地址",
+                        "req_name": "qrContent",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "物品位置信息\n该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "返回图片中文字识别内容，当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在",
+                    "req_name": "ocrText",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "图片中识别出的文字",
+                        "req_name": "text",
+                        "required": true,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
+                        "req_name": "matchedLists",
+                        "required": false,
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "命中的名单名称",
+                            "req_name": "name",
+                            "required": false,
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "命中的这个名单中的敏感词信息",
+                            "req_name": "words",
+                            "required": false,
+                            "son": [
+                              {
+                                "length": "-",
+                                "param_description": "命中的敏感词",
+                                "req_name": "word",
+                                "required": false,
+                                "type": "string"
+                              },
+                              {
+                                "length": "-",
+                                "param_description": "敏感词所在位置",
+                                "req_name": "position",
+                                "required": false,
+                                "type": "array"
+                              }
+                            ],
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "高风险片段内容。检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在",
+                        "req_name": "riskSegments",
+                        "required": false,
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "辅助信息 高风险内容片段",
+                            "req_name": "segment",
+                            "required": false,
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                            "req_name": "position",
+                            "required": false,
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "图片中人物的名称及位置信息。当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                    "req_name": "persons",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人像占比。在区间0-1，数值越大，人脸占比越高",
+                        "req_name": "person_ratio",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人像位置坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "辅助信息",
+            "req_name": "auxInfo",
+            "required": true,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "开始处理的时间（13位时间戳）",
+                "req_name": "beginProcessTime",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "结束处理的时间（13位时间戳）",
+                "req_name": "finishProcessTime",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "用来区分截帧图片是否过了检测 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）\n1：截帧图片过了检测\n2：截帧图片没过检测",
+                "req_name": "detectType",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "截帧图片发生时间 视频流截帧图片违规发生的时间（绝对时间）",
+                "req_name": "imgTime",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "房间号",
+                "req_name": "room",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "辅助参数。可能取值如下：（仅当相似帧去重推审功能生效时，将外层riskLevel从reject/review变成pass时返回该参数，其他情况不返回该字段）\n值为1，相似帧去重推审功能生效",
+                "req_name": "similarityDedup",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。",
+                "req_name": "strUserId",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "声网用户账号标识。仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。",
+                "req_name": "userId",
+                "required": false,
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "风险详情信息",
+            "req_name": "riskDetail",
+            "required": true,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险 \n1002：视觉图片风险",
+                "req_name": "riskSource",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "人脸数量",
+                "req_name": "face_num",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "人像数量",
+                "req_name": "person_num",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "图片中涉政人物的名称及位置信息。当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                "req_name": "faces",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "人脸占比，在区间0-1，数值越大，人脸占比越高",
+                    "req_name": "face_ratio",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "编号，图片同一个位置下的人在不同标签下的编号相同。\n如果同一个人在图片中出现n次，分配n个ID",
+                    "req_name": "id",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人物名称",
+                    "req_name": "name",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                    "req_name": "probability",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                    "req_name": "location",
+                    "required": false,
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "物品信息。返回图片中标识或物品的名称及位置信息",
+                "req_name": "objects",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "物品或标识编号，保证同一个位置下的物品在不同标签下的编号相同",
+                    "req_name": "id",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "物品名称",
+                    "req_name": "name",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                    "req_name": "probability",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "返回图片中识别的二维码地址",
+                    "req_name": "qrContent",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "物品位置信息\n该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                    "req_name": "location",
+                    "required": false,
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "返回图片中文字识别内容，当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在",
+                "req_name": "ocrText",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "图片中识别出的文字",
+                    "req_name": "text",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
+                    "req_name": "matchedLists",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "命中的名单名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "命中的这个名单中的敏感词信息",
+                        "req_name": "words",
+                        "required": false,
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "命中的敏感词",
+                            "req_name": "word",
+                            "required": false,
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "敏感词所在位置",
+                            "req_name": "position",
+                            "required": false,
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "高风险片段内容。检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在",
+                    "req_name": "riskSegments",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "辅助信息 高风险内容片段",
+                        "req_name": "segment",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                        "req_name": "position",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              },
+              {
+                "length": "-",
+                "param_description": "图片中人物的名称及位置信息。当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                "req_name": "persons",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID",
+                    "req_name": "id",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人像占比。在区间0-1，数值越大，人脸占比越高",
+                    "req_name": "person_ratio",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                    "req_name": "probability",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人像位置坐标",
+                    "req_name": "location",
+                    "required": false,
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "业务标签列表",
+            "req_name": "businessLabels",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "业务标签中文描述，格式为\"一级标签:二级标签:三级标签\"的中文名称",
+                "req_name": "businessDescription",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "一级业务标签",
+                "req_name": "businessLabel1",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "二级业务标签",
+                "req_name": "businessLabel2",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "三级业务标签",
+                "req_name": "businessLabel3",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                "req_name": "probability",
+                "required": true,
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "置信等级，可选值在0～2之间，值越大，可信度越高",
+                "req_name": "confidenceLevel",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "业务标签详情",
+                "req_name": "businessDetail",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "人脸数量",
+                    "req_name": "face_num",
+                    "required": false,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人像数量",
+                    "req_name": "person_num",
+                    "required": false,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "图片中涉政人物的名称及位置信息。当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                    "req_name": "faces",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "人脸占比，在区间0-1，数值越大，人脸占比越高",
+                        "req_name": "face_ratio",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "编号，图片同一个位置下的人在不同标签下的编号相同。\n如果同一个人在图片中出现n次，分配n个ID",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人物名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "物品信息。返回图片中标识或物品的名称及位置信息",
+                    "req_name": "objects",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "物品或标识编号，保证同一个位置下的物品在不同标签下的编号相同",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "物品名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "返回图片中识别的二维码地址",
+                        "req_name": "qrContent",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "物品位置信息\n该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "图片中人物的名称及位置信息。当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个）",
+                    "req_name": "persons",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID",
+                        "req_name": "id",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人像占比。在区间0-1，数值越大，人脸占比越高",
+                        "req_name": "person_ratio",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                        "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人像位置坐标",
+                        "req_name": "location",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "音频片段信息。有风险片段或returnAllText=1时返回",
+        "req_name": "audioDetail",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "音频片段地址。",
+            "req_name": "audioUrl",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "标签解释 对于命中用户自定义名单时返回：命中自定义名单；\n当riskLevel为PASS时返回正常；\n其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理",
+            "req_name": "riskDescription",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "一级风险标签，当riskLevel为PASS时返回normal",
+            "req_name": "riskLabel1",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "二级风险标签,当riskLevel为PASS时为空",
+            "req_name": "riskLabel2",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "三级风险标签, 当riskLevel为PASS时为空",
+            "req_name": "riskLabel3",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "识别结果，可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截",
+            "req_name": "riskLevel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "是否静音片段。\n0：静音片段\n1：非静音片段",
+            "req_name": "vadCode",
+            "required": true,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "全部的风险标签列表",
+            "req_name": "allLabels",
+            "required": true,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "风险描述。当riskLevel为PASS时返回：正常。格式为：\"一级风险标签：二级风险标签：三级风险标签\"，的中文名称。对于命中用户自定义名单时返回：命中自定义名单。",
+                "req_name": "riskDescription",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "一级风险标签，当riskLevel为PASS时返回normal",
+                "req_name": "riskLabel1",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "二级风险标签,当riskLevel为PASS时为空",
+                "req_name": "riskLabel2",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "三级风险标签, 当riskLevel为PASS时为空",
+                "req_name": "riskLabel3",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "识别结果，可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截",
+                "req_name": "riskLevel",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "视频流中音频识别出的文字内容。当returnPreText值为1，且当前音频片段为reject时，返回当前10秒和前10秒共20秒的音频片段文本内容。否则仅返回当前片段文本内容。",
+            "req_name": "content",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "前一个音频片段链接。当returnPreAudio值为1，且当前音频片段为reject时，返回当前10秒和前10秒共20秒的音频片段链接。否则不返回。",
+            "req_name": "preAudioUrl",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "辅助信息",
+            "req_name": "auxInfo",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "违规内容结束时间（绝对时间）",
+                "req_name": "audio_endtime",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "违规内容开始时间（绝对时间）",
+                "req_name": "audio_starttime",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "开始处理的时间（13位时间戳）",
+                "req_name": "beginProcessTime",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "结束处理的时间（13位时间戳）",
+                "req_name": "finishProcessTime",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "房间号",
+                "req_name": "room",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。",
+                "req_name": "strUserId",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "声网用户账号标识。仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。",
+                "req_name": "userId",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "1024",
+                "param_description": "客户传入透传字段。数美内部不会对该字段进行识别处理，随结果返回给用户。",
+                "req_name": "passThrough",
+                "required": false,
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "业务标签列表",
+            "req_name": "businessLabels",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "业务标签中文描述，格式为\"一级标签:二级标签:三级标签\"的中文名称",
+                "req_name": "businessDescription",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "一级业务标签",
+                "req_name": "businessLabel1",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "二级业务标签",
+                "req_name": "businessLabel2",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "三级业务标签",
+                "req_name": "businessLabel3",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
+                "req_name": "probability",
+                "required": true,
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "置信等级，可选值在0～2之间，值越大，可信度越高",
+                "req_name": "confidenceLevel",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "业务标签详情",
+                "req_name": "businessDetail",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险\n1003：音频语音风险",
+                    "req_name": "riskSource",
+                    "required": true,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "该片段识别的文字内容",
+                    "req_name": "audioText",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
+                    "req_name": "matchedLists",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "名单名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "命中的这个名单中的敏感词信息",
+                        "req_name": "words",
+                        "required": false,
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "命中的敏感词",
+                            "req_name": "word",
+                            "required": false,
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                            "req_name": "position",
+                            "required": false,
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "高风险片段内容。检测音频包含未成年，唱歌等风险内容的时候存在",
+                    "req_name": "riskSegments",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "辅助信息 高风险内容片段",
+                        "req_name": "segment",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                        "req_name": "position",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "风险详情信息",
+            "req_name": "riskDetail",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险\n1003：音频语音风险",
+                "req_name": "riskSource",
+                "required": true,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "该片段识别的文字内容",
+                "req_name": "audioText",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
+                "req_name": "matchedLists",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "名单名称",
+                    "req_name": "name",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "命中的这个名单中的敏感词信息",
+                    "req_name": "words",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "命中的敏感词",
+                        "req_name": "word",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                        "req_name": "position",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "高风险片段内容。检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在",
+                "req_name": "riskSegments",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "辅助信息 高风险内容片段",
+                    "req_name": "segment",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                    "req_name": "position",
+                    "required": false,
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "账号属性标签。仅在tokenId传入且标签服务开通时返回",
+        "req_name": "tokenProfileLabels",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "标签描述",
+            "req_name": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "一级标签",
+            "req_name": "label1",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "二级标签",
+            "req_name": "label2",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "三级标签",
+            "req_name": "label3",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "打标签时间戳 13位Unix时间戳，单位：毫秒",
+            "req_name": "timestamp",
+            "required": false,
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "length": "-",
+        "param_description": "账号风险标签。仅在tokenId传入且标签服务开通时返回",
+        "req_name": "tokenRiskLabels",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "标签描述",
+            "req_name": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "一级标签",
+            "req_name": "label1",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "二级标签",
+            "req_name": "label2",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "三级标签",
+            "req_name": "label3",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "打标签时间戳 13位Unix时间戳，单位：毫秒",
+            "req_name": "timestamp",
+            "required": false,
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "流结束回调参数"
+  },
+  {
+    "type": "desc",
+    "value": "仅当returnFinishInfo为1时返回"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "数美请求唯一标识",
+        "req_name": "requestId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "和code对应：\n1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "message",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904 : 流路数超限\n9101：无权限操作",
+        "req_name": "code",
+        "required": true,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "回调结束时返回整体流的处置建议。可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截",
+        "req_name": "riskLevel",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "回调状态码，当returnFinishInfo为1时存在。状态码对应关系：\n0 ：审核结果回调 \n1 ：流结束结果回调。",
+        "req_name": "statCode",
+        "required": true,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "用来区分音频和图片回调结束。可能取值如下：\n1：该回调为图片审核结束回调\n2：该回调为音频审核结束回调",
+        "req_name": "contentType",
+        "required": true,
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "拉流是否成功。可能取值如下：\ntrue：拉流成功\nfalse：拉流失败\n如果一张截图都没有获取成功即认为拉流失败",
+        "req_name": "pullStreamSuccess",
+        "required": true,
+        "type": "bool"
+      },
+      {
+        "length": "-",
+        "param_description": "辅助信息",
+        "req_name": "auxInfo",
+        "required": true,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "流审核时长。流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致",
+            "req_name": "streamTime",
+            "required": true,
+            "type": "int32"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "返回请求参数data中的所有字段。contentType为2时返回",
+        "req_name": "requestParams",
+        "required": false,
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "详情信息。contentType为1时返回",
+        "req_name": "detail",
+        "required": false,
+        "son": [
+          {
+            "length": "-",
+            "param_description": "返回请求参数data中的所有字段",
+            "req_name": "requestParams",
+            "required": true,
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "示例"
+  },
+  {
+    "type": "title-3",
+    "value": "请求示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "*********",
+      "appId": "defaulttest",
+      "audioBusinessType": "SING_LANGUAGE",
+      "audioCallback": "http://www.xxx.top/callbackxxx",
+      "audioType": "POLITY_EROTIC_ADVERT_MOAN",
+      "data": {
+        "detectFrequency": 10,
+        "detectStep": 1,
+        "extra": {
+          "passThrough": {
+            "passThrough1": "111",
+            "passThrough2": "222",
+            "passThrough3": "333"
+          }
+        },
+        "ip": "123.171.34.4",
+        "lang": "zh",
+        "returnAllImg": 1,
+        "returnAllText": 1,
+        "returnPreAudio": 1,
+        "returnPreText": 1,
+        "room": "5e1854a6a0a79d0001a09bc3",
+        "streamType": "NORMAL",
+        "tokenId": "123",
+        "url": "http://rtmp.xxxx.cn/live/3637778raLSXdOdu.flv"
+      },
+      "eventId": "VIDEOSTREAM",
+      "imgBusinessType": "BODY_FOOD_3CPRODUCTSLOGO",
+      "imgCallback": "http://www.xxx.top/callbackxxx",
+      "imgType": "POLITY_EROTIC_ADVERT"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "返回示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "成功",
+      "requestId": "66fb85e3149bb9e13d6c72161cc6c6cf"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "截帧图片回调示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "auxInfo": {
+        "passThrough": {
+          "passThrough1": "111",
+          "passThrough2": "222",
+          "passThrough3": "333"
+        }
+      },
+      "code": 1100,
+      "contentType": 1,
+      "frameDetail": {
+        "allLabels": [
+          {
+            "riskDescription": "涉政:涉政:涉政",
+            "riskLabel1": "politics",
+            "riskLabel2": "shezheng",
+            "riskLabel3": "shezheng",
+            "riskLevel": "REJECT"
+          }
+        ],
+        "auxInfo": {
+          "beginProcessTime": 1639825248361,
+          "detectType": 1,
+          "finishProcessTime": 1639825248809,
+          "imgTime": "2021-12-18 19:00:48.375",
+          "room": "5e1854a6a0a79d0001a09bc3"
+        },
+        "businessLabels": [],
+        "imgUrl": "http://bj.cos.ap-beijing.xxx.com/image/1639825145166_vs130_1639825248361471656.jpg",
+        "riskDescription": "涉政:涉政:涉政",
+        "riskDetail": {
+          "ocrText": {
+            "text": "第四页（ban第五页（violence"
+          },
+          "riskSource": 1002
+        },
+        "riskLabel1": "politics",
+        "riskLabel2": "shezheng",
+        "riskLabel3": "shezheng",
+        "riskLevel": "REJECT"
+      },
+      "message": "成功",
+      "requestId": "1639825145166_vs130_1639825248361471656"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "音频片段回调示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "audioDetail": {
+        "allLabels": [
+          {
+            "riskDescription": "涉政:一号领导:一号领导",
+            "riskLabel1": "politics",
+            "riskLabel2": "yihaolingdao",
+            "riskLabel3": "yihaolingdao",
+            "riskLevel": "REJECT"
+          }
+        ],
+        "audioText": "作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+        "audioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
+        "auxInfo": {
+          "audioEndTime": "2022-10-27 21:08:42",
+          "audioStartTime": "2022-10-27 21:08:32",
+          "beginProcessTime": 1666876123332,
+          "finishProcessTime": 1666876123893,
+          "room": "y1123413312ewe24sv2"
+        },
+        "businessLabels": [],
+        "content": "现代化国家新征程中职业教育前途广阔中共中央总书记国家主席中央军委主席习近平近日对职业教育工作作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+        "preAudioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
+        "riskDescription": "涉政:一号领导:一号领导",
+        "riskDetail": {
+          "audioText": "作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+          "riskSource": 1001
+        },
+        "riskLabel1": "politics",
+        "riskLabel2": "yihaolingdao",
+        "riskLabel3": "yihaolingdao",
+        "riskLevel": "REJECT"
+      },
+      "code": 1100,
+      "contentType": 2,
+      "message": "成功",
+      "requestId": "y28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3",
+      "statCode": 0
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "流结束回调示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "auxInfo": {
+        "streamTime": 70
+      },
+      "code": 1100,
+      "contentType": 1,
+      "detail": {
+        "requestParams": {
+          "detectFrequency": 10,
+          "detectStep": 1,
+          "extra": {
+            "passThrough": {
+              "passThrough1": "111",
+              "passThrough2": "222",
+              "passThrough3": "333"
+            }
+          },
+          "ip": "123.171.34.4",
+          "lang": "zh",
+          "returnAllImg": 1,
+          "returnAllText": 1,
+          "returnPreAudio": 1,
+          "returnPreText": 1,
+          "room": "5e1854a6a0a79d0001a09bc3",
+          "streamType": "NORMAL",
+          "tokenId": "123",
+          "url": "http://rtmp.xxxx.cn/live/3637778raLSXdOdu.flv"
+        }
+      },
+      "message": "成功",
+      "pullStreamSuccess": true,
+      "requestId": "5515ce1f9b474a6c4a3d79a8dfcaeaf4",
+      "riskLevel": "PASS",
+      "statCode": 1
+    }
+  },
+  {
+    "type": "title-2",
+    "value": "附录"
+  },
+  {
+    "type": "title-3",
+    "value": "业务标签类型"
+  },
+  {
+    "header": [
+      {
+        "key": "type",
+        "title": "业务标签识别类型"
+      },
+      {
+        "key": "description",
+        "title": "类型说明"
+      },
+      {
+        "key": "remark",
+        "title": "备注"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "人脸-年龄",
+        "remark": "可识别未成年人",
+        "type": "AGE"
+      },
+      {
+        "description": "人脸-性别",
+        "type": "GENDER"
+      },
+      {
+        "description": "人脸-颜值",
+        "type": "BEAUTY"
+      },
+      {
+        "description": "人脸-人种如黑种人、白种人、黄种人",
+        "type": "RACE"
+      },
+      {
+        "description": "人脸-人脸检测",
+        "remark": "如识别无人脸、真人、口罩人脸、正脸、侧脸等",
+        "type": "FACEDETECTION"
+      },
+      {
+        "description": "人脸-伪造人脸",
+        "remark": "",
+        "type": "FAKEFACE"
+      },
+      {
+        "description": "人脸-人脸对比",
+        "remark": "",
+        "type": "FACECOMPARE"
+      },
+      {
+        "description": "人物-公众人物",
+        "remark": "如识别知名明星、网红等",
+        "type": "PUBLICFIGURE"
+      },
+      {
+        "description": "人物-劣迹人物",
+        "remark": "",
+        "type": "TAINTEDSTAR"
+      },
+      {
+        "description": "人像-人像姿态",
+        "remark": "如识别坐姿、跪姿等",
+        "type": "POSTURE"
+      },
+      {
+        "description": "人像-人像穿着",
+        "remark": "如识别jk、汉服等",
+        "type": "DRESS"
+      },
+      {
+        "description": "人像-人像气质",
+        "remark": "如成熟大叔、靓丽女神等",
+        "type": "TEMPERAMENT"
+      },
+      {
+        "description": "人体",
+        "remark": "如识别头发、眼睛、鼻子等",
+        "type": "BODY"
+      },
+      {
+        "description": "画面属性-画面类型",
+        "remark": "如识别动漫、表情包等",
+        "type": "PICTUREFORM"
+      },
+      {
+        "description": "画面属性-画面结构",
+        "remark": "如识别宫格图、桥段图等",
+        "type": "PICTURESTRUCT"
+      },
+      {
+        "description": "画面属性-画面低质",
+        "remark": "如识别模糊、涂抹、马赛克等",
+        "type": "LOWVISION"
+      },
+      {
+        "description": "画面属性-内容低质",
+        "remark": "如识别点线密集、虫类密集等",
+        "type": "LOWCONTNET"
+      },
+      {
+        "description": "画面属性-直播画面",
+        "remark": "如识别床上直播、开车直播等",
+        "type": "LIVEPICTURE"
+      },
+      {
+        "description": "画面属性-APP截图（内容搬运）",
+        "remark": "如识别朋友圈截图、聊天截图等",
+        "type": "SCREENSHOT"
+      },
+      {
+        "description": "场景主题-健身",
+        "type": "FITNESS"
+      },
+      {
+        "description": "场景主题-美食",
+        "type": "CATE"
+      },
+      {
+        "description": "场景主题-音乐",
+        "type": "MUSIC"
+      },
+      {
+        "description": "场景主题-体育",
+        "type": "SPORTS"
+      },
+      {
+        "description": "场景主题-自然风光",
+        "remark": "如识别天空、大海、草原等",
+        "type": "SCENERY"
+      },
+      {
+        "description": "场景主题-城市风光",
+        "remark": "如识别街景",
+        "type": "CITYVIEW"
+      },
+      {
+        "description": "LOGO-3C电子类品牌",
+        "remark": "如识别华为、小米、OPPO等LOGO",
+        "type": "3CPRODUCTSLOGO"
+      },
+      {
+        "description": "LOGO-购物比价类应用",
+        "remark": "如识别拼多多等LOGO",
+        "type": "SHOPPINGAPPSLOGO"
+      },
+      {
+        "description": "LOGO-拍摄美化类应用",
+        "remark": "如识别快剪辑、秒拍等LOGO",
+        "type": "RETOUCHAPPSLOGO"
+      },
+      {
+        "description": "LOGO-社交通讯类应用",
+        "remark": "如识别微博、小红书等LOGO",
+        "type": "SOCIALAPPSLOGO"
+      },
+      {
+        "description": "LOGO-素材版权类应用",
+        "remark": "如识别CFP等LOGO",
+        "type": "PHOTOMATERIALLOGO"
+      },
+      {
+        "description": "LOGO-新闻阅读类应用",
+        "remark": "如识别新浪、视觉中国等LOGO",
+        "type": "NEWSAPPSLOGO"
+      },
+      {
+        "description": "LOGO-影音娱乐类应用",
+        "remark": "如识别抖音、快手等LOGO",
+        "type": "ENTERTAINMENTAPPSLOGO"
+      },
+      {
+        "description": "LOGO-体育赛事",
+        "remark": "如识别奥运会等LOGO",
+        "type": "SPORTSLOGO"
+      },
+      {
+        "description": "LOGO-鞋帽服饰类品牌",
+        "remark": "如识别VANS、H\u0026M等LOGO",
+        "type": "APPARELLOGO"
+      },
+      {
+        "description": "LOGO-饰品首饰类品牌",
+        "remark": "如识别AudemarsPiguet、Nomos等LOGO",
+        "type": "ACCESSORIESLOGO"
+      },
+      {
+        "description": "LOGO-化妆品类品牌",
+        "remark": "如识别LOTTE、EyesLipsFace等LOGO",
+        "type": "COSMETICSLOGO"
+      },
+      {
+        "description": "LOGO-食品类品牌",
+        "remark": "如识别Starbucks、LOTTE等LOGO",
+        "type": "FOODLOGO"
+      },
+      {
+        "description": "LOGO-汽车交易平台类",
+        "remark": " 如识别懂车帝、易车、太平洋汽车、爱卡等LOGO",
+        "type": "AUTOTRADEAPPSLOGO"
+      },
+      {
+        "description": "物品-交通工具",
+        "type": "VEHICLE"
+      },
+      {
+        "description": "物品-建筑",
+        "type": "BUILDING"
+      },
+      {
+        "description": "物品-餐具",
+        "type": "TABLEWARE"
+      },
+      {
+        "description": "物品-食物",
+        "type": "FOOD"
+      },
+      {
+        "description": "物品-家用电器",
+        "type": "HOMEAPPLICATION"
+      },
+      {
+        "description": "物品-办公用品",
+        "type": "OFFICESUPPLIES"
+      },
+      {
+        "description": "物品-穿着用品",
+        "type": "FASHION"
+      },
+      {
+        "description": "物品-运动器材",
+        "type": "SPORTEQUIPMENT"
+      },
+      {
+        "description": "物品-玩具",
+        "type": "TOY"
+      },
+      {
+        "description": "物品-化妆品",
+        "type": "MAKEUP"
+      },
+      {
+        "description": "物品-药品",
+        "type": "DRUGS"
+      },
+      {
+        "description": "物品-绘画作品",
+        "type": "PAINTING"
+      },
+      {
+        "description": "物品-电子产品",
+        "type": "ELECTRONIC"
+      },
+      {
+        "description": "物品-医疗影像",
+        "type": "MEDICALIMAGE"
+      },
+      {
+        "description": "物品-家居用品",
+        "type": "FURNITURE"
+      },
+      {
+        "description": "物品-生活用品",
+        "type": "DAILYSUPPLIES"
+      },
+      {
+        "description": "物品-星座占卜",
+        "type": "CONSTELLATION"
+      },
+      {
+        "description": "物品-厨房用品",
+        "type": "KITCHENWARE"
+      },
+      {
+        "description": "物品-纪念品",
+        "type": "KEEPSAKE"
+      },
+      {
+        "description": "动物-哺乳动物",
+        "type": "MAMMAL"
+      },
+      {
+        "description": "动物-鸟类",
+        "type": "BIRDS"
+      },
+      {
+        "description": "动物-爬行动物",
+        "type": "REPTILE"
+      },
+      {
+        "description": "动物-鱼",
+        "type": "FISH"
+      },
+      {
+        "description": "动物-节肢动物",
+        "type": "ARTHROPOD"
+      },
+      {
+        "description": "动物腔肠动物",
+        "type": "COELENTERATE"
+      },
+      {
+        "description": "动物软体动物",
+        "type": "MOLLUSKS"
+      },
+      {
+        "description": "动物甲壳动物",
+        "type": "CRUSTACEAN"
+      },
+      {
+        "description": "植物",
+        "type": "PLANT"
+      },
+      {
+        "description": "场所",
+        "remark": "如识别卫生间、酒店、厨房等",
+        "type": "SETTING"
+      },
+      {
+        "description": "极端天气识别",
+        "remark": "如水灾、暴雨、沙尘暴、冰等",
+        "type": "EXTREMEWEATHER"
+      },
+      {
+        "description": "车牌识别",
+        "type": "LICENCEPLATE"
+      }
+    ]
+  }
+]
