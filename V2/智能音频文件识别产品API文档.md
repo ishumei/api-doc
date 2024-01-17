@@ -175,6 +175,8 @@ POST
 | businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
 | riskType         | int        | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
 | audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
+| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
+| matchedDetail    | string     | N            | 命中所有名单详情 [详见matchedDetail](#matchedDetail1)        |
 | description      | string     | Y            | 音频片段风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 *gender参数结构如下：*
@@ -213,6 +215,24 @@ POST
 | label3      | string | N        | 三级标签                                   |
 | description | string | N        | 账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | timestamp   | int    | N        | 打标签时间戳 13位Unix时间戳，单位：毫秒                |
+
+<span id="matchedDetail1">其中，matchedDetail内容：</span>
+
+| **参数名称**  | **类型**     | **是否必返** | 说明                                                         |
+| ------------- | ------------ | ------------ | ------------------------------------------------------------ |
+| listId        | string       | N            | 返回码                                                       |
+| matchedFiled  | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
+| name          | string       | N            | 命中敏感词所在的名单名称                                     |
+| organization  | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
+| words         | string_array | N            | 命中的对应名单中的所有敏感词                                 |
+| wordPositions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words1) |
+
+<span id="words1">wordPositions中的每一项内容：</span>
+
+| **参数名称** | **类型** | **是否必返** | 说明           |
+| ------------ | -------- | ------------ | -------------- |
+| word         | string   | N            | 命中的敏感词   |
+| position     | string   | N            | 敏感词所在位置 |
 
 ## 异步回调识别结果
 
@@ -271,6 +291,8 @@ POST
 | businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
 | riskType         | int        | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
 | audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
+| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
+| matchedDetail    | string     | N            | 命中所有名单详情 [详见matchedDetail](#matchedDetail2)        |
 | description      | string     | Y            | 风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 *gender参数结构如下：*
@@ -312,7 +334,26 @@ POST
 | :------------| :-----  | :----------| :--------------------------------------- |
 | errorCode    | int     | Y          |<p>状态码</p><p>2003：音频下载失败</p><p>2007：无有效数据</p>|
 
+<span id="matchedDetail2">其中，matchedDetail内容：</span>
+
+| **参数名称**  | **类型**     | **是否必返** | 说明                                                         |
+| ------------- | ------------ | ------------ | ------------------------------------------------------------ |
+| listId        | string       | N            | 返回码                                                       |
+| matchedFiled  | string_array | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值： text：文本命中敏感词 nickname：昵称命中敏感词 |
+| name          | string       | N            | 命中敏感词所在的名单名称                                     |
+| organization  | string       | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
+| words         | string_array | N            | 命中的对应名单中的所有敏感词                                 |
+| wordPositions | json_array   | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words2) |
+
+<span id="words2">wordPositions中的每一项内容：</span>
+
+| **参数名称** | **类型** | **是否必返** | **说明**       |
+| ------------ | -------- | ------------ | -------------- |
+| word         | string   | N            | 命中的敏感词   |
+| position     | string   | N            | 敏感词所在位置 |
+
 ## **接口响应码列表**
+
 code和message的列表如下：
 
 | **code** | **message** |
