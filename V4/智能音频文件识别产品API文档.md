@@ -311,7 +311,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
 | data           | json object | 本次请求相关信息     | 必传参数                   | 最长1MB，[详见data参数](#data)                               |
 | btId           | string      | 音频文件唯一标识     | 必传参数                   | 唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复 |
 | callback       | string      | 回调http接口         | 非必传参数                 | 当该字段非空时，服务将根据该字段回调通知用户审核结果         |
-| acceptLang     | string      | 返回标签的语种类型   | 非必传参数                 | <p>选择返回标签的语种类型</p><p>可选值：</p><p>zh：中文</p><p>en：英文</p><p>不传入默认为返回中文标签</p> |
+| acceptLang     | string      | 返回标签的语种类型   | 非必传参数                 | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 
 其中，<span id="data">data</span>的内容如下：
 
