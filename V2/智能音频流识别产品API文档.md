@@ -153,7 +153,10 @@ POST
 | roomId       | int      | Y            | <p>房间号码，取值范围：【1-4294967294】</p><p>roomId与strRoomId必传一个，若两者都有值优先选用roomId</p>                                                    |
 | strRoomId    | string   | Y            | <p>房间号码<br/>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
 
-trtc流会根据上述`sdkAppId`、`userId`、`roomId`或`strRoomId`进行去重
+trtc流会根据下述逻辑去重：
+
+- 当`uid`不存在时：`sdkAppId`、**`userId`**、`roomId`或`strRoomId`进行去重
+- 当`uid`存在时，会根据`sdkAppId`、**`uid`**、`roomId`或`strRoomId`进行去重
 
 其中data.volcParam内容如下:
 
