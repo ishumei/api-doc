@@ -191,7 +191,6 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
 | businessLabels  | json_array  | 音频业务标签           | N           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
 | allLabels       | json_array  | 风险标签               | N           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
-| riskSource      | int         | 风险来源               | Y           | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险                                                                                            |
 | tokenProfileLabels  | json_array  | 账号属性标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | tokenRiskLabels  | json_array  | 账号风险标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | speakers         | json_array | 该音频片段说话人信息     |N       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
@@ -218,6 +217,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | audioText    | string     | 音频转译文本的结果       | N           |                                                                                         |
 | matchedLists | json_array | 命中的客户自定义名单信息 | N           | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists)           |
 | riskSegments | json_array | 高风险内容片段           | N           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
+| riskSource | int | 风险来源 | N | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险 |
 
 <span id="matchedLists">其中，matchedLists结构如下：</span>
 
@@ -274,6 +274,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel2      | string   | 二级风险标签 | Y           | 二级风险标签 |
 | riskLabel3      | string   | 三级风险标签 | Y           | 三级风险标签 |
 | riskDescription | string   | 风险原因     | Y           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理     |
+| riskDetail | json_object | 风险详情 | N | [详见riskDetail参数](#riskDetail) |
 
 其中最外层的auxInfo字段结构如下：
 
