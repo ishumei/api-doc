@@ -64,8 +64,8 @@
 | room           | string      | 直播房间号                                             | N            |                                                                                                                                                              |
 | role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
 | returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段<br/>建议传入1 （默认为0，在静音的情况下不会产生回调）             |
-| returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一分钟文字；                                                      |
-| returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一分钟音频链接；                                                  |
+| returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一个片段文字；                                                  |
+| returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一个片段音频链接；                                              |
 | returnFinishInfo | int     | 音频流结束回调通知 | N            | 可选值如下（默认值为`0`）：<br/>`0`：审核结束时不发送结束通知<br/>`1`：审核结束时发起结束通知，回调参数增加statCode状态码<br/>建议传入1（默认值为0，在流结束时不会产生回调）                                                                                                        |
 | extra          | json_object | 辅助参数                                               | N            | 用于辅助音频检测的相关信息，[详见extra参数](#extra)                                                                                                          |
 | liveTitle      | string      | 标题                                                   | N            | 房间标题，非必填参数，在客户开通人审服务传入                                                                                                                 |
@@ -189,7 +189,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | riskLabel2      | string      | 二级标签               | Y           | 二级标签归属于一级标签，当riskLevel为`PASS`时为空                                                                                                |
 | riskLabel3      | string      | 三级标签               | Y           | 三级标签归属于二级标签，当riskLevel为`PASS`时为空                                                                                                |
 | riskDescription | string      | 标签解释               | Y           | 对于命中用户自定义名单时返回：`命中自定义名单`；<br/>当riskLevel为`PASS时返回`正常`；<br/>其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-| audioText       | string      | 音频转译文本的结果     | N           | 当returnPreAudio值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreAudio值为`0`时，包含违规音频片段文本内容        |
+| audioText       | string      | 音频转译文本的结果     | N           | 当returnPreText值为`1`时，包含违规音频前一个片段文本内容和违规音频片段文本内容；<br/>当returnPreText值为`0`时，包含违规音频片段文本内容 |
 | preAudioUrl     | string      | 前一个音频片段音频地址 | N           | 当returnPreAudio值为`1`时，返回的是当前片段与前一片段的20秒音频片段地址；<br/>returnPreAudio值为`0`时，不返回   |
 | riskDetail      | json_object | 风险详情信息           | N          | 当code等于`1100`时返回，[详见riskDetail参数](#riskDetail)                                                                                        |
 | auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
