@@ -135,7 +135,7 @@ POST
 | room        | string     | 否       | 房间号                                                       |
 | appId       | string     | 否      | 应用                                                         |
 | channel     | string     |  否     | 渠道                                                         |
-| passThrough | json_array | 否    | 透传字段                                                     |
+| passThrough | json_object | 否    | 透传字段                                                     |
 
 ##### 返回参数
 
