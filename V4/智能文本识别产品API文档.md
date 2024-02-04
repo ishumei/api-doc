@@ -258,8 +258,7 @@
             "topic":"12345",
             "atId":"username1",
             "room":"ceshi123",
-            "receiveTokenId":"username2",
-            "role":"USER"
+            "receiveTokenId":"username2"
     	}
     }
 }
