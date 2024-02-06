@@ -12,7 +12,6 @@
 | Beijing             | `http://api-img-bj.fengkongcloud.com/image/v4`  |
 | Shanghai            | `http://api-img-sh.fengkongcloud.com/image/v4`  |
 | Singapore           | `http://api-img-xjp.fengkongcloud.com/image/v4` |
-| India               | `http://api-img-yd.fengkongcloud.com/image/v4`  |
 | Silicon valley(USA) | `http://api-img-gg.fengkongcloud.com/image/v4`  |
 
 ### Request method:
