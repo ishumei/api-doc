@@ -470,8 +470,6 @@ This interface is used by the client to notify the server that a video stream is
 | --- | --- | --- |
 | Shanghai | `http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4` | Chinese |
 | Singapore | `http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4` | Chinese<br/>English<br/>Arabic |
-| Silicon Valley | `http://api-videostream-gg.fengkongcloud.com/finish_videostream/v4` | Chinese<br/>English<br/>Arabic |
-| India | `http://api-videostream-yd.fengkongcloud.com/finish_videostream/v4` | Chinese |
 
 ### Request Method:
 
