@@ -437,8 +437,6 @@ This interface is used for customers to actively query the recognition results o
 | Beijing | `http://api-video-bj.fengkongcloud.com/video/query/v4` | Video files |
 | Shanghai | `http://api-video-sh.fengkongcloud.com/video/query/v4` | Video files |
 | Singapore | `http://api-video-xjp.fengkongcloud.com/video/query/v4` | Video files |
-| Silicon Valley | `http://api-video-gg.fengkongcloud.com/video/query/v4` | Video files |
-| India | `http://api-video-yd.fengkongcloud.com/video/query/v4` | Video files |
 
 ### Request Method:
 
