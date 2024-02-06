@@ -594,7 +594,6 @@ It is placed in the HTTP Body in Json format. The specific parameters are as fol
 | Peking         | `http://api-img-bj.fengkongcloud.com/images/v4`  | Image   |
 | Shanghai       | `http://api-img-sh.fengkongcloud.com/images/v4`  | Image   |
 | Singapore      | `http://api-img-xjp.fengkongcloud.com/images/v4` | Image   |
-| India          | `http://api-img-yd.fengkongcloud.com/images/v4`  | Image   |
 | Silicon valley | `http://api-img-gg.fengkongcloud.com/images/v4`  | Image   |
 
 ### Request method:
