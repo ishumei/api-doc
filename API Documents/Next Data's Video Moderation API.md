@@ -12,8 +12,6 @@ This interface is used to submit video-related information, customize frame capt
 | Beijing | `http://api-video-bj.fengkongcloud.com/video/v4` |
 | Shanghai | `http://api-video-sh.fengkongcloud.com/video/v4` |
 | Singapore | `http://api-video-xjp.fengkongcloud.com/video/v4` |
-| Silicon Valley | `http://api-video-gg.fengkongcloud.com/video/v4` |
-| India | `http://api-video-yd.fengkongcloud.com/video/v4` |
 
 ### Request Method:
 
