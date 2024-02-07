@@ -62,7 +62,7 @@
 | volcParam      | json_object | 要检测的火山流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
 | ginParam     | json_object | 要检测的巨人流参数                                     | N            | 当streamType为`GIN`时必传,[详见ginParam参数](#ginParam)                                                                                                |
 | room           | string      | 直播房间号                                             | N            |                                                                                                                                                              |
-| role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`SYSTEM`：系统角色<br/>`USER`：普通用户 |
+| role           | string      | 用户角色                                               | N            | 用户角色对不同角色可配置不同策略。直播领域可取值如下（默认值`USER`普通用户）：<br/>`ADMIN`:房管<br/>`HOST`：主播<br/>`USER`：普通用户 |
 | returnAllText  | int         | 返回音频片段的等级                                     | N            | 可选值如下（默认为`0`）：<br/>`0`：返回风险等级为非pass的音频片段<br/>`1`：返回所有风险等级的音频片段<br/>建议传入1 （默认为0，在静音的情况下不会产生回调）             |
 | returnPreText  | int         | 是否返回违规音频流片段的前文文字信息                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段文字；<br/>`1`：返回违规片段前一个片段文字；                                                  |
 | returnPreAudio | int         | 是否返回违规音频流片段的前文音频链接                   | N            | 可选值如下（默认值为`0`）：<br/>`0`：不返回违规片段前一个片段音频；<br/>`1`：返回违规片段前一个片段音频链接；                                              |
