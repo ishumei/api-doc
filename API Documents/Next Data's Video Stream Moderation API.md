@@ -12,8 +12,6 @@ This interface is used to submit related information, such as video stream authe
 | --- | --- |
 | Shanghai (CN) | `http://api-videostream-sh.fengkongcloud.com/videostream/v4` |
 | Singapore | `http://api-videostream-xjp.fengkongcloud.com/videostream/v4` |
-| Silicon Valley (US) | `http://api-videostream-gg.fengkongcloud.com/videostream/v4` |
-| India | `http://api-videostream-yd.fengkongcloud.com/videostream/v4` |
 
 ### **Request method:**
 
@@ -472,8 +470,6 @@ This interface is used by the client to notify the server that a video stream is
 | --- | --- | --- |
 | Shanghai | `http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4` | Chinese |
 | Singapore | `http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4` | Chinese<br/>English<br/>Arabic |
-| Silicon Valley | `http://api-videostream-gg.fengkongcloud.com/finish_videostream/v4` | Chinese<br/>English<br/>Arabic |
-| India | `http://api-videostream-yd.fengkongcloud.com/finish_videostream/v4` | Chinese |
 
 ### Request Method:
 
