@@ -207,7 +207,7 @@
             "type": "string"
           },
           {
-            "length": "40",
+            "length": "64",
             "param_description": "用户账号标识。建议传入用户ID，可用于灌水、广告等行为维度的风险识别。",
             "req_name": "tokenId",
             "required": true,
@@ -501,7 +501,7 @@
                 "type": "string"
               },
               {
-                "length": "40",
+                "length": "64",
                 "param_description": "zego提供的身份验证信息，获取zego的identify_token用于登录，生成方式详见zego文档：https://doc-zh.zego.im/article/15258 注意tokenId是唯一标识上传鉴黄每一次请求都需要重新生成新的",
                 "req_name": "tokenId",
                 "required": true,

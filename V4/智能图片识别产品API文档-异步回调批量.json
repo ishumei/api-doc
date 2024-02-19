@@ -181,7 +181,7 @@
         "required": true,
         "son": [
           {
-            "length": "40",
+            "length": "64",
             "param_description": "用户账号标识。建议传入用户ID，可用于灌水、广告等行为维度的风险识别。",
             "req_name": "tokenId",
             "required": true,
@@ -263,13 +263,6 @@
             "length": "64",
             "param_description": "消息接收者的tokenId 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
             "req_name": "receiveTokenId",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "length": "-",
-            "param_description": "用户角色。在可选范围有效，对不同角色可配置不同策略，默认值：普通用户。\n可取值：\n主播：HOST\n系统角色：SYSTEM\n管理员：ADMIN\n普通用户：USER",
-            "req_name": "role",
             "required": false,
             "type": "string"
           },
