@@ -864,7 +864,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
 
 ### 回调返回示例
 
-```djson
+```json
 {
     "requestId":"6a9cb980346dfea41111656a514e9109",
     "btId":"1604311839040",
