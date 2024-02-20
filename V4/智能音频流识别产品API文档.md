@@ -109,13 +109,12 @@
 
 <span id="aliParam">data中，aliParam详细内容如下：</span>
 
-| **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                |
-| --------------- | -------- | ------------------------------------------------------------ | ------------ | --------------------------------------- |
-| token           | string   | 用于拉流端登陆房间，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)，注意token是唯一标识，上传审核，每一次请求都需要重新生成新的。 | Y            |                                         |
-| channelID       | string   | 频道ID，由用户自定义，服务端以频道为单位拉流录制。tokenId中已经包含了channelID信息，若此参数传入生成tokenId的channelID或传入空字符串，可以拉流成功；若此参数传入和生成tokenId的channelID不一致，会拉流失败。 | Y            |                                         |
-| userId          | bool     | 拉流机器人ID。tokenId中已经包含userId信息，若此参数传入和生成tokenId的userId一致或传入空字符串，拉流成功；若此参数传入为生成tokenId的userId不一致，会拉流失败。 | Y            |                                         |
-| userName        | string   | userName为拉流用户名，一般可设置与userId一致。不影响拉流，非必传，若不传入，默认值为userId。 | N            |                                         |
-| isMixingEnabled | bool     | 录制模式 true：合流，房间内所有用户合成一路流录制审核。 false：分流，房间内每个用户单独录制审核。 | N            | 默认值为`true` `true`:合流 `false`:分流 |
+| **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                        |
+| --------------- | -------- | ------------------------------------------------------------ | ------------ | ----------------------------------------------- |
+| token           | string   | 用于拉流端加入频道，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)，每次上传审核都需要重新生成新的token。 | Y            |                                                 |
+| room            | string   | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 | Y            | 必传参数，非空字符串                            |
+| userId          | bool     | 拉流机器人ID，需要和生成token的userId完全一致。              | Y            | 必传参数，非空字符串                            |
+| isMixingEnabled | bool     | 录制模式<br/>true：合流，房间内所有用户合成一路流录制审核。 <br/>false：分流，房间内每个用户单独录制审核。 | N            | 默认值为`true`<br/>`true`:合流<br/>`false`:分流 |
 
 其中 data.trtcParam内容如下
 
