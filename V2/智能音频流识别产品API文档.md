@@ -163,10 +163,10 @@ trtc流会根据下述逻辑去重：
 
 | **参数名称**    | **类型** | **是否必选** | **说明**                                                     |
 | :-------------- | :------- | :----------- | :----------------------------------------------------------- |
-| token           | int      | Y            | 用于拉流端加入频道，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)  每次上传审核都需要重新生成新的token。 |
-| room            | int      | Y            | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 |
+| token           | string   | Y            | 用于拉流端加入频道，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)  每次上传审核都需要重新生成新的token。 |
+| room            | string   | Y            | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 |
 | userId          | string   | Y            | 拉流机器人ID，需要和生成token的userId完全一致。              |
-| isMixingEnabled | string   | Y            | <p>录制模式，可能取值：</p><p>`false`：分流，房间内每个用户单独录制审核</p><p>`true`：合流，房间内所有用户合成一路流录制审核</p> |
+| isMixingEnabled | string   | N            | <p>录制模式，可能取值：</p><p>`false`：分流，房间内每个用户单独录制审核</p><p>`true`：合流，房间内所有用户合成一路流录制审核</p> |
 
 其中data.volcParam内容如下:
 
