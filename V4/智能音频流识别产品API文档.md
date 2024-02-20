@@ -111,7 +111,7 @@
 
 | **请求参数名**  | **类型** | **参数说明**                                                 | **是否必传** | **规范**                                |
 | --------------- | -------- | ------------------------------------------------------------ | ------------ | --------------------------------------- |
-| token           | string   | 用于拉流端登陆房间，生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，注意token是唯一标识，上传审核，每一次请求都需要重新生成新的。 | Y            |                                         |
+| token           | string   | 用于拉流端登陆房间，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)，注意token是唯一标识，上传审核，每一次请求都需要重新生成新的。 | Y            |                                         |
 | channelID       | string   | 频道ID，由用户自定义，服务端以频道为单位拉流录制。tokenId中已经包含了channelID信息，若此参数传入生成tokenId的channelID或传入空字符串，可以拉流成功；若此参数传入和生成tokenId的channelID不一致，会拉流失败。 | Y            |                                         |
 | userId          | bool     | 拉流机器人ID。tokenId中已经包含userId信息，若此参数传入和生成tokenId的userId一致或传入空字符串，拉流成功；若此参数传入为生成tokenId的userId不一致，会拉流失败。 | Y            |                                         |
 | userName        | string   | userName为拉流用户名，一般可设置与userId一致。不影响拉流，非必传，若不传入，默认值为userId。 | N            |                                         |
