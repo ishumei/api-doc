@@ -47,7 +47,6 @@ It is placed in the HTTP Body in Json format. The specific parameters are as fol
 | url            | string      | adress of audiostream or videostream                                             | N            | must be afferented when streamType is `NORMAL`                                                                                                                                |
 | lang           | string      | Language of audio content to be tested                                         | Y            | Optional values：<br/>`zh`：Chinese<br/>`en`：English<br/>`ar`：Arabic<br/>The default value is zh.                                                                           |
 | room | string | ID of livestream | N |  |
-| role | string | role of anchor | N | Optional values:<br/>`ADMIN`<br/>`HOST`<br/>`SYSTEM`<br/>`USER` |
 | returnAllText | int | switch of  return full result return | N | Optional values（default value is `0`）：<br/>`0`：return results of audio stream clips what riskLevel si no PASS<br/>`1`：return all results of audio stream clips |
 | returnPreText | int | switch of return result of previous text | N | Optional values（default value is `0`）：<br/>`0`：not return result of previous text；<br/>`1`：return result of previous text； |
 | returnPreAudio | int | switch of return result of previous audio clips URL | N | Optional values（default value is `0`）：<br/>`0`：not return；<br/>`1`：return； |
@@ -386,7 +385,6 @@ curl -v 'http://api-audiostream-bj.fengkongcloud.com/audiostream/v4' -d '{
         "returnAllText":1,
         "returnPreAudio":1,
         "returnPreText":1,
-        "role":"USER",
         "room":"test1",
         "streamType":"DEFAULT",
         "tokenId":"test_audio_v4",

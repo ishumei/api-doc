@@ -58,7 +58,6 @@ It is placed in the HTTP Body in Json format. The specific parameters are as fol
 | topic                      | string   | It can be subject number, book review area number and forum post number | N                                 | Must be passed when the eventId value is`article`            |
 | atId                       | string   | TokenId of the user mentioned in the group chat scenario     | N                                 | A string consisting of numbers, letters, underscores and dashes with a length of less than or equal to 64 bits. It must be passed when the eventId value is`groupChat` |
 | room                       | string   | Live room/game room number                                   | N                                 | It must be passed when the eventId value is`groupChat`       |
-| role                       | string   | User role                                                    | N                                 | It is used to distinguish users with different roles in the live broadcast/game industry. The optional value (default is normal user):<br/>`SYSTEM`: system<br/>`USER`: normal user<br/>When the incoming value is`SYSTEM`, the current request is risk-free by default |
 | sex                        | int      | Gender                                                       | N                                 | Used for user gender, optional values:<br/>`0`: male<br/>`1`: female<br/>`2`: gender unknown |
 | passThrough                | Json     | The pass-through field passed in by the customer             | N                                 | The content of this field will be returned along with the return value |
 
@@ -233,8 +232,7 @@ When it is not in Chinese, the contents of the primary label are as follows:
             "topic":"12345",
             "atId":"username1",
             "room":"test123",
-            "receiveTokenId":"username2",
-            "role":"USER"
+            "receiveTokenId":"username2"
     	}
     },
     "acceptLang":"en"
