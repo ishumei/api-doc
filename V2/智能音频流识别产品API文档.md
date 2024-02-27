@@ -80,13 +80,14 @@ POST
 
 | **参数名称**  | **类型**    | **是否必选** | **说明**                                                                                                  |
 | :------------ | :---------- | :----------- | :-------------------------------------------------------------------------------------------------------- |
-| streamType    | string      | Y            | 流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
+| streamType    | string      | Y            | 流类型,可选择：<br/>普通流：NORMAL，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式<br/>声网录制：AGORA<br/>即构录制：ZEGO<br/>腾讯录制：TRTC<br/>火山引擎录制：VOLC<br/>巨人录制：GIN<br/>阿里录制：ALI<br/><p>注意：使用RTC的SDK录制方案的时候，会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商</p> |
 | url           | string      | Y            | 要检测的音频流url地址（当streamType为NORMAL时必传）                                                       |
 | agoraParam    | json_object | Y            | 声网录制参数（当streamType为AGORA时必传），详见扩展参数                                                   |
 | ginParam    | json_object | Y            | 巨人录制参数（当streamType为GIN时必传），详见扩展参数                                                   |
 | zegoParam     | json_object | Y            | 即构录制参数（当streamType为ZEGO时必传），详见扩展参数                                                    |
 | trtcParam     | json_object | Y            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                    |
 | volcParam     | json_object | Y            | 火山引擎录制参数（当streamType为VOLC时必传），详见扩展参数                                                    |
+| aliParam | json_object | Y | 阿里制参数（当streamType为ALI时必传），详见扩展参数 |
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
 | lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语 |
@@ -156,6 +157,15 @@ trtc流会根据下述逻辑去重：
 
 - 当`uid`不存在时：`sdkAppId`、**`userId`**、`roomId`或`strRoomId`进行去重
 - 当`uid`存在时，会根据`sdkAppId`、**`uid`**、`roomId`或`strRoomId`进行去重
+
+其中 data.aliParam内容如下
+
+| **参数名称**    | **类型** | **是否必选** | **说明**                                                     |
+| :-------------- | :------- | :----------- | :----------------------------------------------------------- |
+| token           | string   | Y            | 用于拉流端加入频道，生成方式详见文档：[阿里token鉴权](https://help.aliyun.com/zh/live/user-guide/token-based-authentication)  每次上传审核都需要重新生成新的token。 |
+| room            | string   | Y            | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 |
+| userId          | string   | Y            | 拉流机器人ID，需要和生成token的userId完全一致。              |
+| isMixingEnabled | string   | N            | <p>录制模式，可能取值：</p><p>`false`：分流，房间内每个用户单独录制审核</p><p>`true`：合流，房间内所有用户合成一路流录制审核</p> |
 
 其中data.volcParam内容如下:
 
@@ -253,7 +263,7 @@ POST
 | riskTypeDesc      | string      | N            | 风险原因描述                                                                                                                                                                                                                                                                                                                                  |
 | room              | string      | Y            | 房间号                                                                                                                                                                                                                                                                                                                                        |
 | userId            | int         | N            | AGORA分流情况下存在。返回的userId是实际房间中的用户id，与请求参数agoraParam中的uid无关。                                                   |
-| strUserId         | string      | N            | TRTC、ZEGO、VOLC、GIN分流情况下存在。返回的strUserId是实际房间中的用户id。当流类型为TRTC分流，与请求参数trtcParam中的uid无关。 |
+| strUserId         | string      | N            | ALI、TRTC、ZEGO、VOLC、GIN分流情况下存在。返回的strUserId是实际房间中的用户id。当流类型为TRTC分流，与请求参数trtcParam中的uid无关。当流类型为ALI分流，与请求参数aliParam中的userId无关。 |
 | vadCode           | int         | N            | <p>静音状态：</p><p>0 ：静音片段</p><p>1 ：非静音片段</p>                                                                                                                                                                                                                                                                                     |
 | seiInfo           | array       | N            | <p>（需要联系数美开通）</p><p>展示流片段插入的SEI信息</p>                                                                                                                                                                                                                                                                                     |
 | language          | json_array  | N            | 语种识别与概率值列表,在type下传入返回。                                                                                                                                                                                                                                                                                                       |
