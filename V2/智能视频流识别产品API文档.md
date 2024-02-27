@@ -112,7 +112,7 @@
 | 请求参数名 | 类型 | 参数说明 | 传入说明 | 规范 |
 | --- | --- | --- | --- | --- |
 | tokenId | string | Zego鉴权token | 必传参数 | zego提供的identity_token身份验证信息，<br/>用于token登陆（每次开流必须主动调用zego接口获取新的token）<br/>获取方式详见[音视频流审核鉴权 Token](https://doc-zh.zego.im/article/15258) |
-| streamId | string | Zego流Id | 必传参数 | Zego的流ID |
+| roomId | string | Zego房间号 | 必传参数 | 需要审核的房间号 |
 
 <span id="volcParam">其中，data.volcParam内容如下：</span>
 
@@ -201,8 +201,8 @@
 | matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时有效）| 否 |命中名单时返回|
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）| 否 |命中名单时返回 |
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
-| userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
-| strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
+| userId | int | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关 | 否 |仅AGORA流返回|
+| strUserId | string | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否 |以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核|
 | qrContent | string | 截帧图片二维码识别内容 | 否 |imgType传值需要包含AD，且只有完整可以正常识别到的二维码才会返回|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
@@ -279,8 +279,8 @@ businessDetail中，persons数组的每个元素的内容如下：
 | language | json_array | 语种标签与概率值列表 | 否| 详见[language说明](#language) |
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
 | content  | string | 视频中音频识别出的文字内容 | 否 | content在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本|
-| userId | int | 声网用户账号标识（仅分流情况下存在）| 否 |返回的userId是实际房间中的用户id，与请求参数中的uid无关|
-| strUserId | string | TRTC流用户账号标识（仅分流情况下存在）| 否 |返回的strUserId是实际房间中的用户id|
+| userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
 
 <span id="audioBusinessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：</span>
