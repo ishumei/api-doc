@@ -202,7 +202,7 @@
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）| 否 |命中名单时返回 |
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
 | userId | int | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关 | 否 |仅AGORA流返回|
-| strUserId | string | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否 |以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核|
+| strUserId | string | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否 |以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核|
 | qrContent | string | 截帧图片二维码识别内容 | 否 |imgType传值需要包含AD，且只有完整可以正常识别到的二维码才会返回|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
@@ -280,7 +280,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
 | content  | string | 视频中音频识别出的文字内容 | 否 | content在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本|
 | userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
 
 <span id="audioBusinessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：</span>

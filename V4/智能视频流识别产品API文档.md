@@ -203,7 +203,7 @@
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | userId            | int      | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string   | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
+| strUserId         | string   | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
 | similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
@@ -367,7 +367,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audio_starttime | string | 辅助参数 | 是 | 违规内容开始时间（绝对时间） |
 | audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
 | userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br>- ZEGO流按房间号审核<br>- TRTC流分流审核<br>- VOLC流审核 |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 | room | string | 房间号 | 否 | |
 
