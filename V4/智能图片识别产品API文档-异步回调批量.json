@@ -218,7 +218,7 @@
             "type": "array"
           },
           {
-            "length": "64",
+            "length": "128",
             "param_description": "客户自定义数据Id。可以用于数美saas后台检索",
             "req_name": "dataId",
             "required": false,
