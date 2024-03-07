@@ -57,11 +57,12 @@
 | --- | --- | --- | --- | --- |
 | lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议，支持`flv`,`m3u8`格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>`VOLC`：火山引擎审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
+| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议，支持`flv`,`m3u8`格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核 <br/>`VOLC`：火山引擎审核 <br/>`ALI`：阿里云审核 <br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#zegoParam) |
 | volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的火山流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#volcParam) |
+| aliParam | json_object | 阿里流参数 | 非必传参数 | 要检测的阿里流参数（当streamType为`ALI`时必传)，详见[aliParam说明](#aliParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
@@ -78,6 +79,7 @@
 | liveTitle | string | 直播标题 | 非必传参数 | 直播标题，一般用于人审需要字段|
 | liveCover | string | 直播封面 | 非必传参数 | 直播封面，一般用于人审需要字段|
 | anchorName | string | 主播名称 | 非必传参数 | 主播名称，一般用于人审需要字段|
+| imgBusinessDetectStep | int | 图片业务标签检测步长 | 非必传参数 | 每个步长只会检测一次imgBusinessType，取值大于等于1。<br/>默认值=1，代表所有片段都审核业务标签。 |
 
 <span id="agoraParam">其中，agoraParam内容如下：</span>
 
@@ -122,6 +124,14 @@
 | roomId     | string | 房间号                                   | 必传参数 |      |
 | userId     | string | 分配给录制端的userId                     | 必传参数 |      |
 | token      | string | 录制userId对应的验证签名，相当于登录密码 | 必传参数 |      |
+
+<span id="aliParam">其中，data.aliParam内容如下：</span>
+
+| 请求参数名 | 类型   | 参数说明                                                     | 传入说明 | 规范 |
+| ---------- | ------ | ------------------------------------------------------------ | -------- | ---- |
+| room       | string | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 | 必传参数 |      |
+| userId     | string | 拉流机器人ID，需要和生成token的userId完全一致。              | 必传参数 |      |
+| token      | string | 用于拉流端加入频道，生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，每次上传审核都需要重新生成新的token。 | 必传参数 |      |
 
 ### 返回参数
 
@@ -202,7 +212,7 @@
 | matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）| 否 |命中名单时返回 |
 | imgText | string | 视频中画面识别出的文字内容| 否 ||
 | userId | int | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关 | 否 |仅AGORA流返回|
-| strUserId | string | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否 |以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核|
+| strUserId | string | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否 |以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核<br/>- ALI流审核|
 | qrContent | string | 截帧图片二维码识别内容 | 否 |imgType传值需要包含AD，且只有完整可以正常识别到的二维码才会返回|
 |businessLabels | json_array |传了imgBusinessType时返回 | 否 | 详见[businessLabels说明](#businessLabels) |
 
@@ -280,7 +290,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audioText | string | 视频中音频识别出的文字内容 | 否 | |
 | content  | string | 视频中音频识别出的文字内容 | 否 | content在当前REJECT且returnPreText时，包含前10s+当前10s的文本，否则也只包含当前10s的文本|
 | userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核<br/>- ALI流审核 |
 |businessLabels | json_array |传了audioBusinessType时返回 | 否 | 详见[businessLabels说明](#audioBusinessLabels) |
 
 <span id="audioBusinessLabels">音频的detail中，businessLabels数组的每个成员的内容如下：</span>

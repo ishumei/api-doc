@@ -201,7 +201,7 @@
         "son": [
           {
             "length": "-",
-            "param_description": "视频流类型 可选值为：\nNORMAL：普通流地址，目前支持rtmp、rtmps、hls、http、https协议\nAGORA：声网审核\nTRTC:腾讯审核\nZEGO：即构审核 \nVOLC：火山引擎审核 \n注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商",
+            "param_description": "视频流类型 可选值为：\nNORMAL：普通流地址，目前支持rtmp、rtmps、hls、http、https协议\nAGORA：声网审核\nTRTC:腾讯审核\nZEGO：即构审核\nVOLC：火山引擎审核\nALI：阿里云审核\n注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商",
             "req_name": "streamType",
             "required": true,
             "type": "string"
@@ -233,6 +233,13 @@
             "req_name": "detectStep",
             "required": false,
             "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "图片业务标签检测步长。每个步长只会检测一次imgBusinessType，取值大于等于1。\u003c\n\u003e默认值=1，代表所有片段都审核业务标签。",
+            "req_name": "imgBusinessDetectStep",
+            "required": false,
+            "type": "int"
           },
           {
             "length": "64",
@@ -379,6 +386,34 @@
                 "req_name": "untrustedUserIdList",
                 "required": false,
                 "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "阿里引擎录制参数（当streamType为ALI时必传）",
+            "req_name": "aliParam",
+            "required": false,
+            "son": [
+              {
+                "length": "64",
+                "param_description": "用于拉流端加入频道，生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，每次上传审核都需要重新生成新的token。",
+                "req_name": "token",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "声网用户账号标识。仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。",
+                "req_name": "userId",
+                "required": false,
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "req_name": "room",
+                "required": false
               }
             ],
             "type": "object"
@@ -1051,7 +1086,7 @@
               },
               {
                 "length": "-",
-                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。",
+                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。\nALI流审核。",
                 "req_name": "strUserId",
                 "required": false,
                 "type": "string"
@@ -1657,7 +1692,7 @@
               },
               {
                 "length": "-",
-                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。",
+                "param_description": "用户标识，用于区分房间内违规用户，与请求参数中的userId无关，分流的用户id。以下情况会返回该字段：\nZEGO流按房间号审核。\nTRTC流分流审核。\nVOLC流审核。\nALI流审核。",
                 "req_name": "strUserId",
                 "required": false,
                 "type": "string"

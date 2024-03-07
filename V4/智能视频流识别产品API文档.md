@@ -1,4 +1,3 @@
-![image](https://github.com/liushuanpeng/api-doc/assets/8817987/e8554db6-3408-4a8c-9655-e43c31bc65ca)
 # 数美智能视频流识别产品API文档
 
 
@@ -54,11 +53,12 @@
 | --- | --- | --- | --- | --- |
 | lang | string | 语种 | 必传参数 | 可选值如下：<br/>`zh`：中文<br/>`en`：英语<br/>`ar`：阿语<br/>默认值：`zh` |
 | tokenId | string | 客户端用户账号唯一标识 | 必传参数 | 用于用户行为分析，建议传入用户UID； 最长40位 |
-| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议,支持`flv`,`m3u8`等格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核<br/>`VOLC`：火山引擎审核<br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
+| streamType | string | 视频流类型 | 必传参数 | 可选值为：<br/>`NORMAL`：普通流地址，目前支持`rtmp`、`rtmps`、`hls`、`http`、`https`协议,支持`flv`,`m3u8`等格式<br/>`AGORA`：声网审核<br/>`TRTC`:腾讯审核<br/>`ZEGO`：即构审核<br/>`VOLC`：火山引擎审核<br/>`ALI`：阿里云审核<br/>注意：使用RTC的SDK录制方案的时候，可能会在RTC侧产生额外的录制费用，具体费用请咨询相关RTC厂商 |
 | agoraParam | json_object | 声网流参数 | 非必传参数 | 要检测的声网流参数（当streamType为`AGORA`时必传），详见[agoraParam说明](#agoraParam) |
 | trtcParam | json_object | 腾讯流参数 | 非必传参数 | 要检测的TRTC流参数（当streamType为`TRTC`时必传），详见[trtcParam说明](#trtcParam) |
 | zegoParam | json_object | 即构流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`ZEGO`时必传)，详见[zegoParam说明](#zegoParam) |
-| volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的即构流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#volcParam) |
+| volcParam | json_object | 火山流参数 | 非必传参数 | 要检测的火山流参数（当streamType为`VOLC`时必传)，详见[volcParam说明](#volcParam) |
+| aliParam | json_object | 阿里流参数 | 非必传参数 | 要检测的阿里流参数（当streamType为`ALI`时必传)，详见[aliParam说明](#aliParam) |
 | url | string | 要检测的视频url地址 | 非必传参数 | 要检测的流地址url参数（当streamType为NORMAL时必传） |
 | streamName | string | 视频流名称 | 非必传参数 | 用于后台界面展示，建议传入 |
 | ip | string | 客户端IP | 非必传参数 | 该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 |
@@ -71,6 +71,7 @@
 | detectFrequency | int | 截帧频率间隔 | 非必传参数 | 单位为秒，取值范围为1~60s，遇到小数向下取整，不足1的按照1S处理，如不传递默认3s截帧一次 |
 | detectStep | int | 视频流截帧图片检测步长 | 非必传参数 | 已截帧图片每个步长只会检测一次，取值大于等于1。 |
 | room | string | 直播间/游戏房间编号 | 非必传参数 | 可针对单个房间制定不同的策略； |
+| imgBusinessDetectStep | int | 图片业务标签检测步长 | 非必传参数 | 每个步长只会检测一次imgBusinessType，取值大于等于1。<br/>默认值=1，代表所有片段都审核业务标签。 |
 | extra | json_object | 扩展信息 | 非必传参数 | 详见[extra说明](#extra) |
 
 <span id="extra">data 中，extra的内容如下</span>
@@ -122,6 +123,14 @@
 | roomId | string | 房间号 | 必传参数 | 
 | userId | string | 分配给录制端的userId | 必传参数 | 
 | token | string | 录制userId对应的验证签名，相当于登录密码 | 必传参数 |
+
+<span id="aliParam">其中，data.aliParam内容如下：</span>
+
+| 请求参数名 | 类型   | 参数说明                                                     | 传入说明 | 规范 |
+| ---------- | ------ | ------------------------------------------------------------ | -------- | ---- |
+| room       | string | 房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。 | 必传参数 |      |
+| userId     | string | 拉流机器人ID，需要和生成token的userId完全一致。              | 必传参数 |      |
+| token      | string | 用于拉流端加入频道，生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，每次上传审核都需要重新生成新的token。 | 必传参数 |      |
 
 ### 返回参数
 
@@ -203,7 +212,7 @@
 | beginProcessTime | int | 辅助参数 | 是 | 开始处理的时间（13位时间戳） |
 | finishProcessTime | int | 辅助参数 | 是 | 结束处理的时间（13位时间戳） |
 | userId            | int      | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string   | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
+| strUserId         | string   | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核<br/>- ALI流审核 |
 | detectType | int | 用来区分截帧图片是否过了检测 | 否 | 可能取值如下：（仅当请求参数传了detectStep时才会返回该参数）<br/>`1`：截帧图片过了检测<br/>2：截帧图片没过检测 |
 | room | string | 房间号 | 否 | |
 | similarityDedup | int | 辅助参数 | 否 | 可能取值如下：（仅当相似帧去重推审功能生效时，外层处置建议从reject/review变更成pass返回该参数，其他情况不返回该字段）<br/>1：值为1，相似帧去重推审功能生效<br/> |
@@ -367,7 +376,7 @@ businessDetail中，persons数组的每个元素的内容如下：
 | audio_starttime | string | 辅助参数 | 是 | 违规内容开始时间（绝对时间） |
 | audio_endtime | string | 辅助参数 | 是 | 违规内容结束时间（绝对时间） |
 | userId            | int         | 用户标识，用于区分房间内违规用户，与请求参数中的uid无关    | 否           | 仅AGORA流返回                                                |
-| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核 |
+| strUserId         | string      | 用户标识，用于区分房间内违规用户，与请求参数中的userId无关 | 否           | 以下情况会返回该字段：<br/>- ZEGO流按房间号审核<br/>- TRTC流分流审核<br/>- VOLC流审核<br/>- ALI流审核 |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同 |
 | room | string | 房间号 | 否 | |
 
