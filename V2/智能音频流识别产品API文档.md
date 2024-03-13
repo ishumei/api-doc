@@ -90,9 +90,9 @@ POST
 | aliParam | json_object | Y | 阿里制参数（当streamType为ALI时必传），详见扩展参数 |
 | tokenId       | string      | Y            | 客户端用户账号唯一标识，                                                                                  |
 | channel       | string      | Y            | 见渠道配置表                                                                                              |
-| receiveTokenId | string | N | 接收者的tokenId |
+| receiveTokenId | string | N | 私聊场景下消息接收者的tokenId,由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | deviceId | string | N | 数美设备标识 |
-| ip | string | N | ip地址，支持传入IPV4或IPV6 |
+| ip | string | N | 发送该音频的用户公网ip地址，支持传入IPV4或IPV6 |
 | level | int | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
 | gender | string | N | 用户性别，可选值：<br/>male男性 <br/>female女性 |
 | lang          | string      | N            | ambiguity 性别不明可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语 |

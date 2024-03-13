@@ -71,9 +71,11 @@ POST
 | nickname      | string      | N            | 用户昵称  |
 | timestamp     | int         | N            | 时间戳（毫秒级）  |
 | room          | string      | N            | 房间号     |
-| deviceId        | string | N  |  数美设备指纹生成的设备唯一标识                                                                                              |
+| deviceId        | string | N  |  数美设备标识                                                                                        |
 | dataId | string | N | 数据标识 |
-| ip              | string | N    |  发送该音频的用户公网ipv4地址                                                                                             |
+| ip              | string | N    |  发送该音频的用户公网ip地址，支持传入IPV4或IPV6                                                               |
+| level | int | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
+| gender | string | N | 用户性别，可选值：<br/>male男性 <br/>female女性 |
 
 *formatInfo内容如下：*
 
