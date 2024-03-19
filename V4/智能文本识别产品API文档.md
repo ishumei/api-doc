@@ -9,7 +9,6 @@
 | --- | --- | --- |
 | 北京 | `http://api-text-bj.fengkongcloud.com/text/v4` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/text/v4` | 中文文本 |
-| 广州 | `http://api-text-gz.fengkongcloud.com/text/v4` | 中文文本 |
 | 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
 | 新加坡 | `http://api-text-xjp.fengkongcloud.com/text/v4` | 中文文本 <br/> 国际化文本 |
 
@@ -46,7 +45,7 @@
 | tokenId | string | 用户账号标识， 建议使用贵司用户UID（可加密）自行生成 , 标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
 | nickname | string | 用户昵称 | N | 校验昵称内容风险，长度限制150字符，超出部分会被截断 |
-| ip | string | ip地址 | N | 发送该文本的的用户公网ipv4地址 |
+| ip | string | ip地址 | N | 发送该文本的的用户公网ipv4或ipv6地址 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
 | extra | json\_object | 辅助参数 | N | 用于辅助文本检测的相关信息,[详见extra参数](#extra) |
 | dataId | string | 数据标识 | N | 数据标识 |
