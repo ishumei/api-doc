@@ -8,7 +8,6 @@
 | --- | --- | --- |
 | 北京 | `http://api-text-bj.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 | 上海 | `http://api-text-sh.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
-| 广州 | `http://api-text-gz.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 | 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 | 新加坡 | `http://api-text-xjp.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
 | 印度 | `https://api-text-yd.fengkongcloud.com/v2/saas/anti_fraud/text` | 中文文本 |
@@ -45,7 +44,7 @@
 | gender | int | 用户性别 | N | 可选值<br/>`0`:女性<br/>`1`:男性<br/> |
 | channel | string | 业务场景 | N | 渠道表配置 |
 | nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险，长度限制150字符，超出部分会被截断 | N |  |
-| ip | string | ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N |  |
+| ip | string | ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N | 发送该文本的的用户公网ipv4或ipv6地址 |
 | deviceId | string | 数美设备标识，强烈建议传入该参数，数美设备指纹标识，用于用户行为分析。当恶意用户篡改mac、imei等设备信息时，使用deviceId能够发现和识别此类恶意行为，同时可用于比对数美设备指纹黑名单 | N |  |
 | receiveTokenId | string | 接收者的tokenId，私聊场景必选 | N |  |
 | level | int | 用户等级，针对不同等级的用户可配置不同拦截策略 | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
