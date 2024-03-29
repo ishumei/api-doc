@@ -235,6 +235,20 @@
             "type": "int32"
           },
           {
+            "length": "128",
+            "param_description": "数美设备指纹标识。由数美SDK生成，用于用户行为分析。",
+            "req_name": "deviceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "用户性别，建议值：\nmale：男性\nfemale：女性\nambiguity：性别不明",
+            "req_name": "gender",
+            "required": false,
+            "type": "string"
+          },
+          {
             "length": "-",
             "param_description": "图片业务标签检测步长。每个步长只会检测一次imgBusinessType，取值大于等于1。\u003c\n\u003e默认值=1，代表所有片段都审核业务标签。",
             "req_name": "imgBusinessDetectStep",
@@ -252,6 +266,20 @@
             "length": "-",
             "param_description": "语言类型。可指定对截帧及音频片段内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语",
             "req_name": "lang",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "用户等级，针对不同等级的用户可配置不同拦截策略。可选值：0：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;\n1：较低级用户，典型如低活跃或低等级用户等；\n2：中等级用户，典型如具备一定活跃或等级中等的用户等；\n3：较高级用户，典型如高活跃或高等级用户等；\n4：最高级用户，典型如付费用户、VIP用户等",
+            "req_name": "level",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "length": "64",
+            "param_description": "消息接收者的tokenId由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
+            "req_name": "receiveTokenId",
             "required": false,
             "type": "string"
           },

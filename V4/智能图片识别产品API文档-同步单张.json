@@ -194,6 +194,13 @@
             "type": "string"
           },
           {
+            "length": "-",
+            "param_description": "用户性别，建议值：\nmale：男性\nfemale：女性\nambiguity：性别不明",
+            "req_name": "gender",
+            "required": false,
+            "type": "string"
+          },
+          {
             "length": "1024",
             "param_description": "要检测比对的基准图片。请求参数businessType字段包含标签`FACECOMPARE`时存在\n可使用base64编码的图片数据或者图片的url链接 支持格式：\njpg，jpeg，png，webp，gif，tiff，tif，heif\n建议图片像素不小于256*256，图片大小最大10MB\n基准图暂时不支持长图和动图格式",
             "req_name": "imgCompareBase",
@@ -223,6 +230,13 @@
           },
           {
             "length": "-",
+            "param_description": "用户等级，针对不同等级的用户可配置不同拦截策略。可选值：0：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;\n1：较低级用户，典型如低活跃或低等级用户等；\n2：中等级用户，典型如具备一定活跃或等级中等的用户等；\n3：较高级用户，典型如高活跃或高等级用户等；\n4：最高级用户，典型如付费用户、VIP用户等",
+            "req_name": "level",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "length": "-",
             "param_description": "动图的最大截帧数量。截取gif等动图帧数，最大为20帧，默认为3帧，计费按照实际截帧数量计费，如默认为截取3帧时按照3帧进行计费",
             "req_name": "maxFrame",
             "required": false,
@@ -230,7 +244,7 @@
           },
           {
             "length": "64",
-            "param_description": "消息接收者的tokenId 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
+            "param_description": "消息接收者的tokenId由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
             "req_name": "receiveTokenId",
             "required": false,
             "type": "string"

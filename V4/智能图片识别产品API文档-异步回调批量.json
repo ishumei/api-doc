@@ -233,6 +233,13 @@
           },
           {
             "length": "-",
+            "param_description": "用户性别，建议值：\nmale：男性\nfemale：女性\nambiguity：性别不明",
+            "req_name": "gender",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
             "param_description": "动图截帧频率。动图检测专用，默认值为1。每interval张图片抽取一张进行检测。\n当interval*maxFrame小于该图片所包含的图片数量时，截帧间隔会自动修改为该图片所包含的图片数/maxFrame，以提高整体检测效果。",
             "req_name": "interval",
             "required": false,
@@ -254,6 +261,13 @@
           },
           {
             "length": "-",
+            "param_description": "用户等级，针对不同等级的用户可配置不同拦截策略。可选值：0：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;\n1：较低级用户，典型如低活跃或低等级用户等；\n2：中等级用户，典型如具备一定活跃或等级中等的用户等；\n3：较高级用户，典型如高活跃或高等级用户等；\n4：最高级用户，典型如付费用户、VIP用户等",
+            "req_name": "level",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "length": "-",
             "param_description": "动图的最大截帧数量。截取gif等动图帧数，最大为20帧，默认为3帧，计费按照实际截帧数量计费，如默认为截取3帧时按照3帧进行计费",
             "req_name": "maxFrame",
             "required": false,
@@ -261,15 +275,8 @@
           },
           {
             "length": "64",
-            "param_description": "消息接收者的tokenId 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
+            "param_description": "消息接收者的tokenId由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
             "req_name": "receiveTokenId",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "length": "64",
-            "param_description": "直播间/游戏房间编号，可针对单个房间制定不同的策略",
-            "req_name": "room",
             "required": false,
             "type": "string"
           },
@@ -285,6 +292,13 @@
                 "req_name": "isTokenSeparate",
                 "required": false,
                 "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "直播间/游戏房间编号，可针对单个房间制定不同的策略",
+                "req_name": "room",
+                "required": false,
+                "type": "string"
               },
               {
                 "length": "1024",
