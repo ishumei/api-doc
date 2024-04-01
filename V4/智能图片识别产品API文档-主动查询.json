@@ -651,6 +651,13 @@
                     "req_name": "qrContent",
                     "required": false,
                     "type": "string"
+                  },
+                  {
+                    "length": "1024",
+                    "param_description": "客户传入透传字段。数美内部不会对该字段进行识别处理，随结果返回给用户。",
+                    "req_name": "passThrough",
+                    "required": false,
+                    "type": "object"
                   }
                 ],
                 "type": "object"
