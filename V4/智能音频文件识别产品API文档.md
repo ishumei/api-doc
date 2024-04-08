@@ -130,7 +130,7 @@
 | audioText     | string      | 整段音频转译文本结果           | 是           |                                                              |
 | audioTime     | int         | 整段音频的音频时长             | 是           | 单位秒                                                       |
 | audioDetail   | json_array  | 音频片段信息                   | 是           | 回调的音频片段信息，[详见audioDetail参数](#audioDetail)      |
-| audioTags     | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签                               |
+| audioTags     | json_object | 音频标签                       | 否           | 返回性别、音色、是否唱歌等标签不推荐使用，建议客户使用businessLabels |
 | requestParams | json_object | 透传字段                       | 是           | 返回data下所有字段                                           |
 | auxInfo       | json_object | 辅助信息                       | 否           |                                                              |
 
