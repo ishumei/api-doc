@@ -356,7 +356,7 @@
                 "length": "64",
                 "param_description": "声网提供的频道名",
                 "req_name": "channel",
-                "required": false,
+                "required": true,
                 "type": "string"
               },
               {
