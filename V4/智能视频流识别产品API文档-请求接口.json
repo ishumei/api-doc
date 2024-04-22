@@ -433,7 +433,7 @@
               },
               {
                 "length": "32",
-                "param_description": "声网用户账号标识。仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。",
+                "param_description": "阿里用户账号标识。",
                 "req_name": "userId",
                 "required": false,
                 "type": "int32"
