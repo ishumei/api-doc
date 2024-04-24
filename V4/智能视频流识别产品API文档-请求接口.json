@@ -426,6 +426,13 @@
             "son": [
               {
                 "length": "64",
+                "param_description": "房间ID，需要和生成token使用的的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。",
+                "req_name": "room",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "length": "64",
                 "param_description": "用于拉流端加入频道，生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，每次上传审核都需要重新生成新的token。",
                 "req_name": "token",
                 "required": true,
@@ -433,15 +440,10 @@
               },
               {
                 "length": "32",
-                "param_description": "声网用户账号标识。仅分流情况下存在，返回的userId是实际房间中的用户id，与请求参数中的uid无关。",
+                "param_description": "阿里用户账号标识。",
                 "req_name": "userId",
                 "required": false,
                 "type": "int32"
-              },
-              {
-                "length": "-",
-                "req_name": "room",
-                "required": false
               }
             ],
             "type": "object"
