@@ -70,7 +70,7 @@ POST
 | :----------- | :---------- | :----------- | :----------------------------------------------------------- |
 | accessKey    | string      | Y            | 服务密钥，开通账号服务时由数美提供                           |
 | type         | string      | N            | <p>识别类型，可选值：</p><p>EROTIC：色情识别<br/>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>ANTHEN：国歌识别</p><p>MINOR：未成年人识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN_ADVERT 用于广告、色情和涉政,娇喘识别。</p><p>type和 businessType 必须填其一</p> |
-| businessType | string      | N            | <p>识别类型，可选值：</p><p>SING：唱歌</p><p>AGE：年龄</p><p>LANGUAGE：语种</p><p>GENDER：性别</p><p>TIMBRE：音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>type和 businessType 必须填其一</p> |
+| businessType | string      | N            | <p>识别类型，可选值：</p><p>SING：唱歌</p><p>AGE：年龄</p><p>LANGUAGE：语种</p><p>GENDER：性别</p><p>TIMBRE：音色</p><p>VOICE：人声属性</p><p>AUDIOSCENE：声音场景</p><p>如需识别音色、唱歌、语种GENDER必传</p><p>type和 businessType 必须填其一</p> |
 | btId         | string      | Y            | 音频唯一标识，用于查询指定音频，限长128位字符长度            |
 | appId        | string      | N            | <p>应用标识</p><p>用于区分相同公司的不同应用，需要联系数美开通，请以数美单独提供的传值为准</p> |
 | callback     | string      | Y            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
@@ -94,8 +94,8 @@ POST
 | deviceId | string | N | 数美设备标识 |
 | ip | string | N | 发送该音频的用户公网ip地址，支持传入IPV4或IPV6 |
 | level | int | N | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
-| gender | string | N | 用户性别，可选值：<br/>male男性 <br/>female女性 |
-| lang          | string      | N            | ambiguity 性别不明可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语 |
+| gender | string | N | 用户性别，可选值：<br/>male男性 <br/>female女性<br/>ambiguity 性别不明 |
+| lang          | string      | N            | 可选值如下，（默认值为zh）：<br/>zh：中文<br/>en：英文<br/>ar：阿拉伯语<br/>hi：印地语<br/>es：西班牙语<br/>fr：法语<br/>ru：俄语<br/>pt：葡萄牙语<br/>id：印尼语<br/>de：德语<br/>ja：日语<br/>tr：土耳其语<br/>vi：越南语<br/>it：意大利语<br/>th：泰语<br/>tl：菲律宾语<br/>ko：韩语<br/>ms：马来语 |
 | extra | json_object | N | 辅助参数 [详见extra参数](#extra) |
 
 ### 扩展请求参数
