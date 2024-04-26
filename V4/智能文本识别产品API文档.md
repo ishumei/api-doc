@@ -112,7 +112,7 @@
 
 | **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| filteredText| string | 辅助信息 | N| 敏感词被替换为*后的文本（该参数仅在命中敏感词时存在） <br/>语境模型，联系方式相关风险不返回该字段 |
+| filteredText| string | 辅助信息 | N| 敏感词被替换为*后的文本（该参数仅在命中敏感词时存在） <br/> |
 | passThrough | json_object | 透传字段 | 否 | 该字段内容与请求参数data中extra的passThrough的值相同。 |
 | contactResult | json_array | 辅助信息 | N| 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。 [详见contactResult参数](#contactResult) |
 | unauthorizedType | string | 辅助信息 | N | 未授权的type。 |
