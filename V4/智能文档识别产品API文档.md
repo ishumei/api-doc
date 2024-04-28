@@ -71,8 +71,8 @@
 ### <span id="Aa1">请求URL：</span>
 
 | 集群 | URL | 支持产品列表 |
-| --- | --- | --- |
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 网页产品 |
+| --- | --- |--------|
+| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 文档产品   |
 
 ### <span id="Aa2">字符编码格式：</span>
 
@@ -90,29 +90,29 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
-| --- | --- | --- | --- | --- |
-| accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| type | string | 平台业务类型 | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
-| txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
-| appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
-| callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
-| callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
-| data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
+| **请求参数名** | **类型** | **参数说明**   | **是否必传** | **规范** |
+| --- | --- |------------| --- | --- |
+| accessKey | string | 接口认证密钥     | Y | 由数美提供 |
+| type | string | 平台业务类型     | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
+| imgType | string | 文档中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
+| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
+| appId | string | 应用标识       | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
+| callback | string | 回调http接口   | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
+| callbackParam | json_object | 透传字段       | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
+| data | json\_object | 请求的数据内容    | Y | 最长1MB, [详见data参数](#data) |
 
  其中，<span id="data">data</span>的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
-| --- | --- | --- | --- | --- |
-| contents | string | 要检测的网页内容 | Y | 可填入url链接或文本内容<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字。图片张数限制500张。 |
-| fileFormat | string | 要检测的文档格式 | N | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>若不传或传空值，则默认按网页链接或文本内容检测<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
-| tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y | 如果是网页识别场景，传入网页url即可 |
-| channel | string | 业务场景 | N | 渠道表配置 |
-| returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
-| nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N |  |
-| ip | string | 客户端ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N |  |
-| passThrough | json_object | 透传参数，原样返回 | N |  |
+| --- | --- | --- |----------| --- |
+| contents | string | 要检测的内容 | Y        | 可填入url链接<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字。图片张数限制500张。 |
+| fileFormat | string | 要检测的文档格式 | Y        | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
+| tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y        |  |
+| channel | string | 业务场景 | N        | 渠道表配置 |
+| returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N        | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
+| nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N        |  |
+| ip | string | 客户端ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N        |  |
+| passThrough | json_object | 透传参数，原样返回 | N        |  |
 
 ## <span id="Ab">返回结果</span>
 
@@ -147,14 +147,14 @@
 
 <span id="Adetail">其中detail字段如下：</span>
 
-| 参数名称    | **类型**    | **是否必选** | **说明**                                                     |
-| ----------- | ----------- | ------------ | ------------------------------------------------------------ |
-| model       | string      | Y            | 规则标识                                                     |
-| description | string      | Y            | 策略规则风险原因描述                                         |
+| 参数名称    | **类型**    | **是否必选** | **说明**                                                   |
+| ----------- | ----------- | ------------ | ---------------------------------------------------------- |
+| model       | string      | Y            | 规则标识                                                   |
+| description | string      | Y            | 策略规则风险原因描述                                       |
 | riskSummary | json object | N            | 风险摘要，目前包括各种风险类型的次数，如果type为NOVEL才返回<br/>[格式请见riskSummary结果详情](#AriskSummary) |
 | riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
-| hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
+| hits        | json_array  | N            | 命中信息，一般为空。命中详情在riskDetail中。             |
 | passThrough | json_object | N            | 透传参数，原样返回             |
 
 其中，<span id="AriskSummary">riskSummary</span>内容是风险类型，具体如下：
@@ -301,15 +301,15 @@
 ```
 
 
-# <span id="B">智能网页过滤上传接口</span>
+# <span id="B">智能文档过滤上传接口</span>
 
 ## <span id="Ba">请求参数</span>
 
 ### <span id="Ba1">请求URL：</span>
 
 | 集群 | URL                                                          | 支持产品列表 |
-| ---- | ------------------------------------------------------------ | ------------ |
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article_async` | 网页产品     |
+| ---- | ------------------------------------------------------------ |--------|
+| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article_async` | 文档产品   |
 
 ### <span id="Ba2">字符编码格式：</span>
 
@@ -327,14 +327,14 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型**     | **参数说明**         | **是否必传** | **规范**                                                     |
-| -------------- | ------------ | -------------------- | ------------ | ------------------------------------------------------------ |
-| accessKey      | string       | 接口认证密钥         | Y            | 由数美提供                                                   |
-| type           | string       | 平台业务类型         | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType        | string       | 网页中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
-| txtType        | string       | 网页中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
-| appId          | string       | 应用标识             | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
-| data           | json\_object | 请求的数据内容       | Y            | 最长1MB, [详见data参数](#data)                               |
+| **请求参数名** | **类型**     | **参数说明**   | **是否必传** | **规范**                                                     |
+| -------------- | ------------ |------------| ------------ | ------------------------------------------------------------ |
+| accessKey      | string       | 接口认证密钥     | Y            | 由数美提供                                                   |
+| type           | string       | 平台业务类型     | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
+| imgType        | string       | 文档中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
+| txtType        | string       | 文档中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
+| appId          | string       | 应用标识       | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
+| data           | json\_object | 请求的数据内容    | Y            | 最长1MB, [详见data参数](#data)                               |
 
  其中，data的内容同同步接口：
 
@@ -398,8 +398,8 @@
 ### <span id="Ca1">请求URL：</span>
 
 | 集群 | URL                                                          | 支持产品列表 |
-| ---- | ------------------------------------------------------------ | ------------ |
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article/query` | 网页产品     |
+| ---- | ------------------------------------------------------------ |--------|
+| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article/query` | 文档产品   |
 
 ### <span id="Ca2">字符编码格式：</span>
 
