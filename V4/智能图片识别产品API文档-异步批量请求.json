@@ -176,7 +176,7 @@
                 "type": "string"
               },
               {
-                "length": "2048",
+                "length": "1024",
                 "param_description": "要检测的图片，可使用图片的base64编码或者图片的url链接",
                 "req_name": "img",
                 "required": true,
