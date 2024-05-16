@@ -36,6 +36,7 @@
 | type | string | 检测的风险类型 | Y | 可选值：<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`TEXTRISK`：常规风险检测（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`: 未成年人内容检测<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD`<br/>type间组合取并集，如：`TEXTRISK_POLITY`按照常规风险检测处理 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 | kbType | string | 知识库类型 | N | 知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务<br/>可选值：<br/>`PKB`：启用涉政知识库功能<br/> |
+| translationTargetLang | string | 翻译目标语种   | N | 将输入的文本翻译成目标语种。如需开通使用请联系数美商务<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>|
 
 <span id="data"> 其中，data的内容如下：</span>
 
@@ -107,6 +108,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**                                                     |
 | ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
 | [detectedLang](/docs/tj/text/lang) | string   | 语种识别结果 | N            | 当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如："zh"、"en"、"ar"等 |
+| translatedText | string   | 文本翻译结果   | N | 当传入translationTargetLang时返回的字段。值为翻译后的文本。|
 
 <span id="auxlnfo">其中auxInfo字段如下：</span>
 
