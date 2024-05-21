@@ -60,6 +60,7 @@ keywords:
 | account        | string   | 调用接口的账号                                                  | 可选         | 如：test@ishumei.com                                                                           |
 | appId          | array    | 针对指定应用纠错，最多3个                                       | 可选         | 如：[“default”,“test”]                                                                         |
 | channel        | array    | 针对指定渠道纠错，最多3个                                       | 可选         |                                                                                                |
+| remark         | string   | 客户纠错备注，用于后台展示                                      | 可选         |                                                                                                |
 
 其中，riskType的列表如下：
 
