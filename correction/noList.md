@@ -1,6 +1,6 @@
 ---
-title: 通用纠错接口文档（不进入名单） | 数美
-sidebar_label: 通用纠错接口文档（不进入名单）
+title: 天净通用纠错接口文档 | 数美
+sidebar_label: 天净通用纠错接口文档
 
 hide_title: true
 description: 
@@ -8,7 +8,7 @@ keywords:
 - 纠错文档
 ---
 
-# 数美通用纠错接口 API 接口说明文档
+# 数美天净通用纠错 API 接口说明文档
 
 ---
 
@@ -38,7 +38,7 @@ keywords:
 
 该接口用于提供所有天净服务的纠错功能，支持近 2 天的请求数据纠错。
 
-> 本接口所纠错的数据不进入名单
+**本接口所纠错的数据不进入名单**
 
 **请求 URL**：https://api-web.fengkongcloud.com/api/feedback/normal/add
 
@@ -64,7 +64,20 @@ keywords:
 | channel        | array    | 针对指定渠道纠错，最多 3 个                                      | 可选         |                                                                                                |
 | remark         | string   | 客户纠错备注，用于后台展示                                       | 可选         |                                                                                                |
 
-其中，riskType 可供选择的内容参考其他服务的细分文档
+其中，riskType 可供选择的内容参考其他服务的细分文档（所选风险类型必须与服务对应）
+
+serviceId 取值如下：
+
+| **服务标识**           | **服务名称**         |
+| ---------------------- | -------------------- |
+| POST_TEXT              | 文本                 |
+| POST_IMG               | 图片                 |
+| POST_AUDIOCLIPS        | 音频文件片段         |
+| POST_AUDIOSTREAMCLIPS  | 音频流片段           |
+| POST_VIDEO_IMG         | 视频文件（截帧）     |
+| POST_VIDEO_AUDIO       | 视频文件（音频片段） |
+| POST_VIDEOSTREAM_IMG   | 视频流（截帧）       |
+| POST_VIDEOSTREAM_AUDIO | 视频流（音频片段）   |
 
 **返回参数**
 
@@ -107,7 +120,6 @@ code 请求返回码列表如下：
 ```json
 {
   "code": 1902,
-  "content": {},
   "message": "Accesskey 验证失败，请确认 Accesskey 是否正确"
 }
 ```
