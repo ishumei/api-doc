@@ -2239,6 +2239,14 @@
         "type": "ELECTRONIC"
       },
       {
+        "description": "物品-彩票-刮刮乐",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "人体-畸形躯干",
+        "type": "DEFORMITY"
+      },
+      {
         "description": "物品-医疗影像",
         "type": "MEDICALIMAGE"
       },
