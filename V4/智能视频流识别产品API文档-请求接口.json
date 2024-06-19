@@ -2656,6 +2656,14 @@
         "type": "KEEPSAKE"
       },
       {
+        "description": "物品-彩票-刮刮乐",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "人体-畸形躯干",
+        "type": "DEFORMITY"
+      },
+      {
         "description": "动物-哺乳动物",
         "type": "MAMMAL"
       },
