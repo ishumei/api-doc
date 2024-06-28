@@ -190,6 +190,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | code        | int         | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限、流路数超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：拉流失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
 | statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
+| requestParams | json_object | 审核结束透传参数 |  | 当statCode为1时候返回 |
 | audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
 | auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
