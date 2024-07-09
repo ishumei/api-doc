@@ -93,7 +93,7 @@
 | descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
 | isBlackToken      | string      | N            | 该账号被画像策略标记为高危账号，可能取值：<br/>`1`:高危账号  |
 | hitPosition       | string      | N            | 命中的敏感词在文本中的位置，从0开始计数                      |
-| filteredText      | string      | N            | 命中的敏感词被替换为*后的文本（该参数仅在命中敏感词时存在）  |
+| filteredText      | string      | N            | 风险片段被替换为*后的文本  |
 | matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
 | matchedItem       | string      | N            | 命中的具体敏感词（该参数仅在命中敏感词时存在）               |
 | contactResult     | json_array  | N            | 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。详细信息见下表说明。[详见联系方式](#contactResult) |
