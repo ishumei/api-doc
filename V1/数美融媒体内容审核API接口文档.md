@@ -318,8 +318,8 @@ riskDetail中，ocrText的内容如下：
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 视频唯一标识 | Y | 和传入的btId对应 |
 | riskLevel | string | 风险级别，code为1100时存在 | Y | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
-| frameDetail | json\_array | 风险详情 | N | 有风险片段时返回，详见[frameDetail说明](#frameDetail) |
-| audioDetail | json\_array | 音频片段信息 | N | 有风险片段时返回，详见[audioDetail说明](#audioDetail) |
+| frameDetail | json\_array | 风险详情 | N | 有风险片段或returnVideoAllImg=1时返回，详见[frameDetail说明](#frameDetail) |
+| audioDetail | json\_array | 音频片段信息 | N | 有风险片段或returnVideoAllAudio=1时返回，详见[audioDetail说明](#audioDetail) |
 
 其中，frameDetail数组中每个成员的具体内容如下：
 
