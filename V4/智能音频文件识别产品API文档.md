@@ -446,7 +446,8 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
                     "confidenceLevel":2,
                     "probability":0.858334402569294
                 }
-            ],         
+            ],
+            "allLabels":[],
             "riskLevel": "PASS",
             "riskLabel1": "normal",
             "riskLabel2": "",
@@ -615,7 +616,8 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
                     "confidenceLevel":2,
                     "probability":0.858334402569294
                 }
-            ],                  
+            ],
+            "allLabels":[],
             "riskLevel":"PASS",
             "riskLabel1":"normal",
             "riskLabel2":"",
