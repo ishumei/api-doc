@@ -5,7 +5,7 @@ sidebar_label: 对外开放接口手册
 hide_title: true
 description: 
 keywords:
-- 纠错文档
+* 纠错文档
 ---
 
 # 数美对外开放接口使用手册
@@ -22,9 +22,9 @@ keywords:
 
 ## 2. 接口说明
 
-- 接口访问凭证 accessKey 是每次调用接口必带参数，要求放到 Request-Body 中
-- Request-Body 中必须是标准的 Json 格式
-- 请求及返回结果都使用 UTF-8 字符集进行编码
+* 接口访问凭证 accessKey 是每次调用接口必带参数，要求放到 Request-Body 中
+* Request-Body 中必须是标准的 Json 格式
+* 请求及返回结果都使用 UTF-8 字符集进行编码
 
 ### 2.1. 查询账户余额
 
@@ -406,7 +406,7 @@ config 中的子参数：
       "itemCount": 0,
       "listId": "0da5ad4f49c350ccdd79b94bf00d8a98",
       "modifyTimeCN": "06-28 15:42:30",
-      "name": "更新后测试黑名单3",
+      "name": "更新后测试黑名单 3",
       "operationCN": "原文匹配",
       "owner": "0",
       "priority": 0,
@@ -438,7 +438,7 @@ config 中的子参数：
       "itemCount": 0,
       "listId": "ba231dc0759f599fdffce5464e344632",
       "modifyTimeCN": "06-28 15:33:13",
-      "name": "更新后文本黑名单2",
+      "name": "更新后文本黑名单 2",
       "operationCN": "相等匹配",
       "owner": "0",
       "priority": 0,
@@ -470,7 +470,7 @@ POST
 | listId      | string | 名单 Id，MD5 值，确保唯一 | 是       |
 | name        | string | 名单名字，注意不能重复    | 是       |
 | serviceId   | string | 服务标识，取值见附录 3.5  | 是       |
-| description | string | 描述                      | 否       |
+| description | string | 描述                      | 是       |
 | type        | int    | 自定义名单：1             | 是       |
 | config      | object | 配置内容                  | 是       |
 
@@ -561,7 +561,7 @@ POST
 
 | 字段    | 类型   | 说明                       | 是否必须 |
 | ------- | ------ | -------------------------- | -------- |
-| code    | int    | 返回码,1100 成功，其他失败 | 是       |
+| code    | int    | 返回码，1100 成功，其他失败 | 是       |
 | message | string | 详细描述                   | 是       |
 
 **输出示例**
@@ -740,7 +740,7 @@ POST
 | accessKey  | string       | 用于权限认证，由数美提供                  | 是       |
 | listId     | string       | 名单 listId md5 值                        | 是       |
 | contents   | object_array | 内容数组                                  | 是       |
-| remarks    | object_array | 内容数组，,备注信息，默认备注信息接口调用 | 否       |
+| remarks    | object_array | 内容数组，备注信息，默认备注信息接口调用 | 否       |
 | operator   | string       | 操作人，用于记录操作日志                  | 否       |
 | serviceId  | string       | 服务标识，需与名单一致                    | 是       |
 | checkItems | object_array | 匹配字段                                  | 是       |
@@ -763,7 +763,7 @@ POST
 
 | 字段    | 类型   | 说明                       | 是否必须 |
 | ------- | ------ | -------------------------- | -------- |
-| code    | int    | 返回码,1100 成功，其他失败 | 是       |
+| code    | int    | 返回码，1100 成功，其他失败 | 是       |
 | message | string | 详细描述                   | 是       |
 
 **输出示例**
@@ -811,7 +811,7 @@ POST
 
 | 字段    | 类型   | 说明                       | 是否必须 |
 | ------- | ------ | -------------------------- | -------- |
-| code    | int    | 返回码,1100 成功，其他失败 | 是       |
+| code    | int    | 返回码，1100 成功，其他失败 | 是       |
 | message | string | 详细描述                   | 是       |
 
 **输出示例**
@@ -862,7 +862,7 @@ POST
 
 | 字段    | 类型   | 说明                       | 是否必须 |
 | ------- | ------ | -------------------------- | -------- |
-| code    | int    | 返回码,1100 成功，其他失败 | 是       |
+| code    | int    | 返回码，1100 成功，其他失败 | 是       |
 | message | string | 详细描述                   | 是       |
 
 **输出示例**
@@ -940,7 +940,7 @@ contents 中的子参数：
       "hitItemContent": "testtest",
       "hitListId": "585c0dbb2924f53bb90971423c2c577e",
       "action": null,
-      "hitConfigName": "ocr黑名单11",
+      "hitConfigName": "ocr 黑名单 11",
       "hitConfigOwner": "",
       "hitConfigConfig": {
         "action": "REJECT",
