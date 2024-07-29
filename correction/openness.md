@@ -5,7 +5,7 @@ sidebar_label: 对外开放接口手册
 hide_title: true
 description: 
 keywords:
-* 纠错文档
+- 纠错文档
 ---
 
 # 数美对外开放接口使用手册
@@ -22,9 +22,9 @@ keywords:
 
 ## 2. 接口说明
 
-* 接口访问凭证 accessKey 是每次调用接口必带参数，要求放到 Request-Body 中
-* Request-Body 中必须是标准的 Json 格式
-* 请求及返回结果都使用 UTF-8 字符集进行编码
+- 接口访问凭证 accessKey 是每次调用接口必带参数，要求放到 Request-Body 中
+- Request-Body 中必须是标准的 Json 格式
+- 请求及返回结果都使用 UTF-8 字符集进行编码
 
 ### 2.1. 查询账户余额
 
