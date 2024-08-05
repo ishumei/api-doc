@@ -153,7 +153,7 @@
       },
       {
         "length": "64",
-        "param_description": "视频流中的画面需要识别的监管类型，和imgBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情\u0026性感违规识别\nVIOLENT：暴恐\u0026违禁识别\nQRCODE：二维码识别\nADVERT：广告识别\nIMGTEXTRISK：图片文字违规识别\nBOCR：OCR小语种识别支持和语种自动检测|\n如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别",
+        "param_description": "视频流中的画面需要识别的监管类型，和imgBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情\u0026性感违规识别\nVIOLENT：暴恐\u0026违禁识别\nQRCODE：二维码识别\nADVERT：广告识别\nIMGTEXTRISK：图片文字违规识别\n如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别",
         "req_name": "imgType",
         "required": false,
         "type": "string"
