@@ -256,6 +256,13 @@
             "type": "int32"
           },
           {
+            "length": "1024",
+            "param_description": "要检测比对的基准图片。请求参数businessType字段包含标签`FACECOMPARE`时存在\n图片的url链接 支持格式：\njpg，jpeg，png，webp，gif，tiff，tif，heif\n建议图片像素不小于256*256\n基准图暂时不支持动图格式",
+            "req_name": "imgCompareBase",
+            "required": false,
+            "type": "string"
+          },
+          {
             "length": "64",
             "param_description": "客户端公网IP地址。该参数用于IP维度的用户行为分析。",
             "req_name": "ip",
@@ -471,6 +478,13 @@
             "required": false,
             "son": [
               {
+                "length": "1",
+                "param_description": "应用场景，可选值：\n0：视频通话场景\n1：视频直播场景，默认值：0。详见：https://cloud.tencent.com/document/product/647/79634#45c6782b29cadc377b5763a5d8490340",
+                "req_name": "appScene",
+                "required": true,
+                "type": "int32"
+              },
+              {
                 "length": "-",
                 "param_description": "录制类型可选值:\n分流录制:2\n合流录制:4",
                 "req_name": "demoSences",
@@ -506,11 +520,11 @@
                 "type": "string"
               },
               {
-                "length": "128",
+                "length": "10",
                 "param_description": "房间号码。取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户",
                 "req_name": "roomId",
                 "required": false,
-                "type": "string"
+                "type": "int32"
               }
             ],
             "type": "object"
@@ -2417,6 +2431,10 @@
         "description": "人脸-人脸检测",
         "remark": "如识别无人脸、真人、口罩人脸、正脸、侧脸等",
         "type": "FACEDETECTION"
+      },
+      {
+        "description": "人脸比对",
+        "type": "FACECOMPARE"
       },
       {
         "description": "人脸-伪造人脸",
