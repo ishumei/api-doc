@@ -2730,6 +2730,10 @@
       {
         "description": "车牌识别",
         "type": "LICENCEPLATE"
+      },
+      {
+        "description": "秀场直播 场景，主播跳舞",
+        "type": "DANCE"
       }
     ]
   }
