@@ -802,7 +802,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
 | accessKey      | string      | 公司密钥             | 必传参数     | 由数美提供                                                   |
 | appId          | string      | 应用标识             | 必传参数     | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId        | string      | 事件标识             | 必传参数     | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需识别音色，唱歌,语种GENDER必传</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
 | businessType   | string      | 检测的业务标签类型   | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
 | contentType    | string      | 待识别音频内容的格式 | 必传参数     | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
 | content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
@@ -862,6 +862,7 @@ detail内容：
 | riskLabel3      | string      | 三级风险标签         | 是           |                                                              |
 | riskDescription | string      | 风险原因             | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | riskDetail      | json_object | 风险详情             | 否           | [详见riskDetail参数](#riskDetail)                            |
+
 *<span id="businessLabels3">businessLabels</span>*数组中每一项具体参数如下：
 
 | **参数名**          | **类型**    | **参数说明** | **是否必返** | **规范**                                     |
