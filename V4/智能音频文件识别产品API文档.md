@@ -861,7 +861,7 @@ detail内容：
 | riskLabel2      | string      | 二级风险标签         | 是           |                                                              |
 | riskLabel3      | string      | 三级风险标签         | 是           |                                                              |
 | riskDescription | string      | 风险原因             | 是           | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
-| riskDetail      | json_object | 风险详情             | 否           | [详见riskDetail参数](#riskDetail)                            |
+| riskDetail      | json_object | 风险详情             | 否           | [详见riskDetail参数](#riskDetail3)                            |
 
 *<span id="businessLabels3">businessLabels</span>*数组中每一项具体参数如下：
 
