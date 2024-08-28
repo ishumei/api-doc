@@ -885,9 +885,9 @@ detail内容：
 | riskDescription | string      | 风险原因     | 是           | 风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 | riskLevel       | string      | 处置建议     | 是           | 可能返回值： PASS：通过REVIEW：审核REJECT：拒绝              |
 | probability     | float       | 置信度       | 否           | 可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高 |
-| riskDetail      | json_object | 风险详情     | 否           | [详见riskDetail参数](#riskDetail2)                           |
+| riskDetail      | json_object | 风险详情     | 否           | [详见riskDetail参数](#riskDetail3)                           |
 
-其中，<span id="riskDetail">riskDetail</span>详细内容如下：
+其中，<span id="riskDetail3">riskDetail</span>详细内容如下：
 
 | **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                     |
 | :----------- | :--------- | :----------------------- | :----------- | :----------------------------------------------------------- |
