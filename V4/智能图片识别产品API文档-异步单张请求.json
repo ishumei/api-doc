@@ -137,7 +137,7 @@
       },
       {
         "length": "64",
-        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
+        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\nBOCR：OCR小语种识别支持和语种自动检测（仅限新加坡集群）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
         "req_name": "type",
         "required": false,
         "type": "string"
@@ -619,6 +619,14 @@
       {
         "description": "物品-电子产品",
         "type": "ELECTRONIC"
+      },
+      {
+        "description": "物品-彩票-刮刮乐",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "人体-畸形躯干",
+        "type": "DEFORMITY"
       },
       {
         "description": "物品-医疗影像",

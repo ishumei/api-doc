@@ -56,7 +56,7 @@
 | url            | string      | 直播流地址                                             | N            | 当streamType为`NORMAL`时必传                                                                                                                                 |
 | lang           | string      | 音频流语言类型                                         | Y            | 可选值如下，（默认值为`zh`）：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>[集群支持语种详见 请求URL支持语种](#language)，除中文外其他语言类型为国际化 |
 | zegoParam      | json_object | 要检测的流参数                                         | N            | 当streamType为`ZEGO`时必传，[详见zegoParam参数](#zegoParam)                                                                                                  |
-| initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测，token会有唯一性校验，每次上传鉴黄必须重新生成<br/>**推荐使用`5`进行接入；** 为兼容老客户使用，默认值为0 |
+| initDomain     | int         | 即构SDK初始化是否有设置隔离域名                        | N            | 当即构客户端init初始化支持隔离域名和随机userId该字段必传,可选值：<br/>`0`：默认版本<br/>`1`：仅支持客户端初始化有隔离域名<br/>`2`：支持客户端初始化有隔离域名和随机userId功能<br/>`3`：更新SDK，修复一些bug<br/>`4`：支持客户自定义传入SEI信息<br/>`5`：支持vad静音检测，token会有唯一性校验，每次上传鉴黄必须重新生成<br/>`6`：房间维度拉流送审模式下，开发者可以控制某条流是否需要送审<br/>**推荐使用`6`进行接入；** 为兼容老客户使用，默认值为0 |
 | trtcParam      | json_object | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数 | N            | 腾讯录制参数（当streamType为TRTC时必传），详见扩展参数                                                                                                       |
 | agoraParam     | json_object | 要检测的声网流参数                                     | N            | 当streamType为`AGORA`时必传,[详见agoraParam参数](#agoraParam)                                                                                                |
 | volcParam      | json_object | 要检测的火山流参数                                     | N            | 当streamType为`VOLC`时必传,[详见volcParam参数](#volcParam)                                                                                                |
@@ -190,6 +190,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | code        | int         | 请求返回码                     | Y           | `1100`：成功<br/>`1901`：QPS超限、流路数超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：拉流失败<br/>`9101`：无权限操作, message和requestId之外的字段，只有当code为1100时才会存在 |
 | message     | string      | 请求返回描述，和请求返回码对应 | Y           |                                                                                                                                                               |
 | statCode     | int        | 审核状态                   | N            | <p>0 ：审核中</p><p>1 ：审核结束</p>                                                                                                                                   |
+| requestParams | json_object | 审核结束透传参数 | Y |                  |
 | audioDetail | json_object | 风险音频片段信息               | N           | 当code等于`1100`时返回，[详见audioDetail参数](#audioDetail)                                                                                                   |
 | auxInfo     | json_object | 辅助信息                       | N           |                                                                                                                                                          |
 
@@ -209,7 +210,6 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | auxInfo         | json_object | 其他辅助信息           | Y           | 返回时间戳等辅助信息，[详见auxInfo参数](#auxInfo)                                                                                                |
 | businessLabels  | json_array  | 音频业务标签           | N           | 返回性别、音色、是否唱歌等标签，[详见businessLabels参数](#businessLabels)                                                                        |
 | allLabels       | json_array  | 风险标签               | N           | 全部风险标签，[详见allLabels参数](#allLabels)                                                                                                    |
-| riskSource      | int         | 风险来源               | Y           | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险                                                                                            |
 | tokenProfileLabels  | json_array  | 账号属性标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | tokenRiskLabels  | json_array  | 账号风险标签           | N           | 仅在开启功能时返回[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)                                                                        |
 | speakers         | json_array | 该音频片段说话人信息     |N       | 该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。<br/>该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小<br/>备注：目前仅在声网合流中生效 |
@@ -236,6 +236,7 @@ returnAllText为`1`时，每隔10秒返回一次最近10秒的识别结果给客
 | ------------ | ---------- | ------------------------ | ------------ | --------------------------------------------------------------------------------------- |
 | audioText    | string     | 音频转译文本的结果       | N           |                                                                                         |
 | matchedLists | json_array | 命中的客户自定义名单信息 | N           | 命中客户自定义名单时返回，其他时不存在，[详见matchedLists参数](#matchedLists)           |
+| riskSource   | int        | 风险来源                | Y           | 可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1003：音频风险 |
 | riskSegments | json_array | 高风险内容片段           | N           | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，[详见riskSegments参数](#riskSegments) |
 
 <span id="matchedLists">其中，matchedLists结构如下：</span>

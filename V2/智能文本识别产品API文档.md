@@ -32,7 +32,7 @@
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，需要联系数美开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型或者场景 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
+| type | string | 检测的风险类型或者场景 | Y | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`QQ`:QQ<br/>`NOVEL`:小说<br/>`TEXTRISK`：默认值（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>`FRUAD`：网络诈骗<br/>`UNPOACH`：高价值用户防挖<br/> <br/>`TEXTMINOR`: 未成年人<br/>以上type可以下划线组合，如：`ZHIBO_TEXTRISK_FRUAD` |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  <span id="data">其中，data的内容如下：</span>
@@ -93,7 +93,7 @@
 | descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
 | isBlackToken      | string      | N            | 该账号被画像策略标记为高危账号，可能取值：<br/>`1`:高危账号  |
 | hitPosition       | string      | N            | 命中的敏感词在文本中的位置，从0开始计数                      |
-| filteredText      | string      | N            | 命中的敏感词被替换为*后的文本（该参数仅在命中敏感词时存在）  |
+| filteredText      | string      | N            | 风险片段被替换为*后的文本  |
 | matchedList       | string      | N            | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在）       |
 | matchedItem       | string      | N            | 命中的具体敏感词（该参数仅在命中敏感词时存在）               |
 | contactResult     | json_array  | N            | 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。详细信息见下表说明。[详见联系方式](#contactResult) |

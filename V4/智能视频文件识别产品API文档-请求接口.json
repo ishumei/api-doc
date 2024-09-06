@@ -218,6 +218,13 @@
             "type": "int32"
           },
           {
+            "length": "-",
+            "param_description": "固定截帧张数，默认包含首帧和尾帧，剩余截帧位置使用视频时长/截帧张数计算（四舍五入保留3位小数后大于0采用），该参数优先级高于detectFrequency和advancedFrequency，优先级：checkFrameCount\u003eadvancedFrequency\u003edetectFrequency。由于该参数需要获取视频时长，如果获取视频时长失败，降级到按data.detectFrequency参数进行截帧",
+            "req_name": "checkFrameCount",
+            "required": false,
+            "type": "int32"
+          },
+          {
             "length": "128",
             "param_description": "客户自定义数据Id。可以用于数美saas后台检索",
             "req_name": "dataId",
@@ -2418,6 +2425,14 @@
       {
         "description": "物品-纪念品",
         "type": "KEEPSAKE"
+      },
+      {
+        "description": "物品-彩票-刮刮乐",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "人体-畸形躯干",
+        "type": "DEFORMITY"
       },
       {
         "description": "动物-哺乳动物",
