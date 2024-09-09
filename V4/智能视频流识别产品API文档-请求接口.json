@@ -2732,7 +2732,7 @@
         "type": "LICENCEPLATE"
       },
       {
-        "description": "秀场直播 场景，主播跳舞",
+        "description": "跳舞识别",
         "type": "DANCE"
       }
     ]
