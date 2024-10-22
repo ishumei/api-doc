@@ -215,6 +215,13 @@
           },
           {
             "length": "-",
+            "param_description": "主播名称，一般用于人审需要字段",
+            "req_name": "anchorName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
             "param_description": "视频流中的音频审核步长。单位为个，取值范围为1-36整数，取1表示跳过一个10S的音频片段审核，取2表示跳过二个，以此类推。不使用该功能时音频内容全部过审",
             "req_name": "audioDetectStep",
             "required": false,
@@ -282,6 +289,20 @@
             "req_name": "level",
             "required": false,
             "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "直播封面 直播封面，一般用于人审需要字段",
+            "req_name": "liveCover",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "直播标题 直播标题，一般用于人审需要字段",
+            "req_name": "liveTitle",
+            "required": false,
+            "type": "string"
           },
           {
             "length": "64",
