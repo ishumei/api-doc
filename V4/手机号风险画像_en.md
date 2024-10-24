@@ -88,11 +88,13 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 Among them
 **1**）Details of phonePrimaryInfo
 
-| ***Response Parameter Name*** | ***Parameter Type*** | ***Required*** | ***Specification*** |
-| ---------------------- | ---------------- | ---------------- | ------------ |
-| phone_province       | string         | No             | Province of attribution   |
-| phone_city           | string         | No             | City of attribution   |
-| phone_operator       | string         | No             | Operator     |
+| ***Response Parameter Name*** | ***Parameter Type*** | ***Required*** | ***Specification***                                                                          |
+|-------------------------------|----------------------|----------------|----------------------------------------------------------------------------------------------|
+| phone_province                | string               | No             | Province of attribution                                                                      |
+| phone_city                    | string               | No             | City of attribution                                                                          |
+| phone_operator                | string               | No             | Operator                                                                                     |
+| intl_phone	                   | string	              | No	            | Overseas phone number plaintext, only returned when "newCountryCode" is not "0086" passed in |
+| intl_phone_country            | 	list	               | No	            | Enter the country code corresponding to the list of all countries                            |
 
 **2**）Details of phoneRiskLabels
 
