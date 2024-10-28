@@ -391,7 +391,7 @@ audioDetail中，riskDetail的每个元素详细内容如下：
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 请求标识 | Y | 和传入的btId对应 |
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
-| detail | json\_array | 风险详情 | Y | [详见](#Adetail)detail参数 |
+| detail | json_object | 风险详情 | Y | [详见](#Adetail)detail参数 |
 
 其中detail字段如下：
 
