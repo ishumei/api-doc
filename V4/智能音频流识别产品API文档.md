@@ -393,12 +393,12 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "type": "EROTIC_ADVERT_POLITY_DIRTY",
     "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "callback": "xxxxx",
-    "streamType": "NORMAL",
     "data": {
         "btId": "test1",
         "lang": "zh",
         "room": "room2",
         "url": "xxxxx",
+        "streamType": "NORMAL",
         "returnAllText": 1,
         "returnPreText": 1,
         "returnPreAudio": 1,

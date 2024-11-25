@@ -612,6 +612,13 @@
           }
         ],
         "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "选择返回标签的语种类型\n可选值：\nzh：中文\nen：英文\n不传入默认为返回中文标签",
+        "req_name": "acceptLang",
+        "required": false,
+        "type": "string"
       }
     ]
   },
