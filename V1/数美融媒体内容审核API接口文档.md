@@ -318,8 +318,19 @@ riskDetail中，ocrText的内容如下：
 | dataId | string | 作品Id | N | 和传入的dataId对应 |
 | btId | string | 视频唯一标识 | Y | 和传入的btId对应 |
 | riskLevel | string | 风险级别，code为1100时存在 | Y | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| auxInfo | json_object | 辅助信息 | N | 详见[auxInfo说明](#auxInfo) |
 | frameDetail | json\_array | 风险详情 | N | 有风险片段或returnVideoAllImg=1时返回，详见[frameDetail说明](#frameDetail) |
 | audioDetail | json\_array | 音频片段信息 | N | 有风险片段或returnVideoAllAudio=1时返回，详见[audioDetail说明](#audioDetail) |
+
+其中，auxInfo中的具体内容如下：
+
+| **参数名**           | **类型**    | **参数说明**                                                 | **是否必返** | **规范** |
+| -------------------- | ----------- | ------------------------------------------------------------ | ------------ | -------- |
+| frameCount           | int         | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 | 是           |          |
+| billingAudioDuration | float       | 审核的视频中音频的时长                                       | 是           |          |
+| billingImgNum        | int         | 审核的视频截帧数量                                           | 是           |          |
+| time                 | int         | 视频时长                                                     | 是           |          |
+| passThrough          | json_object | 透传字段，该字段内容与请求参数中的passThrough的值相同        | 否           |          |
 
 其中，frameDetail数组中每个成员的具体内容如下：
 
@@ -468,14 +479,18 @@ videos里每个元素的内容：
 | requestId | string | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | Y | 可能返回值：<br/>PASS：正常<br/>REJECT：违规 |
 | description | string | N | 风险原因，支持客户自定义二级原因配置；若存在二级原因，则通过"/"进行拼接，例如：色情/露点 |
-| auxInfo | json_object | Y | 额外信息,1100时，必返 |
+| auxInfo | json_object | N | 详见[auxInfo说明](#auxInfo) |
 | frameDetail | json\_array | N | 截帧片段详情，见下表说明 |
 | audioDetail | json\_array | N | 音频片段详情，见下表说明 |
 
-auxInfo内容
+其中，auxInfo中的具体内容如下：
 | **参数名称** | **类型** | **是否必填** | **参数说明** |
 | --- | --- | --- | --- |
+| frameCount | int | Y | 返回的视频截帧数量。returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 |
+| billingAudioDuration | float | Y | 审核的视频中音频的时长 |
+| billingImgNum | int | Y | 审核的视频截帧数量 |
 | time | int | Y | 视频时长，单位秒 |
+| passThrough | json_object | N | 透传字段，该字段内容与请求参数中的passThrough的值相同 |
 
 frameDetail内容
 
