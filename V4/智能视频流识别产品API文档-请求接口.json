@@ -160,7 +160,7 @@
       },
       {
         "length": "64",
-        "param_description": "视频流中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：声音涉政\nANTHEN：国歌识别\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
+        "param_description": "视频流中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：一号领导人声纹识别\nANTHEN：国歌识别\nBANEDAUDIO：违禁歌曲\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
         "req_name": "audioType",
         "required": false,
         "type": "string"
@@ -174,7 +174,7 @@
       },
       {
         "length": "128",
-        "param_description": "视频流中的音频业务识别类型，和audioType至少传一个。\n可选值：\nSING：唱歌识别\nLANGUAGE：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）\nMINOR：未成年人识别\nGENDER：性别识别\nTIMBRE：音色识别，需要同时传入GENDER才能生效，\nAPPNAME：app名称识别。\n如果需要识别多个功能，通过下划线连接",
+        "param_description": "视频流中的音频业务识别类型，和audioType至少传一个。\n可选值：\nSING：唱歌识别\nLANGUAGE：语种识别（中文、英文、粤语、藏语、维吾尔语、朝鲜语、蒙语、其他）\nMINOR：未成年人识别\nGENDER：性别识别\nTIMBRE：音色识别\nVOICE：人声属性\nAUDIOSCENE：声音场景\nAGE：年龄识别\nAPPNAME：app名称识别\n如需识别音色、唱歌、语种，需要同时传入GENDER才能生效，\n如果需要识别多个功能，通过下划线连接",
         "req_name": "audioBusinessType",
         "required": false,
         "type": "string"
