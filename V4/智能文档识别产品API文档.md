@@ -124,8 +124,8 @@
 
 | **参数名称** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
 | ------------ | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
-| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
+| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
+| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
 | requestId    | string      | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
 | score        | int         | 风险分数     | N            | code为1100时存在，取值范围[0,1000]，分数越高风险越大         |
 | riskLevel    | string      | 处置建议     | N            | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
@@ -151,6 +151,7 @@
 | ----------- | ----------- | ------------ | ---------------------------------------------------------- |
 | model       | string      | Y            | 规则标识                                                   |
 | description | string      | Y            | 策略规则风险原因描述                                       |
+| descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
 | riskSummary | json object | N            | 风险摘要，目前包括各种风险类型的次数，如果type为NOVEL才返回<br/>[格式请见riskSummary结果详情](#AriskSummary) |
 | riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
