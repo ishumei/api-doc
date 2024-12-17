@@ -74,9 +74,10 @@ data里包含的内容
 | --- | --- | --- | --- |
 | btId | string | Y | 作品Id |
 | tokenId | string | N | 用户账号 |
-| contents | json\_array | Y | 检测数据，类型为text时最多传入20条文本内容，每条最长10000字符；类型为image时最多传入50张图片url，每张最长512字符；类型为audio时最多传入5条语音url，每条最长512字符；类型为video时最多传入5条音视频url，每条最长512字符；类型为file时最多传入10个文档url，每个最长512字符_，_如果有一条不满足触发报错 |
+| contents | json\_array | Y | 检测数据，类型为text时最多传入20条文本内容，每条最长10000字符；类型为image时最多传入50张图片url，每张最长2048字符；类型为audio时最多传入5条语音url，每条最长512字符；类型为video时最多传入5条音视频url，每条最长2048字符；类型为file时最多传入10个文档url，每个最长512字符_，_如果有一条不满足触发报错 |
 | detectFrequency | float | N | 截帧频率间隔，单位为秒，取值范围为0.5~60s；如不传递默认5s截帧一次 |
 | advancedFrequency | json\_object | N | 高级截帧间隔，单位为秒，此项填写，默认截帧策略失效，参数配置如{"durationPoints":[300,600],"frequencies":[1,5,10]}含义为：视频文件时长≤300s ——选用1s一截帧300s\<视频文件时长≤600s ——选用5s一截帧视频文件时长\>600s ——选用10s一截帧 |
+| isIgnoreTls | bool | N | 辅助参数，控制下载图片的时候是否要忽略ca证书的验证<br/>可选值（默认为`false`）：<br/>`true`：忽略证书信任<br/>`false`：校验证书 |
 | returnVideoAllImg | int | N | 选择返回视频截帧图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为1 |
 | returnVideoAllAudio | int | N | 选择返回视频音频片段的等级：0：返回风险等级为非pass的音频片段1：返回所有风险等级的音频片段默认为1 |
 | returnAudioAllText | int | N | 可选值如下（默认为1）：<br/>0：返回风险片段识别结果<br/>1：返回所有片段识别结果<br/>该参数仅用于控制片段识别结果的返回， 不影响整体识别结果的返回。<br/>当选择"返回所有片段识别结果"时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；当选择"返回风险片段识别结果"时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；片段识别结果对应响应中的audioDetail字段。 |
