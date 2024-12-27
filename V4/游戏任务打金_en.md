@@ -110,7 +110,7 @@ Among them
 | ip_province        | string       | IP province                             |                                                                                                                                                                                                           |
 | ip_city            | string       | IP city                             |                                                                                                                                                                                                           |
 | verifyType         | string       | When the handling suggestion is `VERIFY`, return `verifyType` | `UPSMS`: Upstream SMS verification code<br/>`DOWNSMS`: Downstream SMS verification code<br/>`CAPTCHA`: Verification code (click or slide, etc.)<br/>`SEQUENCE`: Sequence verification (click or input)<br/>`SPATIAL`: Spatial logic reasoning<br/>`FACE`: Face detection<br/>`DELAY`: Delayed transaction |
-| machineAccountRisk            | json       | Account historical blacklisting information                             | Only when the current account has been blacklisted, the relevant transaction of the account will return this structure       |  
+| machineAccountRisk            | json_object       | Account historical blacklisting information                             | Only when the current account has been blacklisted, the relevant transaction of the account will return this structure       |  
 
 Among them, the details of the hits result are as follows:
 

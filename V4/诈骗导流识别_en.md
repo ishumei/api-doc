@@ -137,7 +137,7 @@ Among them
 | ip_province        | string       | IP province                             |                                                                                                                                                                                                           |
 | ip_city            | string       | IP city                             |                                                                                                                                                                                                           |
 | verifyType         | string       | When the handling suggestion is `VERIFY`, return `verifyType` | `UPSMS`: Upstream SMS verification code<br/>`DOWNSMS`: Downstream SMS verification code<br/>`CAPTCHA`: Verification code (click or slide, etc.)<br/>`SEQUENCE`: Sequence verification (click or input)<br/>`SPATIAL`: Spatial logic reasoning<br/>`FACE`: Face detection<br/>`DELAY`: Delayed transaction |
-| machineAccountRisk            | json       | Account historical blacklisting information                             | Only when the current account has been blacklisted in the account black library, the relevant transactions of the account will return this structure       |
+| machineAccountRisk            | json_object       | Account historical blacklisting information                             | Only when the current account has been blacklisted in the account black library, the relevant transactions of the account will return this structure       |
 | smid | string | Device unique identifier | This field will only be returned if the deviceId field is passed and the configuration is enabled by contacting Shumei |
 
 Among them, the details of the hits result are as follows:
