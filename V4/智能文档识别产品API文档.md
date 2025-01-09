@@ -88,14 +88,14 @@
 
 ### <span id="Aa5">请求参数：</span>
 
-放在HTTP Body中，采用Json格式，具体参数如下：
+放在HTTP Body中，采用Json格式，Body大小不可超过3.5M，具体参数如下：
 
 | **请求参数名** | **类型** | **参数说明**   | **是否必传** | **规范** |
 | --- | --- |------------| --- | --- |
 | accessKey | string | 接口认证密钥     | Y | 由数美提供 |
 | type | string | 平台业务类型     | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
 | imgType | string | 文档中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
-| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
+| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
 | appId | string | 应用标识       | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口   | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
 | callbackParam | json_object | 透传字段       | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
@@ -105,8 +105,8 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- |----------| --- |
-| contents | string | 要检测的内容 | Y        | 可填入url链接<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字。图片张数限制500张。 |
-| fileFormat | string | 要检测的文档格式 | Y        | 可选值：<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误<br/> |
+| contents | string | 要检测的内容 | Y        | 可填入url链接<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字，图片张数限制500张，视频文件数限制50段。 |
+| fileFormat | string | 要检测的文档格式 | Y        | 可选值：<br/>`PDF`<br/>`EPUB`<br/>`DOCX`<br/>`DOC`<br/>`XLSX`<br/>`XLS`<br/>`PPTX`<br/>`PPT`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`SRT`<br/>`VTT`  |
 | tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y        |  |
 | channel | string | 业务场景 | N        | 渠道表配置 |
 | returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N        | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
@@ -326,14 +326,14 @@
 
 ### <span id="Ba5">请求参数：</span>
 
-放在HTTP Body中，采用Json格式，具体参数如下：
+放在HTTP Body中，采用Json格式，Body大小不可超过3.5M，具体参数如下：
 
 | **请求参数名** | **类型**     | **参数说明**   | **是否必传** | **规范**                                                     |
 | -------------- | ------------ |------------| ------------ | ------------------------------------------------------------ |
 | accessKey      | string       | 接口认证密钥     | Y            | 由数美提供                                                   |
 | type           | string       | 平台业务类型     | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
 | imgType        | string       | 文档中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
-| txtType        | string       | 文档中的文字识别类型 | N            | 可选值：<br/>`DEFAULT`:识别涉政、暴恐、违禁、色情、辱骂、广告<br/>`NONE`:不需要识别文本<br/>不传时按传入default处理。 |
+| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
 | appId          | string       | 应用标识       | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
 | data           | json\_object | 请求的数据内容    | Y            | 最长1MB, [详见data参数](#data)                               |
 
