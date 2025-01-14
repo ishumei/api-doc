@@ -34,19 +34,20 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型**    | **参数说明**         | **传入说明**               | **规范**                                                     |
-| :------------- | :---------- | :------------------- | :------------------------- | :----------------------------------------------------------- |
-| accessKey      | string      | 公司密钥             | 必传参数                   | 由数美提供                                                   |
-| appId          | string      | 应用标识             | 必传参数                   | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| eventId        | string      | 事件标识             | 必传参数                   | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type           | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
-| businessType   | string      | 检测的业务标签类型   | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
-| contentType    | string      | 待识别音频内容的格式 | 必传参数                   | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
-| content        | string      | 待识别的音频内容     | 必传参数                   | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
-| data           | json object | 本次请求相关信息     | 必传参数                   | 最长1MB，[详见data参数](#data)                               |
-| btId           | string      | 音频文件唯一标识     | 必传参数                   | 唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复 |
-| callback       | string      | 回调http接口         | 非必传参数                 | 当该字段非空时，服务将根据该字段回调通知用户审核结果         |
-| acceptLang     | string      | 返回标签的语种类型   | 非必传参数                 | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
+| **请求参数名**              | **类型**    | **参数说明**         | **传入说明**               | **规范**                                                     |
+| :-------------------------- | :---------- | :------------------- | :------------------------- | :----------------------------------------------------------- |
+| accessKey                   | string      | 公司密钥             | 必传参数                   | 由数美提供                                                   |
+| appId                       | string      | 应用标识             | 必传参数                   | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| eventId                     | string      | 事件标识             | 必传参数                   | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| type                        | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| businessType                | string      | 检测的业务标签类型   | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
+| translationTargetLangstring | string      | 翻译目标语种         | 非必传参数                 | 将输入的文本翻译成目标语种。如需开通使用请联系数美商务 可选值： `zh`：中文 `en`：英文 |
+| contentType                 | string      | 待识别音频内容的格式 | 必传参数                   | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
+| content                     | string      | 待识别的音频内容     | 必传参数                   | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
+| data                        | json object | 本次请求相关信息     | 必传参数                   | 最长1MB，[详见data参数](#data)                               |
+| btId                        | string      | 音频文件唯一标识     | 必传参数                   | 唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复 |
+| callback                    | string      | 回调http接口         | 非必传参数                 | 当该字段非空时，服务将根据该字段回调通知用户审核结果         |
+| acceptLang                  | string      | 返回标签的语种类型   | 非必传参数                 | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 
 其中，<span id="data">data</span>的内容如下：
 
@@ -271,6 +272,7 @@ POST
 | audioUrl        | string      | 音频片段链接     | 是           | mp3格式                                                                  |
 | riskLevel       | string      | 音频片段识别结果 | 是           | <p>可能返回值：<br/>PASS：通过</p><p>REVIEW：审核</p><p>REJECT：拒绝</p> |
 | businessLabels | json_array | 业务标签返回 | 否 | 全部业务标签，[详见businessLabels参数](#businessLabels2) |
+| langResult | json_object | 语种信息 | 否 | 语种信息。[详见语种信息参数](#langResult) |
 | allLabels | json_array | 风险标签返回 | 否 | 全部风险标签，[详见allLabels参数](#allLabels2) |
 | riskLabel1      | string      | 一级风险标签     | 是           |                                                                          |
 | riskLabel2      | string      | 二级风险标签     | 是           |                                                                          |
@@ -376,6 +378,12 @@ audioTags中，language详细内容如下：
 | **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                                                |
 | :----------- | :--------- | :----------------------- | :----------- | :-------------------------------------------------------------------------------------- |
 | errorCode    | int        | 状态码                 | 是           |<p>状态码</p><p>2003：音频下载失败</p><p>2007：无有效数据</p>  |
+
+<span id='langResult'>语种信息langResult结构如下：</span>
+
+| **参数名称**   | **类型** | **参数说明** | **是否必返** | **规范**                                                    |
+| :------------- | :------- | :----------- | :----------- | :---------------------------------------------------------- |
+| translatedText | string   | 文本翻译结果 | N            | 当传入translationTargetLang时返回的字段。值为翻译后的文本。 |
 
 ## 示例
 

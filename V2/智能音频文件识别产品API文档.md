@@ -43,16 +43,17 @@ POST
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名称**  | **类型**    | **是否必选** | **说明**                                                     |
-| :------------ | :---------- | :----------- | :----------------------------------------------------------- |
-| accessKey     | string      | Y            | 服务密匙，开通账号服务时由数美提供                           |
-| type          | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
-| businessType  | string      | N            | 识别类型，可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色标签 （需要同时传入GENDER才能生效）<br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
-| appId         | string      | N            | 需要联系数美开通，请以数美单独提供的传值为准                 |
-| btId          | string      | Y            | 音频唯一标识，超过128位将被截断, 不能重复，否则提示参数错误。 |
-| data          | json_object | Y            | 请求数据，最长1MB，详细内容参见下表                          |
-| callback      | string      | N            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS。字段为空时，您必须通过查询接口主动查询结果。 |
-| callbackParam | json_object | N            | 透传字段，当 callback 存在时可选，发送回调请求时服务将该字段内容同音频结果一起返回 |
+| **参数名称**          | **类型**    | **是否必选** | **说明**                                                     |
+| :-------------------- | :---------- | :----------- | :----------------------------------------------------------- |
+| accessKey             | string      | Y            | 服务密匙，开通账号服务时由数美提供                           |
+| type                  | string      | Y            | <p>需要识别的违规类型，可选值：</p><p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>ANTHEN：国歌识别</p><p>EROTIC：色情</p><p>DIRTY: 辱骂识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ADLAW：广告法识别</p><p>MOAN：娇喘识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例</p><p>如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| businessType          | string      | N            | 识别类型，可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色标签 （需要同时传入GENDER才能生效）<br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
+| translationTargetLang | string      | N            | 翻译目标语种,将输入的文本翻译成目标语种。如需开通使用请联系数美商务 可选值： `zh`：中文 `en`：英文 |
+| appId                 | string      | N            | 需要联系数美开通，请以数美单独提供的传值为准                 |
+| btId                  | string      | Y            | 音频唯一标识，超过128位将被截断, 不能重复，否则提示参数错误。 |
+| data                  | json_object | Y            | 请求数据，最长1MB，详细内容参见下表                          |
+| callback              | string      | N            | 异步检测结果回调通知您的URL，支持HTTP和HTTPS。字段为空时，您必须通过查询接口主动查询结果。 |
+| callbackParam         | json_object | N            | 透传字段，当 callback 存在时可选，发送回调请求时服务将该字段内容同音频结果一起返回 |
 
 *data的内容如下：*
 
@@ -283,19 +284,20 @@ POST
 
 *detail数组中每一项的具体参数如下：*
 
-| **参数名称**     | **类型**   | **是否必选** | **说明**                                                     |
-| :--------------- | :--------- | :----------- | :----------------------------------------------------------- |
-| audioStarttime   | int        | Y            | 风险音频片段在音频中的起始时间，单位秒                       |
-| audioEndtime     | int        | Y            | 风险音频片段在音频中的结束时间，单位秒                       |
-| audioUrl         | string     | Y            | 风险音频片段地址                                             |
-| audioText        | string     | Y            | 音频片段对应的文本内容                                       |
-| riskLevel        | string     | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p> |
-| businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
-| riskType         | int        | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>340:网络诈骗</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
-| audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
-| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
-| matchedDetail    | string     | N            | 命中所有名单详情 [详见matchedDetail](#matchedDetail2)        |
-| description      | string     | Y            | 风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| **参数名称**     | **类型**    | **是否必选** | **说明**                                                     |
+| :--------------- | :---------- | :----------- | :----------------------------------------------------------- |
+| audioStarttime   | int         | Y            | 风险音频片段在音频中的起始时间，单位秒                       |
+| audioEndtime     | int         | Y            | 风险音频片段在音频中的结束时间，单位秒                       |
+| audioUrl         | string      | Y            | 风险音频片段地址                                             |
+| audioText        | string      | Y            | 音频片段对应的文本内容                                       |
+| riskLevel        | string      | Y            | <p>识别结果，可能返回值： <br/>REJECT：违规内容</p><p>REVIEW：疑似违规内容</p> |
+| businessLabels   | json_array  | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
+| langResult       | json_object | N            | 语种信息。[详见语种信息参数](#langResult)                    |
+| riskType         | int         | N            | <p>标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常</p><p>100:涉政/国歌</p><p>110:暴恐</p><p>200:色情</p><p>210:辱骂</p><p>250:娇喘</p><p>260:一号领导声纹</p><p>270:人声属性</p><p>280:违禁歌曲</p><p>300:广告</p><p>340:网络诈骗</p><p>400:灌水</p><p>500:无意义</p><p>520:未成年人</p><p>600:违禁</p><p>700:其他</p><p>720:黑账号</p><p>730:黑IP</p><p>800:高危账号</p><p>900:自定义</p> |
+| audioMatchedItem | string      | N            | 音频中可能出现的敏感词                                       |
+| matchedList      | string      | N            | 命中敏感词所在的名单名称                                     |
+| matchedDetail    | string      | N            | 命中所有名单详情 [详见matchedDetail](#matchedDetail2)        |
+| description      | string      | Y            | 风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 *gender参数结构如下：*
 
@@ -353,6 +355,12 @@ POST
 | ------------ | -------- | ------------ | -------------- |
 | word         | string   | N            | 命中的敏感词   |
 | position     | string   | N            | 敏感词所在位置 |
+
+<span id='langResult'>语种信息langResult结构如下：</span>
+
+| **参数名称**   | **类型** | **参数说明** | **是否必返** | **规范**                                                    |
+| :------------- | :------- | :----------- | :----------- | :---------------------------------------------------------- |
+| translatedText | string   | 文本翻译结果 | N            | 当传入translationTargetLang时返回的字段。值为翻译后的文本。 |
 
 ## **接口响应码列表**
 
