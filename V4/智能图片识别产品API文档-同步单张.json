@@ -2289,10 +2289,6 @@
       {
         "description": "车牌识别",
         "type": "LICENCEPLATE"
-      },
-      {
-        "description": "跳舞识别",
-        "type": "DANCE"
       }
     ]
   }

@@ -1703,6 +1703,91 @@
                 "req_name": "riskLevel",
                 "required": true,
                 "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。\u003cbr/\u003e",
+                "req_name": "riskDetail",
+                "required": false,
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险 \n1002：视觉图片风险 \n1003：音频语音风险",
+                    "req_name": "riskSource",
+                    "required": true,
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "该片段识别的文字内容",
+                    "req_name": "audioText",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
+                    "req_name": "matchedLists",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "名单名称",
+                        "req_name": "name",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "命中的这个名单中的敏感词信息",
+                        "req_name": "words",
+                        "required": false,
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "命中的敏感词",
+                            "req_name": "word",
+                            "required": false,
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                            "req_name": "position",
+                            "required": false,
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "高风险片段内容。检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在",
+                    "req_name": "riskSegments",
+                    "required": false,
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "辅助信息 高风险内容片段",
+                        "req_name": "segment",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "高风险内容片段所在位置 下标从0开始计数",
+                        "req_name": "position",
+                        "required": false,
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
               }
             ],
             "type": "array"
@@ -1833,91 +1918,6 @@
                 "req_name": "confidenceLevel",
                 "required": false,
                 "type": "int32"
-              },
-              {
-                "length": "-",
-                "param_description": "业务标签详情",
-                "req_name": "businessDetail",
-                "required": false,
-                "son": [
-                  {
-                    "length": "-",
-                    "param_description": "风险来源，可能取值：\n1000：无风险\n1001：文字风险\n1003：音频语音风险",
-                    "req_name": "riskSource",
-                    "required": true,
-                    "type": "int32"
-                  },
-                  {
-                    "length": "-",
-                    "param_description": "该片段识别的文字内容",
-                    "req_name": "audioText",
-                    "required": false,
-                    "type": "string"
-                  },
-                  {
-                    "length": "-",
-                    "param_description": "命中的客户自定义名单信息 仅在命中客户自定义名单时返回",
-                    "req_name": "matchedLists",
-                    "required": false,
-                    "son": [
-                      {
-                        "length": "-",
-                        "param_description": "名单名称",
-                        "req_name": "name",
-                        "required": false,
-                        "type": "string"
-                      },
-                      {
-                        "length": "-",
-                        "param_description": "命中的这个名单中的敏感词信息",
-                        "req_name": "words",
-                        "required": false,
-                        "son": [
-                          {
-                            "length": "-",
-                            "param_description": "命中的敏感词",
-                            "req_name": "word",
-                            "required": false,
-                            "type": "string"
-                          },
-                          {
-                            "length": "-",
-                            "param_description": "高风险内容片段所在位置 下标从0开始计数",
-                            "req_name": "position",
-                            "required": false,
-                            "type": "array"
-                          }
-                        ],
-                        "type": "array"
-                      }
-                    ],
-                    "type": "array"
-                  },
-                  {
-                    "length": "-",
-                    "param_description": "高风险片段内容。检测音频包含未成年，唱歌等风险内容的时候存在",
-                    "req_name": "riskSegments",
-                    "required": false,
-                    "son": [
-                      {
-                        "length": "-",
-                        "param_description": "辅助信息 高风险内容片段",
-                        "req_name": "segment",
-                        "required": false,
-                        "type": "string"
-                      },
-                      {
-                        "length": "-",
-                        "param_description": "高风险内容片段所在位置 下标从0开始计数",
-                        "req_name": "position",
-                        "required": false,
-                        "type": "array"
-                      }
-                    ],
-                    "type": "array"
-                  }
-                ],
-                "type": "object"
               }
             ],
             "type": "array"
@@ -2342,6 +2342,7 @@
             "riskLevel": "REJECT"
           }
         ],
+        "audioText": "作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
         "audioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
         "auxInfo": {
           "audioEndTime": "2022-10-27 21:08:42",
