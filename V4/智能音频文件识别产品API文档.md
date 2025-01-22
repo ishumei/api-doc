@@ -39,7 +39,7 @@
 | accessKey             | string      | 公司密钥             | 必传参数                   | 由数美提供                                                   |
 | appId                 | string      | 应用标识             | 必传参数                   | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId               | string      | 事件标识             | 必传参数                   | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type                  | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| type                  | string      | 检测的风险类型       | businesstype和type必传其一 | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>ADLAW：广告法识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>COPYRIGHTSONGS：版权歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
 | businessType          | string      | 检测的业务标签类型   | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
 | translationTargetLang | string      | 翻译目标语种         | 非必传参数                 | 将输入的文本翻译成目标语种。如需开通使用请联系数美商务 可选值： `zh`：中文 `en`：英文 |
 | contentType           | string      | 待识别音频内容的格式 | 必传参数                   | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
@@ -810,7 +810,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
 | accessKey      | string      | 公司密钥             | 必传参数     | 由数美提供                                                   |
 | appId          | string      | 应用标识             | 必传参数     | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId        | string      | 事件标识             | 必传参数     | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
+| type           | string      | 检测的风险类型       | 必传参数     | <p>AUDIOPOLITICAL：一号领导人声纹识别</p><p>POLITY：涉政识别</p><p>EROTIC：色情识别</p><p>ADVERT：广告识别</p><p>BAN：违禁识别</p><p>VIOLENT：暴恐识别</p><p>ANTHEN：国歌识别</p><p>MOAN：娇喘识别</p><p>DIRTY：辱骂识别</p><p>BANEDAUDIO：违禁歌曲</p><p>COPYRIGHTSONGS：版权歌曲</p><p>如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别</p><p>建议传入：<br/>POLITY_EROTIC_MOAN_ADVERT</p> |
 | businessType   | string      | 检测的业务标签类型   | businesstype和type必传其一 | 可选值：<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别 <br/>VOICE：人声属性<br/>MINOR：未成年识别<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别<br/>如需识别音色、唱歌、语种GENDER必传<br/>type和 businessType 必须填其一 |
 | contentType    | string      | 待识别音频内容的格式 | 必传参数     | <p>可选值：</p><p>URL：识别内容为音频url地址；</p><p>RAW：识别内容为音频的base64编码数据</p> |
 | content        | string      | 待识别的音频内容     | 必传参数     | <p>可以为url地址或者base64编码数据。</p><p>其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输</p> |
@@ -825,6 +825,7 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/query_audio/v4' -d '{
 | receiveTokenId | string   | 私聊场景下消息接收者的tokenId                  | 非必传参数   | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串     |
 | deviceId       | string   | 数美设备标识                                   | 非必传参数   |                                                              |
 | ip             | string   | 发送该音频的用户公网ip地址                     | 非必传参数   | 支持传入IPV4或IPV6                                           |
+| dataId         | string   | 数据标识                                       | 非必传参数   |                                                              |
 | level          | int      | 用户等级，针对不同等级的用户可配置不同拦截策略 | 非必传参数   | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
 | gender         | string   | 用户性别                                       | 非必传参数   | 可选值：<br/>male男性 <br/>female女性                        |
 | formatInfo     | string   | 音频数据格式                                   | 非必传参数   | 当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3、opus-gin |
