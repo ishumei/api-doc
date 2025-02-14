@@ -155,7 +155,7 @@
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
 | hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
 | passThrough | json_object | N            | 透传参数，原样返回             |
-| doubleJumpDetails | json object | N            | 开启二跳网址审核功能后返回，[详见doubleJumpDetails参数](#AdoubleJumpDetails) |
+| doubleJumpDetails | json_array | N            | 开启二跳网址审核功能后返回，[详见doubleJumpDetails参数](#AdoubleJumpDetails) |
 
 <span id="AdoubleJumpDetails">其中doubleJumpDetails字段如下：</span>
 
