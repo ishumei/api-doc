@@ -9,8 +9,6 @@
 | --- | --- |
 | 北京 | `http://api-text-bj.fengkongcloud.com/answer/v1` |
 | 上海 | `http://api-text-sh.fengkongcloud.com/answer/v1` |
-| 美国（弗吉尼亚） | `http://api-text-fjny.fengkongcloud.com/answer/v1` |
-| 新加坡 | `http://api-text-xjp.fengkongcloud.com/answer/v1` |
 ### 字符编码格式：
 
 `UTF-8`字符集编码
