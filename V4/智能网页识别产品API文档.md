@@ -92,8 +92,16 @@
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
 | callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
+| articleDoubleJumpConfig | json_object | 是否开启网页二跳审核方式 | N |  [详见articleDoubleJumpConfig参数](#articleDoubleJumpConfig) |
 | articleScreenShotConfig | json\_object | 是否开启网页截屏审核方式 | N | [详见articleScreenShotConfig参数](#articleScreenShotConfig) |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
+
+其中，<span id="articleDoubleJumpConfig">articleDoubleJumpConfig</span>的内容如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| isOpen | bool | 是否开启网页二跳审核 | N | 默认不开启 |
+
 
  其中，<span id="articleScreenShotConfig">articleScreenShotConfig</span>的内容如下：
 
@@ -147,6 +155,22 @@
 | riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
 | hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
 | passThrough | json_object | N            | 透传参数，原样返回             |
+| doubleJumpDetails | json_array | N            | 开启二跳网址审核功能后返回，[详见doubleJumpDetails参数](#AdoubleJumpDetails) |
+
+<span id="AdoubleJumpDetails">其中doubleJumpDetails字段如下：</span>
+
+| 参数名称    | **类型**    | **是否必选** | **说明**                                                     |
+| ----------- | ----------- | ------------ | ------------------------------------------------------------ |
+| url       | string      | Y            | 二跳网址链接                                                     |
+| model       | string      | Y            | 规则标识                                                     |
+| description | string      | Y            | 策略规则风险原因描述                                         |
+| descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
+| riskSummary | json object | N            | 风险摘要，目前包括各种风险类型的次数，如果type为NOVEL才返回<br/>[格式请见riskSummary结果详情](#AriskSummary) |
+| riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
+| riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
+| hits        | json_array  | N            | 网页命中信息，一般为空。命中详情在riskDetail中。             |
+| passThrough | json_object | N            | 透传参数，原样返回             |
+
 
 其中，<span id="AriskSummary">riskSummary</span>内容是风险类型，具体如下：
 
@@ -445,6 +469,7 @@
 | txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
 | appId          | string       | 应用标识             | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
 | articleScreenShotConfig | json\_object | 是否开启网页截屏审核方式 | N | [详见articleScreenShotConfig参数](#articleScreenShotConfig) |
+| articleDoubleJumpConfig | json_object | 是否开启网页二跳审核方式 | N |  [详见articleDoubleJumpConfig参数](#articleDoubleJumpConfig) |
 | data           | json\_object | 请求的数据内容       | Y            | 最长1MB, [详见data参数](#data)                               |
 
  其中，data的内容同同步接口：
@@ -703,4 +728,5 @@
     ]
 }
 ```
+
 
