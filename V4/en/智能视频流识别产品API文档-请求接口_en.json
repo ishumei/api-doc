@@ -1,0 +1,2768 @@
+[
+  {
+    "type": "title-1",
+    "value": "Request Interface"
+  },
+  {
+    "type": "desc",
+    "value": "Video stream detection interface capable of identifying:\n- Political, pornographic, advertising, and violent/terrorist content in frame captures, which are regulatory risks;\n- Additionally, it can recognize faces, logos, animals, and plants based on your business scenarios.\n\nAudio segment detection capable of identifying:\n- Political, pornographic, and advertising content, which are regulatory risks;\n- Additionally, it can recognize gender, voice timbre, and minors based on your business scenarios."
+  },
+  {
+    "type": "title-2",
+    "value": "Interface Documentation"
+  },
+  {
+    "type": "desc",
+    "value": "The interface is used to submit information related to video stream identification, and after the stream is stably pulled, the corresponding recognition results will be continuously called back to the specified callback address."
+  },
+  {
+    "type": "title-3",
+    "value": "Interface Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Communication Protocol: HTTP or HTTPS protocol\nRequest Method: POST method\nCharacter Encoding: utf-8\nParameter Format: All request parameters and response parameters are in JSON format."
+  },
+  {
+    "type": "title-3",
+    "value": "Support Protocols"
+  },
+  {
+    "type": "desc",
+    "value": "Common streaming addresses currently support RTMP, RTMPS, HLS, HTTP, HTTPS protocols, and support formats such as FLV, M3U8."
+  },
+  {
+    "type": "title-3",
+    "value": "Callback Mechanism"
+  },
+  {
+    "type": "desc",
+    "value": "When a user receives a push result and the HTTP status code returned is 200, it indicates that the push was successful; otherwise, the system will attempt to push again (until the maximum number of retries is reached). The retry logic is to retry after intervals of [5,10,15,20,25,30,35,40,45,50,55,60] seconds, and if it still fails after 12 attempts, no further retries will be made."
+  },
+  {
+    "type": "title-3",
+    "value": "Retry Live Streaming Mechanism"
+  },
+  {
+    "type": "desc",
+    "value": "To prevent streaming failure issues caused by network abnormalities, the Shumei video streaming service has implemented a retry mechanism after streaming failure. The specific mechanism is as follows:\n\nRegular streams, Imagination/Tencent/Volcano streams: A total of 12 retries will be attempted, each lasting five minutes, with time intervals of [5, 10, 15, 20...60 seconds]. For example, Shumei will first attempt to stream continuously for 5 minutes; if it fails to stream, it will wait for 5 seconds before attempting another 5 minutes of continuous streaming. If it still fails, it will wait for 10 seconds before trying another 5 minutes of streaming, and so on.\n\n Agora streams: No retries, disconnect after 5 minutes of streaming timeout."
+  },
+  {
+    "type": "title-3",
+    "value": "Timeout"
+  },
+  {
+    "type": "desc",
+    "value": "Suggested timeout: 7s\nThe internal processing timeout is 3s, with one retry. Normal interface response time is within 100ms."
+  },
+  {
+    "type": "title-3",
+    "value": "Historical Versions"
+  },
+  {
+    "herf": "/docs/tj/videoStream/history/developDoc",
+    "type": "link",
+    "value": "Historical Versions"
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request address"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "Cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request address"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Shanghai Video Streaming Cluster",
+        "supportProduct": "Chinese video stream",
+        "url": "http://api-videostream-sh.fengkongcloud.com/videostream/v4"
+      },
+      {
+        "description": "Singapore Video Streaming Cluster",
+        "supportProduct": "Chinese Video Stream\nEnglish Video Stream\nArabic Video Stream",
+        "url": "http://api-videostream-xjp.fengkongcloud.com/videostream/v4"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it required?"
+      },
+      {
+        "key": "length",
+        "title": "Maximum Length"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "Company Key. Used for permission authentication, provided by ShuMei when activating services.",
+        "req_name": "accessKey",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.",
+        "req_name": "eventId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Application Identifier. This field is strictly validated and requires prior agreement with Shumei on the value to be used.",
+        "req_name": "appId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "The types of content that need to be recognized in video streams, and at least one of imgBusinessType must be passed.\nOptional values:\nPOLITY: Recognition of political content\nEROTIC: Recognition of erotic and sexy violations\nVIOLENT: Recognition of violent and prohibited content\nQRCODE: QR code recognition\nADVERT: Advertisement recognition\nIMGTEXTRISK: Recognition of image text violations\nIf multiple functions need to be recognized, connect them with an underscore, such as POLITY_QRCODE_ADVERT for a combination of political, QR code, and advertisement recognition.",
+        "req_name": "imgType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "The types of audio that need to be identified in video streams, and at least one of audioBusinessType must be passed.\nOptional values:\nPOLITY: Political identification\nEROTIC: Erotic identification\nADVERT: Advertising identification\nBAN: Prohibited content identification\nVIOLENT: Violent and terrorist identification\nDIRTY: Insult identification\nADLAW: Advertising law\nMOAN: Moaning identification\nAUDIOPOLITICAL: Voiceprint identification of the top leader\nANTHEN: National anthem identification\nBANEDAUDIO: Prohibited songs\nNONE: No audio detection\nIf a combination of identifications is required, simply connect them with an underscore, for example, POLITY_EROTIC for both political and erotic identification.",
+        "req_name": "audioType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "The business types of images that need to be recognized in the video stream, and at least one of imgType should be passed, with optional values seen in the business label types.",
+        "req_name": "imgBusinessType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "Audio business identification types in video streams, at least one of audioType should be passed.\nOptional values:\nSING: Singing recognition\nLANGUAGE: Language recognition (Chinese, English, Cantonese, Tibetan, Uyghur, Korean, Mongolian, others)\nMINOR: Minor recognition\nGENDER: Gender recognition\nTIMBRE: Timbre recognition\nVOICE: Vocal characteristics\nAUDIOSCENE: Sound scene\nAGE: Age recognition\nAPPNAME: App name recognition\nTo recognize timbre, singing, and language, GENDER must also be passed to take effect.\nIf multiple functions need to be recognized, they should be connected with an underscore.",
+        "req_name": "audioBusinessType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "1024",
+        "param_description": "Image callback URL: The detection results of the frame images captured from the video stream are returned to the user through this address.",
+        "req_name": "imgCallback",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "1024",
+        "param_description": "Audio callback URL: The detection results of audio segments in the video stream are returned to the user through this address; it is required when audio recognition is needed.",
+        "req_name": "audioCallback",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "The requested data content should not exceed 1M in size.",
+        "req_name": "data",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Video stream types with selectable values:\nNORMAL: Regular stream address, currently supports rtmp, rtmps, hls, http, https protocols\nAGORA: Agora review\nTRTC: Tencent review\nZEGO: Zego review\nVOLC: Volcano Engine review\nALI: Alibaba Cloud review\nNote: When using the RTC SDK recording solution, additional recording costs may be incurred on the RTC side. Please consult the relevant RTC manufacturers for specific costs.",
+            "req_name": "streamType",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "User account identifier. It is recommended to pass in the user ID, which can be used for risk identification in dimensions such as spamming, advertising, etc.",
+            "req_name": "tokenId",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Streamer Name, generally used for human review required fields.",
+            "req_name": "anchorName",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "The audio review step size in the video stream. The unit is pieces, and the value range is 1-36 integers. A value of 1 indicates skipping the review of one 10-second audio segment, a value of 2 indicates skipping two, and so on. When this feature is not used, all audio content is reviewed.",
+            "req_name": "audioDetectStep",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "The interval frequency for frame capture in a video stream. The unit is seconds, with a range of 1 to 60 seconds. Fractional values are rounded down, and values less than 1 are processed as 1 second. If not specified, the default is to capture a frame every 3 seconds.",
+            "req_name": "detectFrequency",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Frame capture interval for video stream image detection. Each captured frame will only be detected once per interval, with a value greater than or equal to 1. When this feature is not used, all captured frames will be approved without review.",
+            "req_name": "detectStep",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "128",
+            "param_description": "Shumei device fingerprint identification. Generated by ShuMei SDK, used for user behavior analysis.",
+            "req_name": "deviceId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Gender, suggested values:\nmale: male\nfemale: female\nambiguity: ambiguous gender",
+            "req_name": "gender",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Image business label detection step size. Each step size will only detect imgBusinessType once, with a value greater than or equal to 1.\n\u003eDefault value = 1, representing that all segments are reviewed for business labels.",
+            "req_name": "imgBusinessDetectStep",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "1024",
+            "param_description": "The reference image for comparison detection. The `businessType` field in the request parameters should include the label `FACECOMPARE` when present.\nSupported image URL formats:\njpg, jpeg, png, webp, gif, tiff, tif, heif\nIt is recommended that the image pixels are not less than 256*256.\nThe reference image currently does not support animated formats.",
+            "req_name": "imgCompareBase",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "Client's public IP address. This parameter is used for user behavior analysis based on the IP dimension.",
+            "req_name": "ip",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Language Type. You can specify the language type for frame capture and audio segment content detection (default is Chinese), with the following options:\nzh: Chinese\nen: English\nar: Arabic",
+            "req_name": "lang",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Levels, different interception strategies can be configured for users of different levels. Optional values: \n0: Lowest level users, typically including newly registered, completely inactive, or users with a level of 0;\n1: Lower level users, typically including low active or low-level users;\n2: Medium level users, typically including users with certain activity or medium-level users;\n3: Higher level users, typically including highly active or high-level users;\n4: Highest level users, typically including paying users, VIP users, etc.",
+            "req_name": "level",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Live Stream Cover, generally used for fields required by human review.",
+            "req_name": "liveCover",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Live Stream Title: A live stream title is typically required for human review fields.",
+            "req_name": "liveTitle",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "The message recipient's tokenId is a string composed of numbers, letters, underscores, and hyphens, with a length of no more than 64 characters.",
+            "req_name": "receiveTokenId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Return the risk level of the frame capture recognition results. The available options are as follows: (the default value is 0)\n0: Return image audit information with a risk level other than pass.\n1: Return image audit information for all risk levels.",
+            "req_name": "returnAllImg",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Return the risk level of audio recognition results. The optional values are as follows (default is 0):\n0: Return audio segments and text content with a risk level that is not pass.\n1: Return audio segments and text content for all risk levels.",
+            "req_name": "returnAllText",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Video stream end callback notification. The optional values are as follows: (default value is 0)\n1: Initiate an end notification when the review ends, and add the statCode status code to the callback parameters.\n0: Do not send an end notification when the review ends.",
+            "req_name": "returnFinishInfo",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Should return information from the previous segment. The optional values are as follows:\n1: The returned preAudioUrl field contains links to audio segments of the previous 10 seconds and the current 10 seconds, totaling 20 seconds.\n0: Do not return information from the previous segment.",
+            "req_name": "returnPreAudio",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Should the previous segment's text information be returned? The optional values are as follows:\n1: The returned content field includes the text content of the audio segment from the previous 10 seconds and the current 10 seconds, totaling 20 seconds.\n0: Do not return the text information of the previous segment.",
+            "req_name": "returnPreText",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "Live room/game room ID, allowing for the development of different strategies for individual rooms.",
+            "req_name": "room",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "Video Stream Name for display in the backend interface, it is recommended to input.",
+            "req_name": "streamName",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "600",
+            "param_description": "The URL address of the regular stream for the video to be detected.",
+            "req_name": "url",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Agora Recording Parameters (required when streamType is AGORA)",
+            "req_name": "agoraParam",
+            "required": "N",
+            "son": [
+              {
+                "length": "64",
+                "param_description": "Agora App ID",
+                "req_name": "appId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Channel Name provided by Agora",
+                "req_name": "channel",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "The channel mode for recording on Agora, with the following values:\n0: Communication (default), which is the common 1-to-1 private chat or group chat, where any user in the channel can speak freely;\n1: Live broadcasting, with two types of user roles: broadcaster and audience.",
+                "req_name": "channelProfile",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Does it support recording H.265 video streams?\nfalse: (default) Does not support recording H.265 video streams. Remote users within the channel cannot send H.265 video streams.\ntrue: Supports recording H.265 video streams.",
+                "req_name": "enableH265Support",
+                "required": "N",
+                "type": "boolean"
+              },
+              {
+                "length": "-",
+                "param_description": "Enable keyframe requests. This parameter is set to true by default, which can improve the audio and video experience under poor network conditions. If you need to specify the playback position for the recorded video in single-stream mode, you must set enableIntraRequest to false.\nfalse: Disable keyframe requests, all the sending ends in the channel send a keyframe every 2 seconds. After disabling, the playback position of the recorded video in single-stream mode can be specified.\ntrue: The sending end controls whether to enable keyframe requests. After enabling, the playback position of the recorded video file in single-stream mode cannot be specified.",
+                "req_name": "enableIntraRequest",
+                "required": "N",
+                "type": "boolean"
+              },
+              {
+                "length": "-",
+                "param_description": "Subscription Mode.\nAUTO: Automatically subscribes to all streams within the room; this is the default behavior when subscribeMode is not set.\nUNTRUSTED: Works in conjunction with the untrustedUserIdList to only subscribe to streams specified by this list. In this mode, if the untrustedUserIdList is empty, it is considered a parameter error because no streams can be subscribed to.\nTRUSTED: Works in conjunction with the trustedUserIdList to only subscribe to streams outside of this list. In this mode, if no users not on the trustedUserIdList enter the room for a certain period, meaning the untrustedUserIdList is empty, the audit will be proactively terminated by the system.",
+                "req_name": "subscribeMode",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Users with higher security requirements can use tokens for authentication. For details on how to generate tokens, please refer to the Agora documentation: (https://docs.agora.io/en/Recording/token_server?platform=CPP)\n\nIt is recommended to set the token's validity period to exceed the duration of the channel to prevent the token from expiring and causing streaming issues. Agora currently supports a maximum token validity period of 24 hours. Therefore, when the channel duration exceeds 24 hours, it is necessary to handle token expiration issues. The method to handle this is to set the returnFinishInfo parameter to 1 in the request to enable audio stream end callback notifications. When the callback receives an audit end notification (statCode set to 1), and the reason is due to the invalid or expired streaming token, if the channel still exists and requires continued auditing, generate a new token and resubmit the channel for review.",
+                "req_name": "token",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "A 32-bit unsigned integer. When a token is present, the user ID used to generate the token must be provided.\nNote that it is necessary to distinguish between the actual user ID (uid) in the room and the uid provided to the server for recording purposes, which must not exist in the room.",
+                "req_name": "uid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "List of trusted users, takes effect when subscribeMode is set to TRUSTED, must not be empty, and the platform will not subscribe to the streams of users specified in this list within the room.\nA comma-separated array of UIDs, such as [1,2], with a maximum of 17 users.",
+                "req_name": "trustedUserIdList",
+                "required": "N",
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "A list for non-trusted users, which takes effect when subscribeMode is set to UNTRUSTED, and must not be empty. It only subscribes to the streams of the users specified in this list within the room.\nA comma-separated array of UIDs, such as [1,2], with a maximum of 17 users.",
+                "req_name": "untrustedUserIdList",
+                "required": "N",
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Ali Engine Recording Parameters (required when streamType is ALI)",
+            "req_name": "aliParam",
+            "required": "N",
+            "son": [
+              {
+                "length": "64",
+                "param_description": "Room ID must be exactly the same as the channel ID used to generate the token. The server pulls and records streams on a per-room basis. The room serves as a unique identifier, and the same room will not pull streams repeatedly.",
+                "req_name": "room",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Used for the pulling end to join the channel, the generation method is detailed in the document: https://help.aliyun.com/zh/live/user-guide/token-based-authentication, a new token must be regenerated each time for upload and review.",
+                "req_name": "token",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "Alibaba User Account Identifier.",
+                "req_name": "userId",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary Information",
+            "req_name": "extra",
+            "required": "N",
+            "son": [
+              {
+                "length": "1024",
+                "param_description": "Customers transmit pass-through fields. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+                "req_name": "passThrough",
+                "required": "N",
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Tencent Recording Parameters (required when streamType is TRTC)",
+            "req_name": "trtcParam",
+            "required": "N",
+            "son": [
+              {
+                "length": "1",
+                "param_description": "Application scenarios, optional values:\n0: Video call scenario\n1: Video live streaming scenario, default value: 0. For more details, see: https://cloud.tencent.com/document/product/647/79634#45c6782b29cadc377b5763a5d8490340",
+                "req_name": "appScene",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Recording type optional values:\nMulticast recording: 2\nUnicast recording: 4",
+                "req_name": "demoSences",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "Tencent-provided SDKAppId",
+                "req_name": "sdkAppId",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "128",
+                "param_description": "Room number. Value description: Only allows the inclusion of (a-zA-Z), numbers (0-9), underscores, and hyphens.\nIf you choose strRoomId, please note that if both strRoomId and roomId have values, roomId should be used preferentially.",
+                "req_name": "strRoomId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "The userId assigned to the recording end has a length limit of 32 bits and is only allowed to include letters (a-zA-Z), numbers (0-9), underscores, and hyphens.",
+                "req_name": "userId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "128",
+                "param_description": "Record the verification signature corresponding to userId, which is equivalent to the login password.",
+                "req_name": "userSig",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "10",
+                "param_description": "Room number. Value range: 【1-4294967294】Either roomId or strRoomId must be provided, if both have values, roomId is preferred. Note: Currently, a room can audit a maximum of 8 users only.",
+                "req_name": "roomId",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Volcano Engine recording parameters (required when streamType is VOLC)",
+            "req_name": "volcParam",
+            "required": "N",
+            "son": [
+              {
+                "length": "64",
+                "param_description": "Volcano's application identifier",
+                "req_name": "appId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "128",
+                "param_description": "Room Number",
+                "req_name": "roomId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Record the verification signature corresponding to the userId, which is equivalent to the login password.",
+                "req_name": "token",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "userId assigned to the recording segment, limited to a length of 32 bits, only allowing (a-zA-Z), numbers (0-9), underscores, and hyphens.",
+                "req_name": "userId",
+                "required": "Y",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Zego Recording Parameters (required when streamType is ZEGO)",
+            "req_name": "zegoParam",
+            "required": "N",
+            "son": [
+              {
+                "length": "64",
+                "param_description": "zego's room number",
+                "req_name": "roomId",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Zego provides authentication information, obtain Zego's identify_token for login, and see the generation method in the Zego documentation: https://doc-zh.zego.im/article/15258 Note that the tokenId is a unique identifier, and a new one must be generated for each request for uploading and content moderation.",
+                "req_name": "tokenId",
+                "required": "Y",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Select the language type for the return label\nAvailable values:\nzh: Chinese\nen: English\nDefault is Chinese if not specified",
+        "req_name": "acceptLang",
+        "required": "N",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it necessary to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "Shumei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Corresponding to code:\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameter\n1903: Service Failure\n1904: Stream Route Limit Exceeded\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Stream Route Limit Exceeded\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "req_name": "detail",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Duplicate requestId indicator\nWhen the errorcode is 1001, indicating a repeated stream push, the dupRequestId field will be returned.\nFor example, if the first request does not receive a response, but the audio stream has actually started being reviewed, and there is no requestId to actively close the review.\nYou can request again, receive the message of repeated stream push, and call the close review interface through the returned dupRequestId.",
+            "req_name": "dupRequestId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "1001: Repeated Streaming",
+            "req_name": "errorcode",
+            "required": "N",
+            "type": "int32"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Stream segment callback parameters"
+  },
+  {
+    "type": "desc",
+    "value": "The following parameters, except for `code`, `message`, and `requestId`, are all mandatory return parameters when the `code` returns 1100."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it mandatory to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "ShuMei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Here are the translations for the codes:\n\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Stream Route Limit Exceeded\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Exceeded Route Count Limit\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Callback status codes. Corresponding relationships:\n0: Audit result callback\n1: Stream end result callback",
+        "req_name": "statCode",
+        "required": "N",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Used to differentiate between image and audio callbacks. Possible values are as follows:\n1: This callback is for image processing.\n2: This callback is for audio processing.",
+        "req_name": "contentType",
+        "required": "N",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Auxiliary information, the value of passThrough in the extra parameter of the request data is returned.",
+        "req_name": "auxInfo",
+        "required": "N",
+        "son": [
+          {
+            "length": "1024",
+            "param_description": "The customer transmits a transparent field. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+            "req_name": "passThrough",
+            "required": "N",
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Frame capture image information risk details. Return when there are risky segments or returnAllImg=1.",
+        "req_name": "frameDetail",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Frame capture image address",
+            "req_name": "imgUrl",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Label Explanation: When a user-defined list is hit, return: \"Hit Custom List\"; \nWhen riskLevel is PASS, return \"Normal\"; \nIn other cases, display the format as First-Level Label: Second-Level Label: Third-Level Label in Chinese name, which is only for human reference to understand the reason for the risk, and programs should not rely on the value of this parameter for logical processing.",
+            "req_name": "riskDescription",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 1 Risk Label, returns \"normal\" when riskLevel is PASS.",
+            "req_name": "riskLabel1",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Risk Label, empty when riskLevel is PASS.",
+            "req_name": "riskLabel2",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Tier 3 Risk Label, empty when riskLevel is PASS.",
+            "req_name": "riskLabel3",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to block directly",
+            "req_name": "riskLevel",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Complete List of Risk Labels",
+            "req_name": "allLabels",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "When riskLevel is PASS, return normal;\nIn other cases, display in the format: \"First Level Label:Second Level Label:Third Level Label\" in Chinese names.\nThis is only for human reference to understand the reasons for the risk, and the program should not rely on the value of this parameter for logical processing.",
+                "req_name": "riskDescription",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Level 1 Risk Label",
+                "req_name": "riskLabel1",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Secondary Risk Label",
+                "req_name": "riskLabel2",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Level 3 Risk Label",
+                "req_name": "riskLabel3",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to block directly",
+                "req_name": "riskLevel",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Risk Details Information",
+                "req_name": "riskDetail",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Risk sources, possible values:\n1000: No risk\n1001: Text risk\n1002: Visual image risk",
+                    "req_name": "riskSource",
+                    "required": "Y",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Number of faces",
+                    "req_name": "face_num",
+                    "required": "N",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Number of portraits",
+                    "req_name": "person_num",
+                    "required": "N",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Names and location information of political figures in the image. When multiple faces are detected - face type - multiple faces, there will be multiple array elements, up to 10 (if more than 10, select the top 10 with the highest probability).",
+                    "req_name": "faces",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Face ratio, within the range of 0-1, the larger the value, the higher the proportion of the face.",
+                        "req_name": "face_ratio",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "ID, the same person in the same position of the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Character Names",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The character's position information is represented by an array with four values, corresponding to the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where:\n\n- 207 represents the x-coordinate of the top-left corner.\n- 522 represents the y-coordinate of the top-left corner.\n- 340 represents the x-coordinate of the bottom-right corner.\n- 567 represents the y-coordinate of the bottom-right corner.",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item information. Return the name and location information of the marked or item in the picture.",
+                    "req_name": "objects",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Item or identifier numbering, ensuring that the same item in the same location has the same number across different labels.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Item Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. Optional values range from 0 to 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Return the QR code address recognized in the image.",
+                        "req_name": "qrContent",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Item Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567]\n207 represents the x-coordinate of the top-left corner\n522 represents the y-coordinate of the top-left corner\n340 represents the x-coordinate of the bottom-right corner\n567 represents the y-coordinate of the bottom-right corner",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Return the text recognition content in the image, which exists when the request parameter field imgType contains IMGTEXTRISK or ADVERT.",
+                    "req_name": "ocrText",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Image text recognized",
+                        "req_name": "text",
+                        "required": "Y",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Customer-specific list information is returned only when a match is found in the customer's custom list.",
+                        "req_name": "matchedLists",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Hit List Name",
+                            "req_name": "name",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive word information in this hit list.",
+                            "req_name": "words",
+                            "required": "N",
+                            "son": [
+                              {
+                                "length": "-",
+                                "param_description": "Sensitive words hit.",
+                                "req_name": "word",
+                                "required": "N",
+                                "type": "string"
+                              },
+                              {
+                                "length": "-",
+                                "param_description": "Sensitive words location",
+                                "req_name": "position",
+                                "required": "N",
+                                "type": "array"
+                              }
+                            ],
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "High-risk content segments. There is a presence of politically sensitive, violent and terrorist, prohibited, competitive product, and advertising law violations in the detected images.",
+                        "req_name": "riskSegments",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Auxiliary Information High-Risk Content Segment",
+                            "req_name": "segment",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "The location of high-risk content segments starts counting from index 0.",
+                            "req_name": "position",
+                            "required": "N",
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+                    "req_name": "persons",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Portrait proportion. Within the range of 0-1, the higher the value, the larger the proportion of the human face.",
+                        "req_name": "person_ratio",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Portrait Location Coordinates",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary Information",
+            "req_name": "auxInfo",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Start processing time (13-digit timestamp)",
+                "req_name": "beginProcessTime",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "End processing time (13-digit timestamp)",
+                "req_name": "finishProcessTime",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Used to distinguish whether the frame capture image has passed the detection. Possible values are as follows: (This parameter will only be returned when the request parameter `detectStep` is passed)\n1: The frame capture image has passed the detection.\n2: The frame capture image has not passed the detection.",
+                "req_name": "detectType",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Frame capture timestamp: The exact time when a frame capture image from a video stream is taken, indicating the moment of a potential violation (absolute time).",
+                "req_name": "imgTime",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "64",
+                "param_description": "Room Number",
+                "req_name": "room",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Auxiliary parameter. Possible values are as follows: (This parameter is returned only when the similarity frame deduplication review feature is enabled and the outer riskLevel is changed from reject/review to pass; it is not returned in other cases)\nValue 1, the similarity frame deduplication review feature is active.",
+                "req_name": "similarityDedup",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "User identification, used to distinguish between users violating the rules in the room, unrelated to the userId in the request parameters, and the user ID of the diverted traffic. This field will be returned under the following circumstances:\nZEGO stream is audited by room number.\nTRTC stream is audited through traffic diversion.\nVOLC stream is audited.\nALI stream is audited.",
+                "req_name": "strUserId",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": " Agora user account identifier. Only exists in the case of stream distribution, the returned userId is the actual user ID in the room, which is unrelated to the uid in the request parameters.",
+                "req_name": "userId",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Risk Details Information",
+            "req_name": "riskDetail",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Risk sources, possible values:\n1000: No risk\n1001: Text risk\n1002: Visual image risk",
+                "req_name": "riskSource",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of faces",
+                "req_name": "face_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of portraits",
+                "req_name": "person_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Names and location information of political figures in the image. When multiple faces are detected - face type - multiple faces, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the top 10 with the highest probability).",
+                "req_name": "faces",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Face ratio, within the range of 0-1, the larger the value, the higher the proportion of the face.",
+                    "req_name": "face_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "ID, the same person in the same position of the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Character Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The character's position information is represented by an array with four values, corresponding to the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where:\n\n207 represents the x-coordinate of the top-left corner,\n522 represents the y-coordinate of the top-left corner,\n340 represents the x-coordinate of the bottom-right corner,\n567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Item information. Return the name and location information of the labeled or item in the image.",
+                "req_name": "objects",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Item or identification number, ensuring that the same item in the same location has the same number under different labels.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Return the QR code address recognized in the image.",
+                    "req_name": "qrContent",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567]\n207 represents the x-coordinate of the top-left corner\n522 represents the y-coordinate of the top-left corner\n340 represents the x-coordinate of the bottom-right corner\n567 represents the y-coordinate of the bottom-right corner",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Return the content recognized from the image when the request parameter field imgType contains IMGTEXTRISK or ADVERT.",
+                "req_name": "ocrText",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Identified text in the image",
+                    "req_name": "text",
+                    "required": "Y",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Customer-specific list information is returned only when a customer is matched with a custom list.",
+                    "req_name": "matchedLists",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Hit List Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive word information in this hit list.",
+                        "req_name": "words",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words hit.",
+                            "req_name": "word",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words location",
+                            "req_name": "position",
+                            "required": "N",
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "High-risk content detected. The image contains politically sensitive, violent, prohibited, competitive, and advertising law violations.",
+                    "req_name": "riskSegments",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Auxiliary Information High-Risk Content Segment",
+                        "req_name": "segment",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The location of high-risk content segments, with indexing starting from 0.",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              },
+              {
+                "length": "-",
+                "param_description": "Names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "persons",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait proportion. Within the range of 0-1, the higher the value, the larger the proportion of the human face.",
+                    "req_name": "person_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait location coordinates",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Business Tag List",
+            "req_name": "businessLabels",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "当然可以，以下是一些按照您要求格式的业务标签中文描述示例：\n\n1. 市场营销：广告宣传：线上广告\n2. 产品研发：软件设计：用户界面\n3. 客户服务：售后支持：维修服务\n4. 财务管理：预算编制：成本控制\n5. 人力资源：招聘管理：面试流程\n6. 供应链管理：物流配送：库存管理\n7. 项目管理：进度控制：风险评估\n8. 法律事务：合同管理：知识产权\n9. 信息技术：网络安全：数据保护\n10. 行政管理：文档管理：会议安排\n\n这些示例涵盖了不同业务领域的一级、二级和三级标签，可以根据实际业务需求进行调整和补充。希望对您有所帮助。",
+                "req_name": "businessDescription",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "First-level Business Tags",
+                "req_name": "businessLabel1",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Secondary Business Tags",
+                "req_name": "businessLabel2",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Tier 3 Business Tags",
+                "req_name": "businessLabel3",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "Y",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence level, with optional values between 0 and 2, the higher the value, the higher the credibility.",
+                "req_name": "confidenceLevel",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Business Label Details",
+                "req_name": "businessDetail",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Number of faces",
+                    "req_name": "face_num",
+                    "required": "N",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Number of portraits",
+                    "req_name": "person_num",
+                    "required": "N",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Names and location information of political figures in the image. When multiple faces are detected - face type - multiple faces, there will be multiple array elements, up to 10 (if more than 10, select the top 10 with the highest probability).",
+                    "req_name": "faces",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Face ratio, within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                        "req_name": "face_ratio",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "ID, the same person in the same position of the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Character Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The character position information, this array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where 207 represents the x-coordinate of the top-left corner, 522 represents the y-coordinate of the top-left corner, 340 represents the x-coordinate of the bottom-right corner, and 567 represents the y-coordinate of the bottom-right corner.",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item information. Return the name and location information of the marked or item in the image.",
+                    "req_name": "objects",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Item or identification number, ensuring that the same item at the same location has the same number across different labels.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Item Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Return the QR code address recognized in the image.",
+                        "req_name": "qrContent",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Item Location Information\nThis array contains four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567]:\n- 207 represents the x-coordinate of the top-left corner.\n- 522 represents the y-coordinate of the top-left corner.\n- 340 represents the x-coordinate of the bottom-right corner.\n- 567 represents the y-coordinate of the bottom-right corner.",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+                    "req_name": "persons",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                        "req_name": "id",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Portrait ratio. Within the range of 0-1, the higher the value, the larger the proportion of the human face.",
+                        "req_name": "person_ratio",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                        "req_name": "probability",
+                        "required": "N",
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Portrait Position Coordinates",
+                        "req_name": "location",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Audio clip information. Return when there are risky clips or returnAllText=1.",
+        "req_name": "audioDetail",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Audio clip address.",
+            "req_name": "audioUrl",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Label Explanation: When a user-defined list is hit, return: \"Hit Custom List\"; when the riskLevel is PASS, return \"Normal\"; in other cases, display the format as First-Level Label: Second-Level Label: Third-Level Label in Chinese name, only for reference when people need to understand the reasons for the risk, and programs should not rely on the value of this parameter for logical processing.",
+            "req_name": "riskDescription",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 1 Risk Label, returns \"normal\" when riskLevel is PASS.",
+            "req_name": "riskLabel1",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Risk Label, empty when riskLevel is PASS.",
+            "req_name": "riskLabel2",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 3 Risk Label, when riskLevel is PASS, it is empty.",
+            "req_name": "riskLabel3",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to intercept directly",
+            "req_name": "riskLevel",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Mute segment.\n0: Mute segment\n1: Non-mute segment",
+            "req_name": "vadCode",
+            "required": "Y",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Complete list of risk labels",
+            "req_name": "allLabels",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Risk Description. When riskLevel is PASS, return: Normal. Format: \"First-level risk label: Second-level risk label: Third-level risk label\" in Chinese. For hits on user-defined lists, return: Hit custom list.",
+                "req_name": "riskDescription",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Level 1 Risk Label, returns \"normal\" when riskLevel is PASS.",
+                "req_name": "riskLabel1",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Secondary Risk Label, empty when riskLevel is PASS.",
+                "req_name": "riskLabel2",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Tier 3 Risk Label, when riskLevel is PASS, it is empty.",
+                "req_name": "riskLabel3",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to intercept directly",
+                "req_name": "riskLevel",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "For each segment of content, return the risk details only if the type is NOVEL. If the returnHtml parameter is true, only return the REJECT and REVIEW risk content segments. If the returnHtml parameter is false, return all content segments (including REJECT, REVIEW, and PASS).\u003cbr/\u003e",
+                "req_name": "riskDetail",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Risk sources, possible values are:\n1000: No risk\n1001: Text risk\n1002: Visual image risk\n1003: Audio speech risk",
+                    "req_name": "riskSource",
+                    "required": "Y",
+                    "type": "int32"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The text content recognized in the segment.",
+                    "req_name": "audioText",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Custom customer list information is returned only when a match is found in the custom customer list.",
+                    "req_name": "matchedLists",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Name List",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive word information in the hit list.",
+                        "req_name": "words",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words hit.",
+                            "req_name": "word",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "The location of high-risk content segments starts counting from index 0.",
+                            "req_name": "position",
+                            "required": "N",
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "High-risk content detection. There is a presence of risk content related to politics, terrorism, prohibited items, competitors, and advertising laws when detecting images.",
+                    "req_name": "riskSegments",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Auxiliary Information High-Risk Content Segment",
+                        "req_name": "segment",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The position of high-risk content segments, with indexing starting from 0.",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "The text content recognized from the audio in the video stream. When the returnPreText value is 1, and the current audio segment is rejected, return the text content of the current 10-second and the previous 10-second audio segments, totaling 20 seconds. Otherwise, only return the text content of the current segment.",
+            "req_name": "content",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Return the link to the previous audio clip. If `returnPreAudio` is set to 1 and the current audio clip is marked as 'reject', return a link to a 20-second audio clip that includes the current 10 seconds and the previous 10 seconds. Otherwise, do not return anything.",
+            "req_name": "preAudioUrl",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary Information",
+            "req_name": "auxInfo",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "End time of violation content (absolute time)",
+                "req_name": "audio_endtime",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Start time of the violation content (absolute time)",
+                "req_name": "audio_starttime",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Start processing time (13-digit timestamp)",
+                "req_name": "beginProcessTime",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "End processing time (13-digit timestamp)",
+                "req_name": "finishProcessTime",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "Room Number",
+                "req_name": "room",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "User identification, used to distinguish between violators in the room, unrelated to the userId in the request parameters, and the user ID for traffic distribution. This field will be returned under the following circumstances:\nZEGO stream is reviewed by room number.\nTRTC stream is reviewed for traffic distribution.\nVOLC stream is reviewed.\nALI stream is reviewed.",
+                "req_name": "strUserId",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "32",
+                "param_description": "Agora user account identifier. Only exists in the case of traffic distribution, the returned userId is the actual user ID in the room, which is unrelated to the uid in the request parameters.",
+                "req_name": "userId",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "1024",
+                "param_description": "Customers transmit pass-through fields. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+                "req_name": "passThrough",
+                "required": "N",
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Business Tag List",
+            "req_name": "businessLabels",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "好的，以下是业务标签的中文描述，按照\"一级标签:二级标签:三级标签\"的格式：\n\n1. 客户管理：客户信息：客户基本信息\n   客户管理：客户信息：客户联系方式\n   客户管理：客户信息：客户行业信息\n   客户管理：客户信息：客户信用信息\n   客户管理：客户信息：客户交易记录\n\n2. 销售管理：销售机会：潜在客户\n   销售管理：销售机会：销售漏斗\n   销售管理：销售机会：销售阶段\n   销售管理：销售机会：销售预测\n\n   销售管理：订单管理：订单创建\n   销售管理：订单管理：订单审批\n   销售管理：订单管理：订单发货\n   销售管理：订单管理：订单退货\n\n   销售管理：合同管理：合同创建\n   销售管理：合同管理：合同审批\n   销售管理：合同管理：合同执行\n   销售管理：合同管理：合同变更\n\n3. 产品管理：产品信息：产品基本信息\n   产品管理：产品信息：产品规格参数\n   产品管理：产品信息：产品价格信息\n   产品管理：产品信息：产品库存信息\n\n   产品管理：产品开发：产品规划\n   产品管理：产品开发：产品设计\n   产品管理：产品开发：产品测试\n   产品管理：产品开发：产品发布\n\n4. 采购管理：供应商信息：供应商基本信息\n   采购管理：供应商信息：供应商联系方式\n   采购管理：供应商信息：供应商资质信息\n   采购管理：供应商信息：供应商合作记录\n\n   采购管理：采购订单：采购订单创建\n   采购管理：采购订单：采购订单审批\n   采购管理：采购订单：采购订单执行\n   采购管理：采购订单：采购订单变更\n\n5. 库存管理：库存查询：库存总量查询\n   库存管理：库存查询：库存明细查询\n   库存管理：库存查询：库存预警设置\n\n   库存管理：库存入库：采购入库\n   库存管理：库存入库：生产入库\n   库存管理：库存入库：退货入库\n\n   库存管理：库存出库：销售出库\n   库存管理：库存出库：调拨出库\n   库存管理：库存出库：报废出库\n\n6. 财务管理：账务管理：应收账款\n   财务管理：账务管理：应付账款\n   财务管理：账务管理：预收账款\n   财务管理：账务管理：预付账款\n\n   财务管理：成本管理：直接成本\n   财务管理：成本管理：间接成本\n   财务管理：成本管理：固定成本\n   财务管理：成本管理：变动成本\n\n   财务管理：报表管理：资产负债表\n   财务管理：报表管理：利润表\n   财务管理：报表管理：现金流量表\n\n7. 项目管理：项目信息：项目基本信息\n   项目管理：项目信息：项目成员信息\n   项目管理：项目信息：项目进度信息\n   项目管理：项目信息：项目预算信息\n\n   项目管理：项目计划：项目需求\n   项目管理：项目计划：项目范围\n   项目管理：项目计划：项目时间\n   项目管理：项目计划：项目资源\n\n   项目管理：项目执行：项目任务\n   项目管理：项目执行：项目风险\n   项目管理：项目执行：项目沟通\n   项目管理：项目执行：项目变更\n\n8. 人力资源管理：员工信息：员工基本信息\n   人力资源管理：员工信息：员工联系方式\n   人力资源管理：员工信息：员工职位信息\n   人力资源管理：员工信息：员工绩效信息\n\n   人力资源管理：招聘管理：招聘需求\n   人力资源管理：招聘管理：招聘渠道\n   人力资源管理：招聘管理：招聘流程\n   人力资源管理：招聘管理：招聘评估\n\n   人力资源管理：培训管理：培训需求\n   人力资源管理：培训管理：培训计划\n   人力资源管理：培训管理：培训执行\n   人力资源管理：培训管理：培训评估\n\n以上是按照\"一级标签:二级标签:三级标签\"格式的业务标签中文描述，可以根据实际业务需求进行调整和补充。",
+                "req_name": "businessDescription",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Primary Business Labels",
+                "req_name": "businessLabel1",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Secondary Business Tags",
+                "req_name": "businessLabel2",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Tier 3 Business Labels",
+                "req_name": "businessLabel3",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "Y",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence level, with optional values between 0 and 2, the higher the, value the higher the credibility.",
+                "req_name": "confidenceLevel",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "Risk Details Information",
+            "req_name": "riskDetail",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Risk Sources, possible values are:\n1000: No Risk\n1001: Text Risk\n1003: Audio Speech Risk",
+                "req_name": "riskSource",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "The text content recognized in this segment.",
+                "req_name": "audioText",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Customer-specific list information is only returned when a match is found in the customer's custom list.",
+                "req_name": "matchedLists",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "List Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Sensitive word information in this hit list.",
+                    "req_name": "words",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive words hit",
+                        "req_name": "word",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The positions of high-risk content segments, with indexing starting from 0.",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "High-risk content segments. There is a presence when detecting images that contain politically sensitive, violent and terrorist, prohibited, competitive product, and advertising law violations.",
+                "req_name": "riskSegments",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Auxiliary Information High-Risk Content Segment",
+                    "req_name": "segment",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The position of high-risk content segments starts counting from index 0.",
+                    "req_name": "position",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Account attribute tags. Returned only when tokenId is provided and the tag service is enabled.",
+        "req_name": "tokenProfileLabels",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Label Description",
+            "req_name": "description",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Primary Tag",
+            "req_name": "label1",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Labels",
+            "req_name": "label2",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Third-level Label",
+            "req_name": "label3",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Label timestamp 13-digit Unix timestamp, unit: milliseconds",
+            "req_name": "timestamp",
+            "required": "N",
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "length": "-",
+        "param_description": "Account Risk Label. Returns only when the token ID is passed and the label service is activated.",
+        "req_name": "tokenRiskLabels",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Tag Description",
+            "req_name": "description",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Primary Label",
+            "req_name": "label1",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Labels",
+            "req_name": "label2",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Third-level Tag",
+            "req_name": "label3",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Tagging timestamp 13-digit Unix timestamp, unit: milliseconds",
+            "req_name": "timestamp",
+            "required": "N",
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "End-of-stream callback parameters"
+  },
+  {
+    "type": "desc",
+    "value": "Return only when returnFinishInfo is 1."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it mandatory to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "Shumei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Here are the translations for the codes:\n\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Exceeded Stream Count Limit\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Exceeded Number of Stream Routes\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Return overall stream disposal recommendations at the end of the callback. Possible return values:\nPASS: Normal, recommend to let it pass directly\nREVIEW: Suspicious, recommend manual review\nREJECT: Violation, recommend direct interception",
+        "req_name": "riskLevel",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Callback status code, which exists when returnFinishInfo is 1. The status code correspondence is as follows:\n0: Audit result callback\n1: Stream end result callback.",
+        "req_name": "statCode",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Used to distinguish between audio and image callback completions. Possible values are as follows:\n1: This callback is for the end of image review.\n2: This callback is for the end of audio review.",
+        "req_name": "contentType",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Whether the stream pulling is successful. Possible values are as follows:\ntrue: Stream pulling is successful\nfalse: Stream pulling has failed\nIf no screenshots are successfully obtained, it is considered that the stream pulling has failed.",
+        "req_name": "pullStreamSuccess",
+        "required": "Y",
+        "type": "bool"
+      },
+      {
+        "length": "-",
+        "param_description": "Auxiliary Information",
+        "req_name": "auxInfo",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Stream audit duration. The last return after the stream ends represents the submission duration. If there is an interval audit logic, it may not be consistent with the actual duration of the stream.",
+            "req_name": "streamTime",
+            "required": "Y",
+            "type": "int32"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Return all fields in the data parameter of the request. Return when contentType is 2.",
+        "req_name": "requestParams",
+        "required": "N",
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Details information. Return when contentType is 1.",
+        "req_name": "detail",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Retrieve all fields from the request parameter data.",
+            "req_name": "requestParams",
+            "required": "Y",
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "*********",
+      "appId": "defaulttest",
+      "audioBusinessType": "SING_LANGUAGE",
+      "audioCallback": "http://www.xxx.top/callbackxxx",
+      "audioType": "POLITY_EROTIC_ADVERT_MOAN",
+      "data": {
+        "detectFrequency": 10,
+        "detectStep": 1,
+        "extra": {
+          "passThrough": {
+            "passThrough1": "111",
+            "passThrough2": "222",
+            "passThrough3": "333"
+          }
+        },
+        "ip": "123.171.34.4",
+        "lang": "zh",
+        "returnAllImg": 1,
+        "returnAllText": 1,
+        "returnPreAudio": 1,
+        "returnPreText": 1,
+        "room": "5e1854a6a0a79d0001a09bc3",
+        "streamType": "NORMAL",
+        "tokenId": "123",
+        "url": "http://rtmp.xxxx.cn/live/3637778raLSXdOdu.flv"
+      },
+      "eventId": "VIDEOSTREAM",
+      "imgBusinessType": "BODY_FOOD_3CPRODUCTSLOGO",
+      "imgCallback": "http://www.xxx.top/callbackxxx",
+      "imgType": "POLITY_EROTIC_ADVERT"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "Success",
+      "requestId": "66fb85e3149bb9e13d6c72161cc6c6cf"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Frame Capture Callback Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "auxInfo": {
+        "passThrough": {
+          "passThrough1": "111",
+          "passThrough2": "222",
+          "passThrough3": "333"
+        }
+      },
+      "code": 1100,
+      "contentType": 1,
+      "frameDetail": {
+        "allLabels": [
+          {
+            "riskDescription": "Involvement in politics: Involvement in politics: Involvement in politics",
+            "riskLabel1": "politics",
+            "riskLabel2": "shezheng",
+            "riskLabel3": "shezheng",
+            "riskLevel": "REJECT"
+          }
+        ],
+        "auxInfo": {
+          "beginProcessTime": 1639825248361,
+          "detectType": 1,
+          "finishProcessTime": 1639825248809,
+          "imgTime": "2021-12-18 19:00:48.375",
+          "room": "5e1854a6a0a79d0001a09bc3"
+        },
+        "businessLabels": [],
+        "imgUrl": "http://bj.cos.ap-beijing.xxx.com/image/1639825145166_vs130_1639825248361471656.jpg",
+        "riskDescription": "Involvement in politics: Involvement in politics: Involvement in politics",
+        "riskDetail": {
+          "ocrText": {
+            "text": "Page 4 (ban) Page 5 (violence)"
+          },
+          "riskSource": 1002
+        },
+        "riskLabel1": "politics",
+        "riskLabel2": "shezheng",
+        "riskLabel3": "shezheng",
+        "riskLevel": "REJECT"
+      },
+      "message": "Success",
+      "requestId": "1639825145166_vs130_1639825248361471656"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Audio Clip Callback Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "audioDetail": {
+        "allLabels": [
+          {
+            "riskDescription": "Political involvement: Leader One: Leader One",
+            "riskLabel1": "politics",
+            "riskLabel2": "yihaolingdao",
+            "riskLabel3": "yihaolingdao",
+            "riskLevel": "REJECT"
+          }
+        ],
+        "audioText": "Emphasized in important instructions that vocational education has broad prospects in the new journey of comprehensively building a modern socialist country. General Secretary of the CPC Central Committee and President of the State.",
+        "audioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=f32da45be186fd4a8ed063e499d3f4e0f4f5fc19",
+        "auxInfo": {
+          "audioEndTime": "2022-10-27 21:08:42",
+          "audioStartTime": "2022-10-27 21:08:32",
+          "beginProcessTime": 1666876123332,
+          "finishProcessTime": 1666876123893,
+          "room": "y1123413312ewe24sv2"
+        },
+        "businessLabels": [],
+        "content": "",
+        "preAudioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
+        "riskDescription": "Political involvement: Leader One: Leader One",
+        "riskDetail": {
+          "audioText": "Stressed in important instructions that vocational education has broad prospects in the new journey of comprehensively building a modern socialist country. General Secretary of the CPC Central Committee and President of the State.",
+          "riskSource": 1001
+        },
+        "riskLabel1": "politics",
+        "riskLabel2": "yihaolingdao",
+        "riskLabel3": "yihaolingdao",
+        "riskLevel": "REJECT"
+      },
+      "code": 1100,
+      "contentType": 2,
+      "message": "Success",
+      "requestId": "y28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3",
+      "statCode": 0
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Stream End Callback Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "auxInfo": {
+        "streamTime": 70
+      },
+      "code": 1100,
+      "contentType": 1,
+      "detail": {
+        "requestParams": {
+          "detectFrequency": 10,
+          "detectStep": 1,
+          "extra": {
+            "passThrough": {
+              "passThrough1": "111",
+              "passThrough2": "222",
+              "passThrough3": "333"
+            }
+          },
+          "ip": "123.171.34.4",
+          "lang": "zh",
+          "returnAllImg": 1,
+          "returnAllText": 1,
+          "returnPreAudio": 1,
+          "returnPreText": 1,
+          "room": "5e1854a6a0a79d0001a09bc3",
+          "streamType": "NORMAL",
+          "tokenId": "123",
+          "url": "http://rtmp.xxxx.cn/live/3637778raLSXdOdu.flv"
+        }
+      },
+      "message": "Success",
+      "pullStreamSuccess": true,
+      "requestId": "5515ce1f9b474a6c4a3d79a8dfcaeaf4",
+      "riskLevel": "PASS",
+      "statCode": 1
+    }
+  },
+  {
+    "type": "title-2",
+    "value": "Appendix"
+  },
+  {
+    "type": "title-3",
+    "value": "Business Label Types"
+  },
+  {
+    "header": [
+      {
+        "key": "type",
+        "title": "Business Label Recognition Types"
+      },
+      {
+        "key": "description",
+        "title": "Type Description"
+      },
+      {
+        "key": "remark",
+        "title": "Remarks"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Face-Age",
+        "remark": "Capable of recognizing minors",
+        "type": "AGE"
+      },
+      {
+        "description": "Face-Gender",
+        "type": "GENDER"
+      },
+      {
+        "description": "Face - Attractiveness",
+        "type": "BEAUTY"
+      },
+      {
+        "description": "Facial - Ethnicity such as Black, White, and Asian",
+        "type": "RACE"
+      },
+      {
+        "description": "Face-to-Face Detection",
+        "remark": "Recognizing no faces, real people, masked faces, frontal faces, and profile faces, etc.",
+        "type": "FACEDETECTION"
+      },
+      {
+        "description": "Facial Comparison",
+        "type": "FACECOMPARE"
+      },
+      {
+        "description": "Face - Forged Face",
+        "remark": "",
+        "type": "FAKEFACE"
+      },
+      {
+        "description": "Face-to-Face Comparison",
+        "remark": "",
+        "type": "FACECOMPARE"
+      },
+      {
+        "description": "Person - Public Figure",
+        "remark": "Recognizing well-known celebrities, internet celebrities, etc.",
+        "type": "PUBLICFIGURE"
+      },
+      {
+        "description": "Character - Disreputable Character",
+        "remark": "",
+        "type": "TAINTEDSTAR"
+      },
+      {
+        "description": "Portrait - Portrait Pose",
+        "remark": "Recognizing sitting postures, kneeling postures, etc.",
+        "type": "POSTURE"
+      },
+      {
+        "description": "Portrait - Portrait attire",
+        "remark": "Recognizing styles such as Jk (Japanese school uniform) and Hanfu (traditional Chinese clothing).",
+        "type": "DRESS"
+      },
+      {
+        "description": "Portrait - Portrait Aura",
+        "remark": "Mature gentlemen, beautiful goddesses, etc.",
+        "type": "TEMPERAMENT"
+      },
+      {
+        "description": "human body",
+        "remark": "Recognizing features such as hair, eyes, and nose.",
+        "type": "BODY"
+      },
+      {
+        "description": "Picture Properties - Picture Type",
+        "remark": "Recognizing anime, emoticons, etc.",
+        "type": "PICTUREFORM"
+      },
+      {
+        "description": "Picture Properties - Picture Structure",
+        "remark": "Recognizing grid diagrams, bridge segment diagrams, etc.",
+        "type": "PICTURESTRUCT"
+      },
+      {
+        "description": "Image Properties - Low Quality",
+        "remark": "Recognizing blurs, smudges, mosaics, etc.",
+        "type": "LOWVISION"
+      },
+      {
+        "description": "Image Properties - Low Quality Content",
+        "remark": "Recognizing dense lines, dense insect clusters, etc.",
+        "type": "LOWCONTNET"
+      },
+      {
+        "description": "Screen Properties - Live Broadcast Screen",
+        "remark": "Recognizing live streams such as bed live streaming, driving live streaming, etc.",
+        "type": "LIVEPICTURE"
+      },
+      {
+        "description": "Image Properties - APP Screenshot (Content Repurposing)",
+        "remark": "Recognize screenshots from Moments, chat screenshots, etc.",
+        "type": "SCREENSHOT"
+      },
+      {
+        "description": "Scene Theme - Fitness",
+        "type": "FITNESS"
+      },
+      {
+        "description": "Theme - Gourmet Food",
+        "type": "CATE"
+      },
+      {
+        "description": "Theme - Music",
+        "type": "MUSIC"
+      },
+      {
+        "description": "Theme - Sports",
+        "type": "SPORTS"
+      },
+      {
+        "description": "Scene Theme - Natural Scenery",
+        "remark": "Recognize the sky, the ocean, grasslands, etc.",
+        "type": "SCENERY"
+      },
+      {
+        "description": "Scene Theme - Urban Landscape",
+        "remark": "Recognizing street views",
+        "type": "CITYVIEW"
+      },
+      {
+        "description": "LOGO-3C Electronic Brand",
+        "remark": "Recognize logos such as Huawei, Xiaomi, OPPO, etc.",
+        "type": "3CPRODUCTSLOGO"
+      },
+      {
+        "description": "LOGO - Shopping Comparison App",
+        "remark": "Recognize logos such as Pinduoduo",
+        "type": "SHOPPINGAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Photography and Beautification Apps",
+        "remark": "Recognize logos such as Kuai剪辑 (Fast Editing), Miao拍 (Second Shooting), etc.",
+        "type": "RETOUCHAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Social Communication Application",
+        "remark": "Recognizing logos such as Weibo, Xiaohongshu, etc.",
+        "type": "SOCIALAPPSLOGO"
+      },
+      {
+        "description": "Logo - Material Copyright Category Applications",
+        "remark": "Recognizing logos such as CFP",
+        "type": "PHOTOMATERIALLOGO"
+      },
+      {
+        "description": "LOGO - News Reading Application",
+        "remark": "Recognize logos such as Sina, Visual China, etc.",
+        "type": "NEWSAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Audio-Video Entertainment Application",
+        "remark": "Recognizing logos such as TikTok and Kuaishou.",
+        "type": "ENTERTAINMENTAPPSLOGO"
+      },
+      {
+        "description": "LOGO-Sports Events",
+        "remark": "Recognizing logos such as the Olympic Games.",
+        "type": "SPORTSLOGO"
+      },
+      {
+        "description": "LOGO - Footwear and Apparel Brand",
+        "remark": "Recognizing logos such as Vans, H\u0026M, etc.",
+        "type": "APPARELLOGO"
+      },
+      {
+        "description": "LOGO - Brand for Fashion Jewelry and Accessories",
+        "remark": "Recognizing logos such as Audemars Piguet and Nomos.",
+        "type": "ACCESSORIESLOGO"
+      },
+      {
+        "description": "LOGO - Cosmetics Brand",
+        "remark": "Recognize logos such as LOTTE, EyesLipsFace, etc.",
+        "type": "COSMETICSLOGO"
+      },
+      {
+        "description": "LOGO - Food Category Brand",
+        "remark": "Recognizing logos such as Starbucks and LOTTE.",
+        "type": "FOODLOGO"
+      },
+      {
+        "description": "LOGO - Car Trading Platform",
+        "remark": "Recognize logos from Autohome, Bitauto, Pacific Auto, and Aiche.",
+        "type": "AUTOTRADEAPPSLOGO"
+      },
+      {
+        "description": "Items - Modes of Transportation",
+        "type": "VEHICLE"
+      },
+      {
+        "description": "Items - Construction",
+        "type": "BUILDING"
+      },
+      {
+        "description": "Item - Tableware",
+        "type": "TABLEWARE"
+      },
+      {
+        "description": "Items - Food",
+        "type": "FOOD"
+      },
+      {
+        "description": "Items - Household Appliances",
+        "type": "HOMEAPPLICATION"
+      },
+      {
+        "description": "Items - Office Supplies",
+        "type": "OFFICESUPPLIES"
+      },
+      {
+        "description": "Items - Clothing Accessories",
+        "type": "FASHION"
+      },
+      {
+        "description": "Items - Sports Equipment",
+        "type": "SPORTEQUIPMENT"
+      },
+      {
+        "description": "Items - Toys",
+        "type": "TOY"
+      },
+      {
+        "description": "Items - Cosmetics",
+        "type": "MAKEUP"
+      },
+      {
+        "description": "Items - Pharmaceuticals",
+        "type": "DRUGS"
+      },
+      {
+        "description": "Item - Painting",
+        "type": "PAINTING"
+      },
+      {
+        "description": "Items - Electronic Products",
+        "type": "ELECTRONIC"
+      },
+      {
+        "description": "Item - Medical Imaging",
+        "type": "MEDICALIMAGE"
+      },
+      {
+        "description": "Items - Home Furnishings",
+        "type": "FURNITURE"
+      },
+      {
+        "description": "Items - Daily Necessities",
+        "type": "DAILYSUPPLIES"
+      },
+      {
+        "description": "Item - Astrological Divination",
+        "type": "CONSTELLATION"
+      },
+      {
+        "description": "Items - Kitchenware",
+        "type": "KITCHENWARE"
+      },
+      {
+        "description": "Items - Souvenirs",
+        "type": "KEEPSAKE"
+      },
+      {
+        "description": "Item - Lottery - Scratch Card",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "Human - Deformed Torso",
+        "type": "DEFORMITY"
+      },
+      {
+        "description": "Animals - Mammals",
+        "type": "MAMMAL"
+      },
+      {
+        "description": "Animals - Birds",
+        "type": "BIRDS"
+      },
+      {
+        "description": "Animals - Reptiles",
+        "type": "REPTILE"
+      },
+      {
+        "description": "Animal - Fish",
+        "type": "FISH"
+      },
+      {
+        "description": "Animals - Arthropods",
+        "type": "ARTHROPOD"
+      },
+      {
+        "description": "Animal Cnidarians",
+        "type": "COELENTERATE"
+      },
+      {
+        "description": "Mollusks",
+        "type": "MOLLUSKS"
+      },
+      {
+        "description": "Crustaceans",
+        "type": "CRUSTACEAN"
+      },
+      {
+        "description": "plants",
+        "type": "PLANT"
+      },
+      {
+        "description": "venue",
+        "remark": "Recognize places such as bathrooms, hotels, kitchens, etc.",
+        "type": "SETTING"
+      },
+      {
+        "description": "Extreme Weather Identification",
+        "remark": "Floods, heavy rain, dust storms, ice, etc.",
+        "type": "EXTREMEWEATHER"
+      },
+      {
+        "description": "License Plate Recognition",
+        "type": "LICENCEPLATE"
+      },
+      {
+        "description": "Dance Recognition",
+        "type": "DANCE"
+      }
+    ]
+  }
+]

@@ -1,0 +1,714 @@
+[
+  {
+    "type": "title-1",
+    "value": "Asynchronous Single Request"
+  },
+  {
+    "type": "desc",
+    "value": "Used for asynchronously uploading a single image for detection and querying the image review results through an inquiry interface. It can assist you in identifying political, pornographic, advertising, and terrorism risks in images; at the same time, it can be combined with your business scenarios to recognize faces, logos, animals, and plants, etc."
+  },
+  {
+    "type": "title-2",
+    "value": "Interface Documentation"
+  },
+  {
+    "type": "desc",
+    "value": "Single image detection interface, after invoking the audit, the audit result can be obtained through query."
+  },
+  {
+    "type": "title-3",
+    "value": "Interface Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Communication Protocol: HTTP or HTTPS protocol\nRequest Method: POST method\nCharacter Encoding: utf-8\nParameter Format: All request parameters and response parameters are in JSON format."
+  },
+  {
+    "type": "title-3",
+    "value": "Image Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Image Types: URL, BASE64\nImage Formats: jpg, jpeg, png, webp, gif, tiff, tif, heif, heic, avif, apng, svg (static image detection for svg is currently supported)\nImage Resolution: It is recommended that the image resolution is not less than `256*256`, and the supported resolution range is from `20*20` to `6000*6000`.\nImage Size: The image size is limited to 30M.\nFrame Extraction Note: Long images are not split by default, but can be activated by contacting Shu Mei, which will increase the cost. The number of frames for gif images is determined by the input parameters."
+  },
+  {
+    "type": "title-3",
+    "value": "Audit Time"
+  },
+  {
+    "type": "desc",
+    "value": "Suggested timeout: 5 seconds.\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout for downloading images at ShuMei is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). Batch image services are processed in two parallel batches internally, with an average processing time of about 500 milliseconds, which is related to the request type and image size."
+  },
+  {
+    "type": "title-3",
+    "value": "Historical Versions"
+  },
+  {
+    "herf": "/docs/tj/image/history/developDoc",
+    "type": "link",
+    "value": "Historical Versions"
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request address"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request Address"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Beijing Image Cluster",
+        "supportProduct": "Chinese image",
+        "url": "http://api-img-bj.fengkongcloud.com/v4/saas/async/img"
+      },
+      {
+        "description": "Shanghai Image Cluster",
+        "supportProduct": "Chinese picture",
+        "url": "http://api-img-sh.fengkongcloud.com/v4/saas/async/img"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it required?"
+      },
+      {
+        "key": "length",
+        "title": "Maximum Length"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "Company Key. Used for permission authentication, provided by Shumei when activating services.",
+        "req_name": "accessKey",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.",
+        "req_name": "eventId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Application Identifier. This field is strictly validated and requires prior agreement with Shumei on the value to be used.",
+        "req_name": "appId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Risk types that need to be identified. At least one of type or businessType must be passed, with the following optional values:\n\nPOLITY: Political identification\nEROTIC: Erotic and sexy violation identification\nVIOLENT: Violent and prohibited identification\nQRCODE: QR code identification\nADVERT: Advertisement identification\nIMGTEXTRISK: Image text violation identification (if you need to identify violations in the text within the image, be sure to pass the image text violation identification function)\nBOCR: OCR support for small languages and automatic language detection (only for Singapore cluster)\n\nIf multiple functions need to be identified, connect them with an underscore, such as POLITY_QRCODE_ADVERT for a combination of political, QR code, and advertisement identification.",
+        "req_name": "type",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "Business types that need to be identified. Either `businessType` or `type` must be passed, with optional values seen in the business label types.",
+        "req_name": "businessType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Requested data content",
+        "req_name": "data",
+        "required": "Y",
+        "son": [
+          {
+            "length": "1024",
+            "param_description": "For images to be detected, you can use the base64 encoding of the image or the URL link of the image.",
+            "req_name": "img",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "User account identifier. It is recommended to pass in the user ID, which can be used for risk identification in dimensions such as spamming and advertising.",
+            "req_name": "tokenId",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "128",
+            "param_description": "Customer-defined data ID. Can be used for retrieving data in the Sumei SaaS backend.",
+            "req_name": "dataId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "128",
+            "param_description": "Shumei device fingerprint identification. Generated by ShuMei SDK, used for user behavior analysis.",
+            "req_name": "deviceId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Gender, Suggested Values:\nmale: Male\nfemale: Female\nambiguity: Ambiguous",
+            "req_name": "gender",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "1024",
+            "param_description": "The reference image for comparison detection. When the `businessType` field in the request parameter contains the label `FACECOMPARE`, it exists.\nYou can use base64-encoded image data or the URL link of the image. Supported formats include:\njpg, jpeg, png, webp, gif, tiff, tif, heif\nIt is recommended that the image pixel size is not less than 256*256, and the maximum image size is 10MB.\nReference images temporarily do not support long image and animated image formats.",
+            "req_name": "imgCompareBase",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "GIF frame extraction frequency. Dedicated to GIF detection, with a default value of 1. One frame is extracted for detection every 'interval' images.\nWhen 'interval' times 'maxFrame' is less than the number of images contained in the picture, the frame extraction interval will automatically be adjusted to the number of images contained in the picture divided by 'maxFrame', to enhance the overall detection effect.",
+            "req_name": "interval",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "Client's public IP address. This parameter is used for user behavior analysis based on IP dimensions.",
+            "req_name": "ip",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Language type. When the type includes `IMGTEXTRISK`, you can specify the corresponding language type for detection (default is Chinese), with the following options:\n- zh: Chinese\n- en: English\n- ar: Arabic",
+            "req_name": "lang",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Levels, different interception strategies can be configured for users of different levels. Optional values: \n0: Lowest level users, typically such as newly registered, completely inactive, or users with level 0;\n1: Lower level users, typically such as low active or low-level users;\n2: Medium level users, typically such as users with certain activity or medium-level users;\n3: Higher level users, typically such as high active or high-level users;\n4: Highest level users, typically such as paying users, VIP users, etc.",
+            "req_name": "level",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "The maximum number of frames for capturing animated images. When capturing frames from GIFs and other animated images, the maximum is 20 frames, with a default of 3 frames. Billing is based on the actual number of frames captured; for example, if the default is to capture 3 frames, then billing is done according to 3 frames.",
+            "req_name": "maxFrame",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "The recipient's token ID is a string composed of numbers, letters, underscores, and hyphens, with a length of no more than 64 characters.",
+            "req_name": "receiveTokenId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary parameters. Information used to assist in detection.",
+            "req_name": "extra",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Auxiliary parameter to control whether to ignore CA certificate verification. Optional values (default is false):\ntrue: Ignore certificate trust\nfalse: Verify certificate",
+                "req_name": "isIgnoreTls",
+                "required": "N",
+                "type": "boolean"
+              },
+              {
+                "length": "64",
+                "param_description": "Live room/game room number, allowing for the development of different strategies for individual rooms.",
+                "req_name": "room",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "1024",
+                "param_description": "The customer inputs a pass-through field. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+                "req_name": "passThrough",
+                "required": "N",
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Select the language type for the return label\nAvailable options:\nzh: Chinese\nen: English\nDefault is Chinese if not specified",
+        "req_name": "acceptLang",
+        "required": "N",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it mandatory to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "Shumei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Here are the translations for the codes you provided:\n\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1911: Image Download Failed\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1911: Image Download Failed\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxx",
+      "appId": "default",
+      "data": {
+        "img": "xxxx",
+        "tokenId": "username123"
+      },
+      "eventId": "xxxx",
+      "type": "xxxx"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "Success",
+      "requestId": "9l25odfa5280c50f49f7c40988a1e400"
+    }
+  },
+  {
+    "type": "title-2",
+    "value": "Appendix"
+  },
+  {
+    "type": "title-3",
+    "value": "Business Label Types"
+  },
+  {
+    "header": [
+      {
+        "key": "type",
+        "title": "Business Label Identification Types"
+      },
+      {
+        "key": "description",
+        "title": "Type Description"
+      },
+      {
+        "key": "remark",
+        "title": "Remarks"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Face-Age",
+        "remark": "Capable of recognizing minors",
+        "type": "AGE"
+      },
+      {
+        "description": "Face-Gender",
+        "type": "GENDER"
+      },
+      {
+        "description": "Face - Attractiveness",
+        "type": "BEAUTY"
+      },
+      {
+        "description": "Face-Ethnicity",
+        "remark": "African descent, Caucasian descent, Asian descent",
+        "type": "RACE"
+      },
+      {
+        "description": "Face-to-Face Detection",
+        "remark": "Recognizing no faces, real people, masked faces, frontal faces, and profile faces, etc.",
+        "type": "FACEDETECTION"
+      },
+      {
+        "description": "Face - Forged Face",
+        "remark": "",
+        "type": "FAKEFACE"
+      },
+      {
+        "description": "Face-to-Face Comparison",
+        "remark": "",
+        "type": "FACECOMPARE"
+      },
+      {
+        "description": "Person - Public Figure",
+        "remark": "Recognizing well-known celebrities, internet celebrities, etc.",
+        "type": "PUBLICFIGURE"
+      },
+      {
+        "description": "Character - Disreputable Character",
+        "remark": "",
+        "type": "TAINTEDSTAR"
+      },
+      {
+        "description": "Portrait - Portrait Poses",
+        "remark": "Recognize sitting postures, kneeling postures, etc.",
+        "type": "POSTURE"
+      },
+      {
+        "description": "Portrait - Portrait in Clothing",
+        "remark": "Recognizing styles such as Jk (Japanese school uniform), Hanfu (traditional Chinese clothing), etc.",
+        "type": "DRESS"
+      },
+      {
+        "description": "Portrait - Portrait Aura",
+        "remark": "Mature gentlemen, beautiful goddesses, etc.",
+        "type": "TEMPERAMENT"
+      },
+      {
+        "description": "Human body",
+        "remark": "Recognize features such as hair, eyes, nose, etc.",
+        "type": "BODY"
+      },
+      {
+        "description": "Picture Properties - Picture Type",
+        "remark": "Recognizing anime, emoticons, etc.",
+        "type": "PICTUREFORM"
+      },
+      {
+        "description": "Picture Properties - Picture Structure",
+        "remark": "Recognizing grid diagrams, bridge diagrams, etc.",
+        "type": "PICTURESTRUCT"
+      },
+      {
+        "description": "Picture Properties - Low Quality",
+        "remark": "Recognizing blur, smudging, mosaic, etc.",
+        "type": "LOWVISION"
+      },
+      {
+        "description": "Image Properties - Low Quality Content",
+        "remark": "Recognizing dense points, lines, and areas with high concentrations of insects.",
+        "type": "LOWCONTNET"
+      },
+      {
+        "description": "Picture Properties - Live Streaming Image",
+        "remark": "Identify live streams such as bed live streaming, driving live streaming, etc.",
+        "type": "LIVEPICTURE"
+      },
+      {
+        "description": "Image Properties - APP Screenshot (Content Repurposing)",
+        "remark": "Recognizing screenshots from social media feeds, chat logs, etc.",
+        "type": "SCREENSHOT"
+      },
+      {
+        "description": "Scene Theme - Fitness",
+        "type": "FITNESS"
+      },
+      {
+        "description": "Theme - Gastronomy",
+        "type": "CATE"
+      },
+      {
+        "description": "Scene Theme - Music",
+        "type": "MUSIC"
+      },
+      {
+        "description": "Theme - Sports",
+        "type": "SPORTS"
+      },
+      {
+        "description": "Scene Theme - Natural Landscape",
+        "remark": "Recognize the sky, the ocean, the grasslands, etc.",
+        "type": "SCENERY"
+      },
+      {
+        "description": "Scene Theme - Urban Landscape",
+        "remark": "Recognizing street scenes",
+        "type": "CITYVIEW"
+      },
+      {
+        "description": "LOGO-3C Electronics Brand",
+        "remark": "Recognize logos such as Huawei, Xiaomi, OPPO, etc.",
+        "type": "3CPRODUCTSLOGO"
+      },
+      {
+        "description": "LOGO - Shopping Comparison App",
+        "remark": "Recognizing logos such as Pinduoduo.",
+        "type": "SHOPPINGAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Photography and Beautification Apps",
+        "remark": "Recognize logos such as Kuai Jian Jie, Miao Pai, etc.",
+        "type": "RETOUCHAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Social Communication Application",
+        "remark": "Recognizing logos such as Weibo and Xiaohongshu.",
+        "type": "SOCIALAPPSLOGO"
+      },
+      {
+        "description": "Logo - Material Copyright Category Applications",
+        "remark": "Recognizing logos such as CFP",
+        "type": "PHOTOMATERIALLOGO"
+      },
+      {
+        "description": "LOGO - News Reading Application",
+        "remark": "Recognize logos such as Sina, Visual China, etc.",
+        "type": "NEWSAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Audio-Video Entertainment Application",
+        "remark": "Recognize logos such as TikTok, Kuaishou, etc.",
+        "type": "ENTERTAINMENTAPPSLOGO"
+      },
+      {
+        "description": "LOGO-Sports Events",
+        "remark": "Recognizing logos such as the Olympic Games.",
+        "type": "SPORTSLOGO"
+      },
+      {
+        "description": "LOGO - Footwear and Apparel Brand",
+        "remark": "Recognizing logos such as Vans, H\u0026M, etc.",
+        "type": "APPARELLOGO"
+      },
+      {
+        "description": "LOGO - Brand for Fashion Jewelry and Accessories",
+        "remark": "Recognizing logos such as Audemars Piguet and Nomos.",
+        "type": "ACCESSORIESLOGO"
+      },
+      {
+        "description": "LOGO - Cosmetics Brand",
+        "remark": "To recognize logos such as LOTTE and EyesLipsFace.",
+        "type": "COSMETICSLOGO"
+      },
+      {
+        "description": "LOGO - Food Category Brand",
+        "remark": "Recognizing logos such as Starbucks, LOTTE, etc.",
+        "type": "FOODLOGO"
+      },
+      {
+        "description": "LOGO - Automobile Trading Platform Category",
+        "remark": "Recognize logos such as Che Di, Bitauto, Pacific Auto, and Aika.",
+        "type": "AUTOTRADEAPPSLOGO"
+      },
+      {
+        "description": "Items - Transportation Vehicles",
+        "type": "VEHICLE"
+      },
+      {
+        "description": "Items - Construction",
+        "type": "BUILDING"
+      },
+      {
+        "description": "Items - Tableware",
+        "type": "TABLEWARE"
+      },
+      {
+        "description": "Items - Food",
+        "type": "FOOD"
+      },
+      {
+        "description": "Items - Household Appliances",
+        "type": "HOMEAPPLICATION"
+      },
+      {
+        "description": "Items - Office Supplies",
+        "type": "OFFICESUPPLIES"
+      },
+      {
+        "description": "Items - Clothing Accessories",
+        "type": "FASHION"
+      },
+      {
+        "description": "Items - Sports Equipment",
+        "type": "SPORTEQUIPMENT"
+      },
+      {
+        "description": "Items - Toys",
+        "type": "TOY"
+      },
+      {
+        "description": "Items - Cosmetics",
+        "type": "MAKEUP"
+      },
+      {
+        "description": "Items - Pharmaceuticals",
+        "type": "DRUGS"
+      },
+      {
+        "description": "Item - Painting",
+        "type": "PAINTING"
+      },
+      {
+        "description": "Items - Electronic Products",
+        "type": "ELECTRONIC"
+      },
+      {
+        "description": "Item - Lottery - Scratch Card",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "Human - Deformed Torso",
+        "type": "DEFORMITY"
+      },
+      {
+        "description": "Item - Medical Imaging",
+        "type": "MEDICALIMAGE"
+      },
+      {
+        "description": "Items - Home Furnishings",
+        "type": "FURNITURE"
+      },
+      {
+        "description": "Items - Daily Necessities",
+        "type": "DAILYSUPPLIES"
+      },
+      {
+        "description": "Items - Astrological Divination",
+        "type": "CONSTELLATION"
+      },
+      {
+        "description": "Items - Kitchenware",
+        "type": "KITCHENWARE"
+      },
+      {
+        "description": "Items - Souvenirs",
+        "type": "KEEPSAKE"
+      },
+      {
+        "description": "Animals - Mammals",
+        "type": "MAMMAL"
+      },
+      {
+        "description": "Animals - Birds",
+        "type": "BIRDS"
+      },
+      {
+        "description": "Animals - Reptiles",
+        "type": "REPTILE"
+      },
+      {
+        "description": "Animal - Fish",
+        "type": "FISH"
+      },
+      {
+        "description": "Animals - Arthropods",
+        "type": "ARTHROPOD"
+      },
+      {
+        "description": "Animals - Cnidarians",
+        "type": "COELENTERATE"
+      },
+      {
+        "description": "Animals - Mollusks",
+        "type": "MOLLUSKS"
+      },
+      {
+        "description": "Animals - Crustaceans",
+        "type": "CRUSTACEAN"
+      },
+      {
+        "description": "plants",
+        "type": "PLANT"
+      },
+      {
+        "description": "venue",
+        "remark": "Recognizing places such as bathrooms, hotels, and kitchens.",
+        "type": "SETTING"
+      },
+      {
+        "description": "Extreme Weather Recognition",
+        "remark": "Floods, heavy rain, dust storms, ice, etc.",
+        "type": "EXTREMEWEATHER"
+      },
+      {
+        "description": "License Plate Recognition",
+        "type": "LICENCEPLATE"
+      }
+    ]
+  }
+]

@@ -1,0 +1,2295 @@
+[
+  {
+    "type": "title-1",
+    "value": "Synchronous Single-shot Detection"
+  },
+  {
+    "type": "desc",
+    "value": "Image detection interface, which can assist you in identifying political, pornographic, advertising, and violent terrorism risks in images; at the same time, it can be combined with your business scenarios to recognize faces, logos, plants, and animals, etc."
+  },
+  {
+    "type": "title-2",
+    "value": "Interface Documentation"
+  },
+  {
+    "type": "desc",
+    "value": "Single detection interface, capable of returning recognition results."
+  },
+  {
+    "type": "title-3",
+    "value": "Interface Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Communication Protocol: HTTP or HTTPS protocol\nRequest Method: POST method\nCharacter Encoding: utf-8\nParameter Format: All request parameters and response parameters are in JSON format."
+  },
+  {
+    "type": "title-3",
+    "value": "Image Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Image types: URL, BASE64.\nImage formats: jpg, jpeg, png, webp, gif, tiff, tif, heif, heic, avif, apng, svg (svg currently supports static image detection).\nImage resolution: Currently supports images with resolutions ranging from `20px*20px` to `6000px*6000px`, it is recommended that the image pixels are not less than `256px*256px`.\nImage size: Synchronous interface is limited to 10M, and asynchronous interface is limited to 30M.\nFrame extraction note: Long images are not split by default. If you need to enable the splitting feature, please contact Shumei. After splitting, the number of reviews and billing may increase. Gif and other animated images determine the number of split frames based on the input parameters.\nImage address: It is recommended to download images from the CDN source station, and the source station should not be a single point, otherwise, there may be image download failures, leading to inability to review."
+  },
+  {
+    "type": "title-3",
+    "value": "Audit Time"
+  },
+  {
+    "type": "desc",
+    "value": "Recommended timeout settings: For synchronous single-request interfaces, it is suggested to set 10 seconds; for asynchronous single-request interfaces, it is suggested to set 5 seconds.\n\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Please ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout for downloading images is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). The internal average processing time is around 500 milliseconds, and the specific duration is related to the request type and image size."
+  },
+  {
+    "type": "title-3",
+    "value": "Historical Versions"
+  },
+  {
+    "herf": "/docs/tj/image/history/developDoc",
+    "type": "link",
+    "value": "Historical Versions"
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Address"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request Address"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Support Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Beijing Image Cluster",
+        "supportProduct": "Chinese image",
+        "url": "http://api-img-bj.fengkongcloud.com/image/v4"
+      },
+      {
+        "description": "Shanghai Image Cluster",
+        "supportProduct": "Chinese image",
+        "url": "http://api-img-sh.fengkongcloud.com/image/v4"
+      },
+      {
+        "description": "Silicon Valley Image Cluster",
+        "supportProduct": "Chinese image\nEnglish image\nArabic image",
+        "url": "http://api-img-gg.fengkongcloud.com/image/v4"
+      },
+      {
+        "description": "Singapore Image Cluster",
+        "supportProduct": "Chinese picture\nEnglish picture\nArabic picture",
+        "url": "http://api-img-xjp.fengkongcloud.com/image/v4"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it required?"
+      },
+      {
+        "key": "length",
+        "title": "Maximum Length"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "Company Key. Used for permission authentication, provided by Shumei when activating services.",
+        "req_name": "accessKey",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.",
+        "req_name": "eventId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Application Identifier. This field is strictly validated and requires prior agreement with Shumei on the value to be used.",
+        "req_name": "appId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "64",
+        "param_description": "Risk types that need to be identified. At least one of type or businessType should be passed, with the following optional values:\n\nPOLITY: Political content identification\nEROTIC: Erotic and sexy content violation identification\nVIOLENT: Violent and prohibited content identification\nQRCODE: QR code identification\nADVERT: Advertisement identification\nIMGTEXTRISK: Image text violation identification (if you need to identify violations in text within images, be sure to use the image text violation identification feature)\nBOCR: OCR support for minority languages and automatic language detection (only available in Singapore clusters)\n\nIf multiple functions need to be identified, connect them with an underscore, such as POLITY_QRCODE_ADVERT for a combination of political, QR code, and advertisement identification.",
+        "req_name": "type",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "128",
+        "param_description": "Business types to be identified. Either businessType or type must be provided, with optional values seen in business label types.",
+        "req_name": "businessType",
+        "required": "N",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Requested data content",
+        "req_name": "data",
+        "required": "Y",
+        "son": [
+          {
+            "length": "1024",
+            "param_description": "For images to be detected, you can use the base64 encoding of the image or the URL link of the image.",
+            "req_name": "img",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "User account identifier. It is recommended to pass in the user ID, which can be used for risk identification in dimensions such as spamming, advertising, etc.",
+            "req_name": "tokenId",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "128",
+            "param_description": "Customer-defined Data ID. Can be used for retrieving data in the ShuMei SaaS backend.",
+            "req_name": "dataId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "128",
+            "param_description": "Shumei Device Fingerprint Identifier. Generated by the ShuMei SDK, used for user behavior analysis.",
+            "req_name": "deviceId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Gender, Suggested Values:\nmale: Male\nfemale: Female\nambiguity: Ambiguous",
+            "req_name": "gender",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "1024",
+            "param_description": "The reference image for comparison detection. When the `businessType` field in the request parameter contains the label `FACECOMPARE`, it exists.\nYou can use base64 encoded image data or the URL link of the image. Supported formats include:\njpg, jpeg, png, webp, gif, tiff, tif, heif\nIt is recommended that the image pixel size is not less than 256*256, and the maximum image size is 10MB.\nReference images temporarily do not support long image and animated image formats.",
+            "req_name": "imgCompareBase",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "GIF frame extraction frequency. Dedicated to GIF detection, with a default value of 1. Extract one frame for detection every 'interval' images.\nWhen 'interval' * 'maxFrame' is less than the number of images contained in the picture, the frame extraction interval will automatically be adjusted to the number of images contained in the picture / 'maxFrame' to improve overall detection effectiveness.",
+            "req_name": "interval",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "The client's public IP address. This parameter is used for user behavior analysis based on the IP dimension.",
+            "req_name": "ip",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Language type. When the `type` contains `IMGTEXTRISK`, you can specify the corresponding detection language type (default is Chinese), with the following options:\n- zh: Chinese\n- en: English\n- ar: Arabic",
+            "req_name": "lang",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "User Levels, different interception strategies can be configured for users of different levels. Available options: \n0: Lowest level users, typically including newly registered, completely inactive, or users with level 0, etc.;\n1: Lower level users, typically including low active or low-level users, etc.;\n2: Medium level users, typically including users with certain activity or medium-level users, etc.;\n3: Higher level users, typically including highly active or high-level users, etc.;\n4: Highest level users, typically including paying users, VIP users, etc.",
+            "req_name": "level",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "The maximum number of frames for capturing animated images. When capturing frames from GIFs and other animated images, the maximum is 20 frames, with a default of 3 frames. Billing is based on the actual number of frames captured; for example, if the default is to capture 3 frames, then billing is done according to 3 frames.",
+            "req_name": "maxFrame",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "64",
+            "param_description": "The message recipient's tokenId is a string composed of numbers, letters, underscores, and hyphens, with a length of no more than 64 characters.",
+            "req_name": "receiveTokenId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary parameters, used for information related to auxiliary detection.",
+            "req_name": "extra",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Auxiliary parameter to control whether to ignore CA certificate verification. Optional values (default is false):\ntrue: Ignore certificate trust\nfalse: Verify certificate",
+                "req_name": "isIgnoreTls",
+                "required": "N",
+                "type": "boolean"
+              },
+              {
+                "length": "-",
+                "param_description": "Distinguish between accounts under different applications. Whether to distinguish between accounts under different applications, possible values are:\n0: Do not distinguish\n1: Distinguish\nThe default value is 0.\nWhen the value is 1, the account systems under different applications are independent of each other, and account-related policy features are individually counted and take effect under different applications.",
+                "req_name": "isTokenSeparate",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "64",
+                "param_description": "Live broadcast room/game room number, allowing for the formulation of different strategies for individual rooms.",
+                "req_name": "room",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "1024",
+                "param_description": "Customers transmit pass-through fields. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+                "req_name": "passThrough",
+                "required": "N",
+                "type": "object"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Auxiliary parameter. Controls the number of risk returns for the same stream when a video stream frame capture request is made. Can be used to reduce the cost of human review.",
+            "req_name": "streamInfo",
+            "required": "N",
+            "son": [
+              {
+                "length": "13",
+                "param_description": "The millisecond-level timestamp when capturing a frame. Required when `similarDedup` is set to true.",
+                "req_name": "frameTime",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "The number of risk content items. For the same streamId, within the specified time window (timeWindow), the number of identical first-level risk labels that need to be returned. The quantity range is (1-5), with a default of 1.",
+                "req_name": "riskNum",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Enable similar functionality.\ntrue: On\nfalse: Off",
+                "req_name": "similarDedup",
+                "required": "N",
+                "type": "boolean"
+              },
+              {
+                "length": "64",
+                "param_description": "Unique identifier ID. Required when `similarDedup` is true.",
+                "req_name": "streamId",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "10",
+                "param_description": "Time window, unit seconds. Required when similarDedup is true.",
+                "req_name": "timeWindow",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Select the language type for the return label\nAvailable values:\nzh: Chinese\nen: English\nDefault is Chinese if not specified",
+        "req_name": "acceptLang",
+        "required": "N",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return parameters"
+  },
+  {
+    "type": "desc",
+    "value": "The following parameters, except for code, message, and requestId, are all mandatory return parameters when the code returns 1100."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it necessary to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "Shumei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Here are the translations for the codes you provided:\n\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameter\n1903: Service Failure\n1911: Image Download Failed\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameter\n1903: Service Failure\n1911: Image Download Failed\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to intercept directly",
+        "req_name": "riskLevel",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Level 1 Risk Label, returns \"normal\" when riskLevel is PASS.",
+        "req_name": "riskLabel1",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Secondary Risk Label, empty when riskLevel is PASS.",
+        "req_name": "riskLabel2",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Level 3 Risk Label, empty when riskLevel is PASS.",
+        "req_name": "riskLabel3",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "When riskLevel is PASS, return normal;\nIn other cases, display in the format: \"First Level Tag:Second Level Tag:Third Level Tag\" in Chinese names.\nThis is only for human reference to understand the reasons for risk, and the program should not rely on the value of this parameter for logical processing.",
+        "req_name": "riskDescription",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Current Result Types\n0: Machine Review\n1: Human Review",
+        "req_name": "resultType",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Is it the final audit result (if only machine audit is involved, it defaults to 1)?\n0: Not the final result. This indicates that the result is the machine audit result from Shumei Risk Control, and it still needs to go through Shumei's manual audit before being returned to your company for further use in downstream scenarios.\n1: Final result. Your company can directly use the returned result for disposal, distribution, and other downstream applications.",
+        "req_name": "finalResult",
+        "required": "Y",
+        "type": "int32"
+      },
+      {
+        "length": "-",
+        "param_description": "Additional supporting information",
+        "req_name": "auxInfo",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Number of actual processed segments",
+            "req_name": "segments",
+            "required": "Y",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "The model version number corresponding to the incoming type value.",
+            "req_name": "typeVersion",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Advertisement version number. The composition is in the form of `X.Y`, where `X` represents the major version number, typically indicating the overall effect iteration of the model; `Y` represents the minor version number, usually indicating daily routine iterations. For example, `1001001.2` represents a major version number of `1001001` and a minor version number of `2`.",
+                "req_name": "ADVERT",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Pornographic version number. The composition is in the form of `X.Y`, where `X` represents the main version number, usually indicating the overall effect iteration of the model; `Y` represents the sub-version number, usually indicating routine daily iterations. For example, `1001001.2` represents a main version number of `1001001` and a sub-version number of `2`.",
+                "req_name": "EROTIC",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Non-compliant text version number. The format is `X.Y`, where `X` represents the major version number, usually indicating the overall effect iteration of the model; `Y` represents the minor version number, usually indicating routine daily iterations. For example, `1001001.2` represents a major version number of `1001001` and a minor version number of `2`.",
+                "req_name": "IMGTEXTRISK",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Political version number. The format is `X.Y`, where `X` represents the main version number, usually indicating the overall effect iteration of the model; `Y` represents the sub-version number, usually indicating daily routine iterations. For example, `1001001.2` represents a main version number of `1001001` and a sub-version number of `2`.",
+                "req_name": "POLITY",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "QR Code version number. The format is `X.Y`, where `X` represents the major version number, usually indicating the overall effect iteration of the model; `Y` represents the minor version number, usually indicating routine daily iterations. For example, `1001001.2` represents a major version number of `1001001` and a minor version number of `2`.",
+                "req_name": "QRCODE",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Terrorist version number. The format is `X.Y`, where `X` represents the major version number, usually indicating the overall effect iteration of the model; `Y` represents the minor version number, usually indicating routine daily iterations. For example, `1001001.2` represents a major version number of `1001001` and a minor version number of `2`.",
+                "req_name": "VIOLENT",
+                "required": "N",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "2001: The input data format is incorrect, not a valid JSON data.\n2002: The input parameter field is illegal (missing required fields, incorrect types, invalid values, etc.).\n2003: Failed to download the image.\n2004: The image is too large, exceeding 10M.\n2005: Illegal image format.\n2006: Invalid risk monitoring type.",
+            "req_name": "errorCode",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "13",
+            "param_description": "When the `streamInfo` function is passed as a request parameter, it will return similar functionality.",
+            "req_name": "frameTime",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Return the QR code address recognized in the image.",
+            "req_name": "qrContent",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "64",
+            "param_description": "The request parameters include streamInfo and other parameters that, when passed, will return similar functionality.",
+            "req_name": "streamId",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "1024",
+            "param_description": "Customers transmit pass-through fields. ShuMei will not recognize or process these fields internally and will return them to the user along with the results.",
+            "req_name": "passThrough",
+            "required": "N",
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Full List of Risk Labels",
+        "req_name": "allLabels",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+            "req_name": "probability",
+            "required": "N",
+            "type": "float"
+          },
+          {
+            "length": "-",
+            "param_description": "When riskLevel is PASS, return normal;\nIn other cases, display in the format: \"First-level label: Second-level label: Third-level label\" in Chinese names.\nThis is only for human reference to understand the reasons for the risk, and the program should not rely on the value of this parameter for logical processing.",
+            "req_name": "riskDescription",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 1 Risk Label",
+            "req_name": "riskLabel1",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Risk Label",
+            "req_name": "riskLabel2",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 3 Risk Label",
+            "req_name": "riskLabel3",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Identification results, possible return values:\nPASS: Normal, recommended to release directly\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended to block directly",
+            "req_name": "riskLevel",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Risk Details Information",
+            "req_name": "riskDetail",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Risk sources, possible values:\n1000: No risk\n1001: Text risk\n1002: Visual image risk",
+                "req_name": "riskSource",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of faces",
+                "req_name": "face_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of portraits",
+                "req_name": "person_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "The names and location information of political figures in the image. When a face is detected - face type - multiple faces, there will be multiple array elements, up to 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "faces",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Face ratio, within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                    "req_name": "face_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "ID, the same person in the same position of the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Character Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The character's position information is represented by an array with four values, corresponding to the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where:\n\n207 represents the x-coordinate of the top-left corner,\n522 represents the y-coordinate of the top-left corner,\n340 represents the x-coordinate of the bottom-right corner,\n567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Item Information. Return the name and location information of the marked or item in the image.",
+                "req_name": "objects",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Item or identifier number, ensuring that the same item in the same location has the same number across different labels.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Return the QR code address recognized in the image.",
+                    "req_name": "qrContent",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner, respectively. For example, [207,522,340,567]:\n- 207 represents the x-coordinate of the top-left corner.\n- 522 represents the y-coordinate of the top-left corner.\n- 340 represents the x-coordinate of the bottom-right corner.\n- 567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Return the text recognition content in the image when the request parameter type field contains IMGTEXTRISK or ADVERTISE.",
+                "req_name": "ocrText",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Extracted Text from the Image",
+                    "req_name": "text",
+                    "required": "Y",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The customer's custom list information is returned only when a match is found in the customer's custom list.",
+                    "req_name": "matchedLists",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Hit List Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive word information in this hit list.",
+                        "req_name": "words",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words detected.",
+                            "req_name": "word",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words location",
+                            "req_name": "position",
+                            "required": "N",
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "High-risk content segments. There is a presence when detecting images that contain politically sensitive, violent and terrorist, prohibited, competitive product, and advertising law violations.",
+                    "req_name": "riskSegments",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Auxiliary Information High-Risk Content Segment",
+                        "req_name": "segment",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The location of high-risk content segments, with subscripts starting from 0.",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              },
+              {
+                "length": "-",
+                "param_description": "Names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "persons",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait proportion. Within the range of 0-1, the higher the value, the larger the proportion of the human face.",
+                    "req_name": "person_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait Position Coordinates",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "length": "-",
+        "param_description": "Business Tag List",
+        "req_name": "businessLabels",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "业务标签中文描述的格式可以是这样的：\n\n```\n一级标签: 二级标签: 三级标签\n```\n\n例如：\n\n```\n市场推广: 社交媒体营销: 微博运营\n```\n\n这里的“市场推广”是一级标签，“社交媒体营销”是二级标签，“微博运营”是三级标签。",
+            "req_name": "businessDescription",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Primary Business Tags",
+            "req_name": "businessLabel1",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Business Tags",
+            "req_name": "businessLabel2",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Tier 3 Business Tags",
+            "req_name": "businessLabel3",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+            "req_name": "probability",
+            "required": "Y",
+            "type": "float"
+          },
+          {
+            "length": "-",
+            "param_description": "Confidence level, with optional values between 0 and 2, the higher the value, the higher the credibility.",
+            "req_name": "confidenceLevel",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Business Label Details",
+            "req_name": "businessDetail",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "imgCompareBase detects the number of faces in the image passed to it. When FACECOMPARE is passed along with imgCompareBase, it exists.",
+                "req_name": "face_compare_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of faces",
+                "req_name": "face_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Face ratio, within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                "req_name": "face_ratio",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Character Name",
+                "req_name": "name",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of portraits",
+                "req_name": "person_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Portrait proportion. Within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                "req_name": "person_ratio",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "The names and location information of political figures in the image. When multiple faces are detected - face type - multiple faces, there will be multiple array elements, up to 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "faces",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Face ratio, within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                    "req_name": "face_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "ID, the same person in the same position of the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Character Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. Optional values range from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The character's position information is represented by an array with four values, corresponding to the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where:\n\n207 represents the x-coordinate of the top-left corner,\n522 represents the y-coordinate of the top-left corner,\n340 represents the x-coordinate of the bottom-right corner,\n567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Identify Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567],\n207 represents the x-coordinate of the top-left corner,\n522 represents the y-coordinate of the top-left corner,\n340 represents the x-coordinate of the bottom-right corner,\n567 represents the y-coordinate of the bottom-right corner.",
+                "req_name": "location",
+                "required": "N",
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Item information. Return the name and location information of the marked or item in the image.",
+                "req_name": "objects",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Item or identifier number, ensuring that the same item in the same location has the same number across different labels.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Return the QR code address recognized in the image.",
+                    "req_name": "qrContent",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567]\n207 represents the x-coordinate of the top-left corner\n522 represents the y-coordinate of the top-left corner\n340 represents the x-coordinate of the bottom-right corner\n567 represents the y-coordinate of the bottom-right corner",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "The names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "persons",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait proportion. Within the range of 0-1, the higher the value, the greater the proportion of the human face.",
+                    "req_name": "person_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait Location Coordinates",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "length": "-",
+        "param_description": "Risk Details Information",
+        "req_name": "riskDetail",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Risk sources, possible values:\n1000: No risk\n1001: Text risk\n1002: Visual image risk",
+            "req_name": "riskSource",
+            "required": "Y",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Number of faces",
+            "req_name": "face_num",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "Number of portraits",
+            "req_name": "person_num",
+            "required": "N",
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "The names and location information of political figures in the image. When multiple faces are detected - face type - multiple faces, the array elements will have multiple entries, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+            "req_name": "faces",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Face ratio, within the range of 0-1, the higher the value, the greater the proportion of the face.",
+                "req_name": "face_ratio",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "ID, the same person at the same location in the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                "req_name": "id",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Character Names",
+                "req_name": "name",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value ranges from 0 to 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "The character's position information is represented by an array with four values, corresponding to the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where 207 represents the x-coordinate of the top-left corner, 522 represents the y-coordinate of the top-left corner, 340 represents the x-coordinate of the bottom-right corner, and 567 represents the y-coordinate of the bottom-right corner.",
+                "req_name": "location",
+                "required": "N",
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "Item information. Return the name and location information of the marked or item in the image.",
+            "req_name": "objects",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Item or identification numbering, ensuring that the same item in the same location has the same number across different labels.",
+                "req_name": "id",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Item Name",
+                "req_name": "name",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Return the QR code address recognized in the image.",
+                "req_name": "qrContent",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Item Location Information\nThis array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567]\n207 represents the x-coordinate of the top-left corner\n522 represents the y-coordinate of the top-left corner\n340 represents the x-coordinate of the bottom-right corner\n567 represents the y-coordinate of the bottom-right corner",
+                "req_name": "location",
+                "required": "N",
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "Return the recognized text content from the image, which exists when the request parameter type field contains IMGTEXTRISK or ADVERTISEMENT.",
+            "req_name": "ocrText",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Recognized text in the image",
+                "req_name": "text",
+                "required": "Y",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "The customer's custom list information is returned only when a match is found in the customer's custom list.",
+                "req_name": "matchedLists",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Hit List Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Sensitive word information in this hit list.",
+                    "req_name": "words",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive words hit.",
+                        "req_name": "word",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive words location",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "High-risk content segments. There is a presence when detecting images that contain politically sensitive, violent and terrorist, prohibited, competitive product, and advertising law violations, and other risky content.",
+                "req_name": "riskSegments",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Auxiliary Information High-Risk Content Segment",
+                    "req_name": "segment",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The location of high-risk content segments starts counting from index 0.",
+                    "req_name": "position",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "The names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the top 10 with the highest probability).",
+            "req_name": "persons",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                "req_name": "id",
+                "required": "N",
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "Portrait proportion. Within the range of 0-1, the larger the value, the higher the proportion of the human face.",
+                "req_name": "person_ratio",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Confidence. Optional values range from 0 to 1, the larger the value, the higher the credibility.",
+                "req_name": "probability",
+                "required": "N",
+                "type": "float"
+              },
+              {
+                "length": "-",
+                "param_description": "Portrait Position Coordinates",
+                "req_name": "location",
+                "required": "N",
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Disposition and Mapping Results: ShuMei can return results according to your company's labeling system and identifiers. If a custom labeling system is not configured, this field will not be returned. If you need to enable this feature, please contact the business manager.\nFor batch image asynchronous interfaces, after the mapping function is enabled, the callback results will change from a holistic callback to separate callbacks.",
+        "req_name": "disposal",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "When riskLevel is PASS, it is normal.",
+            "req_name": "riskDescription",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 1 Risk Label. When the number of beauty labels does not map to custom labels, or when the riskLevel under disposal is PASS, return normal.",
+            "req_name": "riskLabel1",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary risk label. Returns empty when the number of labels does not map to custom labels, or when the riskLevel under disposal is PASS.",
+            "req_name": "riskLabel2",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Level 3 Risk Label. When the Shumei label does not map to a custom label, or when the riskLevel under disposal is PASS, it returns as empty.",
+            "req_name": "riskLabel3",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "If your company has its own disposal rules, ShuMei can configure according to your company's disposal logic and return corresponding disposal suggestions; if the rule tags are not mapped, it will return the default disposal suggestions.",
+            "req_name": "riskLevel",
+            "required": "Y",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Risk Details Information",
+            "req_name": "riskDetail",
+            "required": "Y",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Risk sources, possible values:\n1000: No risk\n1001: Text risk\n1002: Visual image risk",
+                "req_name": "riskSource",
+                "required": "Y",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of faces",
+                "req_name": "face_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Number of portraits",
+                "req_name": "person_num",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Names and location information of political figures in the image. When a face is detected - face type - multiple faces are hit, there will be multiple elements in the array, up to 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "faces",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Face ratio, within the range of 0-1, the larger the value, the higher the proportion of the face.",
+                    "req_name": "face_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "ID, the same person in the same position in the image has the same ID under different labels.\nIf the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Character Names",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "The character position information, this array has four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567], where 207 represents the x-coordinate of the top-left corner, 522 represents the y-coordinate of the top-left corner, 340 represents the x-coordinate of the bottom-right corner, and 567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Item information. Return the name and location information of the marked item or object in the image.",
+                "req_name": "objects",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Item or identification number, ensuring that the same item in the same location has the same number under different labels.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Name",
+                    "req_name": "name",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. Optional values range from 0 to 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Return the QR code address recognized in the image.",
+                    "req_name": "qrContent",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Item Location Information\nThis array contains four values, representing the coordinates of the top-left corner and the bottom-right corner. For example, [207,522,340,567].\n207 represents the x-coordinate of the top-left corner.\n522 represents the y-coordinate of the top-left corner.\n340 represents the x-coordinate of the bottom-right corner.\n567 represents the y-coordinate of the bottom-right corner.",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "length": "-",
+                "param_description": "Return the content recognized from the text in the image, which exists when the request parameter field \"type\" contains \"IMGTEXTRISK\" or \"ADVERT\".",
+                "req_name": "ocrText",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "Recognized text in the image",
+                    "req_name": "text",
+                    "required": "Y",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Customer-specific list information is returned only when a match is found in the customer's custom list.",
+                    "req_name": "matchedLists",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Hit List Name",
+                        "req_name": "name",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "Sensitive word information in the hit list.",
+                        "req_name": "words",
+                        "required": "N",
+                        "son": [
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words hit",
+                            "req_name": "word",
+                            "required": "N",
+                            "type": "string"
+                          },
+                          {
+                            "length": "-",
+                            "param_description": "Sensitive words location",
+                            "req_name": "position",
+                            "required": "N",
+                            "type": "array"
+                          }
+                        ],
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "High-risk content segments. There is a presence when detecting images that contain politically sensitive, violent and terrorist, prohibited, competitive product, and advertising law violations.",
+                    "req_name": "riskSegments",
+                    "required": "N",
+                    "son": [
+                      {
+                        "length": "-",
+                        "param_description": "Auxiliary Information High-Risk Content Segment",
+                        "req_name": "segment",
+                        "required": "N",
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "The position of high-risk content segments starts counting from index 0.",
+                        "req_name": "position",
+                        "required": "N",
+                        "type": "array"
+                      }
+                    ],
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              },
+              {
+                "length": "-",
+                "param_description": "The names and location information of the people in the image. When the 'Portrait-Multiple' tag is hit, there will be multiple array elements, up to a maximum of 10 (if more than 10, select the 10 with the highest probability).",
+                "req_name": "persons",
+                "required": "N",
+                "son": [
+                  {
+                    "length": "-",
+                    "param_description": "ID, ensure that the same person has the same ID across different tags. If the same person appears n times in the image, assign n IDs.",
+                    "req_name": "id",
+                    "required": "N",
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait Proportion. Within the range of 0-1, the higher the value, the greater the proportion of the human face.",
+                    "req_name": "person_ratio",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Confidence. The optional value is between 0 and 1, the larger the value, the higher the credibility.",
+                    "req_name": "probability",
+                    "required": "N",
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "Portrait Position Coordinates",
+                    "req_name": "location",
+                    "required": "N",
+                    "type": "array"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Account label information is detailed below and is only returned when the tokenId is provided and the contact with Shumei is activated.",
+        "req_name": "tokenLabels",
+        "required": "Y",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "UGC Content-Related Risks",
+            "req_name": "UGC_account_risk",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Advertising Risk.\n0: No advertising risk detected at the moment\n1: Advertising risk exists",
+                "req_name": "b_advertise_risk_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Ad Risk Time",
+                "req_name": "b_advertise_risk_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Political risk.\n0: No political risk has been identified at this time.\n1: There is a political risk involved.",
+                "req_name": "b_politics_risk_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Political risk incident",
+                "req_name": "b_politics_risk_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Pornography risk.\n0: No pornography risk detected temporarily\n1: Pornography risk exists",
+                "req_name": "b_sexy_risk_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Pornography Risk Time",
+                "req_name": "b_sexy_risk_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Machine Control-Related Risks",
+            "req_name": "machine_account_risk",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Machine account,\n0: Non-machine controlled account\n1: Machine controlled account",
+                "req_name": "b_machine_control_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Machine account time",
+                "req_name": "b_machine_control_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Integral Wall Account.\n0: Non-Integral Wall Account\n1: Integral Wall Account",
+                "req_name": "b_offer_wall_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Integral Wall Account Time",
+                "req_name": "b_offer_wall_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "Scenario account risk, only obtainable in special scenarios, such as airlines.",
+            "req_name": "scene_account_risk",
+            "required": "N",
+            "son": [
+              {
+                "length": "-",
+                "param_description": "Airline Seat Occupancy Account:\n0: Non-airline seat occupancy account\n1: Airline seat occupancy account",
+                "req_name": "i_tout_risk_tokenid",
+                "required": "N",
+                "type": "int32"
+              },
+              {
+                "length": "-",
+                "param_description": "Airline seat occupation time",
+                "req_name": "i_tout_risk_tokenid_last_ts",
+                "required": "N",
+                "type": "int32"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "type": "object"
+      },
+      {
+        "length": "-",
+        "param_description": "Account attribute tags. Returned only when the tokenId is provided and the tag service is activated.",
+        "req_name": "tokenProfileLabels",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Tag Description",
+            "req_name": "description",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Primary Tag",
+            "req_name": "label1",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Labels",
+            "req_name": "label2",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Third-level Tag",
+            "req_name": "label3",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Timestamp for tagging: 13-digit Unix timestamp, unit: milliseconds.",
+            "req_name": "timestamp",
+            "required": "N",
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "length": "-",
+        "param_description": "Account Risk Label. Returns only when the tokenId is provided and the label service is activated.",
+        "req_name": "tokenRiskLabels",
+        "required": "N",
+        "son": [
+          {
+            "length": "-",
+            "param_description": "Tag Description",
+            "req_name": "description",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Primary Label",
+            "req_name": "label1",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Secondary Labels",
+            "req_name": "label2",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Third-level Tag",
+            "req_name": "label3",
+            "required": "N",
+            "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "Tagging timestamp 13-digit Unix timestamp, unit: milliseconds",
+            "req_name": "timestamp",
+            "required": "N",
+            "type": "int32"
+          }
+        ],
+        "type": "array"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxx",
+      "appId": "default",
+      "data": {
+        "img": "http://xxxxxxxxxxx.jpg",
+        "tokenId": "username123"
+      },
+      "eventId": "default",
+      "type": "xxxx"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "allLabels": [
+        {
+          "probability": 0.922851562500734,
+          "riskDescription": "Terrorism: Violent scenes: Graphic violence",
+          "riskDetail": {
+            "ocrText": {
+              "text": "Cervical curvature: Normal thoracic curvature"
+            },
+            "riskSource": 1002
+          },
+          "riskLabel1": "violence",
+          "riskLabel2": "baokongchangjing",
+          "riskLabel3": "xuexing",
+          "riskLevel": "REJECT"
+        }
+      ],
+      "auxInfo": {
+        "segments": 1,
+        "typeVersion": {
+          "BAN": "1002106.1",
+          "MINOR": "2014055.1",
+          "OCR": "2001038.1",
+          "POLITICS": "2014055.1",
+          "PORN": "3058001.1",
+          "VIOLENCE": "2013019.1"
+        }
+      },
+      "businessLabels": [
+        {
+          "businessDescription": "Face: Gender: Male",
+          "businessDetail": {
+            "face_ratio": 0.00106996833346784,
+            "faces": [
+              {
+                "face_ratio": 0.00106996833346784,
+                "id": "35da33429897372017bb7ad7c7302693",
+                "location": [
+                  228,
+                  588,
+                  256,
+                  622
+                ],
+                "name": "",
+                "probability": 0.967536687850952
+              }
+            ],
+            "location": [
+              228,
+              588,
+              256,
+              622
+            ],
+            "name": "",
+            "probability": 0.967536687850952
+          },
+          "businessLabel1": "face",
+          "businessLabel2": "gender",
+          "businessLabel3": "male",
+          "confidenceLevel": 2,
+          "probability": 0.967536687850952
+        },
+        {
+          "businessDescription": "Face: Face Type: Real Person",
+          "businessDetail": {
+            "face_num": 1,
+            "face_ratio": 0.00106996833346784,
+            "faces": [
+              {
+                "face_ratio": 0.00106996833346784,
+                "id": "35da33429897372017bb7ad7c7302693",
+                "location": [
+                  228,
+                  588,
+                  256,
+                  622
+                ],
+                "name": "Huang Daqian",
+                "probability": 0.541935835649002
+              }
+            ],
+            "location": [
+              228,
+              588,
+              256,
+              622
+            ],
+            "name": "Huang Daqian",
+            "probability": 0.541935835649002
+          },
+          "businessLabel1": "face",
+          "businessLabel2": "renlianleixing",
+          "businessLabel3": "zhenren",
+          "confidenceLevel": 2,
+          "probability": 0.996093758527634
+        },
+        {
+          "businessDescription": "Face: Face Pose: Frontal",
+          "businessDetail": {},
+          "businessLabel1": "face",
+          "businessLabel2": "renlianzitai",
+          "businessLabel3": "zhenglian",
+          "confidenceLevel": 1,
+          "probability": 0.450656906102068
+        }
+      ],
+      "code": 1100,
+      "finalResult": 1,
+      "message": "Success",
+      "requestId": "7cf340c0910b768e6904b342b908a4f0",
+      "resultType": 0,
+      "riskDescription": "Terrorism: Violent Scenes: Graphic Violence",
+      "riskDetail": {
+        "ocrText": {
+          "text": "Cervical curvature: Normal thoracic curvature"
+        },
+        "riskSource": 1002
+      },
+      "riskLabel1": "violence",
+      "riskLabel2": "baokongchangjing",
+      "riskLabel3": "xuexing",
+      "riskLevel": "REJECT",
+      "riskSource": 1002,
+      "tokenLabels": {
+        "UGC_account_risk": {}
+      }
+    }
+  },
+  {
+    "type": "title-2",
+    "value": "Appendix"
+  },
+  {
+    "type": "title-3",
+    "value": "Business Label Types"
+  },
+  {
+    "header": [
+      {
+        "key": "type",
+        "title": "Business Label Recognition Types"
+      },
+      {
+        "key": "description",
+        "title": "Type Description"
+      },
+      {
+        "key": "remark",
+        "title": "Remarks"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Face-Age",
+        "remark": "Capable of identifying minors",
+        "type": "AGE"
+      },
+      {
+        "description": "Face-Gender",
+        "type": "GENDER"
+      },
+      {
+        "description": "Face - Attractiveness",
+        "type": "BEAUTY"
+      },
+      {
+        "description": "Face-Ethnicity",
+        "remark": "African descent, Caucasian descent, Asian descent",
+        "type": "RACE"
+      },
+      {
+        "description": "Face-to-Face Detection",
+        "remark": "Recognizing no faces, real people, masked faces, frontal faces, and profile faces, etc.",
+        "type": "FACEDETECTION"
+      },
+      {
+        "description": "Face - Forged Face",
+        "remark": "",
+        "type": "FAKEFACE"
+      },
+      {
+        "description": "Face-to-Face Comparison",
+        "remark": "",
+        "type": "FACECOMPARE"
+      },
+      {
+        "description": "Person - Public Figure",
+        "remark": "Recognizing well-known celebrities, internet celebrities, etc.",
+        "type": "PUBLICFIGURE"
+      },
+      {
+        "description": "Character - Disreputable Character",
+        "remark": "",
+        "type": "TAINTEDSTAR"
+      },
+      {
+        "description": "Portrait - Portrait Pose",
+        "remark": "Recognizing sitting postures, kneeling postures, etc.",
+        "type": "POSTURE"
+      },
+      {
+        "description": "Portrait - Portrait wearing attire",
+        "remark": "Recognizing styles such as Jk (Japanese school uniform), Hanfu (traditional Chinese clothing), etc.",
+        "type": "DRESS"
+      },
+      {
+        "description": "Portrait - Portrait Aura",
+        "remark": "Mature gentlemen, beautiful goddesses, etc.",
+        "type": "TEMPERAMENT"
+      },
+      {
+        "description": "human body",
+        "remark": "Recognizing features such as hair, eyes, and nose.",
+        "type": "BODY"
+      },
+      {
+        "description": "Picture Properties - Picture Type",
+        "remark": "Recognizing anime, emoticons, etc.",
+        "type": "PICTUREFORM"
+      },
+      {
+        "description": "Picture Properties - Picture Structure",
+        "remark": "Recognizing grid diagrams, bridge diagrams, etc.",
+        "type": "PICTURESTRUCT"
+      },
+      {
+        "description": "Picture Properties - Low Quality",
+        "remark": "Recognizing blur, smudging, mosaic, etc.",
+        "type": "LOWVISION"
+      },
+      {
+        "description": "Image Properties - Low Quality Content",
+        "remark": "Recognizing dense point lines, dense insect clusters, etc.",
+        "type": "LOWCONTNET"
+      },
+      {
+        "description": "Screen Properties - Live Broadcast Image",
+        "remark": "Identify live streams such as bed live streaming, driving live streaming, etc.",
+        "type": "LIVEPICTURE"
+      },
+      {
+        "description": "Image Properties - APP Screenshot (Content Repurposing)",
+        "remark": "Recognize screenshots from Moments, chat screenshots, etc.",
+        "type": "SCREENSHOT"
+      },
+      {
+        "description": "Scene Theme - Fitness",
+        "type": "FITNESS"
+      },
+      {
+        "description": "Theme - Gastronomy",
+        "type": "CATE"
+      },
+      {
+        "description": "Theme - Music",
+        "type": "MUSIC"
+      },
+      {
+        "description": "Theme - Sports",
+        "type": "SPORTS"
+      },
+      {
+        "description": "Scene Theme - Natural Scenery",
+        "remark": "Recognize the sky, the ocean, grasslands, etc.",
+        "type": "SCENERY"
+      },
+      {
+        "description": "Scene Theme - Urban Landscape",
+        "remark": "Recognizing street scenes",
+        "type": "CITYVIEW"
+      },
+      {
+        "description": "LOGO-3C Electronics Brand",
+        "remark": "Recognize logos such as Huawei, Xiaomi, OPPO, etc.",
+        "type": "3CPRODUCTSLOGO"
+      },
+      {
+        "description": "LOGO - Shopping Comparison App",
+        "remark": "Recognize logos such as Pinduoduo.",
+        "type": "SHOPPINGAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Photography and Beautification Apps",
+        "remark": "Recognize logos such as Kuai Jian Ji, Miao Pai, etc.",
+        "type": "RETOUCHAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Social Communication App",
+        "remark": "Recognizing logos such as Weibo, Xiaohongshu, etc.",
+        "type": "SOCIALAPPSLOGO"
+      },
+      {
+        "description": "Logo - Material Copyright Category Applications",
+        "remark": "Recognize logos such as CFP.",
+        "type": "PHOTOMATERIALLOGO"
+      },
+      {
+        "description": "LOGO - News Reading Application",
+        "remark": "Recognize logos such as Sina, Visual China, etc.",
+        "type": "NEWSAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Audio-Video Entertainment Application",
+        "remark": "Recognize logos such as TikTok, Kuaishou, etc.",
+        "type": "ENTERTAINMENTAPPSLOGO"
+      },
+      {
+        "description": "LOGO - Sports Events",
+        "remark": "Recognizing logos such as the Olympic Games.",
+        "type": "SPORTSLOGO"
+      },
+      {
+        "description": "LOGO - Footwear and Apparel Brand",
+        "remark": "Recognizing logos such as Vans, H\u0026M, etc.",
+        "type": "APPARELLOGO"
+      },
+      {
+        "description": "LOGO - Brand for Jewelry and Accessories",
+        "remark": "Recognizing logos such as Audemars Piguet and Nomos.",
+        "type": "ACCESSORIESLOGO"
+      },
+      {
+        "description": "LOGO - Cosmetics Brand",
+        "remark": "Recognize logos such as LOTTE, EyesLipsFace, etc.",
+        "type": "COSMETICSLOGO"
+      },
+      {
+        "description": "LOGO - Food Category Brand",
+        "remark": "Recognizing logos such as Starbucks, LOTTE, etc.",
+        "type": "FOODLOGO"
+      },
+      {
+        "description": "LOGO - Car Trading Platform Category",
+        "remark": "Recognize logos such as Che Di, Bitauto, Pacific Auto, and Aika.",
+        "type": "AUTOTRADEAPPSLOGO"
+      },
+      {
+        "description": "Items - Means of Transportation",
+        "type": "VEHICLE"
+      },
+      {
+        "description": "Items - Construction",
+        "type": "BUILDING"
+      },
+      {
+        "description": "Items - Tableware",
+        "type": "TABLEWARE"
+      },
+      {
+        "description": "Items - Food",
+        "type": "FOOD"
+      },
+      {
+        "description": "Items - Household Appliances",
+        "type": "HOMEAPPLICATION"
+      },
+      {
+        "description": "Items - Office Supplies",
+        "type": "OFFICESUPPLIES"
+      },
+      {
+        "description": "Items - Clothing Accessories",
+        "type": "FASHION"
+      },
+      {
+        "description": "Item - Sports Equipment",
+        "type": "SPORTEQUIPMENT"
+      },
+      {
+        "description": "Items - Toys",
+        "type": "TOY"
+      },
+      {
+        "description": "Items - Cosmetics",
+        "type": "MAKEUP"
+      },
+      {
+        "description": "Items - Medications",
+        "type": "DRUGS"
+      },
+      {
+        "description": "Item - Painting",
+        "type": "PAINTING"
+      },
+      {
+        "description": "Items - Electronic Products",
+        "type": "ELECTRONIC"
+      },
+      {
+        "description": "Item - Lottery - Scratch Card",
+        "type": "LOTTERY"
+      },
+      {
+        "description": "Human - Deformity Torso",
+        "type": "DEFORMITY"
+      },
+      {
+        "description": "Items - Medical Imaging",
+        "type": "MEDICALIMAGE"
+      },
+      {
+        "description": "Items - Household Goods",
+        "type": "FURNITURE"
+      },
+      {
+        "description": "Items - Daily Necessities",
+        "type": "DAILYSUPPLIES"
+      },
+      {
+        "description": "Items - Astrological Divination",
+        "type": "CONSTELLATION"
+      },
+      {
+        "description": "Items - Kitchenware",
+        "type": "KITCHENWARE"
+      },
+      {
+        "description": "Items - Souvenirs",
+        "type": "KEEPSAKE"
+      },
+      {
+        "description": "Animals - Mammals",
+        "type": "MAMMAL"
+      },
+      {
+        "description": "Animals - Birds",
+        "type": "BIRDS"
+      },
+      {
+        "description": "Animals - Reptiles",
+        "type": "REPTILE"
+      },
+      {
+        "description": "Animal - Fish",
+        "type": "FISH"
+      },
+      {
+        "description": "Animals - Arthropods",
+        "type": "ARTHROPOD"
+      },
+      {
+        "description": "Animals - Cnidarians",
+        "type": "COELENTERATE"
+      },
+      {
+        "description": "Animal - Mollusk",
+        "type": "MOLLUSKS"
+      },
+      {
+        "description": "Animals - Crustaceans",
+        "type": "CRUSTACEAN"
+      },
+      {
+        "description": "plants",
+        "type": "PLANT"
+      },
+      {
+        "description": "venue",
+        "remark": "Recognizing places such as restrooms, hotels, and kitchens.",
+        "type": "SETTING"
+      },
+      {
+        "description": "Extreme Weather Recognition",
+        "remark": "Floods, heavy rain, dust storms, ice, etc.",
+        "type": "EXTREMEWEATHER"
+      },
+      {
+        "description": "License Plate Recognition",
+        "type": "LICENCEPLATE"
+      }
+    ]
+  }
+]

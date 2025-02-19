@@ -1,0 +1,1434 @@
+[
+  {
+    "type": "title-1",
+    "value": "Request Interface"
+  },
+  {
+    "type": "desc",
+    "value": "The audio stream detection interface assists in identifying risks such as political content, pornography, advertising, and terrorism in audio streams. It can also be tailored to your business scenarios to recognize content related to minors, timbre, and more."
+  },
+  {
+    "type": "title-2",
+    "value": "Interface Description"
+  },
+  {
+    "type": "desc",
+    "value": "This interface is used to submit audio stream identification and related information. After a stable stream is established, the recognition results will be continuously pushed to the specified callback address."
+  },
+  {
+    "type": "title-3",
+    "value": "Stream Retry Mechanism"
+  },
+  {
+    "type": "desc",
+    "value": "To prevent stream failures caused by network anomalies, the Shumei audio stream service has implemented a retry mechanism for stream failures, as follows:\n- For ordinary RTMP, HTTP, and HLS streams, retries will occur 12 times, with intervals increasing from 5 seconds to a maximum of 60 seconds.\n- For streams recorded via Agora SDK, retries will occur twice with no interval.\n- For streams recorded via Zego SDK, retries will occur 10 times with an interval of 30 seconds each."
+  },
+  {
+    "type": "title-3",
+    "value": "Timeout"
+  },
+  {
+    "type": "desc",
+    "value": "Recommended timeout: It is recommended to set the timeout to 5 seconds."
+  },
+  {
+    "type": "title-3",
+    "value": "Callback Mechanism"
+  },
+  {
+    "type": "desc",
+    "value": "When the user receives the pushed result and returns an HTTP status code of 200, it indicates a successful push; otherwise, the system will attempt to push the result up to 20 times."
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request URL"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "Cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request URL"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Shanghai",
+        "url": "http://api-audiostream-sh.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "Chinese、Arabic"
+      },
+      {
+        "description": "Silicon Valley",
+        "url": "http://api-audiostream-gg.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "Chinese、Internationalization"
+      },
+      {
+        "description": "Singapore",
+        "url": "http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "Chinese、Internationalization"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "accessKey",
+        "type": "string",
+        "param_description": "Company key",
+        "required": "Y",
+        "param_specification": "Provided by Shumei, details are in the email"
+      },
+      {
+        "req_name": "appId",
+        "type": "string",
+        "param_description": "Application identifier",
+        "required": "Y",
+        "param_specification": "Used to distinguish applications\nContact Shumei to activate this service, and use the value provided by Shumei\nDefault content is in the email"
+      },
+      {
+        "req_name": "eventId",
+        "type": "string",
+        "param_description": "Event identifier",
+        "required": "Y",
+        "param_specification": "Used to distinguish scenario data\nContact Shumei to activate this service, and use the value provided by Shumei\nDefault content is in the email"
+      },
+      {
+        "req_name": "type",
+        "type": "string",
+        "param_description": "Type of risk detection",
+        "required": "Either businessType or type must be provided",
+        "param_specification": "Optional values: Regulatory functions\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertisement detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nMOAN: Moaning detection\nAUDIOPOLITICAL: Leader's voiceprint detection\nANTHEN: National anthem detection\nDIRTY: Insult detection\nADLAW: Advertisement law detection\nSING: Singing detection\nMINOR: Minor detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nVOICE: Voice attributes (e.g., synthesized voice)\nFor combined detection, connect with underscores, e.g., POLITY_EROTIC_MOAN\nPolitical, pornographic, and moaning detection refer to semantic content risk detection"
+      },
+      {
+        "req_name": "businessType",
+        "type": "string",
+        "param_description": "Business label",
+        "required": "Either businessType or type must be provided",
+        "param_specification": "Optional values: First, second, and third-level business labels\nGENDER: Gender detection\nAGE: Age detection\nTIMBRE: Voice timbre detection\nSING: Singing detection\nLANGUAGE: Language detection\nVOICE: Voice attributes\nAUDIOSCENE: Audio scene detection\nGENDER must be provided for timbre, singing, and language detection"
+      },
+      {
+        "req_name": "data",
+        "type": "json_object",
+        "param_description": "Request data content",
+        "required": "Y",
+        "param_specification": "Information for this request, up to 1MB",
+        "son": [
+          {
+            "req_name": "tokenId",
+            "type": "string",
+            "param_description": "User account identifier",
+            "required": "Y",
+            "param_specification": "Used to distinguish user accounts, it is recommended to pass the user ID"
+          },
+          {
+            "req_name": "btId",
+            "type": "string",
+            "param_description": "Unique identifier for the audio",
+            "required": "Y",
+            "param_specification": "Used to query a specific audio, limited to 128 characters"
+          },
+          {
+            "req_name": "streamType",
+            "type": "string",
+            "param_description": "Stream type",
+            "required": "Y",
+            "param_specification": "Optional values:\nNORMAL: Normal stream address, currently supports rtmp, rtmps, hls, http, https protocols, supports flv, m3u8 formats\nZEGO: Zego\nAGORA: Agora\nTRTC: Tencent Recording\nVOLC: Volcano Engine Recording\nGIN: Giant Recording\nALI: Alibaba Recording\nNote: Using RTC SDK recording solutions may incur additional recording costs on the RTC side, please consult the relevant vendors"
+          },
+          {
+            "req_name": "url",
+            "type": "string",
+            "param_description": "Live stream address",
+            "required": "N",
+            "param_specification": "Required when streamType is NORMAL"
+          },
+          {
+            "req_name": "lang",
+            "type": "string",
+            "param_description": "Language of the audio stream",
+            "required": "N",
+            "param_specification": "Optional values (default zh):\nzh: Chinese\nen: English\nar: Arabic\nhi: Hindi\nes: Spanish\nfr: French\nru: Russian\npt: Portuguese\nid: Indonesian\nde: German\nja: Japanese\ntr: Turkish\nvi: Vietnamese\nit: Italian\nth: Thai\ntl: Filipino\nko: Korean\nms: Malay"
+          },
+          {
+            "req_name": "zegoParam",
+            "type": "json_object",
+            "param_description": "Stream parameters to be detected",
+            "required": "N",
+            "param_specification": "Required when streamType is ZEGO",
+            "son": [
+              {
+                "req_name": "tokenId",
+                "type": "string",
+                "param_description": "Authentication information",
+                "required": "Y",
+                "param_specification": "Obtain the identify_token for login, see Zego documentation: https://doc-zh.zego.im/article/15258. Note that tokenId uniquely identifies the review request, and a new one must be generated for each request."
+              },
+              {
+                "req_name": "streamId",
+                "type": "string",
+                "param_description": "Audio stream ID",
+                "required": "N",
+                "param_specification": "Unique identifier for an audio stream, at least one of streamId or roomId must be provided."
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "Room ID",
+                "required": "N",
+                "param_specification": "Unique identifier for a room."
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "Recording mode",
+                "required": "N",
+                "param_specification": "Recording mode\ntrue: Mixed stream, all users in the room are combined into one stream for review. If streamId and roomId exist separately, they take effect individually; however, if both streamId and roomId are provided, streamId takes precedence.\nfalse: Separate streams, each user in the room is recorded separately. In this case, roomId is required, and streamId cannot be provided."
+              }
+            ]
+          },
+          {
+            "req_name": "initDomain",
+            "type": "int",
+            "param_description": "Whether the Zego SDK initialization has set an isolated domain",
+            "required": "N",
+            "param_specification": "Required if the Zego client init supports isolated domains and random userId.\nOptional values:\n0: Default version\n1: Supports isolated domain initialization only\n2: Supports isolated domain initialization and random userId\n3: Updated SDK with bug fixes\n4: Supports custom SEI information\n5: Supports vad silence detection, token will have uniqueness verification, a new token must be generated each time for review\n6: Room-level stream pulling and review mode, developers can control which streams need to be reviewed\n**Recommended to use 6 for integration;** Default value is 0"
+          },
+          {
+            "req_name": "trtcParam",
+            "type": "json_object",
+            "param_description": "Tencent Recording Parameters",
+            "required": "N",
+            "param_specification": "Required when streamType is TRTC, see extended parameters",
+            "son": [
+              {
+                "req_name": "sdkAppId",
+                "type": "int",
+                "required": "Y",
+                "description": "SDK App ID provided by Tencent"
+              },
+              {
+                "req_name": "demoSences",
+                "type": "int",
+                "required": "Y",
+                "description": "Recording type: 2 for separate streams; 4 for mixed streams"
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "required": "Y",
+                "description": "User ID assigned to the recording end, limited to 32 bits, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens"
+              },
+              {
+                "req_name": "uid",
+                "type": "string",
+                "required": "N",
+                "description": "Specify the user ID to be reviewed, if not provided, all users in the room will be reviewed. If you need to review a subset of users in the same room, use different recording userIds and userSigs for multiple requests. Note the difference between this parameter and userId."
+              },
+              {
+                "req_name": "userSig",
+                "type": "string",
+                "required": "Y",
+                "description": "Verification signature for the recording userId, equivalent to a login password"
+              },
+              {
+                "req_name": "roomId",
+                "type": "int",
+                "required": "Y",
+                "description": "Room number, range: 1-4294967294. Either roomId or strRoomId must be provided, and roomId takes precedence if both are provided."
+              },
+              {
+                "req_name": "strRoomId",
+                "type": "string",
+                "required": "Y",
+                "description": "Room number, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens. If strRoomId is used, note that roomId takes precedence if both are provided."
+              }
+            ]
+          },
+          {
+            "req_name": "agoraParam",
+            "type": "json_object",
+            "param_description": "Agora Stream Parameters",
+            "required": "N",
+            "param_specification": "Required when streamType is AGORA, see agoraParam parameters",
+            "son": [
+              {
+                "req_name": "appId",
+                "type": "string",
+                "param_description": "App ID provided by Agora",
+                "required": "Y",
+                "param_specification": "Note to distinguish from Shumei's appId"
+              },
+              {
+                "req_name": "channel",
+                "type": "string",
+                "param_description": "Channel name provided by Agora",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "",
+                "required": "N",
+                "param_specification": "Users with higher security requirements can use a token for authentication. See Agora documentation for details: https://docs.agora.io/cn/Recording/token_server?platform=CPP. It is recommended to set the token validity period longer than the channel duration to prevent token expiration from causing stream pulling failure. Agora currently supports a maximum token validity of 24 hours. Therefore, if the channel duration exceeds 24 hours, you need to handle token expiration. The solution is to set up audio stream end callback notifications (set returnFinishInfo to 1) in the request parameters. When the callback receives a review end notification (statCode is 1), and the reason is due to an invalid or expired stream token (errorCode 3005 in auxInfo), if the channel still exists and needs to be reviewed, generate a new token and resubmit the channel for review."
+              },
+              {
+                "req_name": "uid",
+                "type": "int",
+                "param_description": "User ID",
+                "required": "N",
+                "param_specification": "32-bit unsigned integer. When a token is present, the user ID used to generate the token must be provided. Note that this is different from the actual user uid in the room. The uid provided for the server-side recording must not exist in the room."
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "Single stream/Mixed stream recording.",
+                "required": "N",
+                "param_specification": "Default value is true. true: Mixed stream; false: Separate streams. Mixed stream means one stream per live room; separate streams mean one stream per microphone position."
+              },
+              {
+                "req_name": "channelProfile",
+                "type": "int",
+                "param_description": "Channel mode for Agora recording",
+                "required": "N",
+                "param_specification": "Communication, common in 1-on-1 chat or group chat, where any user in the channel can speak freely; Live, with two user roles: broadcaster and audience. Optional values (default is 0): 0: Communication; 1: Live"
+              },
+              {
+                "req_name": "subscribeMode",
+                "type": "string",
+                "param_description": "Subscription mode",
+                "required": "N",
+                "param_specification": "AUTO: Automatically subscribe to all streams in the room, which is the default behavior when subscribeMode is not set; UNTRUSTED: Subscribe to the streams specified in the untrustedUserIdList, only effective in Agora separate streams; TRUSTED: Subscribe to all streams except those in the trustedUserIdList, only effective in Agora separate streams"
+              },
+              {
+                "req_name": "trustedUserIdList",
+                "type": "string_array",
+                "param_description": "List of trusted users",
+                "required": "N",
+                "param_specification": "Effective when subscribeMode=TRUSTED. It can be empty. Shumei will not subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
+              },
+              {
+                "req_name": "untrustedUserIdList",
+                "type": "string_array",
+                "param_description": "List of untrusted users",
+                "required": "N",
+                "param_specification": "Effective when subscribeMode=UNTRUSTED. It cannot be empty. Shumei will only subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
+              }
+            ]
+          },
+          {
+            "req_name": "volcParam",
+            "type": "json_object",
+            "param_description": "Volcano Stream Parameters",
+            "required": "N",
+            "param_specification": "Required when streamType is VOLC, see volcParam parameters",
+            "son": [
+              {
+                "req_name": "appId",
+                "type": "string",
+                "param_description": "App ID provided by Volcano Engine",
+                "required": "Y",
+                "param_specification": "Note to distinguish from Shumei's appId"
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "Room ID",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "Volcano Engine token",
+                "required": "Y",
+                "param_specification": "See: https://www.volcengine.com/docs/6348/70121"
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "param_description": "",
+                "required": "Y",
+                "param_specification": "User ID assigned to the recording end"
+              },
+              {
+                "req_name": "subscribeMode",
+                "type": "string",
+                "param_description": "Subscription mode",
+                "required": "N",
+                "param_specification": "AUTO: Automatically subscribe to all streams in the room, which is the default behavior when subscribeMode is not set.\nUNTRUSTED: Subscribe to the streams specified in the untrustedUserIdList. If the untrustedUserIdList is empty in this mode, the parameter is invalid because no streams can be subscribed.\nTRUSTED: Subscribe to all streams except those in the trustedUserIdList. If no users outside the untrustedUserIdList enter the room within a certain time, Shumei will proactively end the review."
+              },
+              {
+                "req_name": "trustedUserIdList",
+                "type": "string_array",
+                "param_description": "List of trusted users",
+                "required": "N",
+                "param_specification": "Effective when subscribeMode=TRUSTED. Shumei will not subscribe to the streams specified in this list."
+              },
+              {
+                "req_name": "untrustedUserIdList",
+                "type": "string_array",
+                "param_description": "List of untrusted users",
+                "required": "N",
+                "param_specification": "Effective when subscribeMode=UNTRUSTED. Shumei will only subscribe to the streams specified in this list."
+              }
+            ]
+          },
+          {
+            "req_name": "ginParam",
+            "type": "json_object",
+            "param_description": "Giant Stream Parameters",
+            "required": "N",
+            "param_specification": "Required when streamType is GIN, see ginParam parameters",
+            "son": [
+              {
+                "req_name": "tokenId",
+                "type": "string",
+                "param_description": "Room token",
+                "required": "Y",
+                "param_specification": "Used for logging into the room, provided by Giant"
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "Room ID",
+                "required": "Y",
+                "param_specification": "Unique identifier for a room, the server pulls streams and records by room"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "Single stream/Mixed stream recording.",
+                "required": "N",
+                "param_specification": "Default value is true. true: Mixed stream; false: Separate streams. Mixed stream means all users in the room are combined into one stream for review; separate streams mean each user is recorded separately."
+              },
+              {
+                "req_name": "ip",
+                "type": "string",
+                "param_description": "Server IP",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "port",
+                "type": "string",
+                "param_description": "Port",
+                "required": "Y",
+                "param_specification": ""
+              }
+            ]
+          },
+          {
+            "req_name": "aliParam",
+            "type": "json_object",
+            "param_description": "Alibaba Stream Parameters",
+            "required": "N",
+            "param_specification": "Required when streamType is ALI",
+            "son": [
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "Authentication",
+                "required": "Y",
+                "param_specification": "Used for joining the channel. See documentation: https://help.aliyun.com/zh/live/user-guide/token-based-authentication. A new token must be generated for each review."
+              },
+              {
+                "req_name": "room",
+                "type": "string",
+                "param_description": "Room ID",
+                "required": "Y",
+                "param_specification": "Required parameter, non-empty string, must match the channelID used to generate the token. The server pulls streams and records by room. Room is a unique identifier, and the same room will not be pulled twice."
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "param_description": "Pulling stream robot ID",
+                "required": "Y",
+                "param_specification": "Must match the userId used to generate the token, required parameter, non-empty string"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "Recording mode",
+                "required": "N",
+                "param_specification": "Default value is true. true: Mixed stream; false: Separate streams. true: All users in the room are combined into one stream for review; false: Each user is recorded separately."
+              }
+            ]
+          },
+          {
+            "req_name": "returnPreText",
+            "type": "int",
+            "param_description": "Whether to return the preceding text of the non-compliant audio stream segment",
+            "required": "N",
+            "param_specification": "Optional values: 0 (default): Do not return preceding text; 1: Return preceding text"
+          },
+          {
+            "req_name": "returnPreAudio",
+            "type": "int",
+            "param_description": "Whether to return the preceding audio link of the non-compliant audio stream segment",
+            "required": "N",
+            "param_specification": "Optional values: 0 (default): Do not return preceding audio; 1: Return preceding audio"
+          },
+          {
+            "req_name": "returnFinishInfo",
+            "type": "int",
+            "param_description": "Audio stream end callback notification",
+            "required": "N",
+            "param_specification": "Optional values: 0 (default): No callback; 1: Send end notification, including statCode status code (it is recommended to pass 1)"
+          },
+          {
+            "req_name": "extra",
+            "type": "json_object",
+            "param_description": "Auxiliary parameters",
+            "required": "N",
+            "param_specification": "Information for assisting audio detection",
+            "son": [
+              {
+                "req_name": "passThrough",
+                "type": "json_object",
+                "param_description": "Pass-through field",
+                "required": "N",
+                "param_specification": "The content of this field will be returned with the callback result"
+              }
+            ]
+          },
+          {
+            "req_name": "liveTitle",
+            "type": "string",
+            "param_description": "Title",
+            "required": "N",
+            "param_specification": "Room title (for human review services)"
+          },
+          {
+            "req_name": "anchorName",
+            "type": "string",
+            "param_description": "Nickname",
+            "required": "N",
+            "param_specification": "User nickname (for human review services)"
+          },
+          {
+            "req_name": "audioDetectStep",
+            "type": "int",
+            "param_description": "Frame extraction review step",
+            "required": "N",
+            "param_specification": "Range 1-36, default is to review every segment; setting 1 reviews odd-numbered segments, 2 reviews every third segment, and so on"
+          },
+          {
+            "req_name": "receiveTokenId",
+            "type": "string",
+            "param_description": "Message recipient tokenId (for private chat scenarios)",
+            "required": "N",
+            "param_specification": "Composed of letters, numbers, underscores, and hyphens, length ≤ 64 characters"
+          },
+          {
+            "req_name": "deviceId",
+            "type": "string",
+            "param_description": "Shumei device identifier",
+            "required": "N"
+          },
+          {
+            "req_name": "ip",
+            "type": "string",
+            "param_description": "User's public IP address",
+            "required": "N",
+            "param_specification": "Supports IPv4 or IPv6"
+          },
+          {
+            "req_name": "level",
+            "type": "int",
+            "param_description": "User level",
+            "required": "N",
+            "param_specification": "0: Lowest level (newly registered/inactive users); 1: Lower level; 2: Medium level; 3: Higher level; 4: Highest level (VIP/paid users)"
+          },
+          {
+            "req_name": "gender",
+            "type": "string",
+            "param_description": "User gender",
+            "required": "N",
+            "param_specification": "Optional values: male (male), female (female)"
+          }
+        ]
+      },
+      {
+        "req_name": "callback",
+        "type": "string",
+        "param_description": "Callback URL",
+        "required": "Y",
+        "param_specification": "The URL for asynchronous detection result callbacks, supporting HTTP and HTTPS."
+      },
+      {
+        "req_name": "acceptLang",
+        "type": "string",
+        "param_description": "Language type of the returned labels",
+        "required": "N",
+        "param_specification": "Select the language type of the returned labels.\nOptional values:\nzh: Chinese\nen: English\nDefault is Chinese if not specified."
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Unique identifier for this request",
+        "required": "Y",
+        "param_specification": "Unique request identifier"
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "Request return code",
+        "required": "Y",
+        "param_specification": "1100: Success\n1901: QPS limit exceeded, stream count exceeded\n1902: Invalid parameters\n1903: Service failure\n1904: Stream pulling failure\n9101: Unauthorized operation"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "Request return description",
+        "required": "Y",
+        "param_specification": "Corresponds to the request return code"
+      },
+      {
+        "req_name": "detail",
+        "type": "json_object",
+        "param_description": "Detailed information",
+        "required": "N",
+        "param_specification": "Describes the error code request, see detail parameter",
+        "son": [
+          {
+            "req_name": "errorCode",
+            "type": "int",
+            "param_description": "Error code",
+            "required": "N",
+            "param_specification": "1001: Duplicate stream push"
+          },
+          {
+            "req_name": "dupRequestId",
+            "type": "string",
+            "param_description": "Duplicate requestId",
+            "required": "N",
+            "param_specification": "When errorCode is 1001 (duplicate stream push), this field is returned. For example, if the first request did not receive a response but the audio stream has already started review without a requestId, you can close the review using the returned dupRequestId"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Callback Parameters"
+  },
+  {
+    "type": "desc",
+    "value": "After the audio stream is stably connected and begins to be monitored by Shumei, Shumei will continuously callback the recognition results to the client. The callback strategy varies depending on the value of returnAllText.\nWhen returnAllText is 0, the callback result is sent to the client when non-compliant content is detected in the audio stream;\nWhen returnAllText is 1, the recognition result of the last 10 seconds is returned every 10 seconds.\nIt is placed in the HTTP Body in JSON format, with the specific parameters as follows:"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Unique identifier for this request",
+        "required": "Y",
+        "param_specification": "Unique identifier for the audio stream segment"
+      },
+      {
+        "req_name": "btId",
+        "type": "string",
+        "param_description": "Unique identifier for the audio",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "Request return code",
+        "required": "Y",
+        "param_specification": "1100: Success\n1901: QPS limit exceeded, stream count exceeded\n1902: Invalid parameters\n1903: Service failure\n1904: Stream pulling failure\n9101: Unauthorized operation\nFields other than message and requestId are only present when code is 1100"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "Request return description",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "statCode",
+        "type": "int",
+        "param_description": "Review status",
+        "required": "N",
+        "param_specification": "0: In review\n1: Review completed"
+      },
+      {
+        "req_name": "requestParams",
+        "type": "json_object",
+        "param_description": "Transmitted parameters at review completion",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "audioDetail",
+        "type": "json_object",
+        "param_description": "Risk audio segment information",
+        "required": "N",
+        "param_specification": "Returned when code equals 1100",
+        "son": [
+          {
+            "req_name": "audioUrl",
+            "type": "string",
+            "param_description": "Audio segment URL",
+            "required": "Y",
+            "param_specification": ""
+          },
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "Disposition recommendation for the current event",
+            "required": "Y",
+            "param_specification": "PASS: Pass\nREVIEW: Review\nREJECT: Reject"
+          },
+          {
+            "req_name": "riskLabel1",
+            "type": "string",
+            "param_description": "Primary label",
+            "required": "Y",
+            "param_specification": "Primary labels are parallel to each other, returns 'normal' when riskLevel is PASS"
+          },
+          {
+            "req_name": "riskLabel2",
+            "type": "string",
+            "param_description": "Secondary label",
+            "required": "Y",
+            "param_specification": "Secondary label is subordinate to the primary label, empty when riskLevel is PASS"
+          },
+          {
+            "req_name": "riskLabel3",
+            "type": "string",
+            "param_description": "Tertiary label",
+            "required": "Y",
+            "param_specification": "Tertiary label is subordinate to the secondary label, empty when riskLevel is PASS"
+          },
+          {
+            "req_name": "riskDescription",
+            "type": "string",
+            "param_description": "Label description",
+            "required": "Y",
+            "param_specification": "For custom list hits: 'Custom list hit'\nReturns 'normal' when riskLevel is PASS\nOther cases display as primary label: secondary label: tertiary label in Chinese, for human reference only, do not use this parameter for logic processing"
+          },
+          {
+            "req_name": "audioText",
+            "type": "string",
+            "param_description": "Result of audio transcription",
+            "required": "N",
+            "param_specification": "When returnPreText is 1, includes the text content of the previous segment and the non-compliant segment\nWhen returnPreText is 0, includes only the text content of the non-compliant segment"
+          },
+          {
+            "req_name": "preAudioUrl",
+            "type": "string",
+            "param_description": "URL of the previous audio segment",
+            "required": "N",
+            "param_specification": "When returnPreAudio is 1, returns the 20-second audio segment URL of the current and previous segments\nWhen returnPreAudio is 0, not returned"
+          },
+          {
+            "req_name": "riskDetail",
+            "type": "json_object",
+            "param_description": "Risk details",
+            "required": "N",
+            "param_specification": "Returned when code equals 1100",
+            "son": [
+              {
+                "req_name": "audioText",
+                "type": "string",
+                "param_description": "Result of audio transcription",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "matchedLists",
+                "type": "json_array",
+                "param_description": "Information of matched custom lists",
+                "required": "N",
+                "param_specification": "Returned when a custom list is hit, otherwise not present",
+                "son": [
+                  {
+                    "req_name": "name",
+                    "type": "string",
+                    "param_description": "Custom list name",
+                    "required": "Y",
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "words",
+                    "type": "json_array",
+                    "param_description": "Sensitive words in the matched list",
+                    "required": "Y",
+                    "param_specification": "Indexed from 0",
+                    "son": [
+                      {
+                        "req_name": "word",
+                        "type": "string",
+                        "param_description": "Sensitive word",
+                        "required": "Y",
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "Position of the sensitive word",
+                        "required": "Y",
+                        "param_specification": "Indexed from 0"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "req_name": "riskSource",
+                "type": "int",
+                "param_description": "Risk source",
+                "required": "Y",
+                "param_specification": "Optional values:\n1000: No risk\n1001: Text risk\n1003: Audio risk"
+              },
+              {
+                "req_name": "riskSegments",
+                "type": "json_array",
+                "param_description": "High-risk content segments",
+                "required": "N",
+                "param_specification": "Present in functions like political, violent, prohibited, competitive, and advertisement law detection",
+                "son": [
+                  {
+                    "req_name": "segment",
+                    "type": "string",
+                    "param_description": "High-risk content segment",
+                    "required": "N",
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "position",
+                    "type": "int_array",
+                    "param_description": "Position of the high-risk content segment",
+                    "required": "N",
+                    "param_specification": "Indexed from 0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "auxInfo",
+            "type": "json_object",
+            "param_description": "Auxiliary information",
+            "required": "Y",
+            "param_specification": "Returns timestamps and other auxiliary information",
+            "son": [
+              {
+                "req_name": "audioStartTime",
+                "type": "string",
+                "param_description": "Start time of the non-compliant content (absolute time)",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "audioEndTime",
+                "type": "string",
+                "param_description": "End time of the non-compliant content (absolute time)",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "beginProcessTime",
+                "type": "int",
+                "param_description": "Start processing time (13-digit timestamp)",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "finishProcessTime",
+                "type": "int",
+                "param_description": "End processing time (13-digit timestamp)",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "userId",
+                "type": "int",
+                "param_description": "User account identifier",
+                "required": "N",
+                "param_specification": "Present in Agora separate streams. The returned userId is the actual user ID in the room, unrelated to the uid in the Agora parameter"
+              },
+              {
+                "req_name": "strUserId",
+                "type": "string",
+                "param_description": "User account identifier",
+                "required": "N",
+                "param_specification": "Present in ALI, TRTC, ZEGO, VOLC, GIN separate streams. The returned strUserId is the actual user ID in the room. For TRTC separate streams, it is unrelated to the uid in the TRTC parameter; for ALI separate streams, it is unrelated to the userId in the ALI parameter"
+              },
+              {
+                "req_name": "room",
+                "type": "string",
+                "param_description": "Room number",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "seiInfo",
+                "type": "array",
+                "param_description": "SEI information",
+                "required": "N",
+                "param_specification": "(Requires activation from Shumei)"
+              },
+              {
+                "req_name": "passThrough",
+                "type": "json_object",
+                "param_description": "Pass-through field",
+                "required": "N",
+                "param_specification": "The content of this field is the same as the passThrough value in the data parameter of the request"
+              }
+            ]
+          },
+          {
+            "req_name": "businessLabels",
+            "type": "json_array",
+            "param_description": "Audio business labels",
+            "required": "N",
+            "param_specification": "Returns labels such as gender, timbre, singing status, etc.",
+            "son": [
+              {
+                "req_name": "businessLabel1",
+                "type": "string",
+                "param_description": "Primary business label",
+                "required": "N",
+                "param_specification": "Primary business label"
+              },
+              {
+                "req_name": "businessLabel2",
+                "type": "string",
+                "param_description": "Secondary business label",
+                "required": "N",
+                "param_specification": "Secondary business label"
+              },
+              {
+                "req_name": "businessLabel3",
+                "type": "string",
+                "param_description": "Tertiary business label",
+                "required": "N",
+                "param_specification": "Tertiary business label"
+              },
+              {
+                "req_name": "businessDescription",
+                "type": "string",
+                "param_description": "Label description",
+                "required": "N",
+                "param_specification": "For human reference only, do not use this parameter for logic processing"
+              }
+            ]
+          },
+          {
+            "req_name": "allLabels",
+            "type": "json_array",
+            "param_description": "Risk labels",
+            "required": "N",
+            "param_specification": "All risk labels",
+            "son": [
+              {
+                "req_name": "riskLabel1",
+                "type": "string",
+                "param_description": "Primary risk label",
+                "required": "Y",
+                "param_specification": "Primary risk label"
+              },
+              {
+                "req_name": "riskLabel2",
+                "type": "string",
+                "param_description": "Secondary risk label",
+                "required": "Y",
+                "param_specification": "Secondary risk label"
+              },
+              {
+                "req_name": "riskLabel3",
+                "type": "string",
+                "param_description": "Tertiary risk label",
+                "required": "Y",
+                "param_specification": "Tertiary risk label"
+              },
+              {
+                "req_name": "riskDescription",
+                "type": "string",
+                "param_description": "Risk reason",
+                "required": "Y",
+                "param_specification": "For human reference only, do not use this parameter for logic processing"
+              }
+            ]
+          },
+          {
+            "req_name": "tokenProfileLabels",
+            "type": "json_array",
+            "param_description": "Account profile labels",
+            "required": "N",
+            "param_specification": "Returned only when the feature is enabled",
+            "son": [
+              {
+                "req_name": "label1",
+                "type": "string",
+                "param_description": "Primary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "label2",
+                "type": "string",
+                "param_description": "Secondary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "label3",
+                "type": "string",
+                "param_description": "Tertiary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "description",
+                "type": "string",
+                "param_description": "Label description",
+                "required": "N",
+                "param_specification": "For human reference only, do not use this parameter for logic processing"
+              },
+              {
+                "req_name": "timestamp",
+                "type": "int",
+                "param_description": "Label timestamp",
+                "required": "N",
+                "param_specification": "13-digit Unix timestamp, unit: milliseconds"
+              }
+            ]
+          },
+          {
+            "req_name": "tokenRiskLabels",
+            "type": "json_array",
+            "param_description": "Account risk labels",
+            "required": "N",
+            "param_specification": "Returned only when the feature is enabled",
+            "son": [
+              {
+                "req_name": "label1",
+                "type": "string",
+                "param_description": "Primary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "label2",
+                "type": "string",
+                "param_description": "Secondary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "label3",
+                "type": "string",
+                "param_description": "Tertiary label",
+                "required": "N",
+                "param_specification": ""
+              },
+              {
+                "req_name": "description",
+                "type": "string",
+                "param_description": "Label description",
+                "required": "N",
+                "param_specification": "For human reference only, do not use this parameter for logic processing"
+              },
+              {
+                "req_name": "timestamp",
+                "type": "int",
+                "param_description": "Label timestamp",
+                "required": "N",
+                "param_specification": "13-digit Unix timestamp, unit: milliseconds"
+              }
+            ]
+          },
+          {
+            "req_name": "speakers",
+            "type": "json_array",
+            "param_description": "Speaker information for the audio segment",
+            "required": "N",
+            "param_specification": "Speaker uid and volume information in the audio segment, sampled once per second, up to 10 times per segment. This structure is an array of up to 10 elements, sorted by relative time, each element is also an array containing the current speaker uid and volume level\nNote: Currently effective only in Agora mixed streams",
+            "son": [
+              {
+                "req_name": "uid",
+                "type": "int",
+                "param_description": "Speaker uid",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "volume",
+                "type": "int",
+                "param_description": "Volume level",
+                "required": "Y",
+                "param_specification": "Range: [0,255]"
+              }
+            ]
+          },
+          {
+            "req_name": "vadCode",
+            "type": "int",
+            "param_description": "Silence status of the audio segment",
+            "required": "N",
+            "param_specification": "0: Silent segment\n1: Non-silent segment"
+          },
+          {
+            "req_name": "audioTags",
+            "type": "json_object",
+            "param_description": "Audio tags",
+            "required": "N",
+            "param_specification": "Returns labels such as gender, timbre, singing status, etc.",
+            "son": [
+              {
+                "req_name": "gender",
+                "type": "json_object",
+                "param_description": "Gender label",
+                "required": "N",
+                "param_specification": "Returned when type includes GENDER",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "Gender label name",
+                    "required": "Y",
+                    "param_specification": "Possible values: Male, Female"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the gender",
+                    "required": "Y",
+                    "param_specification": "Range: 0-100, higher value indicates higher probability"
+                  }
+                ]
+              },
+              {
+                "req_name": "timbre",
+                "type": "json_array",
+                "param_description": "Timbre label",
+                "required": "N",
+                "param_specification": "Returned when type includes TIMBRE",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "Timbre label category",
+                    "required": "Y",
+                    "param_specification": "Possible values: Uncle, Young Adult, Boy, Elderly, Queen, Lady, Girl, Lolita, Middle-aged Woman"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the timbre label",
+                    "required": "Y",
+                    "param_specification": "Range: 0-100, higher value indicates higher probability"
+                  }
+                ]
+              },
+              {
+                "req_name": "song",
+                "type": "int",
+                "param_description": "Singing label",
+                "required": "N",
+                "param_specification": "Returned when type includes SING\nPossible values:\n0: Not singing\n1: Singing"
+              },
+              {
+                "req_name": "language",
+                "type": "json_object",
+                "param_description": "Language detection",
+                "required": "N",
+                "param_specification": "Returned when type includes LANGUAGE",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "int",
+                    "param_description": "Language detection category",
+                    "required": "Y",
+                    "param_specification": "Possible values:\n0: Mandarin\n1: English\n2: Cantonese\n3: Tibetan\n4: Uyghur\n5: Mongolian\n6: Korean\n-1: Other languages"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the language",
+                    "required": "Y",
+                    "param_specification": "Range: 0-100, higher value indicates higher probability"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "req_name": "auxInfo",
+        "type": "json_object",
+        "param_description": "Auxiliary information",
+        "required": "N",
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "errorCode",
+            "type": "int",
+            "param_description": "Error code",
+            "required": "Y",
+            "param_specification": "3001: Stream address access failed, e.g., HTTP status code 404, 403\n3002: Invalid stream data, e.g., 'Invalid data found when processing input'\n3003: Stream does not exist, e.g., Zego returns error code 197612\n3004: Stream did not return audio data\n3005: Stream token is invalid or expired, it is recommended to restart the review with a new token, e.g., Agora token expiration or TRTC usersig invalid"
+          },
+          {
+            "req_name": "streamTime",
+            "type": "int",
+            "param_description": "Stream review duration",
+            "required": "N",
+            "param_specification": "Returned at the end of the stream, representing the review duration. It may not match the actual stream duration if there is an interval review logic"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Examples"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxx",
+      "appId": "default",
+      "eventId": "default",
+      "type": "EROTIC_ADVERT_POLITY_DIRTY",
+      "businessType": "GENDER_TIMBRE_SING_LANGUAGE",
+      "callback": "xxxxx",
+      "data": {
+        "btId": "test1",
+        "lang": "zh",
+        "room": "room2",
+        "url": "xxxxx",
+        "streamType": "NORMAL",
+        "returnAllText": 1,
+        "returnPreText": 1,
+        "returnPreAudio": 1,
+        "tokenId": "2222"
+      }
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "Success",
+      "requestId": "b639042cbfe229359e672074762c5583"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Callback Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "requestId": "b639042cbfe229359e672074762c5583_2",
+      "btid": "1637847086612",
+      "code": 1100,
+      "message": "Success",
+      "audioDetail": {
+        "audioTags": {
+          "gender": {
+            "label": "Male",
+            "probability": 99
+          },
+          "language": [
+            {
+              "label": 0,
+              "probability": 99
+            },
+            {
+              "label": 1,
+              "probability": 0
+            }
+          ],
+          "song": 0,
+          "timbre": [
+            {
+              "label": "Uncle",
+              "probability": 7
+            },
+            {
+              "label": "Young Adult",
+              "probability": 34
+            },
+            {
+              "label": "Elderly",
+              "probability": 58
+            },
+            {
+              "label": "Boy",
+              "probability": 0
+            }
+          ]
+        },
+        "audioText": "Is it hard to play then? So it makes sense that Xiao Long gave up. We also need to look at this, the vanguard ah, the next rhythm point may be a vanguard, but at this vanguard time, Suning can actually fight a正面团战了，谢谢毛主任一直都",
+        "audioUrl": "https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=c0f9a66334bc00e1d92da40974756b9b4b9e7b26",
+        "auxInfo": {
+          "beginProcessTime": 1637847113897,
+          "finishProcessTime": 1637847114514,
+          "room": "test1"
+        },
+        "businessLabels": [
+          {
+            "businessDescription": "Minor: Minor: Minor",
+            "businessLabel1": "minor",
+            "businessLabel2": "weichengnianren",
+            "businessLabel3": "weichengnianren",
+            "confidenceLevel": 0,
+            "probability": 0
+          }
+        ],
+        "preAudioUrl": "https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=3a261ca2e46b32ec218be69a5802ec0e04c2c627",
+        "riskDescription": "Normal",
+        "riskDetail": {
+          "audioText": "Is it hard to play then? So it makes sense that Xiao Long gave up. We also need to look at this, the vanguard ah, the next rhythm point may be a vanguard, but at this vanguard time, Suning can actually fight a正面团战了，谢谢毛主任一直都"
+        },
+        "riskLabel1": "normal",
+        "riskLabel2": "normal",
+        "riskLabel3": "normal",
+        "riskLevel": "REJECT",
+        "speakers": [
+          [
+            {
+              "uid": 2,
+              "volume": 100
+            },
+            {
+              "uid": 1,
+              "volume": 255
+            },
+            {
+              "uid": 3,
+              "volume": 50
+            }
+          ],
+          [
+            {
+              "uid": 2,
+              "volume": 200
+            },
+            {
+              "uid": 3,
+              "volume": 50
+            }
+          ],
+          [
+            {
+              "uid": 4,
+              "volume": 255
+            }
+          ]
+        ]
+      }
+    }
+  }
+]

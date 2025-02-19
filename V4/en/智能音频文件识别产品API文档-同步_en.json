@@ -1,0 +1,869 @@
+[
+  {
+    "type": "title-1",
+    "value": "Synchronous Detection"
+  },
+  {
+    "type": "desc",
+    "value": "The audio detection API can assist in identifying risks such as political content, pornography, advertising, and terrorism in audio. It can also be tailored to your business scenarios to recognize content related to minors, voice characteristics, and more."
+  },
+  {
+    "type": "title-2",
+    "value": "API Description"
+  },
+  {
+    "type": "desc",
+    "value": "The synchronous detection API returns the recognition results. It is recommended to call the API using the HTTP protocol."
+  },
+  {
+    "type": "title-3",
+    "value": "Audio Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Audio Type: URL, BASE64.\nAudio Format: WAV, MP3, AAC, AMR, 3GP, M4A, WMA, OGG, APE, FLAC, ALAC, WAVPACK, SILK_V3, etc.\nAudio Size: The interface limit is 18M.\nAudio Address: It is recommended to download audio from a CDN source, and the source should not be a single point, otherwise there may be audio download failures, leading to failed reviews."
+  },
+  {
+    "type": "title-3",
+    "value": "Review Time"
+  },
+  {
+    "type": "desc",
+    "value": "Recommended Timeout: For synchronous requests, it is recommended to set a timeout of 10 seconds; for asynchronous requests, it is recommended to set a timeout of 5 seconds.\nInternal Detection Logic: The response time of the audio detection API depends on the download time of the audio. Please ensure that the storage service where the audio to be reviewed is located is stable and reliable. The specific duration is related to the request type and audio size."
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Address"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "Cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request Address"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Shanghai",
+        "url": "http://api-audio-sh.fengkongcloud.com/audiomessage/v4",
+        "supportProduct": "Chinese"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "param_description": "Company Key",
+        "param_specification": "Provided by Shumei, see email for details.",
+        "req_name": "accessKey",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "param_description": "Application Identifier",
+        "param_specification": "Used to distinguish applications. Please contact Shumei for activation and use the provided value as the standard. See email for default content.",
+        "req_name": "appId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "req_name": "eventId",
+        "type": "string",
+        "param_description": "Event Identifier",
+        "required": "Y",
+        "param_specification": "Used to distinguish scene data. Please contact Shumei for activation and use the provided value as the standard. See email for default content."
+      },
+      {
+        "req_name": "type",
+        "type": "string",
+        "param_description": "Type of risk detection",
+        "required": "N",
+        "param_specification": "Either businesstype or type must be provided.\nAUDIOPOLITICAL: Audio of national leaders\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertising detection\nADLAW: Advertising law detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nANTHEN: National anthem detection\nMOAN: Moaning detection\nDIRTY: Insulting content detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nFor combined detection, connect with underscores (e.g., POLITY_EROTIC_MOAN for political, pornographic, and moaning detection).\nRecommended: POLITY_EROTIC_MOAN_ADVERT."
+      },
+      {
+        "req_name": "businessType",
+        "type": "string",
+        "param_description": "Type of business label detection",
+        "required": "N",
+        "param_specification": "Either type or businessType must be provided.\nSING: Singing detection\nLANGUAGE: Language detection\nGENDER: Gender detection\nTIMBRE: Voice timbre detection\nVOICE: Voice attributes\nMINOR: Minor detection\nAUDIOSCENE: Audio scene detection\nAGE: Age detection\nFor gender, singing, and language detection, GENDER must be provided."
+      },
+      {
+        "req_name": "contentType",
+        "type": "string",
+        "param_description": "Format of the audio content to be detected",
+        "required": "Y",
+        "param_specification": "URL: The content is an audio URL.\nRAW: The content is the base64-encoded audio data."
+      },
+      {
+        "req_name": "content",
+        "type": "string",
+        "param_description": "The audio content to be detected",
+        "required": "Y",
+        "param_specification": "Can be a URL or base64-encoded data.\nBase64-encoded data has an upper limit of 15M and supports only PCM, WAV, and MP3 formats. PCM data must be encoded in 16-bit little-endian. It is recommended to use PCM or WAV formats."
+      },
+      {
+        "req_name": "btId",
+        "type": "string",
+        "param_description": "Unique identifier for the audio file",
+        "required": "Y",
+        "param_specification": "A unique identifier for this audio file to match the callback results. Identifiers longer than 128 characters will be truncated and should not be repeated."
+      },
+      {
+        "length": "-",
+        "param_specification": "The length of the data field in the request, with a maximum size of 1MB",
+        "req_name": "data",
+        "required": "Y",
+        "son": [
+          {
+            "req_name": "tokenId",
+            "type": "string",
+            "param_description": "User account",
+            "required": "N",
+            "param_specification": "Used for user behavior analysis. It is recommended to provide the user's UID."
+          },
+          {
+            "req_name": "receiveTokenId",
+            "type": "string",
+            "param_description": "Receiver's tokenId in private chat scenarios",
+            "required": "N",
+            "param_specification": "A string composed of numbers, letters, underscores, and hyphens with a maximum length of 64 characters."
+          },
+          {
+            "req_name": "deviceId",
+            "type": "string",
+            "param_description": "Shumei device fingerprint identifier",
+            "required": "N",
+            "param_specification": "The unique identifier generated by Shumei's device fingerprint."
+          },
+          {
+            "req_name": "ip",
+            "type": "string",
+            "param_description": "IPv4 or IPv6 address",
+            "required": "N",
+            "param_specification": "The public IP address of the user who sent the audio."
+          },
+          {
+            "req_name": "dataId",
+            "type": "string",
+            "param_description": "Data identifier",
+            "required": "N",
+            "param_specification": "Data identifier"
+          },
+          {
+            "req_name": "level",
+            "type": "int",
+            "param_description": "User level (used to configure different interception strategies for different levels)",
+            "required": "N",
+            "param_specification": "0: Lowest-level user (e.g., new registrants, inactive users, or users with level 0)\n1: Lower-level user (e.g., low-activity or low-level users)\n2: Medium-level user (e.g., users with moderate activity or level)\n3: Higher-level user (e.g., high-activity or high-level users)\n4: Highest-level user (e.g., paying users, VIP users)"
+          },
+          {
+            "req_name": "gender",
+            "type": "string",
+            "param_description": "User gender",
+            "required": "N",
+            "param_specification": "male: Male\nfemale: Female"
+          },
+          {
+            "req_name": "formatInfo",
+            "type": "string",
+            "param_description": "Audio data format",
+            "required": "N",
+            "param_specification": "Required when the audio content format is RAW. Possible values: pcm, wav, mp3"
+          },
+          {
+            "req_name": "rate",
+            "type": "int",
+            "param_description": "Audio data sampling rate",
+            "required": "N",
+            "param_specification": "Required when the audio data format is pcm. Range: 8000-32000"
+          },
+          {
+            "req_name": "track",
+            "type": "int",
+            "param_description": "Audio data channel count",
+            "required": "N",
+            "param_specification": "Required when the audio data format is pcm. Possible values:\n1: Mono\n2: Stereo"
+          },
+          {
+            "req_name": "returnAllText",
+            "type": "int",
+            "param_description": "Level of audio fragment return",
+            "required": "N",
+            "param_specification": "Possible values (default is 0):\n0: Return risk fragment recognition results\n1: Return all fragment recognition results\nThis parameter only controls the return of fragment recognition results and does not affect the overall recognition results.\nWhen choosing 'return all fragment recognition results,' the fragment recognition results include fragments with riskLevel as PASS, REVIEW, and REJECT.\nWhen choosing 'return risk fragment recognition results,' the fragment recognition results only include fragments with riskLevel as REVIEW and REJECT.\nThe fragment recognition results correspond to the audioDetail field in callbacks or query responses."
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return Parameters"
+  },
+  {
+    "type": "desc",
+    "value": "The following parameters are required when the code returns 1100, except for code, message, and requestId."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Unique identifier for this request",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "Request return code",
+        "required": "Y",
+        "param_specification": "1100: Success\n1101: Processing\n1901: QPS limit exceeded\n1902: Invalid parameters\n1903: Service failure\n1904: Download failed\n1905: Decoding failed\n9100: Insufficient balance\n9101: Unauthorized operation\nFields other than message and requestId will only exist when the code is 1100."
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "Description corresponding to the request return code",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "detail",
+        "type": "json",
+        "param_description": "Detailed data of the request return",
+        "required": "N",
+        "param_specification": "This parameter is required when the code is 1100.",
+        "son": [
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "Disposal recommendation for the current event",
+            "required": "Y",
+            "param_specification": "Possible values:\nPASS: Pass\nREVIEW: Review\nREJECT: Reject\nRecommendation: Do not directly use the results during the initial integration. Optimize the interception threshold to meet expectations before using it."
+          },
+          {
+            "req_name": "audioText",
+            "type": "string",
+            "param_description": "Transcription result of the entire audio segment",
+            "required": "Y",
+            "param_specification": ""
+          },
+          {
+            "req_name": "audioTime",
+            "type": "int",
+            "param_description": "Duration of the entire audio segment",
+            "required": "Y",
+            "param_specification": "Unit: seconds"
+          },
+          {
+            "req_name": "audioDetail",
+            "type": "json_array",
+            "param_description": "Audio fragment information",
+            "required": "Y",
+            "param_specification": "Callback audio fragment information",
+            "son": [
+              {
+                "req_name": "requestId",
+                "type": "string",
+                "param_description": "Unique identifier for the audio fragment request",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "audioStarttime",
+                "type": "float",
+                "param_description": "Start time of the audio fragment",
+                "required": "Y",
+                "param_specification": "Time distance from the start of the audio, in seconds"
+              },
+              {
+                "req_name": "audioEndtime",
+                "type": "float",
+                "param_description": "End time of the audio fragment",
+                "required": "Y",
+                "param_specification": "Time distance from the start of the audio, in seconds"
+              },
+              {
+                "req_name": "audioUrl",
+                "type": "string",
+                "param_description": "Link to the audio fragment",
+                "required": "Y",
+                "param_specification": "mp3 format"
+              },
+              {
+                "req_name": "riskLevel",
+                "type": "string",
+                "param_description": "Recognition result of the audio fragment",
+                "required": "Y",
+                "param_specification": "Possible values:\nPASS: Pass\nREVIEW: Review\nREJECT: Reject"
+              },
+              {
+                "req_name": "businessLabels",
+                "type": "json_array",
+                "param_description": "Business label return",
+                "required": "N",
+                "param_specification": "All business labels",
+                "son": [
+                  {
+                    "req_name": "businessLabel1",
+                    "type": "string",
+                    "param_description": "Primary label",
+                    "required": "Y",
+                    "param_specification": "Primary label"
+                  },
+                  {
+                    "req_name": "businessLabel2",
+                    "type": "string",
+                    "param_description": "Secondary label",
+                    "required": "Y",
+                    "param_specification": "Secondary label"
+                  },
+                  {
+                    "req_name": "businessLabel3",
+                    "type": "string",
+                    "param_description": "Tertiary label",
+                    "required": "Y",
+                    "param_specification": "Tertiary label"
+                  },
+                  {
+                    "req_name": "businessDescription",
+                    "type": "string",
+                    "param_description": "Label description",
+                    "required": "Y",
+                    "param_specification": "Format: 'Primary label: Secondary label: Tertiary label' in Chinese"
+                  },
+                  {
+                    "req_name": "confidenceLevel",
+                    "type": "int",
+                    "param_description": "Confidence level",
+                    "required": "N",
+                    "param_specification": "Values range from 0 to 2, with higher values indicating greater reliability"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "float",
+                    "param_description": "Confidence score",
+                    "required": "N",
+                    "param_specification": "Values range from 0 to 1, with higher values indicating greater reliability"
+                  },
+                  {
+                    "req_name": "businessDetail",
+                    "type": "json_object",
+                    "param_description": "Detailed information",
+                    "required": "N",
+                    "param_specification": "Reserved field"
+                  }
+                ]
+              },
+              {
+                "req_name": "allLabels",
+                "type": "json_array",
+                "param_description": "Risk label return",
+                "required": "N",
+                "param_specification": "All risk labels",
+                "son": [
+                  {
+                    "req_name": "riskLabel1",
+                    "type": "string",
+                    "param_description": "Primary risk label",
+                    "required": "Y",
+                    "param_specification": "Primary risk label"
+                  },
+                  {
+                    "req_name": "riskLabel2",
+                    "type": "string",
+                    "param_description": "Secondary risk label",
+                    "required": "Y",
+                    "param_specification": "Secondary risk label"
+                  },
+                  {
+                    "req_name": "riskLabel3",
+                    "type": "string",
+                    "param_description": "Tertiary risk label",
+                    "required": "Y",
+                    "param_specification": "Tertiary risk label"
+                  },
+                  {
+                    "req_name": "riskDescription",
+                    "type": "string",
+                    "param_description": "Risk reason",
+                    "required": "Y",
+                    "param_specification": "Risk reason, for reference only. Do not rely on this parameter for logical processing."
+                  },
+                  {
+                    "req_name": "riskLevel",
+                    "type": "string",
+                    "param_description": "Disposal recommendation",
+                    "required": "Y",
+                    "param_specification": "Possible values: PASS: Pass, REVIEW: Review, REJECT: Reject"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "float",
+                    "param_description": "Confidence score",
+                    "required": "N",
+                    "param_specification": "Values range from 0 to 1, with higher values indicating greater risk probability and lower values indicating lower risk probability"
+                  },
+                  {
+                    "req_name": "riskDetail",
+                    "type": "json_object",
+                    "param_description": "Risk details",
+                    "required": "N",
+                    "param_specification": "",
+                    "son":[
+                      {
+                        "req_name": "audioText",
+                        "type": "string",
+                        "param_description": "Transcription result of the audio",
+                        "required": "N",
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "matchedLists",
+                        "type": "json_array",
+                        "param_description": "Custom list match information",
+                        "required": "N",
+                        "param_specification": "Returned when a custom list is matched",
+                        "son": [
+                          {
+                            "req_name": "name",
+                            "type": "string",
+                            "param_description": "Custom list name",
+                            "required": "Y",
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "words",
+                            "type": "json_array",
+                            "param_description": "Sensitive words in the matched list",
+                            "required": "Y",
+                            "param_specification": "",
+                            "son": [
+                              {
+                                "req_name": "word",
+                                "type": "string",
+                                "param_description": "Sensitive word",
+                                "required": "Y",
+                                "param_specification": ""
+                              },
+                              {
+                                "req_name": "position",
+                                "type": "int_array",
+                                "param_description": "Position of the sensitive word",
+                                "required": "Y",
+                                "param_specification": ""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "req_name": "riskSegments",
+                        "type": "json_array",
+                        "param_description": "High-risk content segments",
+                        "required": "N",
+                        "param_specification": "Present in functions such as politics, terrorism, banned content, competitive products, and advertising law",
+                        "son": [
+                          {
+                            "req_name": "segment",
+                            "type": "string",
+                            "param_description": "High-risk content segment",
+                            "required": "N",
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "position",
+                            "type": "int_array",
+                            "param_description": "Position of the high-risk content segment",
+                            "required": "N",
+                            "param_specification": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "req_name": "riskLabel1",
+                "type": "string",
+                "param_description": "Primary risk label",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskLabel2",
+                "type": "string",
+                "param_description": "Secondary risk label",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskLabel3",
+                "type": "string",
+                "param_description": "Tertiary risk label",
+                "required": "Y",
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskDescription",
+                "type": "string",
+                "param_description": "Risk reason",
+                "required": "Y",
+                "param_specification": "For reference only. Do not rely on this parameter for logical processing."
+              },
+              {
+                "req_name": "riskDetail",
+                "type": "json_object",
+                "param_description": "Risk details",
+                "required": "N",
+                "param_specification": "",
+                "son":[
+                  {
+                    "req_name": "audioText",
+                    "type": "string",
+                    "param_description": "Transcription result of the audio",
+                    "required": "N",
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "matchedLists",
+                    "type": "json_array",
+                    "param_description": "Custom list match information",
+                    "required": "N",
+                    "param_specification": "Returned when a custom list is matched",
+                    "son": [
+                      {
+                        "req_name": "name",
+                        "type": "string",
+                        "param_description": "Custom list name",
+                        "required": "Y",
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "words",
+                        "type": "json_array",
+                        "param_description": "Sensitive words in the matched list",
+                        "required": "Y",
+                        "param_specification": "",
+                        "son": [
+                          {
+                            "req_name": "word",
+                            "type": "string",
+                            "param_description": "Sensitive word",
+                            "required": "Y",
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "position",
+                            "type": "int_array",
+                            "param_description": "Position of the sensitive word",
+                            "required": "Y",
+                            "param_specification": ""
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "req_name": "riskSegments",
+                    "type": "json_array",
+                    "param_description": "High-risk content segments",
+                    "required": "N",
+                    "param_specification": "Present in functions such as politics, terrorism, banned content, competitive products, and advertising law",
+                    "son": [
+                      {
+                        "req_name": "segment",
+                        "type": "string",
+                        "param_description": "High-risk content segment",
+                        "required": "N",
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "Position of the high-risk content segment",
+                        "required": "N",
+                        "param_specification": ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "audioTags",
+            "type": "json_object",
+            "param_description": "Audio tags",
+            "required": "N",
+            "param_specification": "Returns gender, timbre, and singing status. This is a legacy field for compatibility. It is recommended to use businessLabels directly.",
+            "son": [
+              {
+                "req_name": "gender",
+                "type": "string",
+                "param_description": "Gender",
+                "required": "N",
+                "param_specification": "Possible values:\nMALE: Male\nFEMALE: Female\nUNKNOWN: Unknown",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "Gender label name",
+                    "required": "Y",
+                    "param_specification": "Possible values: Male, Female"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the corresponding gender",
+                    "required": "N",
+                    "param_specification": "Values range from 0 to 100, with higher values indicating greater probability"
+                  }
+                ]
+              },
+              {
+                "req_name": "timbre",
+                "type": "string",
+                "param_description": "Timbre",
+                "required": "N",
+                "param_specification": "Possible values:\nSILENT: Silent\nSOFT: Soft\nLOUD: Loud\nUNKNOWN: Unknown",
+                "son": [
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the corresponding timbre label",
+                    "required": "N",
+                    "param_specification": "Values range from 0 to 100, with higher values indicating greater probability"
+                  },
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "Timbre label category",
+                    "required": "N",
+                    "param_specification": "Possible values:\nUncle, Young man, Boy, Elderly man, Queen, Lady, Girl, Lolita, Middle-aged woman, Male, Female, No voice"
+                  }
+                ]
+              },
+              {
+                "req_name": "language",
+                "type": "json",
+                "param_description": "Language",
+                "required": "N",
+                "param_specification": "",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "int",
+                    "param_description": "Language recognition category identifier",
+                    "required": "Y",
+                    "param_specification": "Possible values:\n0: Mandarin\n1: English\n2: Cantonese\n3: Tibetan\n4: Uyghur\n5: Mongolian\n6: Korean\n-1: Other languages"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "Probability of the corresponding timbre label",
+                    "required": "Y",
+                    "param_specification": "Values range from 0 to 100, with higher values indicating greater probability"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Examples"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "*************",
+      "appId": "default",
+      "eventId": "default",
+      "type": "POLITY_EROTIC",
+      "businessType":"TIMBRE",
+      "btId": "test1",
+      "contentType": "URL",
+      "content": "*************",
+      "data": {
+        "returnAllText":1,
+        "tokenId": "token-short"
+      }
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Response Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code":1100,
+      "message":"Success",
+      "requestId":"817c8509359500c898a762ffe93a582b",
+      "btId":"1667392054643",
+      "detail":{
+        "audioDetail":[
+          {
+            "requestId":"817c8509359500c898a762ffe93a582b_a0000",
+            "audioStarttime":0,
+            "audioEndtime":10,
+            "audioUrl":"http://voice-stream.oss-cn-hangzhou.aliyuncs.com/POST_AUDIO%2F20221102%2F817c8509359500c898a762ffe93a582b_a0000.mp3",
+            "businessLabels":[
+              {
+                "businessDescription":"Singing: Singing: Singing",
+                "businessDetail":{},
+                "businessLabel1":"sing",
+                "businessLabel2":"changge",
+                "businessLabel3":"changge",
+                "confidenceLevel":2,
+                "probability":0.858334402569294
+              }
+            ],
+            "allLabels":[],
+            "riskLevel":"REJECT",
+            "riskLabel1":"abuse",
+            "riskLabel2":"uncivilized language",
+            "riskLabel3":"mild uncivilized language",
+            "riskDescription":"Insult: Uncivilized language: Mild uncivilized language",
+            "riskDetail":{
+              "audioText":"Chao ni this year in November and December you find a Mao Dong ah I went to the countryside that installed the next box installed not not hang now check the whole good you in two years can you"
+            }
+          }
+        ],
+        "audioTags":{
+          "gender":{
+            "label":"Female",
+            "probability":95
+          },
+          "language":[
+            {
+              "confidence":0,
+              "label":2
+            },
+            {
+              "confidence":99,
+              "label":0
+            },
+            {
+              "confidence":0,
+              "label":1
+            }
+          ],
+          "song":0,
+          "timbre":[
+            {
+              "label":"Female",
+              "probability":95
+            },
+            {
+              "label":"Queen",
+              "probability":12
+            },
+            {
+              "label":"Lady",
+              "probability":37
+            },
+            {
+              "label":"Girl",
+              "probability":56
+            },
+            {
+              "label":"Middle-aged woman",
+              "probability":67
+            },
+            {
+              "label":"Lolita",
+              "probability":24
+            }
+          ]
+        },
+        "audioText":"Chao ni this year in November and December you find a Mao Dong ah I went to the countryside that installed the next box installed not not hang now check the whole good you in two years can you",
+        "audioTime":10,
+        "code":1100,
+        "requestParams":{
+          "channel":"TEST",
+          "lang":"zh",
+          "returnAllText":1,
+          "tokenId":"test01"
+        },
+        "riskLevel":"REJECT"
+      }
+    }
+  }
+]

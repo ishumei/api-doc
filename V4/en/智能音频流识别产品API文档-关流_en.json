@@ -1,0 +1,200 @@
+[
+  {
+    "type": "title-1",
+    "value": "Stream Termination Interface"
+  },
+  {
+    "type": "desc",
+    "value": "This interface is used by the client to notify the server that a specific audio stream has been closed."
+  },
+  {
+    "type": "title-2",
+    "value": "Interface Description"
+  },
+  {
+    "type": "desc",
+    "value": "POST"
+  },
+  {
+    "type": "title-3",
+    "value": "Timeout"
+  },
+  {
+    "type": "desc",
+    "value": "Recommended timeout: It is recommended to set the timeout to 1 second."
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request URL"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Shanghai",
+        "url": "http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "Chinese、Arabic"
+      },
+      {
+        "description": "Silicon Valley",
+        "url": "http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "Chinese、Internationalization"
+      },
+      {
+        "description": "Singapore",
+        "url": "http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "Chinese、Internationalization"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "accessKey",
+        "type": "string",
+        "param_description": "Company Key",
+        "required": "Y",
+        "param_specification": "Used for authentication. Provided by Shumei when the account service is activated. See email for details."
+      },
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Unique identifier for this request",
+        "required": "Y",
+        "param_specification": "The requestId of the audio stream to be closed"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return Parameters"
+  },
+  {
+    "type": "desc",
+    "value": "The following parameters, except for code, message, and requestId, are required when code returns 1100."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Unique identifier for this request",
+        "required": "Y",
+        "param_specification": "Unique request identifier"
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "Request return code",
+        "required": "Y",
+        "param_specification": "1100: Success\n1901: QPS limit exceeded, stream limit exceeded\n1902: Invalid parameters\n1903: Service failure\n1904: Stream pulling failed\n9101: Unauthorized operation"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "Description corresponding to the request return code",
+        "required": "Y",
+        "param_specification": ""
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxx",
+      "requestId": "xxxxx"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "Success",
+      "requestId": "a78eef377079acc6cdec24967ecde722"
+    }
+  }
+]
