@@ -108,21 +108,21 @@
         "type": "string",
         "param_description": "Authentication key for the API",
         "required": "Y",
-        "param_specification": "Provided by Shumei"
+        "param_specification": "Provided by Shumei.see email for details."
       },
       {
         "req_name": "appId",
         "type": "string",
         "param_description": "Application identifier",
         "required": "Y",
-        "param_specification": "Used to distinguish applications. Contact Shumei for activation and use the provided value."
+        "param_specification": "Used to distinguish applications. Contact Shumei for activation and use the provided value.see email for details."
       },
       {
         "req_name": "eventId",
         "type": "string",
         "param_description": "Event identifier",
         "required": "Y",
-        "param_specification": "Contact Shumei for activation and use the provided value."
+        "param_specification": "Contact Shumei for activation and use the provided value.see email for details."
       },
       {
         "req_name": "type",

@@ -116,21 +116,21 @@
     "value": [
       {
         "length": "20",
-        "param_description": "Company Key. Used for permission authentication, provided by ShuMei when activating services.",
+        "param_description": "Company Key. Used for permission authentication, provided by ShuMei when activating services.see email for details.",
         "req_name": "accessKey",
         "required": "Y",
         "type": "string"
       },
       {
         "length": "64",
-        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.",
+        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.see email for details.",
         "req_name": "eventId",
         "required": "Y",
         "type": "string"
       },
       {
         "length": "64",
-        "param_description": "Application Identifier. This field is strictly validated and requires prior agreement with Shumei on the value to be used.",
+        "param_description": "Application Identifier. This field is strictly validated and requires prior agreement with Shumei on the value to be used.see email for details.",
         "req_name": "appId",
         "required": "Y",
         "type": "string"
