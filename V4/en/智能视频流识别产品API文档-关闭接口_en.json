@@ -1,0 +1,204 @@
+[
+  {
+    "type": "title-1",
+    "value": "Close the interface."
+  },
+  {
+    "type": "desc",
+    "value": "Video Stream Closure Interface"
+  },
+  {
+    "type": "title-2",
+    "value": "Interface functionality"
+  },
+  {
+    "type": "desc",
+    "value": "Video stream termination interface, this interface is used to close a specified video stream."
+  },
+  {
+    "type": "title-3",
+    "value": "Interface Requirements"
+  },
+  {
+    "type": "desc",
+    "value": "Communication Protocol: HTTP or HTTPS protocol\nRequest Method: POST method\nCharacter Encoding: utf-8\nParameter Format: All request parameters and response parameters are in JSON format."
+  },
+  {
+    "type": "title-3",
+    "value": "Timeout"
+  },
+  {
+    "type": "desc",
+    "value": "Suggested timeout: 7s\nThe internal processing timeout is 3s, with one retry. Normal interface response time is within 100ms."
+  },
+  {
+    "type": "title-3",
+    "value": "Historical Versions"
+  },
+  {
+    "herf": "/docs/tj/videoStream/history/developDoc",
+    "type": "link",
+    "value": "Historical Versions"
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Address"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request address"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Shanghai Video Streaming Cluster",
+        "supportProduct": "Chinese video stream",
+        "url": "http://api-videostream-sh.fengkongcloud.com/finish_videostream/v4"
+      },
+      {
+        "description": "Singapore Video Streaming Cluster",
+        "supportProduct": "Chinese video stream\nEnglish video stream\nArabic video stream",
+        "url": "http://api-videostream-xjp.fengkongcloud.com/finish_videostream/v4"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it required?"
+      },
+      {
+        "key": "length",
+        "title": "Maximum Length"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "20",
+        "param_description": "Company Key. Used for permission authentication, provided by ShuMei when activating services.see email for details.",
+        "req_name": "accessKey",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "32",
+        "param_description": "The requestId for closing the video stream is required.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "required",
+        "title": "Is it necessary to return?"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "length": "32",
+        "param_description": "Shumei requests a unique identifier.",
+        "req_name": "requestId",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "Here are the English translations for the codes you provided:\n\n1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameter\n1903: Service Failure\n1904: Stream Route Limit Exceeded\n9101: No Permission to Operate",
+        "req_name": "message",
+        "required": "Y",
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "1100: Success\n1901: QPS Limit Exceeded\n1902: Invalid Parameters\n1903: Service Failure\n1904: Exceeded Route Count Limit\n9101: No Permission to Operate",
+        "req_name": "code",
+        "required": "Y",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxxxxxxx",
+      "requestId": "1639824316368"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Return Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "Success",
+      "requestId": " a78eef377079acc6cdec24967ecde722"
+    }
+  }
+]

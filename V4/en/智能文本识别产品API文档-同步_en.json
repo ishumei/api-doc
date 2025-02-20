@@ -1,0 +1,1202 @@
+[
+  {
+    "type": "title-1",
+    "value": "Request Interface"
+  },
+  {
+    "type": "title-2",
+    "value": "Encoding"
+  },
+  {
+    "type": "desc",
+    "value": "UTF-8 character set encoding"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Method"
+  },
+  {
+    "type": "desc",
+    "value": "POST"
+  },
+  {
+    "type": "title-3",
+    "value": "Recommended Timeout"
+  },
+  {
+    "type": "desc",
+    "value": "1s"
+  },
+  {
+    "type": "title-2",
+    "value": "Request"
+  },
+  {
+    "type": "title-3",
+    "value": "Request URL"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "Cluster"
+      },
+      {
+        "key": "url",
+        "title": "Request URL"
+      },
+      {
+        "key": "supportProduct",
+        "title": "Supported Product List"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "Beijing",
+        "url": "http://api-text-bj.fengkongcloud.com/text/v4",
+        "supportProduct": "Chinese"
+      },
+      {
+        "description": "Shanghai",
+        "url": "http://api-text-sh.fengkongcloud.com/text/v4",
+        "supportProduct": "Chinese"
+      },
+      {
+        "description": "USA",
+        "url": "http://api-text-fjny.fengkongcloud.com/text/v4",
+        "supportProduct": "Chinese、International"
+      },
+      {
+        "description": "Singapore",
+        "url": "http://api-text-xjp.fengkongcloud.com/text/v4",
+        "supportProduct": "Chinese、International"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "Request Parameters"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "accessKey",
+        "type": "string",
+        "param_description": "Authentication key for the API",
+        "required": "Y",
+        "param_specification": "Provided by Shumei.see email for details."
+      },
+      {
+        "req_name": "appId",
+        "type": "string",
+        "param_description": "Application identifier",
+        "required": "Y",
+        "param_specification": "Used to distinguish applications. Contact Shumei for activation and use the provided value.see email for details."
+      },
+      {
+        "req_name": "eventId",
+        "type": "string",
+        "param_description": "Event identifier",
+        "required": "Y",
+        "param_specification": "Contact Shumei for activation and use the provided value.see email for details."
+      },
+      {
+        "req_name": "type",
+        "type": "string",
+        "param_description": "Type of risk detection",
+        "required": "Y",
+        "param_specification": ""
+      },
+      {
+        "req_name": "data",
+        "type": "json_object",
+        "param_description": "Content of the request data",
+        "required": "Y",
+        "param_specification": "Maximum length: 1MB",
+        "son": [
+          {
+            "req_name": "text",
+            "type": "string",
+            "param_description": "Text to be detected",
+            "required": "Y",
+            "param_specification": "Maximum 10,000 characters per request. If the nickname field is provided, both text and nickname will be checked."
+          },
+          {
+            "req_name": "relateText",
+            "type": "string",
+            "param_description": "Associated text to be detected",
+            "required": "N",
+            "param_specification": "Maximum 128 characters. If provided, it will be combined with the text for detection."
+          },
+          {
+            "req_name": "tokenId",
+            "type": "string",
+            "param_description": "User account identifier. It is recommended to use your company's user UID (can be encrypted) to uniquely identify users for risk control in behaviors such as spamming and advertising. Use a unique data identifier if no user UID is available.",
+            "required": "Y",
+            "param_specification": "A string composed of numbers, letters, underscores, and hyphens with a maximum length of 64 characters"
+          },
+          {
+            "req_name": "lang",
+            "type": "string",
+            "param_description": "Language of the text to be detected",
+            "required": "N",
+            "param_specification": "Optional values and corresponding languages:\nzh: Chinese\nen: English\nar: Arabic\nhi: Hindi\nes: Spanish\nfr: French\nru: Russian\npt: Portuguese\nid: Indonesian\nde: German\nja: Japanese\ntr: Turkish\nvi: Vietnamese\nit: Italian\nth: Thai\ntl: Filipino\nko: Korean\nms: Malay\nauto: Automatic language detection\nDefault value: zh. Domestic customers can omit or use zh. For international content, use auto if the language is unclear, and the system will detect the language automatically."
+          },
+          {
+            "req_name": "nickname",
+            "type": "string",
+            "param_description": "User nickname",
+            "required": "N",
+            "param_specification": "Check the risk of the nickname content. Limited to 150 characters, and any excess will be truncated."
+          },
+          {
+            "req_name": "ip",
+            "type": "string",
+            "param_description": "IP address",
+            "required": "N",
+            "param_specification": "The public IPv4 or IPv6 address of the user sending the text"
+          },
+          {
+            "req_name": "deviceId",
+            "type": "string",
+            "param_description": "Shumei device identifier",
+            "required": "N",
+            "param_specification": "Unique device identifier generated by Shumei's device fingerprint"
+          },
+          {
+            "req_name": "extra",
+            "type": "json_object",
+            "param_description": "Auxiliary parameters",
+            "required": "N",
+            "param_specification": "Information used to assist text detection",
+            "son": [
+              {
+                "req_name": "receiveTokenId",
+                "type": "string",
+                "param_description": "Receiver's tokenId in private chat scenarios",
+                "required": "N",
+                "param_specification": "A string composed of numbers, letters, underscores, and hyphens with a maximum length of 64 characters. Required when eventId is message."
+              },
+              {
+                "req_name": "topic",
+                "type": "string",
+                "param_description": "Topic number, book review area number, or forum post number",
+                "required": "N",
+                "param_specification": "When postId data (eventId is article) is provided, enable context recognition. It is recommended to include this field; otherwise, context association will not be possible."
+              },
+              {
+                "req_name": "atId",
+                "type": "string",
+                "param_description": "tokenId of the user being @-mentioned in group chat scenarios",
+                "required": "N",
+                "param_specification": "A string composed of numbers, letters, underscores, and hyphens with a maximum length of 64 characters. Required when eventId is groupChat."
+              },
+              {
+                "req_name": "room",
+                "type": "string",
+                "param_description": "Live room or game room number",
+                "required": "N",
+                "param_specification": "When live room or chat room data (eventId is groupChat) is provided, enable context recognition. It is recommended to include this field; otherwise, context association will not be possible."
+              },
+              {
+                "req_name": "sex",
+                "type": "int",
+                "param_description": "Gender",
+                "required": "N",
+                "param_specification": "Optional values:\n0: Male\n1: Female\n2: Unknown"
+              },
+              {
+                "req_name": "passThrough",
+                "type": "json",
+                "param_description": "Passthrough field",
+                "required": "N",
+                "param_specification": "The content of this field will be returned with the response."
+              }
+            ]
+          },
+          {
+            "req_name": "dataId",
+            "type": "string",
+            "param_description": "Data identifier",
+            "required": "N",
+            "param_specification": "Data identifier"
+          }
+        ]
+      },
+      {
+        "req_name": "kbType",
+        "type": "string",
+        "param_description": "Knowledge base type",
+        "required": "N",
+        "param_specification": "The knowledge base supports a maximum input length of 510 characters. If exceeded, the text in this request will not match the knowledge base. Contact Shumei Business for activation.\nOptional values:\nPKB: Enable political knowledge base functionality"
+      },
+      {
+        "req_name": "translationTargetLang",
+        "type": "string",
+        "param_description": "Translation target language",
+        "required": "N",
+        "param_specification": "Translate the input text into the target language. Contact Shumei Business for activation.\nOptional values:\nzh: Chinese\nen: English"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Response"
+  },
+  {
+    "type": "title-3",
+    "value": "Return Parameters"
+  },
+  {
+    "type": "desc",
+    "value": "All parameters below, except for code, message, and requestId, are required when code returns 1100."
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "Parameter Name"
+      },
+      {
+        "key": "type",
+        "title": "Type"
+      },
+      {
+        "key": "param_description",
+        "title": "Parameter Description"
+      },
+      {
+        "key": "required",
+        "title": "Required"
+      },
+      {
+        "key": "param_specification",
+        "title": "Specification"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "Return code",
+        "required": "Y",
+        "param_specification": "1100: Success\n1901: QPS limit exceeded\n1902: Invalid parameters\n1903: Service failure\n1905: Character limit exceeded\n9101: Unauthorized operation"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "Description of the return code",
+        "required": "Y",
+        "param_specification": "Corresponds to the code: Success, QPS limit exceeded, Invalid parameters, Service failure, Character limit exceeded, Unauthorized operation"
+      },
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "Request identifier",
+        "required": "Y",
+        "param_specification": "A unique identifier for this request data, used for troubleshooting and effect optimization. It is strongly recommended to save this."
+      },
+      {
+        "req_name": "riskLevel",
+        "type": "string",
+        "param_description": "Disposal recommendation",
+        "required": "Y",
+        "param_specification": "Possible return values:\nPASS: Normal, recommended for direct approval\nREVIEW: Suspicious, recommended for manual review\nREJECT: Violation, recommended for direct blocking"
+      },
+      {
+        "req_name": "riskLabel1",
+        "type": "string",
+        "param_description": "Primary risk label",
+        "required": "Y",
+        "param_specification": "Primary risk label. Returns 'normal' when riskLevel is PASS."
+      },
+      {
+        "req_name": "riskLabel2",
+        "type": "string",
+        "param_description": "Secondary risk label",
+        "required": "Y",
+        "param_specification": "Secondary risk label. Empty when riskLevel is PASS."
+      },
+      {
+        "req_name": "riskLabel3",
+        "type": "string",
+        "param_description": "Tertiary risk label",
+        "required": "Y",
+        "param_specification": "Tertiary risk label. Empty when riskLevel is PASS."
+      },
+      {
+        "req_name": "riskDescription",
+        "type": "string",
+        "param_description": "Risk reason",
+        "required": "Y",
+        "param_specification": "Returns 'normal' when riskLevel is PASS."
+      },
+      {
+        "req_name": "riskDetail",
+        "type": "json_object",
+        "param_description": "Mapped risk details",
+        "required": "Y",
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "matchedLists",
+            "type": "json_array",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "List of matched custom lists.",
+            "son": [
+              {
+                "req_name": "name",
+                "type": "string",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Name of the matched list"
+              },
+              {
+                "req_name": "words",
+                "type": "json_array",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Array of matched sensitive words.",
+                "son": [
+                  {
+                    "req_name": "word",
+                    "type": "string",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Matched sensitive word"
+                  },
+                  {
+                    "req_name": "position",
+                    "type": "int_array",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Position of the sensitive word"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "riskSegments",
+            "type": "json_array",
+            "param_description": "Auxiliary information. High-risk content segments are detected when the text contains political, violent, banned, or advertising-related risks.",
+            "required": "N",
+            "param_specification": "",
+            "son": [
+              {
+                "req_name": "segment",
+                "type": "string",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "High-risk content segment"
+              },
+              {
+                "req_name": "position",
+                "type": "int_array",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Position of the high-risk content segment"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "req_name": "tokenLabels",
+        "type": "json_object",
+        "param_description": "Auxiliary information",
+        "required": "Y",
+        "param_specification": "Account risk profile label information. See details below.",
+        "son": [
+          {
+            "req_name": "UGC_account_risk",
+            "type": "json_object",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "UGC content-related risks.",
+            "son": [
+              {
+                "req_name": "sexy_risk_tokenid",
+                "type": "float",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Sexual account risk score, ranging from [0-1]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "req_name": "auxInfo",
+        "type": "json_object",
+        "param_description": "Auxiliary information",
+        "required": "Y",
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "filteredText",
+            "type": "string",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "Text with risky segments replaced by *"
+          },
+          {
+            "req_name": "passThrough",
+            "type": "json_object",
+            "param_description": "Passthrough field",
+            "required": "N",
+            "param_specification": "The content of this field is the same as the passThrough value in the request parameter data"
+          },
+          {
+            "req_name": "contactResult",
+            "type": "json_array",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "Contact detection results, including recognized WeChat, QQ, and phone numbers.",
+            "son": [
+              {
+                "req_name": "contactType",
+                "type": "int",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Contact type, with optional values [0-3]:\n0: Phone number\n1: QQ number\n2: WeChat ID"
+              },
+              {
+                "req_name": "contactString",
+                "type": "string",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "Contact string"
+              }
+            ]
+          },
+          {
+            "req_name": "contextText",
+            "type": "string",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "Returned when context is enabled"
+          },
+          {
+            "req_name": "unauthorizedType",
+            "type": "string",
+            "param_description": "Auxiliary information",
+            "required": "N",
+            "param_specification": "Unauthorized type"
+          }
+        ]
+      },
+      {
+        "req_name": "allLabels",
+        "type": "json_array",
+        "param_description": "Auxiliary information",
+        "required": "Y",
+        "param_specification": "All matched risk labels and detailed information.",
+        "son": [
+          {
+            "req_name": "riskLabel1",
+            "type": "string",
+            "param_description": "Required when allLabels is not empty",
+            "required": "Y",
+            "param_specification": "Primary risk label"
+          },
+          {
+            "req_name": "riskLabel2",
+            "type": "string",
+            "param_description": "Required when allLabels is not empty",
+            "required": "Y",
+            "param_specification": "Secondary risk label"
+          },
+          {
+            "req_name": "riskLabel3",
+            "type": "string",
+            "param_description": "Required when allLabels is not empty",
+            "required": "Y",
+            "param_specification": "Tertiary risk label"
+          },
+          {
+            "req_name": "riskDescription",
+            "type": "string",
+            "param_description": "Required when allLabels is not empty",
+            "required": "Y",
+            "param_specification": "Risk reason"
+          },
+          {
+            "req_name": "probability",
+            "type": "float",
+            "param_description": "Confidence level",
+            "required": "Y",
+            "param_specification": "Values range from 0 to 1, with higher values indicating greater reliability. Required when allLabels is not empty."
+          },
+          {
+            "req_name": "riskDetail",
+            "type": "json_object",
+            "param_description": "Mapped risk details",
+            "required": "Y",
+            "param_specification": "",
+            "son": [
+              {
+                "req_name": "matchedLists",
+                "type": "json_array",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "List of matched custom lists.",
+                "son": [
+                  {
+                    "req_name": "name",
+                    "type": "string",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Name of the matched list"
+                  },
+                  {
+                    "req_name": "words",
+                    "type": "json_array",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Array of matched sensitive words.",
+                    "son": [
+                      {
+                        "req_name": "word",
+                        "type": "string",
+                        "param_description": "Auxiliary information",
+                        "required": "N",
+                        "param_specification": "Matched sensitive word"
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "Auxiliary information",
+                        "required": "N",
+                        "param_specification": "Position of the sensitive word"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "req_name": "riskSegments",
+                "type": "json_array",
+                "param_description": "Auxiliary information. High-risk content segments are detected when the text contains political, violent, banned, or advertising-related risks.",
+                "required": "N",
+                "param_specification": "",
+                "son": [
+                  {
+                    "req_name": "segment",
+                    "type": "string",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "High-risk content segment"
+                  },
+                  {
+                    "req_name": "position",
+                    "type": "int_array",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Position of the high-risk content segment"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "Risk level",
+            "required": "Y",
+            "param_specification": "Possible return values:\nREVIEW: Suspicious\nREJECT: Violation"
+          }
+        ]
+      },
+      {
+        "req_name": "businessLabels",
+        "type": "json_array",
+        "param_description": "Auxiliary information",
+        "required": "Y",
+        "param_specification": "All matched business labels and detailed information.",
+        "son": [
+          {
+            "req_name": "businessLabel1",
+            "type": "string",
+            "param_description": "Required when businessLabels is not empty",
+            "required": "Y",
+            "param_specification": "Primary business label"
+          },
+          {
+            "req_name": "businessLabel2",
+            "type": "string",
+            "param_description": "Required when businessLabels is not empty",
+            "required": "Y",
+            "param_specification": "Secondary business label"
+          },
+          {
+            "req_name": "businessLabel3",
+            "type": "string",
+            "param_description": "Required when businessLabels is not empty",
+            "required": "Y",
+            "param_specification": "Tertiary business label"
+          },
+          {
+            "req_name": "businessDescription",
+            "type": "string",
+            "param_description": "Required when businessLabels is not empty",
+            "required": "Y",
+            "param_specification": "Label description"
+          },
+          {
+            "req_name": "probability",
+            "type": "float",
+            "param_description": "Required when businessLabels is not empty. Values range from 0 to 1, with higher values indicating greater reliability.",
+            "required": "Y",
+            "param_specification": "Confidence level"
+          },
+          {
+            "req_name": "businessDetail",
+            "type": "json_object",
+            "param_description": "Required when businessLabels is not empty",
+            "required": "Y",
+            "param_specification": "Business details"
+          }
+        ]
+      },
+      {
+        "req_name": "tokenProfileLabels",
+        "type": "json_array",
+        "param_description": "Auxiliary information",
+        "required": "N",
+        "param_specification": "Attribute account labels.",
+        "son": [
+          {
+            "req_name": "label1",
+            "type": "string",
+            "param_description": "Primary label",
+            "required": "N",
+            "param_specification": ""
+          },
+          {
+            "req_name": "label2",
+            "type": "string",
+            "param_description": "Secondary label",
+            "required": "N",
+            "param_specification": ""
+          },
+          {
+            "req_name": "label3",
+            "type": "string",
+            "param_description": "Tertiary label",
+            "required": "N",
+            "param_specification": ""
+          },
+          {
+            "req_name": "description",
+            "type": "string",
+            "param_description": "Label description",
+            "required": "N",
+            "param_specification": ""
+          },
+          {
+            "req_name": "timestamp",
+            "type": "Int",
+            "param_description": "Label timestamp",
+            "required": "N",
+            "param_specification": "13-digit Unix timestamp, unit: milliseconds"
+          }
+        ]
+      },
+      {
+        "req_name": "tokenRiskLabels",
+        "type": "json_array",
+        "param_description": "Auxiliary information",
+        "required": "N",
+        "param_specification": "Risk account labels."
+      },
+      {
+        "req_name": "langResult",
+        "type": "json_object",
+        "param_description": "Language information",
+        "required": "N",
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "detectedLang",
+            "type": "string",
+            "param_description": "Language detection result",
+            "required": "N",
+            "param_specification": "Returned when lang is set to 'auto' in the international text product. Values are standard language codes, such as zh, en, ar, etc."
+          },
+          {
+            "req_name": "translatedText",
+            "type": "string",
+            "param_description": "Text translation result",
+            "required": "N",
+            "param_specification": "Returned when translationTargetLang is provided. The value is the translated text."
+          }
+        ]
+      },
+      {
+        "req_name": "kbDetail",
+        "type": "json_object",
+        "param_description": "Knowledge base details",
+        "required": "N",
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "qlabel",
+            "type": "string",
+            "param_description": "Question label",
+            "required": "Y",
+            "param_specification": "Optional values:\nUNKNOWN: No match\nCANNOT_ASK: The question itself is not allowed\nEXACTNESS: The answer must be correct, including correct stance\nPOSITIVE: The answer should contain positive guidance\nPENDING: Streamed query for answer"
+          },
+          {
+            "req_name": "answer",
+            "type": "string",
+            "param_description": "Suggested answer",
+            "required": "Y",
+            "param_specification": "When qlabel is 'EXACTNESS' or 'POSITIVE', Shumei will provide a suggested answer that meets the requirements."
+          },
+          {
+            "req_name": "isEnd",
+            "type": "bool",
+            "param_description": "Whether the answer is complete",
+            "required": "Y",
+            "param_specification": "Whether the answer is complete"
+          },
+          {
+            "req_name": "hasAnswer",
+            "type": "int",
+            "param_description": "Whether an answer exists",
+            "required": "Y",
+            "param_specification": "1: Answer exists; 0: No answer; 2: Requires streamed query for answer (default: 0)"
+          }
+        ]
+      },
+      {
+        "req_name": "finalResult",
+        "type": "int",
+        "param_description": "Whether the result is final",
+        "required": "Y",
+        "param_specification": "Value 1: The result can be used directly for disposal, distribution, and other downstream scenarios. Value 0: The result is a process result from Shumei's risk control and requires further manual review before being sent back to you."
+      },
+      {
+        "req_name": "resultType",
+        "type": "int",
+        "param_description": "Whether the current result is from machine review or human review",
+        "required": "Y",
+        "param_specification": "0: Machine review, 1: Human review"
+      },
+      {
+        "req_name": "disposal",
+        "type": "json_object",
+        "param_description": "Disposal and mapping results",
+        "required": "N",
+        "param_specification": "Shumei can return results according to your label system and identifiers. If no custom label system is configured, this field will not be returned.",
+        "son": [
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "Disposal recommendation",
+            "required": "Y",
+            "param_specification": "If you have your own disposal rules, Shumei can configure and return the corresponding disposal recommendations according to your logic. If the rule labels are not mapped, the default disposal recommendation will be returned."
+          },
+          {
+            "req_name": "riskLabel1",
+            "type": "string",
+            "param_description": "Mapped primary risk label",
+            "required": "Y",
+            "param_specification": "Primary risk label. When Shumei's labels are not mapped to custom labels and the riskLevel in disposal is PASS, the value of riskLabel1 is 'normal'."
+          },
+          {
+            "req_name": "riskLabel2",
+            "type": "string",
+            "param_description": "Mapped secondary risk label",
+            "required": "Y",
+            "param_specification": "Secondary risk label. When Shumei's labels are not mapped to custom labels and the riskLevel in disposal is PASS, the value of riskLabel2 is empty."
+          },
+          {
+            "req_name": "riskLabel3",
+            "type": "string",
+            "param_description": "Mapped tertiary risk label",
+            "required": "Y",
+            "param_specification": "Tertiary risk label. When Shumei's labels are not mapped to custom labels and the riskLevel in disposal is PASS, the value of riskLabel3 is empty."
+          },
+          {
+            "req_name": "riskDescription",
+            "type": "string",
+            "param_description": "Mapped risk reason",
+            "required": "Y",
+            "param_specification": "Returns 'normal' when riskLevel is PASS."
+          },
+          {
+            "req_name": "riskDetail",
+            "type": "json_object",
+            "param_description": "Mapped risk details",
+            "required": "Y",
+            "param_specification": "",
+            "son": [
+              {
+                "req_name": "matchedLists",
+                "type": "json_array",
+                "param_description": "Auxiliary information",
+                "required": "N",
+                "param_specification": "List of matched custom lists.",
+                "son": [
+                  {
+                    "req_name": "name",
+                    "type": "string",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Name of the matched list"
+                  },
+                  {
+                    "req_name": "words",
+                    "type": "json_array",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Array of matched sensitive words.",
+                    "son": [
+                      {
+                        "req_name": "word",
+                        "type": "string",
+                        "param_description": "Auxiliary information",
+                        "required": "N",
+                        "param_specification": "Matched sensitive word"
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "Auxiliary information",
+                        "required": "N",
+                        "param_specification": "Position of the sensitive word"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "req_name": "riskSegments",
+                "type": "json_array",
+                "param_description": "Auxiliary information. High-risk content segments are detected when the text contains political, violent, banned, or advertising-related risks.",
+                "required": "N",
+                "param_specification": "",
+                "son": [
+                  {
+                    "req_name": "segment",
+                    "type": "string",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "High-risk content segment"
+                  },
+                  {
+                    "req_name": "position",
+                    "type": "int_array",
+                    "param_description": "Auxiliary information",
+                    "required": "N",
+                    "param_specification": "Position of the high-risk content segment"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "When the lang field is set to 'zh' or detected as Chinese with 'auto', the primary labels are as follows:"
+  },
+  {
+    "header": [
+      {
+        "key": "label",
+        "title": "Primary Label"
+      },
+      {
+        "key": "identification",
+        "title": "Primary Identifier"
+      },
+      {
+        "key": "genre",
+        "title": "Type"
+      },
+      {
+        "key": "remark",
+        "title": "Remark"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "label": "Political",
+        "identification": "politics",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Violence",
+        "identification": "violence",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Pornography",
+        "identification": "porn",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Banned",
+        "identification": "ban",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Abuse",
+        "identification": "abuse",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Advertising Law",
+        "identification": "ad_law",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Advertising",
+        "identification": "ad",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Blacklist",
+        "identification": "blacklist",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Meaningless",
+        "identification": "meaningless",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Privacy",
+        "identification": "privacy",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Fraud",
+        "identification": "fraud",
+        "genre": "Regulatory Label",
+        "remark": "type value is FRAUD"
+      },
+      {
+        "label": "Minor",
+        "identification": "minor",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTMINOR"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "When the language is not Chinese, the primary labels are as follows:"
+  },
+  {
+    "header": [
+      {
+        "key": "label",
+        "title": "Primary Label"
+      },
+      {
+        "key": "identification",
+        "title": "Primary Identifier"
+      },
+      {
+        "key": "genre",
+        "title": "Type"
+      },
+      {
+        "key": "remark",
+        "title": "Remark"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "label": "Political",
+        "identification": "Politics",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Violence",
+        "identification": "Violence",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Pornography",
+        "identification": "Erotic",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Banned",
+        "identification": "Prohibit",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Abuse",
+        "identification": "Abuse",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Advertising",
+        "identification": "Ads",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      },
+      {
+        "label": "Blacklist",
+        "identification": "Blacklist",
+        "genre": "Regulatory Label",
+        "remark": "type value is TEXTRISK"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "Example"
+  },
+  {
+    "type": "title-3",
+    "value": "Request Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "*************",
+      "appId": "default",
+      "eventId": "text",
+      "type": "TEXTRISK",
+      "data": {
+        "text": "Add me on QQ: qq12345",
+        "tokenId": "4567898765jhgfdsa",
+        "ip": "118.89.214.89",
+        "deviceId": "*************",
+        "nickname": "***********",
+        "extra": {
+          "topic": "12345",
+          "atId": "username1",
+          "room": "ceshi123",
+          "receiveTokenId": "username2"
+        }
+      }
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "Response Example"
+  },
+  {
+    "type": "json",
+    "value": {
+      "allLabels": [
+        {
+          "probability": 1,
+          "riskDescription": "Political: Political: Political",
+          "riskDetail": {},
+          "riskLabel1": "politics",
+          "riskLabel2": "political",
+          "riskLabel3": "political",
+          "riskLevel": "REVIEW"
+        },
+        {
+          "probability": 0.95559550232975,
+          "riskDescription": "Advertising: Add friend: Add friend",
+          "riskDetail": {
+            "matchedLists": [
+              {
+                "name": "Community Sensitive Word List",
+                "words": [
+                  {
+                    "position": [
+                      6,
+                      7
+                    ],
+                    "word": "qq"
+                  }
+                ]
+              }
+            ]
+          },
+          "riskLabel1": "ad",
+          "riskLabel2": "add_friend",
+          "riskLabel3": "add_friend",
+          "riskLevel": "REJECT"
+        },
+        {
+          "probability": 1,
+          "riskDescription": "Advertising: Contact information: Contact information",
+          "riskDetail": {},
+          "riskLabel1": "ad",
+          "riskLabel2": "contact_info",
+          "riskLabel3": "contact_info",
+          "riskLevel": "REJECT"
+        }
+      ],
+      "auxInfo": {
+        "contactResult": [
+          {
+            "contactString": "qq12345",
+            "contactType": 2
+          }
+        ],
+        "filteredText": "Add me on QQ: **12345"
+      },
+      "businessLabels": [],
+      "code": 1100,
+      "message": "Success",
+      "finalResult": 1,
+      "resultType": 0,
+      "requestId": "bb917ec5fa11fd02d226fb384968feb1",
+      "riskDescription": "Advertising: Contact information: Contact information",
+      "riskDetail": {},
+      "riskLabel1": "ad",
+      "riskLabel2": "contact_info",
+      "riskLabel3": "contact_info",
+      "riskLevel": "REJECT"
+    }
+  }
+]
