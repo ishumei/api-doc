@@ -193,6 +193,13 @@
             "type": "array"
           },
           {
+            "length": "1024",
+            "param_description": "图片备用下载地址，当img下载失败且传入backupUrl时，使用backupUrl进行下载",
+            "req_name": "backupUrl",
+            "required": false,
+            "type": "string"
+          },
+          {
             "length": "128",
             "param_description": "客户自定义数据Id。可以用于数美saas后台检索",
             "req_name": "dataId",
