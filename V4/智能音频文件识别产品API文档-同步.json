@@ -1,0 +1,875 @@
+[
+  {
+    "type": "title-1",
+    "value": "同步检测"
+  },
+  {
+    "type": "desc",
+    "value": "音频检测接口，可协助您识别音频中的涉政、色情、广告、暴恐等风险；同时可结合您的业务场景，识别未成年、音色、等内容。"
+  },
+  {
+    "type": "title-2",
+    "value": "接口说明"
+  },
+  {
+    "type": "desc",
+    "value": "同步检测接口，可返回识别结果。建议使用http协议接口调用。"
+  },
+  {
+    "type": "title-3",
+    "value": "音频要求"
+  },
+  {
+    "type": "desc",
+    "value": "音频类型：URL、BASE64。\n音频格式：WAV、MP3、AAC、AMR、3GP、M4A、WMA、OGG、APE、FLAC、ALAC、WAVPACK、SILK_V3等。\n音频大小：接口限制为18M。\n音频地址：建议音频下载从CDN源站下载，并且源站不能为单点，否则可能存在音频下载失败，导致无法审核。"
+  },
+  {
+    "type": "title-3",
+    "value": "审核时间"
+  },
+  {
+    "type": "desc",
+    "value": " 建议超时时间：同步请求接口建议设置10秒；异步请求接口建议设置5秒。\n内部检测逻辑：音频检测接口的响应时间依赖音频的下载时间，请保证被检测音频所在的存储服务稳定可靠。具体时长和请求type、音频大小相关。"
+  },
+  {
+    "type": "title-2",
+    "value": "请求"
+  },
+  {
+    "type": "title-3",
+    "value": "请求地址"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "上海",
+        "url": "http://api-audio-sh.fengkongcloud.com/audiomessage/v4",
+        "supportProduct": "中文"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "请求参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必传"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "param_description": "公司密钥",
+        "param_specification": "由数美提供，具体内容见邮件。",
+        "req_name": "accessKey",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "param_description": "应用标识",
+        "param_specification": "用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准，默认内容见邮件。",
+        "req_name": "appId",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "req_name": "eventId",
+        "type": "string",
+        "param_description": "事件标识",
+        "required": true,
+        "param_specification": "用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准，默认内容见邮件。"
+      },
+      {
+        "req_name": "type",
+        "type": "string",
+        "param_description": "检测的风险类型",
+        "required": false,
+        "param_specification": "businesstype和type必传其一\nAUDIOPOLITICAL：一号领导人声纹识别\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nADLAW：广告法识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nANTHEN：国歌识别\nMOAN：娇喘识别\nDIRTY：辱骂识别\nBANEDAUDIO：违禁歌曲\nCOPYRIGHTSONGS：版权歌曲\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别\n建议传入：\nPOLITY_EROTIC_MOAN_ADVERT。"
+      },
+      {
+        "req_name": "businessType",
+        "type": "string",
+        "param_description": "检测的业务标签类型",
+        "required": false,
+        "param_specification": "type和 businessType 必须填其一\n可选值：\nSING：唱歌识别\nLANGUAGE：语种识别\nGENDER：性别识别\nTIMBRE：音色识别\nVOICE：人声属性\nMINOR：未成年识别\nAUDIOSCENE：声音场景\nAGE：年龄识别\n如需识别音色、唱歌、语种GENDER必传"
+      },
+      {
+        "req_name": "contentType",
+        "type": "string",
+        "param_description": "待识别音频内容的格式",
+        "required": true,
+        "param_specification": "可选值：\nURL：识别内容为音频url地址；\nRAW：识别内容为音频的base64编码数据"
+      },
+      {
+        "req_name": "content",
+        "type": "string",
+        "param_description": "待识别的音频内容",
+        "required": true,
+        "param_specification": "可以为url地址或者base64编码数据。\n其中，base64编码数据上限15M，仅支持pcm、wav、mp3格式, 并且pcm格式数据必须采用16-bit小端序编码。推荐使用pcm、wav格式传输"
+      },
+      {
+        "req_name": "btId",
+        "type": "string",
+        "param_description": "音频文件唯一标识",
+        "required": true,
+        "param_specification": "唯一标识这条音频文件，方便将回调结果对应上，超过128位将被截断，不能重复"
+      },
+      {
+        "length": "-",
+        "param_specification": "请求的数据内容，data字段长度最长1MB",
+        "req_name": "data",
+        "required": true,
+        "son": [
+          {
+            "req_name": "tokenId",
+            "type": "string",
+            "param_description": "用户账号",
+            "required": false,
+            "param_specification": "用于用户行为分析，建议传入用户UID"
+          },
+          {
+            "req_name": "receiveTokenId",
+            "type": "string",
+            "param_description": "私聊场景下消息接收者的tokenId",
+            "required": false,
+            "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串"
+          },
+          {
+            "req_name": "deviceId",
+            "type": "string",
+            "param_description": "数美设备指纹标识",
+            "required": false,
+            "param_specification": "数美设备指纹生成的设备唯一标识"
+          },
+          {
+            "req_name": "ip",
+            "type": "string",
+            "param_description": "ipv4或ipv6地址",
+            "required": false,
+            "param_specification": "发送该音频的用户公网ip地址"
+          },
+          {
+            "req_name": "dataId",
+            "type": "string",
+            "param_description": "数据标识",
+            "required": false,
+            "param_specification": "数据标识"
+          },
+          {
+            "req_name": "level",
+            "type": "int",
+            "param_description": "用户等级，针对不同等级的用户可配置不同拦截策略",
+            "required": false,
+            "param_specification": "可选值：\n0：最低级用户，典型如新注册、完全不活跃或等级为0的用户等；\n1：较低级用户，典型如低活跃或低等级用户等；\n2：中等级用户，典型如具备一定活跃或等级中等的用户等；\n3：较高级用户，典型如高活跃或高等级用户等；\n4：最高级用户，典型如付费用户、VIP用户等"
+          },
+          {
+            "req_name": "gender",
+            "type": "string",
+            "param_description": "用户性别",
+            "required": false,
+            "param_specification": "可选值：\nmale：男性\nfemale：女性"
+          },
+          {
+            "req_name": "formatInfo",
+            "type": "string",
+            "param_description": "音频数据格式",
+            "required": false,
+            "param_specification": "当音频内容格式为RAW时必须存在，可选值：pcm、wav、mp3"
+          },
+          {
+            "req_name": "rate",
+            "type": "int",
+            "param_description": "音频数据采样率",
+            "required": false,
+            "param_specification": "当音频数据格式为pcm时必须存在，范围限制8000-32000"
+          },
+          {
+            "req_name": "track",
+            "type": "int",
+            "param_description": "音频数据声道数",
+            "required": false,
+            "param_specification": "当音频数据格式为pcm时必须存在，可选值：\n1: 单声道\n2: 双声道"
+          },
+          {
+            "req_name": "returnAllText",
+            "type": "int",
+            "param_description": "返回音频片段的等级",
+            "required": false,
+            "param_specification": "可选值如下（默认为0）：\n0：返回风险片段识别结果\n1：返回所有片段识别结果\n该参数仅用于控制片段识别结果的返回，不影响整体识别结果的返回。\n当选择“返回所有片段识别结果”时，片段识别结果中包含riskLevel为PASS、REVIEW和REJECT的片段识别结果；\n当选择“返回风险片段识别结果”时，片段识别结果中仅包含riskLevel为REVIEW和REJECT的片段识别结果；\n片段识别结果对应回调或者查询响应中的audioDetail字段。"
+          }
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "响应"
+  },
+  {
+    "type": "title-3",
+    "value": "返回参数"
+  },
+  {
+    "type": "desc",
+    "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "本次请求的唯一标识",
+        "required": true,
+        "param_specification": ""
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "请求返回码",
+        "required": true,
+        "param_specification": "1100：成功\n1101：正在处理中\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904：下载失败\n1905：解码失败\n9100：余额不足\n9101：无权限操作\n除message和requestId之外的字段，只有当code为1100时才会存在"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "请求返回描述，和请求返回码对应",
+        "required": true,
+        "param_specification": ""
+      },
+      {
+        "req_name": "detail",
+        "type": "json",
+        "param_description": "请求返回明细数据",
+        "required": false,
+        "param_specification": "当code码为1100时此参数必返",
+        "son": [
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "当前事件的处置建议",
+            "required": true,
+            "param_specification": "可能返回值：\nPASS：通过\nREVIEW：审核\nREJECT：拒绝\n建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后在进行使用"
+          },
+          {
+            "req_name": "audioText",
+            "type": "string",
+            "param_description": "整段音频转译文本结果",
+            "required": true,
+            "param_specification": ""
+          },
+          {
+            "req_name": "audioTime",
+            "type": "int",
+            "param_description": "整段音频的音频时长",
+            "required": true,
+            "param_specification": "单位秒"
+          },
+          {
+            "req_name": "audioDetail",
+            "type": "json_array",
+            "param_description": "音频片段信息",
+            "required": true,
+            "param_specification": "回调的音频片段信息",
+            "son": [
+              {
+                "req_name": "requestId",
+                "type": "string",
+                "param_description": "音频片段请求唯一标识",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "audioStarttime",
+                "type": "float",
+                "param_description": "音频片段起始时间",
+                "required": true,
+                "param_specification": "相对音频开始的时间距离，单位是秒"
+              },
+              {
+                "req_name": "audioEndtime",
+                "type": "float",
+                "param_description": "音频片段结束时间",
+                "required": true,
+                "param_specification": "相对音频开始的时间距离，单位是秒"
+              },
+              {
+                "req_name": "audioUrl",
+                "type": "string",
+                "param_description": "音频片段链接",
+                "required": true,
+                "param_specification": "mp3格式"
+              },
+              {
+                "req_name": "riskLevel",
+                "type": "string",
+                "param_description": "音频片段识别结果",
+                "required": true,
+                "param_specification": "可能返回值：\nPASS：通过\nREVIEW：审核\nREJECT：拒绝"
+              },
+              {
+                "req_name": "businessLabels",
+                "type": "json_array",
+                "param_description": "业务标签返回",
+                "required": false,
+                "param_specification": "全部业务标签",
+                "son": [
+                  {
+                    "req_name": "businessLabel1",
+                    "type": "string",
+                    "param_description": "一级标签",
+                    "required": true,
+                    "param_specification": "一级标签"
+                  },
+                  {
+                    "req_name": "businessLabel2",
+                    "type": "string",
+                    "param_description": "二级标签",
+                    "required": true,
+                    "param_specification": "二级标签"
+                  },
+                  {
+                    "req_name": "businessLabel3",
+                    "type": "string",
+                    "param_description": "三级标签",
+                    "required": true,
+                    "param_specification": "三级标签"
+                  },
+                  {
+                    "req_name": "businessDescription",
+                    "type": "string",
+                    "param_description": "标签描述",
+                    "required": true,
+                    "param_specification": "格式为\"一级标签:二级标签:三级标签\"的中文名称"
+                  },
+                  {
+                    "req_name": "confidenceLevel",
+                    "type": "int",
+                    "param_description": "置信等级",
+                    "required": false,
+                    "param_specification": "可选值在0～2之间，值越大，可信度越高"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "float",
+                    "param_description": "置信度",
+                    "required": false,
+                    "param_specification": "可选值为0~1，值越大，可信度越高"
+                  },
+                  {
+                    "req_name": "businessDetail",
+                    "type": "json_object",
+                    "param_description": "详细信息",
+                    "required": false,
+                    "param_specification": "保留字段"
+                  }
+                ]
+              },
+              {
+                "req_name": "allLabels",
+                "type": "json_array",
+                "param_description": "风险标签返回",
+                "required": false,
+                "param_specification": "全部风险标签",
+                "son": [
+                  {
+                    "req_name": "riskLabel1",
+                    "type": "string",
+                    "param_description": "一级风险标签",
+                    "required": true,
+                    "param_specification": "一级风险标签"
+                  },
+                  {
+                    "req_name": "riskLabel2",
+                    "type": "string",
+                    "param_description": "二级风险标签",
+                    "required": true,
+                    "param_specification": "二级风险标签"
+                  },
+                  {
+                    "req_name": "riskLabel3",
+                    "type": "string",
+                    "param_description": "三级风险标签",
+                    "required": true,
+                    "param_specification": "三级风险标签"
+                  },
+                  {
+                    "req_name": "riskDescription",
+                    "type": "string",
+                    "param_description": "风险原因",
+                    "required": true,
+                    "param_specification": "风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+                  },
+                  {
+                    "req_name": "riskLevel",
+                    "type": "string",
+                    "param_description": "处置建议",
+                    "required": true,
+                    "param_specification": "可能返回值： PASS：通过REVIEW：审核REJECT：拒绝"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "float",
+                    "param_description": "置信度",
+                    "required": false,
+                    "param_specification": "可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高"
+                  },
+                  {
+                    "req_name": "riskDetail",
+                    "type": "json_object",
+                    "param_description": "风险详情",
+                    "required": false,
+                    "param_specification": "",
+                    "son":[
+                      {
+                        "req_name": "audioText",
+                        "type": "string",
+                        "param_description": "音频转译文本的结果",
+                        "required": false,
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "matchedLists",
+                        "type": "json_array",
+                        "param_description": "命中的客户自定义名单信息",
+                        "required": false,
+                        "param_specification": "命中客户自定义名单时返回",
+                        "son": [
+                          {
+                            "req_name": "name",
+                            "type": "string",
+                            "param_description": "客户自定义名单名称",
+                            "required": true,
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "words",
+                            "type": "json_array",
+                            "param_description": "命中的这个名单中的敏感词信息",
+                            "required": true,
+                            "param_specification": "",
+                            "son": [
+                              {
+                                "req_name": "word",
+                                "type": "string",
+                                "param_description": "敏感词",
+                                "required": true,
+                                "param_specification": ""
+                              },
+                              {
+                                "req_name": "position",
+                                "type": "int_array",
+                                "param_description": "敏感词所在位置",
+                                "required": true,
+                                "param_specification": ""
+                              }
+                            ]
+
+                          }
+                        ]
+                      },
+                      {
+                        "req_name": "riskSegments",
+                        "type": "json_array",
+                        "param_description": "高风险内容片段",
+                        "required": false,
+                        "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                        "son": [
+                          {
+                            "req_name": "segment",
+                            "type": "string",
+                            "param_description": "高风险内容片段",
+                            "required": false,
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "position",
+                            "type": "int_array",
+                            "param_description": "高风险内容片段所在位置",
+                            "required": false,
+                            "param_specification": ""
+                          }
+                        ]
+
+                      }
+                    ]
+                  }
+                ]
+
+              },
+              {
+                "req_name": "riskLabel1",
+                "type": "string",
+                "param_description": "一级风险标签",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskLabel2",
+                "type": "string",
+                "param_description": "二级风险标签",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskLabel3",
+                "type": "string",
+                "param_description": "三级风险标签",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "riskDescription",
+                "type": "string",
+                "param_description": "风险原因",
+                "required": true,
+                "param_specification": "仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+              },
+              {
+                "req_name": "riskDetail",
+                "type": "json_object",
+                "param_description": "风险详情",
+                "required": false,
+                "param_specification": "",
+                "son":[
+                  {
+                    "req_name": "audioText",
+                    "type": "string",
+                    "param_description": "音频转译文本的结果",
+                    "required": false,
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "matchedLists",
+                    "type": "json_array",
+                    "param_description": "命中的客户自定义名单信息",
+                    "required": false,
+                    "param_specification": "命中客户自定义名单时返回",
+                    "son": [
+                      {
+                        "req_name": "name",
+                        "type": "string",
+                        "param_description": "客户自定义名单名称",
+                        "required": true,
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "words",
+                        "type": "json_array",
+                        "param_description": "命中的这个名单中的敏感词信息",
+                        "required": true,
+                        "param_specification": "",
+                        "son": [
+                          {
+                            "req_name": "word",
+                            "type": "string",
+                            "param_description": "敏感词",
+                            "required": true,
+                            "param_specification": ""
+                          },
+                          {
+                            "req_name": "position",
+                            "type": "int_array",
+                            "param_description": "敏感词所在位置",
+                            "required": true,
+                            "param_specification": ""
+                          }
+                        ]
+
+                      }
+                    ]
+                  },
+                  {
+                    "req_name": "riskSegments",
+                    "type": "json_array",
+                    "param_description": "高风险内容片段",
+                    "required": false,
+                    "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                    "son": [
+                      {
+                        "req_name": "segment",
+                        "type": "string",
+                        "param_description": "高风险内容片段",
+                        "required": false,
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "高风险内容片段所在位置",
+                        "required": false,
+                        "param_specification": ""
+                      }
+                    ]
+
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "audioTags",
+            "type": "json_object",
+            "param_description": "音频标签",
+            "required": false,
+            "param_specification": "返回性别、音色、是否唱歌等标签。历史兼容字段，建议直接使用businessLabels",
+            "son": [
+              {
+                "req_name": "gender",
+                "type": "string",
+                "param_description": "性别",
+                "required": false,
+                "param_specification": "可能返回值：\nMALE：男性\nFEMALE：女性\nUNKNOWN：未知",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "性别标签名称",
+                    "required": true,
+                    "param_specification": "可能取值：男性 女性"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应性别可能性大小",
+                    "required": false,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                  }
+                ]
+              },
+              {
+                "req_name": "timbre",
+                "type": "string",
+                "param_description": "音色",
+                "required": false,
+                "param_specification": "可能返回值：\nSILENT：静音\nSOFT：柔和\nLOUD：大声\nUNKNOWN：未知",
+                "son": [
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应音色标签可能性大小",
+                    "required": false,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                  },
+                  {
+                    "req_name": "label",
+                    "type": "string",
+                    "param_description": "音色标签类别",
+                    "required": false,
+                    "param_specification": "可能取值：\n大叔\n青年\n正太\n老年\n女王\n御姐\n少女\n萝莉\n大妈\n男性\n女性\n无人声\n"
+                  }
+                ]
+              },{
+                "req_name": "language",
+                "type": "json",
+                "param_description": "语种",
+                "required": false,
+                "param_specification": "",
+                "son": [
+                  {
+                    "req_name": "label",
+                    "type": "int",
+                    "param_description": "语种识别类别标识",
+                    "required": true,
+                    "param_specification": "可能取值：\n0:普通话\n1:英语\n2:粤语\n3:藏语\n4:维语\n5:蒙语\n6:朝鲜语\n-1:其他语种\n"
+                  },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应音色标签可能性大小",
+                    "required": true,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                  }
+                ]
+
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "示例"
+  },
+  {
+    "type": "title-3",
+    "value": "请求示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "*************",
+      "appId": "default",
+      "eventId": "default",
+      "type": "POLITY_EROTIC",
+      "businessType":"TIMBRE",
+      "btId": "test1",
+      "contentType": "URL",
+      "content": "*************",
+      "data": {
+        "returnAllText":1,
+        "tokenId": "token-short"
+      }
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "返回示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code":1100,
+      "message":"成功",
+      "requestId":"817c8509359500c898a762ffe93a582b",
+      "btId":"1667392054643",
+      "detail":{
+        "audioDetail":[
+          {
+            "requestId":"817c8509359500c898a762ffe93a582b_a0000",
+            "audioStarttime":0,
+            "audioEndtime":10,
+            "audioUrl":"http://voice-stream.oss-cn-hangzhou.aliyuncs.com/POST_AUDIO%2F20221102%2F817c8509359500c898a762ffe93a582b_a0000.mp3",
+            "businessLabels":[
+              {
+                "businessDescription":"唱歌:唱歌:唱歌",
+                "businessDetail":{
+
+                },
+                "businessLabel1":"sing",
+                "businessLabel2":"changge",
+                "businessLabel3":"changge",
+                "confidenceLevel":2,
+                "probability":0.858334402569294
+              }],
+            "allLabels":[],
+            "riskLevel":"REJECT",
+            "riskLabel1":"abuse",
+            "riskLabel2":"buwenmingyongyu",
+            "riskLabel3":"qingdubuwenmingyongyu",
+            "riskDescription":"辱骂:不文明用语:轻度不文明用语",
+            "riskDetail":{
+              "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你"
+            }
+          }
+        ],
+        "audioTags":{
+          "gender":{
+            "label":"女性",
+            "probability":95
+          },
+          "language":[
+            {
+              "confidence":0,
+              "label":2
+            },
+            {
+              "confidence":99,
+              "label":0
+            },
+            {
+              "confidence":0,
+              "label":1
+            }
+          ],
+          "song":0,
+          "timbre":[
+            {
+              "label":"女性",
+              "probability":95
+            },
+            {
+              "label":"女王",
+              "probability":12
+            },
+            {
+              "label":"御姐",
+              "probability":37
+            },
+            {
+              "label":"少女",
+              "probability":56
+            },
+            {
+              "label":"大妈",
+              "probability":67
+            },
+            {
+              "label":"萝莉",
+              "probability":24
+            }
+          ]
+        },
+        "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
+        "audioTime":10,
+        "code":1100,
+        "requestParams":{
+          "channel":"TEST",
+          "lang":"zh",
+          "returnAllText":1,
+          "tokenId":"test01"
+        },
+        "riskLevel":"REJECT"
+      }
+    }
+  }
+]
