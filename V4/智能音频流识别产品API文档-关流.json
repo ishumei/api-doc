@@ -1,0 +1,198 @@
+[
+  {
+    "type": "title-1",
+    "value": "关流接口"
+  },
+  {
+    "type": "desc",
+    "value": "该接口用于客户端通知服务端某个音频流已关闭。"
+  },
+  {
+    "type": "title-2",
+    "value": "接口说明"
+  },
+  {
+    "type": "desc",
+    "value": "POST"
+  },
+  {
+    "type": "title-3",
+    "value": "超时时间"
+  },
+  {
+    "type": "desc",
+    "value": "建议超时时间：建议设置1秒。"
+  },
+  {
+    "type": "title-2",
+    "value": "请求"
+  },
+  {
+    "type": "title-3",
+    "value": "请求地址"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "上海",
+        "url": "http://api-audiostream-sh.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "中文、阿语"
+      },
+      {
+        "description": "硅谷",
+        "url": "http://api-audiostream-gg.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "中文、国际化"
+      },
+      {
+        "description": "新加坡",
+        "url": "http://api-audiostream-xjp.fengkongcloud.com/finish_audiostream/v4",
+        "supportProduct": "中文、国际化"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "请求参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必传"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [{
+      "req_name": "accessKey",
+      "type": "string",
+      "param_description": "公司密钥",
+      "required": true,
+      "param_specification": "用于权限认证，开通账号服务时由数美提供，具体内容见邮件"
+    },
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "本次请求的唯一标识",
+        "required": true,
+        "param_specification": "需要关闭音频流的requestId"
+      }]
+  },
+  {
+    "type": "title-2",
+    "value": "响应"
+  },
+  {
+    "type": "title-3",
+    "value": "返回参数"
+  },
+  {
+    "type": "desc",
+    "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "本次请求的唯一标识",
+        "required": true,
+        "param_specification": "请求唯一标识"
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "请求返回码",
+        "required": true,
+        "param_specification": "1100：成功\n1901：QPS超限、流路数超限\n1902：参数不合法\n1903：服务失败\n1904：拉流失败\n9101：无权限操作"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "请求返回描述，和请求返回码对应",
+        "required": true,
+        "param_specification": ""
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "示例"
+  },
+  {
+    "type": "title-3",
+    "value": "请求示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxx",
+      "requestId": "xxxxx"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "返回示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code": 1100,
+      "message": "成功",
+      "requestId": " a78eef377079acc6cdec24967ecde722"
+    }
+  }
+]

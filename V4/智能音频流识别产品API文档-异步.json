@@ -1,0 +1,1433 @@
+[
+  {
+    "type": "title-1",
+    "value": "请求接口"
+  },
+  {
+    "type": "desc",
+    "value": "音频流检测接口，可协助您识别音频中的涉政、色情、广告、暴恐等风险；同时可结合您的业务场景，识别未成年、音色、等内容。"
+  },
+  {
+    "type": "title-2",
+    "value": "接口说明"
+  },
+  {
+    "type": "desc",
+    "value": "该接口用于提交音频流鉴定等相关信息，稳定拉流后将持续回调对应的识别结果至指定的callback地址。"
+  },
+  {
+    "type": "title-3",
+    "value": "拉流重试机制"
+  },
+  {
+    "type": "desc",
+    "value": "为防止网络异常导致的拉流失败问题发生，数美音频流服务设置了拉流失败后的重试机制，具体机制如下：\n普通rtmp、http、hls流会重试12次，第一次间隔5秒，第二次间隔10秒，以此类推，最大间隔不超过60秒\n通过声网SDK录制方式拉流，重试2次，间隔为0\n通过即构SDK录制方式拉流，重试10次，每次重试间隔30秒"
+  },
+  {
+    "type": "title-3",
+    "value": "超时时间"
+  },
+  {
+    "type": "desc",
+    "value": " 建议超时时间：建议设置5秒。"
+  },
+  {
+    "type": "title-3",
+    "value": "回调机制"
+  },
+  {
+    "type": "desc",
+    "value": "当用户收到推送结果，并返回HTTP状态码为200时，表示推送成功；否则系统将进行最多20次推送。"
+  },
+  {
+    "type": "title-2",
+    "value": "请求"
+  },
+  {
+    "type": "title-3",
+    "value": "请求地址"
+  },
+  {
+    "header": [
+      {
+        "key": "description",
+        "title": "集群"
+      },
+      {
+        "key": "url",
+        "title": "请求地址"
+      },
+      {
+        "key": "supportProduct",
+        "title": "支持产品列表"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "description": "上海",
+        "url": "http://api-audiostream-sh.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "中文、阿语"
+      },
+      {
+        "description": "硅谷",
+        "url": "http://api-audiostream-gg.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "中文、国际化"
+      },
+      {
+        "description": "新加坡",
+        "url": "http://api-audiostream-xjp.fengkongcloud.com/audiostream/v4",
+        "supportProduct": "中文、国际化"
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "请求参数"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必传"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "accessKey",
+        "type": "string",
+        "param_description": "公司密钥",
+        "required": true,
+        "param_specification": "由数美提供，具体内容见邮件"
+      },
+      {
+        "req_name": "appId",
+        "type": "string",
+        "param_description": "应用标识",
+        "required": true,
+        "param_specification": "用于区分应用\n需要联系数美服务开通，请使用数美单独提供的传值为准\n，默认内容见邮件"
+      },
+      {
+        "req_name": "eventId",
+        "type": "string",
+        "param_description": "事件标识",
+        "required": true,
+        "param_specification": "区分场景数据\n需要联系数美服务开通，请使用数美单独提供的传值为准\n，默认内容见邮件"
+      },
+      {
+        "req_name": "type",
+        "type": "string",
+        "param_description": "检测的风险类型",
+        "required": "businesstype和type必传其一",
+        "param_specification": "可选值：监管功能\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nMOAN：娇喘识别\nAUDIOPOLITICAL：一号领导人声纹识别\nANTHEN：国歌识别\nDIRTY：辱骂识别\nADLAW：广告法识别\nSING：唱歌识别\nMINOR：未成年人识别\nBANEDAUDIO：违禁歌曲\nCOPYRIGHTSONGS：版权歌曲\nVOICE：人声属性（伪造人声）\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN\n涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测"
+      },
+      {
+        "req_name": "businessType",
+        "type": "string",
+        "param_description": "业务标签",
+        "required": "businesstype和type必传其一",
+        "param_specification": "可选值：业务标签的一、二、三级标签\nGENDER：性别识别\nAGE：年龄识别\nTIMBRE：音色识别\nSING：唱歌识别\nLANGUAGE：语种识别\nVOICE：人声属性\nAUDIOSCENE：声音场景\n如需识别音色、唱歌、语种GENDER必传"
+      },
+      {
+        "req_name": "data",
+        "type": "json_object",
+        "param_description": "请求的数据内容",
+        "required": true,
+        "param_specification": "本次请求相关信息，最长1MB",
+        "son": [
+          {
+            "req_name": "tokenId",
+            "type": "string",
+            "param_description": "用户账号标识",
+            "required": true,
+            "param_specification": "用于区分用户账号，建议传入用户ID"
+          },
+          {
+            "req_name": "btId",
+            "type": "string",
+            "param_description": "音频唯一标识",
+            "required": true,
+            "param_specification": "用于查询指定音频，限长128位字符"
+          },
+          {
+            "req_name": "streamType",
+            "type": "string",
+            "param_description": "流类型",
+            "required": true,
+            "param_specification": "可选值：\nNORMAL：普通流地址，目前支持rtmp、rtmps、hls、http、https协议,支持flv,m3u8等格式\nZEGO：即构\nAGORA：声网\nTRTC：腾讯录制\nVOLC：火山引擎录制\nGIN：巨人录制\nALI：阿里录制\n注意：使用RTC的SDK录制方案时，会在RTC侧产生额外录制费用，具体请咨询相关厂商"
+          },
+          {
+            "req_name": "url",
+            "type": "string",
+            "param_description": "直播流地址",
+            "required": false,
+            "param_specification": "当streamType为NORMAL时必传"
+          },
+          {
+            "req_name": "lang",
+            "type": "string",
+            "param_description": "音频流语言类型",
+            "required": false,
+            "param_specification": "可选值（默认zh）：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\n[集群支持语种详见 请求URL支持语种](#language)"
+          },
+          {
+            "req_name": "zegoParam",
+            "type": "json_object",
+            "param_description": "要检测的流参数",
+            "required": false,
+            "param_specification": "当streamType为ZEGO时必传",
+            "son": [
+              {
+                "req_name": "tokenId",
+                "type": "string",
+                "param_description": "身份验证信息",
+                "required": true,
+                "param_specification": "获取zego的identify_token用于登录，生成方式详见zego文档：https://doc-zh.zego.im/article/15258。注意tokenId唯一标识审核请求，每次请求都需要重新生成。"
+              },
+              {
+                "req_name": "streamId",
+                "type": "string",
+                "param_description": "音频流编号",
+                "required": false,
+                "param_specification": "音频流编号，唯一对应一路音频流，streamId与roomId至少传入其中之一。"
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "房间编号",
+                "required": false,
+                "param_specification": "唯一对应一个房间。"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "录制模式",
+                "required": false,
+                "param_specification": "录制模式\ntrue：合流，房间内所有用户合成一路流录制审核。此时如果streamId与roomId单独存在时则单独生效；但当streamId与roomId同时存在时，则以streamId为有效值。\nfalse：分流，房间内每个用户单独录制审核。此时roomId为必传，且以roomId为有效值。同时streamId不可以传入。"
+              }
+            ]
+          },
+          {
+            "req_name": "initDomain",
+            "type": "int",
+            "param_description": "即构SDK初始化是否有设置隔离域名",
+            "required": false,
+            "param_specification": "当即构客户端init初始化支持隔离域名和随机userId该字段必传\n可选值：\n0：默认版本\n1：仅支持客户端初始化有隔离域名\n2：支持客户端初始化有隔离域名和随机userId功能\n3：更新SDK，修复一些bug\n4：支持客户自定义传入SEI信息\n5：支持vad静音检测，token会有唯一性校验，每次上传鉴黄必须重新生成\n6：房间维度拉流送审模式下，开发者可以控制某条流是否需要送审\n**推荐使用6进行接入；** 默认值为0"
+          },
+          {
+            "req_name": "trtcParam",
+            "type": "json_object",
+            "param_description": "腾讯录制参数",
+            "required": false,
+            "param_specification": "当streamType为TRTC时必传，详见扩展参数",
+            "son": [
+              {
+                "req_name": "sdkAppId",
+                "type": "int",
+                "required": true,
+                "description": "腾讯提供的sdkAppId"
+              },
+              {
+                "req_name": "demoSences",
+                "type": "int",
+                "required": true,
+                "description": "录制类型可选值：分流录制：2；合流录制：4"
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "required": true,
+                "description": "分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符"
+              },
+              {
+                "req_name": "uid",
+                "type": "string",
+                "required": false,
+                "description": "指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，请使用不同的录制端userId和userSig分多次请求。注意区分此参数和userId的区别。"
+              },
+              {
+                "req_name": "userSig",
+                "type": "string",
+                "required": true,
+                "description": "录制userId对应的验证签名，相当于登录密码"
+              },
+              {
+                "req_name": "roomId",
+                "type": "int",
+                "required": true,
+                "description": "房间号码，取值范围：1-4294967294。roomId与strRoomId必传一个，若两者都有值优先选用roomId"
+              },
+              {
+                "req_name": "strRoomId",
+                "type": "string",
+                "required": true,
+                "description": "房间号码，取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符。若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId"
+              }
+            ]
+          },
+          {
+            "req_name": "agoraParam",
+            "type": "json_object",
+            "param_description": "声网流参数",
+            "required": false,
+            "param_specification": "当streamType为AGORA时必传，详见agoraParam参数",
+            "son": [
+              {
+                "req_name": "appId",
+                "type": "string",
+                "param_description": "声网提供的appId",
+                "required": true,
+                "param_specification": "注意与数美的appId区分开"
+              },
+              {
+                "req_name": "channel",
+                "type": "string",
+                "param_description": "声网提供的频道名",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "",
+                "required": false,
+                "param_specification": "安全要求较高的用户可以使用token进行认证，生成方式详见声网文档：https://docs.agora.io/cn/Recording/token_server?platform=CPP。建议将token的有效期设置超过频道的持续时间，防止token失效导致无法拉流。当前声网支持的最大token有效期为24小时，因此当频道持续时间超过24小时的时候，需要处理token失效的问题。处理方法：在请求参数中设置开启音频流结束回调通知（设置returnFinishInfo为1）。当回调接收到审核结束通知（statCode为1），并且原因是由于拉流的token无效或过期（auxInfo下errorCode状态码返回3005），如果频道仍然存在并且需要继续审核，则生成新的token，将频道重新送审。"
+              },
+              {
+                "req_name": "uid",
+                "type": "int",
+                "param_description": "用户ID",
+                "required": false,
+                "param_specification": "32位无符号整数,当token存在时，必须提供生成token时所使用的用户ID。注意，此处需要区别实际房间中的用户uid，提供给服务端录制所用的uid不允许在房间中存在"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "单流/合流录制。",
+                "required": false,
+                "param_specification": "默认值为true。true: 合流；false: 分流。合流是指一个直播房间一路流；分流是指一个麦位一路流。"
+              },
+              {
+                "req_name": "channelProfile",
+                "type": "int",
+                "param_description": "声网录制的频道模式",
+                "required": false,
+                "param_specification": "通信，常见的1对1单聊或群聊，频道内任何用户可以自由说话；直播，有两种用户角色：主播和观众，可选值如下（默认值为0）：0: 通信；1: 直播"
+              },
+              {
+                "req_name": "subscribeMode",
+                "type": "string",
+                "param_description": "订阅模式",
+                "required": false,
+                "param_specification": "AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为；UNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，仅在声网分流里生效；TRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，仅在声网分流中生效"
+              },
+              {
+                "req_name": "trustedUserIdList",
+                "type": "string_array",
+                "param_description": "信任用户的列表",
+                "required": false,
+                "param_specification": "subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。其中每个元素uid的范围应为uint32的范围，但类型为string。例如：[\"123\",\"456\"]"
+              },
+              {
+                "req_name": "untrustedUserIdList",
+                "type": "string_array",
+                "param_description": "非信任用户的列表",
+                "required": false,
+                "param_specification": "subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。其中每个元素uid的范围应为uint32的范围，但类型为string。例如：[\"123\",\"456\"]"
+              }
+            ]
+          },
+          {
+            "req_name": "volcParam",
+            "type": "json_object",
+            "param_description": "火山流参数",
+            "required": false,
+            "param_specification": "当streamType为VOLC时必传，详见volcParam参数",
+            "son": [
+              {
+                "req_name": "appId",
+                "type": "string",
+                "param_description": "火山引擎提供的appId",
+                "required": true,
+                "param_specification": "注意与数美的appId区分开"
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "房间号",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "火山引擎token",
+                "required": true,
+                "param_specification": "详见：https://www.volcengine.com/docs/6348/70121"
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "param_description": "",
+                "required": true,
+                "param_specification": "分配给录制端的userId"
+              },
+              {
+                "req_name": "subscribeMode",
+                "type": "string",
+                "param_description": "订阅模式",
+                "required": false,
+                "param_specification": "AUTO: 自动订阅房间内的所有流，不设置subscribeMode时候的默认行为。\nUNTRUSTED: 配合untrustedUserIdList只订阅该列表指定的用户流，此种模式下如果untrustedUserIdList列表为空，参数错误，因为无法订阅任何流。\nTRUSTED: 配合trustedUserIdList只订阅该列表以外的用户流，此种模式下如果一定时间下没有untrustedUserIdList名单外的用户进入房间，数美将主动结束审核。"
+              },
+              {
+                "req_name": "trustedUserIdList",
+                "type": "string_array",
+                "param_description": "信任用户的列表",
+                "required": false,
+                "param_specification": "subscribeMode=TRUSTED时生效，允许为空，数美不会订阅房间内该列表指定的用户流。"
+              },
+              {
+                "req_name": "untrustedUserIdList",
+                "type": "string_array",
+                "param_description": "非信任用户的列表",
+                "required": false,
+                "param_specification": "subscribeMode=UNTRUSTED时生效，不允许为空，数美只订阅房间内该列表指定的用户流。"
+              }
+            ]
+          },
+          {
+            "req_name": "ginParam",
+            "type": "json_object",
+            "param_description": "巨人流参数",
+            "required": false,
+            "param_specification": "当streamType为GIN时必传，详见ginParam参数",
+            "son": [
+              {
+                "req_name": "tokenId",
+                "type": "string",
+                "param_description": "房间token",
+                "required": true,
+                "param_specification": "用于拉流端登陆房间，需要巨人提供"
+              },
+              {
+                "req_name": "roomId",
+                "type": "string",
+                "param_description": "房间编号",
+                "required": true,
+                "param_specification": "唯一对应一个房间，服务端以房间为单位拉流录制"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "单流/合流录制。",
+                "required": false,
+                "param_specification": "默认值为true。true: 合流；false: 分流,合流是指房间内所有用户合成一路流录制审核；分流是指房间内每个用户单独录制审核."
+              },
+              {
+                "req_name": "ip",
+                "type": "string",
+                "param_description": "指定服务器ip",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "port",
+                "type": "string",
+                "param_description": "指定端口",
+                "required": true,
+                "param_specification": ""
+              }
+            ]
+          },
+          {
+            "req_name": "aliParam",
+            "type": "json_object",
+            "param_description": "阿里流参数",
+            "required": false,
+            "param_specification": "当streamType为ALI时必传",
+            "son": [
+              {
+                "req_name": "token",
+                "type": "string",
+                "param_description": "鉴权",
+                "required": true,
+                "param_specification": "用于拉流端加入频道,生成方式详见文档：https://help.aliyun.com/zh/live/user-guide/token-based-authentication，每次上传审核都需要重新生成新的token。"
+              },
+              {
+                "req_name": "room",
+                "type": "string",
+                "param_description": "房间ID",
+                "required": true,
+                "param_specification": "必传参数，非空字符串,需要和生成token使用的channelID完全一致。服务端以房间为单位拉流录制。room为唯一标志，相同的room不会重复拉流。"
+              },
+              {
+                "req_name": "userId",
+                "type": "string",
+                "param_description": "拉流机器人ID，。",
+                "required": true,
+                "param_specification": "需要和生成token的userId完全一致，必传参数，非空字符串"
+              },
+              {
+                "req_name": "isMixingEnabled",
+                "type": "bool",
+                "param_description": "录制模式。",
+                "required": false,
+                "param_specification": "默认值为true。true: 合流；false: 分流。true：合流，房间内所有用户合成一路流录制审核；false：分流，房间内每个用户单独录制审核。"
+              }
+            ]
+          },
+          {
+            "req_name": "returnPreText",
+            "type": "int",
+            "param_description": "是否返回违规音频流片段的前文文字信息",
+            "required": false,
+            "param_specification": "可选值：0（默认）：不返回违规片段前文；1：返回违规片段前文"
+          },
+          {
+            "req_name": "returnPreAudio",
+            "type": "int",
+            "param_description": "是否返回违规音频流片段的前文音频链接",
+            "required": false,
+            "param_specification": "可选值：0（默认）：不返回违规片段前文音频；1：返回违规片段前文音频"
+          },
+          {
+            "req_name": "returnFinishInfo",
+            "type": "int",
+            "param_description": "音频流结束回调通知",
+            "required": false,
+            "param_specification": "可选值：0（默认）：无回调；1：发送结束通知，包含statCode状态码（建议传入1）"
+          },
+          {
+            "req_name": "extra",
+            "type": "json_object",
+            "param_description": "辅助参数",
+            "required": false,
+            "param_specification": "用于辅助音频检测的相关信息",
+            "son": [
+              {
+                "req_name": "passThrough",
+                "type": "json_object",
+                "param_description": "透传字段",
+                "required": false,
+                "param_specification": "该字段内容会随着回调结果一起返回"
+              }
+            ]
+          },
+          {
+            "req_name": "liveTitle",
+            "type": "string",
+            "param_description": "标题",
+            "required": false,
+            "param_specification": "房间标题（人审服务时传入）"
+          },
+          {
+            "req_name": "anchorName",
+            "type": "string",
+            "param_description": "昵称",
+            "required": false,
+            "param_specification": "用户昵称（人审服务时传入）"
+          },
+          {
+            "req_name": "audioDetectStep",
+            "type": "int",
+            "param_description": "抽帧审核步长",
+            "required": false,
+            "param_specification": "取值范围1-36，默认每片段均审核；设置1审核奇数片段，2审核每三片段一次，以此类推"
+          },
+          {
+            "req_name": "receiveTokenId",
+            "type": "string",
+            "param_description": "消息接收者tokenId（私聊场景）",
+            "required": false,
+            "param_specification": "由字母、数字、下划线、短杠组成，长度≤64字符"
+          },
+          {
+            "req_name": "deviceId",
+            "type": "string",
+            "param_description": "数美设备标识",
+            "required": "N"
+          },
+          {
+            "req_name": "ip",
+            "type": "string",
+            "param_description": "用户公网IP地址",
+            "required": false,
+            "param_specification": "支持IPv4或IPv6"
+          },
+          {
+            "req_name": "level",
+            "type": "int",
+            "param_description": "用户等级",
+            "required": false,
+            "param_specification": "0：最低级（新注册/不活跃用户）；1：较低级；2：中等级；3：较高级；4：最高级（VIP/付费用户）"
+          },
+          {
+            "req_name": "gender",
+            "type": "string",
+            "param_description": "用户性别",
+            "required": false,
+            "param_specification": "可选值：male（男性），female（女性）"
+          }
+        ]
+      },
+      {
+        "req_name": "callback",
+        "type": "string",
+        "param_description": "回调地址",
+        "required": true,
+        "param_specification": "异步检测结果回调通知您的URL，支持HTTP和HTTPS"
+      },
+      {
+        "req_name": "acceptLang",
+        "type": "string",
+        "param_description": "返回标签的语种类型",
+        "required": false,
+        "param_specification": "选择返回标签的语种类型\n可选值：\nzh：中文\nen：英文\n不传入默认为返回中文标签"
+      }
+    ]
+  },
+  {
+    "type": "title-2",
+    "value": "响应"
+  },
+  {
+    "type": "title-3",
+    "value": "返回参数"
+  },
+  {
+    "type": "desc",
+    "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "本次请求的唯一标识",
+        "required": true,
+        "param_specification": "请求唯一标识"
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "请求返回码",
+        "required": true,
+        "param_specification": "1100：成功\n1901：QPS超限、流路数超限\n1902：参数不合法\n1903：服务失败\n1904：拉流失败\n9101：无权限操作"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "请求返回描述",
+        "required": true,
+        "param_specification": "和请求返回码对应"
+      },
+      {
+        "req_name": "detail",
+        "type": "json_object",
+        "param_description": "描述详细信息",
+        "required": false,
+        "param_specification": "描述错误码请求，详见detail参数",
+        "son": [
+          {
+            "req_name": "errorCode",
+            "type": "int",
+            "param_description": "状态码",
+            "required": false,
+            "param_specification": "1001：重复推流"
+          },
+          {
+            "req_name": "dupRequestId",
+            "type": "string",
+            "param_description": "表示重复的requestId",
+            "required": false,
+            "param_specification": "当errorCode为1001，表示重复推流时，会返回dupRequestId字段。例如当第一次请求的时候没有收到返回，但该音频流实际已经开始审核了，没有requestId无法主动关闭审核。可以再次请求，收到重复推流的信息，通过返回的dupRequestId调用关闭审核接口"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "title-3",
+    "value": "回调参数"
+  },
+  {
+    "type": "desc",
+    "value": "当音频流稳定接入开始接受数美监测后，数美会持续回调识别结果给客户，回调策略根据returnAllText的取值不同而不同。\nreturnAllText为0时，监测到音频流有违规内容时回调结果给客户；\nreturnAllText为1时，每隔10秒返回一次最近10秒的识别结果给客户 \n放在HTTP Body中，采用Json格式，具体参数如下"
+  },
+  {
+    "header": [
+      {
+        "key": "req_name",
+        "title": "参数名称"
+      },
+      {
+        "key": "type",
+        "title": "类型"
+      },
+      {
+        "key": "param_description",
+        "title": "参数说明"
+      },
+      {
+        "key": "required",
+        "title": "是否必返"
+      },
+      {
+        "key": "param_specification",
+        "title": "规范"
+      }
+    ],
+    "type": "table",
+    "value": [
+      {
+        "req_name": "requestId",
+        "type": "string",
+        "param_description": "本次请求的唯一标识",
+        "required": true,
+        "param_specification": "流片段唯一标识"
+      },
+      {
+        "req_name": "btId",
+        "type": "string",
+        "param_description": "音频唯一标识",
+        "required": true,
+        "param_specification": ""
+      },
+      {
+        "req_name": "code",
+        "type": "int",
+        "param_description": "请求返回码",
+        "required": true,
+        "param_specification": "1100：成功\n1901：QPS超限、流路数超\n限1902：参数不合法\n1903：服务失败\n1904：拉流失败\n9101：无权限操作\nmessage和requestId之外的字段，只有当code为1100时才会存在"
+      },
+      {
+        "req_name": "message",
+        "type": "string",
+        "param_description": "请求返回描述，和请求返回码对应",
+        "required": true,
+        "param_specification": ""
+      },
+      {
+        "req_name": "statCode",
+        "type": "int",
+        "param_description": "审核状态",
+        "required": false,
+        "param_specification": "0：审核中\n1：审核结束"
+      },
+      {
+        "req_name": "requestParams",
+        "type": "json_object",
+        "param_description": "审核结束透传参数",
+        "required": true,
+        "param_specification": ""
+      },
+      {
+        "req_name": "audioDetail",
+        "type": "json_object",
+        "param_description": "风险音频片段信息",
+        "required": false,
+        "param_specification": "当code等于1100时返回。",
+        "son": [
+          {
+            "req_name": "audioUrl",
+            "type": "string",
+            "param_description": "音频片段地址",
+            "required": true,
+            "param_specification": ""
+          },
+          {
+            "req_name": "riskLevel",
+            "type": "string",
+            "param_description": "当前事件的处置建议",
+            "required": true,
+            "param_specification": "PASS：通过\nREVIEW：审核\nREJECT：拒绝"
+          },
+          {
+            "req_name": "riskLabel1",
+            "type": "string",
+            "param_description": "一级标签",
+            "required": true,
+            "param_specification": "各个一级标签之间是并列的关系，当riskLevel为PASS时返回normal"
+          },
+          {
+            "req_name": "riskLabel2",
+            "type": "string",
+            "param_description": "二级标签",
+            "required": true,
+            "param_specification": "二级标签归属于一级标签，当riskLevel为PASS时为空"
+          },
+          {
+            "req_name": "riskLabel3",
+            "type": "string",
+            "param_description": "三级标签",
+            "required": true,
+            "param_specification": "三级标签归属于二级标签，当riskLevel为PASS时为空"
+          },
+          {
+            "req_name": "riskDescription",
+            "type": "string",
+            "param_description": "标签解释",
+            "required": true,
+            "param_specification": "对于命中用户自定义名单时返回：命中自定义名单\n当riskLevel为PASS时返回正常\n其他情况展现形式为一级标签：二级标签：三级标签的中文名，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+          },
+          {
+            "req_name": "audioText",
+            "type": "string",
+            "param_description": "音频转译文本的结果",
+            "required": false,
+            "param_specification": "当returnPreText值为1时，包含违规音频前一个片段文本内容和违规音频片段文本内容\n当returnPreText值为0时，仅包含违规音频片段文本内容"
+          },
+          {
+            "req_name": "preAudioUrl",
+            "type": "string",
+            "param_description": "前一个音频片段音频地址",
+            "required": false,
+            "param_specification": "当returnPreAudio值为1时，返回当前片段与前一片段的20秒音频片段地址\nreturnPreAudio值为0时，不返回"
+          },
+          {
+            "req_name": "riskDetail",
+            "type": "json_object",
+            "param_description": "风险详情信息",
+            "required": false,
+            "param_specification": "当code等于1100时返回",
+            "son": [
+              {
+                "req_name": "audioText",
+                "type": "string",
+                "param_description": "音频转译文本的结果",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "matchedLists",
+                "type": "json_array",
+                "param_description": "命中的客户自定义名单信息",
+                "required": false,
+                "param_specification": "命中客户自定义名单时返回，其他时不存在",
+                "son": [
+                  {
+                    "req_name": "name",
+                    "type": "string",
+                    "param_description": "客户自定义名单名",
+                    "required": true,
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "words",
+                    "type": "json_array",
+                    "param_description": "命中的这个名单中的敏感词信息",
+                    "required": true,
+                    "param_specification": "下标从0开始计数",
+                    "son": [
+                      {
+                        "req_name": "word",
+                        "type": "string",
+                        "param_description": "敏感词",
+                        "required": true,
+                        "param_specification": ""
+                      },
+                      {
+                        "req_name": "position",
+                        "type": "int_array",
+                        "param_description": "敏感词所在位置",
+                        "required": true,
+                        "param_specification": "下标从0开始计数"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "req_name": "riskSource",
+                "type": "int",
+                "param_description": "风险来源",
+                "required": true,
+                "param_specification": "可选值：\n1000：无风险\n1001：文本风险\n1003：音频风险"
+              },
+              {
+                "req_name": "riskSegments",
+                "type": "json_array",
+                "param_description": "高风险内容片段",
+                "required": false,
+                "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                "son": [
+                  {
+                    "req_name": "segment",
+                    "type": "string",
+                    "param_description": "高风险内容片段",
+                    "required": false,
+                    "param_specification": ""
+                  },
+                  {
+                    "req_name": "position",
+                    "type": "int_array",
+                    "param_description": "高风险内容片段所在位置",
+                    "required": false,
+                    "param_specification": "下标从0开始计数"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "req_name": "auxInfo",
+            "type": "json_object",
+            "param_description": "其他辅助信息",
+            "required": true,
+            "param_specification": "返回时间戳等辅助信息",
+            "son": [
+              {
+                "req_name": "audioStartTime",
+                "type": "string",
+                "param_description": "辅助参数",
+                "required": true,
+                "param_specification": "违规内容开始时间（绝对时间）"
+              },
+              {
+                "req_name": "audioEndTime",
+                "type": "string",
+                "param_description": "辅助参数",
+                "required": true,
+                "param_specification": "违规内容结束时间（绝对时间）"
+              },
+              {
+                "req_name": "beginProcessTime",
+                "type": "int",
+                "param_description": "辅助参数",
+                "required": true,
+                "param_specification": "开始处理的时间（13位时间戳）"
+              },
+              {
+                "req_name": "finishProcessTime",
+                "type": "int",
+                "param_description": "辅助参数",
+                "required": true,
+                "param_specification": "结束处理的时间（13位时间戳）"
+              },
+              {
+                "req_name": "userId",
+                "type": "int",
+                "param_description": "用户账号标识",
+                "required": false,
+                "param_specification": "AGORA分流情况下存在。返回的userId是实际房间中的用户id，与请求参数agoraParam中的uid无关。"
+              },
+              {
+                "req_name": "strUserId",
+                "type": "string",
+                "param_description": "用户账号标识",
+                "required": false,
+                "param_specification": "ALI、TRTC、ZEGO、VOLC、GIN分流情况下存在。返回的strUserId是实际房间中的用户id。当流类型为TRTC分流，与请求参数trtcParam中的uid无关；当流类型为ALI分流，与请求参数aliParam中的userId无关。"
+              },
+              {
+                "req_name": "room",
+                "type": "string",
+                "param_description": "房间号",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "seiInfo",
+                "type": "array",
+                "param_description": "SEI信息",
+                "required": false,
+                "param_specification": "（需要联系数美开通）"
+              },
+              {
+                "req_name": "passThrough",
+                "type": "json_object",
+                "param_description": "透传字段",
+                "required": false,
+                "param_specification": "该字段内容与请求参数data中extra的passThrough的值相同"
+              }
+            ]
+          },
+          {
+            "req_name": "businessLabels",
+            "type": "json_array",
+            "param_description": "音频业务标签",
+            "required": false,
+            "param_specification": "返回性别、音色、是否唱歌等标签",
+            "son": [
+              {
+                "req_name": "businessLabel1",
+                "type": "string",
+                "param_description": "一级业务标签",
+                "required": false,
+                "param_specification": "一级业务标签"
+              },
+              {
+                "req_name": "businessLabel2",
+                "type": "string",
+                "param_description": "二级业务标签",
+                "required": false,
+                "param_specification": "二级业务标签"
+              },
+              {
+                "req_name": "businessLabel3",
+                "type": "string",
+                "param_description": "三级业务标签",
+                "required": false,
+                "param_specification": "三级业务标签"
+              },
+              {
+                "req_name": "businessDescription",
+                "type": "string",
+                "param_description": "中文标签描述",
+                "required": false,
+                "param_specification": "业务标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+              }
+            ]
+          },
+          {
+            "req_name": "allLabels",
+            "type": "json_array",
+            "param_description": "风险标签",
+            "required": false,
+            "param_specification": "全部风险标签",
+            "son": [
+              {
+                "req_name": "riskLabel1",
+                "type": "string",
+                "param_description": "一级风险标签",
+                "required": true,
+                "param_specification": "一级风险标签"
+              },
+              {
+                "req_name": "riskLabel2",
+                "type": "string",
+                "param_description": "二级风险标签",
+                "required": true,
+                "param_specification": "二级风险标签"
+              },
+              {
+                "req_name": "riskLabel3",
+                "type": "string",
+                "param_description": "三级风险标签",
+                "required": true,
+                "param_specification": "三级风险标签"
+              },
+              {
+                "req_name": "riskDescription",
+                "type": "string",
+                "param_description": "风险原因",
+                "required": true,
+                "param_specification": "风险原因，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+              }
+            ]
+          },
+          {
+            "req_name": "tokenProfileLabels",
+            "type": "json_array",
+            "param_description": "账号属性标签",
+            "required": false,
+            "param_specification": "仅在开启功能时返回",
+            "son": [
+              {
+                "req_name": "label1",
+                "type": "string",
+                "param_description": "一级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "label2",
+                "type": "string",
+                "param_description": "二级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "label3",
+                "type": "string",
+                "param_description": "三级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "description",
+                "type": "string",
+                "param_description": "标签描述",
+                "required": false,
+                "param_specification": "账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+              },
+              {
+                "req_name": "timestamp",
+                "type": "int",
+                "param_description": "打标签时间戳",
+                "required": false,
+                "param_specification": "13位Unix时间戳，单位：毫秒"
+              }
+            ]
+          },
+          {
+            "req_name": "tokenRiskLabels",
+            "type": "json_array",
+            "param_description": "账号风险标签",
+            "required": false,
+            "param_specification": "仅在开启功能时返回",
+            "son": [
+              {
+                "req_name": "label1",
+                "type": "string",
+                "param_description": "一级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "label2",
+                "type": "string",
+                "param_description": "二级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "label3",
+                "type": "string",
+                "param_description": "三级标签",
+                "required": false,
+                "param_specification": ""
+              },
+              {
+                "req_name": "description",
+                "type": "string",
+                "param_description": "标签描述",
+                "required": false,
+                "param_specification": "账号标签描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理"
+              },
+              {
+                "req_name": "timestamp",
+                "type": "int",
+                "param_description": "打标签时间戳",
+                "required": false,
+                "param_specification": "13位Unix时间戳，单位：毫秒"
+              }
+            ]
+          },
+          {
+            "req_name": "speakers",
+            "type": "json_array",
+            "param_description": "该音频片段说话人信息",
+            "required": false,
+            "param_specification": "该音频片段中说话人uid以及音量信息，每秒采集一次，一个片段不超过10次。该结构是个数组，最多10个元素，按照相对时间排序，每个元素也是一个数组，包含当前说话人uid和音量大小\n备注：目前仅在声网合流中生效",
+            "son": [
+              {
+                "req_name": "uid",
+                "type": "int",
+                "param_description": "说话人uid",
+                "required": true,
+                "param_specification": ""
+              },
+              {
+                "req_name": "volume",
+                "type": "int",
+                "param_description": "音量大小",
+                "required": true,
+                "param_specification": "取值范围为 [0,255]"
+              }
+            ]
+          },
+          {
+            "req_name": "vadCode",
+            "type": "int",
+            "param_description": "该音频片段的静音状态",
+            "required": false,
+            "param_specification": "0：静音片段\n1：非静音片段"
+          },
+          {
+            "req_name": "audioTags",
+            "type": "json_object",
+            "param_description": "音频标签",
+            "required": false,
+            "param_specification": "返回性别、音色、是否唱歌等标签",
+            "son": [
+              {
+                "req_name": "gender",
+                "type": "json_object",
+                "param_description": "性别标签",
+                "required": false,
+                "param_specification": "当type取值包含GENDER时返回",
+                "son": [{
+                  "req_name": "label",
+                  "type": "string",
+                  "param_description": "性别标签名称",
+                  "required": true,
+                  "param_specification": "可能取值：男性、女性"
+                },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应性别可能性大小",
+                    "required": true,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                }]
+              },
+              {
+                "req_name": "timbre",
+                "type": "json_array",
+                "param_description": "音色标签",
+                "required": false,
+                "param_specification": "当type取值包含TIMBRE时返回",
+                "son": [{
+                  "req_name": "label",
+                  "type": "string",
+                  "param_description": "音色标签类别",
+                  "required": true,
+                  "param_specification": "可能取值：大叔、青年、正太、老年、女王、御姐、少女、萝莉、大妈"
+                },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应音色标签可能性大小",
+                    "required": true,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                  }]
+              },
+              {
+                "req_name": "song",
+                "type": "int",
+                "param_description": "唱歌标签",
+                "required": false,
+                "param_specification": "当type取值包含SING时返回\n可能取值：\n0：没有唱歌\n1：有唱歌"
+              },
+              {
+                "req_name": "language",
+                "type": "json_object",
+                "param_description": "语种识别",
+                "required": false,
+                "param_specification": "当type取值包含LANGUAGE时返回",
+                "son": [{
+                  "req_name": "label",
+                  "type": "int",
+                  "param_description": "语种识别类别标识",
+                  "required": true,
+                  "param_specification": "可能取值：\n0:普通话\n1:英语\n2:粤语\n3:藏语\n4:维语\n5:蒙语\n6:朝鲜语\n-1:其他语种"
+                },
+                  {
+                    "req_name": "probability",
+                    "type": "int",
+                    "param_description": "对应音色标签可能性大小",
+                    "required": true,
+                    "param_specification": "取值0-100，数值越高表示概率越大"
+                  }]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "req_name": "auxInfo",
+        "type": "json_object",
+        "param_description": "辅助信息",
+        "required": false,
+        "param_specification": "",
+        "son": [
+          {
+            "req_name": "errorCode",
+            "type": "int",
+            "param_description": "状态码",
+            "required": true,
+            "param_specification": "3001：流地址访问失败，例如资源HTTP状态码404、403\n3002：流数据无效，例如“Invalid data found when processing input”\n3003：流不存在，例如zego返回197612错误码\n3004：流未返回音频数据\n3005：拉流token无效或过期，建议使用新token重新开启审核，例如声网token过期或者trtc usersig无效"
+          },
+          {
+            "req_name": "streamTime",
+            "type": "int",
+            "param_description": "流审核时长",
+            "required": false,
+            "param_specification": "流结束后最后一次返回，代表送审时长，如有间隔审核逻辑时，和流真实时长可能不一致"
+          }
+        ]
+      }
+    ]
+
+  },
+  {
+    "type": "title-2",
+    "value": "示例"
+  },
+  {
+    "type": "title-3",
+    "value": "请求示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "accessKey": "xxxxx",
+      "appId": "default",
+      "eventId": "default",
+      "type": "EROTIC_ADVERT_POLITY_DIRTY",
+      "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
+      "callback": "xxxxx",
+      "data": {
+        "btId": "test1",
+        "lang": "zh",
+        "room": "room2",
+        "url": "xxxxx",
+        "streamType": "NORMAL",
+        "returnAllText": 1,
+        "returnPreText": 1,
+        "returnPreAudio": 1,
+        "tokenId": "2222"
+      }
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "返回示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "code":1100,
+      "message":"成功",
+      "requestId":"b639042cbfe229359e672074762c5583"
+    }
+  },
+  {
+    "type": "title-3",
+    "value": "回调示例"
+  },
+  {
+    "type": "json",
+    "value": {
+      "requestId":"b639042cbfe229359e672074762c5583_2",
+      "btid":"1637847086612",
+      "code":1100,
+      "message":"成功",
+      "audioDetail":{
+        "audioTags":{
+          "gender":{
+            "label":"男性",
+            "probability":99
+          },
+          "language":[
+            {
+              "label":0,
+              "probability":99
+            },
+            {
+              "label":1,
+              "probability":0
+            }
+          ],
+          "song":0,
+          "timbre":[
+            {
+              "label":"大叔",
+              "probability":7
+            },
+            {
+              "label":"青年",
+              "probability":34
+            },
+            {
+              "label":"老年",
+              "probability":58
+            },
+            {
+              "label":"正太",
+              "probability":0
+            }
+          ]
+        },
+        "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都",
+        "audioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=c0f9a66334bc00e1d92da40974756b9b4b9e7b26",
+        "auxInfo":{
+          "beginProcessTime":1637847113897,
+          "finishProcessTime":1637847114514,
+          "room":"test1"
+        },
+        "businessLabels":[
+          {
+            "businessDescription":"未成年人:未成年人:未成年人",
+            "businessLabel1":"minor",
+            "businessLabel2":"weichengnianren",
+            "businessLabel3":"weichengnianren",
+            "confidenceLevel":0,
+            "probability":0
+          }
+        ],
+        "preAudioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=3a261ca2e46b32ec218be69a5802ec0e04c2c627",
+        "riskDescription":"正常",
+        "riskDetail":{
+          "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都"
+        },
+        "riskLabel1":"normal",
+        "riskLabel2":"normal",
+        "riskLabel3":"normal",
+        "riskLevel":"REJECT",
+        "speakers":[
+          [
+            {
+              "uid":2,
+              "volume":100
+            },
+            {
+              "uid":1,
+              "volume":255
+            },
+            {
+              "uid":3,
+              "volume":50
+            }
+          ],
+          [
+            {
+              "uid":2,
+              "volume":200
+            },
+            {
+              "uid":3,
+              "volume":50
+            }
+          ],
+          [
+            {
+              "uid":4,
+              "volume":255
+            }
+          ]
+        ]
+      }
+    }
+  }
+]
