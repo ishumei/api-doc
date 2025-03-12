@@ -107,7 +107,7 @@
         "type": "string",
         "param_description": "Company Key",
         "required": "Y",
-        "param_specification": "Provided by Shumei, see email for details."
+        "param_specification": "View details in the attachment of the account activation email."
       },
       {
         "req_name": "btId",

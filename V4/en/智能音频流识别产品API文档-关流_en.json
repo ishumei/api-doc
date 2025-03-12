@@ -99,7 +99,7 @@
         "type": "string",
         "param_description": "Company Key",
         "required": "Y",
-        "param_specification": "Used for authentication. Provided by Shumei when the account service is activated. See email for details."
+        "param_specification": "View details in the attachment of the account activation email."
       },
       {
         "req_name": "requestId",

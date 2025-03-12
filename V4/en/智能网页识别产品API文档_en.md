@@ -75,7 +75,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 
 | **Parameter Name** | **Type** | **Description** | **Required** | **Specification** |
 | --- | --- | --- | --- | --- |
-| accessKey | string | API authentication key | Y | Provided by Shumei |
+| accessKey | string | API authentication key | Y | View details in the attachment of the account activation email. |
 | type | string | Platform business type | N | Optional values:<br/>`ZHIBO`: Live broadcast<br/>`ECOM`: E-commerce<br/>`GAME`: Game<br/>`NEWS`: News<br/>`FORUM`: Forum<br/>`SOCIAL`: Social<br/>`NOVEL`: Novel<br/> |
 | imgType | string | Image recognition type in the webpage | N | Optional values:<br/>`POLITICS`: Political recognition<br/>`PORN`: Pornographic recognition<br/>`AD`: Advertisement recognition<br/>`LOGO`: Watermark logo recognition<br/>`BEHAVIOR`: Bad scene recognition, supports smoking, drinking, gambling, drug use, condoms, and meaningless images<br/>`OCR`: OCR text recognition in images<br/>`VIOLENCE`: Violent and terrorist recognition<br/>`NONE`: No image recognition needed<br/>For combined recognition, connect with an underscore, e.g., `POLITICS_PORN_AD` for advertisement, pornographic, and political recognition<br/>If not provided, it defaults to political, pornographic, and advertisement recognition.<br/>Note: Here `POLITICS` is equivalent to the following two types:<br/>`PERSON`: Political face recognition<br/>`VIOLENCE`: Violent and terrorist recognition |
 | txtType | string | Text recognition type in the webpage | N | Optional values:<br/>`DEFAULT`: Recognize political, violent, prohibited, pornographic, abusive, and advertisement content<br/>`NONE`: No text recognition needed<br/>If not provided, it defaults to `DEFAULT`. |

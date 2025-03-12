@@ -108,7 +108,7 @@
         "type": "string",
         "param_description": "Authentication key for the API",
         "required": "Y",
-        "param_specification": "Provided by Shumei.see email for details."
+        "param_specification": "View details in the attachment of the account activation email."
       },
       {
         "req_name": "appId",

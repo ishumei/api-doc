@@ -126,7 +126,7 @@
     "value": [
       {
         "length": "20",
-        "param_description": "Company Key. Used for permission authentication, provided by Shumei when activating services.see email for details.",
+        "param_description": "View details in the attachment of the account activation email.",
         "req_name": "accessKey",
         "required": "Y",
         "type": "string"
