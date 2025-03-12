@@ -104,7 +104,7 @@
     "value": [
       {
         "param_description": "Company Key",
-        "param_specification": "Provided by Shumei, see email for details.see email for details.",
+        "param_specification": "View details in the attachment of the account activation email.",
         "req_name": "accessKey",
         "required": "Y",
         "type": "string"
