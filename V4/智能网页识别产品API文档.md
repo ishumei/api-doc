@@ -566,13 +566,14 @@
 | -------------- | ---------- | ------------ | ------------ | ----------------------------- |
 | code           | int        | 返回码       | Y            |                               |
 | message        | string     | 返回码描述   | Y            |                               |
-| contents       | json array | 内容         | Y            | [详见contents内容](#contents) |
+| requestId      | string     | 请求唯一标识 | N            | code不等于1100时返回          |
+| contents       | json array | 内容         | N            | code等于1100时返回[详见contents内容](#contents) |
 
 <span id="contents">其中contents组成如下</span>
 
 | **请求参数名** | **类型**    | **参数说明**                 | **是否必传** | **规范**                                                     |
 | -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
-| requestId      | string      | 请求唯一标识                 | Y            |                                                              |
+| requestId      | string      | 机器审核流水号               | Y            |                                                              |
 | humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
 | machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考同步接口返回字段](#Ab1)                                 |
 | mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
