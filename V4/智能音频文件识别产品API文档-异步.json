@@ -885,7 +885,7 @@
         "type": "json_array",
         "param_description": "账号属性标签",
         "required": false,
-        "param_specification": "仅在开启功能时返回，[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)",
+        "param_specification": "仅在开启功能时返回",
         "son": [
           {
             "req_name": "label1",
@@ -929,7 +929,7 @@
         "type": "json_array",
         "param_description": "账号风险标签",
         "required": false,
-        "param_specification": "仅在开启功能时返回，[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)",
+        "param_specification": "仅在开启功能时返回",
         "son": [
           {
             "req_name": "label1",
