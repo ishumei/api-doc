@@ -827,7 +827,7 @@
                 "req_name": "label",
                 "type": "string",
                 "param_description": "音色标签类别",
-                "required": false,
+                "required": true,
                 "param_specification": "可能取值：\n大叔\n青年\n正太\n老年\n女王\n御姐\n少女\n萝莉\n大妈\n男性\n女性\n无人声\n"
               }
             ]
@@ -885,7 +885,7 @@
         "type": "json_array",
         "param_description": "账号属性标签",
         "required": false,
-        "param_specification": "仅在开启功能时返回，[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)",
+        "param_specification": "仅在开启功能时返回",
         "son": [
           {
             "req_name": "label1",
@@ -929,7 +929,7 @@
         "type": "json_array",
         "param_description": "账号风险标签",
         "required": false,
-        "param_specification": "仅在开启功能时返回，[详见tokenProfileLabels，tokenRiskLabels参数](#tokenRiskLabels)",
+        "param_specification": "仅在开启功能时返回",
         "son": [
           {
             "req_name": "label1",
