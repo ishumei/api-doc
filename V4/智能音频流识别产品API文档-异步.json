@@ -562,7 +562,7 @@
             "req_name": "deviceId",
             "type": "string",
             "param_description": "数美设备标识",
-            "required": "N"
+            "required": false
           },
           {
             "req_name": "ip",
