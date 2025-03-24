@@ -29,7 +29,7 @@
   },
   {
     "type": "desc",
-    "value": "支持格式： AVI、FLV、MP4、MPG、WMV、MOV、WMA、RMVB、m3u8。\n大小限制：小于等于300MB。\n时长限制：小于等于2小时。\n"
+    "value": "支持格式： AVI、FLV、MP4、MPG、WMV、MOV、WMA、RMVB、m3u8、MKV、3GP。\n大小限制：小于等于300MB。\n时长限制：小于等于2小时。\n"
   },
   {
     "type": "title-3",
