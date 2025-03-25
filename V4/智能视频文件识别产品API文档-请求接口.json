@@ -29,7 +29,7 @@
   },
   {
     "type": "desc",
-    "value": "支持格式： AVI、FLV、MP4、MPG、WMV、MOV、WMA、RMVB、m3u8。\n大小限制：小于等于300MB。\n时长限制：小于等于2小时。\n"
+    "value": "支持格式： AVI、FLV、MP4、MPG、WMV、MOV、WMA、RMVB、m3u8、MKV、3GP。\n大小限制：小于等于300MB。\n时长限制：小于等于2小时。\n"
   },
   {
     "type": "title-3",
@@ -293,6 +293,13 @@
             "req_name": "returnAllImg",
             "required": false,
             "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "选择返回视频片段的等级，仅当识别类型包含DANCE时生效，默认为0：\u003cbr/\u003e 0：返回风险等级为非pass的视频片段。\u003cbr/\u003e 1：返回所有风险等级的视频片段",
+            "req_name": "returnAllVideo",
+            "required": false,
+            "type": "integer"
           },
           {
             "length": "128",

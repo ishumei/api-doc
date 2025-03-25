@@ -1815,14 +1815,14 @@
               {
                 "length": "-",
                 "param_description": "违规内容结束时间（绝对时间）",
-                "req_name": "audio_endtime",
+                "req_name": "audioEndTime",
                 "required": true,
                 "type": "string"
               },
               {
                 "length": "-",
                 "param_description": "违规内容开始时间（绝对时间）",
-                "req_name": "audio_starttime",
+                "req_name": "audioStartTime",
                 "required": true,
                 "type": "string"
               },
