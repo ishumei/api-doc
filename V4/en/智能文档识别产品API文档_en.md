@@ -1,4 +1,4 @@
-# Shumei Intelligent Document Recognition Product API Documentation
+# DeepCleer Intelligent Document Recognition Product API Documentation
 
 - - - - -
 
@@ -92,7 +92,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | type | string | Platform business type     | N | Optional values:<br/>`ZHIBO`: Live broadcast<br/>`ECOM`: E-commerce<br/>`GAME`: Game<br/>`NEWS`: News<br/>`FORUM`: Forum<br/>`SOCIAL`: Social<br/>`NOVEL`: Novel<br/> |
 | imgType | string | Image recognition type in the document | N | Optional values:<br/>`POLITICS`: Political recognition<br/>`PORN`: Pornographic recognition<br/>`AD`: Advertisement recognition<br/>`LOGO`: Watermark logo recognition<br/>`BEHAVIOR`: Bad scene recognition, supports smoking, drinking, gambling, drug use, condoms, and meaningless images<br/>`OCR`: OCR text recognition in images<br/>`VIOLENCE`: Violent and terrorist recognition<br/>`NONE`: No image recognition needed<br/>For combined recognition, connect with an underscore, e.g., POLITICS_PORN_AD for advertisement, pornographic, and political recognition<br/>If not provided, it defaults to political, pornographic, and advertisement recognition. |
 | txtType | string | Text recognition type in the document | N | Optional values:<br/>`DEFAULT`: Recognizes political, violent, prohibited, pornographic, abusive, and advertisement content<br/>`NONE`: No text recognition needed<br/>If not provided, it defaults to `default`. |
-| appId | string | Application identifier       | N | Used to distinguish different applications of the same company, this parameter value can be negotiated with Shumei service |
+| appId | string | Application identifier       | N | Used to distinguish different applications of the same company, this parameter value can be negotiated with DeepCleer service |
 | callback | string | Callback HTTP interface   | N | When this field is not empty, the service will notify the user of the review result based on this field; when `fileFormat` is provided, this field is required |
 | callbackParam | json_object | Pass-through field       | N | Optional when `callback` exists, the service will return this field content along with the review result when sending the callback request |
 | data | json\_object | Request data content    | Y | Maximum 1MB, [see data parameters](#data) |
@@ -105,9 +105,9 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | fileFormat | string | Document format to be checked | Y        | Optional values:<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>If `fileFormat` does not match the actual format of the document, an error parameter will be returned<br/> |
 | tokenId | string | Unique identifier of the client user account, used for user behavior analysis, it is recommended to pass in the user UID | Y        |  |
 | channel | string | Business scenario | N        | Channel table configuration |
-| returnHtml | bool | Whether to return the HTML with highlighted risk content after Shumei review, for display to reviewers | N        | Optional values:<br/>`true`<br/>`false`<br/>Default is false |
+| returnHtml | bool | Whether to return the HTML with highlighted risk content after DeepCleer review, for display to reviewers | N        | Optional values:<br/>`true`<br/>`false`<br/>Default is false |
 | nickname | string | User nickname, it is strongly recommended to pass this parameter, as almost all platforms' malicious users will spread spam through nicknames, containing political, prohibited, and diversion information risks | N        |  |
-| ip | string | Client IP address, this parameter is used for IP dimension user behavior analysis, and can also be used to compare with Shumei IP blacklist | N        |  |
+| ip | string | Client IP address, this parameter is used for IP dimension user behavior analysis, and can also be used to compare with DeepCleer IP blacklist | N        |  |
 | passThrough | json_object | Pass-through parameters, returned as is | N        |  |
 
 ## <span id="Ab">Return Results</span>
