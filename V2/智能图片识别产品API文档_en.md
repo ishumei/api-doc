@@ -129,7 +129,7 @@ Placed in the HTTP Body in JSON format, the specific parameters are as follows:
 | riskLevel | string | Risk level | No | Risk level (exists when callback is not present or empty and code is 1100) possible return values: PASS, REVIEW, REJECT<br/>PASS: Normal content, recommended to pass directly<br/>REVIEW: Suspicious content, recommended for manual review<br/>REJECT: Violation content, recommended to intercept directly |
 | status | int | Indicates whether the service timed out | Yes | Indicates whether the service timed out<br/>0: Normal<br/>501: Timeout |
 | detail | json_object | Risk details | No | [See detail parameters](#detail) |
-| businessLabels | json_object | Business labels | No | Business label results, only exist when the businessType parameter is not empty, [see businessLabels structure](#businessLabels) |
+| businessLabels | json_array | Business labels | No | Business label results, only exist when the businessType parameter is not empty, [see businessLabels structure](#businessLabels) |
 | tokenProfileLabels | json_array | Auxiliary information | No | Attribute account labels. [See account label parameters](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | Auxiliary information | No | Risk account labels. [See account label parameters](#tokenProfileLabels) |
 

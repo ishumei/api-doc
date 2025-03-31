@@ -130,7 +130,7 @@
 | riskLevel | string | 风险级别 | 否 | 风险级别（callback不存在或者为空并且code为1100时存在）可能返回值：PASS，REVIEW，REJECT<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
 | status | int | 提示服务是否超时 | 是 | 提示服务是否超时<br/>0：正常<br/>501：超时 |
 | detail | json_object | 风险详情 | 否 | [详见detail参数](#detail) |
-| businessLabels | json_object | 业务标签 | 否 | 业务标签结果，仅在传入参数businessType不为空时存在，[详见businessLabels结构](#businessLabels) |
+| businessLabels | json_array | 业务标签 | 否 | 业务标签结果，仅在传入参数businessType不为空时存在，[详见businessLabels结构](#businessLabels) |
 | tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 | tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
 
@@ -536,7 +536,7 @@ businessDetail中，persons数组每个元素的内容如下：
 | score | int | 风险分数 | 否 | 风险分数（callback不存在或者为空并且code为1100时存在）取值范围[0,1000]，分数越高风险越大 |
 | riskLevel | string | 图片唯一标识 | 否 | 风险级别（callback不存在或者为空并且code为1100时存在）<br/>可能返回值：PASS，REVIEW，REJECT<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
 | detail | json_object | 风险详情 | 否 | 风险详情（callback不存在或者为空并且code为1100时存在）[详见detail参数](#detail) |
-| businessLabels | json_object | 业务标签结果 | 否 |  业务标签结果，仅在传入参数businessType不为空时存在，[详见businessLabels结构](#businessLabels) |
+| businessLabels | json_array | 业务标签结果 | 否 |  业务标签结果，仅在传入参数businessType不为空时存在，[详见businessLabels结构](#businessLabels) |
 | code | int | 返回码 | 是 | [详见code与message对应关系](#code-message) |
 | message | string | 返回码详情描述 | 是 | 返回码详情描述 |
 
