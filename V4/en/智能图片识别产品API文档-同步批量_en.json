@@ -29,7 +29,7 @@
   },
   {
     "type": "desc",
-    "value": "Image Types: URL, BASE64.\nImage Formats: jpg, jpeg, png, webp, gif, tiff, tif, heif, heic, avif, apng, svg (static image detection is currently supported for svg).\nImage Resolution: Currently supports images with resolutions ranging from `20px*20px` to `6000px*6000px`, and it is recommended that the image pixels are not smaller than `256px*256px`.\nImage Size: Synchronous interface is limited to 10M, and asynchronous interface is limited to 30M.\nFrame Extraction: Long images are not divided by default. If you need to enable the division function, please contact Shumei. After division, the number of reviews and billing may increase. Animated images such as gif are divided into frames based on the input parameters.\nImage Address: It is recommended to download images from a CDN source, and the source should not be a single point, otherwise there may be a failure in image download, leading to an inability to review."
+    "value": "Image Types: URL, BASE64.\nImage Formats: jpg, jpeg, png, webp, gif, tiff, tif, heif, heic, avif, apng, svg (static image detection is currently supported for svg).\nImage Resolution: Currently supports images with resolutions ranging from `20px*20px` to `6000px*6000px`, and it is recommended that the image pixels are not smaller than `256px*256px`.\nImage Size: Synchronous interface is limited to 10M, and asynchronous interface is limited to 30M.\nFrame Extraction: Long images are not divided by default. If you need to enable the division function, please contact DeepCleer. After division, the number of reviews and billing may increase. Animated images such as gif are divided into frames based on the input parameters.\nImage Address: It is recommended to download images from a CDN source, and the source should not be a single point, otherwise there may be a failure in image download, leading to an inability to review."
   },
   {
     "type": "title-3",
@@ -37,7 +37,7 @@
   },
   {
     "type": "desc",
-    "value": "Recommended timeout settings: For synchronous batch request interfaces, it is advised to set 20 seconds; for asynchronous batch request interfaces, it is advised to set 5 seconds.\n\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Please ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout when ShuMei downloads an image is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). Batch image services are processed in parallel in two parts internally, with an average processing time of about 500 milliseconds, which is related to the request type and image size."
+    "value": "Recommended timeout settings: For synchronous batch request interfaces, it is advised to set 20 seconds; for asynchronous batch request interfaces, it is advised to set 5 seconds.\n\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Please ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout when DeepCleer downloads an image is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). Batch image services are processed in parallel in two parts internally, with an average processing time of about 500 milliseconds, which is related to the request type and image size."
   },
   {
     "type": "title-3",
@@ -133,14 +133,14 @@
       },
       {
         "length": "64",
-        "param_description": "Event identifier. It is necessary to agree on the values with Shumei.see email for details.",
+        "param_description": "Event identifier. It is necessary to agree on the values with DeepCleer.see email for details.",
         "req_name": "eventId",
         "required": "Y",
         "type": "string"
       },
       {
         "length": "64",
-        "param_description": "Application identifier. This field is strictly validated and requires prior agreement with Shumei on the value.see email for details.",
+        "param_description": "Application identifier. This field is strictly validated and requires prior agreement with DeepCleer on the value.see email for details.",
         "req_name": "appId",
         "required": "Y",
         "type": "string"
@@ -204,14 +204,14 @@
           },
           {
             "length": "128",
-            "param_description": "Customer-defined Data ID. Can be used for retrieving data in the ShuMei SaaS backend.",
+            "param_description": "Customer-defined Data ID. Can be used for retrieving data in the DeepCleer SaaS backend.",
             "req_name": "dataId",
             "required": "N",
             "type": "string"
           },
           {
             "length": "128",
-            "param_description": "Shumei Device Fingerprinting Identifier. Generated by the ShuMei SDK, used for user behavior analysis.",
+            "param_description": "DeepCleer Device Fingerprinting Identifier. Generated by the DeepCleer SDK, used for user behavior analysis.",
             "req_name": "deviceId",
             "required": "N",
             "type": "string"
@@ -287,7 +287,7 @@
               },
               {
                 "length": "1024",
-                "param_description": "Customers input transparent fields. ShuMei will not recognize or process these fields internally and will return them to the user along with the results.",
+                "param_description": "Customers input transparent fields. DeepCleer will not recognize or process these fields internally and will return them to the user along with the results.",
                 "req_name": "passThrough",
                 "required": "N",
                 "type": "object"
@@ -342,7 +342,7 @@
     "value": [
       {
         "length": "32",
-        "param_description": "Shumei requests a unique identifier.",
+        "param_description": "DeepCleer requests a unique identifier.",
         "req_name": "requestId",
         "required": "Y",
         "type": "string"
@@ -382,7 +382,7 @@
           },
           {
             "length": "-",
-            "param_description": "Is it the final audit result (if only machine audit is involved, default returns 1)?\n0: Not the final result. This indicates that the result is the machine audit result from Shumei Risk Control, and it still needs to go through Shumei's human audit before being returned to your company for further use.\n1: Final result. Your company can directly use the returned result for downstream scenarios such as disposal and distribution.",
+            "param_description": "Is it the final audit result (if only machine audit is involved, default returns 1)?\n0: Not the final result. This indicates that the result is the machine audit result from DeepCleer Risk Control, and it still needs to go through DeepCleer's human audit before being returned to your company for further use.\n1: Final result. Your company can directly use the returned result for downstream scenarios such as disposal and distribution.",
             "req_name": "finalResult",
             "required": "Y",
             "type": "int32"
@@ -396,7 +396,7 @@
           },
           {
             "length": "32",
-            "param_description": "Shumei requests a unique identifier.",
+            "param_description": "DeepCleer requests a unique identifier.",
             "req_name": "requestId",
             "required": "Y",
             "type": "string"
@@ -1043,7 +1043,7 @@
           },
           {
             "length": "-",
-            "param_description": "Account label information is detailed below and is only returned when the tokenId is provided and the service with Shumei is activated.",
+            "param_description": "Account label information is detailed below and is only returned when the tokenId is provided and the service with DeepCleer is activated.",
             "req_name": "tokenLabels",
             "required": "Y",
             "son": [
@@ -1404,7 +1404,7 @@
           },
           {
             "length": "-",
-            "param_description": "Disposal and Mapping Results: ShuMei can return the results according to your company's labeling system and identifiers. If a custom labeling system is not configured, this field will not be returned. If you need to enable it, please contact the business manager.\nFor the batch image asynchronous interface, after the disposal mapping function is enabled, the callback results will change from the previous overall callback to separate callbacks.",
+            "param_description": "Disposal and Mapping Results: DeepCleer can return the results according to your company's labeling system and identifiers. If a custom labeling system is not configured, this field will not be returned. If you need to enable it, please contact the business manager.\nFor the batch image asynchronous interface, after the disposal mapping function is enabled, the callback results will change from the previous overall callback to separate callbacks.",
             "req_name": "disposal",
             "required": "N",
             "son": [
@@ -1431,14 +1431,14 @@
               },
               {
                 "length": "-",
-                "param_description": "Level 3 Risk Label. Returns empty when the Shumei label is not mapped to a custom label, or when the riskLevel under disposal is PASS.",
+                "param_description": "Level 3 Risk Label. Returns empty when the DeepCleer label is not mapped to a custom label, or when the riskLevel under disposal is PASS.",
                 "req_name": "riskLabel3",
                 "required": "Y",
                 "type": "string"
               },
               {
                 "length": "-",
-                "param_description": "If your company has its own disposal rules, ShuMei can configure according to your company's disposal logic and return corresponding disposal suggestions; if the rule tags are not mapped, it will return the default disposal suggestions.",
+                "param_description": "If your company has its own disposal rules, DeepCleer can configure according to your company's disposal logic and return corresponding disposal suggestions; if the rule tags are not mapped, it will return the default disposal suggestions.",
                 "req_name": "riskLevel",
                 "required": "Y",
                 "type": "string"
@@ -1777,7 +1777,7 @@
         "son": [
           {
             "length": "1024",
-            "param_description": "Customers input pass-through fields. ShuMei will not recognize or process these fields internally and will return them to the users along with the results.",
+            "param_description": "Customers input pass-through fields. DeepCleer will not recognize or process these fields internally and will return them to the users along with the results.",
             "req_name": "passThrough",
             "required": "N",
             "type": "object"

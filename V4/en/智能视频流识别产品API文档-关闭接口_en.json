@@ -153,7 +153,7 @@
     "value": [
       {
         "length": "32",
-        "param_description": "Shumei requests a unique identifier.",
+        "param_description": "DeepCleer requests a unique identifier.",
         "req_name": "requestId",
         "required": "Y",
         "type": "string"

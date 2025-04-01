@@ -21,7 +21,7 @@
   },
   {
     "type": "desc",
-    "value": "To prevent stream failures caused by network anomalies, the Shumei audio stream service has implemented a retry mechanism for stream failures, as follows:\n- For ordinary RTMP, HTTP, and HLS streams, retries will occur 12 times, with intervals increasing from 5 seconds to a maximum of 60 seconds.\n- For streams recorded via Agora SDK, retries will occur twice with no interval.\n- For streams recorded via Zego SDK, retries will occur 10 times with an interval of 30 seconds each."
+    "value": "To prevent stream failures caused by network anomalies, the DeepCleer audio stream service has implemented a retry mechanism for stream failures, as follows:\n- For ordinary RTMP, HTTP, and HLS streams, retries will occur 12 times, with intervals increasing from 5 seconds to a maximum of 60 seconds.\n- For streams recorded via Agora SDK, retries will occur twice with no interval.\n- For streams recorded via Zego SDK, retries will occur 10 times with an interval of 30 seconds each."
   },
   {
     "type": "title-3",
@@ -122,14 +122,14 @@
         "type": "string",
         "param_description": "Application identifier",
         "required": "Y",
-        "param_specification": "Used to distinguish applications\nContact Shumei to activate this service, and use the value provided by Shumei\nDefault content is in the email"
+        "param_specification": "Used to distinguish applications\nContact DeepCleer to activate this service, and use the value provided by DeepCleer\nDefault content is in the email"
       },
       {
         "req_name": "eventId",
         "type": "string",
         "param_description": "Event identifier",
         "required": "Y",
-        "param_specification": "Used to distinguish scenario data\nContact Shumei to activate this service, and use the value provided by Shumei\nDefault content is in the email"
+        "param_specification": "Used to distinguish scenario data\nContact DeepCleer to activate this service, and use the value provided by DeepCleer\nDefault content is in the email"
       },
       {
         "req_name": "type",
@@ -294,7 +294,7 @@
                 "type": "string",
                 "param_description": "App ID provided by Agora",
                 "required": "Y",
-                "param_specification": "Note to distinguish from Shumei's appId"
+                "param_specification": "Note to distinguish from DeepCleer's appId"
               },
               {
                 "req_name": "channel",
@@ -343,14 +343,14 @@
                 "type": "string_array",
                 "param_description": "List of trusted users",
                 "required": "N",
-                "param_specification": "Effective when subscribeMode=TRUSTED. It can be empty. Shumei will not subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
+                "param_specification": "Effective when subscribeMode=TRUSTED. It can be empty. DeepCleer will not subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
               },
               {
                 "req_name": "untrustedUserIdList",
                 "type": "string_array",
                 "param_description": "List of untrusted users",
                 "required": "N",
-                "param_specification": "Effective when subscribeMode=UNTRUSTED. It cannot be empty. Shumei will only subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
+                "param_specification": "Effective when subscribeMode=UNTRUSTED. It cannot be empty. DeepCleer will only subscribe to the streams specified in this list. Each element uid should be within the range of uint32, but the type is string. For example: [\"123\",\"456\"]"
               }
             ]
           },
@@ -366,7 +366,7 @@
                 "type": "string",
                 "param_description": "App ID provided by Volcano Engine",
                 "required": "Y",
-                "param_specification": "Note to distinguish from Shumei's appId"
+                "param_specification": "Note to distinguish from DeepCleer's appId"
               },
               {
                 "req_name": "roomId",
@@ -394,21 +394,21 @@
                 "type": "string",
                 "param_description": "Subscription mode",
                 "required": "N",
-                "param_specification": "AUTO: Automatically subscribe to all streams in the room, which is the default behavior when subscribeMode is not set.\nUNTRUSTED: Subscribe to the streams specified in the untrustedUserIdList. If the untrustedUserIdList is empty in this mode, the parameter is invalid because no streams can be subscribed.\nTRUSTED: Subscribe to all streams except those in the trustedUserIdList. If no users outside the untrustedUserIdList enter the room within a certain time, Shumei will proactively end the review."
+                "param_specification": "AUTO: Automatically subscribe to all streams in the room, which is the default behavior when subscribeMode is not set.\nUNTRUSTED: Subscribe to the streams specified in the untrustedUserIdList. If the untrustedUserIdList is empty in this mode, the parameter is invalid because no streams can be subscribed.\nTRUSTED: Subscribe to all streams except those in the trustedUserIdList. If no users outside the untrustedUserIdList enter the room within a certain time, DeepCleer will proactively end the review."
               },
               {
                 "req_name": "trustedUserIdList",
                 "type": "string_array",
                 "param_description": "List of trusted users",
                 "required": "N",
-                "param_specification": "Effective when subscribeMode=TRUSTED. Shumei will not subscribe to the streams specified in this list."
+                "param_specification": "Effective when subscribeMode=TRUSTED. DeepCleer will not subscribe to the streams specified in this list."
               },
               {
                 "req_name": "untrustedUserIdList",
                 "type": "string_array",
                 "param_description": "List of untrusted users",
                 "required": "N",
-                "param_specification": "Effective when subscribeMode=UNTRUSTED. Shumei will only subscribe to the streams specified in this list."
+                "param_specification": "Effective when subscribeMode=UNTRUSTED. DeepCleer will only subscribe to the streams specified in this list."
               }
             ]
           },
@@ -568,7 +568,7 @@
           {
             "req_name": "deviceId",
             "type": "string",
-            "param_description": "Shumei device identifier",
+            "param_description": "DeepCleer device identifier",
             "required": "N"
           },
           {
@@ -695,7 +695,7 @@
   },
   {
     "type": "desc",
-    "value": "After the audio stream is stably connected and begins to be monitored by Shumei, Shumei will continuously callback the recognition results to the client. The callback strategy varies depending on the value of returnAllText.\nWhen returnAllText is 0, the callback result is sent to the client when non-compliant content is detected in the audio stream;\nWhen returnAllText is 1, the recognition result of the last 10 seconds is returned every 10 seconds.\nIt is placed in the HTTP Body in JSON format, with the specific parameters as follows:"
+    "value": "After the audio stream is stably connected and begins to be monitored by DeepCleer, DeepCleer will continuously callback the recognition results to the client. The callback strategy varies depending on the value of returnAllText.\nWhen returnAllText is 0, the callback result is sent to the client when non-compliant content is detected in the audio stream;\nWhen returnAllText is 1, the recognition result of the last 10 seconds is returned every 10 seconds.\nIt is placed in the HTTP Body in JSON format, with the specific parameters as follows:"
   },
   {
     "header": [
@@ -973,7 +973,7 @@
                 "type": "array",
                 "param_description": "SEI information",
                 "required": "N",
-                "param_specification": "(Requires activation from Shumei)"
+                "param_specification": "(Requires activation from DeepCleer)"
               },
               {
                 "req_name": "passThrough",

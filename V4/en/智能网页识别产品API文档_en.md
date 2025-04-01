@@ -1,8 +1,8 @@
-# Shumei Intelligent Webpage Recognition Product API Documentation
+# DeepCleer Intelligent Webpage Recognition Product API Documentation
 
 Table of Contents
 
-- [Shumei Intelligent Webpage Recognition Product API Documentation](#shumei-intelligent-webpage-recognition-product-api-documentation)
+- [DeepCleer Intelligent Webpage Recognition Product API Documentation](#DeepCleer-intelligent-webpage-recognition-product-api-documentation)
   - [Synchronous Interface](#synchronous-interface)
     - [Request Parameters](#request-parameters)
       - [Request URL:](#request-url)
@@ -81,7 +81,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | txtType | string | Text recognition type in the webpage | N | Optional values:<br/>`DEFAULT`: Recognize political, violent, prohibited, pornographic, abusive, and advertisement content<br/>`NONE`: No text recognition needed<br/>If not provided, it defaults to `DEFAULT`. |
 | videoImgType | string | Recognition type for video frames in the webpage | N | Optional values:<br/>`POLITICS`: Political recognition, here POLITICS actually recognizes political figures and violent content<br/>`PERSON`: Political figure recognition<br/>`VIOLENCE`: Violent recognition<br/>`PORN`: Pornographic & sexy violation recognition<br/>`AD`: Advertisement recognition<br/>`QR`: QR code recognition<br/>`OCR`: OCR text recognition in images<br/>`BEHAVIOR`: Bad scene recognition, supports smoking, drinking, gambling, drug use, condoms, and meaningless images<br/>For multiple functions, connect with an underscore, e.g., POLITY_QRCODE_ADVERT for political, QR code, and advertisement combined recognition<br/>If reviewing videos, this field is required |
 | videoAudioType | string | Recognition type for audio in videos in the webpage | N | Optional values:<br/>`POLITICS`: Political recognition<br/>`PORN`: Pornographic recognition<br/>`AD`: Advertisement recognition<br/>`MOAN`: Moaning recognition<br/>`ABUSE`: Abusive recognition<br/>`ANTHEN`: National anthem recognition<br/>`AUDIOPOLITICAL`: Political audio recognition<br/>`NONE`: No audio detection<br/>For combined recognition, connect with an underscore, e.g., POLITICAL_PORN_MOAN for advertisement, pornographic, and political recognition<br/>Audio-only review in videos is not supported |
-| appId | string | Application identifier | N | Used to distinguish different applications of the same company, this parameter value can be negotiated with Shumei service |
+| appId | string | Application identifier | N | Used to distinguish different applications of the same company, this parameter value can be negotiated with DeepCleer service |
 | callback | string | Callback HTTP interface | N | When this field is not empty, the service will notify the user of the review results based on this field; when `fileFormat` is provided, this field is required |
 | callbackParam | json_object | Pass-through field | N | When `callback` exists, this field is optional, and the service will return this field content along with the review results in the callback request |
 | data | json\_object | Request data content | Y | Maximum 1MB, [see data parameters](#data) |
@@ -94,9 +94,9 @@ Among them, the content of <span id="data">data</span> is as follows:
 | fileFormat | string | Document format to be detected | N | Optional values:<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`TXT`<br/>If not provided or empty, it defaults to webpage link or text content detection<br/>If `fileFormat` does not match the actual document format, an error parameter will be returned |
 | tokenId | string | Unique identifier for the client user account, used for user behavior analysis, it is recommended to provide the user UID | Y | If it is a webpage recognition scenario, provide the webpage URL |
 | channel | string | Business scenario | N | Channel table configuration |
-| returnHtml | bool | Whether to return the HTML with highlighted risk content after Shumei review, for display to reviewers | N | Optional values:<br/>`true`<br/>`false`<br/>Defaults to false |
+| returnHtml | bool | Whether to return the HTML with highlighted risk content after DeepCleer review, for display to reviewers | N | Optional values:<br/>`true`<br/>`false`<br/>Defaults to false |
 | nickname | string | User nickname, it is strongly recommended to provide this parameter, as almost all platforms' malicious users spread spam through nicknames, posing risks of political, prohibited, and diversion information | N |  |
-| ip | string | Client IP address, this parameter is used for user behavior analysis at the IP dimension and can also be used to compare with Shumei's IP blacklist | N |  |
+| ip | string | Client IP address, this parameter is used for user behavior analysis at the IP dimension and can also be used to compare with DeepCleer's IP blacklist | N |  |
 | detectFrequency | float | Frame interval for video screenshots, range 0.5~60s; defaults to 5s if not provided | N | Unit: seconds |
 | passThrough | json_object | Pass-through parameters, returned as is | N |  |
 

@@ -29,7 +29,7 @@
   },
   {
     "type": "desc",
-    "value": "Suggested timeout: 5 seconds.\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Please ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout for downloading images at Shumei is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). Batch image services are processed in parallel in two parts internally, with an average processing time of about 500 milliseconds, which is related to the request type and image size."
+    "value": "Suggested timeout: 5 seconds.\nInternal detection logic: The response time of the image detection interface depends on the download time of the image. Please ensure that the storage service where the image to be detected is located is stable and reliable. The connection timeout for downloading images at DeepCleer is 2 seconds, and the read timeout is 3 seconds (if it fails, it will be retried once). Batch image services are processed in parallel in two parts internally, with an average processing time of about 500 milliseconds, which is related to the request type and image size."
   },
   {
     "type": "title-3",
@@ -202,7 +202,7 @@
           },
           {
             "length": "32",
-            "param_description": "ShuMei requests a unique identifier.",
+            "param_description": "DeepCleer requests a unique identifier.",
             "req_name": "requestId",
             "required": "Y",
             "type": "string"
@@ -229,7 +229,7 @@
               },
               {
                 "length": "-",
-                "param_description": "Is it the final audit result (if only machine audit is involved, it defaults to 1)?\n0: Not the final result. This indicates that the result is the machine audit outcome from Shumei Risk Control, and it still requires a manual review by Shumei personnel before being returned to your company.\n1: Final result. Your company can directly use the returned result for downstream scenarios such as disposal and distribution.",
+                "param_description": "Is it the final audit result (if only machine audit is involved, it defaults to 1)?\n0: Not the final result. This indicates that the result is the machine audit outcome from DeepCleer Risk Control, and it still requires a manual review by DeepCleer personnel before being returned to your company.\n1: Final result. Your company can directly use the returned result for downstream scenarios such as disposal and distribution.",
                 "req_name": "finalResult",
                 "required": "Y",
                 "type": "int32"
@@ -654,7 +654,7 @@
                   },
                   {
                     "length": "1024",
-                    "param_description": "Customers transmit pass-through fields. ShuMei will not recognize or process this field internally and will return it to the user along with the results.",
+                    "param_description": "Customers transmit pass-through fields. DeepCleer will not recognize or process this field internally and will return it to the user along with the results.",
                     "req_name": "passThrough",
                     "required": "N",
                     "type": "object"
@@ -1292,7 +1292,7 @@
                   },
                   {
                     "length": "-",
-                    "param_description": "If your company has its own disposal rules, ShuMei can configure according to your company's disposal logic and return corresponding disposal suggestions; if the rule tags are not mapped, it will return the default disposal suggestions.",
+                    "param_description": "If your company has its own disposal rules, DeepCleer can configure according to your company's disposal logic and return corresponding disposal suggestions; if the rule tags are not mapped, it will return the default disposal suggestions.",
                     "req_name": "riskLevel",
                     "required": "Y",
                     "type": "string"
