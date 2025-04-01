@@ -242,43 +242,43 @@
                 "req_name": "sdkAppId",
                 "type": "int",
                 "required": "Y",
-                "description": "SDK App ID provided by Tencent"
+                "param_specification": "SDK App ID provided by Tencent"
               },
               {
                 "req_name": "demoSences",
                 "type": "int",
                 "required": "Y",
-                "description": "Recording type: 2 for separate streams; 4 for mixed streams"
+                "param_specification": "Recording type: 2 for separate streams; 4 for mixed streams"
               },
               {
                 "req_name": "userId",
                 "type": "string",
                 "required": "Y",
-                "description": "User ID assigned to the recording end, limited to 32 bits, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens"
+                "param_specification": "User ID assigned to the recording end, limited to 32 bits, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens"
               },
               {
                 "req_name": "uid",
                 "type": "string",
                 "required": "N",
-                "description": "Specify the user ID to be reviewed, if not provided, all users in the room will be reviewed. If you need to review a subset of users in the same room, use different recording userIds and userSigs for multiple requests. Note the difference between this parameter and userId."
+                "param_specification": "Specify the user ID to be reviewed, if not provided, all users in the room will be reviewed. If you need to review a subset of users in the same room, use different recording userIds and userSigs for multiple requests. Note the difference between this parameter and userId."
               },
               {
                 "req_name": "userSig",
                 "type": "string",
                 "required": "Y",
-                "description": "Verification signature for the recording userId, equivalent to a login password"
+                "param_specification": "Verification signature for the recording userId, equivalent to a login password"
               },
               {
                 "req_name": "roomId",
                 "type": "int",
                 "required": "Y",
-                "description": "Room number, range: 1-4294967294. Either roomId or strRoomId must be provided, and roomId takes precedence if both are provided."
+                "param_specification": "Room number, range: 1-4294967294. Either roomId or strRoomId must be provided, and roomId takes precedence if both are provided."
               },
               {
                 "req_name": "strRoomId",
                 "type": "string",
                 "required": "Y",
-                "description": "Room number, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens. If strRoomId is used, note that roomId takes precedence if both are provided."
+                "param_specification": "Room number, only allows (a-zA-Z), numbers (0-9), underscores, and hyphens. If strRoomId is used, note that roomId takes precedence if both are provided."
               }
             ]
           },
@@ -513,6 +513,13 @@
             "param_description": "Audio stream end callback notification",
             "required": "N",
             "param_specification": "Optional values: 0 (default): No callback; 1: Send end notification, including statCode status code (it is recommended to pass 1)"
+          },
+          {
+            "req_name": "returnAllText",
+            "type": "int",
+            "param_description": "The level of returning audio segments",
+            "required": "N",
+            "param_specification": "Optional values are as follows (default is 0):\n0: Return audio segments with risk levels other than pass\n1: Return all audio segments with any risk level. It is recommended to pass in 1. (Default is 0, and no callback will be generated in the case of silence)"
           },
           {
             "req_name": "extra",

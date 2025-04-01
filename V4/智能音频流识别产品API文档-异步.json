@@ -229,7 +229,7 @@
             "type": "int",
             "param_description": "即构SDK初始化是否有设置隔离域名",
             "required": false,
-            "param_specification": "当即构客户端init初始化支持隔离域名和随机userId该字段必传\n可选值：\n0：默认版本\n1：仅支持客户端初始化有隔离域名\n2：支持客户端初始化有隔离域名和随机userId功能\n3：更新SDK，修复一些bug\n4：支持客户自定义传入SEI信息\n5：支持vad静音检测，token会有唯一性校验，每次上传鉴黄必须重新生成\n6：房间维度拉流送审模式下，开发者可以控制某条流是否需要送审\n**推荐使用6进行接入；** 默认值为0"
+            "param_specification": "当即构客户端init初始化支持隔离域名和随机userId该字段必传\n可选值：\n0：默认版本\n1：仅支持客户端初始化有隔离域名\n2：支持客户端初始化有隔离域名和随机userId功能\n3：更新SDK，修复一些bug\n4：支持客户自定义传入SEI信息\n5：支持vad静音检测，token会有唯一性校验，每次上传鉴黄必须重新生成\n6：房间维度拉流送审模式下，开发者可以控制某条流是否需要送审\n推荐使用6进行接入；默认值为0"
           },
           {
             "req_name": "trtcParam",
@@ -242,43 +242,43 @@
                 "req_name": "sdkAppId",
                 "type": "int",
                 "required": true,
-                "description": "腾讯提供的sdkAppId"
+                "param_specification": "腾讯提供的sdkAppId"
               },
               {
                 "req_name": "demoSences",
                 "type": "int",
                 "required": true,
-                "description": "录制类型可选值：分流录制：2；合流录制：4"
+                "param_specification": "录制类型可选值：分流录制：2；合流录制：4"
               },
               {
                 "req_name": "userId",
                 "type": "string",
                 "required": true,
-                "description": "分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符"
+                "param_specification": "分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符"
               },
               {
                 "req_name": "uid",
                 "type": "string",
                 "required": false,
-                "description": "指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，请使用不同的录制端userId和userSig分多次请求。注意区分此参数和userId的区别。"
+                "param_specification": "指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，请使用不同的录制端userId和userSig分多次请求。注意区分此参数和userId的区别。"
               },
               {
                 "req_name": "userSig",
                 "type": "string",
                 "required": true,
-                "description": "录制userId对应的验证签名，相当于登录密码"
+                "param_specification": "录制userId对应的验证签名，相当于登录密码"
               },
               {
                 "req_name": "roomId",
                 "type": "int",
                 "required": true,
-                "description": "房间号码，取值范围：1-4294967294。roomId与strRoomId必传一个，若两者都有值优先选用roomId"
+                "param_specification": "房间号码，取值范围：1-4294967294。roomId与strRoomId必传一个，若两者都有值优先选用roomId"
               },
               {
                 "req_name": "strRoomId",
                 "type": "string",
                 "required": true,
-                "description": "房间号码，取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符。若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId"
+                "param_specification": "房间号码，取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符。若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId"
               }
             ]
           },
@@ -512,7 +512,14 @@
             "type": "int",
             "param_description": "音频流结束回调通知",
             "required": false,
-            "param_specification": "可选值：0（默认）：无回调；1：发送结束通知，包含statCode状态码（建议传入1）"
+            "param_specification": "可选值：0（默认）：审核结束时不发送结束通知；\n1：审核结束时发起结束通知，回调参数增加statCode状态码 \n建议传入1（默认值为0，在流结束时不会产生回调）"
+          },
+          {
+            "req_name": "returnAllText",
+            "type": "int",
+            "param_description": "返回音频片段的等级",
+            "required": false,
+            "param_specification": "可选值如下（默认为0）：\n0：返回风险等级为非pass的音频片段 \n1：返回所有风险等级的音频片段 建议传入1 （默认为0，在静音的情况下不会产生回调）"
           },
           {
             "req_name": "extra",
