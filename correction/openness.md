@@ -74,7 +74,7 @@ content 中的子参数：
 }
 ```
 
-### 2.2. 数美账单拉取API文档
+### 2.2. 查询账单明细
 
 **请求 URL**
 https://api-operation-bj.fengkongcloud.com/api/bill/get
