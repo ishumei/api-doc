@@ -3,9 +3,9 @@ title: 对外开放接口手册 | 数美
 sidebar_label: 对外开放接口手册
 
 hide_title: true
-description: 
+description:
 keywords:
-- 纠错文档
+  - 纠错文档
 ---
 
 # 数美对外开放接口使用手册
@@ -74,245 +74,255 @@ content 中的子参数：
 }
 ```
 
-### 2.2. 查询月账单明细
+### 2.2. 查询账单明细
 
 **请求 URL**
-https://api-web-bj.fengkongcloud.com/saas/monthBill/v1
+https://api-operation-bj.fengkongcloud.com/api/bill/get
 
 **请求方法**
 POST
 
 **输入参数**
 
-| 字段       | 类型   | 说明                     | 是否必须 |
-| ---------- | ------ | ------------------------ | -------- |
-| accessKey  | string | 用于权限认证，由数美提供 | 是       |
-| startMonth | string | 开始月份，如：2019-10    | 是       |
-| endMonth   | string | 结束月份，如：2019-11    | 是       |
-| action     | string | 默认值：list             | 否       |
+说明: 对外api使用Accesskey（参数key为X-Accesskey）方式验证，每次请求需在HTTP请求头Header中携带此参数。
+
+请求Header参数如下:
+
+| 参数名称    | 类型   | 是否必选 | 说明                                  |
+| ----------- | ------ | -------- | ------------------------------------- |
+| X-Accesskey | string | 是       | 用于权限认证,开通账号服务时由数美提供 |
+
+请求其他参数放在HTTP Body中,具体参数如下:
+
+| 参数名称     | 类型   | 是否必选 | 说明              |
+| ------------ | ------ | -------- | ----------------- |
+| organization | string | 是       | 公司标识          |
+| date         | string | 是       | 时间 示例:2023-10 |
+
+
 
 **输入示例**
 
 ```json
 {
-  "action": "list",
-  "accessKey": "xxxxxx",
-  "startMonth": "2019-09",
-  "endMonth": "2019-10"
+  "organization":"xxxxx",
+  "date":"2023-10"
 }
 ```
 
 **输出参数**
 
-| 字段     | 类型         | 说明                        | 是否必须 |
-| -------- | ------------ | --------------------------- | -------- |
-| code     | int          | 状态码，1100 成功，其他失败 | 是       |
-| message  | string       | 提示语                      | 是       |
-| sumFee   | float        | 总消耗，单位：元            | 是       |
-| contents | object_array | 数组                        | 是       |
+| 参数名称 | 类型   | 说明                                                         |
+| -------- | ------ | ------------------------------------------------------------ |
+| code     | int    | 返回码<br />1100：成功<br />1902: QPS超限<br />1902: 参数不合法<br />1903: 服务异常 |
+| message  | string | 返回码详情描述                                               |
+| content  | object    | 账单数据列表                                                 |
 
-contents 中的子参数：
 
-| 字段        | 类型         | 说明                         | 是否必须 |
-| ----------- | ------------ | ---------------------------- | -------- |
-| month       | string       | 月份，如：2019-11            | 是       |
-| feeType     | string       | 计费类型，查询、类型、包年等 | 是       |
-| fee         | float        | 消耗金额，单位元，两位小数   | 是       |
-| productName | string       | 产品名称                     | 是       |
-| appName     | string       | 应用名称，不区分时值为：-    | 是       |
-| feeDetail   | object_array | 计费详情                     | 是       |
 
-feeDetail 中的子参数：
+content 字段如下所示:
 
-| 字段  | 类型   | 说明                           | 是否必须 |
-| ----- | ------ | ------------------------------ | -------- |
-| price | float  | 单价，单位：元                 | 是       |
-| count | int    | 调用次数                       | 是       |
-| type  | string | 功能类型，当计费方式类型时返回 | 否       |
+| 参数名称         | 类型   | 说明                          |
+| ---------------- | ------ | ----------------------------- |
+| name             | string | 公司简称                      |
+| fullName         | string | 公司全称                      |
+| totalPrice       | float  | 总金额   精度为小数点后2位    |
+| writeOffPrice    | float  | 核销金额   精度为小数点后2位  |
+| couponPrice      | float  | 优惠券金额  精度为小数点后2位 |
+| cashPrice        | float  | 现金金额  精度为小数点后2位   |
+| monthlyStatement | object    | 月账单                        |
 
-**输出示例**
+monthlyStatement 是一个对象，key-value结构，key是产品标识，value中的字段如下
 
-```json
-{
-  "code": 1100,
-  "message": "成功",
-  "contents": [
-    {
-      "month": "2019-10",
-      "feeType": "包年",
-      "fee": 0,
-      "feeDetail": [
-        {
-          "price": 0,
-          "count": 1
-        }
-      ],
-      "productName": "天净-智能文本识别",
-      "appName": "-"
-    },
-    {
-      "month": "2019-10",
-      "feeType": "包年",
-      "fee": 0,
-      "feeDetail": [
-        {
-          "price": 0,
-          "count": 1
-        },
-        {
-          "price": 2,
-          "count": 2,
-          "type": "语音内容"
-        }
-      ],
-      "productName": "xxxxxxxx",
-      "appName": "-"
-    }
-  ],
-  "sumFee": 1.14
-}
-```
+| 参数名称        | 类型     | 说明                                                         |
+| --------------- |--------| ------------------------------------------------------------ |
+| requestCount    | object | 请求量<br />请求量为用户请求api的量级，一次请求记1。音频流的requestCount为截取的音频片段数量。 |
+| requestDuration | object | 请求音频时长<br />请求音频时长为客户请求的音频类数据的总时长 |
+| bill            | array  | 月账单明细                                                   |
 
-### 2.3. 查询日账单明细
+requestCount字段如下所示
 
-**请求 URL**
-https://api-web-bj.fengkongcloud.com/saas/dayBill/v1
+| 参数名称 | 类型   | 说明   |
+| -------- | ------ | ------ |
+| count    | int    | 请求量 |
+| unit     | string | 单位   |
 
-**请求方法**
-POST
+requestDuration字段如下所示
 
-**输入参数**
+| 参数名称 | 类型   | 说明     |
+| -------- | ------ | -------- |
+| duration | int    | 请求时长 |
+| unit     | string | 单位     |
 
-| 字段      | 类型   | 说明                       | 是否必须 |
-| --------- | ------ | -------------------------- | -------- |
-| accessKey | string | 用于权限认证，由数美提供   | 是       |
-| startDay  | string | 开始日期，如：2019-10-01   | 是       |
-| endDay    | string | 结束日期，如：2019-11-01   | 是       |
-| action    | string | 默认值：list               | 否       |
-| appId     | string | 用以筛选应用，不传展示所有 | 否       |
+bill 字段如下所示
 
-**输入示例**
+| 参数名称       | 类型     | 说明                                                         |
+| -------------- |--------| ------------------------------------------------------------ |
+| date           | string | 日期:年-月                                                   |
+| product        | string | 产品                                                         |
+| appName        | string | 应用名称                                                     |
+| functionName   | string | 功能                                                         |
+| unitPrice      | float  | 单价  精度为小数点后6位                                      |
+| priceUnit      | string | 计费单位                                                     |
+| count          | float  | 调用量  精度为小数点后4位<br />调用量为调用模型的次数，是真实的计费量，和请求量有区别。例如图片会按照截帧图计费，一张图如果被截了2张截帧图，请求量计1，调用量计2。 |
+| unit           | string | 调用量单位                                                   |
+| price          | float  | 总金额  精度为小数点后2位                                    |
+| dailyStatement | array  | 日账单                                                       |
 
-```json
-{
-  "action": "list",
-  "accessKey": "xxxxxx",
-  "startDay": "2019-09-01",
-  "endDay": "2019-10-02",
-  "appId": "default"
-}
-```
 
-**输出参数**
 
-| 字段     | 类型         | 说明                        | 是否必须 |
-| -------- | ------------ | --------------------------- | -------- |
-| code     | int          | 状态码，1100 成功，其他失败 | 是       |
-| message  | string       | 提示语                      | 是       |
-| sumFee   | float        | 总消耗，单位：元            | 是       |
-| contents | object_array | 数组                        | 是       |
+dailyStatement字段如下所示
 
-contents 中的子参数：
+| 参数名称     | 类型   | 说明                        |
+| ------------ | ------ | --------------------------- |
+| date         | string | 日期:年-月-日               |
+| product      | string | 产品                        |
+| appName      | string | 应用名称                    |
+| functionName | string | 功能                        |
+| unitPrice    | float  | 单价  精度为小数点后6位     |
+| priceUnit    | string | 计费单位                    |
+| count        | float  | 调用量  精度为小数点后4位   |
+| unit         | string | 调用量单位                  |
+| price        | float  | 计费金额  精度为小数点后2位 |
 
-| 字段        | 类型         | 说明                         | 是否必须 |
-| ----------- | ------------ | ---------------------------- | -------- |
-| day         | string       | 日期，如：2019-11-01         | 是       |
-| fee         | float        | 消耗金额，单位元，两位小数   | 是       |
-| feeType     | string       | 计费类型，查询、类型、包年等 | 是       |
-| productName | string       | 产品名称                     | 是       |
-| appName     | string       | 应用名称，不区分时为：-      | 是       |
-| feeDetail   | object_array | 计费详情                     | 是       |
 
-feeDetail 中的子参数：
-
-| 字段  | 类型   | 说明                           | 是否必须 |
-| ----- | ------ | ------------------------------ | -------- |
-| price | float  | 单价，单位：元                 | 是       |
-| count | int    | 调用次数                       | 是       |
-| type  | string | 功能类型，当计费方式类型时返回 | 否       |
 
 **输出示例**
 
 ```json
 {
-  "code": 1100,
-  "message": "成功",
-  "contents": [
-    {
-      "day": "2019-11-01",
-      "feeType": "包年",
-      "fee": 0,
-      "feeDetail": [
-        {
-          "price": 0,
-          "count": 1
+    "code": 1100,
+    "message": "success",
+    "content": {
+        "name": "xxxx",
+        "fullName": "xxxxx",
+        "totalPrice": 559.35,
+        "writeOffPrice": 0,
+        "couponPrice": 0,
+        "cashPrice": 559.35,
+        "monthlyStatement": {
+            "POST_AUDIOSTREAM_EN": {
+                "requestCount": {
+                    "count": 5409487763,
+                    "unit": "次"
+                },
+                "requestDuration": {
+                    "duration": 5409487763,
+                    "unit": "秒"
+                },
+                "bill": [
+                    {
+                        "date": "2023-12",
+                        "product": "智能语义-智能音频流识别（英语）",
+                        "appName": "默认应用",
+                        "functionName": "娇喘",
+                        "unitPrice": 0.01,
+                        "priceUnit": "元/小时",
+                        "count": 49339.3514,
+                        "unit": "小时",
+                        "price": 493.39,
+                        "dailyStatement": [
+                            {
+                                "date": "2023-12-31",
+                                "product": "智能语义-智能音频流识别（英语）",
+                                "appName": "默认应用",
+                                "functionName": "娇喘",
+                                "unitPrice": 0.01,
+                                "priceUnit": "元/小时",
+                                "count": 49339.3514,
+                                "unit": "小时",
+                                "price": 493.39
+                            }
+                        ]
+                    }
+                ]
+            },
+            "POST_IMG": {
+                "requestCount": {
+                    "count": 157690,
+                    "unit": "次"
+                },
+                "requestDuration": {
+                    "duration": 0,
+                    "unit": "秒"
+                },
+                "bill": [
+                    {
+                        "date": "2023-12",
+                        "product": "智能视觉-智能图片识别",
+                        "appName": "默认应用",
+                        "functionName": "图片文字违规识别",
+                        "unitPrice": 1.5,
+                        "priceUnit": "元/万张",
+                        "count": 15.7691,
+                        "unit": "万张",
+                        "price": 23.65,
+                        "dailyStatement": [
+                            {
+                                "date": "2023-12-31",
+                                "product": "智能视觉-智能图片识别",
+                                "appName": "默认应用",
+                                "functionName": "图片文字违规识别",
+                                "unitPrice": 1.5,
+                                "priceUnit": "元/万张",
+                                "count": 15.7691,
+                                "unit": "万张",
+                                "price": 23.65
+                            }
+                        ]
+                    }
+                ]
+            },
+            "POST_VIDEO": {
+                "requestCount": {
+                    "count": 282049,
+                    "unit": "次"
+                },
+                "requestDuration": {
+                    "duration": 0,
+                    "unit": "秒"
+                },
+                "bill": [
+                    {
+                        "date": "2023-12",
+                        "product": "天净-智能视频文件识别",
+                        "appName": "默认应用",
+                        "functionName": "截帧图片色情&性感",
+                        "unitPrice": 1.5,
+                        "priceUnit": "元/万次",
+                        "count": 28.2049,
+                        "unit": "万次",
+                        "price": 42.31,
+                        "dailyStatement": [
+                            {
+                                "date": "2023-12-31",
+                                "product": "天净-智能视频文件识别",
+                                "appName": "默认应用",
+                                "functionName": "截帧图片色情&性感",
+                                "unitPrice": 1.5,
+                                "priceUnit": "元/万次",
+                                "count": 28.2049,
+                                "unit": "万次",
+                                "price": 42.31
+                            }
+                        ]
+                    }
+                ]
+            }
         }
-      ],
-      "productName": "天净-智能文本识别",
-      "appName": "-"
-    },
-    {
-      "day": "2019-11-01",
-      "feeType": "包年",
-      "fee": 0,
-      "feeDetail": [
-        {
-          "price": 0,
-          "count": 2
-        }
-      ],
-      "productName": "天网-注册登录保护",
-      "appName": "-"
-    },
-    {
-      "day": "2019-11-01",
-      "feeType": "类型",
-      "fee": 1.94,
-      "feeDetail": [
-        {
-          "count": 3,
-          "type": "娇喘",
-          "price": 1
-        },
-        {
-          "price": 2,
-          "count": 3,
-          "type": "语音内容"
-        },
-        {
-          "price": 0,
-          "count": 3,
-          "type": "音色标签"
-        }
-      ],
-      "productName": "天净-智能音频识别",
-      "appName": "-"
-    },
-    {
-      "day": "2019-11-01",
-      "feeType": "查询",
-      "fee": 1234,
-      "feeDetail": [
-        {
-          "price": 123,
-          "count": 2
-        }
-      ],
-      "productName": "天净-智能图片识别",
-      "appName": "-"
     }
-  ],
-  "sumFee": 57
 }
 ```
 
-### 2.4. 名单相关接口
+
+
+### 2.3. 名单相关接口
 
 数美内容识别服务支持自定义名单，通过名单结果查看、修改、增加、删减名单内容
 
 > 建议 QPS < 20
 
-#### 2.4.1. 名单列表
+#### 2.3.1. 名单列表
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/list/v1
@@ -454,7 +464,7 @@ config 中的子参数：
 }
 ```
 
-#### 2.4.2. 新增名单
+#### 2.3.2. 新增名单
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/add/v1
@@ -533,7 +543,7 @@ filter 中的子参数：
 }
 ```
 
-#### 2.4.3. 删除名单
+#### 2.3.3. 删除名单
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/delete/v1
@@ -573,7 +583,7 @@ POST
 }
 ```
 
-#### 2.4.4. 修改名单
+#### 2.3.4. 修改名单
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/update/v1
@@ -648,7 +658,7 @@ filter 中的子参数：
 }
 ```
 
-#### 2.4.5. 名单内容列表
+#### 2.3.5. 名单内容列表
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/contentList/v1
@@ -723,7 +733,7 @@ contents 中的子参数：
 }
 ```
 
-#### 2.4.6. 新增名单内容
+#### 2.3.6. 新增名单内容
 
 > 建议 QPS：同一名单 < 100；不同名单 < 20
 
@@ -775,7 +785,7 @@ POST
 }
 ```
 
-#### 2.4.7. 删除名单内容
+#### 2.3.7. 删除名单内容
 
 > 建议 QPS：同一名单 < 100；不同名单 < 20
 
@@ -823,7 +833,7 @@ POST
 }
 ```
 
-#### 2.4.8. 修改名单内容
+#### 2.3.8. 修改名单内容
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/contentUpdate/v1
@@ -875,7 +885,7 @@ POST
 
 ```
 
-#### 2.4.9. 名单内容检索
+#### 2.3.9. 名单内容检索
 
 **请求 URL**
 https://webapi.fengkongcloud.com/saas/listService/contentSearch/v1
