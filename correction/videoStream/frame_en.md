@@ -61,6 +61,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | appId                      | array    | Correct for specified applications, up to 3                            | Optional     | e.g., ["default","test"]                                                                         |
 | channel                    | array    | Correct for specified channels, up to 3                                | Optional     |                                                                                                |
 | remark                     | string   | Customer error correction remarks, used for backend display            | Optional     |                                                                                                |
+| isNoDisposal         | boolean   | is not need to be disposed of                                                                                      | Optional         | Default handled as "false"，"true"：Do not join the list                                                                                                                                |
 
 Among them, the list of riskType is as follows:
 
