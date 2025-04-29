@@ -61,6 +61,7 @@ keywords:
 | appId          | array    | 针对指定应用纠错，最多3个                                           | 可选         | 如：[“default”,“test”]                                                                         |
 | channel        | array    | 针对指定渠道纠错，最多3个                                           | 可选         |                                                                                                |
 | remark         | string   | 客户纠错备注，用于后台展示                                          | 可选         |                                                                                                |
+| isNoDisposal         | boolean   | 是否不需要处置                             | 可选         | 默认值：false，true：不加入名单                                     |
 
 其中，riskType的列表如下：
 
