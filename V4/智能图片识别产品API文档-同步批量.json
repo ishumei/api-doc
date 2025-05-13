@@ -268,7 +268,7 @@
           {
             "length": "-",
             "param_description": "用户昵称，长度限制150字符，超出部分会被截断",
-            "req_name": "nickName",
+            "req_name": "nickname",
             "required": false,
             "type": "string"
           },
