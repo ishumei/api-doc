@@ -265,6 +265,13 @@
             "type": "int32"
           },
           {
+            "length": "-",
+            "param_description": "用户昵称，长度限制150字符，超出部分会被截断",
+            "req_name": "nickName",
+            "required": false,
+            "type": "string"
+          },
+          {
             "length": "64",
             "param_description": "消息接收者的tokenId由数字、字母、下划线、短杠组成的长度小于等于64位的字符串",
             "req_name": "receiveTokenId",
