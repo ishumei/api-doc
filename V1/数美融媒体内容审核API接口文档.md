@@ -704,16 +704,16 @@ files里每个元素的内容：
 
 ### 响应参数
 
-| **名称**      | **类型**      | **是否必返** | **说明**                                                                        |
-| ----------- | ----------- | -------- | ----------------------------------------------------------------------------- |
-| code        | int         | Y        | 查询接口的返回码<br>1100，审核成功<br>1901，查询超限<br>1902，参数错误<br>1903，内部服务失败<br>1101，请求正在处理 |
-| message     | string      | Y        | 返回码描述                                                                         |
-| btId        | string      | Y        | 任务Id                                                                          |
-| requestId   | string      | Y        | 流水号                                                                           |
-| riskLevel   | string      | Y        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截              |
-| resultType  | int         | Y        | 0：机审，1：人审                                                                     |
-| details     | json_object | Y        | 风险详情                                                                          |
-| passThrough | json_object | N        | 透传字段                                                                          |
+| **名称**    | **类型**    | **是否必返** | **说明**                                                     |
+| ----------- | ----------- | ------------ | ------------------------------------------------------------ |
+| code        | int         | Y            | 查询接口的返回码<br/>1100，审核成功<br/>1901，查询超限<br/>1902，参数错误<br/>1903，内部服务失败<br/>1101，请求正在处理 |
+| message     | string      | Y            | 返回码描述                                                   |
+| btId        | string      | Y            | 任务Id                                                       |
+| requestId   | string      | Y            | 流水号                                                       |
+| riskLevel   | string      | Y            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| resultType  | int         | Y            | 0：机审，1：人审                                             |
+| details     | json_object | Y            | 风险详情                                                     |
+| passThrough | json_object | N            | 透传字段                                                     |
 
 details的内容是：
 
@@ -727,31 +727,31 @@ details的内容是：
 
 **texts** 里每个元素的内容
 
-| **参数名称**        | **类型**      | **参数说明**    | **是否必返** | **规范**                                                           |
-| --------------- | ----------- | ----------- | -------- | ---------------------------------------------------------------- |
-| code            | int         | 返回码         | Y        | 见响应码参数说明                                                         |
-| message         | string      | 返回码描述       | Y        | 见响应码参数说明                                                         |
-| requestId       | string      | 该条数据任务的唯一标识 | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                   |
-| dataId          | string      | 作品Id        | N        | 和传入的dataId对应                                                     |
-| btId            | string      | 文本唯一标识      | Y        | 和传入的btId对应                                                       |
-| riskLevel       | string      | 处置建议        | Y        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| riskLabel1      | string      | 一级风险标签      | Y        | 一级风险标签，当riskLevel为PASS时返回normal                                  |
-| riskLabel2      | string      | 二级风险标签      | Y        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskLabel3      | string      | 三级风险标签      | Y        | 三级风险标签，当riskLevel为PASS时为空                                        |
-| riskDescription | string      | 风险原因        | Y        | 当riskLevel为PASS时为"正常"                                            |
-| disposal        | json_object | 处置结果        | N        | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段           |
-| riskDetail      | json_object | 风险详情        | Y        | 风险详情，[详见](#riskDetail)[riskDetail参数](#riskDetail)                |
+| **参数名称**    | **类型**    | **参数说明**           | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ---------------------- | ------------ | ------------------------------------------------------------ |
+| code            | int         | 返回码                 | Y            | 见响应码参数说明                                             |
+| message         | string      | 返回码描述             | Y            | 见响应码参数说明                                             |
+| requestId       | string      | 该条数据任务的唯一标识 | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| dataId          | string      | 作品Id                 | N            | 和传入的dataId对应                                           |
+| btId            | string      | 文本唯一标识           | Y            | 和传入的btId对应                                             |
+| riskLevel       | string      | 处置建议               | Y            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| riskLabel1      | string      | 一级风险标签           | Y            | 一级风险标签，当riskLevel为PASS时返回normal                  |
+| riskLabel2      | string      | 二级风险标签           | Y            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskLabel3      | string      | 三级风险标签           | Y            | 三级风险标签，当riskLevel为PASS时为空                        |
+| riskDescription | string      | 风险原因               | Y            | 当riskLevel为PASS时为"正常"                                  |
+| disposal        | json_object | 处置结果               | N            | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段 |
+| riskDetail      | json_object | 风险详情               | Y            | 风险详情，[详见](#riskDetail)[riskDetail参数](#riskDetail)   |
 
 其中，disposal的内容如下：
 
-| **参数名称**        | **类型**      | **参数说明**  | **是否必返** | **规范**                                                           |
-| --------------- | ----------- | --------- | -------- | ---------------------------------------------------------------- |
-| riskLevel       | string      | 处置建议      | N        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| riskLabel1      | string      | 映射后一级风险标签 | N        | 一级风险标签，当riskLevel为PASS时返回normal                                  |
-| riskLabel2      | string      | 映射后二级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskLabel3      | string      | 映射后三级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskDescription | string      | 映射后风险原因   | N        | 当riskLevel为PASS时为"正常"                                            |
-| riskDetail      | json_object | 映射后风险详情   | N        | 风险详情                                                             |
+| **参数名称**    | **类型**    | **参数说明**       | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ------------------ | ------------ | ------------------------------------------------------------ |
+| riskLevel       | string      | 处置建议           | N            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| riskLabel1      | string      | 映射后一级风险标签 | N            | 一级风险标签，当riskLevel为PASS时返回normal                  |
+| riskLabel2      | string      | 映射后二级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskLabel3      | string      | 映射后三级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskDescription | string      | 映射后风险原因     | N            | 当riskLevel为PASS时为"正常"                                  |
+| riskDetail      | json_object | 映射后风险详情     | N            | 风险详情                                                     |
 
 其中，riskDetail的内容如下：
 
@@ -783,63 +783,63 @@ riskDetail中，riskSegments的内容如下：
 
 **images** 里每个元素的内容
 
-| **参数名称**        | **参数类型**    | **参数说明**    | **是否必返** | **规范**                                                           |
-| --------------- | ----------- | ----------- | -------- | ---------------------------------------------------------------- |
-| code            | int         | 返回码         | Y        | 见响应码参数说明                                                         |
-| message         | string      | 返回码描述       | Y        | 见响应码参数说明                                                         |
-| requestId       | string      | 该条数据任务的唯一标识 | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                   |
-| dataId          | string      | 作品Id        | N        | 和传入的dataId对应                                                     |
-| btId            | string      | 单条数据唯一标识    | Y        | 和传入的btId对应                                                       |
-| riskLevel       | string      | 处置建议        | Y        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| riskLabel1      | string      | 一级风险标签      | Y        | 一级风险标签，当riskLevel为PASS时返回normal                                  |
-| riskLabel2      | string      | 二级风险标签      | Y        | 当riskLevel为PASS时为空                                               |
-| riskLabel3      | string      | 三级风险标签      | Y        | 当riskLevel为PASS时为空                                               |
-| riskDescription | string      | 风险原因        | Y        | 当riskLevel为PASS时为正常                                              |
-| disposal        | json_object | 处置结果        | N        | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段           |
-| riskDetail      | json_object | 风险详情        | Y        | [详见](#riskDetail)riskDetail参数                                    |
+| **参数名称**    | **参数类型** | **参数说明**           | **是否必返** | **规范**                                                     |
+| --------------- | ------------ | ---------------------- | ------------ | ------------------------------------------------------------ |
+| code            | int          | 返回码                 | Y            | 见响应码参数说明                                             |
+| message         | string       | 返回码描述             | Y            | 见响应码参数说明                                             |
+| requestId       | string       | 该条数据任务的唯一标识 | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| dataId          | string       | 作品Id                 | N            | 和传入的dataId对应                                           |
+| btId            | string       | 单条数据唯一标识       | Y            | 和传入的btId对应                                             |
+| riskLevel       | string       | 处置建议               | Y            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| riskLabel1      | string       | 一级风险标签           | Y            | 一级风险标签，当riskLevel为PASS时返回normal                  |
+| riskLabel2      | string       | 二级风险标签           | Y            | 当riskLevel为PASS时为空                                      |
+| riskLabel3      | string       | 三级风险标签           | Y            | 当riskLevel为PASS时为空                                      |
+| riskDescription | string       | 风险原因               | Y            | 当riskLevel为PASS时为正常                                    |
+| disposal        | json_object  | 处置结果               | N            | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段 |
+| riskDetail      | json_object  | 风险详情               | Y            | [详见](#riskDetail)riskDetail参数                            |
 
 其中，disposal的内容如下：
 
-| **参数名称**        | **类型**      | **参数说明**  | **是否必返** | **规范**                                                           |
-| --------------- | ----------- | --------- | -------- | ---------------------------------------------------------------- |
-| riskLevel       | string      | 处置建议      | N        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| riskLabel1      | string      | 映射后一级风险标签 | N        | 一级风险标签，当riskLevel为PASS时返回normal                                  |
-| riskLabel2      | string      | 映射后二级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskLabel3      | string      | 映射后三级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskDescription | string      | 映射后风险原因   | N        | 当riskLevel为PASS时为"正常"                                            |
-| riskDetail      | json_object | 映射后风险详情   | N        | 风险详情                                                             |
+| **参数名称**    | **类型**    | **参数说明**       | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ------------------ | ------------ | ------------------------------------------------------------ |
+| riskLevel       | string      | 处置建议           | N            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| riskLabel1      | string      | 映射后一级风险标签 | N            | 一级风险标签，当riskLevel为PASS时返回normal                  |
+| riskLabel2      | string      | 映射后二级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskLabel3      | string      | 映射后三级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskDescription | string      | 映射后风险原因     | N            | 当riskLevel为PASS时为"正常"                                  |
+| riskDetail      | json_object | 映射后风险详情     | N            | 风险详情                                                     |
 
 其中，riskDetail结构如下：
 
-| **参数名称**   | **参数类型**    | **参数说明**                                         | **是否必返** | **规范**                                             |
-| ---------- | ----------- | ------------------------------------------------ | -------- | -------------------------------------------------- |
-| faces      | json_array  | 返回图片中涉政人物的名称及位置信息                                | N        |                                                    |
-| face_num   | int         | 人脸数量                                             | N        |                                                    |
-| persons    | json_array  | 仅当命中人像-多人时，数组元素会有多个，最多10个                        | N        |                                                    |
-| person_num | int         | 人像数量                                             | N        | 有且仅有人像-多人下返回                                       |
-| objects    | json_array  | 返回图片中物品或标志二维码的位置信息                               | N        | 数组仅会有一个元素                                          |
-| ocrText    | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含IMGTEXTRISK和ADVERT时存在 | N        |                                                    |
-| riskSource | int         | 标识资源哪里违规                                         | Y        | 标识风险结果的来源：<br>1000：无风险<br>1001：文字风险<br>1002：视觉图片风险 |
+| **参数名称** | **参数类型** | **参数说明**                                                 | **是否必返** | **规范**                                                     |
+| ------------ | ------------ | ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
+| faces        | json_array   | 返回图片中涉政人物的名称及位置信息                           | N            |                                                              |
+| face_num     | int          | 人脸数量                                                     | N            |                                                              |
+| persons      | json_array   | 仅当命中人像-多人时，数组元素会有多个，最多10个              | N            |                                                              |
+| person_num   | int          | 人像数量                                                     | N            | 有且仅有人像-多人下返回                                      |
+| objects      | json_array   | 返回图片中物品或标志二维码的位置信息                         | N            | 数组仅会有一个元素                                           |
+| ocrText      | json_object  | 返回图片中违规文字相关信息，当请求参数type字段包含IMGTEXTRISK和ADVERT时存在 | N            |                                                              |
+| riskSource   | int          | 标识资源哪里违规                                             | Y            | 标识风险结果的来源：<br/>1000：无风险<br/>1001：文字风险<br/>1002：视觉图片风险 |
 
 riskDetail中，faces数组每个元素的内容如下：
 
-| **参数名称**    | **参数类型**  | **参数说明**                                                                                                                   | **是否必返** | **规范**                                      |
-| ----------- | --------- | -------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
-| id          | string    | 人物编号                                                                                                                       | N        | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
-| name        | string    | 人物名称                                                                                                                       | N        | 能识别的公众人物名称                                  |
-| location    | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br>207代表的是左上角的x坐标<br>522代表左上角的y坐标<br>340代表的是右下角的x坐标<br>567代表的是右下角的y坐标 | N        |                                             |
-| face_ratio  | float     | 人脸占比                                                                                                                       | N        |                                             |
-| probability | float     | 置信度，可选值在0～1之间，值越大，可信度越高                                                                                                    | N        | 0～1之间的浮点数                                   |
+| **参数名称** | **参数类型** | **参数说明**                                                 | **是否必返** | **规范**                                                     |
+| ------------ | ------------ | ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
+| id           | string       | 人物编号                                                     | N            | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name         | string       | 人物名称                                                     | N            | 能识别的公众人物名称                                         |
+| location     | int_array    | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | N            |                                                              |
+| face_ratio   | float        | 人脸占比                                                     | N            |                                                              |
+| probability  | float        | 置信度，可选值在0～1之间，值越大，可信度越高                 | N            | 0～1之间的浮点数                                             |
 
 riskDetail中，objects数组每个元素的内容如下：
 
-| **参数名称**    | **参数类型**  | **参数说明**                                                                                                                    | **是否必返** | **规范**         |
-| ----------- | --------- | --------------------------------------------------------------------------------------------------------------------------- | -------- | -------------- |
-| id          | string    | 编号，保证同一个位置下的物品在不同标签下的编号相同                                                                                                   | N        |                |
-| name        | string    | 标识名称                                                                                                                        | N        |                |
-| location    | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br>207代表的是左上角的x坐标<br> 522代表左上角的y坐标<br>340代表的是右下角的x坐标<br>567代表的是右下角的y坐标 | N        |                |
-| probability | float     | 置信度，可选值在0～1之间，值越大，可信度越高                                                                                                     | N        | 0～1之间的浮点数      |
-| qrContent   | string    | 二维码的url信息                                                                                                                   | N        | 仅当命中二维码相关标签时返回 |
+| **参数名称** | **参数类型** | **参数说明**                                                 | **是否必返** | **规范**                     |
+| ------------ | ------------ | ------------------------------------------------------------ | ------------ | ---------------------------- |
+| id           | string       | 编号，保证同一个位置下的物品在不同标签下的编号相同           | N            |                              |
+| name         | string       | 标识名称                                                     | N            |                              |
+| location     | int_array    | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/> 522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | N            |                              |
+| probability  | float        | 置信度，可选值在0～1之间，值越大，可信度越高                 | N            | 0～1之间的浮点数             |
+| qrContent    | string       | 二维码的url信息                                              | N            | 仅当命中二维码相关标签时返回 |
 
 riskDetail中，persons数组每个元素的内容如下：
 
@@ -860,32 +860,32 @@ riskDetail中，ocrText的内容如下：
 
 **audios** 里每个元素的内容
 
-| **参数名**     | **类型**     | **参数说明**    | **是否必返** | **规范**                                                               |
-| ----------- | ---------- | ----------- | -------- | -------------------------------------------------------------------- |
-| code        | int        | 状态码         | Y        | 见响应码参数说明                                                             |
-| message     | string     | 返回码描述       | Y        | 见响应码参数说明                                                             |
-| requestId   | string     | 该条数据任务的唯一标识 | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                       |
-| dataId      | string     | 作品Id        | N        | 和传入的dataId对应                                                         |
-| btId        | string     | 单条数据唯一标识    | Y        | 和传入的btId对应                                                           |
-| riskLevel   | string     | 当前事件的处置建议   | Y        | 返回值：<br>PASS：正常内容，建议直接放行<br>REVIEW：可疑内容，建议人工审核<br>REJECT：违规内容，建议直接拦截 |
-| audioText   | string     | 整段音频转译文本结果  | Y        |                                                                      |
-| audioTime   | int        | 整段音频的音频时长   | Y        | 单位秒                                                                  |
-| audioDetail | json_array | 音频片段信息      | Y        | 回调的音频片段信息，[详见](#audioDetail)[audioDetail参数](#audioDetail)            |
+| **参数名**  | **类型**   | **参数说明**           | **是否必返** | **规范**                                                     |
+| ----------- | ---------- | ---------------------- | ------------ | ------------------------------------------------------------ |
+| code        | int        | 状态码                 | Y            | 见响应码参数说明                                             |
+| message     | string     | 返回码描述             | Y            | 见响应码参数说明                                             |
+| requestId   | string     | 该条数据任务的唯一标识 | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| dataId      | string     | 作品Id                 | N            | 和传入的dataId对应                                           |
+| btId        | string     | 单条数据唯一标识       | Y            | 和传入的btId对应                                             |
+| riskLevel   | string     | 当前事件的处置建议     | Y            | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| audioText   | string     | 整段音频转译文本结果   | Y            |                                                              |
+| audioTime   | int        | 整段音频的音频时长     | Y            | 单位秒                                                       |
+| audioDetail | json_array | 音频片段信息           | Y            | 回调的音频片段信息，[详见](#audioDetail)[audioDetail参数](#audioDetail) |
 
 其中，audioDetail详细内容如下：
 
-| **参数名**         | **类型**      | **参数说明**   | **是否必返** | **规范**                                                                 |
-| --------------- | ----------- | ---------- | -------- | ---------------------------------------------------------------------- |
-| requestId       | string      | 音频片段请求唯一标识 | Y        |                                                                        |
-| audioStarttime  | float       | 音频片段起始时间   | Y        | 相对音频开始的时间距离，单位是秒                                                       |
-| audioEndtime    | float       | 音频片段结束时间   | Y        | 相对音频开始的时间距离，单位是秒                                                       |
-| audioUrl        | string      | 音频片段链接     | Y        | mp3格式                                                                  |
-| riskLevel       | string      | 音频片段识别结果   | Y        | 可能返回值：<br>PASS：正常内容，建议直接放行<br>REVIEW：可疑内容，建议人工审核<br>REJECT：违规内容，建议直接拦截 |
-| riskLabel1      | string      | 一级风险标签     | Y        |                                                                        |
-| riskLabel2      | string      | 二级风险标签     | Y        |                                                                        |
-| riskLabel3      | string      | 三级风险标签     | Y        |                                                                        |
-| riskDescription | string      | 风险原因       | Y        | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理                                        |
-| riskDetail      | json_object | 风险详情       | N        | [详见](#riskDetail)riskDetail参数                                          |
+| **参数名**      | **类型**    | **参数说明**         | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | -------------------- | ------------ | ------------------------------------------------------------ |
+| requestId       | string      | 音频片段请求唯一标识 | Y            |                                                              |
+| audioStarttime  | float       | 音频片段起始时间     | Y            | 相对音频开始的时间距离，单位是秒                             |
+| audioEndtime    | float       | 音频片段结束时间     | Y            | 相对音频开始的时间距离，单位是秒                             |
+| audioUrl        | string      | 音频片段链接         | Y            | mp3格式                                                      |
+| riskLevel       | string      | 音频片段识别结果     | Y            | 可能返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| riskLabel1      | string      | 一级风险标签         | Y            |                                                              |
+| riskLabel2      | string      | 二级风险标签         | Y            |                                                              |
+| riskLabel3      | string      | 三级风险标签         | Y            |                                                              |
+| riskDescription | string      | 风险原因             | Y            | 仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| riskDetail      | json_object | 风险详情             | N            | [详见](#riskDetail)riskDetail参数                            |
 
 其中，riskDetail详细内容如下：
 
@@ -897,17 +897,17 @@ riskDetail中，ocrText的内容如下：
 
 **videos** 里的每个元素的内容
 
-| **参数名**     | **类型**      | **参数说明**          | **是否必返** | **规范**                                                               |
-| ----------- | ----------- | ----------------- | -------- | -------------------------------------------------------------------- |
-| code        | int         | 状态码               | Y        | 见响应码参数说明                                                             |
-| message     | string      | 返回码描述             | Y        | 见响应码参数说明                                                             |
-| requestId   | string      | 该条数据任务的唯一标识       | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                       |
-| dataId      | string      | 作品Id              | N        | 和传入的dataId对应                                                         |
-| btId        | string      | 视频唯一标识            | Y        | 和传入的btId对应                                                           |
-| riskLevel   | string      | 风险级别，code为1100时存在 | Y        | 返回值：<br>PASS：正常内容，建议直接放行<br>REVIEW：可疑内容，建议人工审核<br>REJECT：违规内容，建议直接拦截 |
-| auxInfo     | json_object | 辅助信息              | N        | 详见[auxInfo说明](#auxInfo)                                              |
-| frameDetail | json_array  | 风险详情              | N        | 有风险片段或returnVideoAllImg=1时返回，详见[frameDetail说明](#frameDetail)         |
-| audioDetail | json_array  | 音频片段信息            | N        | 有风险片段或returnVideoAllAudio=1时返回，详见[audioDetail说明](#audioDetail)       |
+| **参数名**  | **类型**    | **参数说明**               | **是否必返** | **规范**                                                     |
+| ----------- | ----------- | -------------------------- | ------------ | ------------------------------------------------------------ |
+| code        | int         | 状态码                     | Y            | 见响应码参数说明                                             |
+| message     | string      | 返回码描述                 | Y            | 见响应码参数说明                                             |
+| requestId   | string      | 该条数据任务的唯一标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| dataId      | string      | 作品Id                     | N            | 和传入的dataId对应                                           |
+| btId        | string      | 视频唯一标识               | Y            | 和传入的btId对应                                             |
+| riskLevel   | string      | 风险级别，code为1100时存在 | Y            | 返回值：<br/>PASS：正常内容，建议直接放行<br/>REVIEW：可疑内容，建议人工审核<br/>REJECT：违规内容，建议直接拦截 |
+| auxInfo     | json_object | 辅助信息                   | N            | 详见[auxInfo说明](#auxInfo)                                  |
+| frameDetail | json_array  | 风险详情                   | N            | 有风险片段或returnVideoAllImg=1时返回，详见[frameDetail说明](#frameDetail) |
+| audioDetail | json_array  | 音频片段信息               | N            | 有风险片段或returnVideoAllAudio=1时返回，详见[audioDetail说明](#audioDetail) |
 
 其中，auxInfo中的具体内容如下：
 
@@ -921,75 +921,75 @@ riskDetail中，ocrText的内容如下：
 
 其中，frameDetail数组中每个成员的具体内容如下：
 
-| **参数名**         | **类型**      | **参数说明**                                | **是否必返** | **规范**                                                                   |
-| --------------- | ----------- | --------------------------------------- | -------- | ------------------------------------------------------------------------ |
-| time            | float       | 截帧在视频文件中的时间，单位为秒                        | Y        | 截帧图片相对视频文件的时间                                                            |
-| requestId       | string      | 当前截帧片段的唯一标识                             | Y        |                                                                          |
-| imgUrl          | string      | 当前截帧的URL                                | Y        |                                                                          |
-| imgText         | string      | 截帧图片OCR文本内容                             | N        | 截帧图片OCR文字识别，识别类型包含OCR时会有                                                 |
-| riskLevel       | string      | 当前截帧的处置建议                               | Y        | PASS：正常内容<br>REVIEW：可疑内容<br>REJECT：违规内容                                  |
-| riskLabel1      | string      | 各个一级标签之间是并列的关系，当riskLevel为PASS时返回normal | Y        | 一级标签                                                                     |
-| riskLabel2      | string      | 二级标签归属于一级标签，当riskLevel为PASS时为空          | Y        | 二级标签                                                                     |
-| riskLabel3      | string      | 三级标签归属于二级标签，当riskLevel为PASS时为空          | Y        | 三级标签                                                                     |
-| riskDescription | string      | 标签解释                                    | Y        | 对于命中用户自定义名单时返回：命中自定义名单；当riskLevel为PASS时返回:正常；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
-| disposal        | json_object | 处置结果                                    | N        | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段                   |
-| riskDetail      | json_object | 风险详情信息                                  | Y        | 详见images里的_riskDetail_内容                                                 |
-| auxInfo         | json_object | 辅助信息                                    | Y        | 一些辅助信息放在这里，详见[auxInfo说明](#auxInfo3)                                      |
+| **参数名**      | **类型**    | **参数说明**                                                | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ----------------------------------------------------------- | ------------ | ------------------------------------------------------------ |
+| time            | float       | 截帧在视频文件中的时间，单位为秒                            | Y            | 截帧图片相对视频文件的时间                                   |
+| requestId       | string      | 当前截帧片段的唯一标识                                      | Y            |                                                              |
+| imgUrl          | string      | 当前截帧的URL                                               | Y            |                                                              |
+| imgText         | string      | 截帧图片OCR文本内容                                         | N            | 截帧图片OCR文字识别，识别类型包含OCR时会有                   |
+| riskLevel       | string      | 当前截帧的处置建议                                          | Y            | PASS：正常内容<br/>REVIEW：可疑内容<br/>REJECT：违规内容     |
+| riskLabel1      | string      | 各个一级标签之间是并列的关系，当riskLevel为PASS时返回normal | Y            | 一级标签                                                     |
+| riskLabel2      | string      | 二级标签归属于一级标签，当riskLevel为PASS时为空             | Y            | 二级标签                                                     |
+| riskLabel3      | string      | 三级标签归属于二级标签，当riskLevel为PASS时为空             | Y            | 三级标签                                                     |
+| riskDescription | string      | 标签解释                                                    | Y            | 对于命中用户自定义名单时返回：命中自定义名单；当riskLevel为PASS时返回:正常；其他情况展现形式为一级标签：二级标签：三级标签的中文名 |
+| disposal        | json_object | 处置结果                                                    | N            | 最外层的三级标签做映射之后的值放入disposal中，当未开启公司标签映射 或 未配置标签映射时不返回该字段 |
+| riskDetail      | json_object | 风险详情信息                                                | Y            | 详见images里的_riskDetail_内容                               |
+| auxInfo         | json_object | 辅助信息                                                    | Y            | 一些辅助信息放在这里，详见[auxInfo说明](#auxInfo3)           |
 
 其中，disposal的内容如下：
 
-| **参数名称**        | **类型**      | **参数说明**  | **是否必返** | **规范**                                                           |
-| --------------- | ----------- | --------- | -------- | ---------------------------------------------------------------- |
-| riskLevel       | string      | 处置建议      | N        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| riskLabel1      | string      | 映射后一级风险标签 | N        | 一级风险标签，当riskLevel为PASS时返回normal                                  |
-| riskLabel2      | string      | 映射后二级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskLabel3      | string      | 映射后三级风险标签 | N        | 二级风险标签，当riskLevel为PASS时为空                                        |
-| riskDescription | string      | 映射后风险原因   | N        | 当riskLevel为PASS时为"正常"                                            |
-| riskDetail      | json_object | 映射后风险详情   | N        | 风险详情                                                             |
+| **参数名称**    | **类型**    | **参数说明**       | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | ------------------ | ------------ | ------------------------------------------------------------ |
+| riskLevel       | string      | 处置建议           | N            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| riskLabel1      | string      | 映射后一级风险标签 | N            | 一级风险标签，当riskLevel为PASS时返回normal                  |
+| riskLabel2      | string      | 映射后二级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskLabel3      | string      | 映射后三级风险标签 | N            | 二级风险标签，当riskLevel为PASS时为空                        |
+| riskDescription | string      | 映射后风险原因     | N            | 当riskLevel为PASS时为"正常"                                  |
+| riskDetail      | json_object | 映射后风险详情     | N            | 风险详情                                                     |
 
 frameDetail中，auxInfo的内容如下：
 
-| **参数名**    | **类型** | **参数说明**           | **是否必返** | **规范**                                                                    |
-| ---------- | ------ | ------------------ | -------- | ------------------------------------------------------------------------- |
-| qrContent  | string | 截帧图片二维码链接识别        | N        | 截帧图片二维码链接识别，如有需要可联系数美开启<br>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含AD |
-| similarity | float  | 当前截帧图片和上一帧截帧图片的相似度 | Y        | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片                                            |
+| **参数名** | **类型** | **参数说明**                         | **是否必返** | **规范**                                                     |
+| ---------- | -------- | ------------------------------------ | ------------ | ------------------------------------------------------------ |
+| qrContent  | string   | 截帧图片二维码链接识别               | N            | 截帧图片二维码链接识别，如有需要可联系数美开启<br/>注意：开启该功能后，只有完整，可以正常识别到的二维码才会返回且imgType传值需要包含AD |
+| similarity | float    | 当前截帧图片和上一帧截帧图片的相似度 | Y            | 有图片则该字段就会返回，视频文件初始第一帧将比对纯黑背景图片 |
 
 其中，audioDetail数组中每个成员的具体内容如下：
 
-| **参数名**         | **类型**      | **参数说明**                               | **是否必返** | **规范**                                                |
-| --------------- | ----------- | -------------------------------------- | -------- | ----------------------------------------------------- |
-| requestId       | string      | 流水号                                    | Y        |                                                       |
-| audioStarttime  | float       | 音频片段发生时间                               | Y        |                                                       |
-| audioEndtime    | float       | 音频片段结束时间                               | Y        |                                                       |
-| audioUrl        | string      | 音频片段地址                                 | Y        |                                                       |
-| audioText       | string      | 音转文文字                                  | N        | 识别出文本会返回                                              |
-| riskLevel       | string      | 当前事件的处置建议                              | Y        | PASS：正常内容<br>REVIEW：可疑内容<br>REJECT：违规内容               |
-| riskLabel1      | string      | 各个一级标签之间是并列的关系，riskLevel为PASS时返回normal | Y        | 一级标签                                                  |
-| riskLabel2      | string      | 二级标签归属于一级标签，当riskLevel为PASS时为空         | Y        | 二级标签                                                  |
-| riskLabel3      | string      | 三级标签归属于二级标签，当riskLevel为PASS时为空         | Y        | 三级标签                                                  |
-| riskDescription | string      | 标签解释                                   | Y        | 格式为"一级风险标签：二级风险标签：三级风险标签"的中文名称；对于命中用户自定义名单时返回：命中自定义名单 |
-| riskDetail      | json_object | 风险详情信息                                 | Y        | 详见[riskDetail说明](#riskDetail2)                        |
+| **参数名**      | **类型**    | **参数说明**                                              | **是否必返** | **规范**                                                     |
+| --------------- | ----------- | --------------------------------------------------------- | ------------ | ------------------------------------------------------------ |
+| requestId       | string      | 流水号                                                    | Y            |                                                              |
+| audioStarttime  | float       | 音频片段发生时间                                          | Y            |                                                              |
+| audioEndtime    | float       | 音频片段结束时间                                          | Y            |                                                              |
+| audioUrl        | string      | 音频片段地址                                              | Y            |                                                              |
+| audioText       | string      | 音转文文字                                                | N            | 识别出文本会返回                                             |
+| riskLevel       | string      | 当前事件的处置建议                                        | Y            | PASS：正常内容<br/>REVIEW：可疑内容<br/>REJECT：违规内容     |
+| riskLabel1      | string      | 各个一级标签之间是并列的关系，riskLevel为PASS时返回normal | Y            | 一级标签                                                     |
+| riskLabel2      | string      | 二级标签归属于一级标签，当riskLevel为PASS时为空           | Y            | 二级标签                                                     |
+| riskLabel3      | string      | 三级标签归属于二级标签，当riskLevel为PASS时为空           | Y            | 三级标签                                                     |
+| riskDescription | string      | 标签解释                                                  | Y            | 格式为"一级风险标签：二级风险标签：三级风险标签"的中文名称；对于命中用户自定义名单时返回：命中自定义名单 |
+| riskDetail      | json_object | 风险详情信息                                              | Y            | 详见[riskDetail说明](#riskDetail2)                           |
 
 audioDetail中，riskDetail的每个元素详细内容如下：
 
-| **参数名**      | **类型**     | **参数说明**     | **是否必返** | **规范**                                                       |
-| ------------ | ---------- | ------------ | -------- | ------------------------------------------------------------ |
-| riskSource   | int        | 风险来源         | Y        | 风险来源，可选值：<br>1000：无风险<br>1001：文本风险<br>1002：视觉风险<br>1003：音频风险 |
-| audioText    | string     | 音频转译文本的结果    | N        |                                                              |
-| matchedLists | json_array | 命中的客户自定义名单信息 | N        | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2)       |
-| riskSegments | json_array | 高风险内容片段      | N        | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2)  |
+| **参数名**   | **类型**   | **参数说明**             | **是否必返** | **规范**                                                     |
+| ------------ | ---------- | ------------------------ | ------------ | ------------------------------------------------------------ |
+| riskSource   | int        | 风险来源                 | Y            | 风险来源，可选值：<br/>1000：无风险<br/>1001：文本风险<br/>1002：视觉风险<br/>1003：音频风险 |
+| audioText    | string     | 音频转译文本的结果       | N            |                                                              |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N            | 命中客户自定义名单时返回，其他时不存在，详见[matchedLists说明](#matchedLists2) |
+| riskSegments | json_array | 高风险内容片段           | N            | 在涉政、暴恐、违禁、竞品、广告法等功能的时候存在，详见[riskSegments说明](#riskSegments2) |
 
 **files** 里每个元素的内容
 
-| **参数名称**  | **类型**      | **参数说明**    | **是否必返** | **规范**                                                           |
-| --------- | ----------- | ----------- | -------- | ---------------------------------------------------------------- |
-| code      | int         | 响应码         | Y        | 见响应码参数说明                                                         |
-| message   | string      | 响应码说明       | Y        | 见响应码参数说明                                                         |
-| requestId | string      | 该条数据任务的唯一标识 | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                   |
-| dataId    | string      | 作品Id        | N        | 和传入的dataId对应                                                     |
-| btId      | string      | 请求标识        | Y        | 和传入的btId对应                                                       |
-| riskLevel | string      | 处置建议        | Y        | 可能返回值：<br>PASS：正常，建议直接放行<br>REVIEW：可疑，建议人工审核<br>REJECT：违规，建议直接拦截 |
-| detail    | json_object | 风险详情        | Y        | [详见](#Adetail)detail参数                                           |
+| **参数名称** | **类型**    | **参数说明**           | **是否必返** | **规范**                                                     |
+| ------------ | ----------- | ---------------------- | ------------ | ------------------------------------------------------------ |
+| code         | int         | 响应码                 | Y            | 见响应码参数说明                                             |
+| message      | string      | 响应码说明             | Y            | 见响应码参数说明                                             |
+| requestId    | string      | 该条数据任务的唯一标识 | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
+| dataId       | string      | 作品Id                 | N            | 和传入的dataId对应                                           |
+| btId         | string      | 请求标识               | Y            | 和传入的btId对应                                             |
+| riskLevel    | string      | 处置建议               | Y            | 可能返回值：<br/>PASS：正常，建议直接放行<br/>REVIEW：可疑，建议人工审核<br/>REJECT：违规，建议直接拦截 |
+| detail       | json_object | 风险详情               | Y            | [详见](#Adetail)detail参数                                   |
 
 其中detail字段如下：
 
