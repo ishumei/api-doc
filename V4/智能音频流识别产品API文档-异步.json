@@ -185,7 +185,7 @@
             "type": "string",
             "param_description": "音频流语言类型",
             "required": false,
-            "param_specification": "可选值（默认zh）：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\n[集群支持语种详见 请求URL支持语种](#language)"
+            "param_specification": "可选值（默认zh）：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto：自动语种识别（联系数美开通）\n[集群支持语种详见 请求URL支持语种](#language)"
           },
           {
             "req_name": "zegoParam",
