@@ -25,7 +25,7 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 |  |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | type和businessType必传其一 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情 <br/>VIOLENT :暴恐<br/>EROTIC :色情/性感 <br/>DIRTY :辱骂 <br/>ADVERT :广告<br/>ADLAW :广告法 <br/>MEANINGLESS :无意义 <br/>PRIVACY :隐私<br/>TEXTMINOR :未成年人 <br/>FRUAD :网络诈骗 <br/>QRCODE :二维码 <br/>IMGTEXTRISK  :图片文字风险 <br/>TEXTRISK :文本风险 <br/>如果需要识别多个功能，通过下划线连接，如 POLITY_BAN_EROTIC<br/> |
+| type | string | 检测的风险类型 | type和businessType必传其一 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情 <br/>VIOLENT :暴恐<br/><br/>BAN :违禁<br/>EROTIC :色情/性感 <br/>DIRTY :辱骂 <br/>ADVERT :广告<br/>ADLAW :广告法 <br/>MEANINGLESS :无意义 <br/>PRIVACY :隐私<br/>TEXTMINOR :未成年人 <br/>FRUAD :网络诈骗 <br/>QRCODE :二维码 <br/>IMGTEXTRISK  :图片文字风险 <br/>TEXTRISK :文本风险 <br/>如果需要识别多个功能，通过下划线连接，如 POLITY_BAN_EROTIC<br/> |
 | businessType | string | 检查的业务标签 | type和businessType必传其一 | 业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和type必须选择一个传入 |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长5MB，[详见data参数](#data) |
 
