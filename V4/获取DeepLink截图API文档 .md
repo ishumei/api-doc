@@ -23,18 +23,25 @@
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **请求参数名** | **类型**    | **参数说明**     | **传入说明** | **规范**                               |
-| :------------- | :---------- | :--------------- | :----------- | :------------------------------------- |
-| accessKey      | string      | 公司密钥         | 必传参数     | 由数美提供                             |
-| callback       | string      | 回调地址         | 必传参数     |                                        |
-| data           | json object | 本次请求相关信息 | 必传参数     | 请求的数据内容， [详见data参数](#data) |
+| **请求参数名** | **类型** | **参数说明**     | **传入说明** | **规范**                               |
+| :------------- | :------- | :--------------- | :----------- | :------------------------------------- |
+| accessKey      | string   | 公司密钥         | 必传参数     | 由数美提供                             |
+| callback       | string   | 回调地址         | 必传参数     |                                        |
+| data           |          | 本次请求相关信息 | 必传参数     | 请求的数据内容， [详见data参数](#data) |
 
 其中，<span id="data">data</span>的内容如下：
 
-| **请求参数名**        | **类型** | **参数说明**         | **传入说明** | **规范**                                                     |
-| :-------------------- | :------- | :------------------- | :----------- | :----------------------------------------------------------- |
-| enableSwipeScreenshot | bool     | 是否开启滑动截图功能 | 非必传参数   |                                                              |
-| deeplink              | string   | deeplink             | 必传参数     | Android deeplink 链接，目前已知支持如下 deeplink：  <br/>携程：ctrip://wireless/h5 美团： imeituan://[www.meituan.com/hotel/homepage](http://www.meituan.com/hotel/homepage)  <br/>小红书-微信小程序： xhsdiscover://wechat_miniprogram 其它类型待测试 |
+| **请求参数名**        | **类型**    | **参数说明**         | **传入说明** | **规范**                                                     |
+| :-------------------- | :---------- | :------------------- | :----------- | :----------------------------------------------------------- |
+| enableSwipeScreenshot | bool        | 是否开启滑动截图功能 | 非必传参数   |                                                              |
+| deeplink              | string      | deeplink             | 必传参数     | Android deeplink 链接，目前已知支持如下 deeplink：  <br/>携程：ctrip://wireless/h5 美团： imeituan://[www.meituan.com/hotel/homepage](http://www.meituan.com/hotel/homepage)  <br/>小红书-微信小程序： xhsdiscover://wechat_miniprogram 其它类型待测试 |
+| extra                 | json object | 扩展字段             | 非必传参数   |                                                              |
+
+<span id="extra">extra</span>的内容如下：
+
+| **请求参数名** | **类型**    | **参数说明** | **传入说明** | **规范** |
+| :------------- | :---------- | :----------- | :----------- | :------- |
+| passThrough    | json_object | 透传字段     | 非必传参数   |          |
 
 ### 同步返回参数
 
@@ -45,6 +52,13 @@
 | requestId          | string       | 本次请求的唯一标识             | 是           |                                                              |
 | code               | int          | 请求返回码                     | 是           | <p>1100：成功</p><p>1901：QPS超限</p><p>1902：参数不合法</p><p>1903：服务失败</p><p>9101：无权限操作</p> |
 | message            | string       | 请求返回描述，和请求返回码对应 | 是           | 和code对应                                                   |
+| auxInfo            | json object  | 其他辅助信息                   | 否           |                                                              |
+
+其中，<span id="auxInfo">auxInfo</span>的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范**            |
+| :----------------- | :----------- | :----------- | :----------- | :------------------ |
+| passThrough        | json_object  | 透传字段     | 是           | 请求参数中extra传入 |
 
 ### 异步回调
 
