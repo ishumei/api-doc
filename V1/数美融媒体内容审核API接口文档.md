@@ -14,10 +14,11 @@
 
 ### 请求URL
 
-| 集群名称 | url                                            |
-| ---- | ---------------------------------------------- |
-| 硅谷集群 | http://api-media-gg.fengkongcloud.com/media/v1 |
-| 上海集群 | http://api-media-sh.fengkongcloud.com/media/v1 |
+| 集群名称   | url                                                          |
+| ---------- | ------------------------------------------------------------ |
+| 上海集群   | http://api-media-sh.fengkongcloud.com/media/v1               |
+| 硅谷集群   | http://api-media-gg.fengkongcloud.com/media/v1（不支持文档审核） |
+| 新加坡集群 | http://api-media-xjp.fengkongcloud.com/media/v1（不支持文档审核） |
 
 ### 检测数据要求
 
@@ -55,6 +56,8 @@
 - 文档支持格式： DOCX、PDF、DOC、XLS、XLSX、PPT、PPTX、PPS、PPSX、XLTX、XLTM、XLSB、TXT
 - 文档大小：单文档\<500M，文本长度限制50w字，图片张数限制500张 
 
+
+
 ### 请求参数
 
 | **名称**      | **类型**       | **是否必填** | **说明**                                   |
@@ -89,18 +92,19 @@ data 中，advancedFrequency的内容如下
 
 contents里包含的内容
 
-| **名称**            | **类型** | **是否必填** | **说明**                                                                                                                                                                                                                                                      |
-| ----------------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dataType          | string | Y        | 数据类型，可能取值： <br/> text：文本<br/> image：图片 <br/>audio：音频文件 <br/>video：视频文件 <br/>file：文档                                                                                                                                                                         |
-| content           | string | Y        | 检测数据类型是文本时传入原始文本数据，检测数据类型是其他时传入数据url                                                                                                                                                                                                                        |
-| dataId            | string | N        | 作品Id，用于查询作品                                                                                                                                                                                                                                                 |
-| btId              | string | Y        | 数据唯一标识，用于查询历史记录，注意：重复会报错                                                                                                                                                                                                                                    |
-| txtType           | string | N        | 文本和文档中文本检测风险类型，可选值：TEXTRISK。dataType为text或者file时必传                                                                                                                                                                                                          |
-| audioType         | string | N        | 音频和视频中音频部分检测风险类型，可选值：<br/>PORN：色情识别<br/>AD：广告识别<br/>POLITICAL：涉政识别<br/>ABUSE：辱骂识别<br/>MOAN：娇喘识别<br/>ANTHEN：国歌识别<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
-| imgType           | string | N        | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITICS:涉政识别<br/>PORN:色情识别<br/>AD:广告识别<br/>LOGO:水印logo识别<br/>BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>OCR:图片中的OCR文字识别<br/>VIOLENCE:暴恐识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传        |
-| imageBusinessType | string | N        | 图片业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和imgType必须选择一个传入                                                                                                                                                                                             |
-| audioBusinessType | string | N        | 可选值：音频业务标签的一、二、三级标签<br/>GENDER：性别识别<br/>AGE：年龄识别<br/>TIMBRE：音色识别<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>VOICE：人声属性<br/>AUDIOSCENE：声音场景，如果需要多个识别功能，通过下划线连接，该字段和audioType必须选择一个传入                                                                                |
-| fileFormat        | string | N        | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误                                                       |
+| **名称**          | **类型** | **是否必填** | **说明**                                                     |
+| ----------------- | -------- | ------------ | ------------------------------------------------------------ |
+| dataType          | string   | Y            | 数据类型，可能取值： <br/> text：文本<br/> image：图片 <br/>audio：音频文件 <br/>video：视频文件 <br/>file：文档 |
+| lang              | string   | N            | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
+| content           | string   | Y            | 检测数据类型是文本时传入原始文本数据，检测数据类型是其他时传入数据url |
+| dataId            | string   | N            | 作品Id，用于查询作品                                         |
+| btId              | string   | Y            | 数据唯一标识，用于查询历史记录，注意：重复会报错             |
+| txtType           | string   | N            | 文本和文档中文本检测风险类型，可选值：TEXTRISK。dataType为text或者file时必传 |
+| audioType         | string   | N            | 音频和视频中音频部分检测风险类型，可选值：<br/>PORN：色情识别<br/>AD：广告识别<br/>POLITICAL：涉政识别<br/>ABUSE：辱骂识别<br/>MOAN：娇喘识别<br/>ANTHEN：国歌识别<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
+| imgType           | string   | N            | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITICS:涉政识别<br/>PORN:色情识别<br/>AD:广告识别<br/>LOGO:水印logo识别<br/>BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>OCR:图片中的OCR文字识别<br/>VIOLENCE:暴恐识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
+| imageBusinessType | string   | N            | 图片业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和imgType必须选择一个传入 |
+| audioBusinessType | string   | N            | 可选值：音频业务标签的一、二、三级标签<br/>GENDER：性别识别<br/>AGE：年龄识别<br/>TIMBRE：音色识别<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>VOICE：人声属性<br/>AUDIOSCENE：声音场景，如果需要多个识别功能，通过下划线连接，该字段和audioType必须选择一个传入 |
+| fileFormat        | string   | N            | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
 
 ### 异步审核响应参数
 
