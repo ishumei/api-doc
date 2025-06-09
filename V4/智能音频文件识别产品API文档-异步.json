@@ -186,6 +186,13 @@
         "required": true,
         "son": [
           {
+            "req_name": "retryUrl",
+            "type": "string",
+            "param_description": "重试的音频文件地址",
+            "required": false,
+            "param_specification": "当content下的音频地址下载失败，使用retryUrl重试"
+          },
+          {
             "req_name": "tokenId",
             "type": "string",
             "param_description": "用户账号",
