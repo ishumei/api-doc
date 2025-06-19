@@ -1,5 +1,5 @@
 ---
-title: VVideo Stream (Audio Segment) Error Correction Interface Documentation
+title: Video Stream (Audio Segment) Error Correction Interface Documentation
 sidebar_label: Video Stream (Audio Segment) Error Correction Interface Documentation
 
 hide_title: true
