@@ -1,595 +1,370 @@
+## 同步接口
 
+### 请求参数
 
+#### 请求URL：
 
+| 集群 | URL | 
+| --- | --- | 
+| 北京 | `http://api-article-bj.fengkongcloud.com/document/v4` | 
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/document/v4` |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/document/v4` |
 
-# 数美智能文档识别产品API接口文档
-
-- - - - -
-
-***版权所有 翻版必究***
-
-- - - - -
-
-目录
-
-- [智能文档过滤服务](#A)
-  
-  - [请求参数](#Aa)
-    - [请求URL](#Aa1)
-    - [字符编码格式](#Aa2)
-    - [请求方法](#Aa3)
-    - [建议超时时长](#Aa4)
-    - [请求参数](#Aa5)
-  - [返回结果](#Ab)
-    - [回调模式](#Ab2)
-  
-  - [示例](#Ac)
-    - [回调模式](#Ac2)
-      - [请求示例](#Ac21)
-      - [响应示例](#Ac22)
-  
-- [智能文档上传服务](#B)
-  
-  - [请求参数](#Ba)
-    - [请求URL](#Ba1)
-    - [字符编码格式](#Ba2)
-    - [请求方法](#Ba3)
-    - [建议超时时长](#Ba4)
-    - [请求参数](#Ba5)
-  - [返回结果](#Bb)
-    - [请求返回参数](#Bb1)
-  - [示例](#Bc)
-    - [请求示例](#Bc1)
-    - [响应示例](#Bc2)
-  
-- [结果查询接口](#C)
-  
-  - [请求参数](#Ca)
-    
-    - [请求URL](#Ca1)
-    - [字符编码格式](#Ca2)
-    - [请求方法](#Ca3)
-    - [建议超时时长](#Ca4)
-    - [请求参数](#Ca5)
-    
-  - [返回结果](#Cb)
-    
-    - [请求返回参数](#Cb1)
-    
-  - [示例](#Cc)
-    
-    - [请求示例](#Cc1)
-    
-    - [返回示例](#Cc2)
-    
-      
-
-# <span id="A">智能文档过滤服务接入说明</span>
-
-## <span id="Aa">请求参数</span>
-
-### <span id="Aa1">请求URL：</span>
-
-| 集群 | URL | 支持产品列表 |
-| --- | --- |--------|
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 文档产品   |
-
-### <span id="Aa2">字符编码格式：</span>
+#### 字符编码格式：
 
 `UTF-8`字符集编码
 
-### <span id="Aa3">请求方法：</span>
+#### 请求方法：
 
 `POST`
 
-### <span id="Aa4">建议超时时长：</span>
+#### 建议超时时长：
 
 15s
 
-### <span id="Aa5">请求参数：</span>
+#### 请求参数：
 
 放在HTTP Body中，采用Json格式，Body大小不可超过3.5M，具体参数如下：
 
-| **请求参数名** | **类型** | **参数说明**   | **是否必传** | **规范** |
-| --- | --- |------------| --- | --- |
-| accessKey | string | 接口认证密钥     | Y | 由数美提供 |
-| type | string | 平台业务类型     | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType | string | 文档中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
-| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
-| appId | string | 应用标识       | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
-| callback | string | 回调http接口   | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
-| callbackParam | json_object | 透传字段       | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
-| data | json\_object | 请求的数据内容    | Y | 最长1MB, [详见data参数](#data) |
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| accessKey | string | 接口认证密钥 | Y | 由数美提供 |
+| imgType | string | 网页中的图片识别类型 | Y | 可选值：<br/>POLITY：涉政识别<br/>EROTIC：色情&性感违规识别<br/>VIOLENT：暴恐&违禁识别<br/>QRCODE：二维码识别<br/>ADVERT：广告识别<br/>IMGTEXTRISK：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）<br/>BOCR：OCR小语种识别支持和语种自动检测（仅限新加坡集群）<br/>NONE：不审核图片<br/>以上type除NONE以外都可以下划线组合，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别 |
+| txtType | string | 网页中的文字识别类型 | Y | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR:未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>NONE：不审核文本<br/> 以上type除NONE以外都可以下划线组合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理 |
+| appId | string | 应用标识 | Y | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
+| data | json_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  其中，<span id="data">data</span>的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
-| --- | --- | --- |----------| --- |
-| contents | string | 要检测的内容 | Y        | 可填入url链接<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字，图片张数限制500张，视频文件数限制50段。 |
-| fileFormat | string | 要检测的文档格式 | Y        | 可选值：<br/>`PDF`<br/>`EPUB`<br/>`DOCX`<br/>`DOC`<br/>`XLSX`<br/>`XLS`<br/>`PPTX`<br/>`PPT`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`SRT`<br/>`VTT`  |
-| tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y        |  |
-| channel | string | 业务场景 | N        | 渠道表配置 |
-| returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N        | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
-| nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N        |  |
-| ip | string | 客户端ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N        |  |
-| passThrough | json_object | 透传参数，原样返回 | N        |  |
+| --- | --- | --- | --- | --- |
+| url | string | 要检测的文档链接 | Y | 文档链接可下载，其中网址头部的content-type需为text/html。<br/>网址内容大小500m以内，文本长度限制50w字，图片张数限制500张。（url、text、contents传且只能传其中一个）|
+| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
+| nickname | string | 用户昵称 | N | 校验昵称内容风险|
+| ip | string | ip地址 | N | 发送该文本的的用户公网ipv4或ipv6地址 |
+| tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
+| lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
+| receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的字符串|
+| returnAllImg | int | 返回图片的等级 | N | 选择返回图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
+| returnAllText | int | 返回文本的等级| N  | 选择返回文本的等级：0：返回风险等级为非pass的文本；1：返回所有风险等级的文本。默认为0 |
+| level | int | 用户等级，针对不同等级的用户可配置不同拦截策略 | N  | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
+| gender | string | 用户性别 | N  | 可选值：<br/>male男性 <br/>female女性 |
+| deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
+| dataId | string | 数据标识 | N | 数据标识 |
+| acceptLang | string  | 返回标签的语种类型   | N    | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
+| extra | json_object | 辅助参数 | N | 用于辅助文本检测的相关信息，[详见extra参数](#extra) |
 
-## <span id="Ab">返回结果</span>
+<span id="extra">data 中 extra数组每个元素的内容如下：</span>
 
-### <span id="Ab2">回调模式</span>
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| room | string | 直播间/游戏房间编号 | N | 传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
+| passThrough | Json | 透传字段 | N | 该字段内容会随着返回值一起返回 |
 
-系统会自动推送机审结果至callback字段指定的URL上
+#### 回调返回参数：
+
+#### <span id="Ab1">回调返回</span>
+
+放在HTTP Body中，采用Json格式，具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
+| riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| textDetail | json_array | 风险详情 | N | [详见textDetail参数](#textDetail) |
+| imgDetail | json_array | 风险详情 | N | [详见imgDetail参数](#imgDetail) |
+| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#auxInfo)  |
+
+其中，<span id="textDetail">textDetail</span>的内容如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLabel1| string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2| string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空|
+| riskLabel3| string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空|
+| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常"|
+| riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
+| allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+
+其中，<span id="riskDetail">textDetail的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| matchedLists | json_array | 辅助信息 | N| 命中的客户自定义名单列表。[详见matchedLists参数](#matchedLists) |
+| riskSegments | json_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N| [详见riskSegments参数](#riskSegments) |
+
+其中，<span id="matchedLists">textDetail的riskDetail下matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
+| --- | --- | --- | --- | --- |
+| name | string | 辅助信息 | N| 命中的名单名称|
+| words| json_array | 辅助信息 | N| 命中的敏感词数组。[详见words参数](#words) |
+
+其中，<span id="words">matchedLists中，words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string| 辅助信息 | N| 命中的敏感词 |
+| position | int_array | 辅助信息 | N| 敏感词所在位置 |
+
+其中，<span id="riskSegments">textDetail的riskDetail下riskSegments的内容如下：</span>
+
+| **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment| string| 辅助信息 | N| 高风险内容片段 |
+| position | int_array | 辅助信息 | N| 高风险内容片段所在位置 |
+
+其中，<span id="imgDetail">imgDetail</span>的内容如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLabel1| string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2| string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空|
+| riskLabel3| string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空|
+| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常"|
+| riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
+| allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+
+其中，<span id="riskDetail">imgDetail的riskDetail结构如下：</span>
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| faces | json_array | 返回图片中涉政人物的名称及位置信息 | N |  |
+| face_num | int | 人脸数量 | N |  |
+| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 | N | |
+| person_num | int | 人像数量 | N | 有且仅有人像-多人下返回 |
+| objects | json_array | 返回图片中物品或标志二维码的位置信息 | N | 数组仅会有一个元素 |
+| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | N | |
+| riskSource | int | 标识资源哪里违规 | Y | 标识风险结果的来源<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+
+其中,imgDetail的riskDetail下faces数组每个元素的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 能识别的公众人物名称 |
+| location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | N |  |
+| face_ratio | float | 人脸占比 | N | |
+| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
+
+其中，imgDetail的riskDetail下objects数组每个元素的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | N |  |
+| name | string | 标识名称 | N | |
+| location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标  | N | |
+| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
+| qrContent | string | 二维码的url信息 | N | 仅当命中二维码相关标签时返回 |
+
+其中，imgDetail的riskDetail下persons数组每个元素的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID | N |  |
+| person_ratio | string | 人像在图中的占比 | N | |
+| location | int_array | 人像位置坐标 | N | |
+| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
+
+其中，imgDetail的riskDetail下ocrText的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 识别出的文字 | Y | |
+| matchedLists | json\_array | 命中的客户自定义名单列表 | N | |
+| riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N |  |
+
+其中，ocrText的matchedLists数组每个元素的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | |
+| words | json\_array | 命中的敏感词信息 | N | |
+
+其中，matchedLists的words数组每个元素的内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | |
+| position | int_array | 敏感词所在位置 | N | |
+
+其中，ocrText的riskSegments的每个元素的详细内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | |
+| position | int_array | 高风险内容片段所在位置 | N | |
+
+其中，<span id="allLabels">allLabels的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLabel1 | string | allLabels不为空时必返 | Y | 一级风险标签 |
+| riskLabel2 | string | allLabels不为空时必返 | Y | 二级风险标签|
+| riskLabel3 | string | allLabels不为空时必返 | Y | 三级风险标签|
+| riskDescription| string | allLabels不为空时必返 | Y | 风险原因|
+| probability| float| 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 注意：allLabels不为空时必返 |
+| riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+
+其中，<span id="tokenProfileLabels">tokenProfileLabels、tokenRiskLabels的内容如下：</span>
+
+| 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
+| ----------- | ------ | ------------ | -------- | -------------------------- |
+| label1      | string | 一级标签     | N      |                            |
+| label2      | string | 二级标签     | N       |                            |
+| label3      | string | 三级标签     | N       |                            |
+| description | string | 标签描述     | N       |                            |
+| timestamp   | Int    | 打标签时间戳 | N       | 13位Unix时间戳，单位：毫秒 |
+
+其中，<span id="auxInfo">auxInfo</span>的内容如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
+| imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
+
+#### 回调模式的同步返回
 
 #### 请求返回参数：
 
 | **参数名称** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
 | ------------ | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
-| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
-| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
+| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
+| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
 | requestId    | string      | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
-| score        | int         | 风险分数     | N            | code为1100时存在，取值范围[0,1000]，分数越高风险越大         |
-| riskLevel    | string      | 处置建议     | N            | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| detail       | json_object | 风险详情     | N            | [详见detail参数](#Adetail)                                   |
 
-#### 回调返回参数：
 
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
-| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
-| score | int | 风险分数 | N | code为1100时存在，取值范围[0,1000]，分数越高风险越大 |
-| riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
-| status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
-| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#AauxInfo)  |
-| callbackParam | json_object | 透传字段	 | N	 |透传参数，原样返回  |
+### 示例
 
-<span id="Adetail">其中detail字段如下：</span>
+#### 回调模式
 
-| 参数名称    | **类型**    | **是否必选** | **说明**                                                   |
-| ----------- | ----------- | ------------ | ---------------------------------------------------------- |
-| model       | string      | Y            | 规则标识                                                   |
-| description | string      | Y            | 策略规则风险原因描述                                       |
-| descriptionV2     | string      | N            | 新版策略规则风险原因描述<br/>注：该参数为新版API返回参数，过渡阶段只有新策略才会返回 |
-| riskSummary | json object | N            | 风险摘要，目前包括各种风险类型的次数，如果type为NOVEL才返回<br/>[格式请见riskSummary结果详情](#AriskSummary) |
-| riskDetail  | json array  | N            | 每一段内容的风险详情，如果type为NOVEL才返回。如果returnHtml参数为true只返回REJECT和REVIEW的风险内容片段，如果returnHtml参数为false会返回全部内容片段（包括REJECT和REVIEW和PASS）。<br/>[格式请见riskDetail结果详情](#AriskDetail) |
-| riskHtml    | string      | N            | 风险内容标记的html,可嵌入需要展示的html页面，如果type为NOVEL且returnHtml参数为true才返回。<br/> |
-| hits        | json_array  | N            | 命中信息，一般为空。命中详情在riskDetail中。             |
-| passThrough | json_object | N            | 透传参数，原样返回             |
-
-其中，<span id="AriskSummary">riskSummary</span>内容是风险类型，具体如下：
-
-| **参数名称**| **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| riskType | int| 对应riskType风险出现的次数 | N| 风险类型：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
-
-其中，<span id="AriskDetail">riskDetail</span>是json array，其中每一项是一个内容片段的风险详情，具体如下：
-
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`image`：图片<br/>          |
-| content | string | 当前内容片段的内容 | Y           | text是文本内容，image是图片url |
-| beginPosition | int       | 当前内容片段在输入中的起始位置，当type为`image`时该字段不返回 | N            | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的首字在全局检测出文本中的位置 |
-| endPosition | int     | 当前内容片段在输入中的结束位置，当type为`image`时该字段不返回 | N           | 检测出的文本内容，从0开始计算位置；文本切分后，每个片段的文本内容的末尾字在全局检测出文本中的位置 |
-| description | string | 当前内容片段的风险描述 | Y           | 命中的对应名单中的所有敏感词                                 |
-| riskLevel | string | 当前内容片段的处置建议 | Y           | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
-| riskType | int | 当前内容片段的标识风险类型 | Y | 当type为文本时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：辱骂<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`：违禁<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义<br/><br/>当type为图片时：<br/>`0`：正常<br/>`100`：涉政<br/>`200`：色情<br/>`210`：性感<br/>`300`：广告<br/>`310`：二维码<br/>`320`：水印<br/>`400`：暴恐<br/>`500`：违规<br/>`510`：不良场景<br/>`520`：未成年人<br/>`700`：黑名单<br/>`710`：白名单<br/>`800`：高危账号<br/>`900`：自定义 |
-| riskTypeDec | string | riskType对应的描述 | N |  |
-| model | string | 规则标识，用来标识文本命中的策略规则 | N |  |
-| matchedList | string | 命中敏感词所在的名单名称（该参数仅在命中敏感词时存在） | N |  |
-| matchedItem | string | 命中的具体敏感词（该参数仅在命中敏感词时存在） | N |  |
-| matchedField | string | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在） | N | 可选值：<br/>`text`：文本命中敏感词<br/>`nickname`：昵称命中敏感词 |
-| matchedDetail | json_array | 命中的名单详情 | N | [详见详细结构](#matcheddetail) |
-| index | int | 当前处理的片段索引 | N | 索引不区分文本和图片 |
-| keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
-| text | string | 图片中的ocr内容 | N | 图片片段识别出ocr内容时会返回该字段 |
-
-其中，<span id="matcheddetail">matchedDetail</span>结构如下:
-
-| **参数名称**   | **类型**     | **参数说明** | **是否必返** | **规范**                                                     |
-| -------------- | ------------ | ------------ | ------------ | ------------------------------------------------------------ |
-| listId         | string       |              | Y            | 返回码                                                       |
-| matchedFiled   | string_array |              | N            | 标识昵称或文本内容命中了敏感词（该参数仅在命中敏感词时存在），可选值：<br/>text：文本命中敏感词<br/>nickname：昵称命中敏感词 |
-| name           | string       |              | Y            | 命中敏感词所在的名单名称                                     |
-| organization   | string       |              | N            | 命中名单所属的公司标识，其中“GLOBAL”为全局名单               |
-| words          | string_array |              | N            | 命中的对应名单中的所有敏感词                                 |
-| wordPositions | json_array   |              | N            | 命中的对应名单中的所有敏感词及位置。[详见wordPositions](#words) |
-
-<span id="words">wordPositions</span>中的每一项内容：
-
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
-| ------------ | -------- | ------------ | ------------ | -------------- |
-| word         | string   | 辅助信息     | N            | 命中的敏感词   |
-| position     | string   | 辅助信息     | N            | 敏感词所在位置 |
-
-<span id="AauxInfo">其中auxInfo字段如下：</span>
-
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**       |
-| ------------ | -------- | ------------ | ------------ | -------------- |
-| textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
-| imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
-
-## <span id="Ac">示例</span>
-
-### <span id="Ac2">回调模式</span>
-
-#### <span id="Ac21">请求示例</span>
-
-```json
-{"accessKey":"xxxxxxxx",
- "type":"NOVEL",
- "appId":"xxxx",
- "callback":"",
- "callbackParam":{
-     "callbackId":"Id123"
- },
- "data":{
-     "tokenId":"xxxx",
-     "contents":"xxxx",
-     "returnHtml":true
- }
-}
-```
-
-#### <span id="Ac22">响应示例</span>
+##### 请求示例
 
 ```json
 {
-  "code": 1100,
-  "message": "成功",
-  "requestId": "xxxxxxxxxxxxxxxxxx",
-  "score": 0,
-  "riskLevel": "PASS",
-  "detail": {
-    "description": "正常",
-    "model": "M1000",
-    "riskType": 0
-  },
-  "status": 0
-}
-
-回调结果:
-
-{
-    "code":1100,
-    "message":"成功",
-    "requestId":"xxxxxxxxxxxxxxxxxx",
-    "score":700,
-    "riskLevel":"REJECT",
-    "callbackParam":{
-        "callbackId":"Id123"
-}
-    "detail":{
-        "description":"图片违规",
-        "hits":[
-
-        ],
-        "model":"M04301",
-        "riskDetail":[
-            {
-                "beginPosition":1235,
-                "content":"为了防范电信网络诈骗，如网民接到962110电话，请立即接听",
-                "description":"包含联系方式",
-                "endPosition":1264,
-                "index":287,
-                "model":"",
-                "riskLevel":"REJECT",
-                "riskType":300,
-                "type":"text"
-            },
-            {
-                "content":"http://icon.qiantucdn.com/img/searchnew/wechat-g.png",
-                "description":"二维码",
-                "index":281,
-                "model":"",
-                "riskLevel":"REJECT",
-                "riskType":300,
-                "type":"image"
-            }
-        ],
-        "riskHtml":"xxxx",
-        "riskSummary":{
-            "300":5
-        }
-    },
-    "status":0,
-    "auxInfo":{
-         "textNum":"100",
-         "imgNum":"10"
+    "accessKey": "xxx",
+    "appId": "xxx",
+    "imgType": "xxx",
+    "txtType": "xxx",
+    "eventId": "xxx",
+    "data": {
+        "url": "https://test-10029305.cos.ap-shanghai.myqcloud.com/wg_txt/README.md",
+        "fileFormat":"MD",
+        "tokenId": "xxx"
     }
 }
 ```
 
-
-# <span id="B">智能文档过滤上传接口</span>
-
-## <span id="Ba">请求参数</span>
-
-### <span id="Ba1">请求URL：</span>
-
-| 集群 | URL                                                          | 支持产品列表 |
-| ---- | ------------------------------------------------------------ |--------|
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article_async` | 文档产品   |
-
-### <span id="Ba2">字符编码格式：</span>
-
-`UTF-8`字符集编码
-
-### <span id="Ba3">请求方法：</span>
-
-`POST`
-
-### <span id="Ba4">建议超时时长：</span>
-
-5s
-
-### <span id="Ba5">请求参数：</span>
-
-放在HTTP Body中，采用Json格式，Body大小不可超过3.5M，具体参数如下：
-
-| **请求参数名** | **类型**     | **参数说明**   | **是否必传** | **规范**                                                     |
-| -------------- | ------------ |------------| ------------ | ------------------------------------------------------------ |
-| accessKey      | string       | 接口认证密钥     | Y            | 由数美提供                                                   |
-| type           | string       | 平台业务类型     | N            | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType        | string       | 文档中的图片识别类型 | N            | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别 |
-| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
-| appId          | string       | 应用标识       | N            | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商     |
-| data           | json\_object | 请求的数据内容    | Y            | 最长1MB, [详见data参数](#data)                               |
-
- 其中，data的内容同同步接口：
-
-## <span id="Bb">返回结果</span>
-
-### <span id="Bb1">请求返回参数</span>
-
-放在HTTP Body中，采用Json格式，具体参数如下：
-
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**                                                     |
-| ------------ | -------- | ------------ | ------------ | ------------------------------------------------------------ |
-| code         | int      | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message      | string   | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
-| requestId    | string   | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
-
-
-
-### <span id="Bc">示例</span>
-
-#### <span id="Bc1">请求示例</span>
-
-```json
-{
-    "accessKey":"xxxxxxxx",
-    "type":"NOVEL",
-    "callback":"",
-    "txtType":"",
-    "imgType":"",
-    "requestId":"",
-    "tokenId":"",
-    "serviceId":"POST_ARTICLE",
-    "appId":"",
-    "data":{
-        "channel":"",
-        "contents":"<div>凡涉及到发进来客人爱斯达克解放军阿卡丽色绕口令加凉开水的解放路口而爱上对方<img src=\"http://www.chedan5.net/upload/article/202012/05/1854275fcb66e37e370KkBbBv_thumb.jpg\" alt=\"图片加载失败\"></div>",
-        "returnHtml":true,
-        "itemId":"CHAPTER_CONTENT_0",
-        "tokenId":"49930319"
-    }
-}
-```
-
-#### <span id="Bc2">响应示例</span>
-
+#### 同步返回示例
 ```json
 {
     "code":1100,
-    "message":"\u6210\u529f",
-    "requestId":"tye7ert12asdfasdf31236444442333312"
+    "message":"success",
+    "requestId":"xxx"
 }
 ```
 
-
-
-# <span id="C">结果查询接口</span>
-
-该接口用于查询机审和人审识别结果
-
-## <span id="Ca">请求参数</span>
-
-### <span id="Ca1">请求URL：</span>
-
-| 集群 | URL                                                          | 支持产品列表 |
-| ---- | ------------------------------------------------------------ |--------|
-| 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article/query` | 文档产品   |
-
-### <span id="Ca2">字符编码格式：</span>
-
-`UTF-8`字符集编码
-
-### <span id="Ca3">请求方法：</span>
-
-`POST`
-
-### <span id="Ca4">建议超时时长：</span>
-
-1s
-
-### <span id="Ca5">请求参数：</span>
-
-放在HTTP Body中，采用Json格式，具体参数如下：
-
-| **请求参数名** | **类型** | **参数说明**   | **是否必传** | **规范**                                        |
-| -------------- | -------- | -------------- | ------------ | ----------------------------------------------- |
-| accessKey      | string   | 接口认证密钥   | Y            | 由数美提供                                      |
-| requestIds     | array    | 机器审核流水号 | Y            | 最多支持10条 字符串数组 item 为数美返回的流水号 |
-
-## <span id="Cb">返回结果</span>
-
-### <span id="Cb1">请求返回参数</span>
-
-| **请求参数名** | **类型**   | **参数说明** | **是否必传** | **规范**                      |
-| -------------- | ---------- | ------------ | ------------ | ----------------------------- |
-| code           | int        | 返回码       | Y            |                               |
-| message        | string     | 返回码描述   | Y            |                               |
-| contents       | json array | 内容         | Y            | [详见contents内容](#contents) |
-
-<span id="contents">其中contents组成如下</span>
-
-| **请求参数名** | **类型**    | **参数说明**                 | **是否必传** | **规范**                                                     |
-| -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
-| requestId      | string      | 请求唯一标识                 | Y            |                                                              |
-| humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
-| machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考回调接口返回字段](#Ab2)                                 |
-| mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
-
-其中，humanResult/mergeResult的内容如下：
-
-| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范**                                     |
-| -------------- | -------- | ------------ | ------------ | -------------------------------------------- |
-| riskLevel      | string   | 处置指令     | Y            | 建议取值：<br/>`REJECT`:删除<br/>`PASS`:发布 |
-
-## <span id="Cc">示例</span>
-
-### <span id="Cc1">请求示例</span>
+##### 回调返回示例
 
 ```json
 {
-    "accessKey":"xxxxxxxx",
-    "requestIds":[
-        "tye7ert12asdfasdf31236633346662333312"
-    ]
-}
-```
-
-### <span id="Cc2">响应示例</span>
-
-```json
-{
-    "code":1100,
-    "message":"正常",
-    "contents":[
+    "code": 1100,
+    "message": "success",
+    "requestId": "xxx",
+    "riskLevel": "REVIEW",
+    "textDetail": [
         {
-            "requestId":"tye7ert12asdfasdf31236633346662333312",
-            "machineResult":{
-                "code":1100,
-                "detail":{
-                    "description":"文本违规",
-                    "hits":[
-                        {
-                            "description":"广告：广告：广告",
-                            "descriptionV2":"广告：广告：广告",
-                            "model":"MA000007020001001",
-                            "riskLevel":"REJECT",
-                            "riskType":300,
-                            "score":650,
-                            "type":"text"
-                        }
-                    ],
-                    "model":"M03101",
-                    "riskDetail":[
-                        {
-                            "beginPosition":0,
-                            "content":"凡涉及到发进来客人爱斯达克解放军阿卡丽色绕口令加凉开水的解放路口而爱上对方",
-                            "description":"广告：广告：广告",
-                            "endPosition":36,
-                            "index":0,
-                            "keywordsPosition":"8",
-                            "matchedDetail":[
-                                {
-                                    "listId":"9da189a5bf1919d242d745f19ea3e5d7",
-                                    "matchedFiled":[
-                                        "text"
-                                    ],
-                                    "name":"原文名单",
-                                    "organization":"12312312",
-                                    "wordPositions":[
-                                        {
-                                            "position":"8",
-                                            "word":"人"
-                                        }
-                                    ],
-                                    "words":[
-                                        "人"
-                                    ]
-                                },
-                                {
-                                    "listId":"cf5c160194954812fc279d3045fe3237",
-                                    "matchedFiled":[
-                                        "text"
-                                    ],
-                                    "name":"同音",
-                                    "organization":"RlokQwRlVjUrTUlkIqOg",
-                                    "wordPositions":[
-                                        {
-                                            "position":"22",
-                                            "word":"零"
-                                        }
-                                    ],
-                                    "words":[
-                                        "零"
-                                    ]
-                                },
-                                {
-                                    "listId":"d75d056d88702cbf6198e2aa82eb0fdc",
-                                    "matchedFiled":[
-                                        "text"
-                                    ],
-                                    "name":"涉政_国家机构_军队",
-                                    "organization":"GLOBAL",
-                                    "wordPositions":[
-                                        {
-                                            "position":"13,14,15",
-                                            "word":"解放軍"
-                                        }
-                                    ],
-                                    "words":[
-                                        "解放軍"
-                                    ]
-                                },
-                                {
-                                    "listId":"70cecfffebf31c2ac2b612cc3b6af142",
-                                    "matchedFiled":[
-                                        "text"
-                                    ],
-                                    "name":"涉政词库3",
-                                    "organization":"RlokQwRlVjUrTUlkIqOg",
-                                    "wordPositions":[
-                                        {
-                                            "position":"0",
-                                            "word":"解放軍"
-                                        }
-                                    ],
-                                    "words":[
-                                        "解放軍"
-                                    ]
-                                }
-                            ],
-                            "matchedItem":"人",
-                            "matchedList":"原文名单",
-                            "model":"MA000007020001001",
-                            "riskLevel":"REJECT",
-                            "riskType":300,
-                            "type":"text"
-                        }
-                    ],
-                    "riskHtml":"\u003cdiv class=\"list\" style=\"position: relative;\"\u003e\u003cdiv class=\"list\" style=\"position: relative;\"\u003e\u003cdiv style=\"width: 70%;text-align: left;padding: 0px 20px;min-height: 20px;margin-bottom: 5px;line-height: 1.5;word-break: break-all;display:inline-block;border: 1px solid red;padding:10px;\"\u003e\u003cspan\u003e凡涉及到发进来客\u003cspan style=\"color:red;font-weight:bold;display:inline-block;\"\u003e人\u003c/span\u003e爱斯达克解放军阿卡丽色绕口令加凉开水的解放路口而爱上对方\u003c/span\u003e\u003c/div\u003e\u003cdiv style=\"position: absolute;top: 50%;left: 75%;transform: translateY(-50%);width: 20px;height: 20px;background-color: rgb(255, 255, 255);color:red;\"\u003e\u0026gt;\u003c/div\u003e\u003cdiv style=\"width: 30%;position: absolute;right: 20px;top: 50%;transform: translateY(-50%);text-align: center;display:inline-block;\"\u003eMA000007020001001(广告：广告：广告-人)\u003c/div\u003e\u003c/div\u003e\u003cdiv class=\"list\" style=\"position: relative;\"\u003e\u003cdiv style=\"width: 70%;text-align: left;padding: 0px 20px;min-height: 20px;margin-bottom: 5px;line-height: 1.5;word-break: break-all;display:inline-block;border: 1px ;padding:10px;text-align:center;\"\u003e\u003cimg src=\"http://www.chedan5.net/upload/article/202012/05/1854275fcb66e37e370KkBbBv_thumb.jpg\" alt=\"图片加载失败\"/\u003e\u003c/div\u003e\u003c/div\u003e",
-                    "riskSummary":{
-                        "300":1
-                    }
+            "allLabels": [
+                {
+                    "probability": 1,
+                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDetail": {
+                        "matchedLists": [
+                            {
+                                "name": "测试zyk",
+                                "words": [
+                                    {
+                                        "position": [
+                                            10,
+                                            11
+                                        ],
+                                        "word": "58"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "riskLabel1": "politics",
+                    "riskLabel2": "politics",
+                    "riskLabel3": "politics",
+                    "riskLevel": "REVIEW"
                 },
-                "message":"正常",
-                "requestId":"tye7ert12asdfasdf31236633346662333312",
-                "riskLevel":"REJECT",
-                "score":700,
-                "auxInfo":{
-                    "textNum":"100",
-                    "imgNum":"10"
+                {
+                    "probability": 1,
+                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDetail": {
+                        "matchedLists": [
+                            {
+                                "name": "测试zyk",
+                                "words": [
+                                    {
+                                        "position": [
+                                            10,
+                                            11,
+                                            12
+                                        ],
+                                        "word": "585"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "riskLabel1": "politics",
+                    "riskLabel2": "shezheng",
+                    "riskLabel3": "shezheng",
+                    "riskLevel": "REVIEW"
+                }
+            ],
+            "requestId": "rerlgiewregliweruogrerwd_1",
+            "riskDescription": "涉政:涉政:涉政",
+            "riskDetail": {
+                "matchedLists": [
+                    {
+                        "name": "测试zyk",
+                        "words": [
+                            {
+                                "position": [
+                                    10,
+                                    11,
+                                    12
+                                ],
+                                "word": "585"
+                            }
+                        ]
+                    }
+                ]
             },
-            "mergeResult":{
-                "riskLevel":"REJECT"
-            }
+            "riskLabel1": "politics",
+            "riskLabel2": "shezheng",
+            "riskLabel3": "shezheng"
         }
-    ]
+    ],
+    "imgDetail": [
+
+    ],
+    "auxInfo": {
+        "imgCount": 4,
+        "textCount": 317
+    }
 }
 ```
 
