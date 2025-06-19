@@ -8,7 +8,7 @@ keywords:
 - Error Correction Documentation
 ---
 
-# Shumei Video Stream Audio Segment Error Correction API Documentation
+# Shumei Frame Capture Error Correction API Documentation
 
 ---
 
@@ -33,11 +33,11 @@ Request Header parameters are as follows:
 | ------------------ | -------- | ------------ | -------------------------------------- |
 | X-Accesskey        | string   | Required     | Used for authentication, provided by Shumei when the account service is activated |
 
-## Video Stream Audio Segment Error Correction API Definition
+## Frame Capture Error Correction API Definition
 
 **API Description**
 
-This API is used to provide error correction functionality for video stream audio segment services. It supports error correction for request data within the past 2 days.
+This API is used to provide error correction functionality for Frame Capture services. It supports error correction for request data within the past 2 days.
 
 **Request URL**: https://api-web.fengkongcloud.com/api/feedback/videostream/image/add
 
@@ -53,7 +53,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 
 | **Request Parameter Name** | **Type** | **Parameter Description**                                              | **Required** | **Remarks**                                                                                       |
 | -------------------------- | -------- | ---------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------- |
-| requestId                  | string   | Unique identifier for the video stream audio segment callback request, corresponds to the requestId in the Shumei service response | Required     |                                                                                                |
+| requestId                  | string   | Unique identifier for the Frame Capture callback request, corresponds to the requestId in the Shumei service response | Required     |                                                                                                |
 | type                       | string   | Error correction type                                                  | Required     | Optional values: error: false positive miss: false negative                                      |
 | riskType                   | int      | Content risk type, refer to the table below                            | Optional     | False positive: not provided defaults to "normal" processing False negative: not provided defaults to "blacklist" processing, some services without "blacklist" default to "custom" |
 | timestamp                  | int      | Default can correct data within 2 days, if correction time exceeds 2 days, this parameter must be provided | Optional     | The time the record occurred, 13-digit timestamp                                                 |

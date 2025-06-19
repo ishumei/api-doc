@@ -1,6 +1,6 @@
 ---
-title: Video File (Audio Segment) Error Correction Interface Documentation
-sidebar_label: Video File (Audio Segment) Error Correction Interface Documentation
+title: VVideo Stream (Audio Segment) Error Correction Interface Documentation
+sidebar_label: Video Stream (Audio Segment) Error Correction Interface Documentation
 
 hide_title: true
 description: 
@@ -8,7 +8,7 @@ keywords:
 - Error Correction Documentation
 ---
 
-# Shumei Video Stream Frame Capture Error Correction Interface API Documentation
+# Shumei Video Stream Audio Segment Error Correction Interface API Documentation
 
 ---
 
@@ -33,11 +33,11 @@ Request Header parameters are as follows:
 | ------------------ | -------- | ------------ | ----------------------------------------- |
 | X-Accesskey        | string   | Required     | Used for permission authentication, provided by Shumei when the account service is activated |
 
-## Video Stream Frame Capture Error Correction Interface Definition
+## Video Stream Audio Segment Error Correction Interface Definition
 
 **Interface Description**
 
-This interface is used to provide error correction functionality for video stream frame capture services. It supports error correction for request data within the last 2 days.
+This interface is used to provide error correction functionality for video stream audio segment services. It supports error correction for request data within the last 2 days.
 
 **Request URL**: https://api-web.fengkongcloud.com/api/feedback/videostream/audio/add
 
@@ -51,16 +51,16 @@ This interface is used to provide error correction functionality for video strea
 
 Placed in the HTTP Body in Json format, the specific parameters are as follows:
 
-| **Request Parameter Name** | **Type** | **Parameter Description**                                          | **Required** | **Remarks**                                                                                       |
-| -------------------------- | -------- | ------------------------------------------------------------------ | ------------ | ---------------------------------------------------------------------------------------------- |
-| requestId                  | string   | Unique identifier for the video stream frame capture callback request, corresponding to the requestId in the Shumei service return result | Required     |                                                                                                |
-| type                       | string   | Error correction type                                              | Required     | Optional values: error: false positive miss: false negative                                     |
-| riskType                   | int      | Content risk type, refer to the table below                        | Optional     | False positive: not provided defaults to "normal" processing False negative: not provided defaults to "blacklist" processing, some services without "blacklist" default to "custom" |
-| timestamp                  | int      | Default can correct data within 2 days, if correction time is more than 2 days, this parameter must be provided | Optional     | The time the record occurred, 13-digit timestamp                                                |
-| account                    | string   | Account calling the interface                                      | Optional     | e.g., test@ishumei.com                                                                           |
-| appId                      | array    | Correcting for specified applications, up to 3                     | Optional     | e.g., ["default","test"]                                                                         |
-| channel                    | array    | Correcting for specified channels, up to 3                         | Optional     |                                                                                                |
-| remark                     | string   | Customer error correction remarks, used for backend display        | Optional     |                                                                                                |
+| **Request Parameter Name** | **Type** | **Parameter Description**                                                                                                                 | **Required** | **Remarks**                                                                                       |
+| -------------------------- | -------- |-------------------------------------------------------------------------------------------------------------------------------------------| ------------ | ---------------------------------------------------------------------------------------------- |
+| requestId                  | string   | Unique identifier for the video stream audio segment callback request, corresponding to the requestId in the Shumei service return result | Required     |                                                                                                |
+| type                       | string   | Error correction type                                                                                                                     | Required     | Optional values: error: false positive miss: false negative                                     |
+| riskType                   | int      | Content risk type, refer to the table below                                                                                               | Optional     | False positive: not provided defaults to "normal" processing False negative: not provided defaults to "blacklist" processing, some services without "blacklist" default to "custom" |
+| timestamp                  | int      | Default can correct data within 2 days, if correction time is more than 2 days, this parameter must be provided                           | Optional     | The time the record occurred, 13-digit timestamp                                                |
+| account                    | string   | Account calling the interface                                                                                                             | Optional     | e.g., test@ishumei.com                                                                           |
+| appId                      | array    | Correcting for specified applications, up to 3                                                                                            | Optional     | e.g., ["default","test"]                                                                         |
+| channel                    | array    | Correcting for specified channels, up to 3                                                                                                | Optional     |                                                                                                |
+| remark                     | string   | Customer error correction remarks, used for backend display                                                                               | Optional     |                                                                                                |
 
 Among them, the list of riskType is as follows:
 
