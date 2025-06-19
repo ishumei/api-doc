@@ -33,11 +33,11 @@ Request Header parameters are as follows:
 | ------------------ | -------- | ------------ | -------------------------------------- |
 | X-Accesskey        | string   | Required     | Used for authentication, provided by Shumei when the account service is activated |
 
-## Frame Capture Error Correction API Definition
+## Video Stream Frame Capture Error Correction API Definition
 
 **API Description**
 
-This API is used to provide error correction functionality for Frame Capture services. It supports error correction for request data within the past 2 days.
+This API is used to provide error correction functionality for Video Stream Frame Capture services. It supports error correction for request data within the past 2 days.
 
 **Request URL**: https://api-web.fengkongcloud.com/api/feedback/videostream/image/add
 
