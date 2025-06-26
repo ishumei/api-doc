@@ -588,6 +588,13 @@
           },
           {
             "length": "-",
+            "param_description": "图片下载耗时，单位毫秒",
+            "req_name": "downloadTime",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "length": "-",
             "param_description": "2001：输入数据格式不对，不是合法的json数据\n2002：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）\n2003：图片下载失败\n2004：图片过大，超过了10M\n2005：非法图片格式\n2006：无效风险监测类型",
             "req_name": "errorCode",
             "required": false,
@@ -613,6 +620,13 @@
             "req_name": "streamId",
             "required": false,
             "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "图片处理总耗时，单位毫秒",
+            "req_name": "totalProcessTime",
+            "required": false,
+            "type": "integer"
           },
           {
             "length": "1024",
