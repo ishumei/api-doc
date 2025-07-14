@@ -87,6 +87,7 @@
 | type | string | 平台业务类型 | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
 | imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 `POLITICS_PORN_AD` 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。<br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别 |
 | txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
+| audioType | string |网页中的音频识别类型   | N            | 需要识别的违规类型，可选值：<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>POLITY：涉政识别<br/>ANTHEN：国歌识别<br/>EROTIC：色情<br/>DIRTY: 辱骂识别<br/>ADVERT：广告识别<br/>BAN：违禁识别<br/>VIOLENT：暴恐识别<br/>ADLAW：广告法识别<br/>MOAN：娇喘识别<br/>BANEDAUDIO：违禁歌曲<br/>COPYRIGHTSONGS：版权歌曲<br/>如需做组合识别，通过下划线连接即可，例如 POLITY_EROTIC_MOAN用于涉政、色情和娇喘识别。<br/> |
 | videoImgType | string | 网页中视频截帧图片的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`：涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情&性感违规识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`OCR`：图片文字违规识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别<br/>如果审核视频，该字段必传|
 | videoAudioType | string | 网页中视频内音频的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL_PORN_MOAN用于广告、色情和涉政识别<br/>不支持只审核视频中音频的情况|
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
@@ -183,6 +184,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>`video`：视频      |
+| audioDetail     | json_array       | 当前视频片段中截帧图片详情，当type为audio且审核音频返回 | N       | [详见audioDetail参数](#AaudioDetail)   |
 | videoImgDetail     | json_array       | 当前视频片段中截帧图片详情，当type为video且审核视频截帧时返回 | N       | [详见videoImgDetail参数](#AvideoImgDetail)   |
 | videoAudioDetail     | json_array       | 当前视频片段中音频详情，当type为video且审核音频时返回 | N       | [详见videoAudioDetail参数](#AvideoAudioDetail)   |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
@@ -200,6 +202,23 @@
 | index | int | 当前处理的片段索引 | Y | 索引不区分文本和图片 |
 | keywordsPosition | string | 命中的敏感词位置 | N | 在该段中的位置 |
 | text | string | 图片中的ocr内容 | N | 图片片段识别出ocr内容时会返回该字段 |
+
+其中，<span id="AaudioDetail">audioDetail</span>结构如下:
+| **参数名称**     | **类型**   | **是否必选** | **说明**                                                     |
+| :--------------- | :--------- | :----------- | :----------------------------------------------------------- |
+| requestId        | string     | Y            | 风险音频片段请求唯一标识                                     |
+| audioStarttime   | string     | Y            | 风险音频片段在音频中的起始时间，单位秒                       |
+| audioEndtime     | string     | Y            | 风险音频片段在音频中的结束时间，单位秒                       |
+| audioModel       | string     | Y            | 规则标识，命中的最高优先级规则标识（废弃字段，不建议使用 ）  |
+| audioUrl         | string     | Y            | 风险音频片段地址，MP3格式                                    |
+| audioText        | string     | Y            | 音频片段转译的文本内容                                       |
+| riskLevel        | string     | Y            | 识别结果，可能返回值： <br/>REJECT：违规内容<br/>REVIEW：疑似违规内容<br/>PASS：正常内容<br/> |
+| businessLabels   | json_array | N            | 业务标签返回 [详见businessLabels参数](#businessLabels)       |
+| riskType         | int        | N            | 标识风险类型，可能取值:<br/>风险类型，静音时不返回，可能取值:<br/>0:正常<br/>100:涉政/国歌<br/>110:暴恐<br/>200:色情<br/>210:辱骂<br/>250:娇喘<br/>260:一号领导声纹<br/>270:人声属性<br/>280:违禁歌曲<br/>300:广告<br/>340:网络诈骗<br/>400:灌水<br/>500:无意义<br/>520:未成年人<br/>600:违禁<br/>700:其他<br/>720:黑账号<br/>730:黑IP<br/>800:高危账号<br/>900:自定义<br/> |
+| audioMatchedItem | string     | N            | 音频中可能出现的敏感词                                       |
+| matchedList      | string     | N            | 命中敏感词所在的名单名称                                     |
+| matchedDetail    | string     | N            | 命中所有名单详情 [详见matchedDetail](#matchedDetail1)        |
+| description      | string     | Y            | 音频片段风险原因描述，仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
 
 其中，<span id="AvideoImgDetail">videoImgDetail</span>结构如下:
 
@@ -250,6 +269,8 @@
 | textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
 | imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
 | videoNum       | int   | 当前请求中的视频数     | Y            | 遗留历史兼容字段，不建议使用 |
+| audioNum       | int   | 当前请求中的音频数     | Y            | 审核音频的数量 |
+| audioDuration       | int   | 当前请求中的音频时长     | Y            | 审核音频的时长 |
 | billingImgNum       | int   | 当前请求中的视频里的截帧图片数，与计费数目一致    | Y            | 审核视频时，视频文件中截帧图片数 |
 | billingAudioDuration       | int   | 当前请求中的视频里的音频时长，单位是秒，与计费数目一致     | Y            | 审核视频时，如果视频文件中音轨数据和视频时长不一致，计费时长以实际的音轨时长为准；例如可能会存在没有音轨的情况，计费时长就为0 |
 
@@ -729,5 +750,6 @@
     ]
 }
 ```
+
 
 
