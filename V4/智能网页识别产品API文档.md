@@ -184,7 +184,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | type     | string       | 当前内容片段的类型 | Y            | 可选值：<br/>`text`：文本<br/>`img`：图片<br/>`video`：视频      |
-| audioDetail     | json_array       | 当前视频片段中截帧图片详情，当type为audio且审核音频返回 | N       | [详见audioDetail参数](#AaudioDetail)   |
+| audioDetail     | json_array       | 当前音频片段处理详情,当传了audioType且有音频时返回 | N       | [详见audioDetail参数](#AaudioDetail)   |
 | videoImgDetail     | json_array       | 当前视频片段中截帧图片详情，当type为video且审核视频截帧时返回 | N       | [详见videoImgDetail参数](#AvideoImgDetail)   |
 | videoAudioDetail     | json_array       | 当前视频片段中音频详情，当type为video且审核音频时返回 | N       | [详见videoAudioDetail参数](#AvideoAudioDetail)   |
 | content | string | 当前内容片段的内容 | Y           | text是文本内容，img是图片url |
