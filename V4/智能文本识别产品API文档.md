@@ -37,6 +37,7 @@
 | data | json\_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 | kbType | string | 知识库类型 | N | 知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务<br/>可选值：<br/>`PKB`：启用涉政知识库功能<br/> |
 | translationTargetLang | string | 翻译目标语种   | N | 将输入的文本翻译成目标语种。如需开通使用请联系数美商务<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>|
+| acceptLang     | string      | 返回标签的语种类型 | N                          | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
 
 <span id="data"> 其中，data的内容如下：</span>
