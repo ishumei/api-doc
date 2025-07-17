@@ -652,7 +652,7 @@
                     "type": "json_array",
                     "param_description": "高风险内容片段",
                     "required": false,
-                    "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                    "param_specification": "",
                     "son": [
                       {
                         "req_name": "segment",
@@ -670,6 +670,13 @@
                       }
                     ]
 
+                  },
+                  {
+                    "req_name": "riskSource",
+                    "type": "int",
+                    "param_description": "风险来源",
+                    "required": false,
+                    "param_specification": "可选值：\n1000：无风险\n1001：文本风险\n1003：音频风险"
                   }
                 ]
               }
@@ -763,7 +770,7 @@
                 "type": "json_array",
                 "param_description": "高风险内容片段",
                 "required": false,
-                "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                "param_specification": "",
                 "son": [
                   {
                     "req_name": "segment",
