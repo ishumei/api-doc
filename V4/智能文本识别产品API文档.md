@@ -35,7 +35,7 @@
 | eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | type | string | 检测的风险类型 | Y | 可选值：<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`TEXTRISK`：常规风险检测（包含：<br/>涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`：未成年人内容检测<br/>以上type可以下划线组合，如：`TEXTRISK_FRUAD`<br/>type间组合取并集，如：`TEXTRISK_POLITY`按照常规风险检测处理 |
 | data | json\_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
-| kbType | string | 知识库类型 | N | 知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务<br/>可选值：<br/>`PKB`：启用涉政知识库功能<br/> |
+| kbType | string | 知识库类型 | N | 知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务<br/>可选值：<br/>`PKB`：启用涉政知识库功能<br/> `BKB`：启用违禁知识库功能<br/> `SKB`：启用色情知识库功能<br/> `AKB`：启用辱骂知识库功能<br/>|
 | translationTargetLang | string | 翻译目标语种   | N | 将输入的文本翻译成目标语种。如需开通使用请联系数美商务<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>|
 | acceptLang     | string      | 返回标签的语种类型 | N                          | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
