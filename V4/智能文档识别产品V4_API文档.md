@@ -36,8 +36,8 @@
  其中，<span id="data">data</span>的内容如下：
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| url | string | 要检测的网页链接 | Y | 网址链接可下载，其中网址头部的content-type需为text/html。<br/>网址内容大小500m以内，文本长度限制50w字，图片张数限制500张。（url、text、contents传且只能传其中一个）|
-| fileFormat        | string   | Y   | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
+| url | string | 要检测的文档链接 | Y | 文档链接可下载，其中网址头部的content-type需为text/html。<br/>网址内容大小500m以内，文本长度限制50w字，图片张数限制500张。（url、text、contents传且只能传其中一个）|
+| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
 | nickname | string | 用户昵称 | N | 校验昵称内容风险|
 | ip | string | ip地址 | N | 发送该文本的的用户公网ipv4或ipv6地址 |
 | tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
