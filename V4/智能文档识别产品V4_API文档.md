@@ -7,6 +7,8 @@
 | 集群 | URL | 
 | --- | --- | 
 | 北京 | `http://api-article-bj.fengkongcloud.com/document/v4` | 
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/document/v4` |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/document/v4` |
 
 #### 字符编码格式：
 
