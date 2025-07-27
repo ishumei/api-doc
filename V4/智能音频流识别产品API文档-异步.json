@@ -896,7 +896,7 @@
                 "type": "json_array",
                 "param_description": "高风险内容片段",
                 "required": false,
-                "param_specification": "在涉政、暴恐、违禁、竞品、广告法等功能的时候存在",
+                "param_specification": "",
                 "son": [
                   {
                     "req_name": "segment",

@@ -147,7 +147,7 @@
       },
       {
         "length": "64",
-        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\nBOCR：OCR小语种识别支持和语种自动检测（仅限新加坡集群）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
+        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\nBOCR：OCR小语种识别支持和语种自动检测（仅限新加坡和硅谷集群）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
         "req_name": "type",
         "required": false,
         "type": "string"
@@ -474,61 +474,10 @@
           },
           {
             "length": "-",
-            "param_description": "传入的type值所对应的模型版本号",
-            "req_name": "typeVersion",
-            "required": true,
-            "son": [
-              {
-                "length": "-",
-                "param_description": "广告版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "ADVERT",
-                "required": false,
-                "type": "string"
-              },
-              {
-                "length": "-",
-                "param_description": "色情版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "EROTIC",
-                "required": false,
-                "type": "string"
-              },
-              {
-                "length": "-",
-                "param_description": "违规文字版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "IMGTEXTRISK",
-                "required": false,
-                "type": "string"
-              },
-              {
-                "length": "-",
-                "param_description": "涉政版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "POLITY",
-                "required": false,
-                "type": "string"
-              },
-              {
-                "length": "-",
-                "param_description": "二维码版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "QRCODE",
-                "required": false,
-                "type": "string"
-              },
-              {
-                "length": "-",
-                "param_description": "暴恐版本号。组成形式为`X.Y`，其中`X`代表主版本号，通常表示模型整体的效果迭代；`Y`代表子版本号，通常表示日常的例行迭代。例如，`1001001.2`代表主版本号为`1001001`，子版本号为`2`。",
-                "req_name": "VIOLENT",
-                "required": false,
-                "type": "string"
-              }
-            ],
-            "type": "object"
-          },
-          {
-            "length": "-",
-            "param_description": "2001：输入数据格式不对，不是合法的json数据\n2002：输入的参数字段不合法（必填字段缺失、类型不对、值不合法等）\n2003：图片下载失败\n2004：图片过大，超过了10M\n2005：非法图片格式\n2006：无效风险监测类型",
-            "req_name": "errorCode",
+            "param_description": "图片下载耗时，单位毫秒",
+            "req_name": "downloadTime",
             "required": false,
-            "type": "int32"
+            "type": "integer"
           },
           {
             "length": "13",
@@ -550,6 +499,13 @@
             "req_name": "streamId",
             "required": false,
             "type": "string"
+          },
+          {
+            "length": "-",
+            "param_description": "图片处理总耗时，单位毫秒",
+            "req_name": "totalProcessTime",
+            "required": false,
+            "type": "integer"
           },
           {
             "length": "1024",
