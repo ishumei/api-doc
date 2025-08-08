@@ -1,1202 +1,1224 @@
 [
-  {
-    "type": "title-1",
-    "value": "请求接口"
-  },
-  {
-    "type": "title-2",
-    "value": "编码"
-  },
-  {
-    "type": "desc",
-    "value": "UTF-8字符集编码"
-  },
-  {
-    "type": "title-3",
-    "value": "请求方法"
-  },
-  {
-    "type": "desc",
-    "value": "POST"
-  },
-  {
-    "type": "title-3",
-    "value": "建议超时时间"
-  },
-  {
-    "type": "desc",
-    "value": "1s"
-  },
-  {
-    "type": "title-2",
-    "value": "请求"
-  },
-  {
-    "type": "title-3",
-    "value": "请求地址"
-  },
-  {
-    "header": [
-      {
-        "key": "description",
-        "title": "集群"
-      },
-      {
-        "key": "url",
-        "title": "请求地址"
-      },
-      {
-        "key": "supportProduct",
-        "title": "支持产品列表"
-      }
-    ],
-    "type": "table",
-    "value": [
-      {
-        "description": "北京",
-        "url": "http://api-text-bj.fengkongcloud.com/text/v4",
-        "supportProduct": "中文文本"
-      },
-      {
-        "description": "上海",
-        "url": "http://api-text-sh.fengkongcloud.com/text/v4",
-        "supportProduct": "中文文本"
-      },
-      {
-        "description": "美国（弗吉尼亚）",
-        "url": "http://api-text-fjny.fengkongcloud.com/text/v4",
-        "supportProduct": "中文文本、国际化文本"
-      },
-      {
-        "description": "新加坡",
-        "url": "http://api-text-xjp.fengkongcloud.com/text/v4",
-        "supportProduct": "中文文本、国际化文本"
-      }
-    ]
-  },
-  {
-    "type": "title-3",
-    "value": "请求参数"
-  },
-  {
-    "header": [
-      {
-        "key": "req_name",
-        "title": "参数名称"
-      },
-      {
-        "key": "type",
-        "title": "类型"
-      },
-      {
-        "key": "param_description",
-        "title": "参数说明"
-      },
-      {
-        "key": "required",
-        "title": "是否必传"
-      },
-      {
-        "key": "param_specification",
-        "title": "规范"
-      }
-    ],
-    "type": "table",
-    "value": [
-      {
-        "req_name": "accessKey",
-        "type": "string",
-        "param_description": "接口认证密钥",
-        "required": true,
-        "param_specification": "由数美提供"
-      },
-      {
-        "req_name": "appId",
-        "type": "string",
-        "param_description": "应用标识",
-        "required": true,
-        "param_specification": "用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准"
-      },
-      {
-        "req_name": "eventId",
-        "type": "string",
-        "param_description": "事件标识",
-        "required": true,
-        "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准"
-      },
-      {
-        "req_name": "type",
-        "type": "string",
-        "param_description": "检测的风险类型",
-        "required": true,
-        "param_specification": "可选值：\nPOLITY：涉政检测\nVIOLENT：暴恐检测\nBAN：违禁检测\nEROTIC：色情检测\nDIRTY：辱骂检测\nADVERT：广告检测\nPRIVACY：隐私检测\nADLAW：广告法检测\nMEANINGLESS：无意义检测\nTEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）\nFRUAD：网络诈骗检测\nUNPOACH：高价值用户防挖检测\nTEXTMINOR：未成年人内容检测\n以上type可以下划线组合，如：TEXTRISK_FRUAD\ntype间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理"
-      },
-      {
-        "req_name": "data",
-        "type": "json_object",
-        "param_description": "请求的数据内容",
-        "required": true,
-        "param_specification": "最长1MB",
-        "son": [
-          {
-            "req_name": "text",
-            "type": "string",
-            "param_description": "需要检测的文本",
-            "required": true,
-            "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。若传递nickname字段，则会同时校验文本+昵称内容。"
-          },
-          {
-            "req_name": "relateText",
-            "type": "string",
-            "param_description": "需要检测的关联文本",
-            "required": false,
-            "param_specification": "文本字数上限128字，超过128字只截取前128字进行识别。传入此字段会结合text一起检测。"
-          },
-          {
-            "req_name": "tokenId",
-            "type": "string",
-            "param_description": "用户账号标识，建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值",
-            "required": true,
-            "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串"
-          },
-          {
-            "req_name": "lang",
-            "type": "string",
-            "param_description": "待检测的文本内容语种",
-            "required": false,
-            "param_specification": "可选值和对应语种如下：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto：自动识别语种类型\n默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型"
-          },
-          {
-            "req_name": "nickname",
-            "type": "string",
-            "param_description": "用户昵称",
-            "required": false,
-            "param_specification": "校验昵称内容风险，长度限制150字符，超出部分会被截断"
-          },
-          {
-            "req_name": "ip",
-            "type": "string",
-            "param_description": "ip地址",
-            "required": false,
-            "param_specification": "发送该文本的用户公网ipv4或ipv6地址"
-          },
-          {
-            "req_name": "deviceId",
-            "type": "string",
-            "param_description": "数美设备标识",
-            "required": false,
-            "param_specification": "数美设备指纹生成的设备唯一标识"
-          },
-          {
-            "req_name": "extra",
-            "type": "json_object",
-            "param_description": "辅助参数",
-            "required": false,
-            "param_specification": "用于辅助文本检测的相关信息",
-            "son": [
-              {
-                "req_name": "receiveTokenId",
-                "type": "string",
-                "param_description": "私聊场景下消息接收者的tokenId",
-                "required": false,
-                "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为message时必传"
-              },
-              {
-                "req_name": "topic",
-                "type": "string",
-                "param_description": "可为话题编号、书评区编号、论坛帖子编号",
-                "required": false,
-                "param_specification": "传入的是帖子等数据（eventId值为article）时，开启上下文识别功能，建议传入，否则不能关联上下文"
-              },
-              {
-                "req_name": "atId",
-                "type": "string",
-                "param_description": "群聊场景下被@用户的tokenId",
-                "required": false,
-                "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为groupChat时必传"
-              },
-              {
-                "req_name": "room",
-                "type": "string",
-                "param_description": "直播间/游戏房间编号",
-                "required": false,
-                "param_specification": "传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文"
-              },
-              {
-                "req_name": "sex",
-                "type": "int",
-                "param_description": "性别",
-                "required": false,
-                "param_specification": "可选值：\n0：男性\n1：女性\n2：性别不明"
-              },
-              {
-                "req_name": "passThrough",
-                "type": "json",
-                "param_description": "透传字段",
-                "required": false,
-                "param_specification": "该字段内容会随着返回值一起返回"
-              }
-            ]
-          },
-          {
-            "req_name": "dataId",
-            "type": "string",
-            "param_description": "数据标识",
-            "required": false,
-            "param_specification": "数据标识"
-          }
-        ]
-      },
-      {
-        "req_name": "kbType",
-        "type": "string",
-        "param_description": "知识库类型",
-        "required": false,
-        "param_specification": "知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库。如需开通使用请联系数美商务\n可选值：\nPKB：启用涉政知识库功能"
-      },
-      {
-        "req_name": "translationTargetLang",
-        "type": "string",
-        "param_description": "翻译目标语种",
-        "required": false,
-        "param_specification": "将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文"
-      }
-    ]
-  },
-  {
-    "type": "title-2",
-    "value": "响应"
-  },
-  {
-    "type": "title-3",
-    "value": "返回参数"
-  },
-  {
-    "type": "desc",
-    "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
-  },
-  {
-    "header": [
-      {
-        "key": "req_name",
-        "title": "参数名称"
-      },
-      {
-        "key": "type",
-        "title": "类型"
-      },
-      {
-        "key": "param_description",
-        "title": "参数说明"
-      },
-      {
-        "key": "required",
-        "title": "是否必返"
-      },
-      {
-        "key": "param_specification",
-        "title": "规范"
-      }
-    ],
-    "type": "table",
-    "value": [
-      {
-        "req_name": "code",
-        "type": "int",
-        "param_description": "返回码",
-        "required": true,
-        "param_specification": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1905：字数超限\n9101：无权限操作"
-      },
-      {
-        "req_name": "message",
-        "type": "string",
-        "param_description": "返回码描述",
-        "required": true,
-        "param_specification": "和code对应：成功、QPS超限、参数不合法、服务失败、字数超限、无权限操作"
-      },
-      {
-        "req_name": "requestId",
-        "type": "string",
-        "param_description": "请求标识",
-        "required": true,
-        "param_specification": "本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存"
-      },
-      {
-        "req_name": "riskLevel",
-        "type": "string",
-        "param_description": "处置建议",
-        "required": true,
-        "param_specification": "可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截"
-      },
-      {
-        "req_name": "riskLabel1",
-        "type": "string",
-        "param_description": "一级风险标签",
-        "required": true,
-        "param_specification": "一级风险标签，当riskLevel为PASS时返回normal"
-      },
-      {
-        "req_name": "riskLabel2",
-        "type": "string",
-        "param_description": "二级风险标签",
-        "required": true,
-        "param_specification": "二级风险标签，当riskLevel为PASS时为空"
-      },
-      {
-        "req_name": "riskLabel3",
-        "type": "string",
-        "param_description": "三级风险标签",
-        "required": true,
-        "param_specification": "三级风险标签，当riskLevel为PASS时为空"
-      },
-      {
-        "req_name": "riskDescription",
-        "type": "string",
-        "param_description": "风险原因",
-        "required": true,
-        "param_specification": "当riskLevel为PASS时为正常"
-      },
-      {
-        "req_name": "riskDetail",
-        "type": "json_object",
-        "param_description": "映射后风险详情",
-        "required": true,
-        "param_specification": "",
-        "son": [
-          {
-            "req_name": "matchedLists",
-            "type": "json_array",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "命中的客户自定义名单列表。",
-            "son": [
-              {
-                "req_name": "name",
-                "type": "string",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "命中的名单名称"
-              },
-              {
-                "req_name": "words",
-                "type": "json_array",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "命中的敏感词数组。",
-                "son": [
-                  {
-                    "req_name": "word",
-                    "type": "string",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "命中的敏感词"
-                  },
-                  {
-                    "req_name": "position",
-                    "type": "int_array",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "敏感词所在位置"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "req_name": "riskSegments",
-            "type": "json_array",
-            "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
-            "required": false,
-            "param_specification": "",
-            "son": [
-              {
-                "req_name": "segment",
-                "type": "string",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "高风险内容片段"
-              },
-              {
-                "req_name": "position",
-                "type": "int_array",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "高风险内容片段所在位置"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "req_name": "tokenLabels",
-        "type": "json_object",
-        "param_description": "辅助信息",
-        "required": true,
-        "param_specification": "账号风险画像标签信息见下面详情内容。",
-        "son": [
-          {
-            "req_name": "UGC_account_risk",
-            "type": "json_object",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "UGC内容相关风险。",
-            "son": [
-              {
-                "req_name": "sexy_risk_tokenid",
-                "type": "float",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "色情账号风险分取值区间[0-1]"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "req_name": "auxInfo",
-        "type": "json_object",
-        "param_description": "辅助信息",
-        "required": true,
-        "param_specification": "",
-        "son": [
-          {
-            "req_name": "filteredText",
-            "type": "string",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "风险片段被替换为*后的文本"
-          },
-          {
-            "req_name": "passThrough",
-            "type": "json_object",
-            "param_description": "透传字段",
-            "required": false,
-            "param_specification": "该字段内容与请求参数data中extra的passThrough的值相同"
-          },
-          {
-            "req_name": "contactResult",
-            "type": "json_array",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。",
-            "son": [
-              {
-                "req_name": "contactType",
-                "type": "int",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "联系方式类型，可选值区间[0-3]，详情如下：\n0：手机号\n1：QQ号\n2：微信号"
-              },
-              {
-                "req_name": "contactString",
-                "type": "string",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "联系方式串"
-              }
-            ]
-          },
-          {
-            "req_name": "contextText",
-            "type": "string",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "上下文生效时返回"
-          },
-          {
-            "req_name": "unauthorizedType",
-            "type": "string",
-            "param_description": "辅助信息",
-            "required": false,
-            "param_specification": "未授权的type"
-          }
-        ]
-      },
-      {
-        "req_name": "allLabels",
-        "type": "json_array",
-        "param_description": "辅助信息",
-        "required": true,
-        "param_specification": "命中的所有风险标签以及详情信息。",
-        "son": [
-          {
-            "req_name": "riskLabel1",
-            "type": "string",
-            "param_description": "allLabels不为空时必返",
-            "required": true,
-            "param_specification": "一级风险标签"
-          },
-          {
-            "req_name": "riskLabel2",
-            "type": "string",
-            "param_description": "allLabels不为空时必返",
-            "required": true,
-            "param_specification": "二级风险标签"
-          },
-          {
-            "req_name": "riskLabel3",
-            "type": "string",
-            "param_description": "allLabels不为空时必返",
-            "required": true,
-            "param_specification": "三级风险标签"
-          },
-          {
-            "req_name": "riskDescription",
-            "type": "string",
-            "param_description": "allLabels不为空时必返",
-            "required": true,
-            "param_specification": "风险原因"
-          },
-          {
-            "req_name": "probability",
-            "type": "float",
-            "param_description": "置信度",
-            "required": true,
-            "param_specification": "可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返"
-          },
-          {
-            "req_name": "riskDetail",
-            "type": "json_object",
-            "param_description": "映射后风险详情",
-            "required": true,
-            "param_specification": "",
-            "son": [
-              {
-                "req_name": "matchedLists",
-                "type": "json_array",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "命中的客户自定义名单列表。",
-                "son": [
-                  {
-                    "req_name": "name",
-                    "type": "string",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "命中的名单名称"
-                  },
-                  {
-                    "req_name": "words",
-                    "type": "json_array",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "命中的敏感词数组。",
-                    "son": [
-                      {
-                        "req_name": "word",
-                        "type": "string",
-                        "param_description": "辅助信息",
-                        "required": false,
-                        "param_specification": "命中的敏感词"
-                      },
-                      {
-                        "req_name": "position",
-                        "type": "int_array",
-                        "param_description": "辅助信息",
-                        "required": false,
-                        "param_specification": "敏感词所在位置"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "req_name": "riskSegments",
-                "type": "json_array",
-                "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
-                "required": false,
-                "param_specification": "",
-                "son": [
-                  {
-                    "req_name": "segment",
-                    "type": "string",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "高风险内容片段"
-                  },
-                  {
-                    "req_name": "position",
-                    "type": "int_array",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "高风险内容片段所在位置"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "req_name": "riskLevel",
-            "type": "string",
-            "param_description": "风险等级",
-            "required": true,
-            "param_specification": "可能返回值：\nREVIEW：可疑\nREJECT：违规"
-          }
-        ]
-      },
-      {
-        "req_name": "businessLabels",
-        "type": "json_array",
-        "param_description": "辅助信息",
-        "required": true,
-        "param_specification": "命中的所有业务标签以及详细信息。",
-        "son": [
-          {
-            "req_name": "businessLabel1",
-            "type": "string",
-            "param_description": "businessLabels不为空必返",
-            "required": true,
-            "param_specification": "一级业务标签"
-          },
-          {
-            "req_name": "businessLabel2",
-            "type": "string",
-            "param_description": "businessLabels不为空必返",
-            "required": true,
-            "param_specification": "二级业务标签"
-          },
-          {
-            "req_name": "businessLabel3",
-            "type": "string",
-            "param_description": "businessLabels不为空必返",
-            "required": true,
-            "param_specification": "三级业务标签"
-          },
-          {
-            "req_name": "businessDescription",
-            "type": "string",
-            "param_description": "businessLabels不为空必返",
-            "required": true,
-            "param_specification": "标签描述"
-          },
-          {
-            "req_name": "probability",
-            "type": "float",
-            "param_description": "businessLabels不为空必返\n可选值在0～1之间，值越大，可信度越高",
-            "required": true,
-            "param_specification": "置信度"
-          },
-          {
-            "req_name": "businessDetail",
-            "type": "json_object",
-            "param_description": "businessLabels不为空必返",
-            "required": true,
-            "param_specification": "业务详情"
-          }
-        ]
-      },
-      {
-        "req_name": "tokenProfileLabels",
-        "type": "json_array",
-        "param_description": "辅助信息",
-        "required": false,
-        "param_specification": "属性账号类标签。",
-        "son": [
-          {
-            "req_name": "label1",
-            "type": "string",
-            "param_description": "一级标签",
-            "required": false,
-            "param_specification": ""
-          },
-          {
-            "req_name": "label2",
-            "type": "string",
-            "param_description": "二级标签",
-            "required": false,
-            "param_specification": ""
-          },
-          {
-            "req_name": "label3",
-            "type": "string",
-            "param_description": "三级标签",
-            "required": false,
-            "param_specification": ""
-          },
-          {
-            "req_name": "description",
-            "type": "string",
-            "param_description": "标签描述",
-            "required": false,
-            "param_specification": ""
-          },
-          {
-            "req_name": "timestamp",
-            "type": "Int",
-            "param_description": "打标签时间戳",
-            "required": false,
-            "param_specification": "13位Unix时间戳，单位：毫秒"
-          }
-        ]
-      },
-      {
-        "req_name": "tokenRiskLabels",
-        "type": "json_array",
-        "param_description": "辅助信息",
-        "required": false,
-        "param_specification": "风险账号类标签。"
-      },
-      {
-        "req_name": "langResult",
-        "type": "json_object",
-        "param_description": "语种信息",
-        "required": false,
-        "param_specification": "",
-        "son": [
-          {
-            "req_name": "detectedLang",
-            "type": "string",
-            "param_description": "语种识别结果",
-            "required": false,
-            "param_specification": "当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如：zh、en、ar等"
-          },
-          {
-            "req_name": "translatedText",
-            "type": "string",
-            "param_description": "文本翻译结果",
-            "required": false,
-            "param_specification": "当传入translationTargetLang时返回的字段。值为翻译后的文本。"
-          }
-        ]
-      },
-      {
-        "req_name": "kbDetail",
-        "type": "json_object",
-        "param_description": "知识库详情",
-        "required": false,
-        "param_specification": "",
-        "son": [
-          {
-            "req_name": "qlabel",
-            "type": "string",
-            "param_description": "问题标签",
-            "required": true,
-            "param_specification": "可选值：\nUNKNOWN：没有匹配\nCANNOT_ASK：问题本身不可提问/不可输入\nEXACTNESS：问题答案必须正确。包括立场正确\nPOSITIVE：问题答案需要包含正向引导\nPENDING：流式查询代答答案"
-          },
-          {
-            "req_name": "answer",
-            "type": "string",
-            "param_description": "建议答案",
-            "required": true,
-            "param_specification": "当qlabel为\"EXACTNESS\"或者\"POSITIVE\"时，会给出数美建议的符合要求的答案。"
-          },
-          {
-            "req_name": "isEnd",
-            "type": "bool",
-            "param_description": "答案是否完整返回",
-            "required": true,
-            "param_specification": "答案是否完整返回"
-          },
-          {
-            "req_name": "hasAnswer",
-            "type": "int",
-            "param_description": "是否有答案",
-            "required": true,
-            "param_specification": "1 有代答；0 没有代答；2 需流式查询代答，默认为0"
-          }
-        ]
-      },
-      {
-        "req_name": "finalResult",
-        "type": "int",
-        "param_description": "是否最终结果",
-        "required": true,
-        "param_specification": "值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用；值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司"
-      },
-      {
-        "req_name": "resultType",
-        "type": "int",
-        "param_description": "当前结果是机审还是人审环节结果",
-        "required": true,
-        "param_specification": "0：机审，1：人审"
-      },
-      {
-        "req_name": "disposal",
-        "type": "json_object",
-        "param_description": "处置和映射结果",
-        "required": false,
-        "param_specification": "数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段",
-        "son": [
-          {
-            "req_name": "riskLevel",
-            "type": "string",
-            "param_description": "处置建议",
-            "required": true,
-            "param_specification": "若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议"
-          },
-          {
-            "req_name": "riskLabel1",
-            "type": "string",
-            "param_description": "映射后一级风险标签",
-            "required": true,
-            "param_specification": "一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal"
-          },
-          {
-            "req_name": "riskLabel2",
-            "type": "string",
-            "param_description": "映射后二级风险标签",
-            "required": true,
-            "param_specification": "二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空"
-          },
-          {
-            "req_name": "riskLabel3",
-            "type": "string",
-            "param_description": "映射后三级风险标签",
-            "required": true,
-            "param_specification": "三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空"
-          },
-          {
-            "req_name": "riskDescription",
-            "type": "string",
-            "param_description": "映射后风险原因",
-            "required": true,
-            "param_specification": "当riskLevel为PASS时为正常"
-          },
-          {
-            "req_name": "riskDetail",
-            "type": "json_object",
-            "param_description": "映射后风险详情",
-            "required": true,
-            "param_specification": "",
-            "son": [
-              {
-                "req_name": "matchedLists",
-                "type": "json_array",
-                "param_description": "辅助信息",
-                "required": false,
-                "param_specification": "命中的客户自定义名单列表。",
-                "son": [
-                  {
-                    "req_name": "name",
-                    "type": "string",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "命中的名单名称"
-                  },
-                  {
-                    "req_name": "words",
-                    "type": "json_array",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "命中的敏感词数组。",
-                    "son": [
-                      {
-                        "req_name": "word",
-                        "type": "string",
-                        "param_description": "辅助信息",
-                        "required": false,
-                        "param_specification": "命中的敏感词"
-                      },
-                      {
-                        "req_name": "position",
-                        "type": "int_array",
-                        "param_description": "辅助信息",
-                        "required": false,
-                        "param_specification": "敏感词所在位置"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "req_name": "riskSegments",
-                "type": "json_array",
-                "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
-                "required": false,
-                "param_specification": "",
-                "son": [
-                  {
-                    "req_name": "segment",
-                    "type": "string",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "高风险内容片段"
-                  },
-                  {
-                    "req_name": "position",
-                    "type": "int_array",
-                    "param_description": "辅助信息",
-                    "required": false,
-                    "param_specification": "高风险内容片段所在位置"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "title-3",
-    "value": "当lang字段取值zh，或取值auto被识别为中文时，一级标签的内容如下："
-  },
-  {
-    "header": [
-      {
-        "key": "label",
-        "title": "一级标签"
-      },
-      {
-        "key": "identification",
-        "title": "一级标识"
-      },
-      {
-        "key": "genre",
-        "title": "类型"
-      },
-      {
-        "key": "remark",
-        "title": "备注"
-      }
-    ],
-    "type": "table",
-    "value":[
-      {
-        "label": "涉政",
-        "identification": "politics",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "暴恐",
-        "identification": "violence",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "色情",
-        "identification": "porn",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "违禁",
-        "identification": "ban",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "辱骂",
-        "identification": "abuse",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "广告法",
-        "identification": "ad_law",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "广告",
-        "identification": "ad",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "黑名单",
-        "identification": "blacklist",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "无意义",
-        "identification": "meaningless",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "隐私",
-        "identification": "privacy",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "网络诈骗",
-        "identification": "fraud",
-        "genre": "监管标签",
-        "remark": "type值为FRUAD"
-      },
-      {
-        "label": "未成年人",
-        "identification": "minor",
-        "genre": "监管标签",
-        "remark": "type值为TEXTMINOR"
-      }
-    ]
-  },
-  {
-    "type": "title-3",
-    "value": "当为非中文时，一级标签的内容如下："
-  },
-  {
-    "header": [
-      {
-        "key": "label",
-        "title": "一级标签"
-      },
-      {
-        "key": "identification",
-        "title": "一级标识"
-      },
-      {
-        "key": "genre",
-        "title": "类型"
-      },
-      {
-        "key": "remark",
-        "title": "备注"
-      }
-    ],
-    "type": "table",
-    "value":[
-      {
-        "label": "涉政",
-        "identification": "Politics",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "暴恐",
-        "identification": "Violence",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "色情",
-        "identification": "Erotic",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "违禁",
-        "identification": "Prohibit",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "辱骂",
-        "identification": "Abuse",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "广告",
-        "identification": "Ads",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      },
-      {
-        "label": "黑名单",
-        "identification": "Blacklist",
-        "genre": "监管标签",
-        "remark": "type值为TEXTRISK"
-      }
-    ]
-  },
-  {
-    "type": "title-2",
-    "value": "示例"
-  },
-  {
-    "type": "title-3",
-    "value": "请求示例"
-  },
-  {
-    "type": "json",
-    "value": {
-      "accessKey": "*************",
-      "appId": "default",
-      "eventId": "text",
-      "type": "TEXTRISK",
-      "data": {
-        "text": "加个好友吧 qq12345",
-        "tokenId": "4567898765jhgfdsa",
-        "ip": "118.89.214.89",
-        "deviceId": "*************",
-        "nickname": "***********",
-        "extra": {
-          "topic": "12345",
-          "atId": "username1",
-          "room": "ceshi123",
-          "receiveTokenId": "username2"
-        }
-      }
-    }
-  },
-  {
-    "type": "title-3",
-    "value": "返回示例"
-  },
-  {
-    "type": "json",
-    "value": {
-      "allLabels": [
-        {
-          "probability": 1,
-          "riskDescription": "涉政:涉政:涉政",
-          "riskDetail": {},
-          "riskLabel1": "politics",
-          "riskLabel2": "shezheng",
-          "riskLabel3": "shezheng",
-          "riskLevel": "REVIEW"
-        },
-        {
-          "probability": 0.95559550232975,
-          "riskDescription": "广告:加好友:加好友",
-          "riskDetail": {
-            "matchedLists": [
-              {
-                "name": "社区敏感词名单",
-                "words": [
-                  {
-                    "position": [
-                      6,
-                      7
-                    ],
-                    "word": "qq"
-                  }
-                ]
-              }
-            ]
-          },
-          "riskLabel1": "ad",
-          "riskLabel2": "jiahaoyou",
-          "riskLabel3": "jiahaoyou",
-          "riskLevel": "REJECT"
-        },
-        {
-          "probability": 1,
-          "riskDescription": "广告:联系方式:联系方式",
-          "riskDetail": {},
-          "riskLabel1": "ad",
-          "riskLabel2": "lianxifangshi",
-          "riskLabel3": "lianxifangshi",
-          "riskLevel": "REJECT"
-        }
-      ],
-      "auxInfo": {
-        "contactResult": [
-          {
-            "contactString": "qq12345",
-            "contactType": 2
-          }
+    {
+        "type": "title-1",
+        "value": "请求接口"
+    },
+    {
+        "type": "title-2",
+        "value": "编码"
+    },
+    {
+        "type": "desc",
+        "value": "UTF-8字符集编码"
+    },
+    {
+        "type": "title-3",
+        "value": "请求方法"
+    },
+    {
+        "type": "desc",
+        "value": "POST"
+    },
+    {
+        "type": "title-3",
+        "value": "建议超时时间"
+    },
+    {
+        "type": "desc",
+        "value": "1s"
+    },
+    {
+        "type": "title-2",
+        "value": "请求"
+    },
+    {
+        "type": "title-3",
+        "value": "请求地址"
+    },
+    {
+        "header": [
+            {
+                "key": "description",
+                "title": "集群"
+            },
+            {
+                "key": "url",
+                "title": "请求地址"
+            },
+            {
+                "key": "supportProduct",
+                "title": "支持产品列表"
+            }
         ],
-        "filteredText": "加个好友吧 **12345"
-      },
-      "businessLabels": [],
-      "code": 1100,
-      "message": "成功",
-      "finalResult": 1,
-      "resultType": 0,
-      "requestId": "bb917ec5fa11fd02d226fb384968feb1",
-      "riskDescription": "广告:联系方式:联系方式",
-      "riskDetail": {},
-      "riskLabel1": "ad",
-      "riskLabel2": "lianxifangshi",
-      "riskLabel3": "lianxifangshi",
-      "riskLevel": "REJECT"
+        "type": "table",
+        "value": [
+            {
+                "description": "北京",
+                "url": "http://api-text-bj.fengkongcloud.com/text/v4",
+                "supportProduct": "中文文本"
+            },
+            {
+                "description": "上海",
+                "url": "http://api-text-sh.fengkongcloud.com/text/v4",
+                "supportProduct": "中文文本"
+            },
+            {
+                "description": "美国（弗吉尼亚）",
+                "url": "http://api-text-fjny.fengkongcloud.com/text/v4",
+                "supportProduct": "中文文本、国际化文本"
+            },
+            {
+                "description": "新加坡",
+                "url": "http://api-text-xjp.fengkongcloud.com/text/v4",
+                "supportProduct": "中文文本、国际化文本"
+            }
+        ]
+    },
+    {
+        "type": "title-3",
+        "value": "请求参数"
+    },
+    {
+        "header": [
+            {
+                "key": "req_name",
+                "title": "参数名称"
+            },
+            {
+                "key": "type",
+                "title": "类型"
+            },
+            {
+                "key": "param_description",
+                "title": "参数说明"
+            },
+            {
+                "key": "required",
+                "title": "是否必传"
+            },
+            {
+                "key": "param_specification",
+                "title": "规范"
+            }
+        ],
+        "type": "table",
+        "value": [
+            {
+                "req_name": "accessKey",
+                "type": "string",
+                "param_description": "接口认证密钥",
+                "required": true,
+                "param_specification": "由数美提供"
+            },
+            {
+                "req_name": "appId",
+                "type": "string",
+                "param_description": "应用标识",
+                "required": true,
+                "param_specification": "用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准"
+            },
+            {
+                "req_name": "eventId",
+                "type": "string",
+                "param_description": "事件标识",
+                "required": true,
+                "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准"
+            },
+            {
+                "req_name": "type",
+                "type": "string",
+                "param_description": "检测的风险类型",
+                "required": true,
+                "param_specification": "可选值：\nPOLITY：涉政检测\nVIOLENT：暴恐检测\nBAN：违禁检测\nEROTIC：色情检测\nDIRTY：辱骂检测\nADVERT：广告检测\nPRIVACY：隐私检测\nADLAW：广告法检测\nMEANINGLESS：无意义检测\nTEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）\nFRUAD：网络诈骗检测\nUNPOACH：高价值用户防挖检测\nTEXTMINOR：未成年人内容检测\n以上type可以下划线组合，如：TEXTRISK_FRUAD\ntype间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理"
+            },
+            {
+                "req_name": "data",
+                "type": "json_object",
+                "param_description": "请求的数据内容",
+                "required": true,
+                "param_specification": "最长1MB",
+                "son": [
+                    {
+                        "req_name": "text",
+                        "type": "string",
+                        "param_description": "需要检测的文本",
+                        "required": true,
+                        "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。若传递nickname字段，则会同时校验文本+昵称内容。"
+                    },
+                    {
+                        "req_name": "relateText",
+                        "type": "string",
+                        "param_description": "需要检测的关联文本",
+                        "required": false,
+                        "param_specification": "文本字数上限128字，超过128字只截取前128字进行识别。传入此字段会结合text一起检测。"
+                    },
+                    {
+                        "req_name": "tokenId",
+                        "type": "string",
+                        "param_description": "用户账号标识，建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值",
+                        "required": true,
+                        "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串"
+                    },
+                    {
+                        "req_name": "lang",
+                        "type": "string",
+                        "param_description": "待检测的文本内容语种",
+                        "required": false,
+                        "param_specification": "可选值和对应语种如下：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto：自动识别语种类型\n默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型"
+                    },
+                    {
+                        "req_name": "nickname",
+                        "type": "string",
+                        "param_description": "用户昵称",
+                        "required": false,
+                        "param_specification": "校验昵称内容风险，长度限制150字符，超出部分会被截断"
+                    },
+                    {
+                        "req_name": "ip",
+                        "type": "string",
+                        "param_description": "ip地址",
+                        "required": false,
+                        "param_specification": "发送该文本的用户公网ipv4或ipv6地址"
+                    },
+                    {
+                        "req_name": "deviceId",
+                        "type": "string",
+                        "param_description": "数美设备标识",
+                        "required": false,
+                        "param_specification": "数美设备指纹生成的设备唯一标识"
+                    },
+                    {
+                        "req_name": "extra",
+                        "type": "json_object",
+                        "param_description": "辅助参数",
+                        "required": false,
+                        "param_specification": "用于辅助文本检测的相关信息",
+                        "son": [
+                            {
+                                "req_name": "receiveTokenId",
+                                "type": "string",
+                                "param_description": "私聊场景下消息接收者的tokenId",
+                                "required": false,
+                                "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为message时必传"
+                            },
+                            {
+                                "req_name": "topic",
+                                "type": "string",
+                                "param_description": "可为话题编号、书评区编号、论坛帖子编号",
+                                "required": false,
+                                "param_specification": "传入的是帖子等数据（eventId值为article）时，开启上下文识别功能，建议传入，否则不能关联上下文"
+                            },
+                            {
+                                "req_name": "atId",
+                                "type": "string",
+                                "param_description": "群聊场景下被@用户的tokenId",
+                                "required": false,
+                                "param_specification": "由数字、字母、下划线、短杠组成的长度小于等于64位的字符串，eventId值为groupChat时必传"
+                            },
+                            {
+                                "req_name": "room",
+                                "type": "string",
+                                "param_description": "直播间/游戏房间编号",
+                                "required": false,
+                                "param_specification": "传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文"
+                            },
+                            {
+                                "req_name": "sex",
+                                "type": "int",
+                                "param_description": "性别",
+                                "required": false,
+                                "param_specification": "可选值：\n0：男性\n1：女性\n2：性别不明"
+                            },
+                            {
+                                "req_name": "passThrough",
+                                "type": "json",
+                                "param_description": "透传字段",
+                                "required": false,
+                                "param_specification": "该字段内容会随着返回值一起返回"
+                            }
+                        ]
+                    },
+                    {
+                        "req_name": "dataId",
+                        "type": "string",
+                        "param_description": "数据标识",
+                        "required": false,
+                        "param_specification": "数据标识"
+                    }
+                ]
+            },
+            {
+                "req_name": "kbType",
+                "type": "string",
+                "param_description": "知识库类型",
+                "required": false,
+                "param_specification": "知识库最大支持510个字符长度的输入，超出后本次请求文本内容无法匹配知识库\n如需开通使用请联系数美商务可选值：\nPKB：启用涉政知识库功能\n BKB：启用违禁知识库功能\n SKB：启用色情知识库功能\nAKB：启用辱骂知识库功能"
+            },
+            {
+                "req_name": "translationTargetLang",
+                "type": "string",
+                "param_description": "翻译目标语种",
+                "required": false,
+                "param_specification": "将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文"
+            },
+            {
+                "req_name": "acceptLang",
+                "type": "string",
+                "param_description": "返回标签的语种类型",
+                "required": false,
+                "param_specification": "将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文"
+            },
+            {
+                "req_name": "callback",
+                "type": "string",
+                "param_description": "回调http接口",
+                "required": false,
+                "param_specification": "当该字段非空时，服务将根据该字段回调通知用户审核结果"
+            }
+        ]
+    },
+    {
+        "type": "title-2",
+        "value": "响应"
+    },
+    {
+        "type": "title-3",
+        "value": "返回参数"
+    },
+    {
+        "type": "desc",
+        "value": "以下参数，除code、message、requestId以外，其他必返参数均为在code返回1100时为必返。"
+    },
+    {
+        "header": [
+            {
+                "key": "req_name",
+                "title": "参数名称"
+            },
+            {
+                "key": "type",
+                "title": "类型"
+            },
+            {
+                "key": "param_description",
+                "title": "参数说明"
+            },
+            {
+                "key": "required",
+                "title": "是否必返"
+            },
+            {
+                "key": "param_specification",
+                "title": "规范"
+            }
+        ],
+        "type": "table",
+        "value": [
+            {
+                "req_name": "code",
+                "type": "int",
+                "param_description": "返回码",
+                "required": true,
+                "param_specification": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1905：字数超限\n9101：无权限操作"
+            },
+            {
+                "req_name": "message",
+                "type": "string",
+                "param_description": "返回码描述",
+                "required": true,
+                "param_specification": "和code对应：成功、QPS超限、参数不合法、服务失败、字数超限、无权限操作"
+            },
+            {
+                "req_name": "requestId",
+                "type": "string",
+                "param_description": "请求标识",
+                "required": true,
+                "param_specification": "本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存"
+            },
+            {
+                "req_name": "riskLevel",
+                "type": "string",
+                "param_description": "处置建议",
+                "required": true,
+                "param_specification": "可能返回值：\nPASS：正常，建议直接放行\nREVIEW：可疑，建议人工审核\nREJECT：违规，建议直接拦截"
+            },
+            {
+                "req_name": "riskLabel1",
+                "type": "string",
+                "param_description": "一级风险标签",
+                "required": true,
+                "param_specification": "一级风险标签，当riskLevel为PASS时返回normal"
+            },
+            {
+                "req_name": "riskLabel2",
+                "type": "string",
+                "param_description": "二级风险标签",
+                "required": true,
+                "param_specification": "二级风险标签，当riskLevel为PASS时为空"
+            },
+            {
+                "req_name": "riskLabel3",
+                "type": "string",
+                "param_description": "三级风险标签",
+                "required": true,
+                "param_specification": "三级风险标签，当riskLevel为PASS时为空"
+            },
+            {
+                "req_name": "riskDescription",
+                "type": "string",
+                "param_description": "风险原因",
+                "required": true,
+                "param_specification": "当riskLevel为PASS时为正常"
+            },
+            {
+                "req_name": "riskDetail",
+                "type": "json_object",
+                "param_description": "映射后风险详情",
+                "required": true,
+                "param_specification": "",
+                "son": [
+                    {
+                        "req_name": "matchedLists",
+                        "type": "json_array",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "命中的客户自定义名单列表。",
+                        "son": [
+                            {
+                                "req_name": "name",
+                                "type": "string",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "命中的名单名称"
+                            },
+                            {
+                                "req_name": "words",
+                                "type": "json_array",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "命中的敏感词数组。",
+                                "son": [
+                                    {
+                                        "req_name": "word",
+                                        "type": "string",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "命中的敏感词"
+                                    },
+                                    {
+                                        "req_name": "position",
+                                        "type": "int_array",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "敏感词所在位置"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "req_name": "riskSegments",
+                        "type": "json_array",
+                        "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
+                        "required": false,
+                        "param_specification": "",
+                        "son": [
+                            {
+                                "req_name": "segment",
+                                "type": "string",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "高风险内容片段"
+                            },
+                            {
+                                "req_name": "position",
+                                "type": "int_array",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "高风险内容片段所在位置"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "req_name": "tokenLabels",
+                "type": "json_object",
+                "param_description": "辅助信息",
+                "required": true,
+                "param_specification": "账号风险画像标签信息见下面详情内容。",
+                "son": [
+                    {
+                        "req_name": "UGC_account_risk",
+                        "type": "json_object",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "UGC内容相关风险。",
+                        "son": [
+                            {
+                                "req_name": "sexy_risk_tokenid",
+                                "type": "float",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "色情账号风险分取值区间[0-1]"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "req_name": "auxInfo",
+                "type": "json_object",
+                "param_description": "辅助信息",
+                "required": true,
+                "param_specification": "",
+                "son": [
+                    {
+                        "req_name": "filteredText",
+                        "type": "string",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "风险片段被替换为*后的文本"
+                    },
+                    {
+                        "req_name": "passThrough",
+                        "type": "json_object",
+                        "param_description": "透传字段",
+                        "required": false,
+                        "param_specification": "该字段内容与请求参数data中extra的passThrough的值相同"
+                    },
+                    {
+                        "req_name": "contactResult",
+                        "type": "json_array",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容。",
+                        "son": [
+                            {
+                                "req_name": "contactType",
+                                "type": "int",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "联系方式类型，可选值区间[0-3]，详情如下：\n0：手机号\n1：QQ号\n2：微信号"
+                            },
+                            {
+                                "req_name": "contactString",
+                                "type": "string",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "联系方式串"
+                            }
+                        ]
+                    },
+                    {
+                        "req_name": "contextText",
+                        "type": "string",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "上下文生效时返回"
+                    },
+                    {
+                        "req_name": "unauthorizedType",
+                        "type": "string",
+                        "param_description": "辅助信息",
+                        "required": false,
+                        "param_specification": "未授权的type"
+                    }
+                ]
+            },
+            {
+                "req_name": "allLabels",
+                "type": "json_array",
+                "param_description": "辅助信息",
+                "required": true,
+                "param_specification": "命中的所有风险标签以及详情信息。",
+                "son": [
+                    {
+                        "req_name": "riskLabel1",
+                        "type": "string",
+                        "param_description": "allLabels不为空时必返",
+                        "required": true,
+                        "param_specification": "一级风险标签"
+                    },
+                    {
+                        "req_name": "riskLabel2",
+                        "type": "string",
+                        "param_description": "allLabels不为空时必返",
+                        "required": true,
+                        "param_specification": "二级风险标签"
+                    },
+                    {
+                        "req_name": "riskLabel3",
+                        "type": "string",
+                        "param_description": "allLabels不为空时必返",
+                        "required": true,
+                        "param_specification": "三级风险标签"
+                    },
+                    {
+                        "req_name": "riskDescription",
+                        "type": "string",
+                        "param_description": "allLabels不为空时必返",
+                        "required": true,
+                        "param_specification": "风险原因"
+                    },
+                    {
+                        "req_name": "probability",
+                        "type": "float",
+                        "param_description": "置信度",
+                        "required": true,
+                        "param_specification": "可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返"
+                    },
+                    {
+                        "req_name": "riskDetail",
+                        "type": "json_object",
+                        "param_description": "映射后风险详情",
+                        "required": true,
+                        "param_specification": "",
+                        "son": [
+                            {
+                                "req_name": "matchedLists",
+                                "type": "json_array",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "命中的客户自定义名单列表。",
+                                "son": [
+                                    {
+                                        "req_name": "name",
+                                        "type": "string",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "命中的名单名称"
+                                    },
+                                    {
+                                        "req_name": "words",
+                                        "type": "json_array",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "命中的敏感词数组。",
+                                        "son": [
+                                            {
+                                                "req_name": "word",
+                                                "type": "string",
+                                                "param_description": "辅助信息",
+                                                "required": false,
+                                                "param_specification": "命中的敏感词"
+                                            },
+                                            {
+                                                "req_name": "position",
+                                                "type": "int_array",
+                                                "param_description": "辅助信息",
+                                                "required": false,
+                                                "param_specification": "敏感词所在位置"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "req_name": "riskSegments",
+                                "type": "json_array",
+                                "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
+                                "required": false,
+                                "param_specification": "",
+                                "son": [
+                                    {
+                                        "req_name": "segment",
+                                        "type": "string",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "高风险内容片段"
+                                    },
+                                    {
+                                        "req_name": "position",
+                                        "type": "int_array",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "高风险内容片段所在位置"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "req_name": "riskLevel",
+                        "type": "string",
+                        "param_description": "风险等级",
+                        "required": true,
+                        "param_specification": "可能返回值：\nREVIEW：可疑\nREJECT：违规"
+                    }
+                ]
+            },
+            {
+                "req_name": "businessLabels",
+                "type": "json_array",
+                "param_description": "辅助信息",
+                "required": true,
+                "param_specification": "命中的所有业务标签以及详细信息。",
+                "son": [
+                    {
+                        "req_name": "businessLabel1",
+                        "type": "string",
+                        "param_description": "businessLabels不为空必返",
+                        "required": true,
+                        "param_specification": "一级业务标签"
+                    },
+                    {
+                        "req_name": "businessLabel2",
+                        "type": "string",
+                        "param_description": "businessLabels不为空必返",
+                        "required": true,
+                        "param_specification": "二级业务标签"
+                    },
+                    {
+                        "req_name": "businessLabel3",
+                        "type": "string",
+                        "param_description": "businessLabels不为空必返",
+                        "required": true,
+                        "param_specification": "三级业务标签"
+                    },
+                    {
+                        "req_name": "businessDescription",
+                        "type": "string",
+                        "param_description": "businessLabels不为空必返",
+                        "required": true,
+                        "param_specification": "标签描述"
+                    },
+                    {
+                        "req_name": "probability",
+                        "type": "float",
+                        "param_description": "businessLabels不为空必返\n可选值在0～1之间，值越大，可信度越高",
+                        "required": true,
+                        "param_specification": "置信度"
+                    },
+                    {
+                        "req_name": "businessDetail",
+                        "type": "json_object",
+                        "param_description": "businessLabels不为空必返",
+                        "required": true,
+                        "param_specification": "业务详情"
+                    }
+                ]
+            },
+            {
+                "req_name": "tokenProfileLabels",
+                "type": "json_array",
+                "param_description": "辅助信息",
+                "required": false,
+                "param_specification": "属性账号类标签。",
+                "son": [
+                    {
+                        "req_name": "label1",
+                        "type": "string",
+                        "param_description": "一级标签",
+                        "required": false,
+                        "param_specification": ""
+                    },
+                    {
+                        "req_name": "label2",
+                        "type": "string",
+                        "param_description": "二级标签",
+                        "required": false,
+                        "param_specification": ""
+                    },
+                    {
+                        "req_name": "label3",
+                        "type": "string",
+                        "param_description": "三级标签",
+                        "required": false,
+                        "param_specification": ""
+                    },
+                    {
+                        "req_name": "description",
+                        "type": "string",
+                        "param_description": "标签描述",
+                        "required": false,
+                        "param_specification": ""
+                    },
+                    {
+                        "req_name": "timestamp",
+                        "type": "Int",
+                        "param_description": "打标签时间戳",
+                        "required": false,
+                        "param_specification": "13位Unix时间戳，单位：毫秒"
+                    }
+                ]
+            },
+            {
+                "req_name": "tokenRiskLabels",
+                "type": "json_array",
+                "param_description": "辅助信息",
+                "required": false,
+                "param_specification": "风险账号类标签。"
+            },
+            {
+                "req_name": "langResult",
+                "type": "json_object",
+                "param_description": "语种信息",
+                "required": false,
+                "param_specification": "",
+                "son": [
+                    {
+                        "req_name": "detectedLang",
+                        "type": "string",
+                        "param_description": "语种识别结果",
+                        "required": false,
+                        "param_specification": "当在国际化文本产品下传入lang的值为auto时返回该字段。值为标准语言代码表，例如：zh、en、ar等"
+                    },
+                    {
+                        "req_name": "translatedText",
+                        "type": "string",
+                        "param_description": "文本翻译结果",
+                        "required": false,
+                        "param_specification": "当传入translationTargetLang时返回的字段。值为翻译后的文本。"
+                    }
+                ]
+            },
+            {
+                "req_name": "kbDetail",
+                "type": "json_object",
+                "param_description": "知识库详情",
+                "required": false,
+                "param_specification": "",
+                "son": [
+                    {
+                        "req_name": "qlabel",
+                        "type": "string",
+                        "param_description": "问题标签",
+                        "required": true,
+                        "param_specification": "可选值：\nUNKNOWN：没有匹配\nCANNOT_ASK：问题本身不可提问/不可输入\nEXACTNESS：问题答案必须正确。包括立场正确\nPOSITIVE：问题答案需要包含正向引导\nPENDING：流式查询代答答案"
+                    },
+                    {
+                        "req_name": "answer",
+                        "type": "string",
+                        "param_description": "建议答案",
+                        "required": true,
+                        "param_specification": "当qlabel为\"EXACTNESS\"或者\"POSITIVE\"时，会给出数美建议的符合要求的答案。"
+                    },
+                    {
+                        "req_name": "isEnd",
+                        "type": "bool",
+                        "param_description": "答案是否完整返回",
+                        "required": true,
+                        "param_specification": "答案是否完整返回"
+                    },
+                    {
+                        "req_name": "hasAnswer",
+                        "type": "int",
+                        "param_description": "是否有答案",
+                        "required": true,
+                        "param_specification": "1 有代答；0 没有代答；2 需流式查询代答，默认为0"
+                    }
+                ]
+            },
+            {
+                "req_name": "finalResult",
+                "type": "int",
+                "param_description": "是否最终结果",
+                "required": true,
+                "param_specification": "值为1，贵司可直接拿返回结果进行处置、分发等下游场景的使用；值为0，说明该结果为数美风控的过程结果，还需要经过数美人审再次check后回传贵司"
+            },
+            {
+                "req_name": "resultType",
+                "type": "int",
+                "param_description": "当前结果是机审还是人审环节结果",
+                "required": true,
+                "param_specification": "0：机审，1：人审"
+            },
+            {
+                "req_name": "disposal",
+                "type": "json_object",
+                "param_description": "处置和映射结果",
+                "required": false,
+                "param_specification": "数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段",
+                "son": [
+                    {
+                        "req_name": "riskLevel",
+                        "type": "string",
+                        "param_description": "处置建议",
+                        "required": true,
+                        "param_specification": "若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议"
+                    },
+                    {
+                        "req_name": "riskLabel1",
+                        "type": "string",
+                        "param_description": "映射后一级风险标签",
+                        "required": true,
+                        "param_specification": "一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal"
+                    },
+                    {
+                        "req_name": "riskLabel2",
+                        "type": "string",
+                        "param_description": "映射后二级风险标签",
+                        "required": true,
+                        "param_specification": "二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空"
+                    },
+                    {
+                        "req_name": "riskLabel3",
+                        "type": "string",
+                        "param_description": "映射后三级风险标签",
+                        "required": true,
+                        "param_specification": "三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空"
+                    },
+                    {
+                        "req_name": "riskDescription",
+                        "type": "string",
+                        "param_description": "映射后风险原因",
+                        "required": true,
+                        "param_specification": "当riskLevel为PASS时为正常"
+                    },
+                    {
+                        "req_name": "riskDetail",
+                        "type": "json_object",
+                        "param_description": "映射后风险详情",
+                        "required": true,
+                        "param_specification": "",
+                        "son": [
+                            {
+                                "req_name": "matchedLists",
+                                "type": "json_array",
+                                "param_description": "辅助信息",
+                                "required": false,
+                                "param_specification": "命中的客户自定义名单列表。",
+                                "son": [
+                                    {
+                                        "req_name": "name",
+                                        "type": "string",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "命中的名单名称"
+                                    },
+                                    {
+                                        "req_name": "words",
+                                        "type": "json_array",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "命中的敏感词数组。",
+                                        "son": [
+                                            {
+                                                "req_name": "word",
+                                                "type": "string",
+                                                "param_description": "辅助信息",
+                                                "required": false,
+                                                "param_specification": "命中的敏感词"
+                                            },
+                                            {
+                                                "req_name": "position",
+                                                "type": "int_array",
+                                                "param_description": "辅助信息",
+                                                "required": false,
+                                                "param_specification": "敏感词所在位置"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "req_name": "riskSegments",
+                                "type": "json_array",
+                                "param_description": "辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在",
+                                "required": false,
+                                "param_specification": "",
+                                "son": [
+                                    {
+                                        "req_name": "segment",
+                                        "type": "string",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "高风险内容片段"
+                                    },
+                                    {
+                                        "req_name": "position",
+                                        "type": "int_array",
+                                        "param_description": "辅助信息",
+                                        "required": false,
+                                        "param_specification": "高风险内容片段所在位置"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "title-3",
+        "value": "当lang字段取值zh，或取值auto被识别为中文时，一级标签的内容如下："
+    },
+    {
+        "header": [
+            {
+                "key": "label",
+                "title": "一级标签"
+            },
+            {
+                "key": "identification",
+                "title": "一级标识"
+            },
+            {
+                "key": "genre",
+                "title": "类型"
+            },
+            {
+                "key": "remark",
+                "title": "备注"
+            }
+        ],
+        "type": "table",
+        "value": [
+            {
+                "label": "涉政",
+                "identification": "politics",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "暴恐",
+                "identification": "violence",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "色情",
+                "identification": "porn",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "违禁",
+                "identification": "ban",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "辱骂",
+                "identification": "abuse",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "广告法",
+                "identification": "ad_law",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "广告",
+                "identification": "ad",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "黑名单",
+                "identification": "blacklist",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "无意义",
+                "identification": "meaningless",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "隐私",
+                "identification": "privacy",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "网络诈骗",
+                "identification": "fraud",
+                "genre": "监管标签",
+                "remark": "type值为FRUAD"
+            },
+            {
+                "label": "未成年人",
+                "identification": "minor",
+                "genre": "监管标签",
+                "remark": "type值为TEXTMINOR"
+            }
+        ]
+    },
+    {
+        "type": "title-3",
+        "value": "当为非中文时，一级标签的内容如下："
+    },
+    {
+        "header": [
+            {
+                "key": "label",
+                "title": "一级标签"
+            },
+            {
+                "key": "identification",
+                "title": "一级标识"
+            },
+            {
+                "key": "genre",
+                "title": "类型"
+            },
+            {
+                "key": "remark",
+                "title": "备注"
+            }
+        ],
+        "type": "table",
+        "value": [
+            {
+                "label": "涉政",
+                "identification": "Politics",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "暴恐",
+                "identification": "Violence",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "色情",
+                "identification": "Erotic",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "违禁",
+                "identification": "Prohibit",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "辱骂",
+                "identification": "Abuse",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "广告",
+                "identification": "Ads",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            },
+            {
+                "label": "黑名单",
+                "identification": "Blacklist",
+                "genre": "监管标签",
+                "remark": "type值为TEXTRISK"
+            }
+        ]
+    },
+    {
+        "type": "title-2",
+        "value": "示例"
+    },
+    {
+        "type": "title-3",
+        "value": "请求示例"
+    },
+    {
+        "type": "json",
+        "value": {
+            "accessKey": "*************",
+            "appId": "default",
+            "eventId": "text",
+            "type": "TEXTRISK",
+            "data": {
+                "text": "加个好友吧 qq12345",
+                "tokenId": "4567898765jhgfdsa",
+                "ip": "118.89.214.89",
+                "deviceId": "*************",
+                "nickname": "***********",
+                "extra": {
+                    "topic": "12345",
+                    "atId": "username1",
+                    "room": "ceshi123",
+                    "receiveTokenId": "username2"
+                }
+            }
+        }
+    },
+    {
+        "type": "title-3",
+        "value": "返回示例"
+    },
+    {
+        "type": "json",
+        "value": {
+            "allLabels": [
+                {
+                    "probability": 1,
+                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDetail": {
+
+                    },
+                    "riskLabel1": "politics",
+                    "riskLabel2": "shezheng",
+                    "riskLabel3": "shezheng",
+                    "riskLevel": "REVIEW"
+                },
+                {
+                    "probability": 0.95559550232975,
+                    "riskDescription": "广告:加好友:加好友",
+                    "riskDetail": {
+                        "matchedLists": [
+                            {
+                                "name": "社区敏感词名单",
+                                "words": [
+                                    {
+                                        "position": [
+                                            6,
+                                            7
+                                        ],
+                                        "word": "qq"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "riskLabel1": "ad",
+                    "riskLabel2": "jiahaoyou",
+                    "riskLabel3": "jiahaoyou",
+                    "riskLevel": "REJECT"
+                },
+                {
+                    "probability": 1,
+                    "riskDescription": "广告:联系方式:联系方式",
+                    "riskDetail": {
+
+                    },
+                    "riskLabel1": "ad",
+                    "riskLabel2": "lianxifangshi",
+                    "riskLabel3": "lianxifangshi",
+                    "riskLevel": "REJECT"
+                }
+            ],
+            "auxInfo": {
+                "contactResult": [
+                    {
+                        "contactString": "qq12345",
+                        "contactType": 2
+                    }
+                ],
+                "filteredText": "加个好友吧 **12345"
+            },
+            "businessLabels": [
+
+            ],
+            "code": 1100,
+            "message": "成功",
+            "finalResult": 1,
+            "resultType": 0,
+            "requestId": "bb917ec5fa11fd02d226fb384968feb1",
+            "riskDescription": "广告:联系方式:联系方式",
+            "riskDetail": {
+
+            },
+            "riskLabel1": "ad",
+            "riskLabel2": "lianxifangshi",
+            "riskLabel3": "lianxifangshi",
+            "riskLevel": "REJECT"
+        }
     }
-  }
 ]

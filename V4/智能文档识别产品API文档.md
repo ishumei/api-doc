@@ -34,6 +34,7 @@
 | appId | string | 应用标识 | Y | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
+| acceptLang | string  | 返回标签的语种类型   | N    | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 | data | json_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
 
  其中，<span id="data">data</span>的内容如下：
@@ -53,7 +54,6 @@
 | gender | string | 用户性别 | N  | 可选值：<br/>male男性 <br/>female女性 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
 | dataId | string | 数据标识 | N | 数据标识 |
-| acceptLang | string  | 返回标签的语种类型   | N    | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
 | extra | json_object | 辅助参数 | N | 用于辅助文本检测的相关信息，[详见extra参数](#extra) |
 
 <span id="extra">data 中 extra数组每个元素的内容如下：</span>
