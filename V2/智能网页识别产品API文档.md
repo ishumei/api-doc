@@ -64,7 +64,8 @@
 | 集群 | URL | 
 | --- | --- | 
 | 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 
-
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/v1/saas/anti_fraud/article` |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/v1/saas/anti_fraud/article` |
 #### 字符编码格式：
 
 `UTF-8`字符集编码
