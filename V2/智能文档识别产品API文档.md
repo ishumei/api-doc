@@ -73,6 +73,8 @@
 | 集群 | URL | 支持产品列表 |
 | --- | --- |--------|
 | 北京 | `http://api-article-bj.fengkongcloud.com/v1/saas/anti_fraud/article` | 文档产品   |
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/v1/saas/anti_fraud/article` |文档产品   |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/v1/saas/anti_fraud/article` |文档产品   |
 
 ### <span id="Aa2">字符编码格式：</span>
 

@@ -132,6 +132,13 @@
                 "param_specification": "可选值：\nPOLITY：涉政检测\nVIOLENT：暴恐检测\nBAN：违禁检测\nEROTIC：色情检测\nDIRTY：辱骂检测\nADVERT：广告检测\nPRIVACY：隐私检测\nADLAW：广告法检测\nMEANINGLESS：无意义检测\nTEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）\nFRUAD：网络诈骗检测\nUNPOACH：高价值用户防挖检测\nTEXTMINOR：未成年人内容检测\n以上type可以下划线组合，如：TEXTRISK_FRUAD\ntype间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理"
             },
             {
+                "req_name": "agentType",
+                "type": "string",
+                "param_description": "agent检测的风险类型",
+                "required": false,
+                "param_specification": 可选值：\nPOLITY：涉政检测\nVIOLENT：暴恐检测\nBAN：违禁检测\nEROTIC：色情检测\nDIRTY：辱骂检测\nADVERT：广告检测\nPRIVACY：隐私检测\nADLAW：广告法检测\nMEANINGLESS：无意义检测\nTEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）\nFRUAD：网络诈骗检测\nUNPOACH：高价值用户防挖检测\nTEXTMINOR：未成年人内容检测\n以上type可以下划线组合，如：TEXTRISK_FRUAD\ntype间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理"
+            },
+            {
                 "req_name": "data",
                 "type": "json_object",
                 "param_description": "请求的数据内容",
