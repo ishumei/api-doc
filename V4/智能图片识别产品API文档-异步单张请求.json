@@ -150,6 +150,13 @@
         "type": "string"
       },
       {
+        "length": "128",
+        "param_description": "图片Agent大模型检测的风险类型",
+        "req_name": "agentType",
+        "required": false,
+        "type": "string"
+      },
+      {
         "length": "-",
         "param_description": "请求的数据内容",
         "req_name": "data",

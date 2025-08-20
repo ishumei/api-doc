@@ -168,6 +168,13 @@
         "type": "string"
       },
       {
+        "length": "128",
+        "param_description": "图片Agent大模型检测的风险类型",
+        "req_name": "agentType",
+        "required": false,
+        "type": "string"
+      },
+      {
         "length": "1024",
         "param_description": "回调请求url。传callback表示走异步回调逻辑，否则走同步逻辑。地址必须为http或https的规范的url。",
         "req_name": "callback",
