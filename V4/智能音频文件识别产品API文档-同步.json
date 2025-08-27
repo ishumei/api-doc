@@ -60,6 +60,11 @@
         "description": "上海",
         "url": "http://api-audio-sh.fengkongcloud.com/audiomessage/v4",
         "supportProduct": "中文"
+      },
+      {
+        "description": "新加坡",
+        "url": "http://api-audio-xjp.fengkongcloud.com/audiomessage/v4",
+        "supportProduct": "中文"
       }
     ]
   },
