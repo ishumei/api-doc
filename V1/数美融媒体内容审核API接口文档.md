@@ -99,11 +99,11 @@ contents里包含的内容
 | content           | string   | Y            | 检测数据类型是文本时传入原始文本数据，检测数据类型是其他时传入数据url |
 | dataId            | string   | N            | 作品Id，用于查询作品                                         |
 | btId              | string   | Y            | 数据唯一标识，用于查询历史记录，注意：重复会报错             |
-| txtType           | string   | N            | 文本和文档中文本检测风险类型，可选值：TEXTRISK。dataType为text或者file时必传 |
-| audioType         | string   | N            | 音频和视频中音频部分检测风险类型，可选值：<br/>PORN：色情识别<br/>AD：广告识别<br/>POLITICAL：涉政识别<br/>ABUSE：辱骂识别<br/>MOAN：娇喘识别<br/>ANTHEN：国歌识别<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL\_PORN\_MOAN涉政、色情和娇喘识别dataType为audio或video时必传 |
-| imgType           | string   | N            | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITICS:涉政识别<br/>PORN:色情识别<br/>AD:广告识别<br/>LOGO:水印logo识别<br/>BEHAVIOR:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>OCR:图片中的OCR文字识别<br/>VIOLENCE:暴恐识别<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
+| txtType           | string   | N            | 文本和文档中文本检测风险类型，可选值：POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱骂检测<br/>ADVERT：广告检测<br/>ADLAW：广告法检测<br/>PRIVACY：隐私检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法）。dataType为text或者file时必传 |
+| audioType         | string   | N            | 音频和视频中音频部分检测风险类型，可选值：<br/>AUDIOPOLITICAL：一号领导人声纹识别<br/>POLITY：涉政识别<br/>EROTIC：色情识别<br/>ADVERT：广告识别<br/>ADLAW：广告法识别<br/>BAN：违禁识别<br/>VIOLENT：暴恐识别<br/>ANTHEN：国歌识别<br/>MOAN：娇喘识别<br/>DIRTY：辱骂识别<br/>BANEDAUDIO：违禁歌曲<br/>NONE不审核视频中的音频,并且不支持传入音频文件审核<br/>如需做组合识别，通过下划线连接即可，例如AUDIOPOLITICAL\_EROTIC\_ADVERT涉政、色情和娇喘识别dataType为audio或video时必传 |
+| imgType           | string   | N            | 图片、文档中图片和视频文件中截帧检测风险类型，可选值：POLITY ：涉政识别<br/>EROTIC ：色情&性感违规识别<br/>VIOLENT ：暴恐&违禁识别<br/>QRCODE ：二维码识别<br/>ADVERT ：广告识别<br/>IMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）<br/>如果需要识别多个功能，通过下划线连接，如 POLITICS\_AD 用于涉政和广告组合识别dataType为image、video或file时必传 |
 | imageBusinessType | string   | N            | 图片业务标签<br/>可选值：[见附录](#附录)如果需要多个识别功能，通过下划线连接，该字段和imgType必须选择一个传入 |
-| audioBusinessType | string   | N            | 可选值：音频业务标签的一、二、三级标签<br/>GENDER：性别识别<br/>AGE：年龄识别<br/>TIMBRE：音色识别<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>VOICE：人声属性<br/>AUDIOSCENE：声音场景，如果需要多个识别功能，通过下划线连接，该字段和audioType必须选择一个传入 |
+| audioBusinessType | string   | N            | 可选值：音频业务标签的一、二、三级标签<br/>SING：唱歌识别<br/>LANGUAGE：语种识别<br/>GENDER：性别识别<br/>TIMBRE：音色识别<br/>MINOR：未成年识别<br/>VOICE：人声属性<br/>AUDIOSCENE：声音场景<br/>AGE：年龄识别，如果需要多个识别功能，通过下划线连接，该字段和audioType必须选择一个传入 |
 | fileFormat        | string   | N            | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
 
 ### 异步审核响应参数
