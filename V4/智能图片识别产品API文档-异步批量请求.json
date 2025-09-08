@@ -243,7 +243,7 @@
           },
           {
             "length": "-",
-            "param_description": "语言类型。可指定对截帧及音频片段中文字内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto:自动语种识别，非中文语种识别，需要找数美开通拦截标准",
+            "param_description": "语言类型。可指定对截帧及音频片段中文字内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语\nauto:自动语种识别，需要传入BOCR的type，仅限新加坡和硅谷集群支持",
             "req_name": "lang",
             "required": false,
             "type": "string"
