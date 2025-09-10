@@ -94,7 +94,7 @@ Placed in the HTTP Body in JSON format, specific parameters are as follows:
 | tokenProfileLabels | json_object   | Account attribute labels | No | See details below, returned only when tokenId is passed in and the service is enabled |
 | tokenRiskLabels    | json_object   | Account risk labels | No | See details below, returned only when tokenId is passed in and the service is enabled |
 | deviceRiskLabels   | json_object   | Device risk labels | No | See details below, returned only when deviceId is passed in and the service is enabled |
-| devicePrimayInfo   | json_object | Device basic attribute labels  | No  | This service needs to be enabled separately and involves charges. If needed, please contact the business team. This parameter will return device data reported after restarting the SDK post-enablement, only supporting queries for device data reported within the last 24 hours. |
+| devicePrimaryInfo   | json_object | Device basic attribute labels  | No  | This service needs to be enabled separately and involves charges. If needed, please contact the business team. This parameter will return device data reported after restarting the SDK post-enablement, only supporting queries for device data reported within the last 24 hours. |
 
 Among them
 
