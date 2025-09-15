@@ -673,7 +673,7 @@ POST
 | accessKey | string | 用于权限认证，由数美提供           | 是       |
 | listId    | strig  | 名单 md5 的 id                     | 是       |
 | offset    | int    | 偏移量，默认值为 0，取值为非负整数 | 是       |
-| count     | int    | 条目数，不大于 100 的正整数        | 是       |
+| count     | int    | 条目数，不大于 2000 的正整数        | 是       |
 
 **输入示例**
 
