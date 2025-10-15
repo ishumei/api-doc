@@ -168,13 +168,6 @@
         "type": "string"
       },
       {
-        "length": "128",
-        "param_description": "图片Agent大模型检测的风险类型，可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
-        "req_name": "agentType",
-        "required": false,
-        "type": "string"
-      },
-      {
         "length": "1024",
         "param_description": "回调请求url。传callback表示走异步回调逻辑，否则走同步逻辑。地址必须为http或https的规范的url。",
         "req_name": "callback",
