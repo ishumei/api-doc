@@ -525,7 +525,7 @@
                 "req_name": "appKey",
                 "type": "string",
                 "param_description": "分配的appKey",
-                "required": false,
+                "required": true,
                 "param_specification": "联系云信获取"
               }
             ]
