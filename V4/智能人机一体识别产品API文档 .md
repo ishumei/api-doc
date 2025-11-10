@@ -4,7 +4,7 @@
 
 | 集群 | URL |
 | --- | --- |
-| 北京 | `http://api-img-bj.fengkongcloud.com/moderator/v1` |
+| 北京 | `http://api-agent-bj.fengkongcloud.com/moderator/v1` |
 
 ### 请求方法：
 
