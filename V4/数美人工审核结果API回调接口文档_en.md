@@ -77,21 +77,22 @@ Requests use UTF-8 character set for encoding
 
 POST
 
-| Parameter Name  | Type        | Required | Description                                                         |
-| --------- | ----------- | -------- | ------------------------------------------------------------ |
-| requestId | string      | Yes        | Request serial number                                                   |
-| serviceId | string      | Yes        | POST_TEXT: text, POST_IMG: image, POST_AUDIO: audio, POST_VIDEO: video |
-| result    | json_object | Yes        | Manual review result                                                     |
-| data      | json_object | Yes        | Request data content                                                 |
+| Parameter Name  | Type        | Required | Description                                                                               |
+| --------- | ----------- | -------- |-------------------------------------------------------------------------------------------|
+| requestId | string      | Yes        | Request serial number                                                                     |
+| serviceId | string      | Yes        | POST_TEXT: text, POST_IMG: image, POST_AUDIO: audio, POST_VIDEO: video, POST_MEDIA: media |
+| result    | json_object | Yes        | Manual review result                                                                      |
+| data      | json_object | Yes        | Request data content                                                                      |
 
 Among them, the content of result is as follows:
 
-| Parameter Name    | Type        | Required | Description                                                         |
-| ----------- | ----------- | -------- | ------------------------------------------------------------ |
-| operation   | int         | Yes        | Manual review result 1: pass, 2: fail                                     |
-| description | string      | No        | Risk reason, supports customer-defined secondary reason configuration; if there is a secondary reason, it is concatenated with “/”, for example: pornography/nudity |
-| tips        | string      | No        | User-side display text; used for user feedback                             |
-| evidences   | json_object | No        | Evidence information (audio/video return)                                    |
+| Parameter Name | Type         | Required | Description                                                         |
+|----------------|--------------| -------- | ------------------------------------------------------------ |
+| operation      | int          | Yes        | Manual review result 1: pass, 2: fail                                     |
+| description    | string       | No        | Risk reason, supports customer-defined secondary reason configuration; if there is a secondary reason, it is concatenated with “/”, for example: pornography/nudity |
+| descriptions   | string_array | No        | Multiple risk causes, return after enabling multiple selections for causes |
+| tips           | string       | No        | User-side display text; used for user feedback                             |
+| evidences      | json_object  | No        | Evidence information (audio/video return)                                    |
 
  
 
