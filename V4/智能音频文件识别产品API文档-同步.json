@@ -21,7 +21,7 @@
   },
   {
     "type": "desc",
-    "value": "音频类型：URL、BASE64。\n音频格式：WAV、MP3、AAC、AMR、3GP、M4A、WMA、OGG、APE、FLAC、ALAC、WAVPACK、SILK_V3等。\n音频大小：接口限制为18M。\n音频地址：建议音频下载从CDN源站下载，并且源站不能为单点，否则可能存在音频下载失败，导致无法审核。"
+    "value": "音频类型：URL、BASE64。\n音频格式：WAV、MP3、AAC、AMR、3GP、M4A、WMA、OGG、APE、FLAC、ALAC、WAVPACK、SILK_V3等。\n音频限制：时长限制为60s,音频大小限制为18M。\n音频地址：建议音频下载从CDN源站下载，并且源站不能为单点，否则可能存在音频下载失败，导致无法审核。"
   },
   {
     "type": "title-3",
