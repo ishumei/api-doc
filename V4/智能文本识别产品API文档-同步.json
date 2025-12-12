@@ -274,6 +274,13 @@
                 "param_description": "返回标签的语种类型",
                 "required": false,
                 "param_specification": "将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文"
+            },
+            {
+                "req_name": "callback",
+                "type": "string",
+                "param_description": "回调http接口",
+                "required": false,
+                "param_specification": "当该字段非空时，服务将根据该字段回调通知用户审核结果"
             }
         ]
     },
