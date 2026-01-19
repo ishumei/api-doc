@@ -70,7 +70,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | phoneSm3  | string | SM3 encrypted mobile number to be queried | phoneMd5, phoneSm3, phoneSha256 cannot all be empty | This information is the SM3 encrypted mobile number to be checked by the customer |
 | phoneSha256 | string | Sha256 encrypted mobile number to be queried | phoneMd5, phoneSm3, phoneSha256 cannot all be empty | This information is the Sha256 encrypted mobile number to be checked by the customer |
 | newCountryCode | string      | Country Code                                                                       | Recommended   | A four digit string. If the parameter was not passed in, the default value is China country code 0086                                                                                                                                                                                                       |
-| type | string | Label type | Optional | Mobile number label<br/>Optional values:<br/>BLACKRECORDPHONE: Black industry mobile number<br/>SMSPLATFORMPHONE: SMS platform mobile number<br/>IOTSIMCARDPHONE: IoT SIM card mobile number<br/>MVNOSIMCARDPHONE: MVNO mobile number<br/>RISKPHONE: Risk mobile number<br/>RELATERISKDEVICEPHONE: Mobile number associated with risk device<br/>RELATERISKTOKENPHONE: Mobile number associated with risk account<br/>TWOPHONE: Secondary mobile number<br/>DEFAULT: Default returns all labels except "TWOPHONE"<br/>Supports multiple primary risk labels separated by underscores_<br/>If the type parameter is not passed, all labels except "TWOPHONE" are returned by default |
+| type | string | Label type | Optional | Mobile number label<br/>Optional values:<br/>BLACKRECORDPHONE: Black industry mobile number<br/>SMSPLATFORMPHONE: SMS platform mobile number<br/>IOTSIMCARDPHONE: IoT SIM card mobile number<br/>MVNOSIMCARDPHONE: MVNO mobile number<br/>SMSGROUPPHONE: SMS group mobile number<br/>RELATERISKDEVICEPHONE: Mobile number associated with risk device<br/>RELATERISKTOKENPHONE: Mobile number associated with risk account<br/>TWOPHONE: Secondary mobile number<br/>PHONESTATUS: Mobile number status<br/>DEFAULT: Default returns all labels except "TWOPHONE","PHONESTATUS"<br/>Supports multiple primary risk labels separated by underscores_<br/>If the type parameter is not passed, all labels except "TWOPHONE","PHONESTATUS" are returned by default |
 | registerTimestamp | int64 | Mobile number check time | Optional, required when type includes "TWOPHONE" | Accurate to the hour (format YYYYMMDDHH24)<br/>For example: 2017121200 |
 
 ## <span id = "response">Response</span>
@@ -84,6 +84,10 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | requestId        | string       | Request identifier       | Yes           | Unique request identifier, used for troubleshooting and subsequent effect optimization, strongly recommended to save                                                                                                                                                      |
 | phonePrimaryInfo | Json_object  | Basic mobile number information | No           | See details below, returned only when phoneMd5 or phoneSm3 is passed (no need to open)                                                                                                                                                           |
 | phoneRiskLabels  | json_array   | Mobile number risk labels | No           | See details below, returned only when phoneMd5 or phoneSm3 is passed (no need to open)                                                                                                                                                          |
+| phoneStatusLabels | json_array  | Mobile number status labels | No           | See details below. This service is an independent activation item. If you need to use it, please contact business colleagues to apply.                                                                                                        |
+| phoneRiskScore    | int          | Score>=8 is high risk, score>=4 is medium risk, score>=1 is low risk | No           | Mobile number risk score. This service is an independent activation item. If you need to use it, please contact business colleagues to apply.                                                                                                        |
+
+
 
 Among them
 **1**）Details of phonePrimaryInfo
@@ -106,8 +110,9 @@ Among them
 | timestamp            | int64          | Time of the most recent hit strategy | Time of the most recent hit strategy         |
 | statusCode | int64 | Query status returned by China Mobile | Returned only under the secondary mobile number label, [see statusCode parameter](#statusCode) |
 | detail               | json_object    | Evidence description               | Evidence details                       |
+| riskScore            | int            | Score>=8 is high risk, score>=4 is medium risk, score>=1 is low risk | Label risk score. This service is an independent activation item. If you need to use it, please contact business colleagues to apply.         |
 
-**3**）Explanation of tertiary labels:
+**3**）Explanation of tertiary labels for phoneRiskLabels:
 
 | English Name (Primary Label)      | Chinese Name (Primary Label)   | English Name (Secondary Label)            | Chinese Name (Secondary Label)   | English Name (Tertiary Label)               | Chinese Name (Tertiary Label)                   |
 | ------------------------- | -------------------- | -------------------------------- | ------------------------ | ---------------------------------- | ------------------------------ |
@@ -165,4 +170,27 @@ Among them
 | relate_risktoken_phone  | Mobile number associated with risk account | other_risk_token_phone         | Mobile number associated with other suspicious account | high_frequency_token_phone       | Abnormal high-frequency mobile number               |
 | relate_risktoken_phone  | Mobile number associated with risk account | other_risk_token_phone         | Mobile number associated with other suspicious account | abnormal_active_token_phone      | Abnormally active mobile number               |
 | relate_risktoken_phone  | Mobile number associated with risk account | other_risk_token_phone         | Mobile number associated with other suspicious account | discrete_region_token_phone      | Discrete region mobile number               |
-| relate_risktoken_phone  | Mobile number associated with risk account | other_risk_token_phone         | Mobile number associated with other suspicious account
+| relate_risktoken_phone  | Mobile number associated with risk account | other_risk_token_phone         | Mobile number associated with other suspicious account | abnormal_relation_token_phone    | Abnormal relation mobile number               |
+
+**4**）Details of phoneStatusLabels
+
+| ***Response Parameter Name*** | ***Parameter Type*** | ***Parameter Description***         | ***Specification***                     |
+| ------------------ | ---------------- | ------------------------ | -------------------------------- |
+| label1               | string         | Primary label               | Displays the primary label of the mobile number status label. |
+| label2               | string         | Secondary label               | Displays the secondary label of the mobile number status label. |
+| label3               | string         | Tertiary label               | Displays the tertiary label of the mobile number status label. |
+| description          | string         | Status description               | Displays the Chinese description of the mobile number status label. |
+| timestamp            | int64          | Time of the most recent hit strategy | Time of the most recent hit strategy         |
+
+**5**）Explanation of tertiary labels for phoneStatusLabels:
+
+| English Name (Primary Label) | Chinese Name (Primary Label) | English Name (Secondary Label) | Chinese Name (Secondary Label) | English Name (Tertiary Label) | Chinese Name (Tertiary Label) |
+|-----------|-----------|-------------|-------------|-------------|-------------|
+| status_labels | Mobile number status | status_labels | Mobile number status | normal | Status normal |
+| status_labels | Mobile number status | status_labels | Mobile number status | shutdown | Shutdown |
+| status_labels | Mobile number status | status_labels | Mobile number status | power_off | Power off |
+| status_labels | Mobile number status | status_labels | Mobile number status | suspected_power_off | Suspected power off |
+| status_labels | Mobile number status | status_labels | Mobile number status | not_exist | Empty number |
+| status_labels | Mobile number status | status_labels | Mobile number status | defect | Abnormal number |
+| status_labels | Mobile number status | status_labels | Mobile number status | unknown | Unknown |
+| status_labels | Mobile number status | status_labels | Mobile number status | lookup_error | Lookup error |
