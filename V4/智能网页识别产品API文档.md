@@ -122,18 +122,18 @@
 | message      | string      | 返回码描述    | Y        | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>字数超限<br/>余额不足<br/>无权限操作                                     |
 | requestId    | string      | 请求标识     | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                                                               |
 | riskLevel    | string      | 处置建议     | Y        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截                                    |
-| textDetails  | json_array  | 文本风险详情   | Y        | 文档中文本的风险详情，[详见textDetails参数](#textDetails)                                                                   |
-| imgDetails   | json_array  | 图片风险详情   | Y        | 文档中图片的风险详情，[详见imgDetails参数](#imgDetails)                                                                     |
-| audioDetails | json_array  | 音频风险详情   | Y        | 文档中音频的风险详情，[详见audioDetails参数](#audioDetails)                                                                 |
-| videoDetails | json_array  | 视频风险详情   | Y        | 文档中视频的风险详情，[详见videoDetails参数](#videoDetails)                                                                 |
+| textDetails  | json_array  | 文本风险详情   | Y        | 网页中文本的风险详情，[详见textDetails参数](#textDetails)                                                                   |
+| imgDetails   | json_array  | 图片风险详情   | Y        | 网页中图片的风险详情，[详见imgDetails参数](#imgDetails)                                                                     |
+| audioDetails | json_array  | 音频风险详情   | Y        | 网页中音频的风险详情，[详见audioDetails参数](#audioDetails)                                                                 |
+| videoDetails | json_array  | 视频风险详情   | Y        | 网页中视频的风险详情，[详见videoDetails参数](#videoDetails)                                                                 |
 | auxInfo      | json_object | 辅助信息     | Y        | [详见auxInfo参数](#auxInfo)                                                                                      |
 
 其中，<span id="textDetails">textDetails</span>的内容如下：
 
 | **参数名称**           | **类型**      | **参数说明**   | **是否必返** | **规范**                                                                                       |
 |--------------------|-------------|------------|----------|----------------------------------------------------------------------------------------------|
-| code               | int         | 返回码        | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9101`：无权限操作 |
-| message            | string      | 返回码描述      | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限、无权限操作                                                       |
+| code               | int         | 返回码        | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限 |
+| message            | string      | 返回码描述      | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限                                                       |
 | requestId          | string      | 请求标识       | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                                               |
 | riskLevel          | string      | 处置建议       | Y        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截                    |
 | riskLabel1         | string      | 一级风险标签     | Y        | 一级风险标签，当riskLevel为`PASS`时返回`normal`                                                          |
@@ -279,8 +279,8 @@
 | **参数名称**           | **类型**      | **参数说明**        | **是否必返** | **规范**                                                                                         |
 |--------------------|-------------|-----------------|----------|------------------------------------------------------------------------------------------------|
 | requestId          | string      | 请求标识            | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                                                 |
-| message            | string      | 返回码描述           | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限、无权限操作                                                         |
-| code               | int         | 返回码             | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败<br/>`9101`：无权限操作 |
+| message            | string      | 返回码描述           | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限                                                         |
+| code               | int         | 返回码             | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败 |
 | riskLevel          | string      | 处置建议            | Y        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截                      |
 | riskLabel1         | string      | 一级风险标签          | Y        | 一级风险标签，当riskLevel为`PASS`时返回`normal`                                                            |
 | riskLabel2         | string      | 二级风险标签          | Y        | 二级风险标签，当riskLevel为`PASS`时为空                                                                    |
@@ -650,7 +650,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 请求标识 | Y | 本次请求的唯一标识，用于问题排查和效果优化，强烈建议保存 |
-| code | int | 返回码 | Y | `1100`：成功<br/>`1101`：正在处理中<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：下载失败<br/>`1905`：解码失败<br/>`9100`：余额不足<br/>`9101`：无权限操作<br/>除message和requestId之外的字段，只有当code为1100时才会存在 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1101`：正在处理中<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：下载失败<br/>`1905`：解码失败<br/>除message和requestId之外的字段，只有当code为1100时才会存在 |
 | message | string | 返回码描述 | Y | 和code对应：成功、正在处理中、QPS超限、参数不合法、服务失败、下载失败、解码失败、余额不足、无权限操作 |
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截<br/>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后再进行使用 |
 | audioText | string | 整段音频转译文本结果 | Y | 整段音频转译文本结果 |
@@ -762,7 +762,7 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9101`：无权限操作 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限 |
 | message | string | 返回码描述 | Y | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限、无权限操作 |
 | requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
@@ -1160,7 +1160,7 @@
 {
     "accessKey": "your_access_key",
     "appId": "your_app_id",
-    "eventId": "document",
+    "eventId": "webpage",
     "imgType": "POLITY_EROTIC_ADVERT",
     "txtType": "TEXTRISK",
     "audioType": "POLITY_EROTIC_ADVERT",
