@@ -1,3 +1,18 @@
+## 目录
+
+- [同步接口](#同步接口)
+  - [请求参数](#请求参数)
+    - [请求URL](#请求url)
+    - [字符编码格式](#字符编码格式)
+    - [请求方法](#请求方法)
+    - [建议超时时长](#建议超时时长)
+    - [请求参数](#请求参数-1)
+  - [同步返回结果](#同步返回结果)
+  - [回调返回结果](#回调返回结果)
+  - [示例](#示例)
+
+---
+
 ## 同步接口
 
 ### 请求参数
@@ -37,7 +52,6 @@
 | videoImgType | string | 视频图片识别类型 | N | 可选值：<br/>`NONE`：不审核视频图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
 | videoAudioType | string | 视频音频识别类型 | N | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接 |
 | callback | string | 回调http接口 | N | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
-| acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
 | data | json_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 
  其中，<span id="data">data</span>的内容如下：
@@ -47,6 +61,7 @@
 | url | string | 要检测的文档链接 | Y | 可下载文档链接，内容大小`500M`以内，文本长度默认限制`50万`字，图片张数默认限制`500张`。 |
 | fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，可选值：<br/>`DOCX`：Word文档（新版）<br/>`PDF`：PDF文档<br/>`DOC`：Word文档（旧版）<br/>`XLS`：Excel表格（旧版）<br/>`XLSX`：Excel表格（新版）<br/>`PPT`：PowerPoint演示文稿（旧版）<br/>`PPTX`：PowerPoint演示文稿（新版）<br/>`PPS`：PowerPoint幻灯片（旧版）<br/>`PPSX`：PowerPoint幻灯片（新版）<br/>`XLTX`：Excel模板（新版）<br/>`XLTM`：Excel宏模板<br/>`XLSB`：Excel二进制工作簿<br/>`XLSM`：Excel宏工作簿<br/>`TXT`：文本文件<br/>`CSV`：逗号分隔值文件<br/>`EPUB`：电子书格式<br/>`MD`：Markdown文档<br/>注意：`fileFormat`的值必须与文档实际格式一致，否则将返回参数错误 |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
+| acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
 | returnAllImg | int | 返回图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
 | returnAllText | int | 返回文本的等级| N  | 可选值：<br/>`0`：返回风险等级为非pass的文本<br/>`1`：返回所有风险等级的文本<br/>默认值为`0` |
 | returnAllVideoImg | int | 返回视频里的图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
@@ -99,6 +114,8 @@
 | audioDetails | json_array | 音频风险详情 | Y | 文档中音频的风险详情，[详见audioDetails参数](#audioDetails) |
 | videoDetails | json_array | 视频风险详情 | Y | 文档中视频的风险详情，[详见videoDetails参数](#videoDetails) |
 | auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#auxInfo)  |
+| resultType | int | 结果类型 | Y | 当前结果类型<br/>`0`：机审<br/>`1`：人审 |
+| finalResult | int | 是否为最终审核结果 | Y | 是否为最终审核结果（如仅接入机审，则默认返回1）。<br/>`0`：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。<br/>`1`：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
 
 其中，<span id="textDetails">textDetails</span>的内容如下：
 
@@ -1139,12 +1156,12 @@
     "videoImgType": "POLITY_EROTIC_ADVERT",
     "videoAudioType": "POLITY_EROTIC_ADVERT",
     "callback": "http://www.xxx.top/callbackaddr",
-    "acceptLang": "zh",
     "data": {
         "url": "https://test-10029305.cos.ap-shanghai.myqcloud.com/test_document.pdf",
         "fileFormat": "PDF",
         "tokenId": "user_123456",
         "lang": "zh",
+        "acceptLang": "zh",
         "returnAllImg": 0,
         "returnAllText": 0,
         "returnAllVideoImg": 0,

@@ -1,3 +1,18 @@
+## 目录
+
+- [同步接口](#同步接口)
+  - [请求参数](#请求参数)
+    - [请求URL](#请求url)
+    - [字符编码格式](#字符编码格式)
+    - [请求方法](#请求方法)
+    - [建议超时时长](#建议超时时长)
+    - [请求参数](#请求参数-1)
+  - [同步返回结果](#同步返回结果)
+  - [回调返回结果](#回调返回结果)
+  - [示例](#示例)
+
+---
+
 ## 同步接口
 
 ### 请求参数
@@ -37,7 +52,6 @@
 | videoImgType            | string      | 视频图片识别类型     | N        | 可选值：<br/>`NONE`：不审核视频图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接                                                                                                                                                                                       |
 | videoAudioType          | string      | 视频音频识别类型     | N        | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接                                                                                                             |
 | callback                | string      | 回调http接口     | N        | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`）                                                                                                                                                                                                                                                                                                                                                                           |
-| acceptLang              | string      | 返回标签的语种类型    | N        | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签                                                                                                                                                                                                                                                                                                                                                                    |
 | articleDoubleJumpConfig | json_object | 是否开启网页二跳审核方式 | N        | [详见articleDoubleJumpConfig参数](#articleDoubleJumpConfig)                                                                                                                                                                                                                                                                                                                                                                          |
 | articleScreenShotConfig | json_object | 是否开启网页截屏审核方式 | N        | [详见articleScreenShotConfig参数](#articleScreenShotConfig)                                                                                                                                                                                                                                                                                                                                                                          |
 | articleDynamicConfig    | json_object | 是否开启网页动态审核方式 | N        | [详见articleDynamicConfig参数](#articleDynamicConfig)                                                                                                                                                                                                                                                                                                                                                                                |
@@ -51,6 +65,7 @@
 | text                | string      | 要检测的网页文本          | N        | 纯文本内容审核，文本长度限制50w字。（url、text、contents传且只能传其中一个）                                                                                                                                                                                                                                                                                               |
 | contents            | string      | 要检测的网页源码          | N        | 网址源码审核，文本长度默认限制`50万`字，图片张数默认限制`500张`。（url、text、contents传且只能传其中一个）                                                                                                                                                                                                                                                                             |
 | lang                | string      | 待检测的文本内容语种        | N        | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
+| acceptLang          | string      | 返回标签的语种类型        | N        | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签                                                                                                                                                                                                                                                                                                                                                                    |
 | returnAllImg        | int         | 返回图片的等级           | N        | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0`                                                                                                                                                                                                                                                                                  |
 | returnAllText       | int         | 返回文本的等级           | N        | 可选值：<br/>`0`：返回风险等级为非pass的文本<br/>`1`：返回所有风险等级的文本<br/>默认值为`0`                                                                                                                                                                                                                                                                                  |
 | returnAllVideoImg   | int         | 返回视频里的图片的等级       | N        | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0`                                                                                                                                                                                                                                                                                  |
@@ -127,6 +142,8 @@
 | audioDetails | json_array  | 音频风险详情   | Y        | 网页中音频的风险详情，[详见audioDetails参数](#audioDetails)                                                                 |
 | videoDetails | json_array  | 视频风险详情   | Y        | 网页中视频的风险详情，[详见videoDetails参数](#videoDetails)                                                                 |
 | auxInfo      | json_object | 辅助信息     | Y        | [详见auxInfo参数](#auxInfo)                                                                                      |
+| resultType   | int         | 结果类型      | Y        | 当前结果类型<br/>`0`：机审<br/>`1`：人审                                                                                      |
+| finalResult  | int         | 是否为最终审核结果 | Y        | 是否为最终审核结果（如仅接入机审，则默认返回1）。<br/>`0`：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。<br/>`1`：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
 
 其中，<span id="textDetails">textDetails</span>的内容如下：
 
@@ -1167,7 +1184,6 @@
     "videoImgType": "POLITY_EROTIC_ADVERT",
     "videoAudioType": "POLITY_EROTIC_ADVERT",
     "callback": "http://www.xxx.top/callbackaddr",
-    "acceptLang": "zh",
     "articleDoubleJumpConfig": {
         "isOpen": true
     },
@@ -1187,6 +1203,7 @@
         "url": "https://www.example.com/page",
         "tokenId": "user_123456",
         "lang": "zh",
+        "acceptLang": "zh",
         "returnAllImg": 0,
         "returnAllText": 0,
         "returnAllVideoImg": 0,
