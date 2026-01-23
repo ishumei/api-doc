@@ -60,6 +60,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | ---------------- | ------------- | ------------------------------------------------------------------------------------------------------ | -------------- | ------------------------------------------------- |
 | accessKey      | string      | Interface authentication key<br/>Used for permission authentication, provided by ShuMei when the account service is activated or can be viewed in the relevant document section in the upper right corner of the ShuMei backend when logged in with the activation email | Required     | Assigned by ShuMei                                        |
 | data           | json_object | Request data content | Required     | Request data content, maximum 10MB, [see data parameters](#data) |
+| passThrough    | json_object | Pass-through parameter, returned as-is | Optional     | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 <span id = "data">Among them, the content of data is as follows:</span>
 
@@ -80,6 +81,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | message          | string       | Return code description     | Yes           | Corresponds to code: `Success QPS limit exceeded Invalid parameter Service failure Insufficient balance Unauthorized operation`|
 | requestId        | string       | Request identifier       | Yes           | Unique request identifier, used for troubleshooting and subsequent effect optimization, strongly recommended to save|
 | ipLabels         | json_object  | IP labels | No           | See details below, returned only when the IP field is passed. |
+| passThrough      | json_object  | Pass-through parameter, returned as-is | No           | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 The details of ipLabels are as follows:
 
@@ -206,7 +208,8 @@ Among them, b_cgn
   "accessKey": "xxxxxxxxxxxxxxxxxxxxxxxxx",
   "data": {
     "ip": "116.237.65.34"
-  }
+  },
+  "passThrough": {}
 }
 ```
 
@@ -248,6 +251,7 @@ Among them, b_cgn
     "profileExist": 1,
     "requestId": "23e753672a69050d3dfb6db5d3259413",
     "tokenProfileLabels": [],
-    "tokenRiskLabels": []
+    "tokenRiskLabels": [],
+    "passThrough": {}
 }
 ```
