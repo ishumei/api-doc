@@ -36,7 +36,7 @@
 | tokenId | string | 用户账号标识 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
 | sessionId | string | 会话标识 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
 | role | string | 用户角色 | 非必传参数 | 角色<br/>枚举值：<br/>user：用户<br/>assistant：机器人<br/> |
-| content | array | 检测内容 | 必传参数 | 包含顺序关系的图文对象，文本5000个字符，10张图片 |
+| content | array | 检测内容 | 必传参数 | 包含顺序关系的图文对象，文本10000个字符，50张图片 |
 
 <span id="content">其中，content的内容如下：</span>
 
