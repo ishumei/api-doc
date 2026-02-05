@@ -59,7 +59,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | url | string | 要检测的文档链接 | Y | 可下载文档链接，内容大小`500M`以内，文本长度默认限制`50万`字，图片张数默认限制`500张`。 |
-| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，可选值：<br/>`DOCX`：Word文档（新版）<br/>`PDF`：PDF文档<br/>`DOC`：Word文档（旧版）<br/>`XLS`：Excel表格（旧版）<br/>`XLSX`：Excel表格（新版）<br/>`PPT`：PowerPoint演示文稿（旧版）<br/>`PPTX`：PowerPoint演示文稿（新版）<br/>`PPS`：PowerPoint幻灯片（旧版）<br/>`PPSX`：PowerPoint幻灯片（新版）<br/>`XLTX`：Excel模板（新版）<br/>`XLTM`：Excel宏模板<br/>`XLSB`：Excel二进制工作簿<br/>`XLSM`：Excel宏工作簿<br/>`TXT`：文本文件<br/>`CSV`：逗号分隔值文件<br/>`EPUB`：电子书格式<br/>`MD`：Markdown文档<br/>注意：`fileFormat`的值必须与文档实际格式一致，否则将返回参数错误 |
+| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，可选值：<br/>`DOCX`：Word文档（新版）<br/>`PDF`：PDF文档<br/>`DOC`：Word文档（旧版）<br/>`XLS`：Excel表格（旧版）<br/>`XLSX`：Excel表格（新版）<br/>`PPT`：PowerPoint演示文稿（旧版）<br/>`PPTX`：PowerPoint演示文稿（新版）<br/>`PPS`：PowerPoint幻灯片（旧版）<br/>`PPSX`：PowerPoint幻灯片（新版）<br/>`XLTX`：Excel模板（新版）<br/>`XLTM`：Excel宏模板<br/>`XLSB`：Excel二进制工作簿<br/>`XLSM`：Excel宏工作簿<br/>`TXT`：文本文件<br/>`CSV`：逗号分隔值文件<br/>`EPUB`：电子书格式<br/>`MD`：Markdown文档<br/>`SRT`：字幕文件<br/>`VTT`：WebVTT字幕文件<br/>注意：`fileFormat`的值必须与文档实际格式一致，否则将返回参数错误 |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
 | acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
 | returnAllImg | int | 返回图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
@@ -121,7 +121,7 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败 |
 | message | string | 返回码描述 | Y | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限 |
 | requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |

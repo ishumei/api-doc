@@ -147,24 +147,24 @@
 
 其中，<span id="textDetails">textDetails</span>的内容如下：
 
-| **参数名称**           | **类型**      | **参数说明**   | **是否必返** | **规范**                                                                                       |
-|--------------------|-------------|------------|----------|----------------------------------------------------------------------------------------------|
-| code               | int         | 返回码        | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限 |
-| message            | string      | 返回码描述      | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限                                                       |
-| requestId          | string      | 请求标识       | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                                               |
-| riskLevel          | string      | 处置建议       | Y        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截                    |
-| riskLabel1         | string      | 一级风险标签     | Y        | 一级风险标签，当riskLevel为`PASS`时返回`normal`                                                          |
-| riskLabel2         | string      | 二级风险标签     | Y        | 二级风险标签，当riskLevel为`PASS`时为空                                                                  |
-| riskLabel3         | string      | 三级风险标签     | Y        | 三级风险标签，当riskLevel为`PASS`时为空                                                                  |
-| riskDescription    | string      | 风险原因       | Y        | 当riskLevel为`PASS`时为"正常"                                                                      |
-| riskDetail         | json_object | 风险详情       | Y        | 风险详情，[详见riskDetail参数](#riskDetail)                                                           |
-| tokenLabels        | json_object | 账号风险画像标签信息 | Y        | 账号风险画像标签信息，[详见tokenLabels参数](#tokenLabels)                                                   |
-| auxInfo            | json_object | 辅助信息       | Y        | 辅助信息，[详见auxInfo参数](#textDetailsAuxInfo)                                                      |
-| allLabels          | json_array  | 风险标签列表     | Y        | 命中的所有风险标签以及详情信息，[详见allLabels参数](#allLabels)                                                  |
-| businessLabels     | json_array  | 业务标签       | Y        | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#businessLabels)                                        |
-| tokenProfileLabels | json_array  | 账号属性标签     | N        | 属性账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels)                                |
-| tokenRiskLabels    | json_array  | 账号风险标签     | N        | 风险账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels)                                |
-| langResult         | json_object | 语种信息       | N        | 语种识别和翻译结果，[详见langResult参数](#langResult)                                                      |
+| **参数名称**           | **类型**      | **参数说明**   | **是否必返** | **规范**                                                                    |
+|--------------------|-------------|------------|----------|---------------------------------------------------------------------------|
+| code               | int         | 返回码        | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败               |
+| message            | string      | 返回码描述      | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限                                          |
+| requestId          | string      | 请求标识       | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                            |
+| riskLevel          | string      | 处置建议       | Y        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| riskLabel1         | string      | 一级风险标签     | Y        | 一级风险标签，当riskLevel为`PASS`时返回`normal`                                       |
+| riskLabel2         | string      | 二级风险标签     | Y        | 二级风险标签，当riskLevel为`PASS`时为空                                               |
+| riskLabel3         | string      | 三级风险标签     | Y        | 三级风险标签，当riskLevel为`PASS`时为空                                               |
+| riskDescription    | string      | 风险原因       | Y        | 当riskLevel为`PASS`时为"正常"                                                   |
+| riskDetail         | json_object | 风险详情       | Y        | 风险详情，[详见riskDetail参数](#riskDetail)                                        |
+| tokenLabels        | json_object | 账号风险画像标签信息 | Y        | 账号风险画像标签信息，[详见tokenLabels参数](#tokenLabels)                                |
+| auxInfo            | json_object | 辅助信息       | Y        | 辅助信息，[详见auxInfo参数](#textDetailsAuxInfo)                                   |
+| allLabels          | json_array  | 风险标签列表     | Y        | 命中的所有风险标签以及详情信息，[详见allLabels参数](#allLabels)                               |
+| businessLabels     | json_array  | 业务标签       | Y        | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#businessLabels)                     |
+| tokenProfileLabels | json_array  | 账号属性标签     | N        | 属性账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels)             |
+| tokenRiskLabels    | json_array  | 账号风险标签     | N        | 风险账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels)             |
+| langResult         | json_object | 语种信息       | N        | 语种识别和翻译结果，[详见langResult参数](#langResult)                                   |
 
 其中，<span id="riskDetail">textDetails的riskDetail的内容如下：</span>
 
