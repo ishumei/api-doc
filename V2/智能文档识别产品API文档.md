@@ -92,16 +92,16 @@
 
 放在HTTP Body中，采用Json格式，Body大小不可超过3.5M，具体参数如下：
 
-| **请求参数名** | **类型** | **参数说明**   | **是否必传** | **规范** |
-| --- | --- |------------| --- | --- |
-| accessKey | string | 接口认证密钥     | Y | 由数美提供 |
-| type | string | 平台业务类型     | N | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/> |
-| imgType | string | 文档中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。 |
-| txtType | string | 文档中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
-| appId | string | 应用标识       | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
-| callback | string | 回调http接口   | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传 |
-| callbackParam | json_object | 透传字段       | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
-| data | json\_object | 请求的数据内容    | Y | 最长1MB, [详见data参数](#data) |
+| **请求参数名**     | **类型**      | **参数说明**   | **是否必传** | **规范**                                                                                                                                                                                                                                                                                                                                                                 |
+|---------------|-------------|------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| accessKey     | string      | 接口认证密钥     | Y        | 由数美提供                                                                                                                                                                                                                                                                                                                                                                  |
+| type          | string      | 平台业务类型     | N        | 可选值：<br/>`ZHIBO`:直播<br/>`ECOM`:电商<br/>`GAME`:游戏<br/>`NEWS`:新闻资讯<br/>`FORUM`:论坛<br/>`SOCIAL`:社交<br/>`NOVEL`:小说<br/>                                                                                                                                                                                                                                                     |
+| imgType       | string      | 文档中的图片识别类型 | N        | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 POLITICS_PORN_AD 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。                                                                                                    |
+| txtType       | string      | 文档中的文字识别类型 | N        | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱>骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组>合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
+| appId         | string      | 应用标识       | N        | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商                                                                                                                                                                                                                                                                                                                                           |
+| callback      | string      | 回调http接口   | N        | 当该字段非空时，服务将根据该字段回调通知用户审核结果；当传入fileFormat时必传                                                                                                                                                                                                                                                                                                                            |
+| callbackParam | json_object | 透传字段       | N        | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回                                                                                                                                                                                                                                                                                                                              |
+| data          | json_object | 请求的数据内容    | Y        | 最长1MB, [详见data参数](#data)                                                                                                                                                                                                                                                                                                                                               |
 
  其中，<span id="data">data</span>的内容如下：
 
@@ -135,17 +135,19 @@
 
 #### 回调返回参数：
 
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
-| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
-| score | int | 风险分数 | N | code为1100时存在，取值范围[0,1000]，分数越高风险越大 |
-| riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| detail | json_object | 风险详情 | N | [详见detail参数](#Adetail) |
-| status | int | 提示服务是否超时 | Y | 可能返回值：<br/>`0`：正常<br/>`501`：超时 |
-| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#AauxInfo)  |
-| callbackParam | json_object | 透传字段	 | N	 |透传参数，原样返回  |
+| **参数名称**      | **类型**      | **参数说明**  | **是否必返** | **规范**                                                                                                          |
+|---------------|-------------|-----------|----------|-----------------------------------------------------------------------------------------------------------------|
+| code          | int         | 返回码       | Y        | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作                    |
+| message       | string      | 返回码描述     | Y        | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作                                                 |
+| requestId     | string      | 请求标识      | Y        | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存                                                                                  |
+| score         | int         | 风险分数      | N        | code为1100时存在，取值范围[0,1000]，分数越高风险越大                                                                              |
+| riskLevel     | string      | 处置建议      | N        | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截                                       |
+| detail        | json_object | 风险详情      | N        | [详见detail参数](#Adetail)                                                                                          |
+| status        | int         | 提示服务是否超时  | Y        | 可能返回值：<br/>`0`：正常<br/>`501`：超时                                                                                  |
+| auxInfo       | json_object | 辅助信息      | Y        | [详见auxInfo参数](#AauxInfo)                                                                                        |
+| callbackParam | json_object | 透传字段	     | N	       | 透传参数，原样返回                                                                                                       |
+| resultType    | int32       | 结果类型      | Y        | 当前结果类型<br/>0：机审<br/>1：人审                                                                                        |
+| finalResult   | int32       | 是否为最终审核结果 | Y        | 是否为最终审核结果（如仅接入机审，则默认返回1）。<br/>0：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。<br/>1：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
 
 <span id="Adetail">其中detail字段如下：</span>
 

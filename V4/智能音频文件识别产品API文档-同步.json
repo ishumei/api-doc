@@ -123,7 +123,7 @@
         "type": "string",
         "param_description": "检测的风险类型",
         "required": false,
-        "param_specification": "businesstype和type必传其一\nAUDIOPOLITICAL：一号领导人声纹识别\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nADLAW：广告法识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nANTHEN：国歌识别\nMOAN：娇喘识别\nDIRTY：辱骂识别\nBANEDAUDIO：违禁歌曲\nCOPYRIGHTSONGS：版权歌曲\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别\n建议传入：\nPOLITY_EROTIC_MOAN_ADVERT。"
+        "param_specification": "businesstype和type必传其一\nAUDIOPOLITICAL：一号领导人声纹识别\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nANTHEN：国歌识别\nMOAN：娇喘识别\nDIRTY：辱骂识别\nBANEDAUDIO：违禁歌曲\nCOPYRIGHTSONGS：版权歌曲\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC_MOAN涉政、色情和娇喘识别\n建议传入：\nPOLITY_EROTIC_MOAN_ADVERT。"
       },
       {
         "req_name": "businessType",
