@@ -61,6 +61,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | ---------------- | ------------- | ------------------------------------------------------------------------------------------------------ | -------------- | ------------------------------------------------- |
 | accessKey      | string      | Interface authentication key<br/>Used for permission authentication, provided by Shumei when opening account services or viewed in the relevant documentation section in the upper right corner of the Shumei backend when logging in with the opening email | Required     | Assigned by Shumei                                        |
 | data           | json_object | Request data content | Required     | Request data content, maximum 10MB, [see data parameters](#data) |
+| passThrough    | json_object | Pass-through parameter, returned as-is | Optional     | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 <span id = "data">Among them, the content of data is as follows:</span>
 
@@ -86,6 +87,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | phoneRiskLabels  | json_array   | Mobile number risk labels | No           | See details below, returned only when phoneMd5 or phoneSm3 is passed (no need to open)                                                                                                                                                          |
 | phoneStatusLabels | json_array  | Mobile number status labels | No           | See details below. This service is an independent activation item. If you need to use it, please contact business colleagues to apply.                                                                                                        |
 | phoneRiskScore    | int          | Score>=8 is high risk, score>=4 is medium risk, score>=1 is low risk | No           | Mobile number risk score. This service is an independent activation item. If you need to use it, please contact business colleagues to apply.                                                                                                        |
+| passThrough       | json_object | Pass-through parameter, returned as-is | No           | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 
 
@@ -194,3 +196,80 @@ Among them
 | status_labels | Mobile number status | status_labels | Mobile number status | defect | Abnormal number |
 | status_labels | Mobile number status | status_labels | Mobile number status | unknown | Unknown |
 | status_labels | Mobile number status | status_labels | Mobile number status | lookup_error | Lookup error |
+
+## <span id = "example">Example:</span>
+
+### <span id = "requestExample">Request Example:</span>
+
+```json
+{
+    "accessKey": "xxxxxxxxxxxxxxxxxxxxxxxxx",
+    "data": {
+        "phoneMd5": "xxxxxxxxxxxxxxxxxxxxxxxxx",
+        "newCountryCode": "0086",
+        "type": "DEFAULT"
+    },
+    "passThrough": {}
+}
+```
+
+### <span id = "responseExample">Response Example:</span>
+
+```json
+{
+    "code": 1100,
+    "message": "成功",
+    "profileExist": 1,
+    "requestId": "7a5445716f0581c2ab1d381a6af4d1b8",
+    "phoneRiskScore": 10,
+    "phonePrimaryInfo": {
+        "phone_city": "鞍山",
+        "phone_operator": "移动",
+        "phone_province": "辽宁"
+    },
+    "phoneRiskLabels": [
+        {
+            "description": "接码平台手机号:接码平台手机号:接码平台手机号",
+            "label1": "sms_platform_phone",
+            "label2": "sms_platform_phone",
+            "label3": "sms_platform_phone",
+            "timestamp": 1723431059000,
+            "riskScore": 10
+        },
+        {
+            "description": "物联网卡手机号:物联网卡手机号:物联网卡手机号",
+            "label1": "iot_simcard_phone",
+            "label2": "iot_simcard_phone",
+            "label3": "iot_simcard_phone",
+            "timestamp": 1723431059000,
+            "riskScore": 10
+        },
+        {
+            "description": "虚拟运营商手机号:虚拟运营商手机号:虚拟运营商手机号",
+            "label1": "mvno_simcard_phone",
+            "label2": "mvno_simcard_phone",
+            "label3": "mvno_simcard_phone",
+            "timestamp": 1723431059000,
+            "riskScore": 10
+        },
+        {
+            "description": "黑产手机号:黑产手机号:黑产手机号",
+            "label1": "black_record_phone",
+            "label2": "black_record_phone",
+            "label3": "black_record_phone",
+            "timestamp": 1723431059000,
+            "riskScore": 10
+        }
+    ],
+    "phoneStatusLabels": [
+        {
+            "description": "手机号状态:手机号状态:状态正常",
+            "label1": "status_labels",
+            "label2": "status_labels",
+            "label3": "normal",
+            "timestamp": 1767793767845
+        }
+    ],
+    "passThrough": {}
+}
+```

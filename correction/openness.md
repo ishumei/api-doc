@@ -801,11 +801,11 @@ POST
 | --------- | ------------ | ---------------------------- | -------- |
 | accessKey | string       | 用于权限认证，由数美提供     | 是       |
 | listId    | string       | 名单 listId md5 值           | 是       |
-| contents  | object_array | 内容数组，非图片服务         | 是       |
+| contents  | object_array | 内容数组，如：文本服务是文本内容；图片服务是图片文件32位的md5值；         | 是       |
 | operator  | string       | 操作人，用于记录操作日志     | 否       |
 | serviceId | string       | 服务标识，取值需要与名单一致 | 是       |
 
-**输入示例**
+**文本服务输入示例**
 
 ```json
 {
@@ -814,6 +814,18 @@ POST
   "serviceId": "POST_TEXT",
   "operator": "xxx.@ishumei.com",
   "contents": ["测试"]
+}
+
+```
+**图片服务输入示例**
+
+```json
+{
+  "listId": "bc426e21a9f55bab787789c2d2a131f3",
+  "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+  "serviceId": "POST_IMG",
+  "operator": "xxx.@ishumei.com",
+  "contents": ["e10adc3949ba59abbe56e057f20f883e"]
 }
 ```
 

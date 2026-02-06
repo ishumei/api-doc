@@ -71,6 +71,7 @@ Placed in the HTTP Body in JSON format, specific parameters are as follows:
 | --- | --- | --- | --- | --- |
 | accessKey | string | Interface authentication key<br/>Used for permission authentication, provided by Shumei when opening account services or viewed in the relevant documentation section in the upper right corner of the Shumei backend after logging in with the opening email | Required | Assigned by Shumei |
 | data | json_object | Request data content | Required | Request data content, maximum 10MB, [see data parameter](#data)  |
+| passThrough | json_object | Pass-through parameter, returned as-is | Optional | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 Among them, the content of data is as follows:
 
@@ -95,6 +96,7 @@ Placed in the HTTP Body in JSON format, specific parameters are as follows:
 | adsLabels          | json_object  | Device label information | No | See details below, returned only when adsId is passed in and the service is enabled. Priority is lower than deviceLabels. If both deviceId and adsId are passed in, the device risk results are based on the deviceLabels field content. |
 | deviceRiskLabels   | json_object   | Device risk labels | No | See details below, returned only when deviceId is passed in and the service is enabled |
 | devicePrimaryInfo   | json_object | Device basic attribute labels  | No  | This service needs to be enabled separately and involves charges. If needed, please contact the business team. This parameter will return device data reported after restarting the SDK post-enablement, only supporting queries for device data reported within the last 24 hours. |
+| passThrough        | json_object | Pass-through parameter, returned as-is | No  | Pass-through parameter, custom parameters passed in by the interface caller will be returned as-is, used to associate custom context information between requests and responses. This field can be omitted or return an empty JSON object when not passed in |
 
 Among them
 
@@ -284,6 +286,7 @@ Details of device_active_info are as follows:
 | b_device_first_activation_ts | int        | Device first appearance time                                             |          |
 | i_bootcount                  | int        | Boot count for new device or after device reset (android), only records data within 10                   |          |
 | i_bootcount_last_ts          | int        | Last write time of boot count for new device or after device reset (android)                        |          |
+| s_drmId                      | string     | Digital Rights Management certificate ID collected by device                                               |          |
 
 Historical label details of monkey_device (device has had this risk in history) are as follows:
 
@@ -437,7 +440,8 @@ Details of fake_device, device_suspicious_labels, device_active_info, and monkey
   "accessKey": "xxxxxxxxxxxxxxxxxxxxxxxxx",
   "data": {
     "deviceId": "20190830101743123456789012345678"
-  }
+  },
+  "passThrough": {}
 }
 ```
 
@@ -470,6 +474,7 @@ Details of fake_device, device_suspicious_labels, device_active_info, and monkey
       "description": "设备为PC模拟器",
       "timestamp": 1605593372679
     }
-  ]
+  ],
+  "passThrough": {}
 }
 ```
