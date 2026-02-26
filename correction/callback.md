@@ -42,46 +42,25 @@ keywords:
 
 建议超时时长：1s
 
-### 请求参数
+### 传入回调地址参数
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
-| **参数名称** | **类型**    | **是否必传** | **说明**                      |
-| ------------ | ----------- | ------------ | ----------------------------- |
-| requestId    | string      | 是           | 请求流水号                    |
-| serviceId    | string      | 是           | 具体服务与对应信息见 附录 1-1 |
-| appId        | string      | 是           | 应用                          |
-| channel      | string      | 是           | 渠道                          |
-| result       | json_object | 是           | 审核日志                      |
-| feedback     | json_object | 是           | 纠错信息                      |
+| **参数名称**     | **类型** | **是否必传** | **说明**            |
+|--------------|--------|----------|-------------------|
+| requestId    | string | 是        | 请求流水号             |
+| organization | string | 是        | 公司标识              |
+| serviceId    | string | 是        | 具体服务与对应信息见 附录 1-1 |
+| appId        | string | 是        | 应用                |
+| channel      | string | 是        | 渠道                |
+| tokenId      | string | 是        | 账号                |
+| timestamp     | string | 是        | 审核的时间             |
+| dataId     | string | 否        | 数据标识              |
+| text     | string | 是        | 审核的内容             |
+| nickname     | string | 否        | 用户昵称              |
+| feedbackReason     | string | 是        | 纠错选择的风险类型         |
+| feedbackResult     | string | 是        | 枚举（漏杀或误杀）         |
 
-其中，result 的内容如下：
-
-| **参数名称** | **类型** | **是否必返** | **说明**                                          |
-| ------------ | -------- | ------------ | ------------------------------------------------- |
-| riskLevel    | string   | 是           | 机审结果 PASS：通过，REJECT：不通过，REVIEW：审核 |
-| description  | string   | 否           | 风险原因                                          |
-| timestamp    | string   | 是           | 审核时间                                          |
- 
-
-其中，feedback 的内容如下：
-
-| **参数名称** | **类型** | **是否必返** | **说明**                                                             |
-| ------------ | -------- | ------------ | -------------------------------------------------------------------- |
-| content      | string   | 是           | 纠错内容：文本-文本内容，图片-图片地址，音频-音频地址，视频-视频地址 |
-| tokenId      | string   | 是           | 用户账号                                                             |
-| feedbackTime | string   | 是           | 纠错时间                                                             |
-| caseType     | string   | 是           | 纠错类型：error 误杀；miss 漏杀                                      |
-| caseLabel    | string   | 是           | 标注结果                                                             |
-
-### 返回参数
-
-放在 HTTP Body 中，采用 Json 格式，具体参数如下：
-
-| **参数名称** | **类型**   | **是否必返** | **说明**                                                        |
-| -------- | ------ | -------- | ----------------------------------------------------------- |
-| code     | int    | 是       | 返回码，成功返回 1100，会判断请求是否成功；非 1100 认为失败 |
-| message  | string | 是       | |
 
 ## 附录
 
