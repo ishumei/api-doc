@@ -187,7 +187,7 @@ Details of device_suspicious_labels are as follows:
 | b_game_cheat_apps             | int            | Installed game cheat tools      | Device installed with game cheat tools, such as GameGuardian, value: `0`: Device did not install game cheat tools`1`: Device installed game cheat tools                   |
 | b_game_cheat_apps_last_ts     | int            | Installed game cheat tools time  |                                                                                                                    |
 | b_adb_enable                  | int            | Developer mode enabled adb     | Label `1` indicates that the device has enabled developer mode and adb debugging. Only SDK version 3.1.0 and above can recognize this label                                 |
-| b_adb_enable_last_ts          | int            | Developer mode enabled adb time |  
+| b_adb_enable_last_ts          | int            | Developer mode enabled adb time |                                                                                                                    |  
 | b_unlocked                    | int            | Unlocked device                 | Device unlocked, value: `0`: Device not unlocked, `1`: Device unlocked                                                                                    |
 | b_unlocked_last_ts            | int            | Device unlocked time            |                                                                                                                    |
 
