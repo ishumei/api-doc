@@ -153,6 +153,13 @@
                         "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。若传递nickname字段，则会同时校验文本+昵称内容。"
                     },
                     {
+                        "req_name": "sessionId",
+                        "type": "string",
+                        "param_description": "用于标记本次请求内容属于同一段流式内容",
+                        "required": false,
+                        "param_specification": "建议使用可唯一标识同一段流式内容的字符串，长度不超过64字符"
+                    },
+                    {
                         "req_name": "relateText",
                         "type": "string",
                         "param_description": "需要检测的关联文本",
@@ -800,6 +807,43 @@
                         "param_description": "建议答案",
                         "required": true,
                         "param_specification": "当qlabel为\"EXACTNESS\"或者\"POSITIVE\"时，会给出数美建议的符合要求的答案。"
+                    },
+                    {
+                        "req_name": "kbLabels",
+                        "type": "json_array",
+                        "param_description": "代答标签列表",
+                        "required": false,
+                        "param_specification": "",
+                        "son": [
+                            {
+                                "req_name": "kbLabel1",
+                                "type": "string",
+                                "param_description": "kbLabels不为空必返",
+                                "required": true,
+                                "param_specification": "一级代答标签"
+                            },
+                            {
+                                "req_name": "kbLabel2",
+                                "type": "string",
+                                "param_description": "kbLabels不为空必返",
+                                "required": true,
+                                "param_specification": "二级代答标签"
+                            },
+                            {
+                                "req_name": "kbLabel3",
+                                "type": "string",
+                                "param_description": "kbLabels不为空必返",
+                                "required": true,
+                                "param_specification": "三级代答标签"
+                            },
+                            {
+                                "req_name": "kbDescription",
+                                "type": "string",
+                                "param_description": "kbLabels不为空必返",
+                                "required": true,
+                                "param_specification": "代答标签描述"
+                            }
+                        ]
                     },
                     {
                         "req_name": "isEnd",
