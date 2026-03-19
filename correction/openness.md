@@ -674,6 +674,8 @@ POST
 | listId    | strig  | 名单 md5 的 id                     | 是       |
 | offset    | int    | 偏移量，默认值为 0，取值为非负整数 | 是       |
 | count     | int    | 条目数，不大于 2000 的正整数        | 是       |
+| serviceId     | string    | 服务标识，搜索具体敏感词时必传该字段        | 否       |
+| content     | string    | 搜索内容，如："张三"        | 否       |
 
 **输入示例**
 
