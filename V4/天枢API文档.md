@@ -63,13 +63,6 @@ text对象
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | detail | json_array | 详细信息 |  |  |
-| riskLabel1 | string | 一级风险标签 | 是 | 当riskLevel为`PASS`时返回`normal` |
-| riskLabel2 | string | 二级风险标签 | 是 | 当riskLevel为`PASS`时为空 |
-| riskLabel3 | string | 三级风险标签 | 是 | 当riskLevel为`PASS`时为空 |
-| riskDescription | string | 风险原因 | 是 | 当riskLevel为`PASS`时为`正常` |
-| riskDetail | json_object | 风险详情 | 是 | [详见riskDetail参数](#riskDetail) |
-| allLabels |  | 风险标签详情 | 否 | 返回命中的所有风险标签以及详情信息 |
-| businessLabels | json_array | 业务标签详情 | 否 | 返回命中的所有业务标签以及详情信息 |
 
 
 
@@ -173,6 +166,7 @@ riskSegments的每个元素的详细内容如下：
       "tokenId": "tokenId001",
       "sessionId": "sessionId001",
       "role": "user",
+      "roundEnd": true, 
       "content": [
                 {"image": "https://vi2.6rooms.com/live/2024/11/28/07/1004v1732750690826352234.jpg"},
        					{"text": "xxxxxxx"}
@@ -189,24 +183,28 @@ riskSegments的每个元素的详细内容如下：
     "code": 1100,
     "message": "成功",
     "riskLevel": "REJECT",
-    "riskLabel1": "porn",
-    "riskLabel2": "sm",
-    "riskLabel3": "sm",
-    "riskDescription": "色情:SM:SM",
-    "riskDetail": {
-        "riskSource": 1001
-    },
-    "allLabels": [
+    "detail": [
         {
             "riskLabel1": "porn",
             "riskLabel2": "sm",
             "riskLabel3": "sm",
-            "riskLevel": "REJECT",
             "riskDescription": "色情:SM:SM",
-            "probability": 1,
             "riskDetail": {
                 "riskSource": 1001
-            }
+            },
+            "allLabels": [
+                {
+                    "riskLabel1": "porn",
+                    "riskLabel2": "sm",
+                    "riskLabel3": "sm",
+                    "riskLevel": "REJECT",
+                    "riskDescription": "色情:SM:SM",
+                    "probability": 1,
+                    "riskDetail": {
+                        "riskSource": 1001
+                    }
+                }
+            ]
         }
     ]
 }
