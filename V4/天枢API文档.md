@@ -14,7 +14,7 @@
 
 `UTF-8`
 
-### 建议超时时间：10s
+### 建议超时时间：5s
 
 ### 请求参数：
 
@@ -25,7 +25,7 @@
 | accessKey | string | 接口认证密钥<br/>用于权限认证，开通账号服务时由数美提供或使用开通邮箱登录数美后台右上角相关文档处查看 | 必传参数 |  |
 | appId | string | 应用标识，用于区分相同公司的不同应用数据 | 必传参数 | 需要联系数美开通，请以数美单独提供的传值为准 |
 | eventId | string | 事件标识 | 必传参数 | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| type | string | 检测的风险类型 | type和businessType必传其一 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情 <br/>VIOLENT :暴恐<br/><br/>BAN :违禁<br/>EROTIC :色情/性感 <br/>DIRTY :辱骂 <br/>ADVERT :广告<br/>ADLAW :广告法 <br/>MEANINGLESS :无意义 <br/>PRIVACY :隐私<br/>TEXTMINOR :未成年人 <br/>FRUAD :网络诈骗 <br/>QRCODE :二维码 <br/>IMGTEXTRISK  :图片文字风险 <br/>TEXTRISK :文本风险 <br/>如果需要识别多个功能，通过下划线连接，如 POLITY_BAN_EROTIC<br/> |
+| type | string | 检测的风险类型 | type和businessType必传其一 | 监管一级标签 可选值:<br/>POLITY :涉政识别<br/>EROTIC :色情 <br/>VIOLENT :暴恐<br/>BAN :违禁<br/>EROTIC :色情/性感 <br/>DIRTY :辱骂 <br/>ADVERT :广告<br/>ADLAW :广告法 <br/>MEANINGLESS :无意义 <br/>PRIVACY :隐私<br/>TEXTMINOR :未成年人 <br/>TEXTRISK :文本风险 <br/>如果需要识别多个功能，通过下划线连接，如 POLITY_BAN_EROTIC<br/> |
 | data | json_object | 请求的数据内容 | 必传参数 | 请求的数据内容，data字段长度最长5MB，[详见data参数](#data) |
 
 <span id="data">其中，data的内容如下：</span>
@@ -36,15 +36,17 @@
 | sessionId | string | 会话标识 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
 | role | string | 用户角色 | 非必传参数 | 角色<br/>枚举值：<br/>user：用户<br/>assistant：机器人<br/> |
 | roundEnd | bool | 对话结束标识 | 非必传参数 | 默认值为false，当一轮assistant输出结束，设置为true |
-| content | array | 检测内容 | 必传参数 | 包含顺序关系的图文对象，文本10000个字符，50张图片 |
+| content | array | 检测内容 | 必传参数 | 包含顺序关系的图文对象，文本10000个字符 |
+| historyItem | array | 历史内容 | 历史内容 |  |
+
+其中，historyItem的内容如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| -------------- | -------- | ------------ | ------------ | -------- |
+| role           | string   | 用户角色     | 非必传参数   |          |
+| content        | array    | 检测内容     | 必传参数     |          |
 
 <span id="content">其中，content的内容如下：</span>
-
-image对象
-
-| **请求参数名** | **类型** | **参数说明**           | **是否必传** | **规范**                                                   |
-| -------------- | -------- | ---------------------- | ------------ | ---------------------------------------------------------- |
-| image          | string   | 图片地址或者base64数据 | 非必传参数   | image请求格式支持：PNG、JPG、JPEG、BMP，图片大小限制小于5M |
 
 text对象
 
@@ -85,39 +87,8 @@ text对象
 | --- | --- | --- | --- | --- |
 | riskSegments | json\_array | 高风险片段内容，检测文本包含涉政、暴恐、违禁等风险内容的时候存在 | 否 |  |
 | matchedLists | json\_array | 命中的客户自定义名单列表 | 否 |  |
-| faces | json_array | 返回图片中涉政人物的名称及位置信息 | 否 |  |
-| face_num | int | 人脸数量 | 否 |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 |否  | |
-| person_num | int | 人像数量 | 否 | 有且仅有人像-多人下返回 |
-| ocrText | json_object | 返回图片中违规图片文字相关信息 | 否 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文字风险<br/>`1002`：视觉图片风险<br/>`1004`：多模态风险<br/> |
-
-riskDetail中，faces数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| id | string | 人物编号 | 否 | 图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |
-| name | string | 人物名称 | 否 | 能识别的公众人物名称 |
-| location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | 否 |  |
-| face_ratio | float | 人脸占比 | 否 | |
-| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-
-riskDetail中，persons数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| id | string | 编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID | 否 |  |
-| person_ratio | string | 人像在图中的占比 | 否 | |
-| location | int_array | 人像位置坐标 | 否 | |
-| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | 否 | 0～1之间的浮点数 |
-
-riskDetail中，ocrText的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| text | string | 识别出的文字 | 是 | |
-| matchedLists | json\_array | 命中的客户自定义名单列表 | 否 | |
-| riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | 否 |  |
+| segmetText | string | 审核的文本片段内容 | 是 | |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文字风险<br/>`1005`：天枢风险<br/> |
 
 matchedLists数组每个元素的内容如下：
 
@@ -158,20 +129,31 @@ riskSegments的每个元素的详细内容如下：
 
 ```json
 {
-  "accessKey": "xxxxxxxx",
-  "appId": "xxx",
-  "eventId": "xxx",
-  "type": "EROTIC",
-  "data":{
-      "tokenId": "tokenId001",
-      "sessionId": "sessionId001",
-      "role": "user",
-      "roundEnd": true, 
-      "content": [
-                {"image": "https://vi2.6rooms.com/live/2024/11/28/07/1004v1732750690826352234.jpg"},
-       					{"text": "xxxxxxx"}
-       ]
-  }
+    "accessKey": "xxxxxxxx",
+    "appId": "xxx",
+    "eventId": "xxx",
+    "type": "EROTIC",
+    "data": {
+        "historyItem": [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "text": "你好呀SM"
+                    }
+                ]
+            }
+        ],
+        "tokenId": "tokenId001",
+        "sessionId": "sessionId001",
+        "role": "assistant",
+        "roundEnd": true,
+        "content": [
+            {
+                "text": "你好我是大模型"
+            }
+        ]
+    }
 }
 ```
 
@@ -190,7 +172,8 @@ riskSegments的每个元素的详细内容如下：
             "riskLabel3": "sm",
             "riskDescription": "色情:SM:SM",
             "riskDetail": {
-                "riskSource": 1001
+                "riskSource": 1001,
+                "segmetText": "你好呀SM"
             },
             "allLabels": [
                 {
@@ -205,9 +188,19 @@ riskSegments的每个元素的详细内容如下：
                     }
                 }
             ]
+        },
+        {
+            "riskLabel1": "normal",
+            "riskLabel2": "normal",
+            "riskLabel3": "normal",
+            "riskDescription": "正常",
+            "riskDetail": {
+                "riskSource": 1001,
+                "segmetText": "你好我是大模型"
+            },
+            "allLabels": []
         }
     ]
 }
 ```
-
 
