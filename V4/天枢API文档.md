@@ -32,14 +32,15 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| tokenId | string | 用户账号标识 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
-| sessionId | string | 会话标识 | 非必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
-| role | string | 用户角色 | 非必传参数 | 角色<br/>枚举值：<br/>user：用户<br/>assistant：机器人<br/> |
+| tokenId | string | 用户账号标识 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
+| sessionId | string | 会话标识 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
+| role | string | 用户角色 | 必传参数 | 角色<br/>枚举值：<br/>user：用户<br/>assistant：机器人<br/> |
+| subEventId | map | role对应具体的eventId | 非必传参数 | user、assistant对应的eventId |
 | roundEnd | bool | 对话结束标识 | 非必传参数 | 默认值为false，当一轮assistant输出结束，设置为true |
-| content | array | 检测内容 | 必传参数 | 包含顺序关系的图文对象，文本10000个字符 |
-| historyItem | array | 历史内容 | 历史内容 |  |
+| content | array | 检测内容 | 必传参数 | 文本对象，限制384个字符 |
+| history | array | 历史内容 | 非必传参数 |  |
 
-其中，historyItem的内容如下：
+其中，history的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | -------------- | -------- | ------------ | ------------ | -------- |
@@ -64,20 +65,12 @@ text对象
 | message | string | 返回码描述 | 是 | 和code对应：成功<br/>QPS超限<br/>参数不合法<br/>服务失败 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| detail | json_array | 详细信息 |  |  |
-
-
-
-其中，detail数组中对象结构如下：
-
-| **参数名称**    | **参数类型** | **参数说明** | **是否必返** | **规范**                           |
-| --------------- | ------------ | ------------ | ------------ | ---------------------------------- |
-| riskLabel1      | string       | 一级风险标签 | 是           | 当riskLevel为`PASS`时返回`normal`  |
-| riskLabel2      | string       | 二级风险标签 | 是           | 当riskLevel为`PASS`时为空          |
-| riskLabel3      | string       | 三级风险标签 | 是           | 当riskLevel为`PASS`时为空          |
-| riskDescription | string       | 风险原因     | 是           | 当riskLevel为`PASS`时为`正常`      |
-| riskDetail      | json_object  | 风险详情     | 是           | [详见riskDetail参数](#riskDetail)  |
-| allLabels       |              | 风险标签详情 | 否           | 返回命中的所有风险标签以及详情信息 |
+| riskLabel1 | string | 一级风险标签 | 是 | 当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | 是 | 当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | 是 | 当riskLevel为`PASS`时为空 |
+| riskDescription | string | 风险原因 | 是 | 当riskLevel为`PASS`时为空 |
+| riskDetail | json_object | 风险详情 | 是 | 详见riskDetail参数 |
+| allLabels | json\_array | 风险标签详情 | 否 | 返回命中的所有风险标签以及详情信息 |
 
 
 
@@ -134,7 +127,7 @@ riskSegments的每个元素的详细内容如下：
     "eventId": "xxx",
     "type": "EROTIC",
     "data": {
-        "historyItem": [
+        "history": [
             {
                 "role": "user",
                 "content": [
@@ -144,6 +137,10 @@ riskSegments的每个元素的详细内容如下：
                 ]
             }
         ],
+        "subEventId": {
+            "role": "xxx",
+            "assistant": "xxx"
+        },
         "tokenId": "tokenId001",
         "sessionId": "sessionId001",
         "role": "assistant",
@@ -165,40 +162,25 @@ riskSegments的每个元素的详细内容如下：
     "code": 1100,
     "message": "成功",
     "riskLevel": "REJECT",
-    "detail": [
+    "riskLabel1": "porn",
+    "riskLabel2": "sm",
+    "riskLabel3": "sm",
+    "riskDescription": "色情:SM:SM",
+    "riskDetail": {
+        "riskSource": 1001,
+        "segmetText": "你好呀SM"
+    },
+    "allLabels": [
         {
             "riskLabel1": "porn",
             "riskLabel2": "sm",
             "riskLabel3": "sm",
+            "riskLevel": "REJECT",
             "riskDescription": "色情:SM:SM",
+            "probability": 1,
             "riskDetail": {
-                "riskSource": 1001,
-                "segmetText": "你好呀SM"
-            },
-            "allLabels": [
-                {
-                    "riskLabel1": "porn",
-                    "riskLabel2": "sm",
-                    "riskLabel3": "sm",
-                    "riskLevel": "REJECT",
-                    "riskDescription": "色情:SM:SM",
-                    "probability": 1,
-                    "riskDetail": {
-                        "riskSource": 1001
-                    }
-                }
-            ]
-        },
-        {
-            "riskLabel1": "normal",
-            "riskLabel2": "normal",
-            "riskLabel3": "normal",
-            "riskDescription": "正常",
-            "riskDetail": {
-                "riskSource": 1001,
-                "segmetText": "你好我是大模型"
-            },
-            "allLabels": []
+                "riskSource": 1001
+            }
         }
     ]
 }
