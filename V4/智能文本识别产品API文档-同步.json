@@ -157,21 +157,21 @@
                         "type": "string",
                         "param_description": "需要检测的问题文本",
                         "required": false,
-                        "param_specification": "问答关联审核的场景建议传入，否知只需要传入text"
+                        "param_specification": "问答关联审核的场景建议传入，否则只需要传入text"
                     },
                     {
                         "req_name": "subEventId",
                         "type": "json_object",
-                        "param_description": "子事件标识，当传入query是有效",
+                        "param_description": "子事件标识",
                         "required": false,
-                        "param_specification": "",
+                        "param_specification": "在传入query问题文本的情况下有效",
                         "son": [
                             {
                                 "req_name": "query",
                                 "type": "string",
-                                "param_description": "事件标识",
+                                "param_description": "query的事件标识",
                                 "required": false,
-                                "param_specification": "query的事件标识，若不传入，默认使用data下的eventId"
+                                "param_specification": "不传入的情况下，默认使用data下的eventId"
                             }
                         ]
                     },
@@ -680,6 +680,13 @@
                                         "param_specification": "高风险内容片段所在位置"
                                     }
                                 ]
+                            },
+                            {
+                                "req_name": "from",
+                                "type": "string",
+                                "param_description": "风险来源",
+                                "required": false,
+                                "param_specification": "当传入query时返回，用于标识风险来源于query或text，枚举值query、text。"
                             }
                         ]
                     },
