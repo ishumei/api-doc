@@ -155,9 +155,9 @@
                     {
                         "req_name": "query",
                         "type": "string",
-                        "param_description": "需要检测的问题",
+                        "param_description": "需要检测的问题文本",
                         "required": false,
-                        "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。"
+                        "param_specification": "问答关联审核的场景建议传入，否知只需要传入text"
                     },
                     {
                         "req_name": "subEventId",
@@ -479,9 +479,9 @@
                     {
                         "req_name": "from",
                         "type": "string",
-                        "param_description": "用于标识风险来源于query或text",
+                        "param_description": "风险来源",
                         "required": false,
-                        "param_specification": "当传入query时生效，枚举值query、text"
+                        "param_specification": "当传入query时返回，用于标识风险来源于query或text，枚举值query、text。"
                     }
                 ]
             },
