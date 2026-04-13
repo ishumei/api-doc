@@ -153,6 +153,29 @@
                         "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。若传递nickname字段，则会同时校验文本+昵称内容。"
                     },
                     {
+                        "req_name": "query",
+                        "type": "string",
+                        "param_description": "需要检测的问题",
+                        "required": false,
+                        "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。"
+                    },
+                    {
+                        "req_name": "subEventId",
+                        "type": "json_object",
+                        "param_description": "子事件标识，当传入query是有效",
+                        "required": false,
+                        "param_specification": "",
+                        "son": [
+                            {
+                                "req_name": "query",
+                                "type": "string",
+                                "param_description": "事件标识",
+                                "required": false,
+                                "param_specification": "query的事件标识，若不传入，默认使用data下的eventId"
+                            }
+                        ]
+                    },
+                    {
                         "req_name": "sessionId",
                         "type": "string",
                         "param_description": "用于标记本次请求内容属于同一段流式内容",
@@ -452,6 +475,13 @@
                                 "param_specification": "高风险内容片段所在位置"
                             }
                         ]
+                    },
+                    {
+                        "req_name": "from",
+                        "type": "string",
+                        "param_description": "用于标识风险来源于query或text",
+                        "required": false,
+                        "param_specification": "当传入query时生效，枚举值query、text"
                     }
                 ]
             },
