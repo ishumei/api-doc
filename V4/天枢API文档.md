@@ -35,7 +35,6 @@
 | tokenId | string | 用户账号标识 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
 | sessionId | string | 会话标识 | 必传参数 | 由数字、字母、下划线、短杠组成的长度小于等于32位的字符串 |
 | role | string | 用户角色 | 必传参数 | 角色<br/>枚举值：<br/>user：用户<br/>assistant：机器人<br/> |
-| subEventId | map | role对应具体的eventId | 非必传参数 | user、assistant对应的eventId |
 | roundEnd | bool | 对话结束标识 | 非必传参数 | 默认值为false，当一轮assistant输出结束，设置为true |
 | content | array | 检测内容 | 必传参数 | 文本对象，限制384个字符 |
 | history | array | 历史内容 | 非必传参数 |  |
@@ -81,7 +80,8 @@ text对象
 | riskSegments | json\_array | 高风险片段内容，检测文本包含涉政、暴恐、违禁等风险内容的时候存在 | 否 |  |
 | matchedLists | json\_array | 命中的客户自定义名单列表 | 否 |  |
 | segmetText | string | 审核的文本片段内容 | 是 | |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文字风险<br/>`1005`：天枢风险<br/> |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文字风险<br/>`1006`：天枢风险<br/> |
+| from | string | 风险来源 | 是 | 来源于<br/>user：用户<br/>assistant：机器人<br/> |
 
 matchedLists数组每个元素的内容如下：
 
@@ -137,10 +137,6 @@ riskSegments的每个元素的详细内容如下：
                 ]
             }
         ],
-        "subEventId": {
-            "role": "xxx",
-            "assistant": "xxx"
-        },
         "tokenId": "tokenId001",
         "sessionId": "sessionId001",
         "role": "assistant",
@@ -168,7 +164,8 @@ riskSegments的每个元素的详细内容如下：
     "riskDescription": "色情:SM:SM",
     "riskDetail": {
         "riskSource": 1001,
-        "segmetText": "你好呀SM"
+        "segmetText": "你好呀SM",
+        "from":"user"
     },
     "allLabels": [
         {
@@ -179,7 +176,8 @@ riskSegments的每个元素的详细内容如下：
             "riskDescription": "色情:SM:SM",
             "probability": 1,
             "riskDetail": {
-                "riskSource": 1001
+                "riskSource": 1001,
+                "from":"user"
             }
         }
     ]
