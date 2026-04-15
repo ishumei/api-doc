@@ -75,6 +75,7 @@ img对象
 | riskLabel2         | string       | 二级风险标签 | 是           | 二级风险标签                       |
 | riskLabel3         | string       | 三级风险标签 | 是           | 三级风险标签                       |
 | riskDescription    | string       | 风险原因     | 是           |                                    |
+| sourceType         | string       | 风险来源类型 | 是           | 用于区分命中来源，枚举值：`text`（文本输入）、`img`（图片输入）|
 | riskDetail         | json_object  | 风险详情     | 是           | 详见riskDetail参数                 |
 | allLabels          | json\_array  | 风险标签详情 | 是           | 返回命中的所有风险标签以及详情信息 |
 
@@ -85,7 +86,7 @@ img对象
 | riskSegments | json\_array | 高风险片段内容，检测文本包含涉政、暴恐、违禁等风险内容的时候存在 | 否 |  |
 | matchedLists | json\_array | 命中的客户自定义名单列表 | 否 |  |
 | segmentText | string | 审核的文本片段内容 | 否 | riskSource为`1001`时返回 |
-| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文本风险<br/>`1002`：视觉图片风险<br/>`1004`：多模态风险<br/> |
+| riskSource | int | 标识资源哪里违规 | 是 | 标识风险结果的来源<br/>`1001`：文本风险（包含图片中的OCR文本风险）<br/>`1002`：视觉图片风险<br/>`1004`：多模态风险<br/>当riskSource为`1001`时，可结合detail.sourceType区分来源是文本输入还是图片输入 |
 
 matchedLists数组每个元素的内容如下：
 
@@ -154,6 +155,7 @@ riskSegments的每个元素的详细内容如下：
             "riskLabel2": "sm",
             "riskLabel3": "sm",
             "riskDescription": "色情:SM:SM",
+            "sourceType": "text",
             "riskDetail": {
                 "riskSource": 1001,
                 "segmentText": "你好呀SM"
@@ -207,9 +209,6 @@ riskSegments的每个元素的详细内容如下：
 `INDUCEDOUTPUTATTACK`（诱导输出攻击指令）  
 `ROLEPLAYATTACK`（角色扮演攻击指令）  
 `CONSTRAINTATTACK`（约束限制攻击指令）  
-`编码攻击指令`  
-`逻辑推理指令`  
-`权限攻击指令`
 
 <span id="appendix-imgType">imgType可选值如下：</span>
 
