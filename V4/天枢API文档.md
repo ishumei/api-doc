@@ -69,7 +69,7 @@ image对象
 | riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签，取result中优先级最高的一项 |
 | riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签，取result中优先级最高的一项 |
 | riskDescription | string | 风险原因 | 是 | 取result中优先级最高的一项 |
-| inputMedia | string | 命中输入类型 | 是 | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入），取result中优先级最高的一项 |
+| inputMedia | string | 命中输入类型 | 是 | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入） |
 | riskDetail | json_object | 风险详情 | 是 | 详见riskDetail参数，取result中优先级最高的一项 |
 | result | json\_array | 详细结果 | 否 | 风险明细数组，结构见[result参数](#result) |
 
