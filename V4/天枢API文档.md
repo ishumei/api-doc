@@ -65,25 +65,31 @@ image对象
 | message | string | 返回码描述 | 是 | 和code对应：成功<br/>QPS超限<br/>参数不合法<br/>服务失败 |
 | requestId | string | 请求标识 | 是 | 请求唯一标识，用于排查问题和后续效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | 是 | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签，取result中优先级最高的一项 |
-| riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签，取result中优先级最高的一项 |
-| riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签，取result中优先级最高的一项 |
-| riskDescription | string | 风险原因 | 是 | 取result中优先级最高的一项 |
-| inputMedia | string | 命中输入类型 | 是 | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入） |
-| riskDetail | json_object | 风险详情 | 是 | 详见riskDetail参数，取result中优先级最高的一项 |
+| riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签，取result中优先级最高的一项allLabels中优先级最高的一项 |
+| riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签，取result中优先级最高的一项allLabels中优先级最高的一项 |
+| riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签，取result中优先级最高的一项allLabels中优先级最高的一项 |
+| riskDescription | string | 风险原因 | 是 | 取result中优先级最高的一项allLabels中优先级最高的一项 |
+| inputMedia | string | 命中输入类型 | 是 | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入），取result中优先级最高的一项 |
+| riskDetail | json_object | 风险详情 | 是 | 详见riskDetail参数，取result中优先级最高的一项allLabels中优先级最高的一项 |
 | result | json\_array | 详细结果 | 否 | 风险明细数组，结构见[result参数](#result) |
 
 <span id="result">其中result数组的每个成员的内容如下：</span>
 
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范**                           |
-| ------------------ | ------------ | ------------ | ------------ | ---------------------------------- |
-| riskLabel1         | string       | 一级风险标签 | 是           | 一级风险标签                       |
-| riskLabel2         | string       | 二级风险标签 | 是           | 二级风险标签                       |
-| riskLabel3         | string       | 三级风险标签 | 是           | 三级风险标签                       |
-| riskDescription    | string       | 风险原因     | 是           |                                    |
-| inputMedia         | string       | 命中输入类型 | 是           | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入） |
-| riskDetail         | json_object  | 风险详情     | 是           | 详见riskDetail参数                 |
-| allLabels          | json\_array  | 风险标签详情 | 是           | 返回命中的所有风险标签以及详情信息 |
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| inputMedia | string | 命中输入类型 | 是 | 用于区分命中来源，枚举值：`text`（文本输入）、`image`（图片输入） |
+| allLabels | json\_array | 风险标签详情 | 是 | 返回命中的所有风险标签以及详情信息 |
+
+其中result数组每个成员的allLabels数组的每个元素内容如下：
+
+| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 处置建议 | 是 | 可能返回值：`PASS`、`REVIEW`、`REJECT` |
+| riskLabel1 | string | 一级风险标签 | 是 | 一级风险标签 |
+| riskLabel2 | string | 二级风险标签 | 是 | 二级风险标签 |
+| riskLabel3 | string | 三级风险标签 | 是 | 三级风险标签 |
+| riskDescription | string | 风险原因 | 是 | |
+| riskDetail | json_object | 风险详情 | 是 | 详见riskDetail参数 |
 
 <span id="riskDetail">其中，riskDetail结构如下：</span>
 
@@ -166,21 +172,18 @@ riskSegments的每个元素的详细内容如下：
     },
     "result": [
         {
-            "riskLabel1": "porn",
-            "riskLabel2": "sm",
-            "riskLabel3": "sm",
-            "riskDescription": "色情:SM:SM",
             "inputMedia": "text",
-            "riskDetail": {
-                "riskSource": 1001,
-                "segmentText": "你好呀SM"
-            },
             "allLabels": [
                 {
+                    "riskLevel": "REJECT",
                     "riskLabel1": "porn",
                     "riskLabel2": "sm",
                     "riskLabel3": "sm",
-                    "riskDescription": "色情:SM:SM"
+                    "riskDescription": "色情:SM:SM",
+                    "riskDetail": {
+                        "riskSource": 1001,
+                        "segmentText": "你好呀SM"
+                    }
                 }
             ]
         }
