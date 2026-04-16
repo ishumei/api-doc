@@ -164,7 +164,7 @@ riskSegments的每个元素的详细内容如下：
     "riskLabel1": "porn",
     "riskLabel2": "sm",
     "riskLabel3": "sm",
-    "riskDescription": "色情:SM:SM",
+    "riskDescription": "色情:色情:色情",
     "inputMedia": "text",
     "riskDetail": {
         "riskSource": 1001,
@@ -179,7 +179,7 @@ riskSegments的每个元素的详细内容如下：
                     "riskLabel1": "porn",
                     "riskLabel2": "sm",
                     "riskLabel3": "sm",
-                    "riskDescription": "色情:SM:SM",
+                    "riskDescription": "色情:色情:色情",
                     "riskDetail": {
                         "riskSource": 1001,
                         "segmentText": "你好呀SM"
