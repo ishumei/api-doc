@@ -28,7 +28,7 @@ This interface is used to submit video-related information, customize frame capt
 
 ### Video Format Restrictions:
 
-`AVI`, `FLV`, `MP4`, `MPG`, `WMV`, `MOV`, `WMA`, `RMVB`, `m3u8`
+`AVI`, `FLV`, `MP4`, `MPG`, `WMV`, `MOV`, `WMA`, `RMVB`, `m3u8`、`WebM`
 
 ### Video Size Limit:
 

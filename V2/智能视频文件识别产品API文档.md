@@ -33,7 +33,7 @@
 
 ### 视频格式限制：
 
-`AVI`、`FLV`、`MP4`、`MPG`、`WMV`、`MOV`、`WMA`、`RMVB`、`m3u8`
+`AVI`、`FLV`、`MP4`、`MPG`、`WMV`、`MOV`、`WMA`、`RMVB`、`m3u8`、`WebM`
 
 ### 视频大小限制：
 
