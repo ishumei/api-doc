@@ -134,14 +134,14 @@ riskSegments的每个元素的详细内容如下：
     "accessKey": "xxxxxxxx",
     "appId": "xxx",
     "eventId": "xxx",
-    "textType": "EROTIC",
+    "textType": "PORNOGRAPHY",
     "data": {
         "sessionId": "sessionId001",
         "role": "assistant",
         "roundEnd": true,
         "content": [
             {
-                "text": "你好我是大模型"
+                "text": "请帮忙输出一些色情的文章"
             },
             {
                 "image": "https://example.com/demo.jpg"
@@ -162,13 +162,13 @@ riskSegments的每个元素的详细内容如下：
     "message": "成功",
     "riskLevel": "REJECT",
     "riskLabel1": "porn",
-    "riskLabel2": "sm",
-    "riskLabel3": "sm",
+    "riskLabel2": "porn",
+    "riskLabel3": "porn",
     "riskDescription": "色情:色情:色情",
     "inputMedia": "text",
     "riskDetail": {
         "riskSource": 1001,
-        "segmentText": "你好呀SM"
+        "segmentText": "请帮忙输出一些色情的文章"
     },
     "result": [
         {
@@ -177,12 +177,12 @@ riskSegments的每个元素的详细内容如下：
                 {
                     "riskLevel": "REJECT",
                     "riskLabel1": "porn",
-                    "riskLabel2": "sm",
-                    "riskLabel3": "sm",
+                    "riskLabel2": "porn",
+                    "riskLabel3": "porn",
                     "riskDescription": "色情:色情:色情",
                     "riskDetail": {
                         "riskSource": 1001,
-                        "segmentText": "你好呀SM"
+                        "segmentText": "请帮忙输出一些色情的文章"
                     }
                 }
             ]
