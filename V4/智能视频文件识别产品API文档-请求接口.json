@@ -218,13 +218,6 @@
             "type": "int32"
           },
           {
-            "length": "-",
-            "param_description": "固定截帧张数，默认包含首帧和尾帧，剩余截帧位置使用视频时长/截帧张数计算（四舍五入保留3位小数后大于0采用），该参数优先级高于detectFrequency和advancedFrequency，优先级：checkFrameCount\u003eadvancedFrequency\u003edetectFrequency。由于该参数需要获取视频时长，如果获取视频时长失败，降级到按data.detectFrequency参数进行截帧",
-            "req_name": "checkFrameCount",
-            "required": false,
-            "type": "int32"
-          },
-          {
             "length": "128",
             "param_description": "客户自定义数据Id。可以用于数美saas后台检索",
             "req_name": "dataId",
@@ -233,8 +226,45 @@
           },
           {
             "length": "-",
+            "param_description": "截帧方式\n0：按detectFrequency字段固定时间间隔截取\n1：按advancedFrequency字段根据视频时长选定固定时间间隔截取\n2：按checkFrameCount字段固定张数截取\n3：截取所有关键帧",
+            "req_name": "screenshotType",
+            "required": true,
+            "type": "int32"
+          },
+          {
+            "length": "-",
             "param_description": "视频中的截帧频率间隔，取值范围为1~60s；如不传递默认5s截帧一次",
             "req_name": "detectFrequency",
+            "required": false,
+            "type": "int32"
+          },
+          {
+            "length": "-",
+            "param_description": "高级截帧间隔，单位为秒，此项填写，默认截帧策略失效\n参数配置如下\n{\"durationPoints\":[300,600],\"frequencies\":[1,5,10]}\n含义为：\n视频文件时长≤300s ——选用1s一截帧\n300s\u003c视频文件时长≤600s ——选用5s一截帧\n视频文件时长\u003e600s ——选用10s一截帧",
+            "req_name": "advancedFrequency",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "视频时长区间分割 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个",
+                "req_name": "durationPoints",
+                "required": false,
+                "type": "int_array"
+              },
+              {
+                "length": "-",
+                "param_description": "视频时长区间对应的截帧频率 可设置范围为1~60秒，数组最多6个\n说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902",
+                "req_name": "frequencies",
+                "required": false,
+                "type": "int_array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "固定截帧张数，默认包含首帧和尾帧，剩余截帧位置使用视频时长/截帧张数计算（四舍五入保留3位小数后大于0采用），该参数优先级高于detectFrequency和advancedFrequency，优先级：checkFrameCount\u003eadvancedFrequency\u003edetectFrequency。由于该参数需要获取视频时长，如果获取视频时长失败，降级到按data.detectFrequency参数进行截帧",
+            "req_name": "checkFrameCount",
             "required": false,
             "type": "int32"
           },
@@ -307,29 +337,6 @@
             "req_name": "videoTitle",
             "required": false,
             "type": "string"
-          },
-          {
-            "length": "-",
-            "param_description": "高级截帧间隔，单位为秒，此项填写，默认截帧策略失效\n参数配置如下\n{\"durationPoints\":[300,600],\"frequencies\":[1,5,10]}\n含义为：\n视频文件时长≤300s ——选用1s一截帧\n300s\u003c视频文件时长≤600s ——选用5s一截帧\n视频文件时长\u003e600s ——选用10s一截帧",
-            "req_name": "advancedFrequency",
-            "required": false,
-            "son": [
-              {
-                "length": "-",
-                "param_description": "视频时长区间分割 用于规定视频文件支持动态截帧频率的时长区间，数组最多为5个",
-                "req_name": "durationPoints",
-                "required": false,
-                "type": "int_array"
-              },
-              {
-                "length": "-",
-                "param_description": "视频时长区间对应的截帧频率 可设置范围为1~60秒，数组最多6个\n说明：frequencies数组设置的个数需要比durationPoints数组个数多1个，传错或传空报错返回1902",
-                "req_name": "frequencies",
-                "required": false,
-                "type": "int_array"
-              }
-            ],
-            "type": "object"
           },
           {
             "length": "-",
