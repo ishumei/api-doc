@@ -290,7 +290,7 @@
         "type": "int",
         "param_description": "请求返回码",
         "required": true,
-        "param_specification": "1100：成功\n1101：正在处理中\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904：下载失败\n1905：解码失败\n9100：余额不足\n9101：无权限操作\n除message和requestId之外的字段，只有当code为1100时才会存在"
+        "param_specification": "1100：成功\n1901：QPS超限\n1902：参数不合法\n1903：服务失败\n1904：下载失败\n1905：解码失败\n9100：余额不足\n9101：无权限操作\n除message和requestId之外的字段，只有当code为1100时才会存在"
       },
       {
         "req_name": "message",
