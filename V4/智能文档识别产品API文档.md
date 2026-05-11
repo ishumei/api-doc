@@ -10,6 +10,15 @@
   - [同步返回结果](#同步返回结果)
   - [回调返回结果](#回调返回结果)
   - [示例](#示例)
+- [结果查询接口](#结果查询接口)
+  - [请求参数](#请求参数-2)
+    - [请求URL](#请求url-1)
+    - [字符编码格式](#字符编码格式-1)
+    - [请求方法](#请求方法-1)
+    - [建议超时时长](#建议超时时长-1)
+    - [请求参数](#请求参数-3)
+  - [同步返回结果](#同步返回结果-1)
+  - [示例](#示例-1)
 
 ---
 
@@ -54,7 +63,7 @@
 | callback | string | 回调http接口 | N | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 
- 其中，<span id="data">data</span>的内容如下：
+其中，<span id="data">data</span>的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
@@ -1286,6 +1295,130 @@
         "imgCount": 4,
         "textCount": 317
     }
+}
+```
+
+---
+
+## 结果查询接口
+
+用于异步队列、`callback` 回调或音视频分段回调等场景下，按检测接口返回的 `requestId` 主动查询终态审核结果（业务字段与上文[回调返回结果](#回调返回结果)一致）。
+
+### 请求参数
+
+#### 请求URL：
+
+| 集群 | URL |
+| --- | --- |
+| 北京 | `http://api-article-bj.fengkongcloud.com/query_document/v4` |
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/query_document/v4` |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/query_document/v4` |
+
+#### 字符编码格式：
+
+`UTF-8`字符集编码
+
+#### 请求方法：
+
+`POST`
+
+#### 建议超时时长：
+
+15s
+
+#### 请求参数：
+
+放在HTTP Body中，采用Json格式，Body大小不可超过1M，具体参数如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| accessKey | string | 接口认证密钥 | Y | 与检测接口一致，由数美提供 |
+| requestIds | string_array | 待查询的检测请求标识列表 | Y | 传入文档检测接口同步返回体中的 `requestId`；单次最多20条，单条长度不超过128字符；重复项会去重 |
+
+#### 同步返回结果
+
+放在HTTP Body中，采用Json格式，具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| code | int | 返回码 | Y | `1100`：成功；`1902`：整单请求不合法。`1101`、`1903` 不出现在本字段，仅见于下文 `machineResult.code` |
+| message | string | 返回码描述 | Y | 与 code 对应 |
+| requestId | string | 请求标识 | Y | 本次查询请求的标识 |
+| contents | json_array | 查询结果列表 | Y | 与请求 `requestIds` 顺序一致，元素结构见下表 |
+
+其中，**contents** 数组每个元素的内容如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 检测请求标识 | Y | 对应某项待查 `requestId` |
+| machineResult | json_object | 机审结果 | Y | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
+| humanResult | json_object | 人审结果 | N | 有人审时返回 |
+| mergeResult | json_object | 合并结果 | N | 优先展示策略合并结果，例如 `riskLevel` |
+
+### 示例
+
+#### 请求示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "requestIds": ["xxx_detection_request_id"]
+}
+```
+
+#### 返回示例
+
+##### 处理中（machineResult.code 为 1101）
+
+```json
+{
+    "code": 1100,
+    "message": "正常",
+    "requestId": "query_req_001",
+    "contents": [
+        {
+            "requestId": "xxx_detection_request_id",
+            "machineResult": {
+                "code": 1101,
+                "message": "请求正在处理",
+                "requestId": "xxx_detection_request_id"
+            },
+            "mergeResult": {
+                "riskLevel": "xxx"
+            }
+        }
+    ]
+}
+```
+
+##### 终态成功（machineResult.code 为 1100）
+
+```json
+{
+  "code": 1100,
+  "message": "正常",
+  "requestId": "query_req_001",
+  "contents": [
+    {
+      "requestId": "xxx_detection_request_id",
+      "machineResult": {
+        "code": 1100,
+        "message": "成功",
+        "requestId": "xxx_detection_request_id",
+        "riskLevel": "xxx",
+        "textDetails": [],
+        "imgDetails": [],
+        "audioDetails": [],
+        "videoDetails": [],
+        "auxInfo": {},
+        "resultType": 0,
+        "finalResult": 1
+      },
+      "mergeResult": {
+        "riskLevel": "xxx"
+      }
+    }
+  ]
 }
 ```
 
