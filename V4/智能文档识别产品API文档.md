@@ -1,12 +1,36 @@
+## 目录
+
+- [同步接口](#同步接口)
+  - [请求参数](#请求参数)
+    - [请求URL](#请求url)
+    - [字符编码格式](#字符编码格式)
+    - [请求方法](#请求方法)
+    - [建议超时时长](#建议超时时长)
+    - [请求参数](#请求参数-1)
+  - [同步返回结果](#同步返回结果)
+  - [回调返回结果](#回调返回结果)
+  - [示例](#示例)
+- [结果查询接口](#结果查询接口)
+  - [请求参数](#请求参数-2)
+    - [请求URL](#请求url-1)
+    - [字符编码格式](#字符编码格式-1)
+    - [请求方法](#请求方法-1)
+    - [建议超时时长](#建议超时时长-1)
+    - [请求参数](#请求参数-3)
+  - [同步返回结果](#同步返回结果-1)
+  - [示例](#示例-1)
+
+---
+
 ## 同步接口
 
 ### 请求参数
 
 #### 请求URL：
 
-| 集群 | URL | 
-| --- | --- | 
-| 北京 | `http://api-article-bj.fengkongcloud.com/document/v4` | 
+| 集群 | URL |
+| --- | --- |
+| 北京 | `http://api-article-bj.fengkongcloud.com/document/v4` |
 | 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/document/v4` |
 | 新加坡 | `http://api-article-xjp.fengkongcloud.com/document/v4` |
 
@@ -28,32 +52,39 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| accessKey | string | 接口认证密钥 | Y | 由数美提供 |
-| imgType | string | 网页中的图片识别类型 | Y | 可选值：<br/>POLITY：涉政识别<br/>EROTIC：色情&性感违规识别<br/>VIOLENT：暴恐&违禁识别<br/>QRCODE：二维码识别<br/>ADVERT：广告识别<br/>IMGTEXTRISK：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）<br/>BOCR：OCR小语种识别支持和语种自动检测（仅限新加坡集群）<br/>NONE：不审核图片<br/>以上type除NONE以外都可以下划线组合，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别 |
-| txtType | string | 网页中的文字识别类型 | Y | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR:未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>NONE：不审核文本<br/> 以上type除NONE以外都可以下划线组合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理 |
+| accessKey | string | 接口认证密钥 | Y | 由数美提供，用于权限认证，开通服务时由数美提供 |
 | appId | string | 应用标识 | Y | 用于区分应用，需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| eventId | string | 事件标识 | Y | 需要联系数美服务开通，请使用数美单独提供的传值为准 |
-| callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
-| acceptLang | string  | 返回标签的语种类型   | N    | 选择返回标签的语种类型<br/>可选值：<br/>zh：中文<br/>en：英文<br/>不传入默认为返回中文标签 |
-| data | json_object | 请求的数据内容 | Y | 最长1MB, [详见data参数](#data) |
+| eventId | string | 事件标识 | Y | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
+| imgType | string | 图片识别类型 | Y | 可选值：<br/>`NONE`：不审核图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）<br/>`BOCR`：OCR小语种识别支持和语种自动检测（仅限新加坡集群）<br/>组合说明：除`NONE`以外都可以通过下划线组合，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
+| txtType | string | 文本识别类型 | Y | 可选值：<br/>`NONE`：不审核文本<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`：未成年人内容检测<br/>`TEXTRISK`：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>组合说明：除`NONE`以外都可以通过下划线组合，如`TEXTRISK_FRUAD`。type间组合取并集，如`TEXTRISK_POLITY`按照常规风险检测处理。`NONE`不可以和其他type拼接 |
+| audioType | string | 音频识别类型 | N | 可选值：<br/>`NONE`：不审核音频<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`ADLAW`：广告法识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`DIRTY`：辱骂识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接 |
+| videoImgType | string | 视频图片识别类型 | N | 可选值：<br/>`NONE`：不审核视频图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
+| videoAudioType | string | 视频音频识别类型 | N | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接 |
+| callback | string | 回调http接口 | N | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
+| data | json_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 
- 其中，<span id="data">data</span>的内容如下：
+其中，<span id="data">data</span>的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| url | string | 要检测的文档链接 | Y | 文档链接可下载，其中网址头部的content-type需为text/html。<br/>网址内容大小500m以内，文本长度限制50w字，图片张数限制500张。（url、text、contents传且只能传其中一个）|
-| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，传入数据为文档时必传，可选值：<br/>DOCX<br/>PDF<br/>DOC<br/>XLS<br/>XLSX<br/>PPT<br/>PPTX<br/>PPS<br/>PPSX<br/>XLTX<br/>XLTM<br/>XLSB<br/>XLSM<br/>TXT<br/>CSV<br/>EPUB<br/>若fileFormat与文档实际格式不一致，则返回报错参数错误 |
-| nickname | string | 用户昵称 | N | 校验昵称内容风险|
-| ip | string | ip地址 | N | 发送该文本的的用户公网ipv4或ipv6地址 |
-| tokenId | string | 用户账号标识，建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。<br/>如无用户uid的场景建议使用唯一的数据标识传值 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串 |
-| lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>默认值zh，国内集群客户可不传或zh；海外文本内容如果不能区分语种建议取值auto，系统会自动检测语种类型 |
-| receiveTokenId | string | 私聊场景下消息接收者的tokenId | N | 由数字、字母、下划线、短杠组成的字符串|
-| returnAllImg | int | 返回图片的等级 | N | 选择返回图片的等级：0：返回风险等级为非pass的图片；1：返回所有风险等级的图片。默认为0 |
-| returnAllText | int | 返回文本的等级| N  | 选择返回文本的等级：0：返回风险等级为非pass的文本；1：返回所有风险等级的文本。默认为0 |
-| level | int | 用户等级，针对不同等级的用户可配置不同拦截策略 | N  | 可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等;<br/>`1`：较低级用户，典型如低活跃或低等级用户等；<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等；<br/>`3`：较高级用户，典型如高活跃或高等级用户等；<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
-| gender | string | 用户性别 | N  | 可选值：<br/>male男性 <br/>female女性 |
+| url | string | 要检测的文档链接 | Y | 可下载文档链接，内容大小`500M`以内，文本长度默认限制`50万`字，图片张数默认限制`500张`。 |
+| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，可选值：<br/>`DOCX`：Word文档（新版）<br/>`PDF`：PDF文档<br/>`DOC`：Word文档（旧版）<br/>`XLS`：Excel表格（旧版）<br/>`XLSX`：Excel表格（新版）<br/>`PPT`：PowerPoint演示文稿（旧版）<br/>`PPTX`：PowerPoint演示文稿（新版）<br/>`PPS`：PowerPoint幻灯片（旧版）<br/>`PPSX`：PowerPoint幻灯片（新版）<br/>`XLTX`：Excel模板（新版）<br/>`XLTM`：Excel宏模板<br/>`XLSB`：Excel二进制工作簿<br/>`XLSM`：Excel宏工作簿<br/>`TXT`：文本文件<br/>`CSV`：逗号分隔值文件<br/>`EPUB`：电子书格式<br/>`MD`：Markdown文档<br/>`SRT`：字幕文件<br/>`VTT`：WebVTT字幕文件<br/>注意：`fileFormat`的值必须与文档实际格式一致，否则将返回参数错误 |
+| lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
+| acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
+| returnAllImg | int | 返回图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
+| returnAllText | int | 返回文本的等级| N  | 可选值：<br/>`0`：返回风险等级为非pass的文本<br/>`1`：返回所有风险等级的文本<br/>默认值为`0` |
+| returnAllVideoImg | int | 返回视频里的图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
+| returnAllVideoAudio | int | 返回视频里的音频的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的音频<br/>`1`：返回所有风险等级的音频<br/>默认值为`0` |
+| returnAllVideo | int | 返回视频的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的视频<br/>`1`：返回所有风险等级的视频<br/>默认值为`0` |
+| returnAllAudio | int | 返回音频片段的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的音频<br/>`1`：返回所有风险等级的音频<br/>默认值为`0` |
+| tokenId | string | 用户账号标识 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串。建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
+| receiveTokenId | string | 私聊场景下消息接收者的用户唯一标识 | N | 由数字、字母、下划线、短杠组成的字符串，长度小于等于64位 |
+| level | int | 用户等级 | N | 针对不同等级的用户可配置不同拦截策略。可选值：<br/>`0`：最低级用户，典型如新注册、完全不活跃或等级为0的用户等<br/>`1`：较低级用户，典型如低活跃或低等级用户等<br/>`2`：中等级用户，典型如具备一定活跃或等级中等的用户等<br/>`3`：较高级用户，典型如高活跃或高等级用户等<br/>`4`：最高级用户，典型如付费用户、VIP用户等 |
+| gender | string | 用户性别 | N | 可选值：<br/>`male`：男性<br/>`female`：女性 |
+| nickname | string | 用户昵称 | N | 校验昵称内容风险 |
+| ip | string | IP地址 | N | 发送该文本的用户公网IPv4或IPv6地址 |
 | deviceId | string | 数美设备标识 | N | 数美设备指纹生成的设备唯一标识 |
-| dataId | string | 数据标识 | N | 数据标识 |
+| dataId | string | 数据标识 | N | 数据唯一标识，用于关联和追踪数据 |
 | extra | json_object | 辅助参数 | N | 用于辅助文本检测的相关信息，[详见extra参数](#extra) |
 
 <span id="extra">data 中 extra数组每个元素的内容如下：</span>
@@ -61,210 +92,1109 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | room | string | 直播间/游戏房间编号 | N | 传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
-| passThrough | Json | 透传字段 | N | 该字段内容会随着返回值一起返回 |
+| passThrough | json_object | 透传字段 | N | 客户传入的透传字段，数美内部不会对该字段进行识别处理，随结果返回给用户 |
 
-#### 回调返回参数：
+#### 同步返回结果
 
-#### <span id="Ab1">回调返回</span>
+**说明**：调用接口时会立即返回以下基础响应参数。若请求参数中传入了`callback`回调地址，完整的结果数据将通过回调接口异步返回。
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int| 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>无权限操作 |
-| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存|
-| riskLevel | string | 处置建议 | N | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
-| textDetail | json_array | 风险详情 | N | [详见textDetail参数](#textDetail) |
-| imgDetail | json_array | 风险详情 | N | [详见imgDetail参数](#imgDetail) |
-| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#auxInfo)  |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
 
-其中，<span id="textDetail">textDetail</span>的内容如下：
+#### 回调返回结果
 
-| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
-| --- | --- | --- | --- | --- |
-| riskLabel1| string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
-| riskLabel2| string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空|
-| riskLabel3| string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空|
-| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常"|
-| riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
-| allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
-| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
+**说明**：当请求参数中传入了`callback`回调地址时，完整的结果数据将通过回调接口异步返回。以下参数中，除code、message、requestId以外，其他必返参数仅在code返回1100时返回。
 
-其中，<span id="riskDetail">textDetail的riskDetail的内容如下：</span>
+放在HTTP Body中，采用Json格式，具体参数如下：
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| matchedLists | json_array | 辅助信息 | N| 命中的客户自定义名单列表。[详见matchedLists参数](#matchedLists) |
-| riskSegments | json_array | 辅助信息，高风险内容片段检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N| [详见riskSegments参数](#riskSegments) |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>字数超限<br/>余额不足<br/>无权限操作 |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| textDetails | json_array | 文本风险详情 | Y | 文档中文本的风险详情，[详见textDetails参数](#textDetails) |
+| imgDetails | json_array | 图片风险详情 | Y | 文档中图片的风险详情，[详见imgDetails参数](#imgDetails) |
+| audioDetails | json_array | 音频风险详情 | Y | 文档中音频的风险详情，[详见audioDetails参数](#audioDetails) |
+| videoDetails | json_array | 视频风险详情 | Y | 文档中视频的风险详情，[详见videoDetails参数](#videoDetails) |
+| auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#auxInfo)  |
+| resultType | int | 结果类型 | Y | 当前结果类型<br/>`0`：机审<br/>`1`：人审 |
+| finalResult | int | 是否为最终审核结果 | Y | 是否为最终审核结果（如仅接入机审，则默认返回1）。<br/>`0`：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。<br/>`1`：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
 
-其中，<span id="matchedLists">textDetail的riskDetail下matchedLists数组每个元素的内容如下：</span>
+其中，<span id="textDetails">textDetails</span>的内容如下：
 
-| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| name | string | 辅助信息 | N| 命中的名单名称|
-| words| json_array | 辅助信息 | N| 命中的敏感词数组。[详见words参数](#words) |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败 |
+| message | string | 返回码描述 | Y | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限 |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空 |
+| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常" |
+| riskDetail | json_object | 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail) |
+| tokenLabels | json_object | 账号风险画像标签信息 | Y | 账号风险画像标签信息，[详见tokenLabels参数](#tokenLabels) |
+| auxInfo | json_object | 辅助信息 | Y | 辅助信息，[详见auxInfo参数](#textDetailsAuxInfo) |
+| allLabels | json_array | 风险标签列表 | Y | 命中的所有风险标签以及详情信息，[详见allLabels参数](#allLabels) |
+| businessLabels | json_array | 业务标签 | Y | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#businessLabels) |
+| tokenProfileLabels | json_array | 账号属性标签 | N | 属性账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 账号风险标签 | N | 风险账号类标签，仅在提供tokenId并开通标签服务时返回，[详见账号标签参数](#tokenProfileLabels) |
+| langResult | json_object | 语种信息 | N | 语种识别和翻译结果，[详见langResult参数](#langResult) |
+
+其中，<span id="riskDetail">textDetails的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| matchedLists | json_array | 命中的客户自定义名单列表 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#matchedLists) |
+| riskSegments | json_array | 高风险内容片段 | N | 检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在，[详见riskSegments参数](#riskSegments) |
+
+其中，<span id="matchedLists">textDetails的riskDetail下matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的敏感词数组 | N | 命中的敏感词数组，[详见words参数](#words) |
 
 其中，<span id="words">matchedLists中，words数组每个元素的内容如下：</span>
 
-| **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| word | string| 辅助信息 | N| 命中的敏感词 |
-| position | int_array | 辅助信息 | N| 敏感词所在位置 |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
 
-其中，<span id="riskSegments">textDetail的riskDetail下riskSegments的内容如下：</span>
+其中，<span id="riskSegments">textDetails的riskDetail下riskSegments数组每个元素的内容如下：</span>
 
-| **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| segment| string| 辅助信息 | N| 高风险内容片段 |
-| position | int_array | 辅助信息 | N| 高风险内容片段所在位置 |
-
-其中，<span id="imgDetail">imgDetail</span>的内容如下：
-
-| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
-| --- | --- | --- | --- | --- |
-| riskLabel1| string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
-| riskLabel2| string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空|
-| riskLabel3| string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空|
-| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常"|
-| riskDetail | json_object| 风险详情 | Y | 风险详情，[详见riskDetail参数](#riskDetail)|
-| allLabels | json_array | 辅助信息 | Y | 命中的所有风险标签以及详情信息。[详见allLabels参数](#allLabels) |
-| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签。[详见账号标签参数](#tokenProfileLabels) |
-
-其中，<span id="riskDetail">imgDetail的riskDetail结构如下：</span>
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| faces | json_array | 返回图片中涉政人物的名称及位置信息 | N |  |
-| face_num | int | 人脸数量 | N |  |
-| persons | json_array | 仅当命中人像-多人时，数组元素会有多个，最多10个 | N | |
-| person_num | int | 人像数量 | N | 有且仅有人像-多人下返回 |
-| objects | json_array | 返回图片中物品或标志二维码的位置信息 | N | 数组仅会有一个元素 |
-| ocrText | json_object | 返回图片中违规文字相关信息，当请求参数type字段包含`IMGTEXTRISK`和ADVERT时存在 | N | |
-| riskSource | int | 标识资源哪里违规 | Y | 标识风险结果的来源<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
-
-其中,imgDetail的riskDetail下faces数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。<br/>如果同一个人在图片中出现n次，分配n个ID |
-| name | string | 人物名称 | N | 能识别的公众人物名称 |
-| location | int_array | 人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标 | N |  |
-| face_ratio | float | 人脸占比 | N | |
-| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
-
-其中，imgDetail的riskDetail下objects数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| id | string | 编号，保证同一个位置下的物品在不同标签下的编号相同 | N |  |
-| name | string | 标识名称 | N | |
-| location | int_array | 标识位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]<br/>207代表的是左上角的x坐标<br/>522代表左上角的y坐标<br/>340代表的是右下角的x坐标<br/>567代表的是右下角的y坐标  | N | |
-| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
-| qrContent | string | 二维码的url信息 | N | 仅当命中二维码相关标签时返回 |
-
-其中，imgDetail的riskDetail下persons数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| id | string | 编号，保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID | N |  |
-| person_ratio | string | 人像在图中的占比 | N | |
-| location | int_array | 人像位置坐标 | N | |
-| probability | float | 置信度，可选值在0～1之间，值越大，可信度越高 | N | 0～1之间的浮点数 |
-
-其中，imgDetail的riskDetail下ocrText的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| text | string | 识别出的文字 | Y | |
-| matchedLists | json\_array | 命中的客户自定义名单列表 | N | |
-| riskSegments | json\_array | 高风险片段内容，检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在 | N |  |
-
-其中，ocrText的matchedLists数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| name | string | 命中的名单名称 | N | |
-| words | json\_array | 命中的敏感词信息 | N | |
-
-其中，matchedLists的words数组每个元素的内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| word | string | 命中的敏感词 | N | |
-| position | int_array | 敏感词所在位置 | N | |
-
-其中，ocrText的riskSegments的每个元素的详细内容如下：
-
-| **返回结果参数名** | **参数类型** | **参数说明** | **是否必返** | **规范** |
-| --- | --- | --- | --- | --- |
-| segment | string | 高风险内容片段 | N | |
-| position | int_array | 高风险内容片段所在位置 | N | |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置 |
 
 其中，<span id="allLabels">allLabels的内容如下：</span>
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| riskLabel1 | string | allLabels不为空时必返 | Y | 一级风险标签 |
-| riskLabel2 | string | allLabels不为空时必返 | Y | 二级风险标签|
-| riskLabel3 | string | allLabels不为空时必返 | Y | 三级风险标签|
-| riskDescription| string | allLabels不为空时必返 | Y | 风险原因|
-| probability| float| 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 注意：allLabels不为空时必返 |
-| riskDetail | json_object| 风险详情 | Y | 格式与上层riskDetail结构相同 注意：allLabels不为空时必返 |
 | riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+| riskLabel1 | string | 一级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel2 | string | 二级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel3 | string | 三级风险标签 | Y | allLabels不为空时必返 |
+| riskDescription | string | 风险原因 | Y | allLabels不为空时必返 |
+| probability | float | 置信度 | Y | 可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与上层riskDetail结构相同。注意：allLabels不为空时必返，[详见riskDetail参数](#allLabelsRiskDetail) |
+
+其中，<span id="allLabelsRiskDetail">allLabels的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| matchedLists | json_array | 命中的客户自定义名单列表 | N | 命中的客户自定义名单列表，[详见matchedLists参数](#allLabelsMatchedLists) |
+| riskSegments | json_array | 高风险内容片段 | N | 高风险内容片段，检测文本包含涉政、暴恐、违禁、广告法等风险内容的时候存在，[详见riskSegments参数](#allLabelsRiskSegments) |
+
+其中，<span id="allLabelsMatchedLists">allLabels的riskDetail下matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范**|
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称|
+| words | json_array | 命中的敏感词数组 | N | 命中的敏感词数组，[详见words参数](#allLabelsWords) |
+
+其中，<span id="allLabelsWords">allLabels的riskDetail下matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型**| **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="allLabelsRiskSegments">allLabels的riskDetail下riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置 |
+
+其中，<span id="tokenLabels">tokenLabels的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| UGC_account_risk | json_object | UGC内容相关风险 | N | UGC内容相关风险，[详见UGC_account_risk参数](#tokenLabelsUGCAccountRisk) |
+
+其中，<span id="tokenLabelsUGCAccountRisk">tokenLabels的UGC_account_risk的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| sexy_risk_tokenid | float | 色情账号风险分 | N | 色情账号风险分，取值区间[0-1] |
+
+其中，<span id="textDetailsAuxInfo">textDetails的auxInfo的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| filteredText | string | 风险片段被替换为*后的文本 | N | 风险片段被替换为*后的文本 |
+| passThrough | json_object | 透传字段 | N | 该字段内容与请求参数data中extra的passThrough的值相同 |
+| contactResult | json_array | 联系方式识别结果 | N | 联系方式识别结果，包含识别出的微信、QQ、手机号的字符串类型和内容，[详见contactResult参数](#textDetailsContactResult) |
+| contextText | string | 上下文文本 | N | 上下文生效时返回 |
+| unauthorizedType | string | 未授权的type | N | 未授权的type |
+
+其中，<span id="textDetailsContactResult">textDetails的auxInfo的contactResult数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| contactType | int | 联系方式类型 | N | 联系方式类型，可选值：<br/>`0`：手机号<br/>`1`：QQ号<br/>`2`：微信号 |
+| contactString | string | 联系方式串 | N | 联系方式串 |
+
+其中，<span id="businessLabels">businessLabels的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| businessLabel1 | string | 一级业务标签 | Y | businessLabels不为空必返 |
+| businessLabel2 | string | 二级业务标签 | Y | businessLabels不为空必返 |
+| businessLabel3 | string | 三级业务标签 | Y | businessLabels不为空必返 |
+| businessDescription | string | 标签描述 | Y | businessLabels不为空必返 |
+| probability | float | 置信度 | Y | 可选值在0～1之间，值越大，可信度越高。businessLabels不为空必返 |
+| businessDetail | json_object | 业务详情 | Y | businessLabels不为空必返 |
+
+其中，<span id="langResult">langResult的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| detectedLang | string | 语种识别结果 | N | 当在国际化文本产品下传入lang的值为`auto`时返回该字段。值为标准语言代码表，例如：`zh`、`en`、`ar`等 |
+| translatedText | string | 文本翻译结果 | N | 当传入`translationTargetLang`时返回该字段。值为翻译后的文本 |
 
 其中，<span id="tokenProfileLabels">tokenProfileLabels、tokenRiskLabels的内容如下：</span>
 
 | 参数名称    | 类型   | 参数说明     | 是否必返 | 规范                       |
 | ----------- | ------ | ------------ | -------- | -------------------------- |
-| label1      | string | 一级标签     | N      |                            |
-| label2      | string | 二级标签     | N       |                            |
-| label3      | string | 三级标签     | N       |                            |
-| description | string | 标签描述     | N       |                            |
-| timestamp   | Int    | 打标签时间戳 | N       | 13位Unix时间戳，单位：毫秒 |
+| label1      | string | 一级标签     | N        |                            |
+| label2      | string | 二级标签     | N        |                            |
+| label3      | string | 三级标签     | N        |                            |
+| description | string | 标签描述     | N        |                            |
+| timestamp   | int    | 打标签时间戳 | N        | 13位Unix时间戳，单位：毫秒 |
+
+其中，<span id="imgDetails">imgDetails</span>的内容如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| message | string | 返回码描述 | Y | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1911`：图片下载失败 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空 |
+| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常" |
+| resultType | int | 当前结果是机审还是人审环节结果 | Y | 可选值：<br/>`0`：机审<br/>`1`：人审 |
+| finalResult | int | 是否最终结果 | Y | 可选值：<br/>`0`：不是最终结果，该结果为数美风控的过程结果，还需要经过数美人审再次check后回传<br/>`1`：最终结果，可直接拿返回结果进行处置、分发等下游场景的使用 |
+| auxInfo | json_object | 辅助信息 | Y | 辅助信息，[详见auxInfo参数](#imgDetailsAuxInfo) |
+| allLabels | json_array | 风险标签列表 | Y | 命中的所有风险标签以及详情信息，[详见allLabels参数](#imgDetailsAllLabels) |
+| businessLabels | json_array | 业务标签 | N | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#imgDetailsBusinessLabels) |
+| riskDetail | json_object | 风险详情 | Y | 风险详情，[详见riskDetail参数](#imgDetailsRiskDetail) |
+| disposal | json_object | 处置和映射结果 | N | 数美可按照贵司的标签体系和标识进行返回；未配置自定义标签体系则不返回该字段，[详见disposal参数](#imgDetailsDisposal) |
+| tokenLabels | json_object | 账号风险画像标签信息 | Y | 账号风险画像标签信息，仅在提供tokenId并联系数美开通时返回，[详见tokenLabels参数](#imgDetailsTokenLabels) |
+| tokenProfileLabels | json_array | 辅助信息 | N | 属性账号类标签，仅在提供tokenId并开通标签服务时返回。[详见账号标签参数](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 辅助信息 | N | 风险账号类标签，仅在提供tokenId并开通标签服务时返回。[详见账号标签参数](#tokenProfileLabels) |
+
+其中，<span id="imgDetailsRiskDetail">imgDetails的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#imgDetailsRiskDetailFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#imgDetailsRiskDetailObjects) |
+| ocrText | json_object | 返回图片中文字识别内容 | N | 当请求参数imgType字段包含`IMGTEXTRISK`或`ADVERT`时存在，[详见ocrText参数](#imgDetailsRiskDetailOcrText) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 仅当命中人像-多人时，数组元素会有多个，最多10个，[详见persons参数](#imgDetailsRiskDetailPersons) |
+
+其中，<span id="imgDetailsRiskDetailFaces">imgDetails的riskDetail下faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 能识别的公众人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsRiskDetailObjects">imgDetails的riskDetail下objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 二维码地址 | N | 仅当命中二维码相关标签时返回 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsRiskDetailPersons">imgDetails的riskDetail下persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 人物编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="imgDetailsRiskDetailOcrText">imgDetails的riskDetail下ocrText的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 图片中识别出的文字 | Y | 图片中识别出的文字 |
+| matchedLists | json_array | 命中的客户自定义名单列表 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#imgDetailsRiskDetailMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、广告法等风险内容的时候存在，[详见riskSegments参数](#imgDetailsRiskDetailRiskSegments) |
+
+其中，<span id="imgDetailsRiskDetailMatchedLists">imgDetails的riskDetail下ocrText的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的敏感词信息 | N | 命中的这个名单中的敏感词信息，[详见words参数](#imgDetailsRiskDetailWords) |
+
+其中，<span id="imgDetailsRiskDetailWords">imgDetails的riskDetail下ocrText的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="imgDetailsRiskDetailRiskSegments">imgDetails的riskDetail下ocrText的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="imgDetailsAuxInfo">imgDetails的auxInfo的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segments | int | 实际处理的片段数 | Y | 实际处理的片段数 |
+| typeVersion | json_object | 模型版本号 | Y | 对应传入type值的模型版本号，[详见typeVersion参数](#imgDetailsTypeVersion) |
+| errorCode | int | 错误码 | N | 可选值：<br/>`2001`：输入数据格式不正确，不是有效的JSON数据<br/>`2002`：输入参数字段非法（缺少必填字段、类型错误、取值非法等）<br/>`2003`：图片下载失败<br/>`2004`：图片过大，超过10M<br/>`2005`：非法图片格式<br/>`2006`：非法风险监控类型 |
+| frameTime | int | 截帧时间戳 | N | 当请求参数传入`streamInfo`功能时返回相似功能。13位毫秒级时间戳 |
+| qrContent | string | 二维码地址 | N | 返回图片中识别的二维码地址 |
+| streamId | string | 流标识 | N | 请求参数中包含streamInfo等参数，传入后会返回相似功能 |
+| passThrough | json_object | 透传字段 | N | 客户传入的透传字段。数美内部不会识别处理该字段，随结果返回给用户 |
+
+其中，<span id="imgDetailsTypeVersion">imgDetails的auxInfo的typeVersion的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| ADVERT | string | 广告版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+| EROTIC | string | 色情版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+| IMGTEXTRISK | string | 图片文字违规版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+| POLITY | string | 涉政版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+| QRCODE | string | 二维码版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+| VIOLENT | string | 暴恐版本号 | N | 格式为`X.Y`，其中`X`表示主版本号，通常表示模型整体效果迭代；`Y`表示次版本号，通常表示日常例行迭代。例如`1001001.2`表示主版本号为`1001001`，次版本号为`2` |
+
+其中，<span id="imgDetailsAllLabels">imgDetails的allLabels的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+| riskLabel1 | string | 一级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel2 | string | 二级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel3 | string | 三级风险标签 | Y | allLabels不为空时必返 |
+| riskDescription | string | 风险原因 | Y | allLabels不为空时必返。当riskLevel为PASS时返回正常；其他情况展现形式为："一级标签:二级标签:三级标签"的中文名。仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与imgDetails的riskDetail结构相同。注意：allLabels不为空时必返，[详见riskDetail参数](#imgDetailsAllLabelsRiskDetail) |
+
+其中，<span id="imgDetailsAllLabelsRiskDetail">imgDetails的allLabels的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#imgDetailsAllLabelsFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#imgDetailsAllLabelsObjects) |
+| ocrText | json_object | 返回图片中文字识别内容 | N | 当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在，[详见ocrText参数](#imgDetailsAllLabelsOcrText) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#imgDetailsAllLabelsPersons) |
+
+其中，<span id="imgDetailsAllLabelsFaces">imgDetails的allLabels的riskDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsAllLabelsObjects">imgDetails的allLabels的riskDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 返回图片中识别的二维码地址 | N | 返回图片中识别的二维码地址 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsAllLabelsOcrText">imgDetails的allLabels的riskDetail的ocrText的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 图片中识别出的文字 | Y | 图片中识别出的文字 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#imgDetailsAllLabelsMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#imgDetailsAllLabelsRiskSegments) |
+
+其中，<span id="imgDetailsAllLabelsMatchedLists">imgDetails的allLabels的riskDetail的ocrText的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#imgDetailsAllLabelsWords) |
+
+其中，<span id="imgDetailsAllLabelsWords">imgDetails的allLabels的riskDetail的ocrText的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="imgDetailsAllLabelsRiskSegments">imgDetails的allLabels的riskDetail的ocrText的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="imgDetailsAllLabelsPersons">imgDetails的allLabels的riskDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="imgDetailsBusinessLabels">imgDetails的businessLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| businessDescription | string | 业务标签描述 | Y | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| businessLabel1 | string | 一级业务标签 | Y | 一级业务标签 |
+| businessLabel2 | string | 二级业务标签 | Y | 二级业务标签 |
+| businessLabel3 | string | 三级业务标签 | Y | 三级业务标签 |
+| probability | float | 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 |
+| confidenceLevel | int | 置信等级 | N | 可选值在0～2之间，值越大，可信度越高 |
+| businessDetail | json_object | 业务标签详情 | N | [详见businessDetail参数](#imgDetailsBusinessDetail) |
+
+其中，<span id="imgDetailsBusinessDetail">imgDetails的businessLabels的businessDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_compare_num | int | 人脸对比数量 | N | 当传入FACECOMPARE业务类型和imgCompareBase时存在。imgCompareBase检测传入图片中的人脸数量 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| name | string | 人物名称 | N | 人物名称 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#imgDetailsBusinessDetailFaces) |
+| location | int_array | 位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#imgDetailsBusinessDetailObjects) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#imgDetailsBusinessDetailPersons) |
+
+其中，<span id="imgDetailsBusinessDetailFaces">imgDetails的businessLabels的businessDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsBusinessDetailObjects">imgDetails的businessLabels的businessDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 返回图片中识别的二维码地址 | N | 返回图片中识别的二维码地址 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsBusinessDetailPersons">imgDetails的businessLabels的businessDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="imgDetailsDisposal">imgDetails的disposal的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskDescription | string | 映射后风险原因 | Y | 当riskLevel为PASS时为正常 |
+| riskLabel1 | string | 映射后一级风险标签 | Y | 一级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel1值为normal |
+| riskLabel2 | string | 映射后二级风险标签 | Y | 二级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel2值为空 |
+| riskLabel3 | string | 映射后三级风险标签 | Y | 三级风险标签，当数美标签未映射上自定义标签，且disposal下的riskLevel为PASS时，riskLabel3值为空 |
+| riskLevel | string | 处置建议 | Y | 若贵司有自己的处置规则，数美可按照贵司的处置逻辑配置并返回对应的处置建议；若规则标签未映射上，则返回默认处置建议 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与imgDetails的riskDetail结构相同，[详见riskDetail参数](#imgDetailsDisposalRiskDetail) |
+
+其中，<span id="imgDetailsDisposalRiskDetail">imgDetails的disposal的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#imgDetailsDisposalFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#imgDetailsDisposalObjects) |
+| ocrText | json_object | 返回图片中文字识别内容 | N | 当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在，[详见ocrText参数](#imgDetailsDisposalOcrText) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#imgDetailsDisposalPersons) |
+
+其中，<span id="imgDetailsDisposalFaces">imgDetails的disposal的riskDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsDisposalObjects">imgDetails的disposal的riskDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 返回图片中识别的二维码地址 | N | 返回图片中识别的二维码地址 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="imgDetailsDisposalOcrText">imgDetails的disposal的riskDetail的ocrText的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 图片中识别出的文字 | Y | 图片中识别出的文字 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#imgDetailsDisposalMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#imgDetailsDisposalRiskSegments) |
+
+其中，<span id="imgDetailsDisposalMatchedLists">imgDetails的disposal的riskDetail的ocrText的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#imgDetailsDisposalWords) |
+
+其中，<span id="imgDetailsDisposalWords">imgDetails的disposal的riskDetail的ocrText的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="imgDetailsDisposalRiskSegments">imgDetails的disposal的riskDetail的ocrText的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="imgDetailsDisposalPersons">imgDetails的disposal的riskDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="imgDetailsTokenLabels">imgDetails的tokenLabels的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| UGC_account_risk | json_object | UGC内容相关风险 | N | UGC内容相关风险，[详见UGC_account_risk参数](#imgDetailsUGCAccountRisk) |
+| machine_account_risk | json_object | 机器控制相关风险 | N | 机器控制相关风险，[详见machine_account_risk参数](#imgDetailsMachineAccountRisk) |
+| scene_account_risk | json_object | 场景账号风险 | N | 场景账号风险，仅在特殊场景下可获得，如航空公司等，[详见scene_account_risk参数](#imgDetailsSceneAccountRisk) |
+
+其中，<span id="imgDetailsUGCAccountRisk">imgDetails的tokenLabels的UGC_account_risk的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| b_advertise_risk_tokenid | int | 广告风险 | N | 可选值：<br/>`0`：当前未检测到广告风险<br/>`1`：存在广告风险 |
+| b_advertise_risk_tokenid_last_ts | int | 广告风险时间 | N | 广告风险时间戳 |
+| b_politics_risk_tokenid | int | 涉政风险 | N | 可选值：<br/>`0`：当前未识别到涉政风险<br/>`1`：存在涉政风险 |
+| b_politics_risk_tokenid_last_ts | int | 涉政风险时间 | N | 涉政风险时间戳 |
+| b_sexy_risk_tokenid | int | 色情风险 | N | 可选值：<br/>`0`：当前暂时未检测到色情风险<br/>`1`：存在色情风险 |
+| b_sexy_risk_tokenid_last_ts | int | 色情风险时间 | N | 色情风险时间戳 |
+
+其中，<span id="imgDetailsMachineAccountRisk">imgDetails的tokenLabels的machine_account_risk的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| b_machine_control_tokenid | int | 机器账号 | N | 可选值：<br/>`0`：非机器控制账号<br/>`1`：机器控制账号 |
+| b_machine_control_tokenid_last_ts | int | 机器账号时间 | N | 机器账号时间戳 |
+| b_offer_wall_tokenid | int | 积分墙账号 | N | 可选值：<br/>`0`：非积分墙账号<br/>`1`：积分墙账号 |
+| b_offer_wall_tokenid_last_ts | int | 积分墙账号时间 | N | 积分墙账号时间戳 |
+
+其中，<span id="imgDetailsSceneAccountRisk">imgDetails的tokenLabels的scene_account_risk的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| i_tout_risk_tokenid | int | 航空公司占座账号 | N | 可选值：<br/>`0`：非航空公司占座账号<br/>`1`：航空公司占座账号 |
+| i_tout_risk_tokenid_last_ts | int | 航空公司占座时间 | N | 航空公司占座时间戳 |
+
+其中，<span id="audioDetails">audioDetails</span>的内容如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 请求标识 | Y | 本次请求的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1101`：正在处理中<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：下载失败<br/>`1905`：解码失败<br/>`9100`：余额不足<br/>除message和requestId之外的字段，只有当code为1100时才会存在 |
+| message | string | 返回码描述 | Y | 和code对应：成功、正在处理中、QPS超限、参数不合法、服务失败、下载失败、解码失败、余额不足 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截<br/>建议：对接初期不直接使用结果，进行拦截尺度调优，符合预期后再进行使用 |
+| audioText | string | 整段音频转译文本结果 | Y | 整段音频转译文本结果 |
+| audioTime | int | 整段音频的音频时长 | Y | 单位秒 |
+| audioDetail | json_array | 音频片段信息 | Y | 回调的音频片段信息，[详见audioDetail参数](#audioDetail) |
+
+其中，<span id="audioDetail">audioDetail</span>具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 请求标识 | Y | 音频片段请求唯一标识 |
+| audioStarttime | float | 音频片段起始时间 | Y | 相对音频开始的时间距离，单位是秒 |
+| audioEndtime | float | 音频片段结束时间 | Y | 相对音频开始的时间距离，单位是秒 |
+| audioUrl | string | 音频片段链接 | Y | mp3格式 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| businessLabels | json_array | 业务标签 | N | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#audioDetailBusinessLabels) |
+| allLabels | json_array | 风险标签列表 | N | 命中的所有风险标签以及详情信息，[详见allLabels参数](#audioDetailAllLabels) |
+| riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空 |
+| riskDescription | string | 风险原因 | Y | 当riskLevel为`PASS`时为"正常" |
+| riskDetail | json_object | 风险详情 | N | 风险详情，[详见riskDetail参数](#audioDetailRiskDetail) |
+
+其中，<span id="audioDetailBusinessLabels">audioDetail的businessLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| businessLabel1 | string | 一级业务标签 | Y | 一级业务标签 |
+| businessLabel2 | string | 二级业务标签 | Y | 二级业务标签 |
+| businessLabel3 | string | 三级业务标签 | Y | 三级业务标签 |
+| businessDescription | string | 业务标签描述 | Y | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| confidenceLevel | int | 置信等级 | N | 可选值在0～2之间，值越大，可信度越高 |
+| probability | float | 置信度 | Y | 可选值为0~1，值越大，可信度越高 |
+| businessDetail | json_object | 业务标签详情 | N | 保留字段 |
+
+其中，<span id="audioDetailAllLabels">audioDetail的allLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+| riskLabel1 | string | 一级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel2 | string | 二级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel3 | string | 三级风险标签 | Y | allLabels不为空时必返 |
+| riskDescription | string | 风险原因 | Y | allLabels不为空时必返。当riskLevel为PASS时返回正常；其他情况展现形式为："一级标签:二级标签:三级标签"的中文名。仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，风险可能性越高，值越小，无风险可能性越高。注意：allLabels不为空时必返 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与audioDetail的riskDetail结构相同。注意：allLabels不为空时必返，[详见riskDetail参数](#audioDetailAllLabelsRiskDetail) |
+
+其中，<span id="audioDetailAllLabelsRiskDetail">audioDetail的allLabels的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| audioText | string | 音频转译文本的结果 | N | 音频转译文本的结果 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#audioDetailAllLabelsMatchedLists) |
+| riskSegments | json_array | 高风险内容片段 | N | [详见riskSegments参数](#audioDetailAllLabelsRiskSegments) |
+
+其中，<span id="audioDetailAllLabelsMatchedLists">audioDetail的allLabels的riskDetail的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 客户自定义名单名称 | Y | 客户自定义名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | Y | [详见words参数](#audioDetailAllLabelsWords) |
+
+其中，<span id="audioDetailAllLabelsWords">audioDetail的allLabels的riskDetail的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 敏感词 | Y | 敏感词 |
+| position | int_array | 敏感词所在位置 | Y | 敏感词所在位置 |
+
+其中，<span id="audioDetailAllLabelsRiskSegments">audioDetail的allLabels的riskDetail的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置 |
+
+其中，<span id="audioDetailRiskDetail">audioDetail的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| audioText | string | 音频转译文本的结果 | N | 音频转译文本的结果 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#audioDetailMatchedLists) |
+| riskSegments | json_array | 高风险内容片段 | N | [详见riskSegments参数](#audioDetailRiskSegments) |
+
+其中，<span id="audioDetailMatchedLists">audioDetail的riskDetail的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 客户自定义名单名称 | Y | 客户自定义名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | Y | [详见words参数](#audioDetailWords) |
+
+其中，<span id="audioDetailWords">audioDetail的riskDetail的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 敏感词 | Y | 敏感词 |
+| position | int_array | 敏感词所在位置 | Y | 敏感词所在位置 |
+
+其中，<span id="audioDetailRiskSegments">audioDetail的riskDetail的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置 |
+
+其中，<span id="videoDetails">videoDetails</span>具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限 |
+| message | string | 返回码描述 | Y | 和code对应：成功、QPS超限、参数不合法、服务失败、字数超限 |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| frameDetail | json_array | 风险详情 | N | 有风险片段或returnAllVideoImg=1时返回，[详见frameDetail说明](#frameDetail) |
+| audioDetail | json_array | 音频片段信息 | N | 有风险片段或returnAllVideoAudio=1时返回，[详见audioDetail说明](#videoAudioDetail) |
+| auxInfo | json_object | 辅助信息 | N | code为1100时存在，[详见auxInfo说明](#videoAuxInfo) |
+| tokenProfileLabels | json_array | 账号属性标签 | N | 仅在开启功能时返回，[详见tokenProfileLabels说明](#tokenProfileLabels) |
+| tokenRiskLabels | json_array | 账号风险标签 | N | 仅在开启功能时返回，[详见tokenProfileLabels说明](#tokenProfileLabels) |
+
+其中，<span id="frameDetail">frameDetail</span>具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| imgUrl | string | 截帧图片地址 | Y | 截帧图片地址 |
+| riskDescription | string | 风险描述 | Y | 当riskLevel为`PASS`时返回：正常。格式为："一级风险标签：二级风险标签：三级风险标签"，的中文名称。对于命中用户自定义名单时返回：命中自定义名单。 |
+| riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| allLabels | json_array | 风险标签列表 | Y | 命中的所有风险标签以及详情信息，[详见allLabels参数](#frameAllLabels) |
+| auxInfo | json_object | 辅助信息 | Y | 辅助信息，[详见auxInfo参数](#frameAuxInfo) |
+| riskDetail | json_object | 风险详情 | Y | 风险详情，[详见riskDetail参数](#frameRiskDetail) |
+| imgText | string | 截帧图片OCR文本内容 | N | 截帧图片OCR文字识别，仅传入ADVERT、IMGTEXTRISK时返回 |
+| time | float | 截帧在视频文件中的时间 | N | 截帧图片相对视频文件的时间，单位为秒 |
+| businessLabels | json_array | 业务标签 | N | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#frameBusinessLabels) |
+
+其中，<span id="frameAllLabels">frameDetail的allLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+| riskLabel1 | string | 一级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel2 | string | 二级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel3 | string | 三级风险标签 | Y | allLabels不为空时必返 |
+| riskDescription | string | 风险原因 | Y | allLabels不为空时必返。当riskLevel为PASS时返回正常；其他情况展现形式为："一级标签:二级标签:三级标签"的中文名。仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与frameDetail的riskDetail结构相同。注意：allLabels不为空时必返，[详见riskDetail参数](#frameAllLabelsRiskDetail) |
+
+其中，<span id="frameAllLabelsRiskDetail">frameDetail的allLabels的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#frameAllLabelsFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#frameAllLabelsObjects) |
+| ocrText | json_object | 返回图片中文字识别内容 | N | 当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在，[详见ocrText参数](#frameAllLabelsOcrText) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#frameAllLabelsPersons) |
+
+其中，<span id="frameAllLabelsFaces">frameDetail的allLabels的riskDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 能识别的公众人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameAllLabelsObjects">frameDetail的allLabels的riskDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 二维码地址 | N | 仅当命中二维码相关标签时返回 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameAllLabelsOcrText">frameDetail的allLabels的riskDetail的ocrText的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 图片中识别出的文字 | Y | 图片中识别出的文字 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#frameAllLabelsMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#frameAllLabelsRiskSegments) |
+
+其中，<span id="frameAllLabelsMatchedLists">frameDetail的allLabels的riskDetail的ocrText的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#frameAllLabelsWords) |
+
+其中，<span id="frameAllLabelsWords">frameDetail的allLabels的riskDetail的ocrText的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="frameAllLabelsRiskSegments">frameDetail的allLabels的riskDetail的ocrText的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="frameAllLabelsPersons">frameDetail的allLabels的riskDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 人物编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="frameAuxInfo">frameDetail的auxInfo的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| similarity | float | 相似度 | Y | 返回当前截帧图片和上一帧截帧图片的相似度。视频文件初始第一帧将比对纯黑背景图片。与上一张截帧图片的相似概率值，取值范围[0-1]，数值越接近1越相似 |
+| qrContent | string | 二维码地址 | N | 返回图片中识别的二维码地址 |
+
+其中，<span id="frameRiskDetail">frameDetail的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1002`：视觉图片风险 |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#frameRiskDetailFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#frameRiskDetailObjects) |
+| ocrText | json_object | 返回图片中文字识别内容 | N | 当请求参数imgType字段包含IMGTEXTRISK或ADVERT时存在，[详见ocrText参数](#frameRiskDetailOcrText) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#frameRiskDetailPersons) |
+
+其中，<span id="frameRiskDetailFaces">frameDetail的riskDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 能识别的公众人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameRiskDetailObjects">frameDetail的riskDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 二维码地址 | N | 仅当命中二维码相关标签时返回 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameRiskDetailOcrText">frameDetail的riskDetail的ocrText的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| text | string | 图片中识别出的文字 | Y | 图片中识别出的文字 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#frameRiskDetailMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#frameRiskDetailRiskSegments) |
+
+其中，<span id="frameRiskDetailMatchedLists">frameDetail的riskDetail的ocrText的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 命中的名单名称 | N | 命中的名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#frameRiskDetailWords) |
+
+其中，<span id="frameRiskDetailWords">frameDetail的riskDetail的ocrText的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置 |
+
+其中，<span id="frameRiskDetailRiskSegments">frameDetail的riskDetail的ocrText的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="frameRiskDetailPersons">frameDetail的riskDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 人物编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="frameBusinessLabels">frameDetail的businessLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| businessDescription | string | 业务标签描述 | Y | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| businessLabel1 | string | 一级业务标签 | Y | 一级业务标签 |
+| businessLabel2 | string | 二级业务标签 | Y | 二级业务标签 |
+| businessLabel3 | string | 三级业务标签 | Y | 三级业务标签 |
+| probability | float | 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 |
+| confidenceLevel | int | 置信等级 | N | 可选值在0～2之间，值越大，可信度越高 |
+| businessDetail | json_object | 业务标签详情 | N | [详见businessDetail参数](#frameBusinessDetail) |
+
+其中，<span id="frameBusinessDetail">frameDetail的businessLabels的businessDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_num | int | 人脸数量 | N | 人脸数量 |
+| person_num | int | 人像数量 | N | 人像数量 |
+| faces | json_array | 图片中涉政人物的名称及位置信息 | N | 当命中人脸-人脸类型-多人脸时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见faces参数](#frameBusinessDetailFaces) |
+| objects | json_array | 物品信息 | N | 返回图片中标识或物品的名称及位置信息，[详见objects参数](#frameBusinessDetailObjects) |
+| persons | json_array | 图片中人物的名称及位置信息 | N | 当命中'人像-多人'标签时，数组元素会有多个，最多10（如果超过10个，选择probability最高的10个），[详见persons参数](#frameBusinessDetailPersons) |
+
+其中，<span id="frameBusinessDetailFaces">frameDetail的businessLabels的businessDetail的faces数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| face_ratio | float | 人脸占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| id | string | 人物编号 | N | 图片同一个位置下的人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| name | string | 人物名称 | N | 能识别的公众人物名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人物位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameBusinessDetailObjects">frameDetail的businessLabels的businessDetail的objects数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 物品或标识编号 | N | 保证同一个位置下的物品在不同标签下的编号相同 |
+| name | string | 物品名称 | N | 物品名称 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| qrContent | string | 二维码地址 | N | 仅当命中二维码相关标签时返回 |
+| location | int_array | 物品位置信息 | N | 该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567] 207代表的是左上角的x坐标 522代表左上角的y坐标 340代表的是右下角的x坐标 567代表的是右下角的y坐标 |
+
+其中，<span id="frameBusinessDetailPersons">frameDetail的businessLabels的businessDetail的persons数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| id | string | 人物编号 | N | 保证同一个人在不同标签下的编号相同。如果同一个人在图片中出现n次，分配n个ID |
+| person_ratio | float | 人像占比 | N | 在区间0-1，数值越大，人脸占比越高 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高 |
+| location | int_array | 人像位置坐标 | N | 人像位置坐标 |
+
+其中，<span id="videoAudioDetail">videoDetails的audioDetail</span>具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
+| audioUrl | string | 音频片段地址 | Y | 音频片段地址 |
+| riskDescription | string | 风险描述 | Y | 当riskLevel为`PASS`时返回：正常。格式为："一级风险标签：二级风险标签：三级风险标签"，的中文名称。对于命中用户自定义名单时返回：命中自定义名单。 |
+| riskLabel1 | string | 一级风险标签 | Y | 一级风险标签，当riskLevel为`PASS`时返回`normal` |
+| riskLabel2 | string | 二级风险标签 | Y | 二级风险标签，当riskLevel为`PASS`时为空 |
+| riskLabel3 | string | 三级风险标签 | Y | 三级风险标签，当riskLevel为`PASS`时为空 |
+| riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
+| allLabels | json_array | 风险标签列表 | Y | 命中的所有风险标签以及详情信息，[详见allLabels参数](#videoAudioAllLabels) |
+| audioEndtime | float | 音频片段结束时间 | N | 相对音频开始时间的距离，单位是秒 |
+| audioStarttime | float | 音频片段开始时间 | N | 相对音频开始时间的距离，单位是秒 |
+| audioText | string | 该片段识别的文字内容 | N | 该片段识别的文字内容 |
+| businessLabels | json_array | 业务标签 | N | 命中的所有业务标签以及详细信息，[详见businessLabels参数](#videoAudioBusinessLabels) |
+| riskDetail | json_object | 风险详情 | N | 风险详情，[详见riskDetail参数](#videoAudioRiskDetail) |
+
+其中，<span id="videoAudioAllLabels">videoDetails的audioDetail的allLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskLevel | string | 风险等级 | Y | 可能返回值：<br/>`REVIEW`：可疑<br/>`REJECT`：违规 |
+| riskLabel1 | string | 一级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel2 | string | 二级风险标签 | Y | allLabels不为空时必返 |
+| riskLabel3 | string | 三级风险标签 | Y | allLabels不为空时必返 |
+| riskDescription | string | 风险原因 | Y | allLabels不为空时必返。当riskLevel为PASS时返回正常；其他情况展现形式为："一级标签:二级标签:三级标签"的中文名。仅供人了解风险原因时作为参考，程序请勿依赖该参数的值做逻辑处理 |
+| probability | float | 置信度 | N | 可选值在0～1之间，值越大，可信度越高。注意：allLabels不为空时必返 |
+| riskDetail | json_object | 映射后风险详情 | Y | 格式与videoDetails的audioDetail的riskDetail结构相同。注意：allLabels不为空时必返，[详见riskDetail参数](#videoAudioAllLabelsRiskDetail) |
+
+其中，<span id="videoAudioAllLabelsRiskDetail">videoDetails的audioDetail的allLabels的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| audioText | string | 该片段识别的文字内容 | N | 该片段识别的文字内容 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#videoAudioAllLabelsMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#videoAudioAllLabelsRiskSegments) |
+
+其中，<span id="videoAudioAllLabelsMatchedLists">videoDetails的audioDetail的allLabels的riskDetail的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 名单名称 | N | 名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#videoAudioAllLabelsWords) |
+
+其中，<span id="videoAudioAllLabelsWords">videoDetails的audioDetail的allLabels的riskDetail的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置，下标从0开始计数 |
+
+其中，<span id="videoAudioAllLabelsRiskSegments">videoDetails的audioDetail的allLabels的riskDetail的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="videoAudioBusinessLabels">videoDetails的audioDetail的businessLabels数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| businessDescription | string | 业务标签描述 | Y | 格式为"一级标签:二级标签:三级标签"的中文名称 |
+| businessLabel1 | string | 一级业务标签 | Y | 一级业务标签 |
+| businessLabel2 | string | 二级业务标签 | Y | 二级业务标签 |
+| businessLabel3 | string | 三级业务标签 | Y | 三级业务标签 |
+| probability | float | 置信度 | Y | 可选值在0～1之间，值越大，可信度越高 |
+| confidenceLevel | int | 置信等级 | N | 可选值在0～2之间，值越大，可信度越高 |
+| businessDetail | json_object | 业务标签详情 | N | [详见businessDetail参数](#videoAudioBusinessDetail) |
+
+其中，<span id="videoAudioBusinessDetail">videoDetails的audioDetail的businessLabels的businessDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| audioText | string | 该片段识别的文字内容 | N | 该片段识别的文字内容 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#videoAudioBusinessMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测音频包含未成年，唱歌等风险内容的时候存在，[详见riskSegments参数](#videoAudioBusinessRiskSegments) |
+
+其中，<span id="videoAudioBusinessMatchedLists">videoDetails的audioDetail的businessLabels的businessDetail的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 名单名称 | N | 名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#videoAudioBusinessWords) |
+
+其中，<span id="videoAudioBusinessWords">videoDetails的audioDetail的businessLabels的businessDetail的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置，下标从0开始计数 |
+
+其中，<span id="videoAudioBusinessRiskSegments">videoDetails的audioDetail的businessLabels的businessDetail的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="videoAudioRiskDetail">videoDetails的audioDetail的riskDetail的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| riskSource | int | 风险来源 | Y | 可能取值：<br/>`1000`：无风险<br/>`1001`：文字风险<br/>`1003`：音频语音风险 |
+| audioText | string | 该片段识别的文字内容 | N | 该片段识别的文字内容 |
+| matchedLists | json_array | 命中的客户自定义名单信息 | N | 仅在命中客户自定义名单时返回，[详见matchedLists参数](#videoAudioRiskDetailMatchedLists) |
+| riskSegments | json_array | 高风险片段内容 | N | 检测图片包含涉政、暴恐、违禁、竞品、广告法等风险内容的时候存在，[详见riskSegments参数](#videoAudioRiskDetailRiskSegments) |
+
+其中，<span id="videoAudioRiskDetailMatchedLists">videoDetails的audioDetail的riskDetail的matchedLists数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 名单名称 | N | 名单名称 |
+| words | json_array | 命中的这个名单中的敏感词信息 | N | [详见words参数](#videoAudioRiskDetailWords) |
+
+其中，<span id="videoAudioRiskDetailWords">videoDetails的audioDetail的riskDetail的matchedLists的words数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| word | string | 命中的敏感词 | N | 命中的敏感词 |
+| position | int_array | 敏感词所在位置 | N | 敏感词所在位置，下标从0开始计数 |
+
+其中，<span id="videoAudioRiskDetailRiskSegments">videoDetails的audioDetail的riskDetail的riskSegments数组每个元素的内容如下：</span>
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| segment | string | 高风险内容片段 | N | 高风险内容片段 |
+| position | int_array | 高风险内容片段所在位置 | N | 高风险内容片段所在位置，下标从0开始计数 |
+
+其中，<span id="videoAuxInfo">videoDetails的auxInfo</span>具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| audioDuration | float | 当前请求中的视频里的音频时长 | Y | 单位是秒，与计费数目一致。审核视频时，如果视频文件中音轨数据和视频时长不一致，计费时长以实际的音轨时长为准；例如可能会存在没有音轨的情况，计费时长就为0 |
+| frameCount | int | 返回的视频截帧数量 | Y | returnAllImg=0时为风险数量，returnAllImg=1时为全部数量 |
+| videoDuration | float | 视频时长 | Y | 单位是秒 |
 
 其中，<span id="auxInfo">auxInfo</span>的内容如下：
 
-| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
-| imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
-
-#### 回调模式的同步返回
-
-#### 请求返回参数：
-
-| **参数名称** | **类型**    | **参数说明** | **是否必返** | **规范**                                                     |
-| ------------ | ----------- | ------------ | ------------ | ------------------------------------------------------------ |
-| code         | int         | 返回码       | Y            | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message      | string      | 返回码描述   | Y            | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>余额不足<br/>无权限操作 |
-| requestId    | string      | 请求标识     | Y            | 本次请求数据的唯一标识,用于问题排查和效果优化，强烈建议保存  |
-
+| textNum | int | 当前请求中的字符数 | Y | 当前请求中的字符数，与计费数目一致。字符数包括汉字、英文、标点符号、空格等 |
+| imgNum | int | 当前请求中的图片数 | Y | 当前请求中的图片数，与计费数目一致。如遇动图会截取3帧；如遇长图会进行切分 |
+| audioNum | int | 当前请求中的音频数 | Y | 当前请求中的音频数，与计费数目一致 |
+| videoNum | int | 当前请求中的视频数 | Y | 当前请求中的视频数，与计费数目一致 |
+| passThrough | json_object | 透传字段 | N | 客户传入的透传字段，数美内部不会对该字段进行识别处理，会随结果原样返回给用户 |
 
 ### 示例
 
-#### 回调模式
+#### 回调模式示例
 
 ##### 请求示例
 
 ```json
 {
-    "accessKey": "xxx",
-    "appId": "xxx",
-    "imgType": "xxx",
-    "txtType": "xxx",
-    "eventId": "xxx",
+    "accessKey": "your_access_key",
+    "appId": "your_app_id",
+    "eventId": "document",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "txtType": "TEXTRISK",
+    "audioType": "POLITY_EROTIC_ADVERT",
+    "videoImgType": "POLITY_EROTIC_ADVERT",
+    "videoAudioType": "POLITY_EROTIC_ADVERT",
+    "callback": "http://www.xxx.top/callbackaddr",
     "data": {
-        "url": "https://test-10029305.cos.ap-shanghai.myqcloud.com/wg_txt/README.md",
-        "fileFormat":"MD",
-        "tokenId": "xxx"
+        "url": "https://test-10029305.cos.ap-shanghai.myqcloud.com/test_document.pdf",
+        "fileFormat": "PDF",
+        "tokenId": "user_123456",
+        "lang": "zh",
+        "acceptLang": "zh",
+        "returnAllImg": 0,
+        "returnAllText": 0,
+        "returnAllVideoImg": 0,
+        "returnAllVideoAudio": 0,
+        "returnAllVideo": 0,
+        "returnAllAudio": 0,
+        "level": 2,
+        "gender": "male",
+        "nickname": "test_user",
+        "ip": "123.171.34.3",
+        "deviceId": "device_fingerprint_123",
+        "dataId": "data_unique_id_001",
+        "extra": {
+            "room": "room_001",
+            "passThrough": {
+                "customField": "customValue"
+            }
+        }
     }
 }
 ```
 
-#### 同步返回示例
+##### 同步返回示例
+
 ```json
 {
     "code":1100,
@@ -281,7 +1211,7 @@
     "message": "success",
     "requestId": "xxx",
     "riskLevel": "REVIEW",
-    "textDetail": [
+    "textDetails": [
         {
             "allLabels": [
                 {
@@ -358,13 +1288,137 @@
             "riskLabel3": "shezheng"
         }
     ],
-    "imgDetail": [
+    "imgDetails": [
 
     ],
     "auxInfo": {
         "imgCount": 4,
         "textCount": 317
     }
+}
+```
+
+---
+
+## 结果查询接口
+
+用于异步队列、`callback` 回调或音视频分段回调等场景下，按检测接口返回的 `requestId` 主动查询终态审核结果（业务字段与上文[回调返回结果](#回调返回结果)一致）。
+
+### 请求参数
+
+#### 请求URL：
+
+| 集群 | URL |
+| --- | --- |
+| 北京 | `http://api-article-bj.fengkongcloud.com/query_document/v4` |
+| 弗吉尼亚 | `http://api-article-fjny.fengkongcloud.com/query_document/v4` |
+| 新加坡 | `http://api-article-xjp.fengkongcloud.com/query_document/v4` |
+
+#### 字符编码格式：
+
+`UTF-8`字符集编码
+
+#### 请求方法：
+
+`POST`
+
+#### 建议超时时长：
+
+15s
+
+#### 请求参数：
+
+放在HTTP Body中，采用Json格式，Body大小不可超过1M，具体参数如下：
+
+| **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
+| --- | --- | --- | --- | --- |
+| accessKey | string | 接口认证密钥 | Y | 与检测接口一致，由数美提供 |
+| requestIds | string_array | 待查询的检测请求标识列表 | Y | 传入文档检测接口同步返回体中的 `requestId`；单次最多20条，单条长度不超过128字符；重复项会去重 |
+
+#### 同步返回结果
+
+放在HTTP Body中，采用Json格式，具体参数如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| code | int | 返回码 | Y | `1100`：成功；`1902`：整单请求不合法。`1101`、`1903` 不出现在本字段，仅见于下文 `machineResult.code` |
+| message | string | 返回码描述 | Y | 与 code 对应 |
+| requestId | string | 请求标识 | Y | 本次查询请求的标识 |
+| contents | json_array | 查询结果列表 | Y | 与请求 `requestIds` 顺序一致，元素结构见下表 |
+
+其中，**contents** 数组每个元素的内容如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| requestId | string | 检测请求标识 | Y | 对应某项待查 `requestId` |
+| machineResult | json_object | 机审结果 | Y | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
+| humanResult | json_object | 人审结果 | N | 有人审时返回 |
+| mergeResult | json_object | 合并结果 | N | 优先展示策略合并结果，例如 `riskLevel` |
+
+### 示例
+
+#### 请求示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "requestIds": ["xxx_detection_request_id"]
+}
+```
+
+#### 返回示例
+
+##### 处理中（machineResult.code 为 1101）
+
+```json
+{
+    "code": 1100,
+    "message": "正常",
+    "requestId": "query_req_001",
+    "contents": [
+        {
+            "requestId": "xxx_detection_request_id",
+            "machineResult": {
+                "code": 1101,
+                "message": "请求正在处理",
+                "requestId": "xxx_detection_request_id"
+            },
+            "mergeResult": {
+                "riskLevel": "xxx"
+            }
+        }
+    ]
+}
+```
+
+##### 终态成功（machineResult.code 为 1100）
+
+```json
+{
+  "code": 1100,
+  "message": "正常",
+  "requestId": "query_req_001",
+  "contents": [
+    {
+      "requestId": "xxx_detection_request_id",
+      "machineResult": {
+        "code": 1100,
+        "message": "成功",
+        "requestId": "xxx_detection_request_id",
+        "riskLevel": "xxx",
+        "textDetails": [],
+        "imgDetails": [],
+        "audioDetails": [],
+        "videoDetails": [],
+        "auxInfo": {},
+        "resultType": 0,
+        "finalResult": 1
+      },
+      "mergeResult": {
+        "riskLevel": "xxx"
+      }
+    }
+  ]
 }
 ```
 
