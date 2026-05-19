@@ -68,7 +68,7 @@
 | audioType | string | 音频识别类型 | N | 可选值：<br/>`NONE`：不审核音频<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`ADLAW`：广告法识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`DIRTY`：辱骂识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接 |
 | videoImgType | string | 视频图片识别类型 | N | 可选值：<br/>`NONE`：不审核视频图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
 | videoAudioType | string | 视频音频识别类型 | N | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接 |
-| callback | string | 回调http接口 | N | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
+| callback | string | 回调http接口 | Y | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 
 其中，<span id="data">data</span>的内容如下：
@@ -83,7 +83,6 @@
 | returnAllText | int | 返回文本的等级| N  | 可选值：<br/>`0`：返回风险等级为非pass的文本<br/>`1`：返回所有风险等级的文本<br/>默认值为`0` |
 | returnAllVideoImg | int | 返回视频里的图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
 | returnAllVideoAudio | int | 返回视频里的音频的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的音频<br/>`1`：返回所有风险等级的音频<br/>默认值为`0` |
-| returnAllVideo | int | 返回视频的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的视频<br/>`1`：返回所有风险等级的视频<br/>默认值为`0` |
 | returnAllAudio | int | 返回音频片段的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的音频<br/>`1`：返回所有风险等级的音频<br/>默认值为`0` |
 | tokenId | string | 用户账号标识 | Y | 由数字、字母、下划线、短杠组成的长度小于等于64位的字符串。建议使用贵司用户UID（可加密）自行生成，标识用户唯一身份用作灌水和广告等行为维度风控。如无用户uid的场景建议使用唯一的数据标识传值 |
 | receiveTokenId | string | 私聊场景下消息接收者的用户唯一标识 | N | 由数字、字母、下划线、短杠组成的字符串，长度小于等于64位 |
