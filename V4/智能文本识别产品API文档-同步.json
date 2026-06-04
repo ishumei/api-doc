@@ -122,7 +122,7 @@
                 "type": "string",
                 "param_description": "事件标识",
                 "required": true,
-                "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准"
+                "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准，如果lang=auto的情况下，eventId需要在文本和文本国际下同时开通"
             },
             {
                 "req_name": "type",
