@@ -8,7 +8,6 @@
 | 集群 | URL |
 | --- | --- |
 | 北京 | `http://api-text-bj.fengkongcloud.com/answer/v1` |
-| 上海 | `http://api-text-sh.fengkongcloud.com/answer/v1` |
 ### 字符编码格式：
 
 `UTF-8`字符集编码

@@ -122,7 +122,7 @@
                 "type": "string",
                 "param_description": "事件标识",
                 "required": true,
-                "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准"
+                "param_specification": "需要联系数美服务开通，请使用数美单独提供的传值为准，如果lang=auto的情况下，eventId需要在文本和文本国际下同时开通"
             },
             {
                 "req_name": "type",
@@ -152,6 +152,13 @@
                         "required": true,
                         "param_specification": "单次请求字符数上限1万字，超过1万字符时会报错。若传递nickname字段，则会同时校验文本+昵称内容。"
                     },
+                    {
+                        "req_name": "openAnswerFlowMode",
+                        "type": "bool",
+                        "param_description": "流式代答开关",
+                        "required": false,
+                        "param_specification": "流式获取答案传入true，后调用流式代答接口获取内容"
+                    },                    
                     {
                         "req_name": "query",
                         "type": "string",

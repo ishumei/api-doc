@@ -403,6 +403,10 @@ Among them, label class return fields
 | Device Release Price Range	| modelReleasePriceInterval	| Can be stably obtained only after enabling the corresponding service. For range description, see modelReleasePriceInterval price range description table	| "modelReleasePriceInterval":1 |
 | Device Release Time	| modelReleaseTimestamp	| Can be stably obtained only after enabling the corresponding service. 13-digit timestamp, example: 1577808000000	| "modelReleaseTimestamp":1577808000000 |
 | Device Model Type	| deviceModelType	| Can be stably obtained only after enabling the corresponding service. int type, value: <br/>0: Unknown type<br/>1: Phone device<br/>2: PAD device<br/>3: Vehicle device<br/>4: TV device<br/>5: Learning device<br/>6: Smart watch device	| "deviceModelType":1 |
+| Tower Information	| cell	| Cell tower information	| "cell": {<br/> "cid": "12345",<br/> "lac": "12345",<br/> "type": "gsm"<br/> } |
+| Mobile Network Code	| mnc	| Mobile network code	| "mnc":"65535" |
+| Mobile Country Code	| mcc	| Mobile country code	| "mcc":"65535" |
+| Public IP	| ip	| Public IP	| "ip":"1.1.1.1" |
 
 modelReleasePriceInterval price range description content is as follows:
 
