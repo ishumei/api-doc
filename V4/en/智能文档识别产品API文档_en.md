@@ -102,7 +102,7 @@ Placed in the HTTP Body, in JSON format, with specific parameters as follows:
 | **Request Parameter Name** | **Type** | **Parameter Description** | **Required** | **Specification** |
 | --- | --- | --- |----------| --- |
 | contents | string | Content to be checked | Y        | Can fill in URL links<br/>The URL supports website links or document download links<br/>File size within 500MB, text length limit 500,000 characters. Image limit 500 images. |
-| fileFormat | string | Document format to be checked | Y        | Optional values:<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>If `fileFormat` does not match the actual format of the document, an error parameter will be returned<br/> |
+| fileFormat | string | Document format to be checked | Y        | Optional values:<br/>`DOCX`<br/>`PDF`<br/>`DOC`<br/>`XLS`<br/>`XLSX`<br/>`PPT`<br/>`PPTX`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`EPUB`<br/>`SRT`<br/>`VTT`<br/>`SB2`: Scratch 2.0 project file<br/>`SB3`: Scratch 3.0 project file<br/>`ZIP`: ZIP archive<br/>`RAR`: RAR archive<br/>`7Z`: 7-Zip archive<br/>`TAR_GZ`: tar.gz archive<br/>`GZ`: gzip single-file archive<br/>If `fileFormat` does not match the actual format of the document, an error parameter will be returned<br/> |
 | tokenId | string | Unique identifier of the client user account, used for user behavior analysis, it is recommended to pass in the user UID | Y        |  |
 | channel | string | Business scenario | N        | Channel table configuration |
 | returnHtml | bool | Whether to return the HTML with highlighted risk content after DeepCleer review, for display to reviewers | N        | Optional values:<br/>`true`<br/>`false`<br/>Default is false |
@@ -204,6 +204,47 @@ The content of each item in <span id="words">wordPositions</span>:
 | ------------ | -------- | ------------ | ------------ | -------------- |
 | textNum      | int   | Number of characters in the current request, consistent with the billing number     | Y            | Number of characters in the current request, including Chinese characters, English, punctuation marks, spaces, etc.   |
 | imgNum       | int   | Number of images in the current request, consistent with the billing number     | Y            | Number of images in the current request, if encountering GIFs, 3 frames will be captured; if encountering long images, they will be split |
+| archiveManifestDetail | json_object | Archive directory manifest | N | Returned only when `fileFormat` is an archive type, the organization has manifest enabled, and parsing succeeds. [See archiveManifestDetail](#archiveManifestDetail) |
+
+<span id="archiveManifestDetail">archiveManifestDetail</span> is a directory tree of files inside the archive. Root and child node fields:
+
+| **Parameter Name** | **Type** | **Description** | **Required** | **Specification** |
+| --- | --- | --- | --- | --- |
+| name | string | File or directory name | Y | Empty string for root node |
+| type | string | Node type | Y | `directory` or `file` |
+| path | string | Relative path | N | Path relative to archive root; empty for root |
+| url | string | Object storage URL | N | Returned when `type=file`; present when manifest upload succeeds (organization manifest enabled), may be empty or omitted if upload fails or manifest is disabled |
+| size | int | File size in bytes | N | Returned when `type=file` |
+| fileType | string | File format | N | Returned when `type=file`. Whitelisted: uppercase file extension, e.g. `PDF`, `JPG`; non-whitelisted with extension: uppercase extension (e.g. `EXE`); no extension: `UNKNOWN` |
+| category | string | File category | N | Returned when `type=file`. Whitelisted: `document`/`image`/`audio`/`video`/`text`/`code`; non-whitelisted or unrecognized: `other` (`other` files are not sent for content review and may trigger `archive unsupported file: {path}`) |
+| md5 | string | File MD5 | N | Returned when `type=file`, 32-char lowercase hex; may be empty if MD5 calculation fails |
+| children | json_array | Child nodes | N | Returned when `type=directory`; same schema as this table |
+
+**Archive detection notes**:
+
+- Supported formats: `ZIP`, `RAR`, `7Z`, `TAR_GZ`, `GZ`
+- Nested archive extraction requires organization configuration; when disabled, nested archives inside an archive are reviewed as regular files. When enabled: default max depth 2, max 3 sub-archives per request
+- Encrypted archives are not supported; `message`=`archive encrypted` indicates an encrypted archive
+- On parse failure, returns `1904` with `message`: `archive corrupted`, `archive encrypted`, or `archive unsupported file: {path}`
+- Default limits: 100MB total extracted size, 500 files, 50MB per file
+- Hidden files (`.` prefix) and `__MACOSX` directories are skipped automatically
+
+<span id="archiveInnerFileTypes">Supported file types inside archives</span>:
+
+Files are detected by extension and reviewed individually. Nested extraction (further unpacking `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ` inside an archive) requires organization configuration; when disabled, nested archives are reviewed as regular files. Unsupported types may return `archive unsupported file: {path}` (depends on organization config). **Note**: The in-archive whitelist differs from top-level `fileFormat` values; formats such as `CSV`, `XLSB`, and `PPS` are supported at the top level but not inside archives.
+
+| **Category** | **Supported extensions** |
+| --- | --- |
+| document | `doc` `docx` `xls` `xlsx` `ppt` `pptx` `pdf` `txt` `md` `epub` `srt` `vtt` `sb2` `sb3` |
+| image | `jpg` `jpeg` `png` `webp` `gif` `tiff` `tif` `heif` `heic` `avif` `apng` `bmp` `svg` |
+| audio | `mp3` `aac` `ogg` `oga` `wma` `flac` `wav` `aiff` `aif` `pcm` |
+| video | `mp4` `mov` `avi` `mkv` `flv` `wmv` |
+| code | `go` `py` `java` `js` `jsx` `ts` `tsx` `c` `cpp` `h` `hpp` `cs` `php` `rb` `rs` `swift` `kt` `html` `css` `json` `xml` `yaml` `yml` `sh` `bat` `ps1` `sql` `vim` `lua` `pl` `r` `scala` `dart` |
+
+**Scratch project file notes**:
+
+- `SB2`: Scratch 2.0 project; extracts stage scripts, sprite names, and embedded image/audio for review
+- `SB3`: Scratch 3.0 project; extracts block scripts, sprite/costume names, and embedded image/audio for review
 
 ## <span id="Ac">Examples</span>
 

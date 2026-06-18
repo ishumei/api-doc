@@ -8,14 +8,14 @@
 
 ## 目录
 
-- [同步接口](#同步接口)
+- [检测接口](#检测接口)
   - [请求参数](#请求参数)
     - [请求URL](#请求url)
     - [字符编码格式](#字符编码格式)
     - [请求方法](#请求方法)
     - [建议超时时长](#建议超时时长)
     - [请求参数](#请求参数-1)
-  - [同步返回结果](#同步返回结果)
+  - [请求即时响应](#请求即时响应)
   - [回调返回结果](#回调返回结果)
   - [示例](#示例)
 - [结果查询接口](#结果查询接口)
@@ -25,12 +25,14 @@
     - [请求方法](#请求方法-1)
     - [建议超时时长](#建议超时时长-1)
     - [请求参数](#请求参数-3)
-  - [同步返回结果](#同步返回结果-1)
+  - [查询响应](#查询响应)
   - [示例](#示例-1)
 
 ---
 
-## 同步接口
+## 检测接口
+
+> **接口模式**：本接口为**异步检测**。调用后 HTTP 响应（见[请求即时响应](#请求即时响应)）仅返回受理结果（`code`/`message`/`requestId`），**不包含**审核详情；完整审核结果通过 `callback` 回调推送，也可通过[结果查询接口](#结果查询接口)主动获取。
 
 ### 请求参数
 
@@ -76,7 +78,7 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | url | string | 要检测的文档链接 | Y | 可下载文档链接，内容大小`500M`以内，文本长度默认限制`50万`字，图片张数默认限制`500张`。 |
-| fileFormat        | string  | 要检测的文档格式| Y   | 要检测的文档格式，可选值：<br/>`DOCX`：Word文档（新版）<br/>`PDF`：PDF文档<br/>`DOC`：Word文档（旧版）<br/>`XLS`：Excel表格（旧版）<br/>`XLSX`：Excel表格（新版）<br/>`PPT`：PowerPoint演示文稿（旧版）<br/>`PPTX`：PowerPoint演示文稿（新版）<br/>`PPS`：PowerPoint幻灯片（旧版）<br/>`PPSX`：PowerPoint幻灯片（新版）<br/>`XLTX`：Excel模板（新版）<br/>`XLTM`：Excel宏模板<br/>`XLSB`：Excel二进制工作簿<br/>`XLSM`：Excel宏工作簿<br/>`TXT`：文本文件<br/>`CSV`：逗号分隔值文件<br/>`EPUB`：电子书格式<br/>`MD`：Markdown文档<br/>`SRT`：字幕文件<br/>`VTT`：WebVTT字幕文件<br/>注意：`fileFormat`的值必须与文档实际格式一致，否则将返回参数错误 |
+| fileFormat        | string  | 要检测的文档格式| Y   | 注意：值必须与文档实际格式一致，否则将返回参数错误。[详见fileFormat可选值](#fileFormat) |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
 | acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
 | returnAllImg | int | 返回图片的等级 | N | 可选值：<br/>`0`：返回风险等级为非pass的图片<br/>`1`：返回所有风险等级的图片<br/>默认值为`0` |
@@ -94,6 +96,49 @@
 | dataId | string | 数据标识 | N | 数据唯一标识，用于关联和追踪数据 |
 | extra | json_object | 辅助参数 | N | 用于辅助文本检测的相关信息，[详见extra参数](#extra) |
 
+其中，<span id="fileFormat">fileFormat</span>可选值如下：
+
+| **可选值** | **含义** | **补充说明** |
+| --- | --- | --- |
+| `DOCX` | Word文档（新版） | |
+| `PDF` | PDF文档 | |
+| `DOC` | Word文档（旧版） | |
+| `XLS` | Excel表格（旧版） | |
+| `XLSX` | Excel表格（新版） | |
+| `PPT` | PowerPoint演示文稿（旧版） | |
+| `PPTX` | PowerPoint演示文稿（新版） | |
+| `PPS` | PowerPoint幻灯片（旧版） | |
+| `PPSX` | PowerPoint幻灯片（新版） | |
+| `XLTX` | Excel模板（新版） | |
+| `XLTM` | Excel宏模板 | |
+| `XLSB` | Excel二进制工作簿 | |
+| `XLSM` | Excel宏工作簿 | |
+| `TXT` | 文本文件 | |
+| `CSV` | 逗号分隔值文件 | |
+| `EPUB` | 电子书格式 | |
+| `MD` | Markdown文档 | |
+| `SRT` | 字幕文件 | |
+| `VTT` | WebVTT字幕文件 | |
+| `SB2` | Scratch 2.0 项目文件 | 提取舞台脚本文本、角色名称及内置图片/音频资源送审 |
+| `SB3` | Scratch 3.0 项目文件 | 提取积木脚本文本、角色/造型名称及内置图片/音频资源送审 |
+| `ZIP` | ZIP压缩包 | 解压后逐文件送审，[详见压缩包内支持格式](#archiveInnerFileTypes)；嵌套解压需公司开通配置后可用（开通后默认最大嵌套层级2层、单请求最多处理3个子压缩包；未开通时包内压缩包按普通文件送审）；不支持加密压缩包；默认限制：解压后总大小100MB、最多500个文件、单文件最大50MB；解析失败返回`1904`，`message`可能为`archive corrupted`（文件损坏或无法打开）、`archive encrypted`（加密压缩包）、`archive unsupported file: {path}`（含白名单外格式） |
+| `RAR` | RAR压缩包 | 同`ZIP` |
+| `7Z` | 7-Zip压缩包 | 同`ZIP` |
+| `TAR_GZ` | tar.gz压缩包 | 同`ZIP`，也支持`.tgz`后缀 |
+| `GZ` | gzip单文件压缩包 | 同`ZIP` |
+
+<span id="archiveInnerFileTypes">压缩包内支持识别的文件格式</span>（适用于 `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ`）：
+
+解压后按文件后缀识别类型并逐文件送审。嵌套解压（包内 `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ` 继续解压送审）需公司在内部配置中开通；未开通时包内压缩包按普通文件送审。隐藏文件（`.` 开头）、`__MACOSX` 目录自动跳过。白名单外格式可能返回 `archive unsupported file: {path}`（取决于公司配置）。**注意**：压缩包内白名单与顶层 `fileFormat` 可选值不完全相同，如 `CSV`、`XLSB`、`PPS` 等顶层支持但包内不支持的格式，将视为白名单外文件。
+
+| **分类** | **支持的后缀** |
+| --- | --- |
+| 文档（document） | `doc` `docx` `xls` `xlsx` `ppt` `pptx` `pdf` `txt` `md` `epub` `srt` `vtt` `sb2` `sb3` |
+| 图片（image） | `jpg` `jpeg` `png` `webp` `gif` `tiff` `tif` `heif` `heic` `avif` `apng` `bmp` `svg` |
+| 音频（audio） | `mp3` `aac` `ogg` `oga` `wma` `flac` `wav` `aiff` `aif` `pcm` |
+| 视频（video） | `mp4` `mov` `avi` `mkv` `flv` `wmv` |
+| 代码（code） | `go` `py` `java` `js` `jsx` `ts` `tsx` `c` `cpp` `h` `hpp` `cs` `php` `rb` `rs` `swift` `kt` `html` `css` `json` `xml` `yaml` `yml` `sh` `bat` `ps1` `sql` `vim` `lua` `pl` `r` `scala` `dart` |
+
 <span id="extra">data 中 extra数组每个元素的内容如下：</span>
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
@@ -101,9 +146,9 @@
 | room | string | 直播间/游戏房间编号 | N | 传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
 | passThrough | json_object | 透传字段 | N | 客户传入的透传字段，数美内部不会对该字段进行识别处理，随结果返回给用户 |
 
-#### 同步返回结果
+#### 请求即时响应
 
-**说明**：调用接口时会立即返回以下基础响应参数。若请求参数中传入了`callback`回调地址，完整的结果数据将通过回调接口异步返回。
+**说明**：调用检测接口后，服务端立即返回以下参数，表示请求是否受理成功。**此处不是审核结果**，不含 `riskLevel`、`textDetails` 等字段；审核结果请查看[回调返回结果](#回调返回结果)或使用[结果查询接口](#结果查询接口)。
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
@@ -121,8 +166,8 @@
 
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
-| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1905`：字数超限<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
-| message | string | 返回码描述 | Y | 和code对应：<br/>成功<br/>QPS超限<br/>参数不合法<br/>服务失败<br/>字数超限<br/>余额不足<br/>无权限操作 |
+| code | int | 返回码 | Y | `1100`：成功<br/>`1901`：QPS超限<br/>`1902`：参数不合法<br/>`1903`：服务失败<br/>`1904`：内容获取失败<br/>`1905`：内容格式错误<br/>`9100`：余额不足<br/>`9101`：无权限操作 |
+| message | string | 返回码描述 | Y | 与 `code` 对应。`code` 为 `1904`/`1905` 时仅返回 `code`、`message`、`requestId` 三个字段。<br/>`1904`：可能为 `get content has errors`（URL 无法访问、下载失败等）；压缩包解析失败时可能为 `archive corrupted`（文件损坏）、`archive encrypted`（加密压缩包）、`archive unsupported file: {path}`（含不支持格式）、`archive extract size {size}MB exceeds limit {limit}MB`（解压超限）等。<br/>`1905`：可能为 `content format has errors`（文件超过 500MB、格式无法解析、无可审核内容等）；数量超限时可能为 `word count limit, quota: {quota}, current: {current}`（`image`/`audio`/`video` 同理）。<br/>其余 `code` 的 `message`：成功、QPS超限、参数不合法、服务失败、余额不足、无权限操作 |
 | requestId | string | 请求标识 | Y | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存 |
 | riskLevel | string | 处置建议 | Y | 可能返回值：<br/>`PASS`：正常，建议直接放行<br/>`REVIEW`：可疑，建议人工审核<br/>`REJECT`：违规，建议直接拦截 |
 | textDetails | json_array | 文本风险详情 | Y | 文档中文本的风险详情，[详见textDetails参数](#textDetails) |
@@ -1154,10 +1199,27 @@
 | audioNum | int | 当前请求中的音频数 | Y | 当前请求中的音频数，与计费数目一致 |
 | videoNum | int | 当前请求中的视频数 | Y | 当前请求中的视频数，与计费数目一致 |
 | passThrough | json_object | 透传字段 | N | 客户传入的透传字段，数美内部不会对该字段进行识别处理，会随结果原样返回给用户 |
+| archiveManifestDetail | json_object | 压缩包目录清单 | N | 仅当`fileFormat`为压缩包类型且公司已开启目录清单配置、解析成功时返回，[详见archiveManifestDetail参数](#archiveManifestDetail) |
+
+其中，<span id="archiveManifestDetail">archiveManifestDetail</span>为压缩包内文件目录树，根节点及各子节点字段如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 文件或目录名 | Y | 根节点为空字符串 |
+| type | string | 节点类型 | Y | `directory`：目录<br/>`file`：文件 |
+| path | string | 相对路径 | N | 相对压缩包根目录的路径，根节点可为空 |
+| url | string | 对象存储地址 | N | 仅`type=file`时返回；公司已开启目录清单配置且上传成功时返回 URL，上传失败或未开启时可能为空或不返回 |
+| size | int | 文件大小 | N | 单位：字节，仅`type=file`时返回 |
+| fileType | string | 文件格式 | N | 仅`type=file`时返回。白名单内：取文件后缀大写，如`PDF`、`JPG`；白名单外有后缀：返回后缀大写（如`EXE`）；无后缀：返回`UNKNOWN` |
+| category | string | 文件分类 | N | 仅`type=file`时返回。白名单内：`document`/`image`/`audio`/`video`/`text`/`code`；白名单外或未识别：返回`other`（`other`类文件不参与内容识别送审，可能触发`archive unsupported file: {path}`） |
+| md5 | string | 文件MD5 | N | 仅`type=file`时返回，32位小写hex；计算失败时可能为空字符串 |
+| children | json_array | 子节点列表 | N | 仅`type=directory`时返回，元素结构同本表 |
 
 ### 示例
 
 #### 回调模式示例
+
+以下示例仅展示字段结构，内容为虚构占位数据。
 
 ##### 请求示例
 
@@ -1173,9 +1235,9 @@
     "videoAudioType": "POLITY_EROTIC_ADVERT",
     "callback": "http://www.xxx.top/callbackaddr",
     "data": {
-        "url": "https://test-10029305.cos.ap-shanghai.myqcloud.com/test_document.pdf",
+        "url": "https://example.com/files/sample.pdf",
         "fileFormat": "PDF",
-        "tokenId": "user_123456",
+        "tokenId": "your_token_id",
         "lang": "zh",
         "acceptLang": "zh",
         "returnAllImg": 0,
@@ -1186,12 +1248,12 @@
         "returnAllAudio": 0,
         "level": 2,
         "gender": "male",
-        "nickname": "test_user",
-        "ip": "123.171.34.3",
-        "deviceId": "device_fingerprint_123",
-        "dataId": "data_unique_id_001",
+        "nickname": "sample_user",
+        "ip": "127.0.0.1",
+        "deviceId": "your_device_id",
+        "dataId": "your_data_id",
         "extra": {
-            "room": "room_001",
+            "room": "sample_room",
             "passThrough": {
                 "customField": "customValue"
             }
@@ -1200,13 +1262,13 @@
 }
 ```
 
-##### 同步返回示例
+##### 请求即时响应示例
 
 ```json
 {
-    "code":1100,
-    "message":"success",
-    "requestId":"xxx"
+    "code": 1100,
+    "message": "success",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 ```
 
@@ -1216,96 +1278,283 @@
 {
     "code": 1100,
     "message": "success",
-    "requestId": "xxx",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "riskLevel": "REVIEW",
     "textDetails": [
         {
             "allLabels": [
                 {
                     "probability": 1,
-                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDescription": "广告:营销推广:营销关键词",
                     "riskDetail": {
                         "matchedLists": [
                             {
-                                "name": "测试zyk",
+                                "name": "sample_list",
                                 "words": [
                                     {
-                                        "position": [
-                                            10,
-                                            11
-                                        ],
-                                        "word": "58"
+                                        "position": [10, 11],
+                                        "word": "keyword"
                                     }
                                 ]
                             }
                         ]
                     },
-                    "riskLabel1": "politics",
-                    "riskLabel2": "politics",
-                    "riskLabel3": "politics",
-                    "riskLevel": "REVIEW"
-                },
-                {
-                    "probability": 1,
-                    "riskDescription": "涉政:涉政:涉政",
-                    "riskDetail": {
-                        "matchedLists": [
-                            {
-                                "name": "测试zyk",
-                                "words": [
-                                    {
-                                        "position": [
-                                            10,
-                                            11,
-                                            12
-                                        ],
-                                        "word": "585"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "riskLabel1": "politics",
-                    "riskLabel2": "shezheng",
-                    "riskLabel3": "shezheng",
+                    "riskLabel1": "ad",
+                    "riskLabel2": "ad",
+                    "riskLabel3": "ad",
                     "riskLevel": "REVIEW"
                 }
             ],
-            "requestId": "rerlgiewregliweruogrerwd_1",
-            "riskDescription": "涉政:涉政:涉政",
+            "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_1",
+            "riskDescription": "广告:营销推广:营销关键词",
             "riskDetail": {
                 "matchedLists": [
                     {
-                        "name": "测试zyk",
+                        "name": "sample_list",
                         "words": [
                             {
-                                "position": [
-                                    10,
-                                    11,
-                                    12
-                                ],
-                                "word": "585"
+                                "position": [10, 11],
+                                "word": "keyword"
                             }
                         ]
                     }
                 ]
             },
-            "riskLabel1": "politics",
-            "riskLabel2": "shezheng",
-            "riskLabel3": "shezheng"
+            "riskLabel1": "ad",
+            "riskLabel2": "ad",
+            "riskLabel3": "ad"
         }
     ],
-    "imgDetails": [
-
-    ],
+    "imgDetails": [],
     "auxInfo": {
-        "imgCount": 4,
-        "textCount": 317
+        "imgCount": 2,
+        "textCount": 100
     }
 }
 ```
 
 ---
+
+
+
+#### 压缩包检测示例
+
+以下示例基于 `fileFormat=TAR_GZ` 的压缩包检测请求。示例仅展示字段结构，内容为虚构占位数据。
+
+##### 请求示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "appId": "your_app_id",
+    "eventId": "document",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "txtType": "TEXTRISK",
+    "audioType": "POLITY_EROTIC_ADVERT",
+    "videoImgType": "POLITY_EROTIC_ADVERT",
+    "videoAudioType": "POLITY_EROTIC_ADVERT",
+    "callback": "http://www.xxx.top/callbackaddr",
+    "data": {
+        "url": "https://example.com/files/sample.tar.gz",
+        "fileFormat": "TAR_GZ",
+        "tokenId": "your_token_id",
+        "returnAllImg": 0,
+        "returnAllText": 0,
+        "returnAllAudio": 0
+    }
+}
+```
+
+##### 请求即时响应示例
+
+```json
+{
+    "code": 1100,
+    "message": "success",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+##### 回调返回示例
+
+```json
+{
+    "code": 1100,
+    "message": "success",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "riskLevel": "REJECT",
+    "textDetails": [],
+    "imgDetails": [],
+    "audioDetails": [],
+    "videoDetails": [],
+    "auxInfo": {
+        "textNum": 10,
+        "imgNum": 2,
+        "audioNum": 1,
+        "videoNum": 1,
+        "billingImgNum": 2,
+        "billingAudioDuration": 10,
+        "audioDuration": 20,
+        "archiveManifestDetail": {
+            "name": "",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "dir_code",
+                    "type": "directory",
+                    "path": "dir_code",
+                    "children": [
+                        {
+                            "name": "sample.java",
+                            "type": "file",
+                            "path": "dir_code/sample.java",
+                            "url": "https://example.cos.region.com/path/archive_code_aaaaaaaa.java",
+                            "size": 1024,
+                            "fileType": "JAVA",
+                            "category": "code",
+                            "md5": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir_image",
+                    "type": "directory",
+                    "path": "dir_image",
+                    "children": [
+                        {
+                            "name": "sample.jpg",
+                            "type": "file",
+                            "path": "dir_image/sample.jpg",
+                            "url": "https://example.cos.region.com/path/archive_image_bbbbbbbb.jpg",
+                            "size": 20480,
+                            "fileType": "JPG",
+                            "category": "image",
+                            "md5": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir_document",
+                    "type": "directory",
+                    "path": "dir_document",
+                    "children": [
+                        {
+                            "name": "sample.pdf",
+                            "type": "file",
+                            "path": "dir_document/sample.pdf",
+                            "url": "https://example.cos.region.com/path/archive_document_cccccccc.pdf",
+                            "size": 102400,
+                            "fileType": "PDF",
+                            "category": "document",
+                            "md5": "cccccccccccccccccccccccccccccccc"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir_video",
+                    "type": "directory",
+                    "path": "dir_video",
+                    "children": [
+                        {
+                            "name": "sample.mp4",
+                            "type": "file",
+                            "path": "dir_video/sample.mp4",
+                            "url": "https://example.cos.region.com/path/archive_video_dddddddd.mp4",
+                            "size": 1048576,
+                            "fileType": "MP4",
+                            "category": "video",
+                            "md5": "dddddddddddddddddddddddddddddddd"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir_audio",
+                    "type": "directory",
+                    "path": "dir_audio",
+                    "children": [
+                        {
+                            "name": "sample.mp3",
+                            "type": "file",
+                            "path": "dir_audio/sample.mp3",
+                            "url": "https://example.cos.region.com/path/archive_audio_eeeeeeee.mp3",
+                            "size": 51200,
+                            "fileType": "MP3",
+                            "category": "audio",
+                            "md5": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+                        },
+                        {
+                            "name": "sample2.mp3",
+                            "type": "file",
+                            "path": "dir_audio/sample2.mp3",
+                            "url": "https://example.cos.region.com/path/archive_audio_ffffffff.mp3",
+                            "size": 25600,
+                            "fileType": "MP3",
+                            "category": "audio",
+                            "md5": "ffffffffffffffffffffffffffffffff"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "resultType": 0,
+    "finalResult": 1
+}
+```
+
+> 说明：以上示例仅展示字段结构，内容为虚构占位数据。`auxInfo.archiveManifestDetail` 仅在公司已开启目录清单配置时返回；未开启时 `auxInfo` 不含该字段。 回调中 `textDetails`/`imgDetails` 等字段结构与常规文档检测一致，此处省略。
+
+##### 异常回调返回示例（1904 / 1905）
+
+`code` 为 `1904` 或 `1905` 时，回调体仅包含 `code`、`message`、`requestId`，不含 `riskLevel`、`textDetails` 等业务字段。
+
+```json
+{
+    "code": 1904,
+    "message": "get content has errors",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+```json
+{
+    "code": 1904,
+    "message": "archive corrupted",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+```json
+{
+    "code": 1904,
+    "message": "archive encrypted",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+```json
+{
+    "code": 1904,
+    "message": "archive unsupported file: inner/sample.exe",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+```json
+{
+    "code": 1905,
+    "message": "content format has errors",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+```json
+{
+    "code": 1905,
+    "message": "word count limit, quota: 10000, current: 15000",
+    "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
 
 ## 结果查询接口
 
@@ -1340,9 +1589,9 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
 | accessKey | string | 接口认证密钥 | Y | 与检测接口一致，由数美提供 |
-| requestIds | string_array | 待查询的检测请求标识列表 | Y | 传入文档检测接口同步返回体中的 `requestId`；单次最多20条，单条长度不超过128字符；重复项会去重 |
+| requestIds | string_array | 待查询的检测请求标识列表 | Y | 传入检测接口[请求即时响应](#请求即时响应)中的 `requestId`；单次最多20条，单条长度不超过128字符；重复项会去重 |
 
-#### 同步返回结果
+#### 查询响应
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
