@@ -108,13 +108,55 @@
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- |----------| --- |
 | contents | string | 要检测的内容 | Y        | 可填入url链接<br/>其中url支持网址链接或文档下载链接<br/>文件大小500m以内，文本长度限制50w字，图片张数限制500张，视频文件数限制50段。 |
-| fileFormat | string | 要检测的文档格式 | Y        | 可选值：<br/>`PDF`<br/>`EPUB`<br/>`DOCX`<br/>`DOC`<br/>`XLSX`<br/>`XLS`<br/>`PPTX`<br/>`PPT`<br/>`PPS`<br/>`PPSX`<br/>`XLTX`<br/>`XLTM`<br/>`XLSB`<br/>`XLSM`<br/>`TXT`<br/>`CSV`<br/>`SRT`<br/>`VTT`  |
+| fileFormat | string | 要检测的文档格式 | Y        | 注意：值必须与文件实际格式一致，否则返回参数错误。[详见fileFormat可选值](#fileFormat) |
 | tokenId | string | 客户端用户账号唯一标识，用于用户行为分析，建议传入用户UID | Y        |  |
 | channel | string | 业务场景 | N        | 渠道表配置 |
 | returnHtml | bool | 是否需要返回数美审核后高亮框处风险内容的html，用与展示给审核人员看 | N        | 可选值:<br/>`true`<br/>`false`<br/>默认为false |
 | nickname | string | 用户昵称，强烈建议传递此参数，几乎所有平台的恶意用户都会通过昵称散播垃圾信息，存在涉政违禁和导流信息等风险 | N        |  |
 | ip | string | 客户端ip地址，该参数用于IP维度的用户行为分析，同时可用于比对数美IP黑库 | N        |  |
 | passThrough | json_object | 透传参数，原样返回 | N        |  |
+
+其中，<span id="fileFormat">fileFormat</span>可选值如下：
+
+| **可选值** | **含义** | **补充说明** |
+| --- | --- | --- |
+| `PDF` | PDF文档 | |
+| `EPUB` | 电子书格式 | |
+| `DOCX` | Word文档（新版） | |
+| `DOC` | Word文档（旧版） | |
+| `XLSX` | Excel表格（新版） | |
+| `XLS` | Excel表格（旧版） | |
+| `PPTX` | PowerPoint演示文稿（新版） | |
+| `PPT` | PowerPoint演示文稿（旧版） | |
+| `PPS` | PowerPoint幻灯片（旧版） | |
+| `PPSX` | PowerPoint幻灯片（新版） | |
+| `XLTX` | Excel模板（新版） | |
+| `XLTM` | Excel宏模板 | |
+| `XLSB` | Excel二进制工作簿 | |
+| `XLSM` | Excel宏工作簿 | |
+| `TXT` | 文本文件 | |
+| `CSV` | 逗号分隔值文件 | |
+| `SRT` | 字幕文件 | |
+| `VTT` | WebVTT字幕文件 | |
+| `SB2` | Scratch 2.0 项目文件 | 提取舞台脚本文本、角色名称及内置图片/音频资源送审 |
+| `SB3` | Scratch 3.0 项目文件 | 提取积木脚本文本、角色/造型名称及内置图片/音频资源送审 |
+| `ZIP` | ZIP压缩包 | 解压后逐文件送审，[详见压缩包内支持格式](#archiveInnerFileTypes)；嵌套解压需公司开通配置后可用（开通后默认最大嵌套层级2层、单请求最多处理3个子压缩包；未开通时包内压缩包按普通文件送审）；不支持加密压缩包；默认限制：解压后总大小100MB、最多500个文件、单文件最大50MB；解析失败返回`1904`，`message`可能为`archive corrupted`（文件损坏或无法打开）、`archive encrypted`（加密压缩包）、`archive unsupported file: {path}`（含白名单外格式） |
+| `RAR` | RAR压缩包 | 同`ZIP` |
+| `7Z` | 7-Zip压缩包 | 同`ZIP` |
+| `TAR_GZ` | tar.gz压缩包 | 同`ZIP`，也支持`.tgz`后缀 |
+| `GZ` | gzip单文件压缩包 | 同`ZIP` |
+
+<span id="archiveInnerFileTypes">压缩包内支持识别的文件格式</span>（适用于 `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ`）：
+
+解压后按文件后缀识别类型并逐文件送审。嵌套解压（包内 `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ` 继续解压送审）需公司在内部配置中开通；未开通时包内压缩包按普通文件送审。隐藏文件（`.` 开头）、`__MACOSX` 目录自动跳过。白名单外格式可能返回 `archive unsupported file: {path}`（取决于公司配置）。**注意**：压缩包内白名单与顶层 `fileFormat` 可选值不完全相同，如 `CSV`、`XLSB`、`PPS` 等顶层支持但包内不支持的格式，将视为白名单外文件。
+
+| **分类** | **支持的后缀** |
+| --- | --- |
+| 文档（document） | `doc` `docx` `xls` `xlsx` `ppt` `pptx` `pdf` `txt` `md` `epub` `srt` `vtt` `sb2` `sb3` |
+| 图片（image） | `jpg` `jpeg` `png` `webp` `gif` `tiff` `tif` `heif` `heic` `avif` `apng` `bmp` `svg` |
+| 音频（audio） | `mp3` `aac` `ogg` `oga` `wma` `flac` `wav` `aiff` `aif` `pcm` |
+| 视频（video） | `mp4` `mov` `avi` `mkv` `flv` `wmv` |
+| 代码（code） | `go` `py` `java` `js` `jsx` `ts` `tsx` `c` `cpp` `h` `hpp` `cs` `php` `rb` `rs` `swift` `kt` `html` `css` `json` `xml` `yaml` `yml` `sh` `bat` `ps1` `sql` `vim` `lua` `pl` `r` `scala` `dart` |
 
 ## <span id="Ab">返回结果</span>
 
@@ -213,6 +255,21 @@
 | ------------ | -------- | ------------ | ------------ | -------------- |
 | textNum      | int   | 当前请求中的字符数，与计费数目一致     | Y            | 当前请求中的字符数，其中字符数包括汉字，英文，标点符号，空格等   |
 | imgNum       | int   | 当前请求中的图片数，与计费数目一致     | Y            | 当前请求中的图片数，如遇动图会截取3帧；如遇长图会进行切分 |
+| archiveManifestDetail | json_object | 压缩包目录清单 | N | 仅当`fileFormat`为压缩包类型且公司已开启目录清单配置、解析成功时返回，[详见archiveManifestDetail参数](#archiveManifestDetail) |
+
+其中，<span id="archiveManifestDetail">archiveManifestDetail</span>为压缩包内文件目录树，根节点及各子节点字段如下：
+
+| **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
+| --- | --- | --- | --- | --- |
+| name | string | 文件或目录名 | Y | 根节点为空字符串 |
+| type | string | 节点类型 | Y | `directory`：目录<br/>`file`：文件 |
+| path | string | 相对路径 | N | 相对压缩包根目录的路径，根节点可为空 |
+| url | string | 对象存储地址 | N | 仅`type=file`时返回；公司已开启目录清单配置且上传成功时返回 URL，上传失败或未开启时可能为空或不返回 |
+| size | int | 文件大小 | N | 单位：字节，仅`type=file`时返回 |
+| fileType | string | 文件格式 | N | 仅`type=file`时返回。白名单内：取文件后缀大写，如`PDF`、`JPG`；白名单外有后缀：返回后缀大写（如`EXE`）；无后缀：返回`UNKNOWN` |
+| category | string | 文件分类 | N | 仅`type=file`时返回。白名单内：`document`/`image`/`audio`/`video`/`text`/`code`；白名单外或未识别：返回`other`（`other`类文件不参与内容识别送审，可能触发`archive unsupported file: {path}`） |
+| md5 | string | 文件MD5 | N | 仅`type=file`时返回，32位小写hex；计算失败时可能为空字符串 |
+| children | json_array | 子节点列表 | N | 仅`type=directory`时返回，元素结构同本表 |
 
 ## <span id="Ac">示例</span>
 
