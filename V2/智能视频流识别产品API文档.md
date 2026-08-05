@@ -626,9 +626,9 @@ code请求返回码列表如下：
         "imgText":"ocr123你好",
         "imgTime":"2019-09-20 14:53:25",
         "imgUrl":"http://video-bj.bj.bcebos.com/image/20190920/e8f959af3e2498ec5dd89126465d124b_vs24_0000008.jpg",
-        "matchedDetail":"[{\"listId\":\"0b5d2ed695d40c0aa51e2b35fb51763d\",\"matchedFiled\":[\"text\"],\"name\":\"涉政测试\",\"organization\":\"RlokQwRlVjUrTUlkIqOg\",\"words\":[\"你好\"]}]",
+        "matchedDetail":"[{\"listId\":\"0b5d2ed695d40c0aa51e2b35fb51763d\",\"matchedFiled\":[\"text\"],\"name\":\"测试\",\"organization\":\"RlokQwRlVjUrTUlkIqOg\",\"words\":[\"你好\"]}]",
         "matchedItem":"你好",
-        "matchedList":"涉政测试",
+        "matchedList":"测试",
         "model":"M02601",
         "polityName":"你好",
         "requestParams":{

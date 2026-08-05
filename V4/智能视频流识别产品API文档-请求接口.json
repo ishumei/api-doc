@@ -160,7 +160,7 @@
       },
       {
         "length": "1024",
-        "param_description": "视频流中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：一号领导人声纹识别\nANTHEN：国歌识别\nBANEDAUDIO：违禁歌曲\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
+        "param_description": "视频流中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：声纹识别\nANTHEN：国歌识别\nBANEDAUDIO：违禁歌曲\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
         "req_name": "audioType",
         "required": false,
         "type": "string"
@@ -2293,10 +2293,10 @@
       "frameDetail": {
         "allLabels": [
           {
-            "riskDescription": "涉政:涉政:涉政",
-            "riskLabel1": "politics",
-            "riskLabel2": "shezheng",
-            "riskLabel3": "shezheng",
+            "riskDescription": "广告:广告:广告",
+            "riskLabel1": "ad",
+            "riskLabel2": "ad",
+            "riskLabel3": "ad",
             "riskLevel": "REJECT"
           }
         ],
@@ -2309,16 +2309,16 @@
         },
         "businessLabels": [],
         "imgUrl": "http://bj.cos.ap-beijing.xxx.com/image/1639825145166_vs130_1639825248361471656.jpg",
-        "riskDescription": "涉政:涉政:涉政",
+        "riskDescription": "广告:广告:广告",
         "riskDetail": {
           "ocrText": {
             "text": "第四页（ban第五页（violence"
           },
           "riskSource": 1002
         },
-        "riskLabel1": "politics",
-        "riskLabel2": "shezheng",
-        "riskLabel3": "shezheng",
+        "riskLabel1": "ad",
+        "riskLabel2": "ad",
+        "riskLabel3": "ad",
         "riskLevel": "REJECT"
       },
       "message": "成功",
@@ -2335,10 +2335,10 @@
       "audioDetail": {
         "allLabels": [
           {
-            "riskDescription": "涉政:一号领导:一号领导",
-            "riskLabel1": "politics",
-            "riskLabel2": "yihaolingdao",
-            "riskLabel3": "yihaolingdao",
+            "riskDescription": "广告:广告:广告",
+            "riskLabel1": "ad",
+            "riskLabel2": "ad",
+            "riskLabel3": "ad",
             "riskLevel": "REJECT"
           }
         ],
@@ -2354,14 +2354,14 @@
         "businessLabels": [],
         "content": "现代化国家新征程中职业教育前途广阔中共中央总书记国家主席中央军委主席习近平近日对职业教育工作作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
         "preAudioUrl": "http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666876123%3B1669468123\u0026q-key-time=1666876123%3B1669468123\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
-        "riskDescription": "涉政:一号领导:一号领导",
+        "riskDescription": "广告:广告:广告",
         "riskDetail": {
           "audioText": "作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
           "riskSource": 1001
         },
-        "riskLabel1": "politics",
-        "riskLabel2": "yihaolingdao",
-        "riskLabel3": "yihaolingdao",
+        "riskLabel1": "ad",
+        "riskLabel2": "ad",
+        "riskLabel3": "ad",
         "riskLevel": "REJECT"
       },
       "code": 1100,
