@@ -993,6 +993,109 @@ contents 中的子参数：
 
 ```
 
+### 2.4. 报告上传接口
+
+对外上传报告。通过 `serviceId` + `type` 组合确定报告类型，传入流水号列表生成报告。
+
+**请求 URL**
+https://api-web.fengkongcloud.com/api/case/upload
+
+**请求方法**
+
+POST，Content-Type: `application/json`
+
+**鉴权方式**
+
+通过 `accessKey` 鉴权，支持 Header `X-Accesskey` 或 Body 字段传入
+
+**输入参数**
+
+| 参数名    | 类型          | 必填 | 说明                                                                 |
+| --------- | ------------- | ---- | -------------------------------------------------------------------- |
+| accessKey | string        | 是   | 公司密钥，用于鉴权。可通过 Header `X-Accesskey` 或 Body 传入        |
+| serviceId | string        | 是   | 服务 ID，用于确定报告类型。见下方 serviceId 可选值                   |
+| type      | string        | 是   | 报告类型，可选值：`error`（误杀）、`miss`（漏杀）                    |
+| data      | array[object] | 是   | 请求流水号列表，最多允许传入 300 个。每项结构见下方 data 项说明      |
+
+data 项说明：
+
+| 参数名      | 类型   | 必填 | 说明                                                         |
+| ----------- | ------ | ---- | ------------------------------------------------------------ |
+| requestId   | string | 是   | 请求流水号                                                   |
+| clientLabel | string | 否   | 客户分析原因（漏杀传入，示例：涉政/xxx/xxx），仅对当前流水号生效 |
+
+serviceId 可选值：
+
+| serviceId     | 说明     |
+| ------------- | -------- |
+| `POST_TEXT`   | 文本服务 |
+| `POST_IMG`    | 图片服务 |
+
+type 可选值：
+
+| type    | 说明 |
+| ------- | ---- |
+| `error` | 误杀 |
+| `miss`  | 漏杀 |
+
+**输入示例**
+
+```json
+{
+  "accessKey": "4Ky6AV4hE0pWLeG1bXNw",
+  "serviceId": "POST_IMG",
+  "type": "miss",
+  "data": [
+    {
+      "requestId": "req_abc123def456789012345678",
+      "clientLabel": "涉政"
+    },
+    {
+      "requestId": "req_xyz987654321098765432109"
+    }
+  ]
+}
+```
+
+**输出参数**
+
+| 字段    | 类型   | 说明                                  | 是否必须 |
+| ------- | ------ | ------------------------------------- | -------- |
+| code    | int    | 状态码，1100 成功，其他失败           | 是       |
+| message | string | 提示语                                | 是       |
+| content | object | 数据对象                              | 是       |
+
+content 中的子参数：
+
+| 字段       | 类型   | 说明                   | 是否必须 |
+| ---------- | ------ | ---------------------- | -------- |
+| businessId | string | 报告业务 ID，自动生成  | 是       |
+
+**成功输出示例**
+
+```json
+{
+  "requestId": "xxx",
+  "code": 1100,
+  "message": "success",
+  "content": {
+    "businessId": "20260731153000"
+  }
+}
+```
+
+**失败输出示例**
+
+```json
+{
+  "requestId": "xxx",
+  "code": 1902,
+  "message": "serviceId和type不能为空",
+  "content": {}
+}
+```
+
+
 ## 3. 附录
 
 ### 3.1. 事件列表
