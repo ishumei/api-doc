@@ -128,7 +128,7 @@
         "type": "string",
         "param_description": "Type of risk detection",
         "required": "N",
-        "param_specification": "Either businesstype or type must be provided.\nAUDIOPOLITICAL: Leader's voiceprint recognition\nPOLITY: Political content recognition\nEROTIC: Pornography recognition\nADVERT: Advertising recognition\nADLAW: Advertising law recognition\nBAN: Prohibited content recognition\nVIOLENT: Violent content recognition\nANTHEN: National anthem recognition\nMOAN: Moaning recognition\nDIRTY: Insulting content recognition\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nFor combined detection, connect with underscores (e.g., POLITY_EROTIC_MOAN for political, pornographic, and moaning recognition).\nSuggested input: POLITY_EROTIC_MOAN_ADVERT."
+        "param_specification": "Either businesstype or type must be provided.\nAUDIOPOLITICAL: Voiceprint recognition\nPOLITY: Political content recognition\nEROTIC: Pornography recognition\nADVERT: Advertising recognition\nADLAW: Advertising law recognition\nBAN: Prohibited content recognition\nVIOLENT: Violent content recognition\nANTHEN: National anthem recognition\nMOAN: Moaning recognition\nDIRTY: Insulting content recognition\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nFor combined detection, connect with underscores (e.g., POLITY_EROTIC_MOAN for political, pornographic, and moaning recognition).\nSuggested input: POLITY_EROTIC_MOAN_ADVERT."
       },
       {
         "req_name": "businessType",

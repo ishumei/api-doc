@@ -118,7 +118,7 @@
         "type": "string",
         "param_description": "Type of risk detection",
         "required": "N",
-        "param_specification": "Either businesstype or type must be provided.\nAUDIOPOLITICAL: Audio of national leaders\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertising detection\nADLAW: Advertising law detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nANTHEN: National anthem detection\nMOAN: Moaning detection\nDIRTY: Insulting content detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nFor combined detection, connect with underscores (e.g., POLITY_EROTIC_MOAN for political, pornographic, and moaning detection).\nRecommended: POLITY_EROTIC_MOAN_ADVERT."
+        "param_specification": "Either businesstype or type must be provided.\nAUDIOPOLITICAL: Voiceprint recognition\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertising detection\nADLAW: Advertising law detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nANTHEN: National anthem detection\nMOAN: Moaning detection\nDIRTY: Insulting content detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nFor combined detection, connect with underscores (e.g., POLITY_EROTIC_MOAN for political, pornographic, and moaning detection).\nRecommended: POLITY_EROTIC_MOAN_ADVERT."
       },
       {
         "req_name": "businessType",

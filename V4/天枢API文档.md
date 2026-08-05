@@ -164,7 +164,7 @@ riskSegments的每个元素的详细内容如下：
     "eventId": "xxx",
     "textType": "TEXTRISK",
     "imageType": "IMGTEXTRISK",
-    "multimodalType": "POLITY_VIOLENT_BAN",
+    "multimodalType": "EROTIC_ADVERT_BAN_ADLAW",
     "data": {
         "sessionId": "sessionId001",
         "role": "assistant",

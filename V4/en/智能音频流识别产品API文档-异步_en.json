@@ -136,7 +136,7 @@
         "type": "string",
         "param_description": "Type of risk detection",
         "required": "Either businessType or type must be provided",
-        "param_specification": "Optional values: Regulatory functions\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertisement detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nMOAN: Moaning detection\nAUDIOPOLITICAL: Leader's voiceprint detection\nANTHEN: National anthem detection\nDIRTY: Insult detection\nADLAW: Advertisement law detection\nSING: Singing detection\nMINOR: Minor detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nVOICE: Voice attributes (e.g., synthesized voice)\nFor combined detection, connect with underscores, e.g., POLITY_EROTIC_MOAN\nPolitical, pornographic, and moaning detection refer to semantic content risk detection"
+        "param_specification": "Optional values: Regulatory functions\nPOLITY: Political content detection\nEROTIC: Pornographic content detection\nADVERT: Advertisement detection\nBAN: Prohibited content detection\nVIOLENT: Violent content detection\nMOAN: Moaning detection\nAUDIOPOLITICAL: Voiceprint recognition\nANTHEN: National anthem detection\nDIRTY: Insult detection\nADLAW: Advertisement law detection\nSING: Singing detection\nMINOR: Minor detection\nBANEDAUDIO: Prohibited songs\nCOPYRIGHTSONGS: Copyrighted songs\nVOICE: Voice attributes (e.g., synthesized voice)\nFor combined detection, connect with underscores, e.g., POLITY_EROTIC_MOAN\nPolitical, pornographic, and moaning detection refer to semantic content risk detection"
       },
       {
         "req_name": "businessType",
