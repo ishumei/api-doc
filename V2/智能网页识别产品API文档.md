@@ -89,7 +89,7 @@
 | imgType | string | 网页中的图片识别类型 | N | 可选值：<br/>`POLITICS`:涉政识别<br/>`PORN`:色情识别<br/>`AD`:广告识别<br/>`LOGO`:水印logo识别<br/>`BEHAVIOR`:不良场景识别，支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>`OCR`:图片中的OCR文字识别<br/>`VIOLENCE`:暴恐识别<br/>`NONE`:不需要识别图片<br/>如需做组合识别，通过下划线连接即可，例 如 `POLITICS_PORN_AD` 用于广告、色情和涉政识别<br/>不传时按涉政、色情、广告进行识别。<br/>注意：这里`POLITICS`实际上等价于以下两个类型：<br/>`PERSON`：涉政人脸识别<br/>`VIOLENCE`：暴恐识别 |
 | txtType | string | 网页中的文字识别类型 | N | 可选值：<br/>POLITY：涉政检测<br/>VIOLENT：暴恐检测<br/>BAN：违禁检测<br/>EROTIC：色情检测<br/>DIRTY：辱骂检测<br/>ADVERT：广告检测<br/>PRIVACY：隐私检测<br/>ADLAW：广告法检测<br/>MEANINGLESS：无意义检测<br/>FRUAD：网络诈骗检测<br/>UNPOACH：高价值用户防挖检测<br/>TEXTMINOR: 未成年人内容检测<br/>TEXTRISK：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>以上type可以下划线组合，如：TEXTRISK_FRUAD；type间组合取并集，如：TEXTRISK_POLITY按照常规风险检测处理；不传时按传入常规风险处理。 |
 | videoImgType | string | 网页中视频截帧图片的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别, 这里POLITICS实际识别内容为涉政人物和暴恐<br/>`PERSON`：涉政人物识别<br/>`VIOLENCE`：暴恐识别<br/>`PORN`：色情&性感违规识别<br/>`AD`：广告识别<br/>`QR`：二维码识别<br/>`OCR`：图片文字违规识别<br/>`BEHAVIOR`：不良场景识别,支持吸烟、喝酒、赌博、吸毒、避孕套和无意义画面<br/>如果需要识别多个功能，通过下划线连接，如POLITY_QRCODE_ADVERT用于涉政、二维码和广告组合识别<br/>如果审核视频，该字段必传|
-| videoAudioType | string | 网页中视频内音频的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声音涉政<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL_PORN_MOAN用于广告、色情和涉政识别<br/>不支持只审核视频中音频的情况|
+| videoAudioType | string | 网页中视频内音频的识别类型 | N | 可选值：<br/>`POLITICS`：涉政识别<br/>`PORN`：色情识别<br/>`AD`：广告识别<br/>`MOAN`：娇喘识别<br/>`ABUSE`：辱骂识别<br/>`ANTHEN`：国歌识别<br/>`AUDIOPOLITICAL`：声纹识别<br/>`NONE`:不检测音频<br/>如需做组合识别，通过下划线连接即可，例如POLITICAL_PORN_MOAN用于广告、色情和涉政识别<br/>不支持只审核视频中音频的情况|
 | appId | string | 应用标识 | N | 用于区分相同公司的不同应用，该参数传递值可与数美服务协商 |
 | callback | string | 回调http接口 | N | 当该字段非空时，服务将根据该字段回调通知用户审核结果|
 | callbackParam | json_object | 透传字段 | N | 当 callback 存在时可选，发送回调请求时服务将该字段内容同审核结果一起返回 |
@@ -224,7 +224,7 @@
 | audio_endtime           | float       | 音频片段结束时间     | N            |  |
 | riskLevel   | string | 当前截帧的处置建议             | Y            | 可选值：<br/>`PASS`：通过<br/>`REVIEW`：审核<br/>`REJECT`: 拒绝 |
 | audioText   | string       | 返回音转文文字        | N            | 截帧图片OCR文字识别，识别类型包含OCR时会有             |
-| riskType   | int       | 风险类型        | Y            | 返回值：<br/>`0`：正常<br/>`100`：涉政/国歌<br/>`110`: 暴恐<br/>`200`：色情<br/>`210`：辱骂<br/>`250`：娇喘<br/>`260`：一号领导人声纹<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`: 违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义             |
+| riskType   | int       | 风险类型        | Y            | 返回值：<br/>`0`：正常<br/>`100`：涉政/国歌<br/>`110`: 暴恐<br/>`200`：色情<br/>`210`：辱骂<br/>`250`：娇喘<br/>`260`：声纹识别<br/>`300`：广告<br/>`400`：灌水<br/>`500`：无意义<br/>`600`: 违禁<br/>`700`：其他<br/>`720`：黑账号<br/>`730`：黑IP<br/>`800`：高危账号<br/>`900`：自定义             |
 | audio_matchedItem   | string       | 违规音频敏感词内容 （该参数仅在命中敏感词时存在）        | N            |  |
 | riskSource   | int       | 风险来源           | Y            | 可返值：<br/>`1000`：无风险 <br/>`1001`：文字风险 <br/>`1003`：语音风险      |
 
@@ -575,11 +575,10 @@
 | **请求参数名** | **类型**    | **参数说明**                 | **是否必传** | **规范**                                                     |
 | -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
 | requestId      | string      | 机器审核流水号               | Y            |                                                              |
-| humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
 | machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考同步接口返回字段](#Ab1)                                 |
 | mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
 
-其中，humanResult/mergeResult的内容如下：
+其中，mergeResult的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范**                                     |
 | -------------- | -------- | ------------ | ------------ | -------------------------------------------- |
@@ -671,16 +670,16 @@
                                     "matchedFiled":[
                                         "text"
                                     ],
-                                    "name":"涉政_国家机构_军队",
+                                    "name":"广告_营销推广_营销关键词",
                                     "organization":"GLOBAL",
                                     "wordPositions":[
                                         {
                                             "position":"13,14,15",
-                                            "word":"解放軍"
+                                            "word":"keyword"
                                         }
                                     ],
                                     "words":[
-                                        "解放軍"
+                                        "keyword"
                                     ]
                                 },
                                 {
@@ -688,16 +687,16 @@
                                     "matchedFiled":[
                                         "text"
                                     ],
-                                    "name":"涉政词库3",
+                                    "name":"广告词库1",
                                     "organization":"RlokQwRlVjUrTUlkIqOg",
                                     "wordPositions":[
                                         {
                                             "position":"0",
-                                            "word":"解放軍"
+                                            "word":"keyword"
                                         }
                                     ],
                                     "words":[
-                                        "解放軍"
+                                        "keyword"
                                     ]
                                 }
                             ],
