@@ -157,7 +157,7 @@
       },
       {
         "length": "1024",
-        "param_description": "视频中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：一号领导人声纹识别\nANTHEN：国歌识别\nBANEDAUDIO：违禁歌曲\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
+        "param_description": "视频中的音频需要识别的监管类型，和audioBusinessType至少传一个。\n可选值：\nPOLITY：涉政识别\nEROTIC：色情识别\nADVERT：广告识别\nBAN：违禁识别\nVIOLENT：暴恐识别\nDIRTY: 辱骂识别\nADLAW:广告法\nMOAN：娇喘识别\nAUDIOPOLITICAL：声纹识别\nANTHEN：国歌识别\nBANEDAUDIO：违禁歌曲\nNONE：不检测音频\n如需做组合识别，通过下划线连接即可，例如POLITY_EROTIC用于涉政和色情识别",
         "req_name": "audioType",
         "required": false,
         "type": "string"
@@ -1969,15 +1969,15 @@
         {
           "allLabels": [
             {
-              "probability": 0.857458027460472,
-              "riskDescription": "涉政:国家机构:国家机构",
+              "probability": 0.998463273048401,
+              "riskDescription": "辱骂:人身攻击:重度人身攻击",
               "riskDetail": {
-                "audioText": "妈一起干，没事，让他报警，让他报警，找警察来，去干，备",
+                "audioText": "操你妈，几个，那你几个一起干，操你妈，你和奶奶的都还在不捣蛋也不",
                 "riskSource": 1001
               },
-              "riskLabel1": "politics",
-              "riskLabel2": "guojiajigou",
-              "riskLabel3": "guojiajigou",
+              "riskLabel1": "abuse",
+              "riskLabel2": "renshengongji",
+              "riskLabel3": "zhongdurenshengongji",
               "riskLevel": "REJECT"
             }
           ],
@@ -1987,14 +1987,14 @@
           "audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0003.wav?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666684511%3B1669276511\u0026q-key-time=1666684511%3B1669276511\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=fcf1b1275ca7dbafacaf06bd61cd05f5d612e9dc",
           "businessLabels": [],
           "requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0003",
-          "riskDescription": "涉政:国家机构:国家机构",
+          "riskDescription": "辱骂:人身攻击:重度人身攻击",
           "riskDetail": {
             "audioText": "妈一起干，没事，让他报警，让他报警，找警察来，去干，备",
             "riskSource": 1001
           },
-          "riskLabel1": "politics",
-          "riskLabel2": "guojiajigou",
-          "riskLabel3": "guojiajigou",
+          "riskLabel1": "abuse",
+          "riskLabel2": "renshengongji",
+          "riskLabel3": "zhongdurenshengongji",
           "riskLevel": "REJECT"
         },
         {
@@ -2042,16 +2042,16 @@
           "allLabels": [
             {
               "probability": 0.665125370025635,
-              "riskDescription": "涉政:政治象征:党徽",
+              "riskDescription": "人脸:人脸姿态:正脸",
               "riskDetail": {
                 "ocrText": {
                   "text": "2022/101/25 09:05"
                 },
                 "riskSource": 1002
               },
-              "riskLabel1": "politics",
-              "riskLabel2": "zhengzhixiangzheng",
-              "riskLabel3": "danghui",
+              "riskLabel1": "face",
+              "riskLabel2": "renlianzitai",
+              "riskLabel3": "zhenglian",
               "riskLevel": "REJECT"
             }
           ],
@@ -2097,33 +2097,33 @@
           "imgText": "2022/101/25 09:05",
           "imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v81.jpg?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666684548%3B1669276548\u0026q-key-time=1666684548%3B1669276548\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=d7692c37694f1219092cbd3d7364481ab690d62e",
           "requestId": "edaa113581ec1c18df7b44c86d36ae3b_v81",
-          "riskDescription": "涉政:政治象征:党徽",
+          "riskDescription": "人脸:人脸姿态:正脸",
           "riskDetail": {
             "ocrText": {
               "text": "2022/101/25 09:05"
             },
             "riskSource": 1002
           },
-          "riskLabel1": "politics",
-          "riskLabel2": "zhengzhixiangzheng",
-          "riskLabel3": "danghui",
+          "riskLabel1": "face",
+          "riskLabel2": "renlianzitai",
+          "riskLabel3": "zhenglian",
           "riskLevel": "REJECT",
           "time": 81
         },
         {
           "allLabels": [
             {
-              "probability": 0.553634166717529,
-              "riskDescription": "涉政:政治象征:党徽",
+              "probability": 0.665125370025635,
+              "riskDescription": "人脸:人脸姿态:正脸",
               "riskDetail": {
                 "ocrText": {
-                  "text": "新器 20210/2509:05"
+                  "text": "2022/101/25 09:05"
                 },
                 "riskSource": 1002
               },
-              "riskLabel1": "politics",
-              "riskLabel2": "zhengzhixiangzheng",
-              "riskLabel3": "danghui",
+              "riskLabel1": "face",
+              "riskLabel2": "renlianzitai",
+              "riskLabel3": "zhenglian",
               "riskLevel": "REJECT"
             }
           ],
@@ -2144,16 +2144,16 @@
           "imgText": "新器 20210/2509:05",
           "imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v82.jpg?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666684549%3B1669276549\u0026q-key-time=1666684549%3B1669276549\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=2606d67861e62622926d9d7f10037d70f068ceb5",
           "requestId": "edaa113581ec1c18df7b44c86d36ae3b_v82",
-          "riskDescription": "涉政:政治象征:党徽",
+          "riskDescription": "人脸:人脸姿态:正脸",
           "riskDetail": {
             "ocrText": {
-              "text": "新器 20210/2509:05"
+              "text": "2022/101/25 09:05"
             },
             "riskSource": 1002
           },
-          "riskLabel1": "politics",
-          "riskLabel2": "zhengzhixiangzheng",
-          "riskLabel3": "danghui",
+          "riskLabel1": "face",
+          "riskLabel2": "renlianzitai",
+          "riskLabel3": "zhenglian",
           "riskLevel": "REJECT",
           "time": 82
         }
