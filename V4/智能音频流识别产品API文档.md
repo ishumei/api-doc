@@ -40,7 +40,7 @@
 | accessKey      | string      | 公司密钥           | Y                          | 由数美提供                                                   |
 | appId          | string      | 应用标识           | Y                          | 用于区分应用<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
 | eventId        | string      | 事件标识           | Y                          | 区分场景数据<br/>需要联系数美服务开通，请使用数美单独提供的传值为准<br/> |
-| type           | string      | 检测的风险类型     | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
+| type           | string      | 检测的风险类型     | businesstype和type必传其一 | 可选值：监管功能<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声纹识别<br/>`ANTHEN`：国歌识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`SING`：唱歌识别<br/>`MINOR`：未成年人识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>`VOICE`：人声属性（伪造人声）<br/>如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`<br/>涉政、色情和娇喘识别，涉政、色情、辱骂、广告识别指的是语义内容的风险检测 |
 | businessType   | string      | 业务标签           | businesstype和type必传其一 | 可选值：业务标签的一、二、三级标签<br/>`GENDER`：性别识别<br/>`AGE`：年龄识别<br/>`TIMBRE`：音色识别<br/>`SING`：唱歌识别<br/>`LANGUAGE`：语种识别<br/>`VOICE`：人声属性<br/>`AUDIOSCENE`：声音场景<br/>如需识别音色、唱歌、语种`GENDER`必传 |
 | data           | json_object | 请求的数据内容     | Y                          | 本次请求相关信息，最长1MB,[详见data参数](#data)              |
 | callback       | string      | 回调地址           | Y                          | 异步检测结果回调通知您的URL，支持HTTP和HTTPS                 |
@@ -390,7 +390,7 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
     "accessKey": "xxxxx",
     "appId": "default",
     "eventId": "default",
-    "type": "EROTIC_ADVERT_POLITY_DIRTY",
+    "type": "EROTIC_ADVERT_DIRTY_BAN",
     "businessType":"GENDER_TIMBRE_SING_LANGUAGE",
     "callback": "xxxxx",
     "data": {
@@ -462,7 +462,7 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
                 }
             ]
         },
-        "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都",
+        "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢王主任一直都",
         "audioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=c0f9a66334bc00e1d92da40974756b9b4b9e7b26",
         "auxInfo":{
             "beginProcessTime":1637847113897,
@@ -482,7 +482,7 @@ curl -v 'http://api-audiostream-sh.fengkongcloud.com/audiostream/v4' -d '{
         "preAudioUrl":"https://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/MP3%2F20211125%2Fb639042cbfe229359e672074762c5583_2_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDcCe4LVKKzUvBIEtb2NZbS8lGblkbmoFW&q-sign-time=1637847114%3B1637847234&q-key-time=1637847114%3B1637847234&q-header-list=host&q-url-param-list=&q-signature=3a261ca2e46b32ec218be69a5802ec0e04c2c627",
         "riskDescription":"正常",
         "riskDetail":{
-            "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢毛主任一直都"
+            "audioText":"那就不好打吗？所以所以他小龙让掉也是合情合理。还要看这条，先锋啊，下一个节奏点可能就是个先锋，但这个先锋的时候，苏宁其实是可以打正面团战了，谢谢王主任一直都"
         },
         "riskLabel1":"normal",
         "riskLabel2":"normal",
