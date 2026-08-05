@@ -499,11 +499,10 @@
 | **请求参数名** | **类型**    | **参数说明**                 | **是否必传** | **规范**                                                     |
 | -------------- | ----------- | ---------------------------- | ------------ | ------------------------------------------------------------ |
 | requestId      | string      | 请求唯一标识                 | Y            |                                                              |
-| humanResult    | json object | 人审结果，人审完成后才会存在 | N            |                                                              |
 | machineResult  | json object | 机审结果，机审完成后才会存在 | N            | [参考回调接口返回字段](#Ab2)                                 |
 | mergeResult    | json_object | 统一人审和机审结果           | N            | 优先返回人审结果，如果人审结果没有，返回机审结果，如果都没有不存在 |
 
-其中，humanResult/mergeResult的内容如下：
+其中，mergeResult的内容如下：
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范**                                     |
 | -------------- | -------- | ------------ | ------------ | -------------------------------------------- |
@@ -595,16 +594,16 @@
                                     "matchedFiled":[
                                         "text"
                                     ],
-                                    "name":"涉政_国家机构_军队",
+                                    "name":"广告_营销推广_营销关键词",
                                     "organization":"GLOBAL",
                                     "wordPositions":[
                                         {
                                             "position":"13,14,15",
-                                            "word":"解放軍"
+                                            "word":"keyword"
                                         }
                                     ],
                                     "words":[
-                                        "解放軍"
+                                        "keyword"
                                     ]
                                 },
                                 {
@@ -612,16 +611,16 @@
                                     "matchedFiled":[
                                         "text"
                                     ],
-                                    "name":"涉政词库3",
+                                    "name":"广告词库1",
                                     "organization":"RlokQwRlVjUrTUlkIqOg",
                                     "wordPositions":[
                                         {
                                             "position":"0",
-                                            "word":"解放軍"
+                                            "word":"keyword"
                                         }
                                     ],
                                     "words":[
-                                        "解放軍"
+                                        "keyword"
                                     ]
                                 }
                             ],

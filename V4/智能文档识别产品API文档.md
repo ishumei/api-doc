@@ -67,9 +67,9 @@
 | eventId | string | 事件标识 | Y | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准 |
 | imgType | string | 图片识别类型 | Y | 可选值：<br/>`NONE`：不审核图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）<br/>`BOCR`：OCR小语种识别支持和语种自动检测（仅限新加坡集群）<br/>组合说明：除`NONE`以外都可以通过下划线组合，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
 | txtType | string | 文本识别类型 | Y | 可选值：<br/>`NONE`：不审核文本<br/>`POLITY`：涉政检测<br/>`VIOLENT`：暴恐检测<br/>`BAN`：违禁检测<br/>`EROTIC`：色情检测<br/>`DIRTY`：辱骂检测<br/>`ADVERT`：广告检测<br/>`PRIVACY`：隐私检测<br/>`ADLAW`：广告法检测<br/>`MEANINGLESS`：无意义检测<br/>`FRUAD`：网络诈骗检测<br/>`UNPOACH`：高价值用户防挖检测<br/>`TEXTMINOR`：未成年人内容检测<br/>`TEXTRISK`：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义）<br/>组合说明：除`NONE`以外都可以通过下划线组合，如`TEXTRISK_FRUAD`。type间组合取并集，如`TEXTRISK_POLITY`按照常规风险检测处理。`NONE`不可以和其他type拼接 |
-| audioType | string | 音频识别类型 | N | 可选值：<br/>`NONE`：不审核音频<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`ADLAW`：广告法识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`DIRTY`：辱骂识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接 |
+| audioType | string | 音频识别类型 | N | 可选值：<br/>`NONE`：不审核音频<br/>`AUDIOPOLITICAL`：声纹识别<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`ADLAW`：广告法识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`ANTHEN`：国歌识别<br/>`MOAN`：娇喘识别<br/>`DIRTY`：辱骂识别<br/>`BANEDAUDIO`：违禁歌曲<br/>`COPYRIGHTSONGS`：版权歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接 |
 | videoImgType | string | 视频图片识别类型 | N | 可选值：<br/>`NONE`：不审核视频图片<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情&性感违规识别<br/>`VIOLENT`：暴恐&违禁识别<br/>`QRCODE`：二维码识别<br/>`ADVERT`：广告识别<br/>`IMGTEXTRISK`：图片文字违规识别<br/>组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接 |
-| videoAudioType | string | 视频音频识别类型 | N | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：一号领导人声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接 |
+| videoAudioType | string | 视频音频识别类型 | N | 可选值：<br/>`NONE`：不检测视频中的音频<br/>`POLITY`：涉政识别<br/>`EROTIC`：色情识别<br/>`ADVERT`：广告识别<br/>`BAN`：违禁识别<br/>`VIOLENT`：暴恐识别<br/>`DIRTY`：辱骂识别<br/>`ADLAW`：广告法识别<br/>`MOAN`：娇喘识别<br/>`AUDIOPOLITICAL`：声纹识别<br/>`ANTHEN`：国歌识别<br/>`BANEDAUDIO`：违禁歌曲<br/>组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接 |
 | callback | string | 回调http接口 | Y | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`） |
 | data | json_object | 请求的数据内容 | Y | 最长1MB，[详见data参数](#data) |
 
@@ -1608,7 +1608,6 @@
 | --- | --- | --- | --- | --- |
 | requestId | string | 检测请求标识 | Y | 对应某项待查 `requestId` |
 | machineResult | json_object | 机审结果 | Y | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
-| humanResult | json_object | 人审结果 | N | 有人审时返回 |
 | mergeResult | json_object | 合并结果 | N | 优先展示策略合并结果，例如 `riskLevel` |
 
 ### 示例

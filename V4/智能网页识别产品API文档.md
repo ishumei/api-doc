@@ -70,9 +70,9 @@
 | eventId                 | string      | 事件标识         | Y        | 用于区分场景数据，需要联系数美服务开通，请使用数美单独提供的传值为准                                                                                                                                                                                                                                                                                                                                   |
 | imgType                 | string      | 图片识别类型       | Y        | 可选值： `NONE`：不审核图片 `POLITY`：涉政识别 `EROTIC`：色情&性感违规识别 `VIOLENT`：暴恐&违禁识别 `QRCODE`：二维码识别 `ADVERT`：广告识别 `IMGTEXTRISK`：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能） `BOCR`：OCR小语种识别支持和语种自动检测（仅限新加坡集群） 组合说明：除`NONE`以外都可以通过下划线组合，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接                                                                                        |
 | txtType                 | string      | 文本识别类型       | Y        | 可选值： `NONE`：不审核文本 `POLITY`：涉政检测 `VIOLENT`：暴恐检测 `BAN`：违禁检测 `EROTIC`：色情检测 `DIRTY`：辱骂检测 `ADVERT`：广告检测 `PRIVACY`：隐私检测 `ADLAW`：广告法检测 `MEANINGLESS`：无意义检测 `FRUAD`：网络诈骗检测 `UNPOACH`：高价值用户防挖检测 `TEXTMINOR`：未成年人内容检测 `TEXTRISK`：常规风险检测（包含：涉政、暴恐、违禁、色情、辱骂、广告、隐私、广告法、无意义） 组合说明：除`NONE`以外都可以通过下划线组合，如`TEXTRISK_FRUAD`。type间组合取并集，如`TEXTRISK_POLITY`按照常规风险检测处理。`NONE`不可以和其他type拼接 |
-| audioType               | string      | 音频识别类型       | N        | 可选值： `NONE`：不审核音频 `AUDIOPOLITICAL`：一号领导人声纹识别 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `ADLAW`：广告法识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `ANTHEN`：国歌识别 `MOAN`：娇喘识别 `DIRTY`：辱骂识别 `BANEDAUDIO`：违禁歌曲 `COPYRIGHTSONGS`：版权歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接                                          |
+| audioType               | string      | 音频识别类型       | N        | 可选值： `NONE`：不审核音频 `AUDIOPOLITICAL`：声纹识别 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `ADLAW`：广告法识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `ANTHEN`：国歌识别 `MOAN`：娇喘识别 `DIRTY`：辱骂识别 `BANEDAUDIO`：违禁歌曲 `COPYRIGHTSONGS`：版权歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接                                          |
 | videoImgType            | string      | 视频图片识别类型     | N        | 可选值： `NONE`：不审核视频图片 `POLITY`：涉政识别 `EROTIC`：色情&性感违规识别 `VIOLENT`：暴恐&违禁识别 `QRCODE`：二维码识别 `ADVERT`：广告识别 `IMGTEXTRISK`：图片文字违规识别 组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接                                                                                                                                                           |
-| videoAudioType          | string      | 视频音频识别类型     | N        | 可选值： `NONE`：不检测视频中的音频 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `DIRTY`：辱骂识别 `ADLAW`：广告法识别 `MOAN`：娇喘识别 `AUDIOPOLITICAL`：一号领导人声纹识别 `ANTHEN`：国歌识别 `BANEDAUDIO`：违禁歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接                                                                                                     |
+| videoAudioType          | string      | 视频音频识别类型     | N        | 可选值： `NONE`：不检测视频中的音频 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `DIRTY`：辱骂识别 `ADLAW`：广告法识别 `MOAN`：娇喘识别 `AUDIOPOLITICAL`：声纹识别 `ANTHEN`：国歌识别 `BANEDAUDIO`：违禁歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接                                                                                                     |
 | callback                | string      | 回调http接口     | N        | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`）                                                                                                                                                                                                                                                                                                               |
 | articleDoubleJumpConfig | json_object | 是否开启网页二跳审核方式 | N        | [详见articleDoubleJumpConfig参数](#articleDoubleJumpConfig)                                                                                                                                                                                                                                                                                                              |
 | articleScreenShotConfig | json_object | 是否开启网页截屏审核方式 | N        | [详见articleScreenShotConfig参数](#articleScreenShotConfig)                                                                                                                                                                                                                                                                                                              |
@@ -1504,35 +1504,35 @@
             "allLabels": [
                 {
                     "probability": 1,
-                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDescription": "广告:营销推广:营销关键词",
                     "riskDetail": {
                         "matchedLists": [
                             {
-                                "name": "测试zyk",
+                                "name": "sample_list",
                                 "words": [
                                     {
                                         "position": [
                                             10,
                                             11
                                         ],
-                                        "word": "58"
+                                        "word": "keyword"
                                     }
                                 ]
                             }
                         ]
                     },
-                    "riskLabel1": "politics",
-                    "riskLabel2": "politics",
-                    "riskLabel3": "politics",
+                    "riskLabel1": "ad",
+                    "riskLabel2": "ad",
+                    "riskLabel3": "ad",
                     "riskLevel": "REVIEW"
                 },
                 {
                     "probability": 1,
-                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDescription": "广告:营销推广:营销关键词",
                     "riskDetail": {
                         "matchedLists": [
                             {
-                                "name": "测试zyk",
+                                "name": "sample_list",
                                 "words": [
                                     {
                                         "position": [
@@ -1540,24 +1540,24 @@
                                             11,
                                             12
                                         ],
-                                        "word": "585"
+                                        "word": "keyword"
                                     }
                                 ]
                             }
                         ]
                     },
-                    "riskLabel1": "politics",
-                    "riskLabel2": "shezheng",
-                    "riskLabel3": "shezheng",
+                    "riskLabel1": "ad",
+                    "riskLabel2": "ad",
+                    "riskLabel3": "ad",
                     "riskLevel": "REVIEW"
                 }
             ],
             "requestId": "rerlgiewregliweruogrerwd_1",
-            "riskDescription": "涉政:涉政:涉政",
+            "riskDescription": "广告:营销推广:营销关键词",
             "riskDetail": {
                 "matchedLists": [
                     {
-                        "name": "测试zyk",
+                        "name": "sample_list",
                         "words": [
                             {
                                 "position": [
@@ -1565,15 +1565,15 @@
                                     11,
                                     12
                                 ],
-                                "word": "585"
+                                "word": "keyword"
                             }
                         ]
                     }
                 ]
             },
-            "riskLabel1": "politics",
-            "riskLabel2": "shezheng",
-            "riskLabel3": "shezheng"
+            "riskLabel1": "ad",
+            "riskLabel2": "ad",
+            "riskLabel3": "ad"
         }
     ],
     "imgDetails": [
@@ -1647,7 +1647,6 @@
 | ------------- | ----------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | requestId     | string      | 检测请求标识   | Y        | 对应某项待查 `requestId`                                                                                                                                                                      |
 | machineResult | json_object | 机审结果     | Y        | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
-| humanResult   | json_object | 人审结果     | N        | 有人审时返回                                                                                                                                                                                  |
 | mergeResult   | json_object | 合并结果     | N        | 优先展示策略合并结果，例如 `riskLevel`                                                                                                                                                               |
 
 
