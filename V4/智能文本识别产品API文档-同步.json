@@ -1244,13 +1244,13 @@
             "allLabels": [
                 {
                     "probability": 1,
-                    "riskDescription": "涉政:涉政:涉政",
+                    "riskDescription": "广告:广告:广告",
                     "riskDetail": {
 
                     },
-                    "riskLabel1": "politics",
-                    "riskLabel2": "shezheng",
-                    "riskLabel3": "shezheng",
+                    "riskLabel1": "ad",
+                    "riskLabel2": "ad",
+                    "riskLabel3": "ad",
                     "riskLevel": "REVIEW"
                 },
                 {
