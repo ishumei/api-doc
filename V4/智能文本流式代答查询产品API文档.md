@@ -84,7 +84,7 @@
   "requestId": "xxxxxxx",
   "message": "成功",
   "kbDetail": {
-    "answer": "成立于1969年，是中央直管的企业，累计用户近6000万。",
+    "answer": "成立于1969年****",
     "isEnd": true,
     "qlabel": "EXACTNESS",
     "hasAnswer": 1
