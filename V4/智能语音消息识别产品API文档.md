@@ -185,14 +185,14 @@ curl -v 'http://api-audio-bj.fengkongcloud.com/audiomessage/v4' -d '{
                 "riskLabel3":"qingdubuwenmingyongyu",
                 "riskDescription":"辱骂:不文明用语:轻度不文明用语",
                 "riskDetail":{
-                    "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你"
+                    "audioText":"超你今年十一月份十二月份你找个刘主任啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你"
                 }
             }
         ],
         "audioTags":{
 
         },
-        "audioText":"超你今年十一月份十二月份你找个毛东啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
+        "audioText":"超你今年十一月份十二月份你找个刘主任啊我了下乡那就装了的下个箱子装了不不挂现在查整好你过两年都能你",
         "audioTime":10,
         "code":1100,
         "requestParams":{

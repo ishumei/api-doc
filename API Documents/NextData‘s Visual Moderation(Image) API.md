@@ -328,7 +328,7 @@ If the callback protocol interface URL callback is specified in the request para
                     436,
                     210
                 ],
-                "name":"习近平",
+                "name":"***",
                 "probability":0.803125739097595
             }
         ],
@@ -375,7 +375,7 @@ If the callback protocol interface URL callback is specified in the request para
                             436,
                             210
                         ],
-                        "name":"习近平",
+                        "name":"***",
                         "probability":0.803125739097595
                     }
                 ],
