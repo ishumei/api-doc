@@ -425,7 +425,7 @@ businessDetail中，persons数组每个元素的内容如下：
     "score":999,
     "riskLevel":"REJECT",
     "detail":{
-        "description":"涉政文字",
+        "description":"****",
         "hits":[
         ]
         "matchedItem":"xxx",
@@ -560,12 +560,12 @@ curl –d '{"accessKey":"xxxxx","type":"XX","businessType":"XX","appId":"default
       "btId":"test",
       "code":1100,
       "detail":{
-        "description":"涉政：敏感政治事件：六四事件",
-        "descriptionV2":"涉政：敏感政治事件：六四事件",
+        "description":"涉政：涉政：涉政",
+        "descriptionV2":"涉政：涉政：涉政",
         "hits":[
           {
-            "description":"涉政：敏感政治事件：六四事件",
-            "descriptionV2":"涉政：敏感政治事件：六四事件",
+            "description":"涉政：涉政：涉政",
+            "descriptionV2":"涉政：涉政：涉政",
             "model":"MA001001007006003",
             "riskLevel":"REJECT",
             "riskType":100,

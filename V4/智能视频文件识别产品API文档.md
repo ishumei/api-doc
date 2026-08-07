@@ -843,7 +843,7 @@ code请求返回码列表如下：
 			"allLabels": [
 				{
 					"probability": 0.665125370025635,
-					"riskDescription": "涉政:政治象征:党徽",
+					"riskDescription": "涉政:涉政:涉政",
 					"riskDetail": {
 						"ocrText": {
 							"text": "2022/101/25 09:05"
@@ -898,7 +898,7 @@ code请求返回码列表如下：
 			"imgText": "2022/101/25 09:05",
 			"imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v81.jpg?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684548%3B1669276548&q-key-time=1666684548%3B1669276548&q-header-list=host&q-url-param-list=&q-signature=d7692c37694f1219092cbd3d7364481ab690d62e",
 			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_v81",
-			"riskDescription": "涉政:政治象征:党徽",
+			"riskDescription": "涉政:涉政:涉政",
 			"riskDetail": {
 				"ocrText": {
 					"text": "2022/101/25 09:05"
@@ -915,7 +915,7 @@ code请求返回码列表如下：
 			"allLabels": [
 				{
 					"probability": 0.553634166717529,
-					"riskDescription": "涉政:政治象征:党徽",
+					"riskDescription": "涉政:涉政:涉政",
 					"riskDetail": {
 						"ocrText": {
 							"text": "新器 20210/2509:05"
@@ -945,7 +945,7 @@ code请求返回码列表如下：
 			"imgText": "新器 20210/2509:05",
 			"imgUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_IMG%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_v82.jpg?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684549%3B1669276549&q-key-time=1666684549%3B1669276549&q-header-list=host&q-url-param-list=&q-signature=2606d67861e62622926d9d7f10037d70f068ceb5",
 			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_v82",
-			"riskDescription": "涉政:政治象征:党徽",
+			"riskDescription": "涉政:涉政:涉政",
 			"riskDetail": {
 				"ocrText": {
 					"text": "新器 20210/2509:05"
