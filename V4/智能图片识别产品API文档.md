@@ -327,7 +327,7 @@ scene_account_risk的详情内容如下：
     "riskLabel1":"politics",
     "riskLabel2":"yihaolingdao",
     "riskLabel3":"yihaolingdao",
-    "riskDescription":"涉政:一号领导:一号领导",
+    "riskDescription":"涉政:涉政:涉政",
     "riskDetail":{
         "faces":[
             {
@@ -339,7 +339,7 @@ scene_account_risk的详情内容如下：
                     436,
                     210
                 ],
-                "name":"习近平",
+                "name":"***",
                 "probability":0.803125739097595
             }
         ],
@@ -374,7 +374,7 @@ scene_account_risk的详情内容如下：
         },
         {
             "probability":0.855094926869849,
-            "riskDescription":"涉政:一号领导:一号领导",
+            "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
                 "faces":[
                     {
@@ -386,7 +386,7 @@ scene_account_risk的详情内容如下：
                             436,
                             210
                         ],
-                        "name":"习近平",
+                        "name":"***",
                         "probability":0.803125739097595
                     }
                 ],

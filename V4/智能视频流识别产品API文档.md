@@ -716,7 +716,7 @@ code请求返回码列表如下：
     "audioDetail":{
         "allLabels":[
             {
-                "riskDescription":"涉政:一号领导:一号领导",
+                "riskDescription":"涉政:涉政:涉政",
                 "riskLabel1":"politics",
                 "riskLabel2":"yihaolingdao",
                 "riskLabel3":"yihaolingdao",
@@ -735,9 +735,9 @@ code请求返回码列表如下：
         "businessLabels":[
 
         ],
-        "content":"现代化国家新征程中职业教育前途广阔中共中央总书记国家主席中央军委主席习近平近日对职业教育工作作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
+        "content":"********",
         "preAudioUrl":"http://bj-voice-mp3-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEOSTREAM%2FPOST_VIDEOSTREAM_AUDIO%2FMP3%2F20221027%2Fy28f8a4f1264085b321f12223wqed1121retestpvvvvv44321we12_3_pre.mp3?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666876123%3B1669468123&q-key-time=1666876123%3B1669468123&q-header-list=host&q-url-param-list=&q-signature=449fdcab8a3c11d5132f43f78c61e6663f5c08d6",
-        "riskDescription":"涉政:一号领导:一号领导",
+        "riskDescription":"涉政:涉政:涉政",
         "riskDetail":{
             "audioText":"作作出重要指示强调在全面建设社会主义现代化国家新征程中职业教育前途广阔中共中央总书记国家主",
             "riskSource":1001
