@@ -462,7 +462,7 @@ scene_account_risk的详情内容如下：
     "riskLabel1":"politics",
     "riskLabel2":"zhengzhixiangzheng",
     "riskLabel3":"guoqiguohui",
-    "riskDescription":"涉政:政治象征:国旗国徽",
+    "riskDescription":"涉政:涉政:涉政",
     "riskDetail":{
         "riskSource":1002
     },
@@ -475,7 +475,7 @@ scene_account_risk的详情内容如下：
     "allLabels":[
         {
             "probability":0.989746093754127,
-            "riskDescription":"涉政:政治象征:国旗国徽",
+            "riskDescription":"涉政:涉政:涉政",
             "riskDetail":{
                 "riskSource":1002
             },
