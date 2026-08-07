@@ -310,7 +310,7 @@
                 "type": "string",
                 "param_description": "返回标签的语种类型",
                 "required": false,
-                "param_specification": "将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文"
+                "param_specification": "选择返回标签的语种类型\n可选值：\nzh：中文\nen：英文"
             },
             {
                 "req_name": "callback",
