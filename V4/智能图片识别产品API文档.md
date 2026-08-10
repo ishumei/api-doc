@@ -325,8 +325,8 @@ scene_account_risk的详情内容如下：
     "message":"成功",
     "riskLevel":"REJECT",
     "riskLabel1":"politics",
-    "riskLabel2":"yihaolingdao",
-    "riskLabel3":"yihaolingdao",
+    "riskLabel2":"******",
+    "riskLabel3":"******",
     "riskDescription":"涉政:涉政:涉政",
     "riskDetail":{
         "faces":[
@@ -393,8 +393,8 @@ scene_account_risk的详情内容如下：
                 "riskSocrce":1002
             },
             "riskLabel1":"politics",
-            "riskLabel2":"yihaolingdao",
-            "riskLabel3":"yihaolingdao",
+            "riskLabel2":"******",
+            "riskLabel3":"******",
             "riskLevel":"REJECT"
         }
     ],
