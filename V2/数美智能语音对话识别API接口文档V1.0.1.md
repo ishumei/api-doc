@@ -284,7 +284,7 @@ code和message的列表如下：
 
 "riskLevel":"REJECT",
 
-"audioText":"法轮大法好",
+"audioText":"*****",
 
 "riskType":300
 

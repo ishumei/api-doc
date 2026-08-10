@@ -461,14 +461,14 @@ code和message的列表如下：
     "requestId": "b891cf2d82e214de45df33fc2bea4875",
     "btId": "xxxx",
     "riskLevel": "REJECT",
-    "audioText": "法轮大法好",
+    "audioText": "*****",
     "labels": "涉政-音频",
     "detail": [
         {
             "audioStarttime": 10,
             "audioEndtime": 20,
             "audioUrl": "<http://xxxxxxxx.>wav ",
-            "audioText": "法轮大法好",
+            "audioText": "*****",
             "riskLevel": "REJECT",
             "businessLabels":[
                 {
@@ -483,7 +483,7 @@ code和message的列表如下：
                     "probability":0.854025190610373
                 }
             ],          
-            "audioMatchedItem": "法轮",
+            "audioMatchedItem": "**",
             "riskType": 100,
             "description": "涉政-音频"
         }
