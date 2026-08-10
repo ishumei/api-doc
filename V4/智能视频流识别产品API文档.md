@@ -718,8 +718,8 @@ code请求返回码列表如下：
             {
                 "riskDescription":"涉政:涉政:涉政",
                 "riskLabel1":"politics",
-                "riskLabel2":"yihaolingdao",
-                "riskLabel3":"yihaolingdao",
+                "riskLabel2":"******",
+                "riskLabel3":"******",
                 "riskLevel":"REJECT"
             }
         ],
@@ -743,8 +743,8 @@ code请求返回码列表如下：
             "riskSource":1001
         },
         "riskLabel1":"politics",
-        "riskLabel2":"yihaolingdao",
-        "riskLabel3":"yihaolingdao",
+        "riskLabel2":"******",
+        "riskLabel3":"******",
         "riskLevel":"REJECT"
     },
     "requestParams":{

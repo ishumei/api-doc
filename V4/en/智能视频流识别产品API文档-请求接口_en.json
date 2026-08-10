@@ -2337,8 +2337,8 @@
           {
             "riskDescription": "Political involvement: Leader One: Leader One",
             "riskLabel1": "politics",
-            "riskLabel2": "yihaolingdao",
-            "riskLabel3": "yihaolingdao",
+            "riskLabel2": "******",
+            "riskLabel3": "******",
             "riskLevel": "REJECT"
           }
         ],
@@ -2360,8 +2360,8 @@
           "riskSource": 1001
         },
         "riskLabel1": "politics",
-        "riskLabel2": "yihaolingdao",
-        "riskLabel3": "yihaolingdao",
+        "riskLabel2": "******",
+        "riskLabel3": "******",
         "riskLevel": "REJECT"
       },
       "code": 1100,
