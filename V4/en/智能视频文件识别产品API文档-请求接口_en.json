@@ -1958,7 +1958,7 @@
               "probability": 0.857458027460472,
               "riskDescription": "Engaging in politics: State institutions: State institutions",
               "riskDetail": {
-                "audioText": "Let's do it together, mom. It's okay, let him call the police, let him call the police, bring the police here, let's go.",
+                "audioText": "Let's do it together, mom. It's okay, let him call the ***, let him call the ***, bring the *** here, let's go.",
                 "riskSource": 1001
               },
               "riskLabel1": "politics",
@@ -1969,13 +1969,13 @@
           ],
           "audioEndtime": 40,
           "audioStarttime": 30,
-          "audioText": "Let's do this together, mom. It's okay, let him call the police, let him call the police, get the police involved, go for it, prepare.",
+          "audioText": "Let's do this together, mom. It's okay, let him call the ***, let him call the ***, get the *** involved, go for it, prepare.",
           "audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0003.wav?q-sign-algorithm=sha1\u0026q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn\u0026q-sign-time=1666684511%3B1669276511\u0026q-key-time=1666684511%3B1669276511\u0026q-header-list=host\u0026q-url-param-list=\u0026q-signature=fcf1b1275ca7dbafacaf06bd61cd05f5d612e9dc",
           "businessLabels": [],
           "requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0003",
           "riskDescription": "Politics: State Institutions: State Institutions",
           "riskDetail": {
-            "audioText": "Let's do it together, mom. It's okay, let him call the police, let him call the police, get the police involved, go for it, prepare.",
+            "audioText": "Let's do it together, mom. It's okay, let him call the ***, let him call the ***, get the *** involved, go for it, prepare.",
             "riskSource": 1001
           },
           "riskLabel1": "politics",
@@ -2037,7 +2037,7 @@
               },
               "riskLabel1": "politics",
               "riskLabel2": "zhengzhixiangzheng",
-              "riskLabel3": "danghui",
+              "riskLabel3": "***",
               "riskLevel": "REJECT"
             }
           ],
@@ -2092,7 +2092,7 @@
           },
           "riskLabel1": "politics",
           "riskLabel2": "zhengzhixiangzheng",
-          "riskLabel3": "danghui",
+          "riskLabel3": "***",
           "riskLevel": "REJECT",
           "time": 81
         },
@@ -2109,7 +2109,7 @@
               },
               "riskLabel1": "politics",
               "riskLabel2": "zhengzhixiangzheng",
-              "riskLabel3": "danghui",
+              "riskLabel3": "***",
               "riskLevel": "REJECT"
             }
           ],
@@ -2139,7 +2139,7 @@
           },
           "riskLabel1": "politics",
           "riskLabel2": "zhengzhixiangzheng",
-          "riskLabel3": "danghui",
+          "riskLabel3": "***",
           "riskLevel": "REJECT",
           "time": 82
         }

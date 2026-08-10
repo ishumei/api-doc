@@ -852,7 +852,7 @@ code请求返回码列表如下：
 					},
 					"riskLabel1": "politics",
 					"riskLabel2": "zhengzhixiangzheng",
-					"riskLabel3": "danghui",
+					"riskLabel3": "***",
 					"riskLevel": "REJECT"
 				}
 			],
@@ -883,7 +883,7 @@ code请求返回码列表如下：
 									381,
 									278
 								],
-								"name": "郭荣铿",
+								"name": "***",
 								"probability": 0.499512671029603
 							}
 						]
@@ -907,7 +907,7 @@ code请求返回码列表如下：
 			},
 			"riskLabel1": "politics",
 			"riskLabel2": "zhengzhixiangzheng",
-			"riskLabel3": "danghui",
+			"riskLabel3": "***",
 			"riskLevel": "REJECT",
 			"time": 81
 		},
@@ -924,7 +924,7 @@ code请求返回码列表如下：
 					},
 					"riskLabel1": "politics",
 					"riskLabel2": "zhengzhixiangzheng",
-					"riskLabel3": "danghui",
+					"riskLabel3": "***",
 					"riskLevel": "REJECT"
 				}
 			],
@@ -954,7 +954,7 @@ code请求返回码列表如下：
 			},
 			"riskLabel1": "politics",
 			"riskLabel2": "zhengzhixiangzheng",
-			"riskLabel3": "danghui",
+			"riskLabel3": "***",
 			"riskLevel": "REJECT",
 			"time": 82
 		}
@@ -1028,7 +1028,7 @@ code请求返回码列表如下：
 					"probability": 0.998539209365845,
 					"riskDescription": "辱骂:人身攻击:重度人身攻击",
 					"riskDetail": {
-						"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+						"audioText": "********************",
 						"riskSource": 1001
 					},
 					"riskLabel1": "abuse",
@@ -1039,13 +1039,13 @@ code请求返回码列表如下：
 			],
 			"audioEndtime": 70,
 			"audioStarttime": 60,
-			"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+			"audioText": "********************",
 			"audioUrl": "http://bj-video-1251671073.cos.ap-beijing.myqcloud.com/POST_VIDEO%2FPOST_VIDEO_AUDIO%2F20221025%2Fedaa113581ec1c18df7b44c86d36ae3b_a0006.wav?q-sign-algorithm=sha1&q-ak=AKIDg9LHyOYSAcmfHekZ6NN6XidHflbASUHn&q-sign-time=1666684511%3B1669276511&q-key-time=1666684511%3B1669276511&q-header-list=host&q-url-param-list=&q-signature=55b6544e7408f29d4b7286690eb7494113ad7b31",
 			"businessLabels": [],
 			"requestId": "edaa113581ec1c18df7b44c86d36ae3b_a0006",
 			"riskDescription": "辱骂:人身攻击:重度人身攻击",
 			"riskDetail": {
-				"audioText": "你别动他，别动他，让他报警，哎呀，日你妈了个逼，继干，你继续干，让他们",
+				"audioText": "********************",
 				"riskSource": 1001
 			},
 			"riskLabel1": "abuse",
