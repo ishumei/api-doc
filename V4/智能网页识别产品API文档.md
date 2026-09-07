@@ -133,7 +133,7 @@
 | width         | int    | 截图的宽度      | N        | 默认截图宽度1080                                                                                                              |
 | height        | int    | 截图的高度      | N        | 默认截图高度6480                                                                                                              |
 | timeoutSecond | int    | 截图的超时时间    | N        | 默认超时时间30s                                                                                                               |
-| userAgent     | string | 浏览器类型      | N        | 默认"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" |
+| userAgent     | string | 浏览器类型      | N        | 默认"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" |
 
 
 其中，articleDynamicConfig的内容如下：
@@ -142,7 +142,7 @@
 | **请求参数名** | **类型** | **参数说明**      | **是否必传** | **规范**                                                                                                                  |
 | --------- | ------ | ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
 | isOpen    | bool   | 是否开启动态网页审核    | N        | 默认不开启                                                                                                                   |
-| userAgent | string | 浏览器类型         | N        | 默认"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" |
+| userAgent | string | 浏览器类型         | N        | 默认"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" |
 | cookie    | string | 动态网页审核的cookie | N        | 默认""                                                                                                                    |
 
 
@@ -169,17 +169,34 @@
 
 | **参数名称**     | **类型**      | **参数说明**  | **是否必返** | **规范**                                                                                                      |
 | ------------ | ----------- | --------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| code         | int         | 返回码       | Y        | `1100`：成功 `1901`：QPS超限 `1902`：参数不合法 `1903`：服务失败 `1905`：字数超限 `9100`：余额不足 `9101`：无权限操作                        |
-| message      | string      | 返回码描述     | Y        | 和code对应： 成功 QPS超限 参数不合法 服务失败 字数超限 余额不足 无权限操作                                                                |
+| code         | int         | 返回码       | Y        | `1100`：成功 `1901`：QPS超限 `1902`：参数不合法 `1903`：服务失败 `1904`：内容获取失败 `1905`：字数超限 `9100`：余额不足 `9101`：无权限操作          |
+| message      | string      | 返回码描述     | Y        | 和code对应：成功、QPS超限、参数不合法、服务失败、内容获取失败、字数超限、余额不足、无权限操作。`1904`通常表示URL无法访问或网页内容获取失败，`message`返回`get content has errors` |
 | requestId    | string      | 请求标识      | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                                                              |
 | riskLevel    | string      | 处置建议      | Y        | 可能返回值： `PASS`：正常，建议直接放行 `REVIEW`：可疑，建议人工审核 `REJECT`：违规，建议直接拦截                                               |
 | textDetails  | json_array  | 文本风险详情    | Y        | 网页中文本的风险详情，[详见textDetails参数](#textDetails)                                                                  |
 | imgDetails   | json_array  | 图片风险详情    | Y        | 网页中图片的风险详情，[详见imgDetails参数](#imgDetails)                                                                    |
 | audioDetails | json_array  | 音频风险详情    | Y        | 网页中音频的风险详情，[详见audioDetails参数](#audioDetails)                                                                |
 | videoDetails | json_array  | 视频风险详情    | Y        | 网页中视频的风险详情，[详见videoDetails参数](#videoDetails)                                                                |
+| doubleJumpDetails | json_array | 二跳网页风险详情 | N        | 开启网页二跳审核、识别到二跳网址且完成审核后返回，[详见doubleJumpDetails参数](#doubleJumpDetails)                                      |
 | auxInfo      | json_object | 辅助信息      | Y        | [详见auxInfo参数](#auxInfo)                                                                                     |
 | resultType   | int         | 结果类型      | Y        | 当前结果类型 `0`：机审 `1`：人审                                                                                        |
 | finalResult  | int         | 是否为最终审核结果 | Y        | 是否为最终审核结果（如仅接入机审，则默认返回1）。 `0`：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。 `1`：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
+
+
+其中，<span id="doubleJumpDetails">doubleJumpDetails</span>数组每个元素的内容如下：
+
+
+| **参数名称**     | **类型**     | **参数说明**  | **是否必返** | **规范**                                                                                                    |
+| ------------ | ---------- | --------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| url          | string     | 二跳网页地址    | Y        | 当前二跳子页面的URL                                                                                              |
+| code         | int        | 返回码       | Y        | `1100`：成功                                                                                               |
+| message      | string     | 返回码描述     | Y        | 和code对应：成功                                                                                               |
+| requestId    | string     | 请求标识      | Y        | 当前二跳子页面审核请求的唯一标识，用于问题排查和效果优化，强烈建议保存                                                                  |
+| riskLevel    | string     | 处置建议      | Y        | 可能返回值： `PASS`：正常，建议直接放行 `REVIEW`：可疑，建议人工审核 `REJECT`：违规，建议直接拦截                                     |
+| textDetails  | json_array | 文本风险详情    | Y        | 二跳网页中文本的风险详情，字段结构与主页面的[textDetails参数](#textDetails)一致                                                   |
+| imgDetails   | json_array | 图片风险详情    | Y        | 二跳网页中图片的风险详情，字段结构与主页面的[imgDetails参数](#imgDetails)一致                                                     |
+| audioDetails | json_array | 音频风险详情    | N        | 二跳网页中音频的风险详情，字段结构与主页面的[audioDetails参数](#audioDetails)一致                                                 |
+| videoDetails | json_array | 视频风险详情    | N        | 二跳网页中视频的风险详情，字段结构与主页面的[videoDetails参数](#videoDetails)一致                                                 |
 
 
 其中，textDetails的内容如下：
@@ -1447,11 +1464,11 @@
         "width": 1080,
         "height": 6480,
         "timeoutSecond": 30,
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31"
     },
     "articleDynamicConfig": {
         "isOpen": true,
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31",
         "cookie": ""
     },
     "data": {
@@ -1586,6 +1603,18 @@
 }
 ```
 
+##### 内容获取失败回调示例（1904）
+
+当URL无法访问或网页内容获取失败时，回调仅返回`code`、`message`和`requestId`。
+
+```json
+{
+    "code": 1904,
+    "message": "get content has errors",
+    "requestId": "xxx"
+}
+```
+
 ---
 
 ## 结果查询接口
@@ -1716,4 +1745,3 @@
     ]
 }
 ```
-
