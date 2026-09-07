@@ -259,6 +259,8 @@ riskSegments的每个元素的详细内容如下：
 `UNPOACH`：高价值用户防挖检测  
 `TEXTMINOR`：未成年人内容检测  
 `PROMPTATTACK`：指令攻击  
+
+`PROMPTINTENT`：指令意图  
 `PUBLICFIGURE`：公众人物识别  	
 
 <span id="appendix-imageType">imageType可选值如下：</span>
