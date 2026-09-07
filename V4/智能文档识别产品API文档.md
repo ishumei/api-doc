@@ -117,6 +117,9 @@
 | `CSV` | 逗号分隔值文件 | |
 | `EPUB` | 电子书格式 | |
 | `MD` | Markdown文档 | |
+| `HTML` | HTML静态页面文件 | 直接解析HTML源码，不执行JavaScript，[详见静态HTML解析说明](#staticHTML) |
+| `HTM` | HTM静态页面文件 | 同`HTML` |
+| `XHTML` | XHTML静态页面文件 | 同`HTML` |
 | `SRT` | 字幕文件 | |
 | `VTT` | WebVTT字幕文件 | |
 | `SB2` | Scratch 2.0 项目文件 | 提取舞台脚本文本、角色名称及内置图片/音频资源送审 |
@@ -126,6 +129,14 @@
 | `7Z` | 7-Zip压缩包 | 同`ZIP` |
 | `TAR_GZ` | tar.gz压缩包 | 同`ZIP`，也支持`.tgz`后缀 |
 | `GZ` | gzip单文件压缩包 | 同`ZIP` |
+
+<span id="staticHTML">静态HTML解析说明</span>：
+
+- 当`fileFormat`为`HTML`、`HTM`或`XHTML`时，服务直接解析`url`指向文件中的静态HTML源码，不启动浏览器，也不执行JavaScript。需要审核依赖JavaScript渲染的网页时，请使用智能网页识别接口的动态网页审核能力。
+- 支持完整HTML/XHTML文档和包含HTML标签的片段；纯文本、JSON或其他不含HTML标签的内容不属于有效HTML，可能返回`code=1902`、`message=contents is not valid html`。
+- 文本审核会忽略`script`、`style`和`noscript`标签中的内容。
+- HTML中的图片、音频和视频仅处理绝对`http`或`https`地址；相对路径、`//`开头的协议相对地址及其他协议会被忽略。图片还支持有效的`data:image/...;base64,...`内联数据。
+- 文件大小及文本、图片等数量限制与其他文档格式一致。
 
 <span id="archiveInnerFileTypes">压缩包内支持识别的文件格式</span>（适用于 `ZIP`/`RAR`/`7Z`/`TAR_GZ`/`GZ`）：
 
@@ -1337,6 +1348,34 @@
 
 
 
+#### 静态HTML检测示例
+
+以下示例通过文档接口检测一个静态HTML文件。`fileFormat`也可根据实际文件格式传入`HTM`或`XHTML`。
+
+##### 请求示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "appId": "your_app_id",
+    "eventId": "document",
+    "imgType": "POLITY_EROTIC_ADVERT",
+    "txtType": "TEXTRISK",
+    "audioType": "POLITY_EROTIC_ADVERT",
+    "videoImgType": "POLITY_EROTIC_ADVERT",
+    "videoAudioType": "POLITY_EROTIC_ADVERT",
+    "callback": "http://www.xxx.top/callbackaddr",
+    "data": {
+        "url": "https://example.com/files/sample.html",
+        "fileFormat": "HTML",
+        "tokenId": "your_token_id",
+        "returnAllImg": 0,
+        "returnAllText": 0,
+        "returnAllAudio": 0
+    }
+}
+```
+
 #### 压缩包检测示例
 
 以下示例基于 `fileFormat=TAR_GZ` 的压缩包检测请求。示例仅展示字段结构，内容为虚构占位数据。
@@ -1676,4 +1715,3 @@
   ]
 }
 ```
-
