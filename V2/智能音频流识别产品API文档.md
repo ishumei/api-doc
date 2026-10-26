@@ -154,6 +154,7 @@ POST
 | demoSences   | int      | Y            | <p>录制类型可选值：</p><p>分流录制：2<br/>合流录制：4</p>                                                                                                  |
 | userId       | string   | Y            | 分配给录制端的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符                                                                   |
 | userSig      | string   | Y            | 录制userId对应的验证签名，相当于登录密码                                                                                                                   |
+| privateMapKey | string   | N            | 用于权限控制的权限票据（选填），当您希望某个房间只能让特定的 userId 进入时，需要使用 privateMapKey 进行权限保护。详见：https://cloud.tencent.com/document/product/647/79641#a1de1e93c6cfc6be81dd4152b9e4c190 |
 | uid       | string   | N            | 指定需要审核的用户ID，如果不传该参数，则默认拉取并审核房间中所有推流用户的流。如果需要审核同一房间内的一部分用户，**请使用不同的录制端userId和userSig分多次请求。注意此参数和userId的区别**。                                            |
 | roomId       | int      | Y            | <p>房间号码，取值范围：【1-4294967294】</p><p>roomId与strRoomId必传一个，若两者都有值优先选用roomId</p>                                                    |
 | strRoomId    | string   | Y            | <p>房间号码<br/>取值说明：只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符</p><p>若您选用strRoomId时，需注意strRoomId和roomId两者都有值优先选用roomId</p> |
@@ -348,6 +349,7 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
             "demoSences": 4,
             "userId": "12345",
             "userSig": "",
+            "privateMapKey": "xxxxx",
             "roomId": 517067780
         },
         "returnPreText": true,
@@ -399,6 +401,7 @@ curl 'http://api-audiostream-bj.fengkongcloud.com/v2/saas/anti_fraud/audiostream
                 "demoSences": 4,
                 "userId": "12345",
                 "userSig": "",
+                "privateMapKey": "xxxxx",
                 "roomId": 517067780
             },
             "returnPreText": true,

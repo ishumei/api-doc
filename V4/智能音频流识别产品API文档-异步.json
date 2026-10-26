@@ -269,6 +269,12 @@
                 "param_specification": "录制userId对应的验证签名，相当于登录密码"
               },
               {
+                "req_name": "privateMapKey",
+                "type": "string",
+                "required": false,
+                "param_specification": "用于权限控制的权限票据（选填），当您希望某个房间只能让特定的 userId 进入时，需要使用 privateMapKey 进行权限保护。详见：https://cloud.tencent.com/document/product/647/79641#a1de1e93c6cfc6be81dd4152b9e4c190"
+              },
+              {
                 "req_name": "roomId",
                 "type": "int",
                 "required": true,
