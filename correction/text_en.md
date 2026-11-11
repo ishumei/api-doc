@@ -68,6 +68,7 @@ Among them, the list of riskType is as follows:
 | ------------- | --------------- |
 | 0             | Normal          |
 | 100           | Political       |
+| 110           | Violence        |
 | 200           | Pornographic    |
 | 210           | Abusive         |
 | 300           | Advertisement   |
