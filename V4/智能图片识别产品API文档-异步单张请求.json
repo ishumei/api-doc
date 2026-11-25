@@ -137,7 +137,7 @@
       },
       {
         "length": "64",
-        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\nBOCR：OCR小语种识别支持和语种自动检测（仅限新加坡和硅谷集群）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别",
+        "param_description": "需要识别的风险类型。type与businessType至少传一个, 可选值：\nPOLITY ：涉政识别\nEROTIC ：色情\u0026性感违规识别\nVIOLENT ：暴恐\u0026违禁识别\nQRCODE ：二维码识别\nADVERT ：广告识别\nIMGTEXTRISK ：图片文字违规识别（如需要识别图片里文字的违规内容，务必传入图片文字违规识别功能）\nBOCR：OCR小语种识别支持和语种自动检测（仅限新加坡和硅谷集群）\n如果需要识别多个功能，通过下划线连接，如 POLITY_QRCODE_ADVERT 用于涉政、二维码和广告组合识别\nIMGTEXTRISK和BOCR两者取一即可，同时传入以BOCR为准",
         "req_name": "type",
         "required": false,
         "type": "string"
@@ -295,8 +295,15 @@
       },
       {
         "length": "-",
-        "param_description": "选择返回标签的语种类型\n可选值：\nzh：中文\nen：英文\n不传入默认为返回中文标签",
-        "req_name": "acceptLang",
+        "param_description": "返回标签的语种类型\n可选值：\nzh：中文\nen：英文\n不传入默认为返回中文标签",
+        "req_name": "internationalLang",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "翻译目标语种。将输入的文本翻译成目标语种。仅传入BOCR时可用，如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文",
+        "req_name": "translationTargetLang",
         "required": false,
         "type": "string"
       }
@@ -729,6 +736,26 @@
       {
         "description": "车牌识别",
         "type": "LICENCEPLATE"
+      },
+      {
+        "description": "游戏角色",
+        "type": "GAMECHARACTER"
+      },
+      {
+        "description": "动漫角色",
+        "type": "ANIMECHARACTER"
+      },
+      {
+        "description": "影视角色",
+        "type": "MEDIACHARACTER"
+      },
+      {
+        "description": "app名称识别",
+        "type": "APPNAME"
+      },
+      {
+        "description": "品牌名称",
+        "type": "BRAND"
       }
     ]
   }

@@ -102,7 +102,7 @@
 | **请求参数名** | **类型** | **参数说明** | **传入说明** | **规范** |
 | --- | --- | --- | --- | --- |
 | sdkAppId | int | Y | 必传参数 | 腾讯提供的sdkAppId |
-| demoSences | int | Y | 必传参数 | 录制类型可选值：<br/>`2`:分流录制<br/>`4`:合流录制 |
+| demoSences | int | Y | 必传参数 | 录制类型可选值：<br/>`2`:分流录制 |
 | userId | string | Y | 必传参数 | 分配给录制段的userId，限制长度为32bit，只允许包含（a-zA-Z），数字(0-9)以及下划线和连词符 |
 | userSig | string | Y | 必传参数 | 录制userId对应的验证签名，相当于登录密码 |
 | roomId | int | Y | 非必传参数 | 房间号码，取值范围：【1-4294967294】roomId与strRoomId必传一个，若两者都有值优先选用roomId 注意：目前一个房间最多只能审核8个用户|
@@ -592,6 +592,13 @@ businessDetail中，persons数组的每个元素的内容如下：
 | CRUSTACEAN | 动物  - 甲壳动物 |  |
 | PLANT | 植物 |  |
 | SETTING | 场所 | 如识别卫生间、酒店、厨房等 |
+| EXTREMEWEATHER  | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等  |
+| LICENCEPLATE    | 车牌识别     |  |
+| GAMECHARACTER    | 游戏角色     |  |
+| ANIMECHARACTER    | 动漫角色     |  |
+| MEDIACHARACTER    | 影视角色     |  |
+| APPNAME    | app名称识别     |  |
+| BRAND    | 品牌名称                |  |
 
 ## 接口响应码列表
 
