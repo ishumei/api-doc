@@ -15,6 +15,7 @@
         - [请求方法](#请求方法)
         - [建议超时时长](#建议超时时长)
         - [请求参数](#请求参数-1)
+    - [异步提交并主动查询](#异步提交并主动查询)
     - [请求即时响应](#请求即时响应)
     - [回调返回结果](#回调返回结果)
     - [示例](#示例)
@@ -32,7 +33,11 @@
 
 ## 检测接口
 
-> **接口模式**：传入 `callback` 时采用**异步检测**，HTTP 响应（见[请求即时响应](#请求即时响应)）仅返回受理结果（`code`/`message`/`requestId`），**不含**审核详情，完整结果通过回调推送；未传 `callback` 时，审核结果在 HTTP 响应中直接返回（字段结构同[回调返回结果](#回调返回结果)）。两种场景均可通过[结果查询接口](#结果查询接口)获取。
+| 模式 | 提交参数 | 获取审核结果 |
+| --- | --- | --- |
+| 同步检测 | 省略 `async` 或传 `false`，省略 `callback` | HTTP 响应直接返回审核结果，字段见[回调返回结果](#回调返回结果)。 |
+| 回调检测 | 省略 `async` 或传 `false`，提供 `callback` | 审核结果通过回调推送，也可通过[结果查询接口](#结果查询接口)获取。 |
+| 异步提交并主动查询 | 顶层传入 `async: true`，省略 `callback` | 仅通过[结果查询接口](#结果查询接口)获取，查询时使用受理响应中的 `requestId`。 |
 
 ### 请求参数
 
@@ -73,7 +78,8 @@
 | audioType               | string      | 音频识别类型       | N        | 可选值： `NONE`：不审核音频 `AUDIOPOLITICAL`：声纹识别 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `ADLAW`：广告法识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `ANTHEN`：国歌识别 `MOAN`：娇喘识别 `DIRTY`：辱骂识别 `BANEDAUDIO`：违禁歌曲 `COPYRIGHTSONGS`：版权歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC_MOAN`用于涉政、色情和娇喘识别。建议传入：`POLITY_EROTIC_MOAN_ADVERT`。`NONE`不可以和其他type拼接                                          |
 | videoImgType            | string      | 视频图片识别类型     | N        | 可选值： `NONE`：不审核视频图片 `POLITY`：涉政识别 `EROTIC`：色情&性感违规识别 `VIOLENT`：暴恐&违禁识别 `QRCODE`：二维码识别 `ADVERT`：广告识别 `IMGTEXTRISK`：图片文字违规识别 组合说明：如需识别多个功能，通过下划线连接，如`POLITY_QRCODE_ADVERT`用于涉政、二维码和广告组合识别。`NONE`不可以和其他type拼接                                                                                                                                                           |
 | videoAudioType          | string      | 视频音频识别类型     | N        | 可选值： `NONE`：不检测视频中的音频 `POLITY`：涉政识别 `EROTIC`：色情识别 `ADVERT`：广告识别 `BAN`：违禁识别 `VIOLENT`：暴恐识别 `DIRTY`：辱骂识别 `ADLAW`：广告法识别 `MOAN`：娇喘识别 `AUDIOPOLITICAL`：声纹识别 `ANTHEN`：国歌识别 `BANEDAUDIO`：违禁歌曲 组合说明：如需做组合识别，通过下划线连接即可，例如`POLITY_EROTIC`用于涉政和色情识别。`NONE`不可以和其他type拼接                                                                                                     |
-| callback                | string      | 回调http接口     | N        | 指定回调url地址。当该字段非空时，服务将根据该字段回调通知用户审核结果（支持`http`/`https`）                                                                                                                                                                                                                                                                                                               |
+| callback                | string      | 回调http接口     | N        | 审核结果回调地址，支持 HTTP(S)。使用 `async=true` 时省略。 |
+| async | bool | 是否异步提交并主动查询 | N | 默认 `false`。`true` 时任务进入队列，通过结果查询接口获取审核结果。 |
 | articleDoubleJumpConfig | json_object | 是否开启网页二跳审核方式 | N        | [详见articleDoubleJumpConfig参数](#articleDoubleJumpConfig)                                                                                                                                                                                                                                                                                                              |
 | articleScreenShotConfig | json_object | 是否开启网页截屏审核方式 | N        | [详见articleScreenShotConfig参数](#articleScreenShotConfig)                                                                                                                                                                                                                                                                                                              |
 | articleDynamicConfig    | json_object | 是否开启网页动态审核方式 | N        | [详见articleDynamicConfig参数](#articleDynamicConfig)                                                                                                                                                                                                                                                                                                                    |
@@ -146,16 +152,62 @@
 | cookie    | string | 动态网页审核的cookie | N        | 默认""                                                                                                                    |
 
 
+#### 异步提交并主动查询
+
+1. 调用 `POST /webpage/v4`，在 JSON 请求体顶层设置 `async: true`。在 `data.url`、`data.contents`、`data.text` 中选择一项作为审核内容。
+2. 省略顶层 `callback`。与异步模式冲突的参数会返回 `1902`。需要审核音视频时，可按需设置 `audioType`、`videoImgType` 和 `videoAudioType`。
+3. [即时响应](#请求即时响应)返回 `code=1100` 后，保存 `requestId`，用同一 `accessKey` 调用 `POST /query_webpage/v4`。查询请求的顶层 `code=1100` 表示查询成功，审核状态以 `contents[].machineResult.code` 为准。`1101` 表示结果尚未可查，可继续查询。`1100` 表示审核完成，处置建议见 `machineResult.riskLevel`。任务失败时，`machineResult.code` 返回对应错误码。
+
+异步提交示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "appId": "your_app_id",
+    "eventId": "your_webpage_event_id",
+    "imgType": "POLITY",
+    "txtType": "TEXTRISK",
+    "async": true,
+    "data": {
+        "url": "https://example.com/page",
+        "tokenId": "user_001"
+    }
+}
+```
+
+请求即时响应示例
+
+```json
+{
+    "code": 1100,
+    "message": "成功",
+    "requestId": "webpage_request_001"
+}
+```
+
+结果查询请求示例
+
+```json
+{
+    "accessKey": "your_access_key",
+    "requestIds": [
+        "webpage_request_001"
+    ]
+}
+```
+
+处理中和终态结果的响应结构见[查询响应](#查询响应)。
+
 #### 请求即时响应
 
-**说明**：**仅适用于传入 `callback` 的异步检测场景**。调用检测接口后，服务端立即返回以下参数，表示请求是否受理成功。**此处不是审核结果**，不含 `riskLevel`、`textDetails` 等字段；审核结果请查看[回调返回结果](#回调返回结果)或使用[结果查询接口](#结果查询接口)。
+适用于异步提交并主动查询，以及直接返回受理响应的回调检测。响应包含 `code`、`message` 和 `requestId`，其中 `code=1100` 表示受理成功。请按所选模式通过[结果查询接口](#结果查询接口)或[回调](#回调返回结果)获取审核详情。
 
 放在HTTP Body中，采用Json格式，具体参数如下：
 
 
 | **参数名称**  | **类型** | **参数说明** | **是否必返** | **规范**                                                                   |
 | --------- | ------ | -------- | -------- | ------------------------------------------------------------------------ |
-| code      | int    | 返回码      | Y        | `1100`：成功 `1901`：QPS超限 `1902`：参数不合法 `1903`：服务失败 `9100`：余额不足 `9101`：无权限操作 |
+| code      | int    | 返回码      | Y        | `1100`：受理成功 `1901`：QPS超限 `1902`：参数不合法 `1903`：服务失败 `9100`：余额不足 `9101`：无权限操作 |
 | message   | string | 返回码描述    | Y        | 和code对应： 成功 QPS超限 参数不合法 服务失败 余额不足 无权限操作                                  |
 | requestId | string | 请求标识     | Y        | 本次请求数据的唯一标识，用于问题排查和效果优化，强烈建议保存                                           |
 
@@ -1620,7 +1672,7 @@
 
 ## 结果查询接口
 
-用于异步队列、`callback` 回调或音视频分段回调等场景下，按检测接口返回的 `requestId` 主动查询终态审核结果（业务字段与上文[回调返回结果](#回调返回结果)一致）。
+使用检测接口返回的 `requestId` 主动查询，适用于 `async=true`、`callback` 回调和音视频分段回调等场景。审核结果的业务字段见[回调返回结果](#回调返回结果)。
 
 ### 请求参数
 
@@ -1676,7 +1728,7 @@
 | **参数名称**      | **类型**      | **参数说明** | **是否必返** | **规范**                                                                                                                                                                                  |
 | ------------- | ----------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | requestId     | string      | 检测请求标识   | Y        | 对应某项待查 `requestId`                                                                                                                                                                      |
-| machineResult | json_object | 机审结果     | Y        | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
+| machineResult | json_object | 机审结果     | Y        | 单项 `code` 表示该任务的机审状态。`1100` 为终态成功，业务字段见[回调返回结果](#回调返回结果)。`1101` 表示无历史记录或仍在处理。任务失败时可返回 `1904`、`1905` 等检测错误码，历史结果解析失败时返回 `1902`，服务异常或历史结果过长时可返回 `1903`。 |
 | mergeResult   | json_object | 合并结果     | N        | 优先展示策略合并结果，例如 `riskLevel`                                                                                                                                                               |
 
 

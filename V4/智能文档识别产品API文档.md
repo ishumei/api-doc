@@ -15,6 +15,7 @@
     - [请求方法](#请求方法)
     - [建议超时时长](#建议超时时长)
     - [请求参数](#请求参数-1)
+  - [OpenRTB 广告创意审核](#openrtb-广告创意审核)
   - [请求即时响应](#请求即时响应)
   - [回调返回结果](#回调返回结果)
   - [示例](#示例)
@@ -77,7 +78,8 @@
 
 | **请求参数名** | **类型** | **参数说明** | **是否必传** | **规范** |
 | --- | --- | --- | --- | --- |
-| url | string | 要检测的文档链接 | Y | 可下载文档链接，内容大小`500M`以内，文本长度默认限制`50万`字，图片张数默认限制`500张`。 |
+| url | string | 要检测的文档链接 | 条件必传 | 常规文档必传，文件大小 `500M` 以内，文本默认最多 50 万字，图片默认最多 500 张。RTB JSON 在未传入 `contents` 时读取此字段，文件最大 10 MiB。 |
+| contents | string | 内联 RTB JSON | 条件必传 | 仅用于 `fileFormat=RTB_JSON`，最大 256 KiB，必须传入 JSON 字符串。[详见 OpenRTB 广告创意审核](#openrtb-广告创意审核) |
 | fileFormat        | string  | 要检测的文档格式| Y   | 注意：值必须与文档实际格式一致，否则将返回参数错误。[详见fileFormat可选值](#fileFormat) |
 | lang | string | 待检测的文本内容语种 | N | 可选值和对应语种如下：<br/>`zh`：中文<br/>`en`：英文<br/>`ar`：阿拉伯语<br/>`hi`：印地语<br/>`es`：西班牙语<br/>`fr`：法语<br/>`ru`：俄语<br/>`pt`：葡萄牙语<br/>`id`：印尼语<br/>`de`：德语<br/>`ja`：日语<br/>`tr`：土耳其语<br/>`vi`：越南语<br/>`it`：意大利语<br/>`th`：泰语<br/>`tl`：菲律宾语<br/>`ko`：韩语<br/>`ms`：马来语<br/>`auto`：自动识别语种类型<br/>注意：默认值为`zh`。国内集群客户可不传或传入`zh`；海外文本内容如无法确定语种，建议传入`auto`，系统将自动检测语种类型 |
 | acceptLang | string | 返回标签的语种类型 | N | 选择返回标签的语种类型<br/>可选值：<br/>`zh`：中文<br/>`en`：英文<br/>不传入默认为返回中文标签 |
@@ -124,6 +126,7 @@
 | `VTT` | WebVTT字幕文件 | |
 | `SB2` | Scratch 2.0 项目文件 | 提取舞台脚本文本、角色名称及内置图片/音频资源送审 |
 | `SB3` | Scratch 3.0 项目文件 | 提取积木脚本文本、角色/造型名称及内置图片/音频资源送审 |
+| `RTB_JSON` | OpenRTB BidResponse JSON | 支持内联字符串和文件 URL，[详见 OpenRTB 广告创意审核](#openrtb-广告创意审核) |
 | `ZIP` | ZIP压缩包 | 解压后逐文件送审，[详见压缩包内支持格式](#archiveInnerFileTypes)；嵌套解压需公司开通配置后可用（开通后默认最大嵌套层级2层、单请求最多处理3个子压缩包；未开通时包内压缩包按普通文件送审）；不支持加密压缩包；默认限制：解压后总大小100MB、最多500个文件、单文件最大50MB；解析失败返回`1904`，`message`可能为`archive corrupted`（文件损坏或无法打开）、`archive encrypted`（加密压缩包）、`archive unsupported file: {path}`（含白名单外格式） |
 | `RAR` | RAR压缩包 | 同`ZIP` |
 | `7Z` | 7-Zip压缩包 | 同`ZIP` |
@@ -157,6 +160,137 @@
 | room | string | 直播间/游戏房间编号 | N | 传入的是直播间、聊天室等数据（eventId值为groupChat）时，开启上下文识别功能，建议传入，否则不能关联上下文 |
 | passThrough | json_object | 透传字段 | N | 客户传入的透传字段，数美内部不会对该字段进行识别处理，随结果返回给用户 |
 
+#### OpenRTB 广告创意审核
+
+广告交易平台收到需求方平台（DSP）的 OpenRTB 竞价响应（`BidResponse`）后，以整份响应为单位提交异步审核。服务读取 `seatbid[].bid[].adm`，提取广告素材和点击落地页，并按 `bidId` 返回各竞价项的审核结果。
+
+##### 广告素材与审核内容
+
+| 业务场景 | `adm` 中传入的内容 | 审核内容 |
+| --- | --- | --- |
+| 文字广告 | 纯文本，例如商品促销文案 | 广告文案。 |
+| 横幅广告 | 静态 HTML，包含文案、`<img src="...">` 和点击链接 `<a href="...">` | 可见文案、广告图片和点击后打开的落地页截图。 |
+| 信息流原生广告 | OpenRTB Native JSON 字符串，在 `assets` 中提供标题、描述、图片等，在 `link` 中提供点击地址 | 标题、描述、图片和点击落地页截图。含 `assets[].video.vasttag` 时，服务解析其中的 VAST Inline 并提取音视频和点击落地页。 |
+| 视频或音频广告 | VAST Inline XML，在 `MediaFile` 中提供媒体地址，在 `ClickThrough` 中提供点击地址 | 广告音视频和点击落地页截图。 |
+| 只有落地页地址 | 一条 HTTP(S) URL，例如电商商品详情页 | 落地页截图。 |
+
+请求顶层的 `txtType`、`imgType`、`audioType`、`videoImgType` 和 `videoAudioType` 分别指定文本、图片、音频、视频截帧和视频音频的审核类型。下方横幅示例使用 `txtType=TEXTRISK` 审核文案，使用 `imgType=IMGTEXTRISK` 审核广告图片和落地页截图中的文字。
+
+音视频地址须使用绝对 HTTP(S) URL，图片还支持有效的 `data:image` 地址。Native 通过 `assetsurl` 或 `dcourl` 引用外部素材，以及 VAST 使用 Wrapper 时，返回 `1905`。
+
+服务去除落地页 URL 的片段标识（`#fragment`）后按 URL 去重。多条竞价项引用同一地址时，截图审核结果关联到对应的各个 `bidId`。服务按出现顺序对去重后的前 5 个落地页发起截图审核。返回 `rtbDetails` 时，第 6 个及之后的落地页在 `landingDetails` 中标记为 `code=1905`。
+
+##### 提交竞价响应
+
+`POST /document/v4` 根据 `data.fileFormat=RTB_JSON` 识别竞价响应，请求顶层的 `callback` 为必传字段。一次请求处理一个 BidResponse JSON 对象。服务跳过缺失、`null`、空字符串或仅含空白字符的 `adm`。每次请求最多处理 100 个非空的 `adm` 字符串，每个最大 1 MiB。
+
+| 请求字段 | 字段值与限制 |
+| --- | --- |
+| `data.contents` | 完整 BidResponse 的 UTF-8 JSON 字符串，最大 256 KiB。 |
+| `data.url` | BidResponse JSON 文件的 HTTP(S) 下载地址，文件最大 10 MiB。 |
+
+请求须包含 `data.contents` 或 `data.url`。同时传入两个字段时，服务读取 `data.contents`。
+
+##### 受理与审核结果
+
+`POST /document/v4` 的即时响应中，`code=1100` 表示请求已受理。服务向 `callback` 地址推送审核结果。查询接口 `POST /query_document/v4` 的 `requestIds` 接收检测接口返回的 `requestId`。
+
+##### rtbDetails 字段
+
+回调中的审核明细位于顶层 `rtbDetails`，查询响应中的审核明细位于 `contents[].machineResult.rtbDetails`。整单 `riskLevel` 表示整份 BidResponse 的审核风险等级。返回 `rtbDetails` 时，整单的 `textDetails` 和 `imgDetails` 为空数组，`audioDetails` 和 `videoDetails` 省略。素材和落地页明细按 `bidId` 分组。
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| bidId | string | 对应输入的 `seatbid[].bid[].id`，服务去除 ID 首尾空白。缺失 ID 时返回空字符串，相同的 `bidId` 合并为同一组。 |
+| riskLevel | string | 该竞价项的审核风险等级。该竞价项的素材和落地页均未审核成功时，返回空字符串。 |
+| textDetails | json_array | [文本审核明细](#textDetails)，由 `returnAllText` 控制通过项是否返回。 |
+| imgDetails | json_array | [图片审核明细](#imgDetails)，由 `returnAllImg` 控制通过项是否返回。 |
+| audioDetails | json_array | [音频审核明细](#audioDetails)，由 `returnAllAudio` 控制通过片段是否返回。 |
+| videoDetails | json_array | [视频审核明细](#videoDetails)，由 `returnAllVideoImg` 控制通过截帧是否返回。 |
+| landingDetails | json_array | 落地页截图的审核明细，含 `url`。落地页失败时返回 `url`、`code`、`message` 和该落地页的 `requestId`。 |
+
+整单审核成功时，审核失败的落地页仍列在对应竞价项的 `landingDetails` 中。通过解析并进入审核后，整单的素材和落地页均未审核成功时，整单返回 `1904`。
+
+BidResponse JSON 或素材格式解析失败时，整单返回 `1904`。超过 RTB 输入大小或素材数量限制、使用不支持的素材类型，或整份响应没有待解析的 `adm` 时，整单返回 `1905`。
+
+##### RTB JSON 请求与回调示例
+
+某电商广告交易平台收到一份推广春季跑鞋的竞价响应，其中包含两条创意。`bid-spring-banner` 是带商品页链接的横幅，`bid-spring-outlet` 只提供折扣页地址。以下请求将完整的 BidResponse 作为字符串放入 `data.contents`。
+
+```json
+{
+    "accessKey": "your_access_key",
+    "appId": "your_app_id",
+    "eventId": "your_document_event_id",
+    "imgType": "IMGTEXTRISK",
+    "txtType": "TEXTRISK",
+    "callback": "https://exchange.example.com/callback/creative-audit",
+    "data": {
+        "fileFormat": "RTB_JSON",
+        "tokenId": "merchant_001",
+        "dataId": "auction-20261126-001",
+        "contents": "{\"id\":\"auction-20261126-001\",\"seatbid\":[{\"seat\":\"dsp-001\",\"bid\":[{\"id\":\"bid-spring-banner\",\"impid\":\"imp-001\",\"price\":1.25,\"adm\":\"<p>春季跑鞋专场</p><a href=\\\"https://shop.example.com/spring-sale\\\"><img src=\\\"https://cdn.example.com/ads/spring-shoes.jpg\\\"></a>\"},{\"id\":\"bid-spring-outlet\",\"impid\":\"imp-002\",\"price\":1.1,\"adm\":\"https://shop.example.com/spring-outlet\"}]}]}"
+    }
+}
+```
+
+以文件链接提交同一份 BidResponse 时，请求中的 `data` 如下。
+
+```json
+{
+    "fileFormat": "RTB_JSON",
+    "tokenId": "merchant_001",
+    "dataId": "auction-20261126-001",
+    "url": "https://exchange.example.com/audit/auction-20261126-001.json"
+}
+```
+
+以下为最终回调示例。示例中，横幅的文案、图片和商品页均为 `PASS`。在默认的 `returnAllText=0` 和 `returnAllImg=0` 下，通过的文案和图片明细被过滤，商品页截图结果仍位于 `landingDetails`。折扣页审核失败，返回 `landingDetails[].code=1904`，该竞价项的 `riskLevel` 为空字符串。
+
+```json
+{
+    "code": 1100,
+    "message": "success",
+    "requestId": "example_request_001",
+    "riskLevel": "PASS",
+    "rtbDetails": [
+        {
+            "bidId": "bid-spring-banner",
+            "riskLevel": "PASS",
+            "textDetails": [],
+            "imgDetails": [],
+            "audioDetails": [],
+            "videoDetails": [],
+            "landingDetails": [
+                {
+                    "url": "https://shop.example.com/spring-sale",
+                    "code": 1100,
+                    "riskLevel": "PASS"
+                }
+            ]
+        },
+        {
+            "bidId": "bid-spring-outlet",
+            "riskLevel": "",
+            "textDetails": [],
+            "imgDetails": [],
+            "audioDetails": [],
+            "videoDetails": [],
+            "landingDetails": [
+                {
+                    "url": "https://shop.example.com/spring-outlet",
+                    "code": 1904,
+                    "message": "RTB landing page audit returned no successful result",
+                    "requestId": "rtb_example_request_001_1"
+                }
+            ]
+        }
+    ],
+    "resultType": 0,
+    "finalResult": 1
+}
+```
+
 #### 请求即时响应
 
 **说明**：调用检测接口后，服务端立即返回以下参数，表示请求是否受理成功。**此处不是审核结果**，不含 `riskLevel`、`textDetails` 等字段；审核结果请查看[回调返回结果](#回调返回结果)或使用[结果查询接口](#结果查询接口)。
@@ -185,6 +319,7 @@
 | imgDetails | json_array | 图片风险详情 | Y | 文档中图片的风险详情，[详见imgDetails参数](#imgDetails) |
 | audioDetails | json_array | 音频风险详情 | Y | 文档中音频的风险详情，[详见audioDetails参数](#audioDetails) |
 | videoDetails | json_array | 视频风险详情 | Y | 文档中视频的风险详情，[详见videoDetails参数](#videoDetails) |
+| rtbDetails | json_array | 按竞价项分组的审核详情 | N | `fileFormat=RTB_JSON` 且返回审核详情时提供。[详见 rtbDetails 字段](#rtbdetails-字段) |
 | auxInfo | json_object | 辅助信息 | Y | [详见auxInfo参数](#auxInfo)  |
 | resultType | int | 结果类型 | Y | 当前结果类型<br/>`0`：机审<br/>`1`：人审 |
 | finalResult | int | 是否为最终审核结果 | Y | 是否为最终审核结果（如仅接入机审，则默认返回1）。<br/>`0`：非最终结果。说明该结果为数美风控的机审结果，还需要经过数美人审再次审核后回传贵司。<br/>`1`：最终结果。贵司可直接拿返回结果进行处置、分发等下游场景的使用。 |
@@ -1647,7 +1782,7 @@
 | **参数名称** | **类型** | **参数说明** | **是否必返** | **规范** |
 | --- | --- | --- | --- | --- |
 | requestId | string | 检测请求标识 | Y | 对应某项待查 `requestId` |
-| machineResult | json_object | 机审结果 | Y | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。 |
+| machineResult | json_object | 机审结果 | Y | 单项 `code`（与顶层 `code` 独立）：`1100` 终态成功，业务字段同上文[回调返回结果](#回调返回结果)；`1101` 无历史记录或仍在处理（message 为「请求正在处理」）；`1902` 历史表 `data` 无法解析为合法 JSON；`1903` 历史结果因数据过长写入降级记录（message 为「服务失败」，含 `detail` 等）。任务失败时也可返回检测接口的错误码，如 `1904` 或 `1905`。 |
 | mergeResult | json_object | 合并结果 | N | 优先展示策略合并结果，例如 `riskLevel` |
 
 ### 示例
