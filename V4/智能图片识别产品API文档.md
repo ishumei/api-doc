@@ -1405,3 +1405,8 @@ businessLabels数组中的businessDetail的内容如下：
 | SETTING | 场所 |如识别卫生间、酒店、厨房等  |
 | EXTREMEWEATHER  | 极端天气识别 |如水灾、暴雨、沙尘暴、冰等  |
 | LICENCEPLATE    | 车牌识别     |  |
+| GAMECHARACTER    | 游戏角色     |  |
+| ANIMECHARACTER    | 动漫角色     |  |
+| MEDIACHARACTER    | 影视角色     |  |
+| APPNAME    | app名称识别     |  |
+| BRAND    | 品牌名称                |  |

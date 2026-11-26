@@ -278,7 +278,7 @@
           },
           {
             "length": "-",
-            "param_description": "语言类型。可指定对截帧及音频片段中文字内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto:自动语种识别，需要找数美开通拦截标准",
+            "param_description": "语言类型。可指定对截帧及音频片段中文字内容检测的语种类型（默认为中文），可选值：\nzh：中文\nen：英文\nar：阿拉伯语\nhi：印地语\nes：西班牙语\nfr：法语\nru：俄语\npt：葡萄牙语\nid：印尼语\nde：德语\nja：日语\ntr：土耳其语\nvi：越南语\nit：意大利语\nth：泰语\ntl：菲律宾语\nko：韩语\nms：马来语\nauto:自动语种识别。如需识别小语种请联系数美商务开通拦截标准",
             "req_name": "lang",
             "required": false,
             "type": "string"
@@ -507,7 +507,7 @@
               },
               {
                 "length": "-",
-                "param_description": "录制类型可选值:\n分流录制:2\n合流录制:4",
+                "param_description": "录制类型可选值:\n分流录制:2",
                 "req_name": "demoSences",
                 "required": true,
                 "type": "int32"
@@ -617,6 +617,13 @@
         "length": "-",
         "param_description": "选择返回标签的语种类型\n可选值：\nzh：中文\nen：英文\n不传入默认为返回中文标签",
         "req_name": "acceptLang",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "length": "-",
+        "param_description": "翻译目标语种。将输入的文本翻译成目标语种。如需开通使用请联系数美商务\n可选值：\nzh：中文\nen：英文",
+        "req_name": "translationTargetLang",
         "required": false,
         "type": "string"
       }
@@ -907,13 +914,6 @@
                     "son": [
                       {
                         "length": "-",
-                        "param_description": "人脸占比，在区间0-1，数值越大，人脸占比越高",
-                        "req_name": "face_ratio",
-                        "required": false,
-                        "type": "float"
-                      },
-                      {
-                        "length": "-",
                         "param_description": "编号，图片同一个位置下的人在不同标签下的编号相同。\n如果同一个人在图片中出现n次，分配n个ID",
                         "req_name": "id",
                         "required": false,
@@ -930,6 +930,48 @@
                         "length": "-",
                         "param_description": "置信度。可选值在0～1之间，值越大，可信度越高",
                         "req_name": "probability",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人脸姿态。可选值为 FrontFace（正脸）、SideFace（侧脸）",
+                        "req_name": "face_pose",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人脸占比，在区间0-1，数值越大，人脸占比越高",
+                        "req_name": "face_ratio",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "真人脸置信度。取值范围为 0～1，值越大，表示该检测框为真人脸的可信度越高",
+                        "req_name": "face_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "口罩置信度。取值范围为 0～1，值越大，表示该人脸佩戴口罩的可信度越高",
+                        "req_name": "face_mask_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人脸遮挡置信度。取值范围为 0～1，值越大，表示该人脸存在遮挡的可信度越高，不代表遮挡面积比例",
+                        "req_name": "renlianzhedang_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "太阳镜置信度。取值范围为 0～1，值越大，表示该人脸佩戴太阳镜的可信度越高",
+                        "req_name": "sunglasses_score",
                         "required": false,
                         "type": "float"
                       },
@@ -1236,6 +1278,41 @@
                   },
                   {
                     "length": "-",
+                    "param_description": "人脸姿态。可选值为 FrontFace（正脸）、SideFace（侧脸）",
+                    "req_name": "face_pose",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "真人脸置信度。取值范围为 0～1，值越大，表示该检测框为真人脸的可信度越高",
+                    "req_name": "face_score",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "口罩置信度。取值范围为 0～1，值越大，表示该人脸佩戴口罩的可信度越高",
+                    "req_name": "face_mask_score",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "人脸遮挡置信度。取值范围为 0～1，值越大，表示该人脸存在遮挡的可信度越高，不代表遮挡面积比例",
+                    "req_name": "renlianzhedang_score",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
+                    "param_description": "太阳镜置信度。取值范围为 0～1，值越大，表示该人脸佩戴太阳镜的可信度越高",
+                    "req_name": "sunglasses_score",
+                    "required": false,
+                    "type": "float"
+                  },
+                  {
+                    "length": "-",
                     "param_description": "人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
                     "req_name": "location",
                     "required": false,
@@ -1510,6 +1587,41 @@
                       },
                       {
                         "length": "-",
+                        "param_description": "人脸姿态。可选值为 FrontFace（正脸）、SideFace（侧脸）",
+                        "req_name": "face_pose",
+                        "required": false,
+                        "type": "string"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "真人脸置信度。取值范围为 0～1，值越大，表示该检测框为真人脸的可信度越高",
+                        "req_name": "face_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "口罩置信度。取值范围为 0～1，值越大，表示该人脸佩戴口罩的可信度越高",
+                        "req_name": "face_mask_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "人脸遮挡置信度。取值范围为 0～1，值越大，表示该人脸存在遮挡的可信度越高，不代表遮挡面积比例",
+                        "req_name": "renlianzhedang_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
+                        "param_description": "太阳镜置信度。取值范围为 0～1，值越大，表示该人脸佩戴太阳镜的可信度越高",
+                        "req_name": "sunglasses_score",
+                        "required": false,
+                        "type": "float"
+                      },
+                      {
+                        "length": "-",
                         "param_description": "人物位置信息，该数组有四个值，分别代表左上角的坐标和右下角的坐标。例如[207,522,340,567]\n207代表的是左上角的x坐标\n522代表左上角的y坐标\n340代表的是右下角的x坐标\n567代表的是右下角的y坐标",
                         "req_name": "location",
                         "required": false,
@@ -1604,6 +1716,29 @@
               }
             ],
             "type": "array"
+          },
+          {
+            "length": "-",
+            "param_description": "语种信息",
+            "req_name": "langResult",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "语种识别结果。仅开启小语种识别时返回该字段。值为标准语言代码表，例如：zh、en、ar等",
+                "req_name": "detectedLang",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "文本翻译结果。仅开启小语种识别且传入translationTargetLang时返回的字段。值为翻译后的文本。",
+                "req_name": "translatedText",
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "type": "object"
           }
         ],
         "type": "object"
@@ -2003,6 +2138,29 @@
                   }
                 ],
                 "type": "array"
+              }
+            ],
+            "type": "object"
+          },
+          {
+            "length": "-",
+            "param_description": "语种信息",
+            "req_name": "langResult",
+            "required": false,
+            "son": [
+              {
+                "length": "-",
+                "param_description": "语种识别结果。仅开启小语种识别时返回该字段。值为标准语言代码表，例如：zh、en、ar等",
+                "req_name": "detectedLang",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "length": "-",
+                "param_description": "文本翻译结果。仅开启小语种识别且传入translationTargetLang时返回的字段。值为翻译后的文本。",
+                "req_name": "translatedText",
+                "required": false,
+                "type": "string"
               }
             ],
             "type": "object"
@@ -2762,6 +2920,26 @@
       {
         "description": "跳舞识别",
         "type": "DANCE"
+      },
+      {
+        "description": "游戏角色",
+        "type": "GAMECHARACTER"
+      },
+      {
+        "description": "动漫角色",
+        "type": "ANIMECHARACTER"
+      },
+      {
+        "description": "影视角色",
+        "type": "MEDIACHARACTER"
+      },
+      {
+        "description": "app名称识别",
+        "type": "APPNAME"
+      },
+      {
+        "description": "品牌名称",
+        "type": "BRAND"
       }
     ]
   }
